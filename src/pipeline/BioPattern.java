@@ -235,7 +235,9 @@ public class BioPattern {
         return region_promotora;
 
     }
-
+    
+    String usuario="";
+    char[] clave;
     private void autenticarProxy(String proxy_IP, String proxy_Port) {
 
         System.setProperty("http.proxyHost", proxy_IP);
@@ -246,14 +248,14 @@ public class BioPattern {
                 
                JTextField jtf = new JTextField();
                 JPasswordField jpf = new JPasswordField();
-                if (JOptionPane.showConfirmDialog(null, new Object[]{jtf, jpf}, "Clave:", JOptionPane.OK_CANCEL_OPTION) == 0) {
+                if (usuario.equals("") && JOptionPane.showConfirmDialog(null, new Object[]{jtf, jpf}, "Clave:", JOptionPane.OK_CANCEL_OPTION) == 0) {
 
-                    String usuario = jtf.getText();
-                    char[] clave = jpf.getPassword();
-                                       return new PasswordAuthentication(usuario, clave);
+                    usuario = jtf.getText();
+                    clave = jpf.getPassword();
+                    return new PasswordAuthentication(usuario, clave);
                 } else {
                     System.exit(0);
-                    return null;
+                    return new PasswordAuthentication(usuario, clave);
                 }
             }
         });
@@ -280,23 +282,23 @@ public class BioPattern {
 
         //Autenticación de proxy        
         autenticarProxy("150.187.65.3", "3128");
-//      Minado_FT mft = new Minado_FT();
-//      //System.out.println(mft.busquedaEnsemblGenID("SAMD11"));
-//      //rutaarchivo, cantcomplejos , criterio busqueda , confiabilidad tfbind , num iteraciones       
-//      mft.minado("bloquesConsenso", 1, true, 0.99f, 1);
-//      Busqueda_PubMed BPM = new Busqueda_PubMed();
-//      BPM.busqueda_IDs(mft.getListaFT(),mft.getLista_homologos(),false);
-//      String abstracts = new lecturas_PM().BusquedaPM_Abstracts(BPM.getListaIDs(),"pruebaAbs.txt");
-//    
         
-        minado_FT mfts= new minado_FT();
+        //lecturas_pathwaycommons lpc = new lecturas_pathwaycommons();
+        //String GO = lpc.obtenercodigoUP("cyp7a1");
+        //lecturas_Uniprot UP = new lecturas_Uniprot();
+        //UP.obtenercodigoUP(GO);
+        
+        lecturas_QuickGO QGO = new lecturas_QuickGO();
+        QGO.obtenercodigoUP("GO:0008123");
+        
+       // minado_FT mfts= new minado_FT();
         //Nueva mineria (true),ruta de archivo, confiabilidad, N Iteraciones, N de objetos, Criterio de busqueda, opcion para busqueda en HGNC (0: todos los mejores ramqueados, -1:solo el objeto con el mismo nombre, [1-n]: cantidad de espesifica de objetos HUGO)
-        mfts.minado("bloquesConsenso", 0.97f,2,5,true,1);
-        mfts.obtenerFT();
-        busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
-        ArrayList<String> listaPMid = BPM.busqueda_IDs(false,10);
+        //mfts.minado("bloquesConsenso", 0.97f,2,5,true,1);
+       // mfts.obtenerFT();
+      //  busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
+       // ArrayList<String> listaPMid = BPM.busqueda_IDs(false,10);
         //ArrayList<String> listaPMid =  BPM.consulta_PudMed(1000);
-        new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts",500);
+       // new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts",500);
                
     }
 }
