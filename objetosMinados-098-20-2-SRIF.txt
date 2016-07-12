@@ -1,0 +1,326 @@
+EIF4E;eukaryotic translation initiation factor 4E;EIF4EL1;EIF4F;EIF4E1
+null
+null
+null
+null
+null
+CAP1;CAP, adenylate cyclase-associated protein 1 (yeast);CAP
+ADCY10;adenylate cyclase 10 (soluble);SAC;Sacy;SACI;HCA2;RP1-313L4.2
+CAP1;CAP, adenylate cyclase-associated protein 1 (yeast);CAP
+CAP1;CAP, adenylate cyclase-associated protein 1 (yeast);CAP
+CAP1;CAP, adenylate cyclase-associated protein 1 (yeast);CAP
+null
+CAP1;CAP, adenylate cyclase-associated protein 1 (yeast);CAP
+null
+ADCY10;adenylate cyclase 10 (soluble);SAC;Sacy;SACI;HCA2;RP1-313L4.2
+EIF4E;eukaryotic translation initiation factor 4E;EIF4EL1;EIF4F;EIF4E1
+CAP1;CAP, adenylate cyclase-associated protein 1 (yeast);CAP
+RPL7P59;ribosomal protein L7 pseudogene 59
+CYSRT1;cysteine-rich tail protein 1;C9orf169;chromosome 9 open reading frame 169;MGC59937
+CYSRT1;cysteine-rich tail protein 1;C9orf169;chromosome 9 open reading frame 169;MGC59937
+EDRF1;erythroid differentiation regulatory factor 1;C10orf137;chromosome 10 open reading frame 137;DKFZp586F1019;FLJ21617
+EDRF1;erythroid differentiation regulatory factor 1;C10orf137;chromosome 10 open reading frame 137;DKFZp586F1019;FLJ21617
+ABLIM1;actin binding LIM protein 1;LIMAB1;ABLIM;abLIM;limatin
+ABLIM1;actin binding LIM protein 1;LIMAB1;ABLIM;abLIM;limatin
+GATA1;GATA binding protein 1 (globin transcription factor 1);GF1;GATA-binding protein 1 (globin transcription factor 1);ERYF1;NFE1;GATA-1;NF-E1
+GATA1;GATA binding protein 1 (globin transcription factor 1);GF1;GATA-binding protein 1 (globin transcription factor 1);ERYF1;NFE1;GATA-1;NF-E1
+ZFPM1;zinc finger protein, FOG family member 1;zinc finger protein, multitype 1;FOG1;FOG;ZNF89A;ZC2HC11A
+PRDM2;PR domain containing 2, with ZNF domain;RIZ;RIZ1;RIZ2;KMT8;MTB-ZF;HUMHOXY1
+GATA1;GATA binding protein 1 (globin transcription factor 1);GF1;GATA-binding protein 1 (globin transcription factor 1);ERYF1;NFE1;GATA-1;NF-E1
+GATA1;GATA binding protein 1 (globin transcription factor 1);GF1;GATA-binding protein 1 (globin transcription factor 1);ERYF1;NFE1;GATA-1;NF-E1
+GATA1;GATA binding protein 1 (globin transcription factor 1);GF1;GATA-binding protein 1 (globin transcription factor 1);ERYF1;NFE1;GATA-1;NF-E1
+CCL21;chemokine (C-C motif) ligand 21;SCYA21;small inducible cytokine subfamily A (Cys-Cys), member 21;SLC;exodus-2;TCA4;CKb9;6Ckine;ECL
+RNU1-4;RNA, U1 small nuclear 4;RNU1E2;RNU1G2;RNU1D2;RNU1F1;RNU1G1;RNA, U1E2 small nuclear;RNA, U1G2 small nuclear;RNA, U1D2 small nuclear;RNA, U1F1 small nuclear;RNA, U1G1 small nuclear;HSD6;U1E2;HSD2;U1D2;HSD5;U1B2;U1F;HSD7
+GAPDHP60;glyceraldehyde-3-phosphate dehydrogenase pseudogene 60;GAPDL4;GAPDHL4;glyceraldehyde-3-phosphate dehydrogenase-like 4;glyceraldehyde-3-phosphate dehydrogenase-like 4, pseudogene
+NCS1;neuronal calcium sensor 1;FREQ;frequenin (Drosophila) homolog;frequenin homolog (Drosophila);NCS-1
+B2M;beta-2-microglobulin
+B2M;beta-2-microglobulin
+SLC5A9;solute carrier family 5 (sodium/sugar cotransporter), member 9;solute carrier family 5 (sodium/glucose cotransporter), member 9;SGLT4
+SLC5A9;solute carrier family 5 (sodium/sugar cotransporter), member 9;solute carrier family 5 (sodium/glucose cotransporter), member 9;SGLT4
+ANTXR1;anthrax toxin receptor 1;TEM8;FLJ21776;FLJ10601;ATR
+ART1;ADP-ribosyltransferase 1;ART2;CD296
+ART1;ADP-ribosyltransferase 1;ART2;CD296
+ART1;ADP-ribosyltransferase 1;ART2;CD296
+ART1;ADP-ribosyltransferase 1;ART2;CD296
+ART1;ADP-ribosyltransferase 1;ART2;CD296
+MTHFR;methylenetetrahydrofolate reductase (NAD(P)H);5,10-methylenetetrahydrofolate reductase (NADPH)
+null;null
+SLC5A9;solute carrier family 5 (sodium/sugar cotransporter), member 9;solute carrier family 5 (sodium/glucose cotransporter), member 9;SGLT4
+CD3D;CD3d molecule, delta (CD3-TCR complex);T3D;CD3d antigen, delta polypeptide (TiT3 complex)
+FDX1;ferredoxin 1;FDX;ADX
+NCS1;neuronal calcium sensor 1;FREQ;frequenin (Drosophila) homolog;frequenin homolog (Drosophila);NCS-1
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CRTC1;CREB regulated transcription coactivator 1;MECT1;mucoepidermoid carcinoma translocated 1;KIAA0616;FLJ14027;TORC1
+TP53;tumor protein p53;p53;LFS1
+RNU1-4;RNA, U1 small nuclear 4;RNU1E2;RNU1G2;RNU1D2;RNU1F1;RNU1G1;RNA, U1E2 small nuclear;RNA, U1G2 small nuclear;RNA, U1D2 small nuclear;RNA, U1F1 small nuclear;RNA, U1G1 small nuclear;HSD6;U1E2;HSD2;U1D2;HSD5;U1B2;U1F;HSD7
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+HSPD1P3;heat shock 60kDa protein 1 (chaperonin) pseudogene 3;HSPDP3;HSPDP1;HSPDP4;heat shock 60kD protein 1 (chaperonin) pseudogene 3;heat shock 60kDa protein 1 (chaperonin) pseudogene 1;heat shock 60kD protein 1 (chaperonin) pseudogene 1;heat shock 60kDa protein 1 (chaperonin) pseudogene 4;heat shock 60kD protein 1 (chaperonin) pseudogene 4;HSP60P3;HSP60P1;HSP60P4;HSPD1-7P
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+EIF4EBP1P1;eukaryotic translation initiation factor 4E binding protein 1 pseudogene 1;EIF4EBP1P;eukaryotic translation initiation factor 4E binding protein 1 pseudogene
+HSPD1P3;heat shock 60kDa protein 1 (chaperonin) pseudogene 3;HSPDP3;HSPDP1;HSPDP4;heat shock 60kD protein 1 (chaperonin) pseudogene 3;heat shock 60kDa protein 1 (chaperonin) pseudogene 1;heat shock 60kD protein 1 (chaperonin) pseudogene 1;heat shock 60kDa protein 1 (chaperonin) pseudogene 4;heat shock 60kD protein 1 (chaperonin) pseudogene 4;HSP60P3;HSP60P1;HSP60P4;HSPD1-7P
+EIF4EBP1P1;eukaryotic translation initiation factor 4E binding protein 1 pseudogene 1;EIF4EBP1P;eukaryotic translation initiation factor 4E binding protein 1 pseudogene
+EIF4EBP1;eukaryotic translation initiation factor 4E binding protein 1;PHAS-I;4E-BP1
+OR5BP1P;olfactory receptor, family 5, subfamily BP, member 1 pseudogene
+OR5BP1P;olfactory receptor, family 5, subfamily BP, member 1 pseudogene
+EIF4E;eukaryotic translation initiation factor 4E;EIF4EL1;EIF4F;EIF4E1
+EIF4E;eukaryotic translation initiation factor 4E;EIF4EL1;EIF4F;EIF4E1
+PPIAL4G;peptidylprolyl isomerase A (cyclophilin A)-like 4G
+EIF4E;eukaryotic translation initiation factor 4E;EIF4EL1;EIF4F;EIF4E1
+EIF4E;eukaryotic translation initiation factor 4E;EIF4EL1;EIF4F;EIF4E1
+EIF4EBP1P1;eukaryotic translation initiation factor 4E binding protein 1 pseudogene 1;EIF4EBP1P;eukaryotic translation initiation factor 4E binding protein 1 pseudogene
+EIF4EBP1P1;eukaryotic translation initiation factor 4E binding protein 1 pseudogene 1;EIF4EBP1P;eukaryotic translation initiation factor 4E binding protein 1 pseudogene
+EIF4E;eukaryotic translation initiation factor 4E;EIF4EL1;EIF4F;EIF4E1
+EIF4E;eukaryotic translation initiation factor 4E;EIF4EL1;EIF4F;EIF4E1
+EIF4E;eukaryotic translation initiation factor 4E;EIF4EL1;EIF4F;EIF4E1
+null;null
+EIF4E;eukaryotic translation initiation factor 4E;EIF4EL1;EIF4F;EIF4E1
+EIF4E;eukaryotic translation initiation factor 4E;EIF4EL1;EIF4F;EIF4E1
+EIF4EBP1P1;eukaryotic translation initiation factor 4E binding protein 1 pseudogene 1;EIF4EBP1P;eukaryotic translation initiation factor 4E binding protein 1 pseudogene
+ADCY10;adenylate cyclase 10 (soluble);SAC;Sacy;SACI;HCA2;RP1-313L4.2
+ADCY10;adenylate cyclase 10 (soluble);SAC;Sacy;SACI;HCA2;RP1-313L4.2
+ADCY10;adenylate cyclase 10 (soluble);SAC;Sacy;SACI;HCA2;RP1-313L4.2
+ADCY10;adenylate cyclase 10 (soluble);SAC;Sacy;SACI;HCA2;RP1-313L4.2
+ADCY10;adenylate cyclase 10 (soluble);SAC;Sacy;SACI;HCA2;RP1-313L4.2
+ADCY10;adenylate cyclase 10 (soluble);SAC;Sacy;SACI;HCA2;RP1-313L4.2
+ADCY10;adenylate cyclase 10 (soluble);SAC;Sacy;SACI;HCA2;RP1-313L4.2
+ADCY10;adenylate cyclase 10 (soluble);SAC;Sacy;SACI;HCA2;RP1-313L4.2
+ADCY10;adenylate cyclase 10 (soluble);SAC;Sacy;SACI;HCA2;RP1-313L4.2
+ADCY10;adenylate cyclase 10 (soluble);SAC;Sacy;SACI;HCA2;RP1-313L4.2
+RBBP8;retinoblastoma binding protein 8;SCKL2;retinoblastoma-binding protein 8;Seckel syndrome 2;CtIP;RIM;COM1
+CTCF;CCCTC-binding factor (zinc finger protein)
+CTCF;CCCTC-binding factor (zinc finger protein)
+null
+FXYD4;FXYD domain containing ion transport regulator 4;FXYD domain-containing ion transport regulator 4;CHIF
+NYAP1;neuronal tyrosine-phosphorylated phosphoinositide-3-kinase adaptor 1;C7orf51;KIAA1486L;chromosome 7 open reading frame 51;KIAA1486-like;FLJ37538
+P4HB;prolyl 4-hydroxylase, beta polypeptide;PO4DB;ERBA2L;procollagen-proline, 2-oxoglutarate 4-dioxygenase (proline 4-hydroxylase), beta polypeptide (protein disulfide isomerase; thyroid hormone binding protein p55);procollagen-proline, 2-oxoglutarate 4-dioxygenase (proline 4-hydroxylase), beta polypeptide (protein disulfide isomerase-associated 1);procollagen-proline, 2-oxoglutarate 4-dioxygenase (proline 4-hydroxylase), beta polypeptide;PDIA1;PROHB;DSI;GIT;PDI;PO4HB;P4Hbeta
+P4HB;prolyl 4-hydroxylase, beta polypeptide;PO4DB;ERBA2L;procollagen-proline, 2-oxoglutarate 4-dioxygenase (proline 4-hydroxylase), beta polypeptide (protein disulfide isomerase; thyroid hormone binding protein p55);procollagen-proline, 2-oxoglutarate 4-dioxygenase (proline 4-hydroxylase), beta polypeptide (protein disulfide isomerase-associated 1);procollagen-proline, 2-oxoglutarate 4-dioxygenase (proline 4-hydroxylase), beta polypeptide;PDIA1;PROHB;DSI;GIT;PDI;PO4HB;P4Hbeta
+IL10;interleukin 10;CSIF;TGIF;IL10A;IL-10
+IL10;interleukin 10;CSIF;TGIF;IL10A;IL-10
+IL10;interleukin 10;CSIF;TGIF;IL10A;IL-10
+ARNTL2;aryl hydrocarbon receptor nuclear translocator-like 2;BMAL2;MOP9;CLIF;PASD9;bHLHe6
+TCEB3CL;transcription elongation factor B polypeptide 3C-like;HsT828
+TCEB3CL;transcription elongation factor B polypeptide 3C-like;HsT828
+IL10RA;interleukin 10 receptor, alpha;IL10R;HIL-10R;CDW210A;CD210a;CD210
+IL10RA;interleukin 10 receptor, alpha;IL10R;HIL-10R;CDW210A;CD210a;CD210
+DNAH12;dynein, axonemal, heavy chain 12;DNHD2;DNAH12L;DNAH7L;dynein, axonemal, heavy polypeptide 12;dynein heavy chain domain 2;dynein heavy domain 2;dynein, axonemal, heavy chain 12-like;dynein, axonemal, heavy chain 7-like;DLP12;Dnahc3;HL-19;hdhc3;DHC3;FLJ40427;FLJ44290
+ABCB10;ATP-binding cassette, sub-family B (MDR/TAP), member 10;EST20237;M-ABC2;MTABC2
+EEF1A1P3;eukaryotic translation elongation factor 1 alpha 1 pseudogene 3;EEF1AL;EEF1AL1;eukaryotic translation elongation factor 1 alpha-like 1;eukaryotic translation elongation factor 1 alpha-like 1 pseudogene
+HCFC1;host cell factor C1;HFC1;MRX3;mental retardation, X-linked 3;host cell factor C1 (VP16-accessory protein);HCF-1;HCF1;CFF;VCAF;MGC70925;PPP1R89
+MTRF1;mitochondrial translational release factor 1;RF1;MTTRF1;MGC47721
+MTRF1;mitochondrial translational release factor 1;RF1;MTTRF1;MGC47721
+MTRF1;mitochondrial translational release factor 1;RF1;MTTRF1;MGC47721
+MTRF1;mitochondrial translational release factor 1;RF1;MTTRF1;MGC47721
+MTRF1;mitochondrial translational release factor 1;RF1;MTTRF1;MGC47721
+MTRF1;mitochondrial translational release factor 1;RF1;MTTRF1;MGC47721
+MTRF1;mitochondrial translational release factor 1;RF1;MTTRF1;MGC47721
+SEPSECS;Sep (O-phosphoserine) tRNA:Sec (selenocysteine) tRNA synthase;SLA/LP;SLA
+ATP5A1P5;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1 pseudogene 5;ATP5AL1;ATP5A1P6;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit, isoform 1, cardiac muscle-like 1;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1, cardiac muscle-like 1;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1, cardiac muscle-like 1 pseudogene;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1 pseudogene 6
+MTRF1;mitochondrial translational release factor 1;RF1;MTTRF1;MGC47721
+EIF3LP1;eukaryotic translation initiation factor 3, subunit L pseudogene 1;EIF3S6IPP;EIF3EIPP1;eukaryotic translation initiation factor 3, subunit 6 interacting protein pseudogene;eukaryotic translation initiation factor 3, subunit E interacting protein pseudogene 1
+MTRF1;mitochondrial translational release factor 1;RF1;MTTRF1;MGC47721
+MTRF1;mitochondrial translational release factor 1;RF1;MTTRF1;MGC47721
+HSPD1P3;heat shock 60kDa protein 1 (chaperonin) pseudogene 3;HSPDP3;HSPDP1;HSPDP4;heat shock 60kD protein 1 (chaperonin) pseudogene 3;heat shock 60kDa protein 1 (chaperonin) pseudogene 1;heat shock 60kD protein 1 (chaperonin) pseudogene 1;heat shock 60kDa protein 1 (chaperonin) pseudogene 4;heat shock 60kD protein 1 (chaperonin) pseudogene 4;HSP60P3;HSP60P1;HSP60P4;HSPD1-7P
+null;null
+null;null
+DIAPH1;diaphanous-related formin 1;DFNA1;diaphanous (Drosophila, homolog) 1;diaphanous homolog 1 (Drosophila);hDIA1;LFHL1
+DIAPH1;diaphanous-related formin 1;DFNA1;diaphanous (Drosophila, homolog) 1;diaphanous homolog 1 (Drosophila);hDIA1;LFHL1
+DIAPH1;diaphanous-related formin 1;DFNA1;diaphanous (Drosophila, homolog) 1;diaphanous homolog 1 (Drosophila);hDIA1;LFHL1
+DIAPH1;diaphanous-related formin 1;DFNA1;diaphanous (Drosophila, homolog) 1;diaphanous homolog 1 (Drosophila);hDIA1;LFHL1
+ABLIM2;actin binding LIM protein family, member 2;actin binding LIM protein 2;KIAA1808
+ABLIM3;actin binding LIM protein family, member 3;KIAA0843
+ABLIM2;actin binding LIM protein family, member 2;actin binding LIM protein 2;KIAA1808
+HNRNPL;heterogeneous nuclear ribonucleoprotein L;HNRPL
+HNRNPL;heterogeneous nuclear ribonucleoprotein L;HNRPL
+BRD3;bromodomain containing 3;bromodomain-containing 3;RING3L;ORFX;KIAA0043
+BRD3;bromodomain containing 3;bromodomain-containing 3;RING3L;ORFX;KIAA0043
+GATA1;GATA binding protein 1 (globin transcription factor 1);GF1;GATA-binding protein 1 (globin transcription factor 1);ERYF1;NFE1;GATA-1;NF-E1
+BRD3;bromodomain containing 3;bromodomain-containing 3;RING3L;ORFX;KIAA0043
+BRD3;bromodomain containing 3;bromodomain-containing 3;RING3L;ORFX;KIAA0043
+BRD3;bromodomain containing 3;bromodomain-containing 3;RING3L;ORFX;KIAA0043
+RBBP4;retinoblastoma binding protein 4;retinoblastoma-binding protein 4;RbAp48;NURF55;lin-53
+RBBP4;retinoblastoma binding protein 4;retinoblastoma-binding protein 4;RbAp48;NURF55;lin-53
+MTA1;metastasis associated 1
+MTA1;metastasis associated 1
+MTA1;metastasis associated 1
+ZFPM1;zinc finger protein, FOG family member 1;zinc finger protein, multitype 1;FOG1;FOG;ZNF89A;ZC2HC11A
+DOT1L;DOT1-like histone H3K79 methyltransferase;DOT1-like, histone H3 methyltransferase (S. cerevisiae);KIAA1814;DOT1;KMT4
+ABLIM1;actin binding LIM protein 1;LIMAB1;ABLIM;abLIM;limatin
+ABLIM1;actin binding LIM protein 1;LIMAB1;ABLIM;abLIM;limatin
+ZFPM1;zinc finger protein, FOG family member 1;zinc finger protein, multitype 1;FOG1;FOG;ZNF89A;ZC2HC11A
+ZFPM1;zinc finger protein, FOG family member 1;zinc finger protein, multitype 1;FOG1;FOG;ZNF89A;ZC2HC11A
+ZNF204P;zinc finger protein 204, pseudogene;ZNF204;ZNF315P;zinc finger protein 204;zinc finger protein 204 (pseudogene);zinc finger protein 315, pseudogene;zinc finger protein 315 pseudogene;zinc finger protein 315 (pseudogene);b24o18.1;ZNF184-Lp
+CCL21;chemokine (C-C motif) ligand 21;SCYA21;small inducible cytokine subfamily A (Cys-Cys), member 21;SLC;exodus-2;TCA4;CKb9;6Ckine;ECL
+NCS1;neuronal calcium sensor 1;FREQ;frequenin (Drosophila) homolog;frequenin homolog (Drosophila);NCS-1
+CABS1;calcium-binding protein, spermatid-specific 1;C4orf35;chromosome 4 open reading frame 35;NYD-SP26;FLJ32897;CLPH
+NCS1;neuronal calcium sensor 1;FREQ;frequenin (Drosophila) homolog;frequenin homolog (Drosophila);NCS-1
+NCS1;neuronal calcium sensor 1;FREQ;frequenin (Drosophila) homolog;frequenin homolog (Drosophila);NCS-1
+NCS1;neuronal calcium sensor 1;FREQ;frequenin (Drosophila) homolog;frequenin homolog (Drosophila);NCS-1
+PI4K2A;phosphatidylinositol 4-kinase type 2 alpha;PI4KII;DKFZP761G1923;PIK42A
+GRK1;G protein-coupled receptor kinase 1;RHOK;rhodopsin kinase;GPRK1;RK
+DRD5P2;dopamine receptor D5 pseudogene 2
+NCS1;neuronal calcium sensor 1;FREQ;frequenin (Drosophila) homolog;frequenin homolog (Drosophila);NCS-1
+CABS1;calcium-binding protein, spermatid-specific 1;C4orf35;chromosome 4 open reading frame 35;NYD-SP26;FLJ32897;CLPH
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+CD4;CD4 molecule;CD4 antigen (p55);T-cell surface glycoprotein CD4
+ERVW-1;endogenous retrovirus group W, member 1;ERVWE1;endogenous retroviral family W, env(C7), member 1;HERV-W;HERV-W-ENV;HERVW;HERV-7q
+SLC5A9;solute carrier family 5 (sodium/sugar cotransporter), member 9;solute carrier family 5 (sodium/glucose cotransporter), member 9;SGLT4
+DUX4L8;double homeobox 4 like 8;DUX2;double homeobox 2;double homeobox, 2;double homeobox 4 like 8 (pseudogene)
+NPR3;natriuretic peptide receptor 3;NPRC;ANPRC;C5orf23;chromosome 5 open reading frame 23;atrionatriuretic peptide receptor C;natriuretic peptide receptor C/guanylate cyclase C (atrionatriuretic peptide receptor C);natriuretic peptide receptor C;GUCY2B;FLJ14054
+NPR3;natriuretic peptide receptor 3;NPRC;ANPRC;C5orf23;chromosome 5 open reading frame 23;atrionatriuretic peptide receptor C;natriuretic peptide receptor C/guanylate cyclase C (atrionatriuretic peptide receptor C);natriuretic peptide receptor C;GUCY2B;FLJ14054
+NPR3;natriuretic peptide receptor 3;NPRC;ANPRC;C5orf23;chromosome 5 open reading frame 23;atrionatriuretic peptide receptor C;natriuretic peptide receptor C/guanylate cyclase C (atrionatriuretic peptide receptor C);natriuretic peptide receptor C;GUCY2B;FLJ14054
+NPR3;natriuretic peptide receptor 3;NPRC;ANPRC;C5orf23;chromosome 5 open reading frame 23;atrionatriuretic peptide receptor C;natriuretic peptide receptor C/guanylate cyclase C (atrionatriuretic peptide receptor C);natriuretic peptide receptor C;GUCY2B;FLJ14054
+HTATSF1P1;HIV-1 Tat specific factor 1 pseudogene 1;HTATSF1P;HIV TAT specific factor 1 pseudogene;HIV-1 Tat specific factor 1 pseudogene;TAT-SF1-L;dJ1033B10.6
+RGAG1;retrotransposon gag domain containing 1;KIAA1318;Mart9;Mar9
+RGAG1;retrotransposon gag domain containing 1;KIAA1318;Mart9;Mar9
+TPRX1P1;tetra-peptide repeat homeobox 1 pseudogene 1
+RGAG1;retrotransposon gag domain containing 1;KIAA1318;Mart9;Mar9
+RGAG1;retrotransposon gag domain containing 1;KIAA1318;Mart9;Mar9
+SLC5A9;solute carrier family 5 (sodium/sugar cotransporter), member 9;solute carrier family 5 (sodium/glucose cotransporter), member 9;SGLT4
+AAVS1;adeno-associated virus integration site 1;AAV
+CD3D;CD3d molecule, delta (CD3-TCR complex);T3D;CD3d antigen, delta polypeptide (TiT3 complex)
+EBI3;Epstein-Barr virus induced 3
+EBI3;Epstein-Barr virus induced 3
+B2M;beta-2-microglobulin
+IGLP1;immune response to synthetic polypeptides 1
+TRBV5-6;T cell receptor beta variable 5-6;TRBV56;TCRBV5S2;TCRBV5S6
+TRBV5-6;T cell receptor beta variable 5-6;TRBV56;TCRBV5S2;TCRBV5S6
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+PKN1;protein kinase N1;PRKCL1;protein kinase C-like 1;DBK;PRK1;PKN;MGC46204;PAK1;PRKCL1;protein kinase C-like 1;DBK;PRK1;PKN;MGC46204;PAK1
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+PIK3CB;phosphatidylinositol-4,5-bisphosphate 3-kinase, catalytic subunit beta;PIK3C1;phosphoinositide-3-kinase, catalytic, beta polypeptide
+ARHGDIA;Rho GDP dissociation inhibitor (GDI) alpha;GDIA1;RHOGDI
+RAC1P4;ras-related C3 botulinum toxin substrate 1 pseudogene 4;RAC4;ras-related C3 botulinum toxin substrate family member 4;Psi4Rac1
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+RAC1P1;ras-related C3 botulinum toxin substrate 1 pseudogene 1;HsT2789
+null;null
+null;null
+null;null
+CREG1;cellular repressor of E1A-stimulated genes 1;CREG;cellular repressor of E1A-stimulated genes
+SLC15A1;solute carrier family 15 (oligopeptide transporter), member 1;PEPT1;HPECT1;HPEPT1
+YTHDF3;YTH N(6)-methyladenosine RNA binding protein 3;YTH domain family 3;YTH domain family, member 3;FLJ31657;YTH domain family 3;YTH domain family, member 3;FLJ31657
+NAA20;N(alpha)-acetyltransferase 20, NatB catalytic subunit;NAT5;N-acetyltransferase 5, ARD1 subunit (arrest-defective 1, S. cerevisiae, homolog);N-acetyltransferase 5 (ARD1 homolog, S. cerevisiae);N-acetyltransferase 5;N-acetyltransferase 5 (GCN5-related, putative);dJ1002M8.1;NAT3
+NAT1;N-acetyltransferase 1 (arylamine N-acetyltransferase);AAC1
+NIM1K;NIM1 serine/threonine protein kinase;MGC42105;NIM1;MGC42105;NIM1
+PARP1;poly (ADP-ribose) polymerase 1;PPOL;ADPRT;ADP-ribosyltransferase (NAD+; poly (ADP-ribose) polymerase);poly (ADP-ribose) polymerase family, member 1;PARP
+PARP1;poly (ADP-ribose) polymerase 1;PPOL;ADPRT;ADP-ribosyltransferase (NAD+; poly (ADP-ribose) polymerase);poly (ADP-ribose) polymerase family, member 1;PARP
+PARP1;poly (ADP-ribose) polymerase 1;PPOL;ADPRT;ADP-ribosyltransferase (NAD+; poly (ADP-ribose) polymerase);poly (ADP-ribose) polymerase family, member 1;PARP
+PARP1;poly (ADP-ribose) polymerase 1;PPOL;ADPRT;ADP-ribosyltransferase (NAD+; poly (ADP-ribose) polymerase);poly (ADP-ribose) polymerase family, member 1;PARP
+NIM1K;NIM1 serine/threonine protein kinase;MGC42105;NIM1;MGC42105;NIM1
+NAA10;N(alpha)-acetyltransferase 10, NatA catalytic subunit;ARD1;ARD1A;ARD1 homolog, N-acetyltransferase (S. cerevisiae);ARD1 homolog A, N-acetyltransferase (S. cerevisiae);DXS707;TE2
+ARFGAP1;ADP-ribosylation factor GTPase activating protein 1;ARF1GAP;ADP-ribosylation factor 1 GTPase activating protein;FLJ10767;bA261N11.3
+ARL6IP1P1;ADP-ribosylation factor-like 6 interacting protein 1 pseudogene 1;ARL6IPP1;ADP-ribosylation factor-like 6 interacting protein pseudogene 1
+MTRF1;mitochondrial translational release factor 1;RF1;MTTRF1;MGC47721
+NAA10;N(alpha)-acetyltransferase 10, NatA catalytic subunit;ARD1;ARD1A;ARD1 homolog, N-acetyltransferase (S. cerevisiae);ARD1 homolog A, N-acetyltransferase (S. cerevisiae);DXS707;TE2
+NAA10;N(alpha)-acetyltransferase 10, NatA catalytic subunit;ARD1;ARD1A;ARD1 homolog, N-acetyltransferase (S. cerevisiae);ARD1 homolog A, N-acetyltransferase (S. cerevisiae);DXS707;TE2
+MTHFS;5,10-methenyltetrahydrofolate synthetase (5-formyltetrahydrofolate cyclo-ligase);HsT19268
+MTHFS;5,10-methenyltetrahydrofolate synthetase (5-formyltetrahydrofolate cyclo-ligase);HsT19268
+MTHFS;5,10-methenyltetrahydrofolate synthetase (5-formyltetrahydrofolate cyclo-ligase);HsT19268
+MTHFS;5,10-methenyltetrahydrofolate synthetase (5-formyltetrahydrofolate cyclo-ligase);HsT19268
+DHPS;deoxyhypusine synthase;MIG13
+MTHFR;methylenetetrahydrofolate reductase (NAD(P)H);5,10-methylenetetrahydrofolate reductase (NADPH)
+null;null
+MTHFS;5,10-methenyltetrahydrofolate synthetase (5-formyltetrahydrofolate cyclo-ligase);HsT19268
+MTHFS;5,10-methenyltetrahydrofolate synthetase (5-formyltetrahydrofolate cyclo-ligase);HsT19268
+MTHFS;5,10-methenyltetrahydrofolate synthetase (5-formyltetrahydrofolate cyclo-ligase);HsT19268
+MTR;5-methyltetrahydrofolate-homocysteine methyltransferase;cblG
+DHPS;deoxyhypusine synthase;MIG13
+DHPS;deoxyhypusine synthase;MIG13
+CIAO1;cytosolic iron-sulfur assembly component 1;WDR39;WD repeat domain 39;cytosolic iron-sulfur protein assembly 1 homolog (S. cerevisiae);cytosolic iron-sulfur protein assembly 1;CIA1;WDR39;WD repeat domain 39;cytosolic iron-sulfur protein assembly 1 homolog (S. cerevisiae);cytosolic iron-sulfur protein assembly 1;CIA1
+CD3E;CD3e molecule, epsilon (CD3-TCR complex);CD3e antigen, epsilon polypeptide (TiT3 complex)
+null;null
+ATP5A1P5;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1 pseudogene 5;ATP5AL1;ATP5A1P6;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit, isoform 1, cardiac muscle-like 1;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1, cardiac muscle-like 1;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1, cardiac muscle-like 1 pseudogene;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1 pseudogene 6
+FDX1P1;ferredoxin 1 pseudogene 1;ADXP1;FDXP1;ferredoxin pseudogene 1
+FDX1P1;ferredoxin 1 pseudogene 1;ADXP1;FDXP1;ferredoxin pseudogene 1
+FDX1P1;ferredoxin 1 pseudogene 1;ADXP1;FDXP1;ferredoxin pseudogene 1
+ATP5A1P5;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1 pseudogene 5;ATP5AL1;ATP5A1P6;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit, isoform 1, cardiac muscle-like 1;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1, cardiac muscle-like 1;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1, cardiac muscle-like 1 pseudogene;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1 pseudogene 6
+ATP5A1P5;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1 pseudogene 5;ATP5AL1;ATP5A1P6;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit, isoform 1, cardiac muscle-like 1;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1, cardiac muscle-like 1;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1, cardiac muscle-like 1 pseudogene;ATP synthase, H+ transporting, mitochondrial F1 complex, alpha subunit 1 pseudogene 6
+FDXR;ferredoxin reductase;ADXR
+FDXR;ferredoxin reductase;ADXR
+CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+EP300;E1A binding protein p300;p300;KAT3B
+HSPD1P3;heat shock 60kDa protein 1 (chaperonin) pseudogene 3;HSPDP3;HSPDP1;HSPDP4;heat shock 60kD protein 1 (chaperonin) pseudogene 3;heat shock 60kDa protein 1 (chaperonin) pseudogene 1;heat shock 60kD protein 1 (chaperonin) pseudogene 1;heat shock 60kDa protein 1 (chaperonin) pseudogene 4;heat shock 60kD protein 1 (chaperonin) pseudogene 4;HSP60P3;HSP60P1;HSP60P4;HSPD1-7P
+HSPD1P3;heat shock 60kDa protein 1 (chaperonin) pseudogene 3;HSPDP3;HSPDP1;HSPDP4;heat shock 60kD protein 1 (chaperonin) pseudogene 3;heat shock 60kDa protein 1 (chaperonin) pseudogene 1;heat shock 60kD protein 1 (chaperonin) pseudogene 1;heat shock 60kDa protein 1 (chaperonin) pseudogene 4;heat shock 60kD protein 1 (chaperonin) pseudogene 4;HSP60P3;HSP60P1;HSP60P4;HSPD1-7P
+HSPD1P3;heat shock 60kDa protein 1 (chaperonin) pseudogene 3;HSPDP3;HSPDP1;HSPDP4;heat shock 60kD protein 1 (chaperonin) pseudogene 3;heat shock 60kDa protein 1 (chaperonin) pseudogene 1;heat shock 60kD protein 1 (chaperonin) pseudogene 1;heat shock 60kDa protein 1 (chaperonin) pseudogene 4;heat shock 60kD protein 1 (chaperonin) pseudogene 4;HSP60P3;HSP60P1;HSP60P4;HSPD1-7P
+GPRC5B;G protein-coupled receptor, class C, group 5, member B;G protein-coupled receptor, family C, group 1, member B;G protein-coupled receptor, family C, group 5, member B;RAIG-2
+CRTC1;CREB regulated transcription coactivator 1;MECT1;mucoepidermoid carcinoma translocated 1;KIAA0616;FLJ14027;TORC1
+GPRC5B;G protein-coupled receptor, class C, group 5, member B;G protein-coupled receptor, family C, group 1, member B;G protein-coupled receptor, family C, group 5, member B;RAIG-2
+GPRC5B;G protein-coupled receptor, class C, group 5, member B;G protein-coupled receptor, family C, group 1, member B;G protein-coupled receptor, family C, group 5, member B;RAIG-2
+GPRC5B;G protein-coupled receptor, class C, group 5, member B;G protein-coupled receptor, family C, group 1, member B;G protein-coupled receptor, family C, group 5, member B;RAIG-2
+null;null
+UBE2V1P1;ubiquitin-conjugating enzyme E2 variant 1 pseudogene 1;dJ687F11.3
+TEN1;TEN1 CST complex subunit;C17orf106;chromosome 17 open reading frame 106;TEN1 telomerase capping complex subunit homolog (S. cerevisiae);FLJ39785
+UQCC2;ubiquinol-cytochrome c reductase complex assembly factor 2;C6orf125;MNF1;chromosome 6 open reading frame 125;mitochondrial nucleoid factor 1;MGC14833;bA6B20.2;M19;Cbp6
+CALR;calreticulin;RO;SSA;cC1qR;CRT;FLJ26680
+CALR;calreticulin;RO;SSA;cC1qR;CRT;FLJ26680
+CALR;calreticulin;RO;SSA;cC1qR;CRT;FLJ26680
+ATP5G1;ATP synthase, H+ transporting, mitochondrial Fo complex, subunit C1 (subunit 9);ATP5G;ATP synthase, H+ transporting, mitochondrial F0 complex, subunit c (subunit 9), isoform 1;ATP synthase, H+ transporting, mitochondrial F0 complex, subunit C1 (subunit 9)
+ATP5G1;ATP synthase, H+ transporting, mitochondrial Fo complex, subunit C1 (subunit 9);ATP5G;ATP synthase, H+ transporting, mitochondrial F0 complex, subunit c (subunit 9), isoform 1;ATP synthase, H+ transporting, mitochondrial F0 complex, subunit C1 (subunit 9)
+CALR;calreticulin;RO;SSA;cC1qR;CRT;FLJ26680
+FOXH1;forkhead box H1;FAST1
+C2;complement component 2
+RGS2;regulator of G-protein signaling 2;G0S8;regulator of G-protein signalling 2, 24kD;regulator of G-protein signalling 2, 24kDa;regulator of G-protein signaling 2, 24kDa
+null;null
+null;null
+null;null
+RRM2B;ribonucleotide reductase M2 B (TP53 inducible);p53R2
+RRM2B;ribonucleotide reductase M2 B (TP53 inducible);p53R2
+RRM2B;ribonucleotide reductase M2 B (TP53 inducible);p53R2
+TP53;tumor protein p53;p53;LFS1
+TP53;tumor protein p53;p53;LFS1
+TP53;tumor protein p53;p53;LFS1
+TP53;tumor protein p53;p53;LFS1
+TP53;tumor protein p53;p53;LFS1
+CDKN1A;cyclin-dependent kinase inhibitor 1A (p21, Cip1);CDKN1;P21;CIP1;WAF1;SDI1;CAP20;p21CIP1;p21Cip1/Waf1
+TP53;tumor protein p53;p53;LFS1
+TP53;tumor protein p53;p53;LFS1
+TP53;tumor protein p53;p53;LFS1
+TP53;tumor protein p53;p53;LFS1
+TP53;tumor protein p53;p53;LFS1
+GTF2H1;general transcription factor IIH, polypeptide 1, 62kDa;general transcription factor IIH, polypeptide 1 (62kD subunit);BTF2;P62;TFIIH
+TP53;tumor protein p53;p53;LFS1
+SLC5A9;solute carrier family 5 (sodium/sugar cotransporter), member 9;solute carrier family 5 (sodium/glucose cotransporter), member 9;SGLT4
+SLC5A9;solute carrier family 5 (sodium/sugar cotransporter), member 9;solute carrier family 5 (sodium/glucose cotransporter), member 9;SGLT4
+SLC5A9;solute carrier family 5 (sodium/sugar cotransporter), member 9;solute carrier family 5 (sodium/glucose cotransporter), member 9;SGLT4
+ECI1;enoyl-CoA delta isomerase 1;DCI;dodecenoyl-Coenzyme A delta isomerase (3,2 trans-enoyl-Coenzyme A isomerase);dodecenoyl-CoA isomerase
+APEX2;APEX nuclease (apurinic/apyrimidinic endonuclease) 2;APEXL2;APE2;XTH2;ZGRF2

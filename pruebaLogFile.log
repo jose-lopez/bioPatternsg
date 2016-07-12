@@ -1,0 +1,20 @@
+[11-04-2013 @ 23:00:31] [main] [DEBUG] skipping databases containing String: [_mart_, _ancestral_]
+[11-04-2013 @ 23:00:31] [main] [DEBUG] skipping databases matching String: [test, mysql, information_schema, oryza_sativa_japonica_core_51_29]
+[11-04-2013 @ 23:00:31] [main] [DEBUG] skipping databases beginning with String: [ensembl_ontology, ensembl_website, ensemblgenomes_ontology]
+[11-04-2013 @ 23:00:31] [main] [DEBUG] skipping databases ending with String: [_old, _mart]
+[11-04-2013 @ 23:00:31] [main] [DEBUG] datasource: ensemblgenomes
+[11-04-2013 @ 23:00:31] [main] [DEBUG] driver: com.mysql.jdbc.Driver
+[11-04-2013 @ 23:00:31] [main] [DEBUG] url: jdbc:mysql://mysql.ebi.ac.uk:4157
+[11-04-2013 @ 23:00:31] [main] [DEBUG] username: anonymous
+[11-04-2013 @ 23:00:31] [main] [DEBUG] password: 
+[11-04-2013 @ 23:00:31] [main] [DEBUG] renaming database: mycosphaerella_graminicola : zymoseptoria_tritici
+[11-04-2013 @ 23:07:30] [main] [DEBUG] skipping databases containing String: [_mart_, _ancestral_, _production_]
+[11-04-2013 @ 23:07:30] [main] [DEBUG] skipping databases matching String: [test, mysql, information_schema, session, statistics]
+[11-04-2013 @ 23:07:30] [main] [DEBUG] skipping databases ending with String: [_old, _test]
+[11-04-2013 @ 23:07:30] [main] [DEBUG] datasource: ensembldb
+[11-04-2013 @ 23:07:30] [main] [DEBUG] driver: com.mysql.jdbc.Driver
+[11-04-2013 @ 23:07:30] [main] [DEBUG] url: jdbc:mysql://ensembldb.ensembl.org:5306
+[11-04-2013 @ 23:07:30] [main] [DEBUG] username: anonymous
+[11-04-2013 @ 23:07:30] [main] [DEBUG] password: 
+[11-04-2013 @ 23:07:30] [main] [DEBUG] renaming database: pongo_pygmaeus : pongo_abelii
+[11-04-2013 @ 23:07:30] [main] [DEBUG] renaming database: spermophilus_tridecemlineatus : ictidomys_tridecemlineatus
