@@ -1,0 +1,12 @@
+EGF;epidermal growth factor
+EGFR;epidermal growth factor receptor;ERBB;erb-b2 receptor tyrosine kinase;ERBB1
+GRB2;growth factor receptor-bound protein;NCKAP2
+SOS;HMCES;5-hydroxymethylcytosine (hmC) binding;DC12;SRAPD1;C3orf37;chromosome 3 open reading frame 37;SOS response associated peptidase domain containing 1
+Ras;NRAS;neuroblastoma RAS viral (v-ras) oncogene homolog;N-ras;RAS type family GTPases
+Raf;RAF1;A-Raf proto-oncogene, serine/threonine kinase;ARAF1;Raf-1 proto-oncogene, serine/threonine kinase;Raf-1;c-Raf;CRAF;Mitogen-activated protein kinase
+MEK;MAPKK;LAMTOR3;late endosomal/lysosomal adaptor, MAPK and MTOR activator 3;MAP2K1IP1;MAPKSP1;mitogen-activated protein kinase kinase 1 interacting protein 1;MAPK scaffold protein 1;MP1;MAPBP;Ragulator3;MEK partner 1
+MAPK;MAP2K3;mitogen-activated protein kinase kinase 3;PRKMK3;MEK3;MKK3;MAPKK3;MAPK/ERK kinase 3;MAP kinase kinase 3;dual specificity mitogen activated protein kinase kinase 3
+MNK;ATP7A;ATPase, Cu++ transporting, alpha polypeptide;Menkes syndrome;copper pump 1;copper-transporting ATPase 1
+CREB;CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;KAT3A
+SSTR5;somatostatin receptor;SST1-selective somatostatin (analog 5)
+SRIF;somatostatin;SMST;SST;somatostatin-14;somatostatin-28;prepro-somatostatin

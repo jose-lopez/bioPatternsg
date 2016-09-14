@@ -1,0 +1,5 @@
+#seq	identifier	exp_freq	occ	exp_occ	occ_P	occ_E	occ_sig	rank
+aggaaa	aggaaa|tttcct	0.0004882812500	8	1.16	2.9e-05	3.6e-02	1.44	1
+cctccc	cctccc|gggagg	0.0004882812500	9	1.16	3.7e-06	4.6e-03	2.34	2
+gaggaa	gaggaa|ttcctc	0.0004882812500	8	1.16	2.9e-05	3.6e-02	1.44	3
+

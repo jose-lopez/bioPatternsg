@@ -1,0 +1,17 @@
+trimerize,trimerizes,trimerized,trimerizing
+heterodimerize,heterodimerizes,heterodimerized,heterodimerizing
+interact,interacts,interacted,interacting
+associate,associates,associated,associating
+bind,binds,bound,binding
+activate,activates,activated,activating
+phosphorylate,phosphorylates,phosphorylated,phosphorylating
+recruit,recruits,recruited,recruiting
+dimerize,dimerizes,dimerized,dimerizing
+regulate,regulates,regulated,regulating
+transcriptional-activate,transcriptional-activates,transcriptional-activated,transcriptional-activating
+inhibit,inhibits,inhibited,inhibiting
+stimulate,stimulates,stimulated,stimulating
+up-regulate,up-regulates,up-regulated,up-regulating
+down-regulate,down-regulates,down-regulated,down-regulating
+increase,increases,increased,increasing
+enhance,enhances,enhanced,enhancing

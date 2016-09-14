@@ -1,0 +1,57 @@
+BLASTX 2.2.30+
+
+
+Reference: Stephen F. Altschul, Thomas L. Madden, Alejandro A.
+Schaffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J.
+Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of
+protein database search programs", Nucleic Acids Res. 25:3389-3402.
+
+
+
+Database: PDB protein database
+           76,466 sequences; 18,665,730 total letters
+
+
+
+Query= 
+Length=1494
+                                                                      Score     E
+Sequences producing significant alignments:                          (Bits)  Value
+
+pdb|2MI1|A  Chain A, Somatostatin-14 Solution Structure In 5% D-m...  34.3    0.049
+
+
+>pdb|2MI1|A Chain A, Somatostatin-14 Solution Structure In 5% D-mannitol
+Length=14
+
+ Score = 34.3 bits (77),  Expect = 0.049, Method: Composition-based stats.
+ Identities = 12/12 (100%), Positives = 12/12 (100%), Gaps = 0/12 (0%)
+ Frame = +1
+
+Query  1291  AGCKNFFWKTFT  1326
+             AGCKNFFWKTFT
+Sbjct  1     AGCKNFFWKTFT  12
+
+
+
+Lambda      K        H        a         alpha
+   0.318    0.134    0.401    0.792     4.96 
+
+Gapped
+Lambda      K        H        a         alpha    sigma
+   0.267   0.0410    0.140     1.90     42.6     43.6 
+
+Effective search space used: 4221026804
+
+
+  Database: PDB protein database
+    Posted date:  Apr 18, 2015  3:49 PM
+  Number of letters in database: 18,665,730
+  Number of sequences in database:  76,466
+
+
+
+Matrix: BLOSUM62
+Gap Penalties: Existence: 11, Extension: 1
+Neighboring words threshold: 12
+Window for multiple hits: 40
