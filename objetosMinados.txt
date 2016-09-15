@@ -1,0 +1,10 @@
+SST;somatostatin;SST;SMST
+KLHL6;kelch like family member 6;KLHL6;kelch-like 6 (Drosophila);FLJ00029
+ACOX2;acyl-CoA oxidase 2;ACOX2;acyl-Coenzyme A oxidase 2, branched chain;acyl-CoA oxidase 2, branched chain;BRCACOX;BRCOX;THCCox
+CADM2;cell adhesion molecule 2;CADM2;IGSF4D;immunoglobulin superfamily, member 4D;NECL3;Necl-3;SynCAM2
+C14orf37;chromosome 14 open reading frame 37;C14orf37
+PSMA3;proteasome subunit alpha 3;PSMA3;proteasome (prosome, macropain) subunit, alpha type, 3;HC8
+SST;somatostatin;SST;SMST
+KLHL6;kelch like family member 6;KLHL6;kelch-like 6 (Drosophila);FLJ00029
+ACOX2;acyl-CoA oxidase 2;ACOX2;acyl-Coenzyme A oxidase 2, branched chain;acyl-CoA oxidase 2, branched chain;BRCACOX;BRCOX;THCCox
+CADM2;cell adhesion molecule 2;CADM2;IGSF4D;immunoglobulin superfamily, member 4D;NECL3;Necl-3;SynCAM2
