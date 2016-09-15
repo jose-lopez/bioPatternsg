@@ -328,7 +328,7 @@ public class Minado_FT {
         FileReader fr = null;
         BufferedReader br = null;
         try {
-            archivo = new File("objetos_CREB.txt");
+            archivo = new File("objetos_Experto.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             String lectura;
