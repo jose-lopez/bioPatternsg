@@ -1,12 +1,156 @@
-EGF;epidermal growth factor
-EGFR;epidermal growth factor receptor;ERBB;erb-b2 receptor tyrosine kinase;ERBB1
-GRB2;growth factor receptor-bound protein;NCKAP2
-SOS;HMCES;5-hydroxymethylcytosine (hmC) binding;DC12;SRAPD1;C3orf37;chromosome 3 open reading frame 37;SOS response associated peptidase domain containing 1
-Ras;NRAS;neuroblastoma RAS viral (v-ras) oncogene homolog;N-ras;RAS type family GTPases
-Raf;RAF1;A-Raf proto-oncogene, serine/threonine kinase;ARAF1;Raf-1 proto-oncogene, serine/threonine kinase;Raf-1;c-Raf;CRAF;Mitogen-activated protein kinase
-MEK;MAPKK;LAMTOR3;late endosomal/lysosomal adaptor, MAPK and MTOR activator 3;MAP2K1IP1;MAPKSP1;mitogen-activated protein kinase kinase 1 interacting protein 1;MAPK scaffold protein 1;MP1;MAPBP;Ragulator3;MEK partner 1
-MAPK;MAP2K3;mitogen-activated protein kinase kinase 3;PRKMK3;MEK3;MKK3;MAPKK3;MAPK/ERK kinase 3;MAP kinase kinase 3;dual specificity mitogen activated protein kinase kinase 3
-MNK;ATP7A;ATPase, Cu++ transporting, alpha polypeptide;Menkes syndrome;copper pump 1;copper-transporting ATPase 1
-CREB;CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;KAT3A
-SSTR5;somatostatin receptor;SST1-selective somatostatin (analog 5)
-SRIF;somatostatin;SMST;SST;somatostatin-14;somatostatin-28;prepro-somatostatin
+polycyclic aromatic hydrocarbon
+naphthoflavone
+indigoid
+tryptophan metabolite
+Phenobarbital
+CITCO
+carbaldehyde
+clotrimazole
+TCPOBOP
+dichloropyridyloxy
+phenytoin
+Bile acid
+Lithocholic acid
+chenodeoxycholic acid
+GW4064
+Glucocorticoid
+oxysterol
+GW3965
+T0901317
+paxilline
+F(3)methylAA
+acetyl-podocarpic dimmer
+oltipraz
+phenolic antioxidant
+fibrate
+WY-14
+WY-643
+dehydroepiandrosterone
+fatty acid
+rifampin
+rifabutin
+hyperforin
+paclitaxel
+nifedine
+adalat
+clotrimazole
+ritonavir 
+amprenavir
+nelfinavir
+bosentan
+phenytoin
+efavirenz
+lovastatin 
+simvastatin
+troglitazone
+vitamin E
+vitamin K2
+avasimibe 
+carbamazepine
+spironolactone
+spiro
+sulphinpyrazone 
+topotecan
+etoposide
+Polychlorinated biphenyl
+phthalate momoester
+omeprazole
+troleandomycin
+mifepristone 
+cyproterone acetate
+guggulsterone
+RU486
+progesterone analog
+vd3
+EB1089
+KH1060
+RO 25-9022
+vitamin D analog
+retinoic acid
+9-cis-retinoic acid
+dimethoxyflavone
+androstane
+AGN34
+CIS-
+high-density lipoprotein
+low-density lipoprotein
+ET743
+AKR1C4
+NR3C1
+PLCγ1
+PLCG1
+NR2B1
+NR2B2
+NR2B3
+GSTM
+GSTP1
+CYP4A
+CYP3A7
+UGT1A3
+UGT1A4
+PAPSS2
+CYP24
+AKR1C4
+AHR
+ARNT
+NR1I3
+NR1H4
+NR3C1
+HNF1A
+HNF4A      
+NR5A2
+NR1H2
+NR1H3
+NFE2L2
+NR0B2
+THRA
+THRB
+RARA
+RARB
+RARG
+PPARA
+PPARD
+PPARB
+PPARG
+NR1I2
+VDR
+ALAS1
+CYP1A1
+CYP1A2
+CYP1B1
+CYP2A6
+CYP2B1
+CYP2B2
+SLCO1A2
+cyp2b6
+cyp2c9
+cyp2c19
+cyp2d6
+cyp3a4
+cyp3a5
+cyp7a1
+gsta1
+nqo1
+ugt1a1
+ugt1a6
+ugt1a8
+ugt1a9
+ugt1a10
+ugt2b4
+sult2a1
+abca1
+ABCG5
+ABCG8
+ABCG1
+SLC10A2
+ABCB11
+FABP6
+FXR
+ABCB1
+ABCB4
+ABCC1
+ABCC2
+ABCC3
+ABCC4
+SLCO1B1
+SLCO1B3
