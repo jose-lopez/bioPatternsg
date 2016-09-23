@@ -3,7 +3,7 @@
 
 
     Copyright (C) 2016.
-    Yackson Ramirez (yackson.ramirez), Jose Lopez (jlopez@unet.edu.ve).
+    Yackson Ramirez (yacson.ramirez), Jose Lopez (jlopez@unet.edu.ve).
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as

@@ -3,7 +3,7 @@
 
 
     Copyright (C) 2016.
-    Yackson Ramirez (yackson.ramirez), Jose Lopez (jlopez@unet.edu.ve). 
+    Yackson Ramirez (yacson.ramirez), Jose Lopez (jlopez@unet.edu.ve). 
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -61,6 +61,9 @@ public class Busqueda_PubMed {
     public void busqueda_IDs(ArrayList<ArrayList> listaFT,ArrayList<Description> homologos) {
         System.out.println();
         System.out.println("busqueda de ID pudmed");
+     
+        combinacionHomologos(homologos);
+        
         for (int i = 0; i < listaFT.size(); i++) {
             for (int j = 0; j < listaFT.get(i).size(); j++) {
                 busqueda_factor_ligando((Factor_Transcripcion) listaFT.get(i).get(j));
@@ -212,6 +215,30 @@ public class Busqueda_PubMed {
 
         generador_lista_Pub_Med(palabras);
         
+        
+    }
+    
+    private void combinacionHomologos(ArrayList<Description> listaHomologos){
+    
+        ArrayList<String> nombreHomologos = new ArrayList<>();
+        for (int i = 0; i < listaHomologos.size(); i++) {
+            nombreHomologos.add(listaHomologos.get(i).getEtiqueta());
+        }
+        
+        ArrayList<combinacion> palabras = new ArrayList<>();
+        
+        IteradorCombinacion it = new IteradorCombinacion(nombreHomologos, 2);
+        Iterator s = it.iterator();
+        
+        while (s.hasNext()) {
+
+            List<String> listares = (List<String>) s.next();
+            combinacion con = new combinacion();
+            con.setPalabra1(listares.get(0));
+            con.setPalabra1(listares.get(1));
+        }
+        
+        generador_lista_Pub_Med(palabras);
         
     }
 
