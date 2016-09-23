@@ -49,11 +49,11 @@ public class Resumidor {
 
     String ruta_resumen;
 
-    static {
+    /*static {
         ClassLoader classLoader;
         classLoader = Resumidor.class.getClassLoader();
         currentPath = classLoader.getResource("").getPath();
-    }
+    }*/
 
     public String resumidor(String abstracts) {
 
@@ -61,13 +61,13 @@ public class Resumidor {
 
         try {
 
-            System.out.println("Current Path " + currentPath);
+            //System.out.println("Current Path " + currentPath);
 
             System.out.println("FileName " + abstracts);
 
-            ruta_resumen = currentPath + abstracts;
+            ruta_resumen = "resumen_"+abstracts;
 
-            Runtime rt = Runtime.getRuntime();
+            /*Runtime rt = Runtime.getRuntime();
 
             String[] strComando = {ruta_resumen};
 
@@ -93,7 +93,7 @@ public class Resumidor {
 
                 // Puedo abrir un filereader...
             }
-
+*/
             //System.out.println(""+dbSequences);
         } catch (Throwable t) {
             t.printStackTrace();

@@ -67,9 +67,11 @@ public class GeneradorBC {
 
         //* descomenta aqui para correr ejemplo full.
         //proceso oracionesSVC para recorte.
-        File f = new File(generar_txt(oracionesSVC));
+        //File f = new File(generar_txt(oracionesSVC));
+        File f = new File(oracionesSVC);
         File f1 = new File("aceptados2.txt");
-        File f2 = new File("objetos_CREB.txt");
+        File f2 = new File("objetosMinados.txt");
+        //File f2 = new File("objetosBAXSMinadosBC.txt");
         
         String salidaresumidor="";//variable en donde se guarda la salida del programa para
                                //imprimir en el archivo
@@ -304,7 +306,7 @@ public class GeneradorBC {
        salidaresumidor= "<html>\n" + salidaresumidor + "</html>";//concatenacion de etiquetas html al texto
             
         //creacion de objeto file para almacenar la cadena de string en el archivo salidaresumidor.html    
-        File salidaprueba = new File("/home/josmar/salidaresumidor.html");
+        File salidaprueba = new File("/home/jose-lopez/salidaresumidor.html");
         
         BufferedWriter html;
         
@@ -332,7 +334,7 @@ public class GeneradorBC {
     
       private String generar_txt(String fuente) throws Exception{
           
-        String destino="resumidor.txt"; 
+        String destino="resumen_abstracts_salida.txt"; 
         File archivo_fuente= new File(fuente);
         File archivo_destino= new File(destino);
         

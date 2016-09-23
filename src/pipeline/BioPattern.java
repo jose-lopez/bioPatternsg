@@ -95,7 +95,7 @@ public class BioPattern {
         MFT.minado(rutaRegPromSecProb, cant_compl_p, criterio, conf, num_iteraciones);
 
         Busqueda_PubMed bpm = new Busqueda_PubMed();
-        bpm.busqueda_IDs(MFT.getListaFT(), MFT.getLista_homologos());
+        bpm.busqueda_IDs(MFT.getListaFT(), MFT.getLista_homologos(),true);
        //genero abstracts
        //nuevo archivo.html
        //nombre del archivo local donde va, es la entrada que debe pasar html
@@ -105,6 +105,9 @@ public class BioPattern {
         //*
         // Se reciben los abstracts descargados y se devuelve el archivo de oraciones SVC necesario para
         // construir la BC con la que se haran inferencias para deducir patrones de regulacion.
+        
+        //String abstracts = "abstracts_salida.txt";
+        //String abstracts = "abstracts_salida_CYP7A1.txt";
         String oracionesSVC = new Resumidor().resumidor(abstracts);
 
         String base_conocimiento = new GeneradorBC().generador(oracionesSVC);
@@ -155,7 +158,7 @@ public class BioPattern {
         MFT.minado(rutabloquesConsenso, cant_compl_p, criterio, conf, num_iteraciones);
 
         //Busqueda_PubMed bpm = new Busqueda_PubMed();
-        //bpm.busqueda_IDs(MFT.getListaFT(),MFT.getLista_homologos());
+        //bpm.busqueda_IDs(MFT.getListaFT(),MFT.getLista_homologos(),true);
         //Se pasa el listado de PubMed Ids y se devuelve el archivo que contiene todos los abstracts descargados desde PubMed. 
         //String abstracts = new lecturas_PM().BusquedaPM_Abstracts(bpm.getListaIDs(), fileAbstID);
         //bpm.limpiar_men();

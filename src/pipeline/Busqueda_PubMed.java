@@ -58,7 +58,7 @@ public class Busqueda_PubMed {
         listaIDs = null;
     }
 
-    public void busqueda_IDs(ArrayList<ArrayList> listaFT,ArrayList<Description> homologos) {
+    public void busqueda_IDs(ArrayList<ArrayList> listaFT,ArrayList<Description> homologos , boolean todas) {
         System.out.println();
         System.out.println("busqueda de ID pudmed");
      
@@ -68,7 +68,7 @@ public class Busqueda_PubMed {
             for (int j = 0; j < listaFT.get(i).size(); j++) {
                 busqueda_factor_ligando((Factor_Transcripcion) listaFT.get(i).get(j));
                 busqueda_factor_complejo((Factor_Transcripcion) listaFT.get(i).get(j));
-                if (i==0) {
+                if (i==0 || todas) {
                     busqueda_factor_homologo((Factor_Transcripcion) listaFT.get(i).get(j),homologos);
                 }
             }
