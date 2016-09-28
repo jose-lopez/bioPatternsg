@@ -37,23 +37,23 @@ comienzo([event(N, Rel, NN)]) :-
 	(ligand(N);receptor(N)), % 3. El primer evento de un pathway debe contener un ligando como sujeto y el objeto del ultimo evento en un pathway deber una proteina.
         base(B), % 1. Solo pueden haber eventos de la BC en los pathways.
         member(event(N, Rel, NN), B),
-	member(Rel, [bind, recognize, interact, associate]).
+	member(Rel, [bind,activate,phosphorylate,dimerize,recognize,associate,recruit,interact]).
 
 %2. El programa debe conectar eventos tipo event(S,V,O) y siempre debe cumplirse que event(Si,_,Oj) sea seguido por event(Oj,_,_); es decir, que el sujeto del evento siguiente sea el objeto del evento predecesor. 
 eventos_intermedios(_, N1, [event(N1, Rel1, N)], N) :- 
 	base(B), 
 	member(event(N1, Rel1, N), B), % 1. Solo pueden haber eventos de la BC en los pathways. 
-	member(Rel1, [interact, associate, activate, phosphorylate, recruit, dimerize, trimerize, heterodimerize, translocate]).
+	member(Rel1, [trimerize,heterodimerize,interact,associate,participate,activate,involve,phosphorylate,recruit,dimerize,recognize,translocate]).
 %	member(event(N, Rel2, N2), B), % 1. Solo pueden haber eventos de la BC en los pathways. 
-%	member(Rel2, [interact, associate, activate, phosphorylate, recruit, dimerize, trimerize, heterodimerize, translocate]).
+%	member(Rel2, [trimerize,heterodimerize,interact,associate,participate,activate,involve,phosphorylate,recruit,dimerize,recognize,translocate]).
 
 
 eventos_intermedios(L, N1, [event(N1, Rel1, N)|R], NL) :- L > 0, 
 	base(B), 
 	member(event(N1, Rel1, N), B), % 1. Solo pueden haber eventos de la BC en los pathways. 
-	member(Rel1, [interact, associate, activate, phosphorylate, recruit, dimerize, trimerize, heterodimerize, translocate]),
+	member(Rel1, [trimerize,heterodimerize,interact,associate,participate,activate,involve,phosphorylate,recruit,dimerize,recognize, translocate]),
 %	member(event(N, Rel2, N2), B), % 1. Solo pueden haber eventos de la BC en los pathways. 
-%	member(Rel2, [interact, associate, activate, phosphorylate, recruit, dimerize, trimerize, heterodimerize, translocate]), 
+%	member(Rel2, [trimerize,heterodimerize,interact,associate,participate,activate,involve,phosphorylate,recruit,dimerize,recognize, translocate]), 
         LL is L - 1, 
         eventos_intermedios(LL, N, R, NL). 
 	% not(member(event(N, _, N1), R)). % sin ciclos?
@@ -61,7 +61,8 @@ eventos_intermedios(L, N1, [event(N1, Rel1, N)|R], NL) :- L > 0,
 final(N, [event(N, Rel, NN)]) :- base(B), 
 	protein(N), 
 	member(event(N, Rel, NN), B), % 1. Solo pueden haber eventos de la BC en los pathways. 
-	member(Rel, [bind, regulate, stimulate, induce, enhance, inhibit, transcriptional-activate]),
+	member(Rel, [activate,regulate,transcriptional-activate,inhibit,stimulate,up-regulate,down-regulate,increase,decrease,enhance,induce,repress,prevent,lead,trigger,target,express,translate,transcribe,
+suppress,retain,reactivate,modulate,require,promote,mediate,synthesize]),
         % 3. El primer evento de un pathway debe contener un ligando como sujeto y el objeto del ultimo evento en un pathway deber una proteina.
 	protein(NN).
 
@@ -87,6 +88,37 @@ print_pattern([event(PN, FRelation, N)]) :-
 print_pattern([event(PN, FRelation, _N)|R]) :- nl, 
 	write(PN), write('\t--- '), write(FRelation), write(' -- '), print_pattern(R). 
 
+
+print_pattern_file(P):-
+        open('patrones.txt', write, Stream),
+        print_pattern_f(P, Stream),
+        close(Stream).
+
+print_pattern_f([event(PN, FRelation, N)], Stream):- 
+	write(Stream,PN), write(Stream,'\t--- '), write(Stream,FRelation), write(Stream,' -->'), write(Stream,N), write(Stream,'@'),
+	nl(Stream).
+print_pattern_f([event(PN, FRelation, _N)|R], Stream) :- 
+	write(Stream,PN), write(Stream,'\t--- '), write(Stream,FRelation), nl(Stream), 
+	print_pattern_f(R, Stream).
+
+
+write_triple(File, A, B, C) :-
+open(File, write, Stream),
+write(Stream, (A,B,C)),
+nl(Stream),
+close(Stream).
+
+write_double(File, A, B) :-
+open(File, write, Stream),
+write(Stream, (A,B)),
+nl(Stream),
+close(Stream).
+
+write_single(File, A) :-
+open(File, write, Stream),
+write(Stream, A),
+nl(Stream),
+close(Stream).
 
 % Restrictions.
 

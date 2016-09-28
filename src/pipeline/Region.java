@@ -26,6 +26,13 @@
  */
 package pipeline;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -270,5 +277,29 @@ public class Region {
 
     public ArrayList<Motivo> getPromotor() {
         return promotor;
+    }
+    
+    public void imprimirRegRegulacion(String archivo) throws UnsupportedEncodingException, FileNotFoundException, IOException{
+        
+        File salidaPromotor = new File(archivo);
+        salidaPromotor.delete();
+        
+        try (BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(salidaPromotor, true), "UTF8"))) {
+            
+            out.write("cadena" + "\t" + "Consenso" + "\t" + "Coordenada Ini." + "\t" + "Coord Fin." + "\t" + "Factor Simbololo" +  "Factor Nombre" + "\n");
+            
+            for (Motivo m : this.promotor) {
+                out.write("cadena" + "\t" + "Consenso" + "\t" + "Coordenada Ini." + "\t" + "Coord Fin." + "\t" + "Factor Simbololo" +  "Factor Nombre" + "\n");
+                
+                String motifFirma = m.getFactores().get(0).getLectura().getCadena();
+                String consenso = m.getFactores().get(0).getLectura().getPlantillaMotivo();                
+                out.write(motifFirma + "\t" + consenso + "\t" + m.getCoordenadas()[0] + "\t" + m.getCoordenadas()[1] + "\t" + m.getFactores().get(0).getSimbolo() +  m.getFactores().get(0).getNombre() + "\n");
+                
+            }
+            
+            out.close();
+            
+        }
+        
     }
 }

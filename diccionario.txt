@@ -1,4 +1,0 @@
-bind,binds,bound,binding
-regulate,regulates,regulated,regulating
-activate,activates,activated,activating
-induce,induces,induced,inducing

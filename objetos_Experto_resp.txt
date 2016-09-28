@@ -1,0 +1,158 @@
+CYP7A1
+RBM6
+NID1
+QDPR
+FAM159A
+polycyclic aromatic hydrocarbon
+naphthoflavone
+indigoid
+tryptophan metabolite
+Phenobarbital
+CITCO
+carbaldehyde
+clotrimazole
+TCPOBOP
+dichloropyridyloxy
+phenytoin
+Bile acid
+Lithocholic acid
+chenodeoxycholic acid
+GW4064
+Glucocorticoid
+oxysterol
+GW3965
+T0901317
+paxilline
+F(3)methylAA
+acetyl-podocarpic dimmer
+oltipraz
+phenolic antioxidant
+fibrate
+WY-14
+WY-643
+dehydroepiandrosterone
+fatty acid
+rifampin
+rifabutin
+hyperforin
+paclitaxel
+nifedine
+adalat
+clotrimazole
+ritonavir 
+amprenavir
+nelfinavir
+bosentan
+phenytoin
+efavirenz
+lovastatin 
+simvastatin
+troglitazone
+vitamin E
+vitamin K2
+avasimibe 
+carbamazepine
+spironolactone
+spiro
+sulphinpyrazone 
+topotecan
+etoposide
+Polychlorinated biphenyl
+phthalate momoester
+omeprazole
+troleandomycin
+mifepristone 
+cyproterone acetate
+guggulsterone
+RU486
+progesterone analog
+vd3
+EB1089
+KH1060
+RO 25-9022
+vitamin D analog
+retinoic acid
+9-cis-retinoic acid
+dimethoxyflavone
+androstane
+AGN34
+CIS-
+high-density lipoprotein
+low-density lipoprotein
+ET743
+AKR1C4;DD4
+PLCγ1
+PLCG1
+NR2B1;RXRa
+NR2B2;RXRb
+NR2B3;RXRg
+GSTM
+GSTP1
+CYP4A
+CYP3A7
+UGT1A3
+UGT1A4
+PAPSS2
+CYP24
+AHR
+ARNT
+NR1I3;CAR
+NR1H4;FXR
+NR3C1;GR
+HNF1A
+HNF4A      
+NR5A2;LRH-1
+NR1H2
+NR1H3;LXRa
+NFE2L2
+NR0B2;SHP
+THRA;NR1A1
+THRB;NR1A2
+RARA;RAR
+RARB
+RARG
+PPARA;PPAR
+PPARD
+PPARB
+PPARG
+NR1I2;SXR
+VDR;NR1I1
+ALAS1
+CYP1A1
+CYP1A2
+CYP1B1
+CYP2A6
+CYP2B1
+CYP2B2
+SLCO1A2;OATP
+cyp2b6
+cyp2c9
+cyp2c19
+cyp2d6
+cyp3a4
+cyp3a5
+cyp7a1
+gsta1
+nqo1,DTD
+ugt1a1
+ugt1a6
+ugt1a8
+ugt1a9
+ugt1a10
+ugt2b4
+sult2a1
+abca1;TGD
+ABCG5;STSL
+ABCG8;GBD4
+ABCG1;ABC8
+SLC10A2;ASBT;ISBT
+ABCB11
+FABP6;I-BABP;IBABP
+ABCB1;MDR1;TAP
+ABCB4;MDR2;MDR3
+ABCC1;MRP1
+ABCC2;MRP2
+ABCC3;MRP3
+ABCC4;MRP4
+SLCO1B1;OATP-C;LST-1;OATP1B1
+SLCO1B3;OATP8;OATP1B3
