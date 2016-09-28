@@ -77,8 +77,8 @@ public class Region {
             Lecturatfbind lectura = ft.getLectura(); // Tomamos la lectura que describe la estructura del FT, segun TFBIND.
             if (!(lectura == null)) {
                 // Desde lectura se obtiene la plantilla que describe al motivo,
-                // dos elementos hay en esa plantilla: (1) consenso y (2) el motif hallado en regionPromotora
-                // que se corresponde con ese consenso, segun reporta TFBIND.
+                // dos elementos hay en esa plantilla: (1) cadena y (2) el motif hallado en regionPromotora
+                // que se corresponde con ese cadena, segun reporta TFBIND.
                 String[] plantilla = lectura.getPlantillaMotivo().split(" ");
                 String motif = plantilla[2];
 
@@ -178,7 +178,7 @@ public class Region {
                     if (consenso.equalsIgnoreCase("[CT]GTGTT[CT][CT]")) {
                         id = "CSTF";
                     }
-                } else {// Dado que mas de una proteina reconoce un consenso,
+                } else {// Dado que mas de una proteina reconoce un cadena,
                     // entonces entrar y verificar cual motivo es y a cual proteina corresponde.
                                                 // "[GT][GA]GGCG[GT][GA][GA][CT]"
                     if (consenso.equalsIgnoreCase("[GT][GA]GGCG[GT][GA][GA][CT]")) {
@@ -289,11 +289,10 @@ public class Region {
             out.write("cadena" + "\t" + "Consenso" + "\t" + "Coordenada Ini." + "\t" + "Coord Fin." + "\t" + "Factor Simbololo" +  "Factor Nombre" + "\n");
             
             for (Motivo m : this.promotor) {
-                out.write("cadena" + "\t" + "Consenso" + "\t" + "Coordenada Ini." + "\t" + "Coord Fin." + "\t" + "Factor Simbololo" +  "Factor Nombre" + "\n");
                 
-                String motifFirma = m.getFactores().get(0).getLectura().getCadena();
-                String consenso = m.getFactores().get(0).getLectura().getPlantillaMotivo();                
-                out.write(motifFirma + "\t" + consenso + "\t" + m.getCoordenadas()[0] + "\t" + m.getCoordenadas()[1] + "\t" + m.getFactores().get(0).getSimbolo() +  m.getFactores().get(0).getNombre() + "\n");
+                String cadena = m.getMotivo();
+                String[] motifFirma = m.getFactores().get(0).getLectura().getPlantillaMotivo().split(" ");                
+                out.write(motifFirma[0] + "\t" + "\t" + cadena + "\t" + "\t" + m.getCoordenadas()[0] + "\t" + "\t" + m.getCoordenadas()[1] + "\t" + "\t" + m.getFactores().get(0).getSimbolo()+ "\t"  +"\t"+ m.getFactores().get(0).getNombre() + "\n");
                 
             }
             
