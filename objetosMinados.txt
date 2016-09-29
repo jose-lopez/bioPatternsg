@@ -1,5 +1,5 @@
 CYP7A1;cytochrome P450 family 7 subfamily A member 1;CYP7A1;CYP7;cytochrome P450, subfamily VIIA (cholesterol 7 alpha-monooxygenase), polypeptide 1;cytochrome P450, family 7, subfamily A, polypeptide 1
-Phenobarbital;cytochrome P450 family 2 subfamily B member 6;CYP2B6;CYP2B;cytochrome P450, subfamily IIB (phenobarbital-inducible), polypeptide 6;cytochrome P450, family 2, subfamily B;cytochrome P450, subfamily IIB (phenobarbital-inducible);cytochrome P450, family 2, subfamily B, polypeptide 6;CPB6;CYPIIB6
+polycyclic aromatic hydrocarbon;aryl hydrocarbon receptor;AHR;bHLHe76
 CDXA
 MYOD;MyoD family inhibitor;MDFI;I-mfa
 SRY;sex determining region Y;SRY;TDF
