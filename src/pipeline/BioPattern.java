@@ -44,47 +44,45 @@ import javax.swing.JTextField;
  * @author jose-lopez
  */
 public class BioPattern {
-    
+
     private String regionPromotora = "";
     private String secuenciaProblema = "";
-    
+
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
-        
+
         File secuenciaProb = new File(secuenciaP);
         File regionReguladora = new File(regionP);
-        
+
         BufferedReader secProblema = new BufferedReader(new FileReader(secuenciaProb));
-        BufferedReader regReguladora = new BufferedReader(new FileReader(regionReguladora));        
-        
-        
-         while (secProblema.ready()) {
-             
-             this.secuenciaProblema = this.secuenciaProblema + secProblema.readLine();
-             
-         }
-         
-         while (regReguladora.ready()) {
-             
-             this.regionPromotora = this.regionPromotora + regReguladora.readLine();
-             
-         }        
-        
-        
+        BufferedReader regReguladora = new BufferedReader(new FileReader(regionReguladora));
+
+        while (secProblema.ready()) {
+
+            this.secuenciaProblema = this.secuenciaProblema + secProblema.readLine();
+
+        }
+
+        while (regReguladora.ready()) {
+
+            this.regionPromotora = this.regionPromotora + regReguladora.readLine();
+
+        }
+
     }
-    
+
     public BioPattern() {
     }
-    
+
     public static void main(String[] args) throws Exception {
-        
-        BioPattern biopattern = new BioPattern(args[0],args[1]);
-        
+
+        BioPattern biopattern = new BioPattern(args[0], args[1]);
+
         biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[1], Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]), true);
         //  biopattern.pruebas();
 
     }
-    
+
     public Region pipelineBioPattern(String rutaSecProb, String rutaRegPromSecProb, String confiabilidad, int cantPromotores, int cant_compl_p, int num_iteraciones, String fileAbstID, boolean criterio) throws IOException, Exception {
 
         //Autenticación de proxy        
@@ -114,7 +112,7 @@ public class BioPattern {
         //*
         Busqueda_PubMed bpm = new Busqueda_PubMed();
         bpm.busqueda_IDs(MFT.getListaFT(), MFT.getLista_homologos(), false);
-       //genero abstracts
+        //genero abstracts
         //nuevo archivo.html
         //nombre del archivo local donde va, es la entrada que debe pasar html
         String abstracts = new lecturas_PM().BusquedaPM_Abstracts(bpm.getListaIDs(), fileAbstID);
@@ -137,12 +135,13 @@ public class BioPattern {
 
          //*/
         Region region_promotora = new Region(this.regionPromotora);
+
         region_promotora.constructPromotor(MFT.getListaFT());
         region_promotora.imprimirRegRegulacion("listadoFTs.txt");
         return region_promotora;
-        
+
     }
-    
+
     public Region pipelineBioPatternRP(String rutabloquesConsenso, String confiabilidad, int cantPromotores, int cant_compl_p, int num_iteraciones, boolean criterio) throws IOException {
 
         //Autenticación de proxy        
@@ -214,52 +213,50 @@ public class BioPattern {
         Region region_promotora = new Region(this.regionPromotora);
         region_promotora.constructPromotor(MFT.getListaFT());
         return region_promotora;
-        
+
     }
-    
+
     private void autenticarProxy(String proxy_IP, String proxy_Port) {
-        
+
         System.setProperty("http.proxyHost", proxy_IP);
         System.setProperty("http.proxyPort", proxy_Port);
         Authenticator.setDefault(new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                /*
+                //*
                 JTextField jtf = new JTextField();
-                 JPasswordField jpf = new JPasswordField();
-                 if (JOptionPane.showConfirmDialog(null, new Object[]{jtf, jpf}, "Clave:", JOptionPane.OK_CANCEL_OPTION) == 0) {
-                 
-                 String usuario = jtf.getText();
-                 char[] clave = jpf.getPassword();*/
-                String usuario = "jlopez";
-                char[] clave = {'P', 'e', 'n', 'd', 'e', 'n', 'L', 'a', 'm', 'o', '0', '1', '.'};
-                
-                return new PasswordAuthentication(usuario, clave);
-                /*} else {
-                 System.exit(0);
-                 return null;
-                 }*/
+                JPasswordField jpf = new JPasswordField();
+                if (JOptionPane.showConfirmDialog(null, new Object[]{jtf, jpf}, "Clave:", JOptionPane.OK_CANCEL_OPTION) == 0) {
+
+                    String usuario = jtf.getText();
+                    char[] clave = jpf.getPassword();
+                    
+                    return new PasswordAuthentication(usuario, clave);
+                } else {
+                    System.exit(0);
+                    return null;
+                }
             }
         });
-        
+
     }
-    
+
     public void setRegionPromotora(String regionPromotora) {
         this.regionPromotora = regionPromotora;
     }
-    
+
     public void setSecuenciaProblema(String secuenciaProblema) {
         this.secuenciaProblema = secuenciaProblema;
     }
-    
+
     public String getRegionPromotora() {
         return regionPromotora;
     }
-    
+
     public String getSecuenciaProblema() {
         return secuenciaProblema;
     }
-    
+
     public void pruebas() throws IOException {
 
         //Autenticación de proxy        
