@@ -268,6 +268,16 @@ class Description {
         this.criterio = criterio;
     }
     
+    public ArrayList<String> nombres(){
+        ArrayList<String> nom = new ArrayList<>();
+        
+        nom.add(etiqueta);
+        nom.add(nombre);
+        nom.add(simbolo);
+        nom.addAll(sinonimos);
+        
+        return nom;
+    }
     
     
     

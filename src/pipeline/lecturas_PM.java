@@ -3,7 +3,7 @@
 
 
     Copyright (C) 2016.
-    Yackson Ramirez (yackson.ramirez), Jose Lopez (jlopez@unet.edu.ve).
+    Yacson Ramirez (yacson.ramirez@gmail.com), Jose Lopez (jlopez@unet.edu.ve).
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -74,7 +74,7 @@ public class lecturas_PM {
                 ArrayList<String> lista = new ArrayList<>();
                 Document doc = new conexionServ().conecta(ruta);
                 lista = revisa_xml(doc, "AbstractText");
-                guardar_en_archivo(abstracts, lista);
+                guardar_en_archivo(abstracts, lista, listaIDs.get(i) );
             } catch (Exception e) {
 
             }
@@ -167,12 +167,13 @@ public class lecturas_PM {
         return lista;
     }
 
-    private void guardar_en_archivo(String ruta, ArrayList<String> Abstract) {
+    private void guardar_en_archivo(String ruta, ArrayList<String> Abstract,String ID) {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
             fichero = new FileWriter(ruta, true);
             pw = new PrintWriter(fichero);
+            pw.println("((PMID:"+ ID+"))");
             for (int i = 0; i < Abstract.size(); i++) {
                 pw.println(Abstract.get(i));
             }

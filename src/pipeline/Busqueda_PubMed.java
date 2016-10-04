@@ -1,4 +1,4 @@
- /*
+/*
     Busqueda_PubMed.java
 
 
@@ -18,9 +18,9 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-*/
+ */
 
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -44,7 +44,7 @@ import java.util.logging.Logger;
  */
 public class Busqueda_PubMed {
 
-   ;
+    ;
     private ArrayList<String> listaIDs;
 
     public Busqueda_PubMed() {
@@ -53,29 +53,29 @@ public class Busqueda_PubMed {
         listaIDs = new ArrayList<>();
 
     }
-    
-    public void limpiar_men(){
+
+    public void limpiar_men() {
         listaIDs = null;
     }
 
-    public void busqueda_IDs(ArrayList<ArrayList> listaFT,ArrayList<Description> homologos , boolean todas) {
+    public void busqueda_IDs(ArrayList<ArrayList> listaFT, ArrayList<Description> homologos, boolean todas) {
         System.out.println();
         System.out.println("busqueda de ID pudmed");
-     
+
         combinacionHomologos(homologos);
-        
+
         for (int i = 0; i < listaFT.size(); i++) {
             for (int j = 0; j < listaFT.get(i).size(); j++) {
                 busqueda_factor_ligando((Factor_Transcripcion) listaFT.get(i).get(j));
                 busqueda_factor_complejo((Factor_Transcripcion) listaFT.get(i).get(j));
-                if (i==0 || todas) {
-                    busqueda_factor_homologo((Factor_Transcripcion) listaFT.get(i).get(j),homologos);
+                if (i == 0 || todas) {
+                    busqueda_factor_homologo((Factor_Transcripcion) listaFT.get(i).get(j), homologos);
                 }
             }
-            
+
         }
         System.out.println("Listo..");
-        System.out.println("PubMed ID encontrados: "+listaIDs.size());
+        System.out.println("PubMed ID encontrados: " + listaIDs.size());
 
     }
 
@@ -95,10 +95,10 @@ public class Busqueda_PubMed {
                 for (int j = 0; j < pal.length; j++) {
                     palabraClave = palabraClave + pal[j] + "+";
                 }
-                 
+
                 ArrayList<String> listaid = new lecturas_PM().busquedaPM_ID(palabraClave);
                 //System.out.println(palabraClave+"           [id encontrados: "+listaid.size()+"]");
-                
+
                 for (int j = 0; j < listaid.size(); j++) {
                     if (!listaIDs.contains(listaid.get(j))) {
                         listaIDs.add(listaid.get(j));
@@ -131,7 +131,7 @@ public class Busqueda_PubMed {
                 filtro_palabras(pal, palabras);
 
             }
-             if (factor.getID() != null) {
+            if (factor.getID() != null) {
                 combinacion pal = new combinacion();
                 pal.setPalabra1(factor.getID());
                 pal.setPalabra2(listlig.get(j).getNombre());
@@ -140,7 +140,7 @@ public class Busqueda_PubMed {
             }
 
         }
-        
+
         generador_lista_Pub_Med(palabras);
         return palabras;
 
@@ -148,7 +148,7 @@ public class Busqueda_PubMed {
 
     private void busqueda_factor_complejo(Factor_Transcripcion factor) {
 
-            //-------------------------------------------------------
+        //-------------------------------------------------------
         //polimeros
         ArrayList<combinacion> palabras = new ArrayList<>();
         ArrayList<String> Lis_prot = factor.obtener_complejos_description();
@@ -167,18 +167,18 @@ public class Busqueda_PubMed {
                 pal.setPalabra2(Lis_prot.get(j));
                 filtro_palabras(pal, palabras);
             }
-             if (factor.getID() != null) {
+            if (factor.getID() != null) {
                 combinacion pal = new combinacion();
                 pal.setPalabra1(factor.getID());
-                 pal.setPalabra2(Lis_prot.get(j));
+                pal.setPalabra2(Lis_prot.get(j));
                 filtro_palabras(pal, palabras);
             }
         }
         generador_lista_Pub_Med(palabras);
     }
-    
-    private void busqueda_factor_homologo(Factor_Transcripcion factor , ArrayList<Description> homologo){
-        
+
+    private void busqueda_factor_homologo(Factor_Transcripcion factor, ArrayList<Description> homologo) {
+
         ArrayList<combinacion> palabras = new ArrayList<>();
         ArrayList<String> homo = new ArrayList<>();
         for (int i = 0; i < homologo.size(); i++) {
@@ -187,9 +187,9 @@ public class Busqueda_PubMed {
             homo.add(homologo.get(i).getSimbolo());
             homo.add(homologo.get(i).getEtiqueta());
         }
-        
+
         for (int i = 0; i < homo.size(); i++) {
-            
+
             if (factor.getNombre() != null) {
                 combinacion pal = new combinacion();
                 pal.setPalabra1(factor.getNombre());
@@ -203,43 +203,67 @@ public class Busqueda_PubMed {
                 pal.setPalabra2(homo.get(i));
                 filtro_palabras(pal, palabras);
             }
-            
+
             if (factor.getID() != null) {
                 combinacion pal = new combinacion();
                 pal.setPalabra1(factor.getID());
                 pal.setPalabra2(homo.get(i));
                 filtro_palabras(pal, palabras);
             }
-            
+
         }
 
         generador_lista_Pub_Med(palabras);
-        
-        
+
     }
-    
-    private void combinacionHomologos(ArrayList<Description> listaHomologos){
-    
+
+    private void combinacionHomologos(ArrayList<Description> listaHomologos) {
+
         ArrayList<String> nombreHomologos = new ArrayList<>();
         for (int i = 0; i < listaHomologos.size(); i++) {
             nombreHomologos.add(listaHomologos.get(i).getEtiqueta());
         }
-        
+
         ArrayList<combinacion> palabras = new ArrayList<>();
-        
+
         IteradorCombinacion it = new IteradorCombinacion(nombreHomologos, 2);
         Iterator s = it.iterator();
-        
+
         while (s.hasNext()) {
 
             List<String> listares = (List<String>) s.next();
-            combinacion con = new combinacion();
-            con.setPalabra1(listares.get(0));
-            con.setPalabra1(listares.get(1));
+
+            for (int i = 0; i < listaHomologos.size(); i++) {
+
+                if (listaHomologos.get(i).getEtiqueta().equals(listares.get(0))) {
+                    ArrayList<String> nom1 = listaHomologos.get(i).nombres();
+
+                    for (int j = 0; j < listaHomologos.size(); j++) {
+
+                        if (listaHomologos.get(i).getEtiqueta().equals(listares.get(0))) {
+                            ArrayList<String> nom2 = listaHomologos.get(j).nombres();
+
+                            for (int k = 0; k < nom1.size(); k++) {
+                                for (int l = 0; l < nom2.size(); l++) {
+                                    combinacion con = new combinacion();
+                                    con.setPalabra1(nom1.get(k));
+                                    con.setPalabra1(nom2.get(l));
+
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
         }
-        
+
         generador_lista_Pub_Med(palabras);
-        
+
     }
 
     private void filtro_palabras(combinacion pal, ArrayList<combinacion> palabras) {
@@ -264,8 +288,6 @@ public class Busqueda_PubMed {
 
     }
 
-    
-
     public ArrayList<String> getListaIDs() {
         return listaIDs;
     }
@@ -273,8 +295,6 @@ public class Busqueda_PubMed {
     public void setListaIDs(ArrayList<String> listaIDs) {
         this.listaIDs = listaIDs;
     }
-    
-    
 
     class combinacion {
 
@@ -303,5 +323,3 @@ public class Busqueda_PubMed {
     }
 
 }
-
-
