@@ -165,15 +165,96 @@ ABCC3;ATP binding cassette subfamily C member 3;ABCC3;ATP-binding cassette, sub-
 ABCC4;ATP binding cassette subfamily C member 4;ABCC4;ATP-binding cassette, sub-family C (CFTR/MRP), member 4;MRP4;EST170205;MOAT-B;MOATB
 SLCO1B1;solute carrier organic anion transporter family member 1B1;SLCO1B1;SLC21A6;solute carrier family 21 (organic anion transporter), member 6;solute carrier organic anion transporter family, member 1B1;OATP-C;LST-1;OATP1B1
 SLCO1B3;solute carrier organic anion transporter family member 1B3;SLCO1B3;SLC21A8;solute carrier family 21 (organic anion transporter), member 8;solute carrier organic anion transporter family, member 1B3;OATP8;OATP1B3
-CDXA
-MYOD;MyoD family inhibitor;MDFI;I-mfa
+GATA1;GATA binding protein 1;GATA1;GF1;GATA-binding protein 1 (globin transcription factor 1);globin transcription factor 1;ERYF1;NFE1;GATA-1;NF-E1
+GATA2;GATA binding protein 2;GATA2;GATA-binding protein 2;NFE1B
+CAP;CAP, adenylate cyclase-associated protein, 2 (yeast);CAP2
+OCT1;POU class 2 homeobox 1;POU2F1;OTF1;POU domain class 2, transcription factor 1;OCT1
+S8;entry withdrawn;S8
+PBX1;PBX homeobox 1;PBX1;pre-B-cell leukemia transcription factor 1;pre-B-cell leukemia homeobox 1
+GATA;GATA binding protein 1;GATA1;GF1;GATA-binding protein 1 (globin transcription factor 1);globin transcription factor 1;ERYF1;NFE1;GATA-1;NF-E1
+OCT;plexin A2;PLXNA2;PLXN2;OCT;FLJ11751;FLJ30634;KIAA0463
+GATA3;GATA binding protein 3;GATA3;GATA-binding protein 3;HDR
+LMO2COM
+SOX5;SRY-box 5;SOX5;SRY (sex determining region Y)-box 5;SRY box 5;L-SOX5;MGC35153
+CEBP;CCAAT/enhancer binding protein alpha;CEBPA;CEBP;CCAAT/enhancer binding protein (C/EBP), alpha;C/EBP-alpha
+CETS1P54
+USF
+HSF2;heat shock transcription factor 2;HSF2
 SRY;sex determining region Y;SRY;TDF
+VMYB;MYB proto-oncogene, transcription factor;MYB;v-myb avian myeloblastosis viral oncogene homolog;c-myb
+TST1;coiled-coil domain containing 6;CCDC6;TST1;D10S170;DNA segment on chromosome 10 (unique) 170;PTC;TPC;H4
+CDXA
+NKX25
+AP1FJ
+AP1;synergin gamma;SYNRG;AP1GBP1;AP1 gamma subunit binding protein 1;SYNG;MGC104959
+GC;GC, vitamin D binding protein;GC;group-specific component (vitamin D binding protein);DBP;VDBP;hDBP
+LYF1
+ARNT;aryl hydrocarbon receptor nuclear translocator;ARNT;HIF-1beta;bHLHe2
+NMYC;N-myc downstream regulated 1;NDRG1;CAP43;DRG1;RTP;TDD5;NDR1
+MYCMAX
+SREBP1;sterol regulatory element binding transcription factor 1;SREBF1;SREBP1;bHLHd1;SREBP-1c;SREBP1a
+MZF1;myeloid zinc finger 1;MZF1;ZNF42;zinc finger protein 42 (myeloid-specific retinoic acid-responsive);ZSCAN6;MZF1B;MZF-1;Zfp98
+NF1;neurofibromin 1;NF1
+SP1;Sp1 transcription factor;SP1
+CP2;transcription factor CP2;TFCP2;CP2;LSF;LBP-1C;TFCP2C
+P53;cell death inducing p53 target 1;CDIP1;C16orf5;chromosome 16 open reading frame 5;cell death-inducing p53 target 1;CDIP;LITAFL
+ELK1;ELK1, ETS transcription factor;ELK1;ELK1, member of ETS oncogene family
+NRF2;nuclear factor, erythroid 2 like 2;NFE2L2;nuclear factor (erythroid-derived 2)-like 2;nuclear factor, erythroid 2-like 2;NRF2
+YY1;YY1 transcription factor;YY1;NF-E1;DELTA;UCRBP;YIN-YANG-1;INO80S
+XFD2
+HFH1;forkhead box Q1;FOXQ1;HFH1
+HFH2;forkhead box D3;FOXD3;Genesis;HFH2
 HNF3B;forkhead box A2;FOXA2;HNF3B;hepatocyte nuclear factor 3, beta
+IK2
 AML1;runt related transcription factor 1;RUNX1;AML1;CBFA2;acute myeloid leukemia 1;runt-related transcription factor 1;PEBP2A2;AMLCR1
-Sensor protein CpxA;neuronal calcium sensor 1;NCS1;FREQ;frequenin (Drosophila) homolog;frequenin homolog (Drosophila);NCS-1
-5'-D(*CP*CP*TP*GP*CP*AP*CP*AP*AP*AP*CP*AP*CP*C)-3';ATP binding cassette subfamily D member 1 pseudogene 5;ABCD1P5;ATP-binding cassette, sub-family D (ALD), member 1, pseudogene 5
-5'-D(*GP*GP*TP*GP*TP*TP*TP*GP*TP*GP*CP*AP*GP*G)-3';ATP binding cassette subfamily D member 1 pseudogene 5;ABCD1P5;ATP-binding cassette, sub-family D (ALD), member 1, pseudogene 5
-SEX-DETERMINING REGION Y PROTEIN
-Hepatocyte nuclear factor 1-beta;hepatocyte nuclear factor 4 gamma pseudogene 1;HNF4GP1
-CORE-BINDING FACTOR ALPHA SUBUNIT;core-binding factor beta subunit;CBFB;core-binding factor, beta subunit;PEBP2B
-CORE-BINDING FACTOR CBF-BETA;core-binding factor beta subunit;CBFB;core-binding factor, beta subunit;PEBP2B
+NFY
+CAAT
+EVI1;MDS1 and EVI1 complex locus;MECOM;MDS1;EVI1;myelodysplasia syndrome 1;ecotropic viral integration site 1;MDS1-EVI1;PRDM3
+AP4;replication initiator 1;REPIN1;ZNF464;zinc finger protein 464 (RIP60);RIP60;AP4;H_DJ0584D14.12;Zfp464
+XFD1
+TATA;B-TFIID TATA-box binding protein associated factor 1;BTAF1;BTAF1 RNA polymerase II, B-TFIID transcription factor-associated, 170 kD (Mot1 homolog, S. cerevisiae);BTAF1 RNA polymerase II, B-TFIID transcription factor-associated, 170kDa;TAFII170;TAF172;MOT1;TAF-172;TAF(II)170
+HNF1;HNF1 homeobox A;HNF1A;MODY3;TCF1;transcription factor 1, hepatic; LF-B1, hepatic nuclear factor (HNF1), albumin proximal factor;HNF1;LFB1
+MYOD;MyoD family inhibitor;MDFI;I-mfa
+DELTAEF1
+CEBPB;CCAAT/enhancer binding protein beta;CEBPB;TCF5;CCAAT/enhancer binding protein (C/EBP), beta;LAP;CRP2;NFIL6;IL6DBP;C/EBP-beta
+STAT;N-myc and STAT interactor;NMI;N-myc (and STAT) interactor
+HSF1;heat shock transcription factor 1;HSF1;HSTF1
+CDP;ADP-ribose/CDP-alcohol diphosphatase, manganese dependent;ADPRM;C17orf48;chromosome 17 open reading frame 48;ADP-ribose/CDP-alcohol diphosphatase, manganese-dependent;MDS006
+CLOX;cut like homeobox 1;CUX1;CUTL1;cut (Drosophila)-like 1 (CCAAT displacement protein);cut-like 1, CCAAT displacement protein (Drosophila);cut-like homeobox 1;CDP;CDP1;CUX;CUT;Clox;CDP/Cut;CDP/Cux;Cux/CDP;CASP;GOLIM6
+CEBPA;CCAAT/enhancer binding protein alpha;CEBPA;CEBP;CCAAT/enhancer binding protein (C/EBP), alpha;C/EBP-alpha
+PADS
+CDPCR1
+CDPCR3HD
+CREL
+BRN2;POU class 3 homeobox 2;POU3F2;OTF7;POU domain class 3, transcription factor 2;POUF3;BRN2;OCT7
+MYB;MYB proto-oncogene, transcription factor;MYB;v-myb avian myeloblastosis viral oncogene homolog;c-myb
+XFD3
+IK3
+RREB1;ras responsive element binding protein 1;RREB1;HNT
+CHOP;DNA damage inducible transcript 3;DDIT3;DNA-damage-inducible transcript 3;CHOP10;GADD153;CHOP
+NFKAPPAB65
+COMP1
+BARBIE
+HLF;HLF, PAR bZIP transcription factor;HLF;hepatic leukemia factor;PAR bZIP transcription factor;MGC33822
+AHRARNT
+RSRFC4;myocyte enhancer factor 2A;MEF2A;RSRFC4;RSRFC9
+TAL1ALPHAE47
+IK1
+CREBP1
+CREB;CREB binding protein;CREBBP;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
+RFX1;regulatory factor X1;RFX1;regulatory factor X, 1 (influences HLA class II expression);EF-C
+TH1E47
+RORA1
+RORA2
+MEF2;MEF2 activating motif and SAP domain containing transcriptional regulator;MAMSTR;MASTR;FLJ36070
+VBP
+NFKB;NFKB inhibitor alpha;NFKBIA;NFKBI;nuclear factor of kappa light polypeptide gene enhancer in B-cells inhibitor, alpha;IKBA;MAD-3;IkappaBalpha
+NFKAPPAB;NF-kappaB interacting long non-coding RNA;NKILA
+CDPCR3
+ZID;zinc finger and BTB domain containing 6;ZBTB6;ZNF482;zinc finger protein 482;ZID
+P300;Cbp/p300 interacting transactivator with Glu/Asp rich carboxy-terminal domain 1;CITED1;MSG1;Cbp/p300-interacting transactivator, with Glu/Asp rich carboxy-terminal domain, 1
+IRF1;interferon regulatory factor 1;IRF1;MAR
+ARP1;ARP1 actin-related protein 1 homolog A, centractin alpha;ACTR1A;ARP1 (actin-related protein 1, yeast) homolog A (centractin alpha);ARP1;Arp1A
+CREBP1CJUN
+E4BP4;nuclear factor, interleukin 3 regulated;NFIL3;IL3BP1;E4BP4;NFIL3A;NF-IL3A
+E2F;E2F transcription factor 1;E2F1;RBBP3;RBP3

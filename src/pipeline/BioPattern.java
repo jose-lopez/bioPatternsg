@@ -104,14 +104,15 @@ public class BioPattern {
          * Estos se emplearan mas adelante para organizar regiones promotoras.
          */
         //boolean criterio = true;//criterio de busqueda genenames true = aplica criterio , false busca por la etiqueta completa
+        //*
         float conf = Float.parseFloat(confiabilidad);  //confiabilidad de las busquedas en tfbind
 
-        //*
+        
         Minado_FT MFT = new Minado_FT();
         MFT.minado(rutaRegPromSecProb, cant_compl_p, criterio, conf, num_iteraciones);
         //*
         Busqueda_PubMed bpm = new Busqueda_PubMed();
-        bpm.busqueda_IDs(MFT.getListaFT(), MFT.getLista_homologos(), false);
+        bpm.busqueda_IDs(MFT.getListaFT(), MFT.getLista_homologos(), true);
         //genero abstracts
         //nuevo archivo.html
         //nombre del archivo local donde va, es la entrada que debe pasar html
@@ -119,12 +120,12 @@ public class BioPattern {
         bpm.limpiar_men();
         //*/
 
-        /*
+        //*
          // Se reciben los abstracts descargados y se devuelve el archivo de oraciones SVC necesario para
          // construir la BC con la que se haran inferencias para deducir patrones de regulacion.
         
          //String abstracts = "abstracts_salida.txt";
-         //String abstracts = "abstracts_salida_CYP7A1.txt";
+         //String abstracts = "abstracts_CYP7A1_salida.txt";
          String oracionesSVC = new Resumidor().resumidor(abstracts);
 
          String base_conocimiento = new GeneradorBC().generador(oracionesSVC);
@@ -133,7 +134,7 @@ public class BioPattern {
          Razonador razonador = new Razonador();
          ArrayList<String> patrones = razonador.inferir_patrones(base_conocimiento);
 
-         //*/
+        //*/
         Region region_promotora = new Region(this.regionPromotora);
 
         region_promotora.constructPromotor(MFT.getListaFT());
@@ -223,19 +224,20 @@ public class BioPattern {
         Authenticator.setDefault(new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                //*
-                JTextField jtf = new JTextField();
-                JPasswordField jpf = new JPasswordField();
-                if (JOptionPane.showConfirmDialog(null, new Object[]{jtf, jpf}, "Clave:", JOptionPane.OK_CANCEL_OPTION) == 0) {
+                /*JTextField jtf = new JTextField();
+                 JPasswordField jpf = new JPasswordField();
+                 if (JOptionPane.showConfirmDialog(null, new Object[]{jtf, jpf}, "Clave:", JOptionPane.OK_CANCEL_OPTION) == 0) {
 
-                    String usuario = jtf.getText();
-                    char[] clave = jpf.getPassword();
-                    
-                    return new PasswordAuthentication(usuario, clave);
-                } else {
-                    System.exit(0);
-                    return null;
-                }
+                 //String usuario = jtf.getText();
+                 //char[] clave = jpf.getPassword();*/
+                String usuario = "jlopez";
+                char[] clave = {'K', 'i', 't', 'e', 's', '0', '8', '.'};
+
+                return new PasswordAuthentication(usuario, clave);
+                /*} else {
+                 System.exit(0);
+                 return null;
+                 }*/
             }
         });
 
