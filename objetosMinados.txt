@@ -7,254 +7,85 @@ LARGE1;LARGE xylosyl- and glucuronyltransferase 1;LARGE1;LARGE;like-glycosyltran
 NAA15;N(alpha)-acetyltransferase 15, NatA auxiliary subunit;NAA15;NARG1;NMDA receptor regulated 1;TBDN100;NATH;FLJ13340
 CHRM3;cholinergic receptor muscarinic 3;CHRM3
 SMIM12;small integral membrane protein 12;SMIM12;C1orf212;chromosome 1 open reading frame 212;FLJ90372
-polycyclic aromatic hydrocarbon;aryl hydrocarbon receptor;AHR;bHLHe76
-naphthoflavone
-indigoid
-tryptophan metabolite;mitochondrially encoded tRNA tryptophan;MT-TW;MTTW;tRNA tryptophan;trnW
-Phenobarbital;cytochrome P450 family 2 subfamily B member 6;CYP2B6;CYP2B;cytochrome P450, subfamily IIB (phenobarbital-inducible), polypeptide 6;cytochrome P450, family 2, subfamily B;cytochrome P450, subfamily IIB (phenobarbital-inducible);cytochrome P450, family 2, subfamily B, polypeptide 6;CPB6;CYPIIB6
-CITCO
-carbaldehyde
-clotrimazole
-TCPOBOP
-dichloropyridyloxy
-phenytoin
 Bile acid;bile acid-CoA:amino acid N-acyltransferase;BAAT;bile acid Coenzyme A:amino acid N-acyltransferase (glycine N-choloyltransferase);bile acid CoA: amino acid N-acyltransferase (glycine N-choloyltransferase);BAT
-Lithocholic acid;bile acid-CoA:amino acid N-acyltransferase;BAAT;bile acid Coenzyme A:amino acid N-acyltransferase (glycine N-choloyltransferase);bile acid CoA: amino acid N-acyltransferase (glycine N-choloyltransferase);BAT
-chenodeoxycholic acid;bile acid-CoA:amino acid N-acyltransferase;BAAT;bile acid Coenzyme A:amino acid N-acyltransferase (glycine N-choloyltransferase);bile acid CoA: amino acid N-acyltransferase (glycine N-choloyltransferase);BAT
-GW4064
-Glucocorticoid;glucocorticoid induced 1;GLCCI1;glucocorticoid induced transcript 1;GIG18;FAM117C;TSSN1
 cholesterol;cholesterol 25-hydroxylase;CH25H
 oxysterol;oxysterol binding protein;OSBP;OSBP1
-GW3965
-T0901317
-paxilline
-F(3)methylAA;entry withdrawn;A12M3
-acetyl-podocarpic dimmer;acetyl-CoA acyltransferase 1;ACAA1;acetyl-Coenzyme A acyltransferase 1
-oltipraz
-phenolic antioxidant;AhpC/TSA antioxidant enzyme domain containing 1;AAED1;C9orf21;chromosome 9 open reading frame 21
-fibrate
-WY-14;septin 14 pseudogene 14;SEPT14P14
-WY-643;long intergenic non-protein coding RNA 643;LINC00643
-dehydroepiandrosterone;sulfotransferase family 2A member 1;SULT2A1;STD;sulfotransferase family, cytosolic, 2A, dehydroepiandrosterone (DHEA)-preferring, member 1;DHEA-ST
-fatty acid;fatty acid binding protein 3;FABP3;MDGI;FABP11;fatty acid binding protein 11;fatty acid binding protein 3, muscle and heart (mammary-derived growth inhibitor);fatty acid binding protein 3, muscle and heart;H-FABP;O-FABP
-rifampin
-rifabutin
-hyperforin
-paclitaxel
-nifedine
-adalat
-clotrimazole
-ritonavir 
-amprenavir
-nelfinavir
-bosentan
-phenytoin
-efavirenz
-lovastatin 
-simvastatin
-troglitazone
-vitamin E;alpha tocopherol transfer protein;TTPA;AVED;ataxia (Friedreich-like) with vitamin E deficiency;tocopherol (alpha) transfer protein
-vitamin K2;forkhead box K2;FOXK2;ILF;ILF1;interleukin enhancer binding factor 1
-avasimibe 
-carbamazepine
-spironolactone
-spiro
-sulphinpyrazone 
-topotecan
-etoposide;EI24, autophagy associated transmembrane protein;EI24;etoposide induced 2.4 mRNA;etoposide induced 2.4;PIG8;TP53I8;EPG4
-Polychlorinated biphenyl;biphenyl hydrolase like;BPHL;MCNAA;biphenyl hydrolase-like (serine hydrolase);Bph-rp;VACVase
-phthalate momoester
-omeprazole
-troleandomycin
-mifepristone 
-cyproterone acetate;isoamyl acetate-hydrolyzing esterase 1 homolog;IAH1;isoamyl acetate-hydrolyzing esterase 1 homolog (S. cerevisiae)
-guggulsterone
-RU486
-progesterone analog;progesterone receptor;PGR;PR;NR3C3
-vd3
-EB1089
-KH1060
-RO 25-9022;RNA, Ro-associated Y4 pseudogene 25;RNY4P25
-vitamin D analog;GC, vitamin D binding protein;GC;group-specific component (vitamin D binding protein);DBP;VDBP;hDBP
-retinoic acid;stimulated by retinoic acid 6;STRA6;stimulated by retinoic acid gene 6 homolog (mouse);stimulated by retinoic acid 6 homolog (mouse);FLJ12541
-9-cis-retinoic acid;retinoic acid receptor responder 2 pseudogene 9;RARRES2P9;retinoic acid receptor responder (tazarotene induced) 2 pseudogene 9
-dimethoxyflavone
-androstane;nuclear receptor subfamily 1 group I member 3;NR1I3;nuclear receptor subfamily 1, group I, member 3;MB67;CAR1;CAR
-AGN34
-CIS-;retinol dehydrogenase 11 (all-trans/9-cis/11-cis);RDH11;retinol dehydrogenase 11 (all-trans and 9-cis);MDT1;SDR7C1;ARSDR1
-high-density lipoprotein;glycosylphosphatidylinositol anchored high density lipoprotein binding protein 1;GPIHBP1;GPI anchored high density lipoprotein binding protein 1;LOC338328;GPI-HBP1
-low-density lipoprotein;low density lipoprotein receptor class A domain containing 1;LDLRAD1;low density lipoprotein receptor A domain containing 1
-ET743
-AKR1C4;aldo-keto reductase family 1 member C4;AKR1C4;CHDR;aldo-keto reductase family 1, member C4 (chlordecone reductase; 3-alpha hydroxysteroid dehydrogenase, type I; dihydrodiol dehydrogenase 4);DD4;HAKRA;C11;3-alpha-HSD;CDR;MGC22581
-NR3C1;nuclear receptor subfamily 3 group C member 1;NR3C1;GRL;nuclear receptor subfamily 3, group C, member 1;nuclear receptor subfamily 3, group C, member 1 (glucocorticoid receptor);GR
-PLCγ1
-PLCG1;phospholipase C gamma 1;PLCG1;PLC1;phospholipase C, gamma 1 (formerly subtype 148);phospholipase C, gamma 1;PLC148;PLC-II;PLCgamma1;NCKAP3
-NR2B1;retinoid X receptor alpha;RXRA;retinoid X receptor, alpha;NR2B1
-NR2B2;retinoid X receptor beta;RXRB;retinoid X receptor, beta;NR2B2;H-2RIIBP;RCoR-1
-NR2B3;retinoid X receptor gamma;RXRG;retinoid X receptor, gamma;NR2B3
-GSTM
-GSTP1;glutathione S-transferase pi 1;GSTP1;FAEES3;GST3;GSTP
-CYP4A
-CYP3A7;cytochrome P450 family 3 subfamily A member 7;CYP3A7;cytochrome P450, subfamily IIIA, polypeptide 7;cytochrome P450, family 3, subfamily A, polypeptide 7;CP37;P450-HFLA
-UGT1A3;UDP glucuronosyltransferase family 1 member A3;UGT1A3;UDP glycosyltransferase 1 family, polypeptide A3;UGT1C
-UGT1A4;UDP glucuronosyltransferase family 1 member A4;UGT1A4;UDP glycosyltransferase 1 family, polypeptide A4;HUG-BR2;UGT1D
-PAPSS2;3'-phosphoadenosine 5'-phosphosulfate synthase 2;PAPSS2;ATPSK2
-CYP24;cytochrome P450 family 24 subfamily A member 1;CYP24A1;CYP24;cytochrome P450, subfamily XXIV (vitamin D 24-hydroxylase);cytochrome P450, family 24, subfamily A, polypeptide 1;CP24;P450-CC24
-AKR1C4;aldo-keto reductase family 1 member C4;AKR1C4;CHDR;aldo-keto reductase family 1, member C4 (chlordecone reductase; 3-alpha hydroxysteroid dehydrogenase, type I; dihydrodiol dehydrogenase 4);DD4;HAKRA;C11;3-alpha-HSD;CDR;MGC22581
 AHR;aryl hydrocarbon receptor;AHR;bHLHe76
 ARNT;aryl hydrocarbon receptor nuclear translocator;ARNT;HIF-1beta;bHLHe2
 NR1I3;nuclear receptor subfamily 1 group I member 3;NR1I3;nuclear receptor subfamily 1, group I, member 3;MB67;CAR1;CAR
-NR1H4;nuclear receptor subfamily 1 group H member 4;NR1H4;nuclear receptor subfamily 1, group H, member 4;FXR;RIP14;HRR1;HRR-1
-NR3C1;nuclear receptor subfamily 3 group C member 1;NR3C1;GRL;nuclear receptor subfamily 3, group C, member 1;nuclear receptor subfamily 3, group C, member 1 (glucocorticoid receptor);GR
-HNF1A;HNF1 homeobox A;HNF1A;MODY3;TCF1;transcription factor 1, hepatic; LF-B1, hepatic nuclear factor (HNF1), albumin proximal factor;HNF1;LFB1
-HNF4A      ;hepatocyte nuclear factor 4 alpha;HNF4A;TCF14;MODY;MODY1;NR2A1;HNF4
-NR5A2;nuclear receptor subfamily 5 group A member 2;NR5A2;FTF;nuclear receptor subfamily 5, group A, member 2;FTZ-F1beta;hB1F;LRH-1;FTZ-F1;hB1F-2;B1F2
-NR1H2;nuclear receptor subfamily 1 group H member 2;NR1H2;UNR;ubiquitously-expressed nuclear receptor;nuclear receptor subfamily 1, group H, member 2;NER;NER-I;RIP15;LXR-b
-NR1H3;nuclear receptor subfamily 1 group H member 3;NR1H3;nuclear receptor subfamily 1, group H, member 3;LXR-a;RLD-1
-NFE2L2;nuclear factor, erythroid 2 like 2;NFE2L2;nuclear factor (erythroid-derived 2)-like 2;nuclear factor, erythroid 2-like 2;NRF2
 NR0B2;nuclear receptor subfamily 0 group B member 2;NR0B2;nuclear receptor subfamily 0, group B, member 2;SHP
-THRA;thyroid hormone receptor, alpha;THRA;THRA1;THRA2;ERBA1;thyroid hormone receptor, alpha (avian erythroblastic leukemia viral (v-erb-a) oncogene homolog);thyroid hormone receptor, alpha (erythroblastic leukemia viral (v-erb-a) oncogene homolog, avian);EAR-7.1/EAR-7.2;THRA3;AR7;ERBA;NR1A1
-THRB;thyroid hormone receptor beta;THRB;ERBA2;PRTH;thyroid hormone receptor, beta (avian erythroblastic leukemia viral (v-erb-a) oncogene homolog 2);pituitary resistance to thyroid hormone;thyroid hormone receptor, beta (erythroblastic leukemia viral (v-erb-a) oncogene homolog 2, avian);thyroid hormone receptor, beta;THRB1;THRB2;NR1A2;THR1;ERBA-BETA;GRTH
 RARA;retinoic acid receptor alpha;RARA;retinoic acid receptor, alpha;RAR;NR1B1
 RARB;retinoic acid receptor beta;RARB;retinoic acid receptor, beta;HAP;NR1B2;RRB2
 RARG;retinoic acid receptor gamma;RARG;retinoic acid receptor, gamma;RARC;NR1B3
+HNF4A;hepatocyte nuclear factor 4 alpha;HNF4A;TCF14;MODY;MODY1;NR2A1;HNF4
+NR1I2;nuclear receptor subfamily 1 group I member 2;NR1I2;nuclear receptor subfamily 1, group I, member 2;ONR1;PXR;BXR;SXR;PAR2
+VDR;vitamin D (1,25- dihydroxyvitamin D3) receptor;VDR;NR1I1;PPP1R163
+ALAS1;5'-aminolevulinate synthase 1;ALAS1;ALAS3;ALAS;aminolevulinate, delta-, synthase 1
+NR1H4;nuclear receptor subfamily 1 group H member 4;NR1H4;nuclear receptor subfamily 1, group H, member 4;FXR;RIP14;HRR1;HRR-1
+NR2B1;retinoid X receptor alpha;RXRA;retinoid X receptor, alpha;NR2B1
+NR2B2;retinoid X receptor beta;RXRB;retinoid X receptor, beta;NR2B2;H-2RIIBP;RCoR-1
+NR2B3;retinoid X receptor gamma;RXRG;retinoid X receptor, gamma;NR2B3
+NR5A2;nuclear receptor subfamily 5 group A member 2;NR5A2;FTF;nuclear receptor subfamily 5, group A, member 2;FTZ-F1beta;hB1F;LRH-1;FTZ-F1;hB1F-2;B1F2
+SLC10A2;solute carrier family 10 member 2;SLC10A2;ASBT;ISBT;solute carrier family 10 (sodium/bile acid cotransporter), member 2
 PPARA;peroxisome proliferator activated receptor alpha;PPARA;PPAR;peroxisome proliferative activated receptor, alpha;peroxisome proliferator-activated receptor alpha;hPPAR;NR1C1
 PPARD;peroxisome proliferator activated receptor delta;PPARD;peroxisome proliferative activated receptor, delta;peroxisome proliferator-activated receptor delta;NUC1;NUCII;FAAR;NR1C2
 PPARB
 PPARG;peroxisome proliferator activated receptor gamma;PPARG;peroxisome proliferative activated receptor, gamma;peroxisome proliferator-activated receptor gamma;PPARG1;PPARG2;NR1C3;PPARgamma
-NR1I2;nuclear receptor subfamily 1 group I member 2;NR1I2;nuclear receptor subfamily 1, group I, member 2;ONR1;PXR;BXR;SXR;PAR2
-VDR;vitamin D (1,25- dihydroxyvitamin D3) receptor;VDR;NR1I1;PPP1R163
-ALAS1;5'-aminolevulinate synthase 1;ALAS1;ALAS3;ALAS;aminolevulinate, delta-, synthase 1
-CYP1A1;cytochrome P450 family 1 subfamily A member 1;CYP1A1;CYP1;cytochrome P450, subfamily I (aromatic compound-inducible), polypeptide 1;cytochrome P450, family 1, subfamily A, polypeptide 1;P450DX;P1-450;P450-C;CP11
-CYP1A2;cytochrome P450 family 1 subfamily A member 2;CYP1A2;cytochrome P450, subfamily I (aromatic compound-inducible), polypeptide 2;cytochrome P450, family 1, subfamily A, polypeptide 2;P3-450;CP12
-CYP1B1;cytochrome P450 family 1 subfamily B member 1;CYP1B1;GLC3A;cytochrome P450, subfamily I (dioxin-inducible), polypeptide 1 (glaucoma 3, primary infantile);cytochrome P450, family 1, subfamily B, polypeptide 1;CP1B
-CYP2A6;cytochrome P450 family 2 subfamily A member 6;CYP2A6;CYP2A3;cytochrome P450, subfamily IIA (phenobarbital-inducible), polypeptide 6;cytochrome P450, family 2, subfamily A, polypeptide 6;CPA6;CYP2A
-CYP2B1
-CYP2B2
-SLCO1A2;solute carrier organic anion transporter family member 1A2;SLCO1A2;SLC21A3;solute carrier family 21 (organic anion transporter), member 3;solute carrier organic anion transporter family, member 1A2;OATP;OATP1A2;OATP-A
-cyp2b6;cytochrome P450 family 2 subfamily B member 6;CYP2B6;CYP2B;cytochrome P450, subfamily IIB (phenobarbital-inducible), polypeptide 6;cytochrome P450, family 2, subfamily B;cytochrome P450, subfamily IIB (phenobarbital-inducible);cytochrome P450, family 2, subfamily B, polypeptide 6;CPB6;CYPIIB6
-Cyp2b10
-cyp2c9;cytochrome P450 family 2 subfamily C member 9;CYP2C9;CYP2C10;cytochrome P450, subfamily IIC (mephenytoin 4-hydroxylase), polypeptide 9;cytochrome P450, family 2, subfamily C, polypeptide 9;P450IIC9
-cyp2c19;cytochrome P450 family 2 subfamily C member 19;CYP2C19;CYP2C;cytochrome P450, subfamily IIC (mephenytoin 4-hydroxylase), polypeptide 19;cytochrome P450, family 2, subfamily C, polypeptide 19;P450IIC19;CPCJ
-cyp2d6;cytochrome P450 family 2 subfamily D member 6;CYP2D6;CYP2DL1;CYP2D7P2;CYP2D7BP;CYP2D8P2;CYP2D7AP;cytochrome P450, subfamily IID (debrisoquine, sparteine, etc., -metabolizing), polypeptide 6;cytochrome P450, family 2, subfamily D, polypeptide 7 pseudogene 2;cytochrome P450, subfamily II (debrisoquine, sparteine, etc., -metabolising), polypeptide 7 pseudogene 2;cytochrome P450, family 2, subfamily D, polypeptide 8 pseudogene 2;cytochrome P450, subfamily IID (debrisoquine, sparteine, etc., -metabolising), polypeptide 8 pseudogene 2;cytochrome P450, family 2, subfamily D, polypeptide 6;CPD6;P450-DB1;CYP2D;P450C2D
-cyp3a4;cytochrome P450 family 3 subfamily A member 4;CYP3A4;CYP3A3;cytochrome P450, subfamily IIIA (niphedipine oxidase), polypeptide 4;cytochrome P450, family 3, subfamily A, polypeptide 4
-cyp3a5;cytochrome P450 family 3 subfamily A member 5;CYP3A5;cytochrome P450, subfamily IIIA (niphedipine oxidase), polypeptide 5;cytochrome P450, family 3, subfamily A, polypeptide 5;PCN3;P450PCN3;CP35
-cyp7a1;cytochrome P450 family 7 subfamily A member 1;CYP7A1;CYP7;cytochrome P450, subfamily VIIA (cholesterol 7 alpha-monooxygenase), polypeptide 1;cytochrome P450, family 7, subfamily A, polypeptide 1
-gsta1;glutathione S-transferase alpha 1;GSTA1;glutathione S-transferase A1
-nqo1;NAD(P)H quinone dehydrogenase 1;NQO1;NMOR1;DIA4;diaphorase (NADH/NADPH) (cytochrome b-5 reductase);NAD(P)H dehydrogenase, quinone 1;DHQU;QR1;DTD
-ugt1a1;UDP glucuronosyltransferase family 1 member A1;UGT1A1;UGT1;GNT1;UDP glycosyltransferase 1 family, polypeptide A1;UGT1A
-ugt1a6;UDP glucuronosyltransferase family 1 member A6;UGT1A6;UDP glycosyltransferase 1 family, polypeptide A6;HLUGP;GNT1;UGT1F
-ugt1a8;UDP glucuronosyltransferase family 1 member A8;UGT1A8;UDP glycosyltransferase 1 family, polypeptide A8;UGT1H
-ugt1a9;UDP glucuronosyltransferase family 1 member A9;UGT1A9;UDP glycosyltransferase 1 family, polypeptide A9;HLUGP4;LUGP4;UGT1AI
-ugt1a10;UDP glucuronosyltransferase family 1 member A10;UGT1A10;UDP glycosyltransferase 1 family, polypeptide A10;UGT1J
-ugt2b4;UDP glucuronosyltransferase family 2 member B4;UGT2B4;UDP glycosyltransferase 2 family, polypeptide B4;UGT2B11
-sult2a1;sulfotransferase family 2A member 1;SULT2A1;STD;sulfotransferase family, cytosolic, 2A, dehydroepiandrosterone (DHEA)-preferring, member 1;DHEA-ST
-abca1;ATP binding cassette subfamily A member 1;ABCA1;ABC1;HDLDT1;ATP-binding cassette, sub-family A (ABC1), member 1;TGD
-ABCG5;ATP binding cassette subfamily G member 5;ABCG5;ATP-binding cassette, sub-family G (WHITE), member 5;STSL
-ABCG8;ATP binding cassette subfamily G member 8;ABCG8;ATP-binding cassette, sub-family G (WHITE), member 8 (sterolin 2);ATP-binding cassette, sub-family G (WHITE), member 8;GBD4
-ABCG1;ATP binding cassette subfamily G member 1;ABCG1;ATP-binding cassette, sub-family G (WHITE), member 1;ABC8
-SLC10A2;solute carrier family 10 member 2;SLC10A2;ASBT;ISBT;solute carrier family 10 (sodium/bile acid cotransporter), member 2
-ABCB11;ATP binding cassette subfamily B member 11;ABCB11;BSEP;PFIC2;progressive familial intrahepatic cholestasis 2;bile salt export pump;ATP-binding cassette, sub-family B (MDR/TAP), member 11;ABC16;SPGP;PFIC-2;PGY4
-FABP6;fatty acid binding protein 6;FABP6;fatty acid binding protein 6, ileal;I-15P;ILLBP;I-BAP;ILBP3;I-BABP;ILBP;I-BALB
-FXR;nuclear receptor subfamily 1 group H member 4;NR1H4;nuclear receptor subfamily 1, group H, member 4;FXR;RIP14;HRR1;HRR-1
-ABCB1;ATP binding cassette subfamily B member 1;ABCB1;PGY1;MDR1;CLCS;colchicin sensitivity;ATP-binding cassette, sub-family B (MDR/TAP), member 1;P-gp;CD243;GP170;ABC20
-ABCB4;ATP binding cassette subfamily B member 4;ABCB4;PGY3;MDR3;ATP-binding cassette, sub-family B (MDR/TAP), member 4;MDR2;PFIC-3;GBD1
-ABCC1;ATP binding cassette subfamily C member 1;ABCC1;MRP;MRP1;multidrug resistance associated protein 1;ATP-binding cassette, sub-family C (CFTR/MRP), member 1;GS-X
-ABCC2;ATP binding cassette subfamily C member 2;ABCC2;CMOAT;canalicular multispecific organic anion transporter 1;ATP-binding cassette, sub-family C (CFTR/MRP), member 2;DJS;MRP2;cMRP
-ABCC3;ATP binding cassette subfamily C member 3;ABCC3;ATP-binding cassette, sub-family C (CFTR/MRP), member 3;MRP3;cMOAT2;EST90757;MLP2;MOAT-D
-ABCC4;ATP binding cassette subfamily C member 4;ABCC4;ATP-binding cassette, sub-family C (CFTR/MRP), member 4;MRP4;EST170205;MOAT-B;MOATB
-SLCO1B1;solute carrier organic anion transporter family member 1B1;SLCO1B1;SLC21A6;solute carrier family 21 (organic anion transporter), member 6;solute carrier organic anion transporter family, member 1B1;OATP-C;LST-1;OATP1B1
-SLCO1B3;solute carrier organic anion transporter family member 1B3;SLCO1B3;SLC21A8;solute carrier family 21 (organic anion transporter), member 8;solute carrier organic anion transporter family, member 1B3;OATP8;OATP1B3
-GATA1;GATA binding protein 1;GATA1;GF1;GATA-binding protein 1 (globin transcription factor 1);globin transcription factor 1;ERYF1;NFE1;GATA-1;NF-E1
-GATA2;GATA binding protein 2;GATA2;GATA-binding protein 2;NFE1B
-CAP;CAP, adenylate cyclase-associated protein, 2 (yeast);CAP2
-OCT1;POU class 2 homeobox 1;POU2F1;OTF1;POU domain class 2, transcription factor 1;OCT1
-S8;entry withdrawn;S8
-PBX1;PBX homeobox 1;PBX1;pre-B-cell leukemia transcription factor 1;pre-B-cell leukemia homeobox 1
-GATA;GATA binding protein 1;GATA1;GF1;GATA-binding protein 1 (globin transcription factor 1);globin transcription factor 1;ERYF1;NFE1;GATA-1;NF-E1
-OCT;plexin A2;PLXNA2;PLXN2;OCT;FLJ11751;FLJ30634;KIAA0463
-GATA3;GATA binding protein 3;GATA3;GATA-binding protein 3;HDR
-LMO2COM
-SOX5;SRY-box 5;SOX5;SRY (sex determining region Y)-box 5;SRY box 5;L-SOX5;MGC35153
-CEBP;CCAAT/enhancer binding protein alpha;CEBPA;CEBP;CCAAT/enhancer binding protein (C/EBP), alpha;C/EBP-alpha
-CETS1P54
-USF
-HSF2;heat shock transcription factor 2;HSF2
-SRY;sex determining region Y;SRY;TDF
-VMYB;MYB proto-oncogene, transcription factor;MYB;v-myb avian myeloblastosis viral oncogene homolog;c-myb
-TST1;coiled-coil domain containing 6;CCDC6;TST1;D10S170;DNA segment on chromosome 10 (unique) 170;PTC;TPC;H4
 CDXA
 NKX25
-AP1FJ
-AP1;synergin gamma;SYNRG;AP1GBP1;AP1 gamma subunit binding protein 1;SYNG;MGC104959
-GC;GC, vitamin D binding protein;GC;group-specific component (vitamin D binding protein);DBP;VDBP;hDBP
-LYF1
-ARNT;aryl hydrocarbon receptor nuclear translocator;ARNT;HIF-1beta;bHLHe2
-NMYC;N-myc downstream regulated 1;NDRG1;CAP43;DRG1;RTP;TDD5;NDR1
-MYCMAX
-SREBP1;sterol regulatory element binding transcription factor 1;SREBF1;SREBP1;bHLHd1;SREBP-1c;SREBP1a
+USF
 MZF1;myeloid zinc finger 1;MZF1;ZNF42;zinc finger protein 42 (myeloid-specific retinoic acid-responsive);ZSCAN6;MZF1B;MZF-1;Zfp98
-NF1;neurofibromin 1;NF1
-SP1;Sp1 transcription factor;SP1
-CP2;transcription factor CP2;TFCP2;CP2;LSF;LBP-1C;TFCP2C
-P53;cell death inducing p53 target 1;CDIP1;C16orf5;chromosome 16 open reading frame 5;cell death-inducing p53 target 1;CDIP;LITAFL
-ELK1;ELK1, ETS transcription factor;ELK1;ELK1, member of ETS oncogene family
-NRF2;nuclear factor, erythroid 2 like 2;NFE2L2;nuclear factor (erythroid-derived 2)-like 2;nuclear factor, erythroid 2-like 2;NRF2
-YY1;YY1 transcription factor;YY1;NF-E1;DELTA;UCRBP;YIN-YANG-1;INO80S
-XFD2
-HFH1;forkhead box Q1;FOXQ1;HFH1
-HFH2;forkhead box D3;FOXD3;Genesis;HFH2
 HNF3B;forkhead box A2;FOXA2;HNF3B;hepatocyte nuclear factor 3, beta
-IK2
-AML1;runt related transcription factor 1;RUNX1;AML1;CBFA2;acute myeloid leukemia 1;runt-related transcription factor 1;PEBP2A2;AMLCR1
-NFY
-CAAT
-EVI1;MDS1 and EVI1 complex locus;MECOM;MDS1;EVI1;myelodysplasia syndrome 1;ecotropic viral integration site 1;MDS1-EVI1;PRDM3
-AP4;replication initiator 1;REPIN1;ZNF464;zinc finger protein 464 (RIP60);RIP60;AP4;H_DJ0584D14.12;Zfp464
-XFD1
-TATA;B-TFIID TATA-box binding protein associated factor 1;BTAF1;BTAF1 RNA polymerase II, B-TFIID transcription factor-associated, 170 kD (Mot1 homolog, S. cerevisiae);BTAF1 RNA polymerase II, B-TFIID transcription factor-associated, 170kDa;TAFII170;TAF172;MOT1;TAF-172;TAF(II)170
-HNF1;HNF1 homeobox A;HNF1A;MODY3;TCF1;transcription factor 1, hepatic; LF-B1, hepatic nuclear factor (HNF1), albumin proximal factor;HNF1;LFB1
+CAP;CAP, adenylate cyclase-associated protein, 2 (yeast);CAP2
 MYOD;MyoD family inhibitor;MDFI;I-mfa
-DELTAEF1
-CEBPB;CCAAT/enhancer binding protein beta;CEBPB;TCF5;CCAAT/enhancer binding protein (C/EBP), beta;LAP;CRP2;NFIL6;IL6DBP;C/EBP-beta
-STAT;N-myc and STAT interactor;NMI;N-myc (and STAT) interactor
-HSF1;heat shock transcription factor 1;HSF1;HSTF1
-CDP;ADP-ribose/CDP-alcohol diphosphatase, manganese dependent;ADPRM;C17orf48;chromosome 17 open reading frame 48;ADP-ribose/CDP-alcohol diphosphatase, manganese-dependent;MDS006
-CLOX;cut like homeobox 1;CUX1;CUTL1;cut (Drosophila)-like 1 (CCAAT displacement protein);cut-like 1, CCAAT displacement protein (Drosophila);cut-like homeobox 1;CDP;CDP1;CUX;CUT;Clox;CDP/Cut;CDP/Cux;Cux/CDP;CASP;GOLIM6
-CEBPA;CCAAT/enhancer binding protein alpha;CEBPA;CEBP;CCAAT/enhancer binding protein (C/EBP), alpha;C/EBP-alpha
+LYF1
+PBX1;PBX homeobox 1;PBX1;pre-B-cell leukemia transcription factor 1;pre-B-cell leukemia homeobox 1
 PADS
-CDPCR1
+SRY;sex determining region Y;SRY;TDF
+STAT;N-myc and STAT interactor;NMI;N-myc (and STAT) interactor
+CEBPB;CCAAT/enhancer binding protein beta;CEBPB;TCF5;CCAAT/enhancer binding protein (C/EBP), beta;LAP;CRP2;NFIL6;IL6DBP;C/EBP-beta
+OCT1;POU class 2 homeobox 1;POU2F1;OTF1;POU domain class 2, transcription factor 1;OCT1
+DELTAEF1
+TATA;B-TFIID TATA-box binding protein associated factor 1;BTAF1;BTAF1 RNA polymerase II, B-TFIID transcription factor-associated, 170 kD (Mot1 homolog, S. cerevisiae);BTAF1 RNA polymerase II, B-TFIID transcription factor-associated, 170kDa;TAFII170;TAF172;MOT1;TAF-172;TAF(II)170
+HFH2;forkhead box D3;FOXD3;Genesis;HFH2
+AML1;runt related transcription factor 1;RUNX1;AML1;CBFA2;acute myeloid leukemia 1;runt-related transcription factor 1;PEBP2A2;AMLCR1
+GATA;GATA binding protein 1;GATA1;GF1;GATA-binding protein 1 (globin transcription factor 1);globin transcription factor 1;ERYF1;NFE1;GATA-1;NF-E1
 CDPCR3HD
-CREL
-BRN2;POU class 3 homeobox 2;POU3F2;OTF7;POU domain class 3, transcription factor 2;POUF3;BRN2;OCT7
-MYB;MYB proto-oncogene, transcription factor;MYB;v-myb avian myeloblastosis viral oncogene homolog;c-myb
-XFD3
-IK3
-RREB1;ras responsive element binding protein 1;RREB1;HNT
-CHOP;DNA damage inducible transcript 3;DDIT3;DNA-damage-inducible transcript 3;CHOP10;GADD153;CHOP
-NFKAPPAB65
-COMP1
-BARBIE
-HLF;HLF, PAR bZIP transcription factor;HLF;hepatic leukemia factor;PAR bZIP transcription factor;MGC33822
-AHRARNT
-RSRFC4;myocyte enhancer factor 2A;MEF2A;RSRFC4;RSRFC9
-TAL1ALPHAE47
-IK1
-CREBP1
-CREB;CREB binding protein;CREBBP;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
-RFX1;regulatory factor X1;RFX1;regulatory factor X, 1 (influences HLA class II expression);EF-C
-TH1E47
-RORA1
-RORA2
-MEF2;MEF2 activating motif and SAP domain containing transcriptional regulator;MAMSTR;MASTR;FLJ36070
-VBP
-NFKB;NFKB inhibitor alpha;NFKBIA;NFKBI;nuclear factor of kappa light polypeptide gene enhancer in B-cells inhibitor, alpha;IKBA;MAD-3;IkappaBalpha
-NFKAPPAB;NF-kappaB interacting long non-coding RNA;NKILA
-CDPCR3
-ZID;zinc finger and BTB domain containing 6;ZBTB6;ZNF482;zinc finger protein 482;ZID
-P300;Cbp/p300 interacting transactivator with Glu/Asp rich carboxy-terminal domain 1;CITED1;MSG1;Cbp/p300-interacting transactivator, with Glu/Asp rich carboxy-terminal domain, 1
-IRF1;interferon regulatory factor 1;IRF1;MAR
-ARP1;ARP1 actin-related protein 1 homolog A, centractin alpha;ACTR1A;ARP1 (actin-related protein 1, yeast) homolog A (centractin alpha);ARP1;Arp1A
-CREBP1CJUN
-E4BP4;nuclear factor, interleukin 3 regulated;NFIL3;IL3BP1;E4BP4;NFIL3A;NF-IL3A
-E2F;E2F transcription factor 1;E2F1;RBBP3;RBP3
+GATA1;GATA binding protein 1;GATA1;GF1;GATA-binding protein 1 (globin transcription factor 1);globin transcription factor 1;ERYF1;NFE1;GATA-1;NF-E1
+TST1;coiled-coil domain containing 6;CCDC6;TST1;D10S170;DNA segment on chromosome 10 (unique) 170;PTC;TPC;H4
+HSF2;heat shock transcription factor 2;HSF2
+Sensor protein CpxA;neuronal calcium sensor 1;NCS1;FREQ;frequenin (Drosophila) homolog;frequenin homolog (Drosophila);NCS-1
+Homeobox protein Nkx-2.5;ADNP homeobox 2;ADNP2;ZNF508;zinc finger protein 508;KIAA0863
+ANF-242 DNA;AT-hook DNA binding motif containing 1;AHDC1;AT hook, DNA binding motif, containing 1;DJ159A19.3;RP1-159A19.1
+ANF-242 DNA;AT-hook DNA binding motif containing 1;AHDC1;AT hook, DNA binding motif, containing 1;DJ159A19.3;RP1-159A19.1
+PROTEIN (UPSTREAM STIMULATORY FACTOR);osteoclast stimulatory transmembrane protein;OCSTAMP;C20orf123;chromosome 20 open reading frame 123;dJ257E24.3
+Zinc finger protein 42;zinc finger protein 204, pseudogene;ZNF204P;ZNF204;ZNF315P;zinc finger protein 204;zinc finger protein 204 (pseudogene);zinc finger protein 315, pseudogene;zinc finger protein 315 pseudogene;zinc finger protein 315 (pseudogene);b24o18.1;ZNF184-Lp
+Hepatocyte nuclear factor 1-beta;hepatocyte nuclear factor 4 gamma pseudogene 1;HNF4GP1
+TRANSLATION INITIATION FACTOR EIF4E;eukaryotic translation initiation factor 4E;EIF4E;EIF4EL1;EIF4F;EIF4E1
+PROTEIN (LYMPHOID ENHANCER-BINDING FACTOR);lymphoid enhancer binding factor 1;LEF1;lymphoid enhancer-binding factor 1;TCF1ALPHA;TCF10;TCF7L3
+5'-D(*AP*CP*TP*CP*TP*AP*TP*GP*AP*TP*TP*TP*AP*CP*GP*AP*CP*GP*CP*T)-3';ATP binding cassette subfamily D member 1 pseudogene 5;ABCD1P5;ATP-binding cassette, sub-family D (ALD), member 1, pseudogene 5
+5'-D(*TP*AP*GP*CP*GP*TP*CP*GP*TP*AP*AP*AP*TP*CP*AP*TP*AP*GP*AP*G)-3';ATP binding cassette subfamily D member 1 pseudogene 5;ABCD1P5;ATP-binding cassette, sub-family D (ALD), member 1, pseudogene 5
+Homeobox protein Hox-A9;homeobox A9;HOXA9;HOX1G;HOX1;homeo box A9
+Pre-B-cell leukemia transcription factor-1;PBX homeobox 1;PBX1;pre-B-cell leukemia transcription factor 1;pre-B-cell leukemia homeobox 1
+Thiol:disulfide interchange protein DsbA;ecto-NOX disulfide-thiol exchanger 1;ENOX1;FLJ10094;PIG38;CNOX;cCNOX
+5'-D(*CP*CP*TP*GP*CP*AP*CP*AP*AP*AP*CP*AP*CP*C)-3';ATP binding cassette subfamily D member 1 pseudogene 5;ABCD1P5;ATP-binding cassette, sub-family D (ALD), member 1, pseudogene 5
+5'-D(*GP*GP*TP*GP*TP*TP*TP*GP*TP*GP*CP*AP*GP*G)-3';ATP binding cassette subfamily D member 1 pseudogene 5;ABCD1P5;ATP-binding cassette, sub-family D (ALD), member 1, pseudogene 5
+SEX-DETERMINING REGION Y PROTEIN
+STATA PROTEIN;G protein subunit alpha q pseudogene 1;GNAQP1;GNAQP;quanine nucleotide binding protein (G protein), q polypeptide pseudogene;guanine nucleotide binding protein (G protein), q polypeptide pseudogene;guanine nucleotide binding protein (G protein), q polypeptide pseudogene 1
+enhancer-binding protein beta;CCAAT/enhancer binding protein beta;CEBPB;TCF5;CCAAT/enhancer binding protein (C/EBP), beta;LAP;CRP2;NFIL6;IL6DBP;C/EBP-beta
+enhancer-binding protein beta;CCAAT/enhancer binding protein beta;CEBPB;TCF5;CCAAT/enhancer binding protein (C/EBP), beta;LAP;CRP2;NFIL6;IL6DBP;C/EBP-beta;TCF5;CCAAT/enhancer binding protein (C/EBP), beta;LAP;CRP2;NFIL6;IL6DBP;C/EBP-beta
+5'-D(*TP*GP*TP*CP*TP*TP*TP*GP*TP*CP*AP*TP*GP*CP*TP*AP*AP*TP*G)-3';ATP binding cassette subfamily D member 1 pseudogene 5;ABCD1P5;ATP-binding cassette, sub-family D (ALD), member 1, pseudogene 5
+5'-D(*CP*AP*TP*TP*AP*GP*CP*AP*TP*GP*AP*CP*AP*AP*AP*GP*AP*CP*A)-3';ATP binding cassette subfamily D member 1 pseudogene 5;ABCD1P5;ATP-binding cassette, sub-family D (ALD), member 1, pseudogene 5
+transcription factor Oct-1;plexin A2;PLXNA2;PLXN2;OCT;FLJ11751;FLJ30634;KIAA0463
+Transcription factor SOX-2;BBX, HMG-box containing;BBX;bobby sox homolog (Drosophila);MDS001;HSPC339;HBP2
+Fe-hydrogenase;Rieske Fe-S domain containing;RFESD;Rieske (Fe-S) domain containing
+TRANSCRIPTION INITIATION FACTOR TFIID-1;B-TFIID TATA-box binding protein associated factor 1;BTAF1;BTAF1 RNA polymerase II, B-TFIID transcription factor-associated, 170 kD (Mot1 homolog, S. cerevisiae);BTAF1 RNA polymerase II, B-TFIID transcription factor-associated, 170kDa;TAFII170;TAF172;MOT1;TAF-172;TAF(II)170
+Importin subunit alpha;karyopherin subunit alpha 3;KPNA3;karyopherin alpha 3 (importin alpha 4);karyopherin alpha 3;SRP1gamma;SRP4;hSRP1;IPOA4
+Inner nuclear membrane protein HEH2;unc-50 inner nuclear membrane RNA binding protein;UNC50;unc-50 homolog (C. elegans);URP;UNCL;GMH1
+CORE-BINDING FACTOR ALPHA SUBUNIT;core-binding factor beta subunit;CBFB;core-binding factor, beta subunit;PEBP2B
+CORE-BINDING FACTOR CBF-BETA;core-binding factor beta subunit;CBFB;core-binding factor, beta subunit;PEBP2B
+Trans-acting T-cell-specific transcription factor GATA-3;PR/SET domain 2;PRDM2;PR domain containing 2, with ZNF domain;PR domain 2;RIZ;RIZ1;RIZ2;KMT8;MTB-ZF;HUMHOXY1
+Erythroid transcription factor;erythroid differentiation regulatory factor 1;EDRF1;C10orf137;chromosome 10 open reading frame 137;DKFZp586F1019;FLJ21617
+toxic effector Tse1;ADP ribosylation factor like GTPase 14 effector protein;ARL14EP;C11orf46;chromosome 11 open reading frame 46;ADP-ribosylation factor like GTPase 14 effector protein;FLJ38968;ARF7EP
+immune protein Tsi1;T-cell immune regulator 1, ATPase H+ transporting V0 subunit a3;TCIRG1;T-cell, immune regulator 1;T-cell, immune regulator 1, ATPase, H+ transporting, lysosomal V0 protein a isoform 3;T-cell, immune regulator 1, ATPase, H+ transporting, lysosomal V0 subunit A3;TIRC7;OC-116;OC116;ATP6N1C;Atp6i;a3;ATP6V0A3
+Heat shock factor protein 2;heat shock factor binding protein 1 pseudogene 2;HSBP1P2

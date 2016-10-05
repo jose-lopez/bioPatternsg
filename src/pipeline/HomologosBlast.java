@@ -391,7 +391,7 @@ public class HomologosBlast {
 
     public String regionesPromotsHomolgs(String rutaSecProb, int cantPromo) {
 
-        //buscarH(rutaSecProb);
+        buscarH(rutaSecProb);
         prepararIDsH();
         return comprobarHomologos(cantPromo);
 

@@ -88,7 +88,7 @@ public class BioPattern {
         //Autenticación de proxy        
         autenticarProxy("150.187.65.3", "3128");
         // Búsqueda de regiones promotoras de los mejores homologos para la secuencia problema.
-        //String rutaRegsPromotorasHomolgs = new HomologosBlast().regionesPromotsHomolgs(rutaSecProb, cantPromotores);
+        String rutaRegsPromotorasHomolgs = new HomologosBlast().regionesPromotsHomolgs(rutaSecProb, cantPromotores);
 
         // Se reciben la region promotora de la secuencia problema y la de sus homólogas y se obtienen los bloques consenso que ellas comparten.
         //String rutabloquesConsenso = new Alineador(rutaRegPromSecProb, rutaRegsPromotorasHomolgs).alineadorClustalw();
