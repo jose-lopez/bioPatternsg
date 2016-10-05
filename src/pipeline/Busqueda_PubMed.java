@@ -3,7 +3,7 @@
 
 
     Copyright (C) 2016.
-    Yackson Ramirez (yacson.ramirez), Jose Lopez (jlopez@unet.edu.ve). 
+    Yacson Ramirez (yacson.ramirez), Jose Lopez (jlopez@unet.edu.ve). 
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -28,8 +28,10 @@
 package pipeline;
 
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -74,6 +76,7 @@ public class Busqueda_PubMed {
             }
 
         }
+        
         System.out.println("Listo..");
         System.out.println("PubMed ID encontrados: " + listaIDs.size());
 
@@ -248,7 +251,7 @@ public class Busqueda_PubMed {
                                     combinacion con = new combinacion();
                                     con.setPalabra1(nom1.get(k));
                                     con.setPalabra1(nom2.get(l));
-
+                                    filtro_palabras(con, palabras);
                                 }
                             }
 
@@ -320,6 +323,8 @@ public class Busqueda_PubMed {
         public void imprimir() {
             System.out.println(palabra1 + "  " + palabra2);
         }
+        
+       
     }
 
 }
