@@ -1,6 +1,15 @@
 CYP7A1;cytochrome P450 family 7 subfamily A member 1;CYP7A1;CYP7;cytochrome P450, subfamily VIIA (cholesterol 7 alpha-monooxygenase), polypeptide 1;cytochrome P450, family 7, subfamily A, polypeptide 1
-RBM6;RNA binding motif protein 6;RBM6;DEF-3;3G2;NY-LU-12;g16;DEF3
-NID1;nidogen 1;NID1;NID;nidogen (enactin);entactin
-QDPR;quinoid dihydropteridine reductase;QDPR;DHPR;PKU2;SDR33C1
-FAM159A;family with sequence similarity 159 member A;FAM159A;family with sequence similarity 159, member A;MGC52498
-LARGE1;LARGE xylosyl- and glucuronyltransferase 1;LARGE1;LARGE;like-glycosyltransferase;KIAA0609
+SLC10A2;solute carrier family 10 member 2;SLC10A2;ASBT;ISBT;solute carrier family 10 (sodium/bile acid cotransporter), member 2
+PPARA;peroxisome proliferator activated receptor alpha;PPARA;PPAR;peroxisome proliferative activated receptor, alpha;peroxisome proliferator-activated receptor alpha;hPPAR;NR1C1
+PPARD;peroxisome proliferator activated receptor delta;PPARD;peroxisome proliferative activated receptor, delta;peroxisome proliferator-activated receptor delta;NUC1;NUCII;FAAR;NR1C2
+PPARB
+PPARG;peroxisome proliferator activated receptor gamma;PPARG;peroxisome proliferative activated receptor, gamma;peroxisome proliferator-activated receptor gamma;PPARG1;PPARG2;NR1C3;PPARgamma
+CDXA
+SRY;sex determining region Y;SRY;TDF
+AML1;runt related transcription factor 1;RUNX1;AML1;CBFA2;acute myeloid leukemia 1;runt-related transcription factor 1;PEBP2A2;AMLCR1
+Sensor protein CpxA;neuronal calcium sensor 1;NCS1;FREQ;frequenin (Drosophila) homolog;frequenin homolog (Drosophila);NCS-1
+5'-D(*CP*CP*TP*GP*CP*AP*CP*AP*AP*AP*CP*AP*CP*C)-3';ATP binding cassette subfamily D member 1 pseudogene 5;ABCD1P5;ATP-binding cassette, sub-family D (ALD), member 1, pseudogene 5
+5'-D(*GP*GP*TP*GP*TP*TP*TP*GP*TP*GP*CP*AP*GP*G)-3';ATP binding cassette subfamily D member 1 pseudogene 5;ABCD1P5;ATP-binding cassette, sub-family D (ALD), member 1, pseudogene 5
+SEX-DETERMINING REGION Y PROTEIN
+CORE-BINDING FACTOR ALPHA SUBUNIT;core-binding factor beta subunit;CBFB;core-binding factor, beta subunit;PEBP2B
+CORE-BINDING FACTOR CBF-BETA;core-binding factor beta subunit;CBFB;core-binding factor, beta subunit;PEBP2B
