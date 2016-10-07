@@ -235,34 +235,32 @@ public class Busqueda_PubMed {
         while (s.hasNext()) {
 
             List<String> listares = (List<String>) s.next();
-
+            
             for (int i = 0; i < listaHomologos.size(); i++) {
-
+                
                 if (listaHomologos.get(i).getEtiqueta().equals(listares.get(0))) {
-                    ArrayList<String> nom1 = listaHomologos.get(i).nombres();
-
+                    
                     for (int j = 0; j < listaHomologos.size(); j++) {
-
-                        if (listaHomologos.get(i).getEtiqueta().equals(listares.get(0))) {
-                            ArrayList<String> nom2 = listaHomologos.get(j).nombres();
-
+                        
+                        if (listaHomologos.get(j).getEtiqueta().equals(listares.get(1))) {
+                            ArrayList<String>nom1 = new ArrayList<>();
+                            ArrayList<String>nom2 = new ArrayList<>();
+                            nom1 = listaHomologos.get(i).nombres();
+                            nom2 = listaHomologos.get(j).nombres();
+                            
                             for (int k = 0; k < nom1.size(); k++) {
                                 for (int l = 0; l < nom2.size(); l++) {
-                                    combinacion con = new combinacion();
-                                    con.setPalabra1(nom1.get(k));
-                                    con.setPalabra1(nom2.get(l));
-                                    filtro_palabras(con, palabras);
+                                    combinacion pal = new combinacion();
+                                    pal.palabra1 = nom1.get(k);
+                                    pal.palabra2 = nom2.get(l);
+                                    filtro_palabras(pal, palabras);
                                 }
                             }
-
                         }
-
                     }
-
                 }
-
             }
-
+            
         }
 
         generador_lista_Pub_Med(palabras);
@@ -283,6 +281,7 @@ public class Busqueda_PubMed {
                 }
                 if (!repite) {
                     palabras.add(pal);
+                    //pal.imprimir();
                 }
             }
         } catch (Exception e) {
