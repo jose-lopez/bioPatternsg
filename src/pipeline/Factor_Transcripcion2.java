@@ -38,7 +38,7 @@ public class Factor_Transcripcion2 {
         lecturasTFBIND = new Lecturas_TFBIND();
     }
     //constructor para la primera Iteracion con lecturas obtenidas desde TFBIND
-    public Factor_Transcripcion2(Lecturas_TFBIND lecturasTFBIND, boolean criterio, int NumeroObjetos){
+    public Factor_Transcripcion2(Lecturas_TFBIND lecturasTFBIND, boolean criterio, int NumeroObjetos, objetos_mineria2 objetosMineria){
         
         this.lecturasTFBIND = lecturasTFBIND;
         this.ID = lecturasTFBIND.getFactor();
@@ -130,10 +130,21 @@ public class Factor_Transcripcion2 {
 
     
     //constructor para la segunda Iteracion en adelante
-    public Factor_Transcripcion2(String ID, boolean  criterio, int N_Iteracion){
+    public Factor_Transcripcion2(String ID, boolean  criterio, int N_Iteracion, int NumeroObjetos){
+        System.out.println("Factor "+ID);
         this.ID = ID;
         this.N_Iteracion = N_Iteracion;
         this.lecturas_HGNC = lecturasHGNC(ID, criterio);
+        this.complejoProteinico = new ArrayList<>();
+        
+        ArrayList<String> IDCP = Buscar_ID_complejosProteinicos(ID, NumeroObjetos);
+        
+        for (int i = 0; i < IDCP.size(); i++) {
+            complejoProteinico2 cp = new complejoProteinico2();
+            cp = new lecturas_PDB().Busqueda_PDB( IDCP.get(i) , criterio );
+            cp.buscar_ligandos();
+            complejoProteinico.add(cp);
+        }
     }
     
     public void imprimir(){
@@ -183,8 +194,15 @@ public class Factor_Transcripcion2 {
     public void setLecturasTFBIND(Lecturas_TFBIND lecturasTFBIND) {
         this.lecturasTFBIND = lecturasTFBIND;
     }
-    
-     
+
+    public ArrayList<complejoProteinico2> getComplejoProteinico() {
+        return complejoProteinico;
+    }
+
+    public void setComplejoProteinico(ArrayList<complejoProteinico2> complejoProteinico) {
+        this.complejoProteinico = complejoProteinico;
+    }
+      
     
 }
 
