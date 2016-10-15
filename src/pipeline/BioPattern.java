@@ -120,7 +120,7 @@ public class BioPattern {
         bpm.limpiar_men();
         //*/
 
-        //*
+        /*
          // Se reciben los abstracts descargados y se devuelve el archivo de oraciones SVC necesario para
          // construir la BC con la que se haran inferencias para deducir patrones de regulacion.
         
