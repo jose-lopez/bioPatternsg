@@ -50,7 +50,7 @@ public class lecturas_PM {
 
     public ArrayList<String> busquedaPM_ID(String palabras_clave) {
         ArrayList<String> listID = new ArrayList<>();
-
+        //System.out.println(palabras_clave);
         String Url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=" + palabras_clave;
         try {
             Document doc = new conexionServ().conecta(Url);
@@ -173,7 +173,7 @@ public class lecturas_PM {
         try {
             fichero = new FileWriter(ruta, true);
             pw = new PrintWriter(fichero);
-            pw.println("((PMID:"+ ID+"))");
+            //pw.println("PMID:"+ ID);
             for (int i = 0; i < Abstract.size(); i++) {
                 pw.println(Abstract.get(i));
             }
