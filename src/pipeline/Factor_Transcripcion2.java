@@ -149,7 +149,7 @@ public class Factor_Transcripcion2 {
     
     public void imprimir(){
         System.out.println("Factor de Trancripcion: "+ ID);
-        lecturas_HGNC.imprimir();
+        //lecturas_HGNC.imprimir();
         System.out.println("=====complejos proteinicos=====");
         for (int i = 0; i < complejoProteinico.size(); i++) {
             complejoProteinico.get(i).imprimir();

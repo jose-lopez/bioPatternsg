@@ -47,7 +47,7 @@ public class complejoProteinico2 {
     
     public void imprimir(){
         System.out.println(getID());
-        HGNC.imprimir();
+//        HGNC.imprimir();
         for (int i = 0; i < getDNA().size(); i++) {
             System.out.println(getDNA().get(i));
         }
