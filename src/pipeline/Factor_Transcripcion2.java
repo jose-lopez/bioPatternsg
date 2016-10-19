@@ -39,7 +39,7 @@ public class Factor_Transcripcion2 {
     }
     //constructor para la primera Iteracion con lecturas obtenidas desde TFBIND
     public Factor_Transcripcion2(Lecturas_TFBIND lecturasTFBIND, boolean criterio, int NumeroObjetos, objetos_mineria2 objetosMineria){
-        
+        System.out.println("Buscando información para : "+lecturasTFBIND.getFactor()+" ...");
         this.lecturasTFBIND = lecturasTFBIND;
         this.ID = lecturasTFBIND.getFactor();
         this.lecturas_HGNC = lecturasHGNC(ID,criterio);
@@ -55,7 +55,8 @@ public class Factor_Transcripcion2 {
             complejoProteinico.add(cp);
             
         }
-               
+            
+        
     }
      
     public ArrayList<String> Buscar_ID_complejosProteinicos(String FT, int Limite) {
@@ -131,7 +132,9 @@ public class Factor_Transcripcion2 {
     
     //constructor para la segunda Iteracion en adelante
     public Factor_Transcripcion2(String ID, boolean  criterio, int N_Iteracion, int NumeroObjetos){
-        System.out.println("Factor "+ID);
+        Runtime garbage = Runtime.getRuntime();
+        System.out.println("Buscando información para: "+ID+" ...");
+        this.lecturasTFBIND = new Lecturas_TFBIND();
         this.ID = ID;
         this.N_Iteracion = N_Iteracion;
         this.lecturas_HGNC = lecturasHGNC(ID, criterio);
@@ -144,15 +147,18 @@ public class Factor_Transcripcion2 {
             cp = new lecturas_PDB().Busqueda_PDB( IDCP.get(i) , criterio );
             cp.buscar_ligandos();
             complejoProteinico.add(cp);
+            garbage.gc();
         }
     }
     
     public void imprimir(){
+        System.out.println("**Iteracion: "+N_Iteracion);
         System.out.println("Factor de Trancripcion: "+ ID);
-        //lecturas_HGNC.imprimir();
-        System.out.println("=====complejos proteinicos=====");
+        lecturas_HGNC.imprimir();
+        System.out.println("\n=====COMPLEJOS PROTEINICOS=====\n");
         for (int i = 0; i < complejoProteinico.size(); i++) {
             complejoProteinico.get(i).imprimir();
+            System.out.println("----------------------------------------------");
         }
         
     }

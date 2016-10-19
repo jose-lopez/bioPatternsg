@@ -23,43 +23,58 @@ import java.util.List;
 public class complejoProteinico2 {
 
     private String ID;
-    private lecturas_HGNC HGNC;
+    private ArrayList<lecturas_HGNC> HGNC;
     private ArrayList<String> DNA;
     private ArrayList<String> pdbx_keywords;
     private ArrayList<ligando> ligandos;
 
-    public  complejoProteinico2(){
+    public complejoProteinico2() {
         this.DNA = new ArrayList<>();
         this.pdbx_keywords = new ArrayList<>();;
         this.ligandos = new ArrayList<>();
+        this.HGNC = new ArrayList<>();
     }
-    
-    public complejoProteinico2(String ID, lecturas_HGNC HGNC, ArrayList<String> DNA, ArrayList<String> pdbx_keywords) {
+
+    public complejoProteinico2(String ID, ArrayList<lecturas_HGNC> HGNC, ArrayList<String> DNA, ArrayList<String> pdbx_keywords) {
         this.ID = ID;
         this.HGNC = HGNC;
         this.DNA = DNA;
         this.pdbx_keywords = pdbx_keywords;
     }
-    
-    public void buscar_ligandos(){
+
+    public void buscar_ligandos() {
         ligandos = new Lecturas_PDB_Ligandos().Buscar_ligandos(ID);
     }
-    
-    public void imprimir(){
-        System.out.println(getID());
-//        HGNC.imprimir();
-        for (int i = 0; i < getDNA().size(); i++) {
-            System.out.println(getDNA().get(i));
+
+    public void imprimir() {
+
+        System.out.println("ID: " + ID);
+        if (getDNA().size() > 0) {
+            System.out.println("Cadenas DNA:");
+            for (int i = 0; i < getDNA().size(); i++) {
+                System.out.println(getDNA().get(i));
+            }
         }
-        for (int i = 0; i < getPdbx_keywords().size(); i++) {
-            System.out.println(getPdbx_keywords().get(i));
+        if (getPdbx_keywords().size() > 0) {
+            System.out.println("PDBX KEYWORDS:");
+            for (int i = 0; i < getPdbx_keywords().size(); i++) {
+                System.out.println("   -" + getPdbx_keywords().get(i));
+            }
         }
-        System.out.println("LIGANDOS");
-        for (int i = 0; i < getLigandos().size(); i++) {
-            ligandos.get(i).imprimir();
+        if (getLigandos().size() > 0) {
+            System.out.println("LIGANDOS:");
+            for (int i = 0; i < getLigandos().size(); i++) {
+                ligandos.get(i).imprimir();
+            }
+        }
+        if (getHGNC().size() > 0) {
+            System.out.println("OBJETOS ENCONTRADOS:");
+            for (int i = 0; i < getHGNC().size(); i++) {
+                System.out.println("   -"+getHGNC().get(i).getID());
+            }
         }
     }
-    
+
     public String getID() {
         return ID;
     }
@@ -68,11 +83,11 @@ public class complejoProteinico2 {
         this.ID = ID;
     }
 
-    public lecturas_HGNC getHGNC() {
+    public ArrayList<lecturas_HGNC> getHGNC() {
         return HGNC;
     }
 
-    public void setHGNC(lecturas_HGNC HGNC) {
+    public void setHGNC(ArrayList<lecturas_HGNC> HGNC) {
         this.HGNC = HGNC;
     }
 
@@ -119,7 +134,5 @@ public class complejoProteinico2 {
     public void setLigandos(ArrayList<ligando> ligandos) {
         this.ligandos = ligandos;
     }
-    
-    
 
 }

@@ -32,7 +32,6 @@ public class lecturas_HGNC {
     }
 
     public boolean busqueda_genenames(String contenido, boolean criterio) {
-
         ArrayList<String> factor = new ArrayList<>();
         if (criterio) {
             String cri = obtener_factor(contenido);
@@ -95,14 +94,13 @@ public class lecturas_HGNC {
         Node nNode = nList.item(0);
         Element Element = (Element) nNode;
         float score = Float.parseFloat(Element.getAttribute("maxScore"));
-        System.out.println("score: "+score);
         nList = doc.getElementsByTagName("doc");
 
         for (int i = 0; i < nList.getLength(); i++) {
             nNode = nList.item(i);
             Element elemento = (Element) nNode;
             if (score == Float.parseFloat(elemento.getElementsByTagName("float").item(0).getTextContent())) {
-                System.out.println(" simbolo "+elemento.getElementsByTagName("str").item(1).getTextContent());
+                //System.out.println(" simbolo "+elemento.getElementsByTagName("str").item(1).getTextContent());
                 nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
                 
             }
@@ -290,44 +288,15 @@ public class lecturas_HGNC {
         return palabra;
     }
 
-    public void generar_objetosMinados_txt(Description desc) {
-
-        String cadena;
-        cadena = desc.getEtiqueta() + ";" + desc.getNombre() + ";" + desc.getSimbolo();
-        for (int i = 0; i < desc.getSinonimos().size(); i++) {
-            cadena += ";" + desc.getSinonimos().get(i);
+    public void imprimir(){
+        System.out.println("Lecturas HGNC");
+        System.out.println("    ID: "+ID);
+        System.out.println("-------------------------------");
+        for (int i = 0; i < HGNC.size(); i++) {
+            HGNC.get(i).imprimir();
         }
-
-        escribe_txt("objetosMinados.txt", cadena);
-
     }
-
-    public void escribe_txt(String archivo, String texto) {
-
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        try {
-            fichero = new FileWriter(archivo, true);
-            pw = new PrintWriter(fichero);
-
-            pw.println(texto);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                // Nuevamente aprovechamos el finally para 
-                // asegurarnos que se cierra el fichero.
-                if (null != fichero) {
-                    fichero.close();
-                }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-
-    }
-
+    
     public String getID() {
         return ID;
     }
@@ -370,14 +339,14 @@ class HGNC {
     }
 
     public void imprimir() {
-        System.out.println("Nombre: " + getNombre());
-        System.out.println("Simbolo: " + getSimbolo());
-        System.out.println("Ensembl gene id" + getEnsembl_gene_id());
-        System.out.println("SINONIMOS");
+        System.out.println("    Nombre: " + getNombre());
+        System.out.println("    Simbolo: " + getSimbolo());
+        System.out.println("    Ensembl gene id: " + getEnsembl_gene_id());
+        System.out.println("    SINONIMOS:");
         for (int i = 0; i < getSinonimos().size(); i++) {
-            System.out.println("  " + getSinonimos().get(i));
+            System.out.println("       -" + getSinonimos().get(i));
         }
-
+        System.out.println("_____________________________________");
     }
 
     public String getSimbolo() {

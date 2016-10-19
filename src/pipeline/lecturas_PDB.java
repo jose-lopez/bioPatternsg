@@ -67,7 +67,7 @@ public class lecturas_PDB {
                         for (int i = 0; i < partes_etiqueta.length; i++) {
                            lecturas_HGNC HGNC = new lecturas_HGNC();
                            HGNC.busqueda_genenames(partes_etiqueta[i], criterio);
-                           cp.setHGNC(HGNC);
+                           cp.getHGNC().add(HGNC);
                         }
 
                     }
