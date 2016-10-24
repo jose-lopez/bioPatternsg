@@ -29,16 +29,16 @@ public class Factor_Transcripcion2 {
     private String ID;
     private int N_Iteracion;
     private lecturas_HGNC lecturas_HGNC;
-    private Lecturas_TFBIND lecturasTFBIND;
+    private lecturas_TFBIND lecturasTFBIND;
     private ArrayList<complejoProteinico2> complejoProteinico;
     
     public Factor_Transcripcion2(){
         complejoProteinico = new ArrayList<>();
         lecturas_HGNC = new lecturas_HGNC();
-        lecturasTFBIND = new Lecturas_TFBIND();
+        lecturasTFBIND = new lecturas_TFBIND();
     }
     //constructor para la primera Iteracion con lecturas obtenidas desde TFBIND
-    public Factor_Transcripcion2(Lecturas_TFBIND lecturasTFBIND, boolean criterio, int NumeroObjetos, objetos_mineria2 objetosMineria){
+    public Factor_Transcripcion2(lecturas_TFBIND lecturasTFBIND, boolean criterio, int NumeroObjetos, objetos_mineria2 objetosMineria){
         System.out.println("Buscando información para : "+lecturasTFBIND.getFactor()+" ...");
         this.lecturasTFBIND = lecturasTFBIND;
         this.ID = lecturasTFBIND.getFactor();
@@ -134,7 +134,7 @@ public class Factor_Transcripcion2 {
     public Factor_Transcripcion2(String ID, boolean  criterio, int N_Iteracion, int NumeroObjetos){
         Runtime garbage = Runtime.getRuntime();
         System.out.println("Buscando información para: "+ID+" ...");
-        this.lecturasTFBIND = new Lecturas_TFBIND();
+        this.lecturasTFBIND = new lecturas_TFBIND();
         this.ID = ID;
         this.N_Iteracion = N_Iteracion;
         this.lecturas_HGNC = lecturasHGNC(ID, criterio);
@@ -193,11 +193,11 @@ public class Factor_Transcripcion2 {
         this.lecturas_HGNC = lecturas_HGNC;
     }
 
-    public Lecturas_TFBIND getLecturasTFBIND() {
+    public lecturas_TFBIND getLecturasTFBIND() {
         return lecturasTFBIND;
     }
 
-    public void setLecturasTFBIND(Lecturas_TFBIND lecturasTFBIND) {
+    public void setLecturasTFBIND(lecturas_TFBIND lecturasTFBIND) {
         this.lecturasTFBIND = lecturasTFBIND;
     }
 

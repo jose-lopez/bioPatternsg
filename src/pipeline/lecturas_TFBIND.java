@@ -31,7 +31,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class Lecturas_TFBIND {
+public class lecturas_TFBIND {
     
     private String  id;
     private String  factor;
@@ -41,9 +41,9 @@ public class Lecturas_TFBIND {
     private String  cadena;
     
   
-    public ArrayList<Lecturas_TFBIND> leer_de_archivo(String ruta, float confiabilidad) {
+    public ArrayList<lecturas_TFBIND> leer_de_archivo(String ruta, float confiabilidad) {
         
-        ArrayList<Lecturas_TFBIND> lecturas = new ArrayList<>();
+        ArrayList<lecturas_TFBIND> lecturas = new ArrayList<>();
         File archivo      = null;
         FileReader fr     = null;
         BufferedReader br = null;
@@ -85,7 +85,7 @@ public class Lecturas_TFBIND {
         return lecturas;
     }
     
-     public ArrayList<Lecturas_TFBIND> obtener_lecturas(String metodo, float confiabilidad, ArrayList<String> control_factores) throws MalformedURLException, IOException {
+     public ArrayList<lecturas_TFBIND> obtener_lecturas(String metodo, float confiabilidad, ArrayList<String> control_factores) throws MalformedURLException, IOException {
         
         int cont = 0;
         URL urlpagina;
@@ -95,7 +95,7 @@ public class Lecturas_TFBIND {
         StringBuffer buffer = new StringBuffer();
         String[] separar;
         String factor;
-        ArrayList<Lecturas_TFBIND> lecturas = new ArrayList<>();
+        ArrayList<lecturas_TFBIND> lecturas = new ArrayList<>();
         
         try {
             urlpagina = new URL("http://tfbind.hgc.jp/cgi-bin/calculate.cgi?seq=%3E+COMMENTS%0D%0A" + metodo);
@@ -115,7 +115,7 @@ public class Lecturas_TFBIND {
                        
                         if (!control_factores.contains(factor)) {
                             
-                            Lecturas_TFBIND aux = new Lecturas_TFBIND();
+                            lecturas_TFBIND aux = new lecturas_TFBIND();
                             control_factores.add(factor);
                             aux.setFactor(factor);
                             aux.setPorcentaje(Float.parseFloat(separar[2]));

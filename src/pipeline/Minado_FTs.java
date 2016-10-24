@@ -54,7 +54,7 @@ public class Minado_FTs {
         //Primera Iteracion
         System.out.println("\n====Iteracion 0====\n");
         objetosMineria.setIteracion(0);
-        ArrayList<Lecturas_TFBIND> lecturasTFB = lecturasTFBID(ruta, confiabilidad);
+        ArrayList<lecturas_TFBIND> lecturasTFB = lecturasTFBID(ruta, confiabilidad);
         System.out.println(lecturasTFB.size() + " Factores de transcripcion encontrados");
         for (int i = 0; i < lecturasTFB.size(); i++) {
             Factor_Transcripcion2 FT = new Factor_Transcripcion2(lecturasTFB.get(i), criterio, numeroObjetos, objetosMineria);
@@ -62,7 +62,7 @@ public class Minado_FTs {
             objetosMineria.agregar_objeto(FT.getComplejoProteinico());
             generar_objetosMinados_txt(FT.getLecturas_HGNC());
             guardar_Factor_transcripcion(FT);
-            System.out.println("Listo....");
+            System.out.println("Listo...");
             garbage.gc();
         }
         guardar_objetosIteracion(objetosMineria);
@@ -93,9 +93,9 @@ public class Minado_FTs {
 //  se obtinen lecturas de TFBIND recibe la ruta del archivo bloquesconsenso 
 //  y el porsentaje de confiabnilidad, debuelve un listado con los factores de transcripcion 
 //  encontrados y algunas caracteristicas que ofrece TFBIND
-    private ArrayList<Lecturas_TFBIND> lecturasTFBID(String ruta, float confiabilidad) {
+    private ArrayList<lecturas_TFBIND> lecturasTFBID(String ruta, float confiabilidad) {
 
-        Lecturas_TFBIND lecturasTFBIND = new Lecturas_TFBIND();
+        lecturas_TFBIND lecturasTFBIND = new lecturas_TFBIND();
         return lecturasTFBIND.leer_de_archivo(ruta, confiabilidad);
 
     }
@@ -276,7 +276,7 @@ public class Minado_FTs {
         FileReader fr = null;
         BufferedReader br = null;
         try {
-            archivo = new File("objetos_Experto2.txt");
+            archivo = new File("objetos_Experto.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             String lectura;
@@ -426,9 +426,4 @@ class objetos_mineria2 {
 
     }
     
-    
-    
-    
-    
-
 }
