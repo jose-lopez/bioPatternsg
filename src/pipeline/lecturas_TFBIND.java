@@ -136,9 +136,9 @@ public class lecturas_TFBIND {
             isr.close();
                       
         } catch (MalformedURLException e) {
-            JOptionPane.showMessageDialog(null, "Error en la url, ejemplo http://www.java-elrincondetucasa.blogspot.com");
+            System.out.println("Error al leer el archivo");
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al leer el archivo");
+            
         }
         
       return lecturas;

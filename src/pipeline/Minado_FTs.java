@@ -41,7 +41,7 @@ public class Minado_FTs {
         objetos_mineria2 objetosMineria = new objetos_mineria2();
         //Se crea un nuevo archivo de Objectos minados
         borrar_archivo("objetosMinados.txt");
-        crear_archivo("objetosMinados.txt");
+        new objetosMinados().crear_archivo();
         //Nuevo archivo de objetos Homologos y Objetos de Experto
         borrar_archivo("ObjH_E.db");
         //Borrar archivo de base de datos de factores de trancripcion
@@ -60,7 +60,7 @@ public class Minado_FTs {
             Factor_Transcripcion2 FT = new Factor_Transcripcion2(lecturasTFB.get(i), criterio, numeroObjetos, objetosMineria);
             objetosMineria.getObjetos_minados().add(FT.getID());
             objetosMineria.agregar_objeto(FT.getComplejoProteinico());
-            generar_objetosMinados_txt(FT.getLecturas_HGNC());
+            new objetosMinados().agregar_objetos(FT);
             guardar_Factor_transcripcion(FT);
             System.out.println("Listo...");
             garbage.gc();
@@ -72,13 +72,13 @@ public class Minado_FTs {
         for (int i = 1; i < Iteraciones; i++) {
             System.out.println("\n====Iteracion " + (i) + "====\n");
             ArrayList<String> Lista = objetosMineria.getNuevos_objetos();
-            objetosMineria.setNuevos_objetos(new ArrayList<>());
+            objetosMineria.setNuevos_objetos(new ArrayList<String>());
            
             for (int j = 0; j < Lista.size(); j++) {
                 Factor_Transcripcion2 FT = new Factor_Transcripcion2(Lista.get(j), true, i, numeroObjetos);
                 objetosMineria.getObjetos_minados().add(FT.getID());
                 objetosMineria.agregar_objeto(FT.getComplejoProteinico());
-                generar_objetosMinados_txt(FT.getLecturas_HGNC());
+                new objetosMinados().agregar_objetos(FT);
                 guardar_Factor_transcripcion(FT);
                 System.out.println("Listo....");
                 garbage.gc();
@@ -122,70 +122,7 @@ public class Minado_FTs {
         }
     }
 
-    public void generar_objetosMinados_txt(lecturas_HGNC HGNC) {
-
-        ArrayList<String> Nombres = new ArrayList<>();
-        for (int i = 0; i < HGNC.getSinonimosExperto().size(); i++) {
-            if (!Nombres.contains(HGNC.getSinonimosExperto().get(i))) {
-                Nombres.add(HGNC.getSinonimosExperto().get(i));
-            }
-        }
-
-        if (!Nombres.contains(HGNC.getID())) {
-            Nombres.add(HGNC.getID());
-        }
-        for (int i = 0; i < HGNC.getHGNC().size(); i++) {
-            HGNC hgnc = new HGNC();
-
-            if (!Nombres.contains(hgnc.getNombre())) {
-                Nombres.add(hgnc.getNombre());
-            }
-            if (!Nombres.contains(hgnc.getSimbolo())) {
-                Nombres.add(hgnc.getSimbolo());
-            }
-
-            for (int j = 0; j < hgnc.getSinonimos().size(); j++) {
-                if (!Nombres.contains(hgnc.getSinonimos().get(j))) {
-                    Nombres.add(hgnc.getSinonimos().get(j));
-                }
-            }
-        }
-
-        String cadena = "";
-        for (int i = 0; i < Nombres.size(); i++) {
-            cadena = cadena + Nombres.get(i) + ";";
-        }
-
-        escribe_txt("objetosMinados.txt", cadena);
-
-    }
-
-    public void escribe_txt(String archivo, String texto) {
-
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        try {
-            fichero = new FileWriter(archivo, true);
-            pw = new PrintWriter(fichero);
-
-            pw.println(texto);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                // Nuevamente aprovechamos el finally para 
-                // asegurarnos que se cierra el fichero.
-                if (null != fichero) {
-                    fichero.close();
-                }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-
-    }
-
+        
     private void guardar_Factor_transcripcion(Factor_Transcripcion2 FT) {
 
         ObjectContainer db = Db4o.openFile("FT.db");
@@ -248,7 +185,7 @@ public class Minado_FTs {
                 System.out.println("busqueda.." + lectura);
                 lecturas_HGNC HGNC = new lecturas_HGNC();
                 HGNC.busqueda_genenames(lectura, false);
-                generar_objetosMinados_txt(HGNC);
+                new objetosMinados().agregar_objetos(HGNC);
                 objetosMineria.agregar_objeto(HGNC);
                 guardarObjetos_Homologos_Experto(HGNC);
 
@@ -296,7 +233,7 @@ public class Minado_FTs {
                         }
 
                     }
-                    generar_objetosMinados_txt(HGNC);
+                    new objetosMinados().agregar_objetos(HGNC);
                     objetosMineria.agregar_objeto(HGNC);
                     guardarObjetos_Homologos_Experto(HGNC);
 
