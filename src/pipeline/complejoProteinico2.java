@@ -134,5 +134,15 @@ public class complejoProteinico2 {
     public void setLigandos(ArrayList<ligando> ligandos) {
         this.ligandos = ligandos;
     }
+    
+    public ArrayList<String> listaNombres(){
+        ArrayList lista = new ArrayList();
+        
+        for (int i = 0; i < HGNC.size(); i++) {
+            lista.addAll(HGNC.get(i).listaNombres());
+        }
+        
+        return  lista;
+    }
 
 }

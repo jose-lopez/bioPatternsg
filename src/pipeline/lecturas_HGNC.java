@@ -31,7 +31,7 @@ public class lecturas_HGNC {
         sinonimosExperto = new ArrayList<>();
     }
 
-    public boolean busqueda_genenames(String contenido, boolean criterio) {
+    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion, int cantidad) {
         ArrayList<String> factor = new ArrayList<>();
         if (criterio) {
             String cri = obtener_factor(contenido);
@@ -40,14 +40,14 @@ public class lecturas_HGNC {
                 setID(cri);
                 String Url = "http://rest.genenames.org/search/" + cri;
                 Document doc = new conexionServ().conecta(Url);
-                factor = busqueda_lista_xml(doc);
+                factor = busqueda_lista_xml(doc, opcion,cri,cantidad);
             } catch (Exception e) {
                 try {
                     contenido = unir_palabras(contenido);
                     setID(contenido);
                     String Url = "http://rest.genenames.org/search/" + contenido;
                     Document doc = new conexionServ().conecta(Url);
-                    factor = busqueda_lista_xml(doc);
+                    factor = busqueda_lista_xml(doc, opcion, cri, cantidad);
 
                 } catch (Exception ee) {
                 }
@@ -60,7 +60,7 @@ public class lecturas_HGNC {
                 setID(contenido);
                 String Url = "http://rest.genenames.org/search/" + contenido;
                 Document doc = new conexionServ().conecta(Url);
-                factor = busqueda_lista_xml(doc);
+                factor = busqueda_lista_xml(doc, opcion, contenido, cantidad);
             } catch (Exception ee) {
                 HGNC hgnc = new HGNC();
                 hgnc.setSimbolo(contenido);
@@ -88,23 +88,38 @@ public class lecturas_HGNC {
         return true;
     }
 
-    private ArrayList<String> busqueda_lista_xml(Document doc) {
+    private ArrayList<String> busqueda_lista_xml(Document doc, int opcion, String palabra, int cant) {
         ArrayList<String> nombres = new ArrayList<>();
         NodeList nList = doc.getElementsByTagName("result");
         Node nNode = nList.item(0);
         Element Element = (Element) nNode;
         float score = Float.parseFloat(Element.getAttribute("maxScore"));
         nList = doc.getElementsByTagName("doc");
-
+        int cont = 0;
         for (int i = 0; i < nList.getLength(); i++) {
             nNode = nList.item(i);
             Element elemento = (Element) nNode;
-            if (score == Float.parseFloat(elemento.getElementsByTagName("float").item(0).getTextContent())) {
-                //System.out.println(" simbolo "+elemento.getElementsByTagName("str").item(1).getTextContent());
-                nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
+            if (opcion == 0) {
+                if (score == Float.parseFloat(elemento.getElementsByTagName("float").item(0).getTextContent())) {
+                    //System.out.println(" simbolo "+elemento.getElementsByTagName("str").item(1).getTextContent());
+                    nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
+
+                }
+            } else if (opcion == -1) {
+                
+                if (elemento.getElementsByTagName("str").item(1).getTextContent().equals(palabra)) {
+                    nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
+                    break;
+                }
+                
+            }else if(opcion >= 1){
+                if (cont < cant) {
+                    cont++;
+                    nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
+                
+                }
                 
             }
-
         }
 
         return nombres;
@@ -288,15 +303,15 @@ public class lecturas_HGNC {
         return palabra;
     }
 
-    public void imprimir(){
+    public void imprimir() {
         System.out.println("Lecturas HGNC");
-        System.out.println("    ID: "+ID);
+        System.out.println("    ID: " + ID);
         System.out.println("-------------------------------");
         for (int i = 0; i < HGNC.size(); i++) {
             HGNC.get(i).imprimir();
         }
     }
-    
+
     public String getID() {
         return ID;
     }
@@ -321,7 +336,18 @@ public class lecturas_HGNC {
         this.sinonimosExperto = sinonimosExperto;
     }
 
-    
+    public ArrayList<String> listaNombres() {
+        ArrayList<String> lista = new ArrayList<>();
+        lista.add(ID);
+        for (int i = 0; i < HGNC.size(); i++) {
+
+            lista.addAll(HGNC.get(i).ListaNombres());
+
+        }
+
+        return lista;
+    }
+
 }
 
 class HGNC {
@@ -395,6 +421,19 @@ class HGNC {
 
     public void setGene_family(ArrayList<String> gene_family) {
         this.gene_family = gene_family;
+    }
+
+    public ArrayList<String> ListaNombres() {
+        ArrayList<String> Lista = new ArrayList<>();
+
+        Lista.add(Simbolo);
+        Lista.add(Nombre);
+
+        for (int i = 0; i < sinonimos.size(); i++) {
+            Lista.add(sinonimos.get(i));
+        }
+
+        return Lista;
     }
 
 }

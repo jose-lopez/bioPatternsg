@@ -36,7 +36,7 @@ import java.util.logging.Logger;
 
 public class Minado_FTs {
 
-    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos, boolean criterio) {
+    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos, boolean criterio, int opcion, int cantidad) {
         Runtime garbage = Runtime.getRuntime();
         objetos_mineria2 objetosMineria = new objetos_mineria2();
         //Se crea un nuevo archivo de Objectos minados
@@ -48,8 +48,8 @@ public class Minado_FTs {
         borrar_archivo("FT.db");
         borrar_archivo("objetosMineria.db");
                
-        leer_archivo_homologos(objetosMineria);
-        leer_archivo_ObjetosExperto(objetosMineria);
+        leer_archivo_homologos(objetosMineria, opcion, cantidad);
+        leer_archivo_ObjetosExperto(objetosMineria, opcion, cantidad);
 
         //Primera Iteracion
         System.out.println("\n====Iteracion 0====\n");
@@ -57,7 +57,7 @@ public class Minado_FTs {
         ArrayList<lecturas_TFBIND> lecturasTFB = lecturasTFBID(ruta, confiabilidad);
         System.out.println(lecturasTFB.size() + " Factores de transcripcion encontrados");
         for (int i = 0; i < lecturasTFB.size(); i++) {
-            Factor_Transcripcion2 FT = new Factor_Transcripcion2(lecturasTFB.get(i), criterio, numeroObjetos, objetosMineria);
+            Factor_Transcripcion2 FT = new Factor_Transcripcion2(lecturasTFB.get(i), criterio, numeroObjetos, objetosMineria, opcion, cantidad);
             objetosMineria.getObjetos_minados().add(FT.getID());
             objetosMineria.agregar_objeto(FT.getComplejoProteinico());
             new objetosMinados().agregar_objetos(FT);
@@ -75,7 +75,7 @@ public class Minado_FTs {
             objetosMineria.setNuevos_objetos(new ArrayList<String>());
            
             for (int j = 0; j < Lista.size(); j++) {
-                Factor_Transcripcion2 FT = new Factor_Transcripcion2(Lista.get(j), true, i, numeroObjetos);
+                Factor_Transcripcion2 FT = new Factor_Transcripcion2(Lista.get(j), true, i, numeroObjetos, opcion, cantidad);
                 objetosMineria.getObjetos_minados().add(FT.getID());
                 objetosMineria.agregar_objeto(FT.getComplejoProteinico());
                 new objetosMinados().agregar_objetos(FT);
@@ -168,7 +168,7 @@ public class Minado_FTs {
 
     }
 
-    public void leer_archivo_homologos(objetos_mineria2 objetosMineria) {
+    public void leer_archivo_homologos(objetos_mineria2 objetosMineria, int opcion, int cantidad) {
 
         System.out.println("**Leyendo archivo de Homologos...");
 
@@ -184,7 +184,7 @@ public class Minado_FTs {
 
                 System.out.println("busqueda.." + lectura);
                 lecturas_HGNC HGNC = new lecturas_HGNC();
-                HGNC.busqueda_genenames(lectura, false);
+                HGNC.busqueda_genenames(lectura, false, opcion, cantidad);
                 new objetosMinados().agregar_objetos(HGNC);
                 objetosMineria.agregar_objeto(HGNC);
                 guardarObjetos_Homologos_Experto(HGNC);
@@ -205,7 +205,7 @@ public class Minado_FTs {
 
     }
 
-    public void leer_archivo_ObjetosExperto(objetos_mineria2 objetosMineria) {
+    public void leer_archivo_ObjetosExperto(objetos_mineria2 objetosMineria, int opcion, int cantidad) {
 
         System.out.println("\n**Leyendo archivo de Objetos Experto...");
 
@@ -225,7 +225,7 @@ public class Minado_FTs {
                 for (int i = 0; i < separa.length; i++) {
                     System.out.println("Busqueda.." + lectura);
                     lecturas_HGNC HGNC = new lecturas_HGNC();
-                    HGNC.busqueda_genenames(lectura, false);
+                    HGNC.busqueda_genenames(lectura, false, opcion, cantidad);
 
                     for (int j = 0; j < separa.length; j++) {
                         if (HGNC.getSinonimosExperto().contains(separa[j])) {

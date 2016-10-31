@@ -17,13 +17,13 @@ import org.w3c.dom.NodeList;
  */
 public class lecturas_PDB {
 
-    public complejoProteinico2 Busqueda_PDB(String cp, boolean criterio) {
+    public complejoProteinico2 Busqueda_PDB(String cp, boolean criterio, int opcion, int cantidad) {
         complejoProteinico2 CP = new complejoProteinico2();
         CP.setID(cp);
         String url = "http://www.rcsb.org/pdb/files/" + cp + ".xml";
 
         try {
-            revisa_xml_PDB(new conexionServ().conecta(url), CP, criterio);
+            revisa_xml_PDB(new conexionServ().conecta(url), CP, criterio,opcion, cantidad);
         } catch (Exception ex) {
 
         }
@@ -31,7 +31,7 @@ public class lecturas_PDB {
     }
 
     //busquedas PDB   
-    private void revisa_xml_PDB(Document doc, complejoProteinico2 cp, boolean criterio) {
+    private void revisa_xml_PDB(Document doc, complejoProteinico2 cp, boolean criterio,int opcion, int cantidad) {
 
         //System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
         NodeList nList = doc.getElementsByTagName("PDBx:entity");
@@ -66,7 +66,7 @@ public class lecturas_PDB {
                         String partes_etiqueta[] = etiqueta.split("/");
                         for (int i = 0; i < partes_etiqueta.length; i++) {
                            lecturas_HGNC HGNC = new lecturas_HGNC();
-                           HGNC.busqueda_genenames(partes_etiqueta[i], criterio);
+                           HGNC.busqueda_genenames(partes_etiqueta[i], criterio,opcion, cantidad);
                            cp.getHGNC().add(HGNC);
                         }
 
