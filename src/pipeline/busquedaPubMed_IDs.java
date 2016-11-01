@@ -21,7 +21,7 @@ import java.util.List;
 public class busquedaPubMed_IDs {
 
     public ArrayList<String> busqueda_IDs(boolean todas, int cantIDs) {
-        //System.out.println("combinaciones objetos experto y homologos");
+        System.out.println("\nGenerando combinaciones de objetos...");
         Objs_homologos_Expertos();
         borrar_archivo("combinaciones.db");
         ObjectContainer db = Db4o.openFile("FT.db");
@@ -47,7 +47,7 @@ public class busquedaPubMed_IDs {
         } finally {
             db.close();
         }
-
+        System.out.println("Listo...");
         return consulta_PudMed(cantIDs);
     }
 
@@ -61,7 +61,7 @@ public class busquedaPubMed_IDs {
             combinacion c = (combinacion) result.next();
             ArrayList<String> lista = new ArrayList<>();
             //System.out.print(c.getPalabra1() + "+" + c.getPalabra2());
-            lista = new lecturas_PM().busquedaPM_ID(c.getPalabra1() + "+" + c.getPalabra2(),cantIDs);
+            lista = new lecturas_PM().busquedaPM_ID(c.getPalabra1() + "+" + c.getPalabra2(), cantIDs);
             //System.out.println("  ids: "+lista.size());
             for (int i = 0; i < lista.size(); i++) {
                 if (!listaPM.contains(lista.get(i))) {
@@ -69,8 +69,8 @@ public class busquedaPubMed_IDs {
                 }
             }
         }
-        
-        System.out.println(listaPM.size()+ " PudMed IDs Encontrados");
+
+        System.out.println(listaPM.size() + " PudMed IDs Encontrados");
         return listaPM;
     }
 
@@ -80,7 +80,7 @@ public class busquedaPubMed_IDs {
             for (int j = 0; j < FT.getComplejoProteinico().size(); j++) {
                 ArrayList<String> listNO = FT.getComplejoProteinico().get(j).listaNombres();
                 for (int k = 0; k < listNO.size(); k++) {
-                    guardarCombinacion(FT.getLecturas_HGNC().listaNombres().get(i), listNO.get(k));
+                    guardarCombinacion(FT.getLecturas_HGNC().listaNombres().get(i), listNO.get(k), true);
                 }
             }
         }
@@ -91,8 +91,8 @@ public class busquedaPubMed_IDs {
         for (int i = 0; i < FT.getLecturas_HGNC().listaNombres().size(); i++) {
             for (int j = 0; j < FT.getComplejoProteinico().size(); j++) {
                 for (int k = 0; k < FT.getComplejoProteinico().get(j).getLigandos().size(); k++) {
-                    guardarCombinacion(FT.getLecturas_HGNC().listaNombres().get(i), FT.getComplejoProteinico().get(j).getLigandos().get(k).getId());
-                    guardarCombinacion(FT.getLecturas_HGNC().listaNombres().get(i), FT.getComplejoProteinico().get(j).getLigandos().get(k).getNombre());
+                    guardarCombinacion(FT.getLecturas_HGNC().listaNombres().get(i), FT.getComplejoProteinico().get(j).getLigandos().get(k).getId(), true);
+                    guardarCombinacion(FT.getLecturas_HGNC().listaNombres().get(i), FT.getComplejoProteinico().get(j).getLigandos().get(k).getNombre(), true);
                 }
             }
         }
@@ -110,7 +110,7 @@ public class busquedaPubMed_IDs {
 
                 for (int i = 0; i < FT.getLecturas_HGNC().listaNombres().size(); i++) {
                     for (int j = 0; j < obj.getHGNC().size(); j++) {
-                        guardarCombinacion(FT.getLecturas_HGNC().listaNombres().get(i), obj.listaNombres().get(i));
+                        guardarCombinacion(FT.getLecturas_HGNC().listaNombres().get(i), obj.listaNombres().get(i), true);
                     }
                 }
 
@@ -151,7 +151,7 @@ public class busquedaPubMed_IDs {
 
             for (int i = 0; i < obj1.listaNombres().size(); i++) {
                 for (int j = 0; j < obj2.listaNombres().size(); j++) {
-                    guardarCombinacion(obj1.listaNombres().get(i), obj2.listaNombres().get(j));
+                    guardarCombinacion(obj1.listaNombres().get(i), obj2.listaNombres().get(j), false);
 
                 }
             }
@@ -178,11 +178,11 @@ public class busquedaPubMed_IDs {
         return HGNC;
     }
 
-    private void guardarCombinacion(String pal1, String pal2) {
+    private void guardarCombinacion(String pal1, String pal2, boolean buscar) {
 
         combinacion comb = new combinacion(pal1, pal2);
         combinacion comb2 = new combinacion(pal2, pal1);
-        if (!consultar(comb) && !consultar(comb2)) {
+        if (buscar && (!consultar(comb) && !consultar(comb2))) {
             //System.out.println(pal1 + "+" + pal2);
             agregar(comb);
         }
@@ -231,7 +231,7 @@ public class busquedaPubMed_IDs {
 
         }
     }
-    
+
 }
 
 class combinacion {
