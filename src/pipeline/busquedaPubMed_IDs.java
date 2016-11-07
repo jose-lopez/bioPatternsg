@@ -57,12 +57,13 @@ public class busquedaPubMed_IDs {
         ObjectContainer db = Db4o.openFile("combinaciones.db");
         combinacion com = new combinacion();
         ObjectSet result = db.queryByExample(com);
+        System.out.println("Combinaciones: "+result.size());
         while (result.hasNext()) {
             combinacion c = (combinacion) result.next();
             ArrayList<String> lista = new ArrayList<>();
-            //System.out.print(c.getPalabra1() + "+" + c.getPalabra2());
+            System.out.print(c.getPalabra1() + "+" + c.getPalabra2());
             lista = new lecturas_PM().busquedaPM_ID(c.getPalabra1() + "+" + c.getPalabra2(), cantIDs);
-            //System.out.println("  ids: "+lista.size());
+            System.out.println("  ids: "+lista.size());
             for (int i = 0; i < lista.size(); i++) {
                 if (!listaPM.contains(lista.get(i))) {
                     listaPM.add(lista.get(i));

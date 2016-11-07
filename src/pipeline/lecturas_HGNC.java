@@ -31,7 +31,7 @@ public class lecturas_HGNC {
         sinonimosExperto = new ArrayList<>();
     }
 
-    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion, int cantidad) {
+    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion) {
         ArrayList<String> factor = new ArrayList<>();
         if (criterio) {
             String cri = obtener_factor(contenido);
@@ -40,14 +40,14 @@ public class lecturas_HGNC {
                 setID(cri);
                 String Url = "http://rest.genenames.org/search/" + cri;
                 Document doc = new conexionServ().conecta(Url);
-                factor = busqueda_lista_xml(doc, opcion,cri,cantidad);
+                factor = busqueda_lista_xml(doc, opcion,cri);
             } catch (Exception e) {
                 try {
                     contenido = unir_palabras(contenido);
                     setID(contenido);
                     String Url = "http://rest.genenames.org/search/" + contenido;
                     Document doc = new conexionServ().conecta(Url);
-                    factor = busqueda_lista_xml(doc, opcion, cri, cantidad);
+                    factor = busqueda_lista_xml(doc, opcion, cri);
 
                 } catch (Exception ee) {
                 }
@@ -60,7 +60,7 @@ public class lecturas_HGNC {
                 setID(contenido);
                 String Url = "http://rest.genenames.org/search/" + contenido;
                 Document doc = new conexionServ().conecta(Url);
-                factor = busqueda_lista_xml(doc, opcion, contenido, cantidad);
+                factor = busqueda_lista_xml(doc, opcion, contenido);
             } catch (Exception ee) {
                 HGNC hgnc = new HGNC();
                 hgnc.setSimbolo(contenido);
@@ -88,7 +88,7 @@ public class lecturas_HGNC {
         return true;
     }
 
-    private ArrayList<String> busqueda_lista_xml(Document doc, int opcion, String palabra, int cant) {
+    private ArrayList<String> busqueda_lista_xml(Document doc, int opcion, String palabra) {
         ArrayList<String> nombres = new ArrayList<>();
         NodeList nList = doc.getElementsByTagName("result");
         Node nNode = nList.item(0);
@@ -113,7 +113,7 @@ public class lecturas_HGNC {
                 }
                 
             }else if(opcion >= 1){
-                if (cont < cant) {
+                if (cont < opcion) {
                     cont++;
                     nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
                 

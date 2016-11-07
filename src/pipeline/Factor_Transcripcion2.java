@@ -50,10 +50,9 @@ public class Factor_Transcripcion2 {
         
         for (int i = 0; i < IDCP.size(); i++) {
             complejoProteinico2 cp = new complejoProteinico2();
-            cp = new lecturas_PDB().Busqueda_PDB( IDCP.get(i) , criterio, opcion, cantidad );
+            cp = new lecturas_PDB().Busqueda_PDB(IDCP.get(i) , criterio, opcion, cantidad );
             cp.buscar_ligandos();
             complejoProteinico.add(cp);
-            
         }
             
         
@@ -84,7 +83,6 @@ public class Factor_Transcripcion2 {
                     if (pdbIds.get(i) != "") {
                         //System.out.println("CP "+pdbIds.get(i));
                         ID_CP.add(pdbIds.get(i));
-
                     }
                 }
                 break;
@@ -128,11 +126,10 @@ public class Factor_Transcripcion2 {
         return conn.getInputStream();
 
     }
-
-    
+   
     //constructor para la segunda Iteracion en adelante
     public Factor_Transcripcion2(String ID, boolean  criterio, int N_Iteracion, int NumeroObjetos, int opcion, int cantidad){
-        Runtime garbage = Runtime.getRuntime();
+        
         System.out.println("Buscando información para: "+ID+" ...");
         this.lecturasTFBIND = new lecturas_TFBIND();
         this.ID = ID;
@@ -147,7 +144,6 @@ public class Factor_Transcripcion2 {
             cp = new lecturas_PDB().Busqueda_PDB( IDCP.get(i) , criterio, opcion, cantidad );
             cp.buscar_ligandos();
             complejoProteinico.add(cp);
-            garbage.gc();
         }
     }
     
@@ -165,7 +161,7 @@ public class Factor_Transcripcion2 {
             
     private lecturas_HGNC lecturasHGNC(String ID, boolean criterio, int opcion, int cantidad){
         lecturas_HGNC HGNC = new lecturas_HGNC();
-        HGNC.busqueda_genenames(ID, criterio,opcion, cantidad);
+        HGNC.busqueda_genenames(ID, criterio,opcion);
         return HGNC;
     }
 

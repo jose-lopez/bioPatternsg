@@ -51,8 +51,9 @@ public class lecturas_PM {
     public ArrayList<String> busquedaPM_ID(String palabras_clave, int cantIDs) {
         ArrayList<String> listID = new ArrayList<>();
         //System.out.println(palabras_clave);
-      
-        String Url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=" + palabras_clave +"&retmax="+cantIDs;
+
+        String Url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term="+palabras_clave+"&retmax="+cantIDs+"&usehistory=y";
+        
         try {
             Document doc = new conexionServ().conecta(Url);
             listID = revisa_xml(doc, "Id");
@@ -62,22 +63,24 @@ public class lecturas_PM {
         return listID;
     }
 
-    public String BusquedaPM_Abstracts(ArrayList<String> listaIDs, String fileAbstID) throws Exception {
+    public String BusquedaPM_Abstracts(ArrayList<String> listaIDs, String fileAbstID, int cant_por_archivo) throws Exception {
 
         crearCarpeta(fileAbstID);
-        
+
         System.out.println("generando archivo " + fileAbstID);
         int cont1 = 0, cont2 = 1;
         for (int i = 0; i < listaIDs.size(); i++) {
-            String ruta = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + listaIDs.get(i) + "&retmode=xml&rettype=abstract";
+                String ruta = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id="+ listaIDs.get(i) + "&retmode=xml&rettype=abstract";
             try {
-                if (cont1 < 5000) {
+                if (cont1 < cant_por_archivo) {
                     ArrayList<String> lista = new ArrayList<>();
                     Document doc = new conexionServ().conecta(ruta);
                     lista = revisa_xml(doc, "AbstractText");
-                    guardar_en_archivo(fileAbstID+"/"+fileAbstID+"_"+cont2, lista, listaIDs.get(i));
+                    guardar_en_archivo(fileAbstID + "/" + fileAbstID + "_" + cont2, lista, listaIDs.get(i));
                     cont1++;
+                    
                 } else {
+                    System.out.println(fileAbstID + "_" + cont2+"  creado");
                     cont1 = 0;
                     cont2++;
                 }
@@ -98,19 +101,19 @@ public class lecturas_PM {
 
     private void crearCarpeta(String nombre) {
         File f = new File(nombre);
-        try{
-        borrarDirectorio(f);
-        }catch(Exception e){
-            
+        try {
+            borrarDirectorio(f);
+        } catch (Exception e) {
+
         }
         if (f.delete()) {
-           // System.out.println("El directorio   ha sido borrado correctamente");
+            // System.out.println("El directorio   ha sido borrado correctamente");
         } else {
             //System.out.println("El directorio  no se ha podido borrar");
         }
-        
-       File file =new File(nombre);
-       file.mkdir();
+
+        File file = new File(nombre);
+        file.mkdir();
 
     }
 
