@@ -25,13 +25,13 @@ public class busquedaPubMed_IDs {
         Objs_homologos_Expertos();
         borrar_archivo("combinaciones.db");
         ObjectContainer db = Db4o.openFile("FT.db");
-        Factor_Transcripcion2 FT = new Factor_Transcripcion2();
+        factorTranscripcion FT = new factorTranscripcion();
         try {
 
             ObjectSet result = db.queryByExample(FT);
             while (result.hasNext()) {
 
-                Factor_Transcripcion2 ft = (Factor_Transcripcion2) result.next();
+                factorTranscripcion ft = (factorTranscripcion) result.next();
                 //System.out.println("FT + Ligando");
                 factor_ligando(ft);
                 //System.out.println("FT + Nuevos Objetos");
@@ -75,7 +75,7 @@ public class busquedaPubMed_IDs {
         return listaPM;
     }
 
-    private void factor_nuevoObjeto(Factor_Transcripcion2 FT) {
+    private void factor_nuevoObjeto(factorTranscripcion FT) {
 
         for (int i = 0; i < FT.getLecturas_HGNC().listaNombres().size(); i++) {
             for (int j = 0; j < FT.getComplejoProteinico().size(); j++) {
@@ -87,7 +87,7 @@ public class busquedaPubMed_IDs {
         }
     }
 
-    private void factor_ligando(Factor_Transcripcion2 FT) {
+    private void factor_ligando(factorTranscripcion FT) {
 
         for (int i = 0; i < FT.getLecturas_HGNC().listaNombres().size(); i++) {
             for (int j = 0; j < FT.getComplejoProteinico().size(); j++) {
@@ -99,7 +99,7 @@ public class busquedaPubMed_IDs {
         }
     }
 
-    private void factor_objetos_H_E(Factor_Transcripcion2 FT) {
+    private void factor_objetos_H_E(factorTranscripcion FT) {
         ObjectContainer db = Db4o.openFile("ObjH_E.db");
         lecturas_HGNC Obj = new lecturas_HGNC();
         try {

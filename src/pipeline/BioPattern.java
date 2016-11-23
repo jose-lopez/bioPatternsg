@@ -1,4 +1,4 @@
- /*
+  /*
  BioPattern.java
 
 
@@ -27,6 +27,7 @@
  */
 package pipeline;
 
+import static java.awt.JobAttributes.DestinationType.FILE;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,6 +36,8 @@ import java.io.IOException;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -75,11 +78,11 @@ public class BioPattern {
 
     public static void main(String[] args) throws Exception {
 
-        BioPattern biopattern = new BioPattern(args[0], args[1]);
+        BioPattern biopattern = new BioPattern();
 
-        biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
+//        biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[1], Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]), true);
-        //  biopattern.pruebas();
+        biopattern.pruebas();
 
     }
 
@@ -106,19 +109,32 @@ public class BioPattern {
         //boolean criterio = true;//criterio de busqueda genenames true = aplica criterio , false busca por la etiqueta completa
         float conf = Float.parseFloat(confiabilidad);  //confiabilidad de las busquedas en tfbind
 
-        //*
-        Minado_FT MFT = new Minado_FT();
-        MFT.minado(rutaRegPromSecProb, cant_compl_p, criterio, conf, num_iteraciones);
-        //*
-        Busqueda_PubMed bpm = new Busqueda_PubMed();
-        bpm.busqueda_IDs(MFT.getListaFT(), MFT.getLista_homologos(), false);
-        //genero abstracts
-        //nuevo archivo.html
-        //nombre del archivo local donde va, es la entrada que debe pasar html
-        String abstracts = new lecturas_PM().BusquedaPM_Abstracts(bpm.getListaIDs(), fileAbstID);
-        bpm.limpiar_men();
-        //*/
-
+        minado_FT mfts= new minado_FT();
+        //ruta de archivo, confiabilidad, N Iteraciones, N de objetos, Criterio de busqueda, opcion para busqueda en HGNC (0: todos los mejores ramqueados, -1:solo el objeto con el mismo nombre, [1-n]: cantidad de espesifica de objetos HUGO)
+        mfts.minado(rutaRegPromSecProb, conf,num_iteraciones,cantPromotores,criterio,1);
+        mfts.obtenerFT();
+        busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
+        //regresa lista de PubMed IDs. 
+        //recibe booleano: 
+            //true para crear combinaciones con los objetos del experto en todas las iteraciones
+            //false para crear combinaciones con los objetos del experto solo en la primera iteracion
+        //recibe valor entero: indica la cantidad maxima de ID que se guardaran para cada busqueda
+        ArrayList<String> listaPMid = BPM.busqueda_IDs(false,10000);
+        
+        //si ya se tiene el archivo de combinaciones 
+        //ArrayList<String> listaPMid =  BPM.consulta_PudMed(1000);
+        
+        try {
+            //busqueda de abstracts en PubMed
+            //recibe : lista de PubMedIds
+            //titulo del directorio donde guardaran los archivos de abstracts
+            //cantidad de abstracts que se guardaran para cada archivo
+            new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts",500);
+        } catch (Exception ex) {
+            Logger.getLogger(BioPattern.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
         /*
          // Se reciben los abstracts descargados y se devuelve el archivo de oraciones SVC necesario para
          // construir la BC con la que se haran inferencias para deducir patrones de regulacion.
@@ -136,7 +152,7 @@ public class BioPattern {
          //*/
         Region region_promotora = new Region(this.regionPromotora);
 
-        region_promotora.constructPromotor(MFT.getListaFT());
+        region_promotora.constructPromotor();
         region_promotora.imprimirRegRegulacion("listadoFTs.txt");
         return region_promotora;
 
@@ -169,15 +185,19 @@ public class BioPattern {
         float conf = Float.parseFloat(confiabilidad);  //confiabilidad de las busquedas en tfbind
 
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
-        Minado_FT MFT = new Minado_FT();
-        MFT.minado(rutabloquesConsenso, cant_compl_p, criterio, conf, num_iteraciones);
-
-        //Busqueda_PubMed bpm = new Busqueda_PubMed();
-        //bpm.busqueda_IDs(MFT.getListaFT(),MFT.getLista_homologos(),true);
-        //Se pasa el listado de PubMed Ids y se devuelve el archivo que contiene todos los abstracts descargados desde PubMed. 
-        //String abstracts = new lecturas_PM().BusquedaPM_Abstracts(bpm.getListaIDs(), fileAbstID);
-        //bpm.limpiar_men();
-        //*
+        minado_FT mfts= new minado_FT();
+        //ruta de archivo, confiabilidad, N Iteraciones, N de objetos, Criterio de busqueda, opcion para busqueda en HGNC (0: todos los mejores ramqueados, -1:solo el objeto con el mismo nombre, [1-n]: cantidad de espesifica de objetos HUGO)
+        mfts.minado(rutabloquesConsenso, conf,num_iteraciones,cantPromotores,criterio,1);
+        mfts.obtenerFT();
+        busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
+        ArrayList<String> listaPMid = BPM.busqueda_IDs(false,10);
+        //ArrayList<String> listaPMid =  BPM.consulta_PudMed(1000);
+        try {
+            new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts",500);
+        } catch (Exception ex) {
+            Logger.getLogger(BioPattern.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                       
        /* Busqueda_PubMed bm = new Busqueda_PubMed();
          bm.listas_PubMed_Ids(listaFT, num_iteraciones, MFT.getObjetos_mineria(), cant_compl_p, criterio); // Se itera y se definen listas_PubMed y listas_FTs.
          ArrayList<ArrayList> listas_PubMed = bm.get_listas_PubMed();
@@ -211,7 +231,7 @@ public class BioPattern {
          listas_FTs.add(listaFT);*/
         //this.regionPromotora = "AGGTACCTTCTCCCCCATTGTAGAGAAAAGTGAAGTTCTTTTAGAGCCCCGTTACATCTTCAAGGCTTTTTATGAGATAATGGAGGAAATAAAGAGGGCTCAGTCCTTCTACTGTCCATATTTCATTCTCAAATCTGTTATTAGAGGAATGATTCTGATCTCCACCTACCATACACATGCCCTGTTGCTTGTTGGGCCTTCCTAAAATGTTAGAGTATGATGACAGATGGAGTTGTCTGGGTACATTTGTGTGCATTTAAGGGTGATAGTGTATTTGCTCTTTAAGAGCTGAGTGTTTGAGCCTCTGTTTGTGTGTAATTGAGTGTGCATGTGTGGGAGTGAAATTGTGGAATGTGTATGCTCATAGCACTGAGTGAAAATAAAAGATTGTATAAATCGTGGGGCATGTGGAATTGTGTGTGCCTGTGCGTGTGCAGTATTTTTTTTTTTTTAAGTAAGCCACTTTAGATCTTGTCACCTCCCCTGTCTTCTGTGATTGATTTTGCGAGGCTAATGGTGCGTAAAAGGGCTGGTGAGATCTGGGGGCGCCTCCTAGCCTGACGTCAGAGAGAGAGTTTAAAACAGAGGGAGACGGTTGAGAGCACACAAGCCGCTTTAGGAGCGAGGTTCGGAGCCATCGCTGCTGCCTGCTGATCCGCGCCTAGAGTTTGACCAGCCACTCTCCAGCTCGGCTTTCGCGGCGCCGAGATGCTGTCCTGCCGCCTCCAGTGCGCGCTGGCTGCGCTGTCCATCGTCCTGGCCCTGGGCTGTGTCACCGGCGCTCCCTCGGACCCCAGACT";
         Region region_promotora = new Region(this.regionPromotora);
-        region_promotora.constructPromotor(MFT.getListaFT());
+        region_promotora.constructPromotor();
         return region_promotora;
 
     }
@@ -224,18 +244,18 @@ public class BioPattern {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 //*
-                JTextField jtf = new JTextField();
-                JPasswordField jpf = new JPasswordField();
-                if (JOptionPane.showConfirmDialog(null, new Object[]{jtf, jpf}, "Clave:", JOptionPane.OK_CANCEL_OPTION) == 0) {
+              //  JTextField jtf = new JTextField();
+              //  JPasswordField jpf = new JPasswordField();
+              //  if (JOptionPane.showConfirmDialog(null, new Object[]{jtf, jpf}, "Clave:", JOptionPane.OK_CANCEL_OPTION) == 0) {
 
-                    String usuario = jtf.getText();
-                    char[] clave = jpf.getPassword();
-                    
-                    return new PasswordAuthentication(usuario, clave);
-                } else {
-                    System.exit(0);
-                    return null;
-                }
+                   // String usuario = jtf.getText();
+                   // char[] clave = jpf.getPassword();
+                    String usuario = "yacson.ramirez";
+                    char[] clave = {'Y','a','c','s','o','N','3','2','8','7'};                    return new PasswordAuthentication(usuario, clave);
+                //} else {
+                   // System.exit(0);
+                   // return null;
+                //}
             }
         });
 
@@ -257,16 +277,27 @@ public class BioPattern {
         return secuenciaProblema;
     }
 
-    public void pruebas() throws IOException {
+    public void pruebas() throws IOException, Exception {
 
         //Autenticación de proxy        
-        //autenticarProxy("150.187.65.3", "3128");
-        Minado_FT mft = new Minado_FT();
-        System.out.println(mft.busquedaEnsemblGenID("SAMD11"));
-//        //rutaarchivo, cantcomplejos , criterio busqueda , confiabilidad tfbind , num iteraciones       
-//        mft.minado("bloquesConsenso", 1, true, 0.99f, 1);
-//        Busqueda_PubMed BPM = new Busqueda_PubMed();
-//        BPM.busqueda_IDs(mft.getListaFT(),mft.getLista_homologos());
-//        String abstracts = new lecturas_PM().BusquedaPM_Abstracts(BPM.getListaIDs());
+        autenticarProxy("150.187.65.3", "3128");
+//      Minado_FT mft = new Minado_FT();
+//      //System.out.println(mft.busquedaEnsemblGenID("SAMD11"));
+//      //rutaarchivo, cantcomplejos , criterio busqueda , confiabilidad tfbind , num iteraciones       
+//      mft.minado("bloquesConsenso", 1, true, 0.99f, 1);
+//      Busqueda_PubMed BPM = new Busqueda_PubMed();
+//      BPM.busqueda_IDs(mft.getListaFT(),mft.getLista_homologos(),false);
+//      String abstracts = new lecturas_PM().BusquedaPM_Abstracts(BPM.getListaIDs(),"pruebaAbs.txt");
+//    
+        
+        minado_FT mfts= new minado_FT();
+        //Nueva mineria (true),ruta de archivo, confiabilidad, N Iteraciones, N de objetos, Criterio de busqueda, opcion para busqueda en HGNC (0: todos los mejores ramqueados, -1:solo el objeto con el mismo nombre, [1-n]: cantidad de espesifica de objetos HUGO)
+        mfts.minado("bloquesConsenso", 0.97f,2,5,true,1);
+        mfts.obtenerFT();
+        busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
+        ArrayList<String> listaPMid = BPM.busqueda_IDs(false,10);
+        //ArrayList<String> listaPMid =  BPM.consulta_PudMed(1000);
+        new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts",500);
+               
     }
 }

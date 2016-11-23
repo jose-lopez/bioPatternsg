@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author yacson-ramirez
  */
-public class complejoProteinico2 {
+public class complejoProteinico {
 
     private String ID;
     private ArrayList<lecturas_HGNC> HGNC;
@@ -28,14 +28,14 @@ public class complejoProteinico2 {
     private ArrayList<String> pdbx_keywords;
     private ArrayList<ligando> ligandos;
 
-    public complejoProteinico2() {
+    public complejoProteinico() {
         this.DNA = new ArrayList<>();
         this.pdbx_keywords = new ArrayList<>();;
         this.ligandos = new ArrayList<>();
         this.HGNC = new ArrayList<>();
     }
 
-    public complejoProteinico2(String ID, ArrayList<lecturas_HGNC> HGNC, ArrayList<String> DNA, ArrayList<String> pdbx_keywords) {
+    public complejoProteinico(String ID, ArrayList<lecturas_HGNC> HGNC, ArrayList<String> DNA, ArrayList<String> pdbx_keywords) {
         this.ID = ID;
         this.HGNC = HGNC;
         this.DNA = DNA;
@@ -43,7 +43,7 @@ public class complejoProteinico2 {
     }
 
     public void buscar_ligandos() {
-        ligandos = new Lecturas_PDB_Ligandos().Buscar_ligandos(ID);
+        ligandos = new lecturas_PDB_Ligandos().Buscar_ligandos(ID);
     }
 
     public void imprimir() {

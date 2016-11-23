@@ -41,6 +41,25 @@ public class lecturas_TFBIND {
     private String  cadena;
     
   
+    public lecturas_TFBIND(){
+        
+    }
+    
+    public lecturas_TFBIND(String id, String factor, String cadena) {
+      this.id = id;
+      this.factor = factor;
+      this.cadena = cadena;
+    }
+    
+    public lecturas_TFBIND(String ruta,float confiabilidad) throws IOException {
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        /*System.out.printf("\nIngrese Confiabilidad: ");
+        confiabilidad = Float.parseFloat(in.readLine());*/
+        leer_de_archivo(ruta, confiabilidad);
+       
+    }
+    
     public ArrayList<lecturas_TFBIND> leer_de_archivo(String ruta, float confiabilidad) {
         
         ArrayList<lecturas_TFBIND> lecturas = new ArrayList<>();

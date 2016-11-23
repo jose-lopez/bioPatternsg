@@ -34,9 +34,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Minado_FTs {
+public class minado_FT {
 
-    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos, boolean criterio, int opcion, int cantidad) {
+    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos, boolean criterio, int opcion) {
         Runtime garbage = Runtime.getRuntime();
         objetos_mineria2 objetosMineria = new objetos_mineria2();
         //Se crea un nuevo archivo de Objectos minados
@@ -48,8 +48,8 @@ public class Minado_FTs {
         borrar_archivo("FT.db");
         borrar_archivo("objetosMineria.db");
                
-        leer_archivo_homologos(objetosMineria, opcion, cantidad);
-        leer_archivo_ObjetosExperto(objetosMineria, opcion, cantidad);
+        leer_archivo_homologos(objetosMineria, opcion);
+        leer_archivo_ObjetosExperto(objetosMineria, opcion);
 
         //Primera Iteracion
         System.out.println("\n====Iteracion 0====\n");
@@ -57,7 +57,7 @@ public class Minado_FTs {
         ArrayList<lecturas_TFBIND> lecturasTFB = lecturasTFBID(ruta, confiabilidad);
         System.out.println(lecturasTFB.size() + " Factores de transcripcion encontrados");
         for (int i = 0; i < lecturasTFB.size(); i++) {
-            Factor_Transcripcion2 FT = new Factor_Transcripcion2(lecturasTFB.get(i), criterio, numeroObjetos, objetosMineria, opcion, cantidad);
+            factorTranscripcion FT = new factorTranscripcion(lecturasTFB.get(i), criterio, numeroObjetos, objetosMineria, opcion);
             objetosMineria.getObjetos_minados().add(FT.getID());
             objetosMineria.agregar_objeto(FT.getComplejoProteinico());
             new objetosMinados().agregar_objetos(FT);
@@ -76,7 +76,7 @@ public class Minado_FTs {
             objetosMineria.setNuevos_objetos(new ArrayList<String>());
            
             for (int j = 0; j < Lista.size(); j++) {
-                Factor_Transcripcion2 FT = new Factor_Transcripcion2(Lista.get(j), true, i, numeroObjetos, opcion, cantidad);
+                factorTranscripcion FT = new factorTranscripcion(Lista.get(j), true, i, numeroObjetos, opcion);
                 objetosMineria.getObjetos_minados().add(FT.getID());
                 objetosMineria.agregar_objeto(FT.getComplejoProteinico());
                 new objetosMinados().agregar_objetos(FT);
@@ -108,7 +108,7 @@ public class Minado_FTs {
         try {
             fichero = new FileWriter(nombre);
         } catch (IOException ex) {
-            Logger.getLogger(Minado_FTs.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(minado_FT.class.getName()).log(Level.SEVERE, null, ex);
         }
         pw = new PrintWriter(fichero);
 
@@ -124,7 +124,7 @@ public class Minado_FTs {
     }
 
         
-    private void guardar_Factor_transcripcion(Factor_Transcripcion2 FT) {
+    private void guardar_Factor_transcripcion(factorTranscripcion FT) {
 
         ObjectContainer db = Db4o.openFile("FT.db");
         try {
@@ -151,13 +151,13 @@ public class Minado_FTs {
     public void obtenerFT() {
 
         ObjectContainer db = Db4o.openFile("FT.db");
-        Factor_Transcripcion2 FT = new Factor_Transcripcion2();
+        factorTranscripcion FT = new factorTranscripcion();
         try {
 
             ObjectSet result = db.queryByExample(FT);
             while (result.hasNext()) {
 
-                Factor_Transcripcion2 ft = (Factor_Transcripcion2) result.next();
+                factorTranscripcion ft = (factorTranscripcion) result.next();
                 ft.imprimir();
                 System.out.println("====================================================");
             }
@@ -169,7 +169,7 @@ public class Minado_FTs {
 
     }
 
-    public void leer_archivo_homologos(objetos_mineria2 objetosMineria, int opcion, int cantidad) {
+    public void leer_archivo_homologos(objetos_mineria2 objetosMineria, int opcion) {
 
         System.out.println("**Leyendo archivo de Homologos...");
 
@@ -206,7 +206,7 @@ public class Minado_FTs {
 
     }
 
-    public void leer_archivo_ObjetosExperto(objetos_mineria2 objetosMineria, int opcion, int cantidad) {
+    public void leer_archivo_ObjetosExperto(objetos_mineria2 objetosMineria, int opcion) {
 
         System.out.println("\n**Leyendo archivo de Objetos Experto...");
 
@@ -342,7 +342,7 @@ class objetos_mineria2 {
 
     }
 
-    public void agregar_objeto(ArrayList<complejoProteinico2> objetos) {
+    public void agregar_objeto(ArrayList<complejoProteinico> objetos) {
 
         for (int i = 0; i < objetos.size(); i++) {
 

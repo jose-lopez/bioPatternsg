@@ -17,14 +17,14 @@ import org.w3c.dom.NodeList;
  */
 public class lecturas_PDB {
 
-    public complejoProteinico2 Busqueda_PDB(String cp, boolean criterio, int opcion, int cantidad) {
-        complejoProteinico2 CP = new complejoProteinico2();
+    public complejoProteinico Busqueda_PDB(String cp, boolean criterio, int opcion) {
+        complejoProteinico CP = new complejoProteinico();
         CP.setID(cp);
         //String url = "http://www.rcsb.org/pdb/files/" + cp + ".xml";
         String url = "http://www.rcsb.org/pdb/rest/describeMol?structureId=" + cp;
         try {
             System.out.print("leyendo: " + cp);
-            revisa_xml_PDB2(new conexionServ().conecta(url), CP, criterio, opcion, cantidad);
+            revisa_xml_PDB2(new conexionServ().conecta(url), CP, criterio, opcion);
             System.out.println("   Listo..");
         } catch (Exception ex) {
 
@@ -33,7 +33,7 @@ public class lecturas_PDB {
     }
 
     //busquedas PDB   
-    private void revisa_xml_PDB(Document doc, complejoProteinico2 cp, boolean criterio, int opcion) {
+    private void revisa_xml_PDB(Document doc, complejoProteinico cp, boolean criterio, int opcion) {
 
         //System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
         NodeList nList = doc.getElementsByTagName("PDBx:entity");
@@ -96,7 +96,7 @@ public class lecturas_PDB {
 
     }
 
-    private void revisa_xml_PDB2(Document doc, complejoProteinico2 cp, boolean criterio, int opcion, int cantidad) {
+    private void revisa_xml_PDB2(Document doc, complejoProteinico cp, boolean criterio, int opcion) {
 
         NodeList nList = doc.getElementsByTagName("polymerDescription");
 

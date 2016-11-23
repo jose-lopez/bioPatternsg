@@ -29,12 +29,12 @@ public class objetosMinados {
         try {
             fichero = new FileWriter("objetosMinados.txt");
         } catch (IOException ex) {
-            Logger.getLogger(Minado_FTs.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(minado_FT.class.getName()).log(Level.SEVERE, null, ex);
         }
         pw = new PrintWriter(fichero);
     }
 
-    public void agregar_objetos(Factor_Transcripcion2 FT) {
+    public void agregar_objetos(factorTranscripcion FT) {
 
         String cadena = "";
         if (!revisar_en_archivo(FT.getID())) {

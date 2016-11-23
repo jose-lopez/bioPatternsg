@@ -18,14 +18,17 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-*/
+ */
 
-/*
+ /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package pipeline;
 
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -67,66 +70,72 @@ public class Region {
         this.coordenadasPromotor[1] = 0;
     }
 
-    public void constructPromotor(ArrayList<ArrayList> listas_FTs) {
+    public void constructPromotor() {
 
-        ArrayList<Factor_Transcripcion> listaFT = listas_FTs.get(0);
-        //for (ArrayList<Factor_Transcripcion> listaFT : listas_FTs) {// Para cada arreglo de FTs:
+        ObjectContainer db = Db4o.openFile("FT.db");
+        factorTranscripcion FT = new factorTranscripcion();
+        FT.setN_Iteracion(1);//factores de la Iteracion 1
 
-        for (Factor_Transcripcion ft : listaFT) { // Tomo uno y para ese defino motivos posibles a los que se ancle.
+        try {
 
-            Lecturatfbind lectura = ft.getLectura(); // Tomamos la lectura que describe la estructura del FT, segun TFBIND.
-            if (!(lectura == null)) {
-                // Desde lectura se obtiene la plantilla que describe al motivo,
-                // dos elementos hay en esa plantilla: (1) cadena y (2) el motif hallado en regionPromotora
-                // que se corresponde con ese cadena, segun reporta TFBIND.
-                String[] plantilla = lectura.getPlantillaMotivo().split(" ");
-                String motif = plantilla[2];
+            ObjectSet result = db.queryByExample(FT);
+            while (result.hasNext()) {
 
-                if (!promotorContieneFactor(motif, ft)) {// Si el promotor aun no contiene el motif asociado a ft, entonces:
-                    // se asocia un nuevo motivo a promotor y se asocia ft a ese motivo.
+                factorTranscripcion ft = (factorTranscripcion) result.next();
+                lecturas_TFBIND lectura = ft.getLecturasTFBIND(); // Tomamos la lectura que describe la estructura del FT, segun TFBIND.
+                if (!(lectura == null)) {
+                    // Desde lectura se obtiene la plantilla que describe al motivo,
+                    // dos elementos hay en esa plantilla: (1) cadena y (2) el motif hallado en regionPromotora
+                    // que se corresponde con ese cadena, segun reporta TFBIND.
+                    String[] plantilla = lectura.getCadena().split(" ");
+                    String motif = plantilla[2];
 
-                    if (regionPromotora.contains(motif)) {//Tener en cuenta que un motivo puede estar presente mas de una vez.
-                        int primera = regionPromotora.indexOf(motif);
-                        int ultima = regionPromotora.lastIndexOf(motif);
-                        int siguiente;
-                        boolean iguales = false;
+                    if (!promotorContieneFactor(motif, ft)) {// Si el promotor aun no contiene el motif asociado a ft, entonces:
+                        // se asocia un nuevo motivo a promotor y se asocia ft a ese motivo.
 
-                        do {
-                            int[] coordsMotivo = new int[2];
-                            Motivo motivo = new Motivo();
-                            motivo.setMotivo(motif);
-                            coordsMotivo[0] = primera;
-                            coordsMotivo[1] = coordsMotivo[0] + motif.length() - 1;
-                            motivo.setCoordenadas(coordsMotivo);
-                            motivo.getFactores().add(ft);
-                            if (this.coordenadasPromotor[0] > coordsMotivo[0]) {
-                                this.coordenadasPromotor[0] = coordsMotivo[0];
-                            }
-                            if (this.coordenadasPromotor[1] < coordsMotivo[1]) {
-                                this.coordenadasPromotor[1] = coordsMotivo[1];
-                            }
-                            this.promotor.add(motivo);
-                            if (primera == ultima) {
-                                iguales = true;
-                            }
-                            siguiente = regionPromotora.indexOf(motif, coordsMotivo[1]);
-                            if (siguiente != -1) {
-                                primera = siguiente;
-                            }
+                        if (regionPromotora.contains(motif)) {//Tener en cuenta que un motivo puede estar presente mas de una vez.
+                            int primera = regionPromotora.indexOf(motif);
+                            int ultima = regionPromotora.lastIndexOf(motif);
+                            int siguiente;
+                            boolean iguales = false;
 
+                            do {
+                                int[] coordsMotivo = new int[2];
+                                Motivo motivo = new Motivo();
+                                motivo.setMotivo(motif);
+                                coordsMotivo[0] = primera;
+                                coordsMotivo[1] = coordsMotivo[0] + motif.length() - 1;
+                                motivo.setCoordenadas(coordsMotivo);
+                                motivo.getFactores().add(ft);
+                                if (this.coordenadasPromotor[0] > coordsMotivo[0]) {
+                                    this.coordenadasPromotor[0] = coordsMotivo[0];
+                                }
+                                if (this.coordenadasPromotor[1] < coordsMotivo[1]) {
+                                    this.coordenadasPromotor[1] = coordsMotivo[1];
+                                }
+                                this.promotor.add(motivo);
+                                if (primera == ultima) {
+                                    iguales = true;
+                                }
+                                siguiente = regionPromotora.indexOf(motif, coordsMotivo[1]);
+                                if (siguiente != -1) {
+                                    primera = siguiente;
+                                }
 
-                        } while (!iguales);
+                            } while (!iguales);
 
+                        }
                     }
                 }
-            }
 
+            }
+        } catch (Exception e) {
+
+        } finally {
+            db.close();
         }
 
-        //}
-
-
-    }
+    }    
 
     public void constructPromotorConsensos(String region, boolean uTR5p) {
 
@@ -135,7 +144,6 @@ public class Region {
         //String[] consensosUTR5p = {"[GTA][GA]GG[CTA][GA][GT][GAT][GT][CT]", "[AG][ACGT][AG]T[GT][ACGT][ACGT]G[AC]AA[GT][ACGT][ACGT]", "[GC][GC][GA]CGCC", "TATA[AT]AA[GA]", "[TC][TC]A[ACGT][TA][TC][TC]", "[AG]G[AT][CT][GAC]"};
         //EPD:
         String[] consensosUTR5p = {"[GT][GA]GGCG[GT][GA][GA][CT]", "[CT][GA][GA][GT]GCGG[GA][GT]", "[TCA][CT][TC][AG][GA]CCA[AT][TA][CG][AG]", "[GC][GC][GA]CGCC", "TATA[AT]A[AGT][AG]", "AATGGGGGGGAA", "[TG]C[AT][GTC][TCA][CT][TCG][TC]", "[AG]G[AT][CT][GAC]"};
-
 
         String[] consensosUTR = {};
 
@@ -147,16 +155,13 @@ public class Region {
             consensosUTR = consensosUTR3p;
         }
 
-
-
         String id = "";
-        String core="";
+        String core = "";
 
         for (String consenso : consensosUTR) {
 
             Pattern p = Pattern.compile(consenso);
             Matcher m = p.matcher(region);
-
 
             while (m.find()) {
                 int[] coordsMotivo = new int[2];
@@ -180,41 +185,47 @@ public class Region {
                     }
                 } else {// Dado que mas de una proteina reconoce un cadena,
                     // entonces entrar y verificar cual motivo es y a cual proteina corresponde.
-                                                // "[GT][GA]GGCG[GT][GA][GA][CT]"
+                    // "[GT][GA]GGCG[GT][GA][GA][CT]"
                     if (consenso.equalsIgnoreCase("[GT][GA]GGCG[GT][GA][GA][CT]")) {
-                        id = "SP1"; core = "GC";
+                        id = "SP1";
+                        core = "GC";
                     }
                     if (consenso.equalsIgnoreCase("[CT][GA][GA][GT]GCGG[GA][GT]")) {
-                        id = "SP1"; core = "GC";
+                        id = "SP1";
+                        core = "GC";
                     }
                     if (consenso.equalsIgnoreCase("[AGT][GA][AG][TC][CT]GGT[TA][AT][GC][TC]")) {
-                        id = "C/EBP"; core = "CAAT";
+                        id = "C/EBP";
+                        core = "CAAT";
                     }
                     if (consenso.equalsIgnoreCase("[GC][GC][GA]CGCC")) {
-                        id = "TFIIB"; core = "BRE";
+                        id = "TFIIB";
+                        core = "BRE";
                     }
                     if (consenso.equalsIgnoreCase("TATA[AT]A[AGT][AG]")) {
-                        id = "TAF1"; core = "TATA";
+                        id = "TAF1";
+                        core = "TATA";
                     }
                     if (consenso.equalsIgnoreCase("AATGGGGGGGAA")) {
-                        id = "EIF4E"; core = "EIF4E";
+                        id = "EIF4E";
+                        core = "EIF4E";
                     }
                     if (consenso.equalsIgnoreCase("[TG]C[AT][GTC][TCA][CT][TCG][TC]")) {
-                        id = "TFIID"; core = "Inr";
+                        id = "TFIID";
+                        core = "Inr";
                     }
                     if (consenso.equalsIgnoreCase("[AG]G[AT][CT][GAC]")) {
-                        id = "TFIID"; core = "DPE";
+                        id = "TFIID";
+                        core = "DPE";
                     }
                 }
 
-
                 String cadena = consenso + " " + motif;
-                Lecturatfbind lectura = new Lecturatfbind(id, id, cadena);
-                Factor_Transcripcion ft = new Factor_Transcripcion();
+                lecturas_TFBIND lectura = new lecturas_TFBIND(id, id, cadena);
+                factorTranscripcion ft = new factorTranscripcion();
                 ft.setID(id);
-                ft.setSimbolo(id);
-                ft.setLectura(lectura);
-
+                ft.getLecturas_HGNC().setID(id);
+                ft.setLecturasTFBIND(lectura);
 
                 Motivo motivo = new Motivo();
                 motivo.setMotivo(motif);
@@ -244,20 +255,20 @@ public class Region {
 
     }
 
-    boolean promotorContieneFactor(String motif, Factor_Transcripcion ft) {
+    boolean promotorContieneFactor(String motif, factorTranscripcion ft) {
 
-        Factor_Transcripcion factorMotivo;
-        
+        factorTranscripcion factorMotivo;
+
         for (Motivo m : this.promotor) {
 
             factorMotivo = m.getFactores().get(0);
-                        
+
             if (m.getMotivo().equals(motif)) {
 
                 if (factorMotivo.getID().equals(ft.getID())) {
 
                     return true;
-                
+
                 }
             }
 
@@ -278,27 +289,27 @@ public class Region {
     public ArrayList<Motivo> getPromotor() {
         return promotor;
     }
-    
-    public void imprimirRegRegulacion(String archivo) throws UnsupportedEncodingException, FileNotFoundException, IOException{
-        
+
+    public void imprimirRegRegulacion(String archivo) throws UnsupportedEncodingException, FileNotFoundException, IOException {
+
         File salidaPromotor = new File(archivo);
         salidaPromotor.delete();
-        
+
         try (BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(salidaPromotor, true), "UTF8"))) {
-            
-            out.write("cadena" + "\t" + "Consenso" + "\t" + "Coordenada Ini." + "\t" + "Coord Fin." + "\t" + "Factor Simbololo" +  "Factor Nombre" + "\n");
-            
+
+            out.write("cadena" + "\t" + "Consenso" + "\t" + "Coordenada Ini." + "\t" + "Coord Fin." + "\t" + "Factor Simbololo" + "Factor Nombre" + "\n");
+
             for (Motivo m : this.promotor) {
-                
+
                 String cadena = m.getMotivo();
-                String[] motifFirma = m.getFactores().get(0).getLectura().getPlantillaMotivo().split(" ");                
-                out.write(motifFirma[0] + "\t" + "\t" + cadena + "\t" + "\t" + m.getCoordenadas()[0] + "\t" + "\t" + m.getCoordenadas()[1] + "\t" + "\t" + m.getFactores().get(0).getSimbolo()+ "\t"  +"\t"+ m.getFactores().get(0).getNombre() + "\n");
-                
+                String[] motifFirma = m.getFactores().get(0).getLecturasTFBIND().getCadena().split(" ");
+                out.write(motifFirma[0] + "\t" + "\t" + cadena + "\t" + "\t" + m.getCoordenadas()[0] + "\t" + "\t" + m.getCoordenadas()[1] + "\t" + "\t" + m.getFactores().get(0).getLecturas_HGNC().getHGNC().get(0).getSimbolo() + "\t" + "\t" + m.getFactores().get(0).getLecturas_HGNC().getHGNC().get(0).getNombre() + "\n");
+
             }
-            
+
             out.close();
-            
+
         }
-        
+
     }
 }

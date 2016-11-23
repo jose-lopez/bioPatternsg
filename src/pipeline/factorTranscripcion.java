@@ -24,33 +24,33 @@ import javax.swing.JOptionPane;
  *
  * @author yacson-ramirez
  */
-public class Factor_Transcripcion2 {
+public class factorTranscripcion {
     
     private String ID;
     private int N_Iteracion;
     private lecturas_HGNC lecturas_HGNC;
     private lecturas_TFBIND lecturasTFBIND;
-    private ArrayList<complejoProteinico2> complejoProteinico;
+    private ArrayList<complejoProteinico> complejoProteinico;
     
-    public Factor_Transcripcion2(){
+    public factorTranscripcion(){
         complejoProteinico = new ArrayList<>();
         lecturas_HGNC = new lecturas_HGNC();
         lecturasTFBIND = new lecturas_TFBIND();
     }
     //constructor para la primera Iteracion con lecturas obtenidas desde TFBIND
-    public Factor_Transcripcion2(lecturas_TFBIND lecturasTFBIND, boolean criterio, int NumeroObjetos, objetos_mineria2 objetosMineria, int opcion, int cantidad){
+    public factorTranscripcion(lecturas_TFBIND lecturasTFBIND, boolean criterio, int NumeroObjetos, objetos_mineria2 objetosMineria, int opcion){
         System.out.println("Buscando información para : "+lecturasTFBIND.getFactor()+" ...");
         this.lecturasTFBIND = lecturasTFBIND;
         this.ID = lecturasTFBIND.getFactor();
-        this.lecturas_HGNC = lecturasHGNC(ID,criterio, opcion , cantidad);
+        this.lecturas_HGNC = lecturasHGNC(ID,criterio, opcion);
         this.N_Iteracion = 0;
         this.complejoProteinico = new ArrayList<>();
         
         ArrayList<String> IDCP = Buscar_ID_complejosProteinicos(ID, NumeroObjetos);
         
         for (int i = 0; i < IDCP.size(); i++) {
-            complejoProteinico2 cp = new complejoProteinico2();
-            cp = new lecturas_PDB().Busqueda_PDB(IDCP.get(i) , criterio, opcion, cantidad );
+            complejoProteinico cp = new complejoProteinico();
+            cp = new lecturas_PDB().Busqueda_PDB(IDCP.get(i) , criterio, opcion);
             cp.buscar_ligandos();
             complejoProteinico.add(cp);
         }
@@ -128,20 +128,20 @@ public class Factor_Transcripcion2 {
     }
    
     //constructor para la segunda Iteracion en adelante
-    public Factor_Transcripcion2(String ID, boolean  criterio, int N_Iteracion, int NumeroObjetos, int opcion, int cantidad){
+    public factorTranscripcion(String ID, boolean  criterio, int N_Iteracion, int NumeroObjetos, int opcion){
         
         System.out.println("Buscando información para: "+ID+" ...");
         this.lecturasTFBIND = new lecturas_TFBIND();
         this.ID = ID;
         this.N_Iteracion = N_Iteracion;
-        this.lecturas_HGNC = lecturasHGNC(ID, criterio, opcion, cantidad);
+        this.lecturas_HGNC = lecturasHGNC(ID, criterio, opcion);
         this.complejoProteinico = new ArrayList<>();
         
         ArrayList<String> IDCP = Buscar_ID_complejosProteinicos(ID, NumeroObjetos);
         
         for (int i = 0; i < IDCP.size(); i++) {
-            complejoProteinico2 cp = new complejoProteinico2();
-            cp = new lecturas_PDB().Busqueda_PDB( IDCP.get(i) , criterio, opcion, cantidad );
+            complejoProteinico cp = new complejoProteinico();
+            cp = new lecturas_PDB().Busqueda_PDB( IDCP.get(i) , criterio, opcion);
             cp.buscar_ligandos();
             complejoProteinico.add(cp);
         }
@@ -159,7 +159,7 @@ public class Factor_Transcripcion2 {
         
     }
             
-    private lecturas_HGNC lecturasHGNC(String ID, boolean criterio, int opcion, int cantidad){
+    private lecturas_HGNC lecturasHGNC(String ID, boolean criterio, int opcion){
         lecturas_HGNC HGNC = new lecturas_HGNC();
         HGNC.busqueda_genenames(ID, criterio,opcion);
         return HGNC;
@@ -197,11 +197,11 @@ public class Factor_Transcripcion2 {
         this.lecturasTFBIND = lecturasTFBIND;
     }
 
-    public ArrayList<complejoProteinico2> getComplejoProteinico() {
+    public ArrayList<complejoProteinico> getComplejoProteinico() {
         return complejoProteinico;
     }
 
-    public void setComplejoProteinico(ArrayList<complejoProteinico2> complejoProteinico) {
+    public void setComplejoProteinico(ArrayList<complejoProteinico> complejoProteinico) {
         this.complejoProteinico = complejoProteinico;
     }
       

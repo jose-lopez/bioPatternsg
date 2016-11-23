@@ -16,7 +16,7 @@ import org.w3c.dom.NodeList;
  *
  * @author yacson-ramirez
  */
-public class Lecturas_PDB_Ligandos {
+public class lecturas_PDB_Ligandos {
 
     public ArrayList<ligando> Buscar_ligandos(String CP) {
         ArrayList<ligando> ligandos = new ArrayList<>();
