@@ -57,7 +57,7 @@ public class conexionServ {
                 
                 try {
 
-                    //System.out.println("Error de conexion con: "+Url);
+                   // System.out.println("Error de conexion con: "+Url);
                     //System.out.println("reintentando..."+cont );
                     Thread.sleep(1000);
                 } catch (InterruptedException ex1) {

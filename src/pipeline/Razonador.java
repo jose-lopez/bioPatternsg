@@ -52,9 +52,9 @@ public class Razonador {
         return patrones;
     }
 
-    public ArrayList<String> regiones(ArrayList<Factor_Transcripcion> factores) {
+    public ArrayList<String> regiones(ArrayList<factorTranscripcion> factores) {
 
-        for (Factor_Transcripcion ft : factores) {
+        for (factorTranscripcion ft : factores) {
         }
 
         return new ArrayList<String>();

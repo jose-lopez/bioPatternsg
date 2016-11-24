@@ -41,7 +41,7 @@ public class ligando {
     
     public void imprimir(){
         
-        System.out.println("-Ligando ID: "+id+ "  Nombre: "+nombre);
+        System.out.println("    -Ligando ID: "+id+ "  Nombre: "+nombre);
                 
     }
 

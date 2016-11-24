@@ -1,4 +1,4 @@
- /*
+/*
     lecturas_PM.java
 
 
@@ -18,9 +18,9 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-*/
+ */
 
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -48,10 +48,12 @@ import org.w3c.dom.NodeList;
  */
 public class lecturas_PM {
 
-    public ArrayList<String> busquedaPM_ID(String palabras_clave) {
+    public ArrayList<String> busquedaPM_ID(String palabras_clave, int cantIDs) {
         ArrayList<String> listID = new ArrayList<>();
         //System.out.println(palabras_clave);
-        String Url = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=" + palabras_clave;
+
+        String Url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term="+palabras_clave+"&retmax="+cantIDs+"&usehistory=y";
+        
         try {
             Document doc = new conexionServ().conecta(Url);
             listID = revisa_xml(doc, "Id");
@@ -61,95 +63,127 @@ public class lecturas_PM {
         return listID;
     }
 
-    public String BusquedaPM_Abstracts(ArrayList<String> listaIDs, String fileAbstID) throws Exception {
-        
-        String abstracts = fileAbstID;
-        //File file = new File(abstracts);
-        //file.delete();
+    public String BusquedaPM_Abstracts(ArrayList<String> listaIDs, String fileAbstID, int cant_por_archivo) throws Exception {
+
+        crearCarpeta(fileAbstID);
+
         System.out.println("generando archivo " + fileAbstID);
-       
+        int cont1 = 0, cont2 = 1;
         for (int i = 0; i < listaIDs.size(); i++) {
-            String ruta = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + listaIDs.get(i) + "&retmode=xml&rettype=abstract";
+                String ruta = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id="+ listaIDs.get(i) + "&retmode=xml&rettype=abstract";
             try {
-                ArrayList<String> lista = new ArrayList<>();
-                Document doc = new conexionServ().conecta(ruta);
-                lista = revisa_xml(doc, "AbstractText");
-                guardar_en_archivo(abstracts, lista, listaIDs.get(i) );
+                if (cont1 < cant_por_archivo) {
+                    ArrayList<String> lista = new ArrayList<>();
+                    Document doc = new conexionServ().conecta(ruta);
+                    lista = revisa_xml(doc, "AbstractText");
+                    guardar_en_archivo(fileAbstID + "/" + fileAbstID + "_" + cont2, lista, listaIDs.get(i));
+                    cont1++;
+                    
+                } else {
+                    System.out.println(fileAbstID + "_" + cont2+"  creado");
+                    cont1 = 0;
+                    cont2++;
+                }
             } catch (Exception e) {
 
             }
         }
         System.out.println("Listo..");
-        
+
         //llamada de metodo para crear html
         //cambiar el return por abstracts.html (archivo html)
         System.out.println("IMPRIMO ARCHIVO HTML");
-         String salida_html=  generar_html(abstracts);
-        
-       // return abstracts;
-       return salida_html;
+        String salida_html = generar_html(fileAbstID);
+
+        // return abstracts;
+        return salida_html;
     }
 
-   private String generar_html(String fuente) throws Exception{
-        
-        String nombre_archivo="abstracts_salida.html";
-        File archivo_fuente= new File(fuente);
-        File archivo_destino= new File(nombre_archivo);
-        
+    private void crearCarpeta(String nombre) {
+        File f = new File(nombre);
+        try {
+            borrarDirectorio(f);
+        } catch (Exception e) {
+
+        }
+        if (f.delete()) {
+            // System.out.println("El directorio   ha sido borrado correctamente");
+        } else {
+            //System.out.println("El directorio  no se ha podido borrar");
+        }
+
+        File file = new File(nombre);
+        file.mkdir();
+
+    }
+
+    private void borrarDirectorio(File directorio) {
+        File[] ficheros = directorio.listFiles();
+        for (int i = 0; i < ficheros.length; i++) {
+            if (ficheros[i].isDirectory()) {
+                borrarDirectorio(ficheros[i]);
+            }
+            ficheros[i].delete();
+        }
+    }
+
+    private String generar_html(String fuente) throws Exception {
+
+        String nombre_archivo = "abstracts_salida.html";
+        File archivo_fuente = new File(fuente);
+        File archivo_destino = new File(nombre_archivo);
+
         BufferedWriter escribir;
         BufferedReader leer;
-        
-        
+
         String linea = "";
-        String cabecera = "<!DOCTYPE html>\n" +
-                          "<html>\n" +
-                          "<head>\n" +
-                          "	<meta charset=\"utf-8\">\n" +
-                          "	<title>generación de archivo html</title>\n" +
-                          "</head>\n" +
-                          "<body>";
-        
-        String pie = "\n</body>\n" +
-                      "</html>";
-        
-        int contador = 0 ,contador2 = 0,longitud_linea;
-        
-        leer = new BufferedReader(new FileReader (archivo_fuente));
-        
-        escribir= new BufferedWriter(new FileWriter(archivo_destino));
-        
-        if(archivo_fuente.exists()){
-            
+        String cabecera = "<!DOCTYPE html>\n"
+                + "<html>\n"
+                + "<head>\n"
+                + "	<meta charset=\"utf-8\">\n"
+                + "	<title>generación de archivo html</title>\n"
+                + "</head>\n"
+                + "<body>";
+
+        String pie = "\n</body>\n"
+                + "</html>";
+
+        int contador = 0, contador2 = 0, longitud_linea;
+
+        leer = new BufferedReader(new FileReader(archivo_fuente));
+
+        escribir = new BufferedWriter(new FileWriter(archivo_destino));
+
+        if (archivo_fuente.exists()) {
+
             System.out.println("archivo localizado");
-            
+
             System.out.println("generacion de archivo html iniciada......");
-            
+
             escribir.write(cabecera);
-            
-            while((linea=leer.readLine())!=null){
-            
+
+            while ((linea = leer.readLine()) != null) {
+
                 escribir.write(linea);
-              
+
             }
-            
-             escribir.write(pie);
-            
+
+            escribir.write(pie);
+
             leer.close();
-            
+
             escribir.close();
-            
+
             System.out.println("generacion de archivo html culminada con exito");
-        }
-        
-        else{
-            
+        } else {
+
             System.out.println("archivo no localizado");
-            
+
         }
-        
+
         return nombre_archivo;
-    } 
-    
+    }
+
     private ArrayList<String> revisa_xml(Document doc, String lb) {
         ArrayList<String> lista = new ArrayList<>();
         NodeList nList = doc.getElementsByTagName(lb);
@@ -167,7 +201,7 @@ public class lecturas_PM {
         return lista;
     }
 
-    private void guardar_en_archivo(String ruta, ArrayList<String> Abstract,String ID) {
+    private void guardar_en_archivo(String ruta, ArrayList<String> Abstract, String ID) {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
@@ -193,14 +227,13 @@ public class lecturas_PM {
         }
 
     }
-    
-  public void gererar_html (String archivo){
-      String salida="";
-      System.out.println("generacion de archivo html iniciada");
-       
-      System.out.println("generacion de archivo html finalizada");
-      
-      
-  }
+
+    public void gererar_html(String archivo) {
+        String salida = "";
+        System.out.println("generacion de archivo html iniciada");
+
+        System.out.println("generacion de archivo html finalizada");
+
+    }
 
 }

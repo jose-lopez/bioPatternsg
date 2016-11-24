@@ -23,21 +23,16 @@ import org.w3c.dom.NodeList;
 public class lecturas_HGNC {
 
     private String ID;
-    private String Simbolo;
-    private String Nombre;
-    private String locus_type;
-    private String ensembl_gene_id;
-    private ArrayList<String> sinonimos;
-    private ArrayList<String> gene_family;
+    private ArrayList<String> sinonimosExperto;
+    private ArrayList<HGNC> HGNC;
 
-    public lecturas_HGNC(){
-        sinonimos = new ArrayList<>();
-        gene_family = new ArrayList<>();
+    public lecturas_HGNC() {
+        HGNC = new ArrayList<>();
+        sinonimosExperto = new ArrayList<>();
     }
-    
-    public boolean busqueda_genenames(String contenido, boolean criterio) {
 
-        String factor = null;
+    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion) {
+        ArrayList<String> factor = new ArrayList<>();
         if (criterio) {
             String cri = obtener_factor(contenido);
             try {
@@ -45,14 +40,14 @@ public class lecturas_HGNC {
                 setID(cri);
                 String Url = "http://rest.genenames.org/search/" + cri;
                 Document doc = new conexionServ().conecta(Url);
-                factor = busqueda_lista_xml(doc);
+                factor = busqueda_lista_xml(doc, opcion,cri);
             } catch (Exception e) {
                 try {
                     contenido = unir_palabras(contenido);
                     setID(contenido);
                     String Url = "http://rest.genenames.org/search/" + contenido;
                     Document doc = new conexionServ().conecta(Url);
-                    factor = busqueda_lista_xml(doc);
+                    factor = busqueda_lista_xml(doc, opcion, cri);
 
                 } catch (Exception ee) {
                 }
@@ -65,51 +60,83 @@ public class lecturas_HGNC {
                 setID(contenido);
                 String Url = "http://rest.genenames.org/search/" + contenido;
                 Document doc = new conexionServ().conecta(Url);
-                factor = busqueda_lista_xml(doc);
+                factor = busqueda_lista_xml(doc, opcion, contenido);
             } catch (Exception ee) {
+                HGNC hgnc = new HGNC();
+                hgnc.setSimbolo(contenido);
+                hgnc.setNombre(contenido);
+                HGNC.add(hgnc);
             }
         }
 
         //System.out.println("etiqueta: "+ID);
         //System.out.println("Factor: "+factor);
-        try {
-            // String nombre = busque String  Url = "http://rest.genenames.org/search/" + contenido;
-            String Url = "http://rest.genenames.org/fetch/symbol/" + factor;
-            Document doc = new conexionServ().conecta(Url);
-            busqueda_datos_xml(doc);
-            return true;
-        } catch (Exception e) {
-            // System.out.println("no se encuentra "+contenido+" en HUGO");
-            setNombre(contenido);
-            setSimbolo(contenido);
-            return false;
+        for (int i = 0; i < factor.size(); i++) {
+
+            try {
+                // String nombre = busque String  Url = "http://rest.genenames.org/search/" + contenido;
+                String Url = "http://rest.genenames.org/fetch/symbol/" + factor.get(i);
+                Document doc = new conexionServ().conecta(Url);
+                busqueda_datos_xml(doc);
+
+            } catch (Exception e) {
+                // System.out.println("no se encuentra "+contenido+" en HUGO");
+
+            }
         }
 
+        return true;
     }
 
-    private String busqueda_lista_xml(Document doc) {
-        String nombre = null;
-        NodeList nList = doc.getElementsByTagName("doc");
+    private ArrayList<String> busqueda_lista_xml(Document doc, int opcion, String palabra) {
+        ArrayList<String> nombres = new ArrayList<>();
+        NodeList nList = doc.getElementsByTagName("result");
         Node nNode = nList.item(0);
-        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+        Element Element = (Element) nNode;
+        float score = Float.parseFloat(Element.getAttribute("maxScore"));
+        nList = doc.getElementsByTagName("doc");
+        int cont = 0;
+        for (int i = 0; i < nList.getLength(); i++) {
+            nNode = nList.item(i);
             Element elemento = (Element) nNode;
-            nombre = elemento.getElementsByTagName("str").item(1).getTextContent();
+            if (opcion == 0) {
+                if (score == Float.parseFloat(elemento.getElementsByTagName("float").item(0).getTextContent())) {
+                    //System.out.println(" simbolo "+elemento.getElementsByTagName("str").item(1).getTextContent());
+                    nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
 
+                }
+            } else if (opcion == -1) {
+                
+                if (elemento.getElementsByTagName("str").item(1).getTextContent().equals(palabra)) {
+                    nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
+                    break;
+                }
+                
+            }else if(opcion >= 1){
+                if (cont < opcion) {
+                    cont++;
+                    nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
+                
+                }
+                
+            }
         }
-        return nombre;
+
+        return nombres;
     }
 
     private void busqueda_datos_xml(Document doc) {
 
+        HGNC hgnc = new HGNC();
         NodeList nList = doc.getElementsByTagName("doc");
         Node nNode = nList.item(0);
 
         if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
             Element elemento = (Element) nNode;
-            setSimbolo(elemento.getElementsByTagName("str").item(1).getTextContent());//Simbolo
-            setNombre(elemento.getElementsByTagName("str").item(2).getTextContent());//Nombre
-            setLocus_type(elemento.getElementsByTagName("str").item(4).getTextContent());//Locus type
+            hgnc.setSimbolo(elemento.getElementsByTagName("str").item(1).getTextContent());//Simbolo
+            hgnc.setNombre(elemento.getElementsByTagName("str").item(2).getTextContent());//Nombre
+            hgnc.setLocus_type(elemento.getElementsByTagName("str").item(4).getTextContent());//Locus type
             //-------------------------------------------------------
             //ensemble gene id
             NodeList list = elemento.getElementsByTagName("str");
@@ -118,7 +145,7 @@ public class lecturas_HGNC {
                 if (nodo.getNodeType() == nodo.ELEMENT_NODE) {
                     Element elm = (Element) nodo;
                     if (elm.getAttribute("name").equals("ensembl_gene_id")) {
-                        setEnsembl_gene_id(elemento.getElementsByTagName("str").item(i).getTextContent());
+                        hgnc.setEnsembl_gene_id(elemento.getElementsByTagName("str").item(i).getTextContent());
                     }
                 }
             }
@@ -135,7 +162,7 @@ public class lecturas_HGNC {
 
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
-                            getSinonimos().add(elm.getElementsByTagName("str").item(j).getTextContent());
+                            hgnc.getSinonimos().add(elm.getElementsByTagName("str").item(j).getTextContent());
                         }
 
                     }
@@ -144,7 +171,7 @@ public class lecturas_HGNC {
 
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
-                            getSinonimos().add(elm.getElementsByTagName("str").item(j).getTextContent());
+                            hgnc.getSinonimos().add(elm.getElementsByTagName("str").item(j).getTextContent());
                         }
 
                     }
@@ -153,7 +180,7 @@ public class lecturas_HGNC {
 
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
-                            getSinonimos().add(elm.getElementsByTagName("str").item(j).getTextContent());
+                            hgnc.getSinonimos().add(elm.getElementsByTagName("str").item(j).getTextContent());
                         }
 
                     }
@@ -164,7 +191,7 @@ public class lecturas_HGNC {
 
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
-                            getGene_family().add(elm.getElementsByTagName("str").item(j).getTextContent());
+                            hgnc.getGene_family().add(elm.getElementsByTagName("str").item(j).getTextContent());
                         }
 
                     }
@@ -175,30 +202,8 @@ public class lecturas_HGNC {
             }
 
         }
+        HGNC.add(hgnc);
 
-    }
-
-    private Document conecta(String Url) {
-        Document doc = null;
-        while (true) {
-            try {
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder db = dbf.newDocumentBuilder();
-                doc = db.parse(new URL(Url).openStream());
-                doc.getDocumentElement().normalize();
-                break;
-            } catch (Exception ex) {
-                //System.out.println("error conexion");
-                try {
-                    //System.out.println("error conexion");
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex1) {
-                    //Logger.getLogger(lecturas_rcsb.class.getName()).log(Level.SEVERE, null, ex1);
-                }
-            }
-        }
-
-        return doc;
     }
 
     public String obtener_factor(String desc) {
@@ -298,58 +303,15 @@ public class lecturas_HGNC {
         return palabra;
     }
 
-    public void generar_objetosMinados_txt(Description desc) {
-
-        String cadena;
-        cadena = desc.getEtiqueta() + ";" + desc.getNombre() + ";" + desc.getSimbolo();
-        for (int i = 0; i < desc.getSinonimos().size(); i++) {
-            cadena += ";" + desc.getSinonimos().get(i);
-        }
-
-        escribe_txt("objetosMinados.txt", cadena);
-
-    }
-
-    public void escribe_txt(String archivo, String texto) {
-
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        try {
-            fichero = new FileWriter(archivo, true);
-            pw = new PrintWriter(fichero);
-
-            pw.println(texto);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                // Nuevamente aprovechamos el finally para 
-                // asegurarnos que se cierra el fichero.
-                if (null != fichero) {
-                    fichero.close();
-                }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-
-    }
-
-    
-    public void imprimir(){
+    public void imprimir() {
         System.out.println("Lecturas HGNC");
-        System.out.println("ID: "+getID());
-        System.out.println("Nombre: "+getNombre());
-        System.out.println("Simbolo: "+getSimbolo());
-        System.out.println("Ensembl gene id"+ getEnsembl_gene_id());
-        System.out.println("SINONIMOS");
-        for (int i = 0; i < getSinonimos().size(); i++) {
-            System.out.println("  "+getSinonimos().get(i));
+        System.out.println("    ID: " + ID);
+        System.out.println("-------------------------------");
+        for (int i = 0; i < HGNC.size(); i++) {
+            HGNC.get(i).imprimir();
         }
-        
     }
-    
+
     public String getID() {
         return ID;
     }
@@ -358,7 +320,61 @@ public class lecturas_HGNC {
         this.ID = ID;
     }
 
-        
+    public ArrayList<HGNC> getHGNC() {
+        return HGNC;
+    }
+
+    public void setHGNC(ArrayList<HGNC> HGNC) {
+        this.HGNC = HGNC;
+    }
+
+    public ArrayList<String> getSinonimosExperto() {
+        return sinonimosExperto;
+    }
+
+    public void setSinonimosExperto(ArrayList<String> sinonimosExperto) {
+        this.sinonimosExperto = sinonimosExperto;
+    }
+
+    public ArrayList<String> listaNombres() {
+        ArrayList<String> lista = new ArrayList<>();
+        lista.add(ID);
+        for (int i = 0; i < HGNC.size(); i++) {
+
+            lista.addAll(HGNC.get(i).ListaNombres());
+
+        }
+
+        return lista;
+    }
+
+}
+
+class HGNC {
+
+    private String Simbolo;
+    private String Nombre;
+    private String locus_type;
+    private String ensembl_gene_id;
+    private ArrayList<String> sinonimos;
+    private ArrayList<String> gene_family;
+
+    public HGNC() {
+        sinonimos = new ArrayList<>();
+        gene_family = new ArrayList<>();
+    }
+
+    public void imprimir() {
+        System.out.println("    Nombre: " + getNombre());
+        System.out.println("    Simbolo: " + getSimbolo());
+        System.out.println("    Ensembl gene id: " + getEnsembl_gene_id());
+        System.out.println("    SINONIMOS:");
+        for (int i = 0; i < getSinonimos().size(); i++) {
+            System.out.println("       -" + getSinonimos().get(i));
+        }
+        System.out.println("_____________________________________");
+    }
+
     public String getSimbolo() {
         return Simbolo;
     }
@@ -406,6 +422,18 @@ public class lecturas_HGNC {
     public void setGene_family(ArrayList<String> gene_family) {
         this.gene_family = gene_family;
     }
-    
-    
+
+    public ArrayList<String> ListaNombres() {
+        ArrayList<String> Lista = new ArrayList<>();
+
+        Lista.add(Simbolo);
+        Lista.add(Nombre);
+
+        for (int i = 0; i < sinonimos.size(); i++) {
+            Lista.add(sinonimos.get(i));
+        }
+
+        return Lista;
+    }
+
 }

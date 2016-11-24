@@ -40,7 +40,7 @@ public class Motivo {
     
     private int[] coordenadas;
     
-    private ArrayList<Factor_Transcripcion> factores;
+    private ArrayList<factorTranscripcion> factores;
 
     public Motivo() {
         this.coordenadas = new int[2];
@@ -79,11 +79,11 @@ public class Motivo {
         this.coordenadas = coords;
     }
 
-    public ArrayList<Factor_Transcripcion> getFactores() {
+    public ArrayList<factorTranscripcion> getFactores() {
         return factores;
     }
 
-    public void setFactores(ArrayList<Factor_Transcripcion> fts) {
+    public void setFactores(ArrayList<factorTranscripcion> fts) {
         this.factores = fts;
     }
 }
