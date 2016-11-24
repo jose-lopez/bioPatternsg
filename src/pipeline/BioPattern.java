@@ -243,19 +243,18 @@ public class BioPattern {
         Authenticator.setDefault(new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                //*
-              //  JTextField jtf = new JTextField();
-              //  JPasswordField jpf = new JPasswordField();
-              //  if (JOptionPane.showConfirmDialog(null, new Object[]{jtf, jpf}, "Clave:", JOptionPane.OK_CANCEL_OPTION) == 0) {
+                
+               JTextField jtf = new JTextField();
+                JPasswordField jpf = new JPasswordField();
+                if (JOptionPane.showConfirmDialog(null, new Object[]{jtf, jpf}, "Clave:", JOptionPane.OK_CANCEL_OPTION) == 0) {
 
-                   // String usuario = jtf.getText();
-                   // char[] clave = jpf.getPassword();
-                    String usuario = "yacson.ramirez";
-                    char[] clave = {'Y','a','c','s','o','N','3','2','8','7'};                    return new PasswordAuthentication(usuario, clave);
-                //} else {
-                   // System.exit(0);
-                   // return null;
-                //}
+                    String usuario = jtf.getText();
+                    char[] clave = jpf.getPassword();
+                                       return new PasswordAuthentication(usuario, clave);
+                } else {
+                    System.exit(0);
+                    return null;
+                }
             }
         });
 
