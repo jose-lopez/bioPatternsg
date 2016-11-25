@@ -31,11 +31,13 @@ public class factorTranscripcion {
     private lecturas_HGNC lecturas_HGNC;
     private lecturas_TFBIND lecturasTFBIND;
     private ArrayList<complejoProteinico> complejoProteinico;
+    private ArrayList<String> ontologia;
     
     public factorTranscripcion(){
         complejoProteinico = new ArrayList<>();
         lecturas_HGNC = new lecturas_HGNC();
         lecturasTFBIND = new lecturas_TFBIND();
+        ontologia = new ArrayList<>();
     }
     //constructor para la primera Iteracion con lecturas obtenidas desde TFBIND
     public factorTranscripcion(lecturas_TFBIND lecturasTFBIND, boolean criterio, int NumeroObjetos, objetosMineria objetosMineria, int opcion){
