@@ -38,7 +38,7 @@ public class factorTranscripcion {
         lecturasTFBIND = new lecturas_TFBIND();
     }
     //constructor para la primera Iteracion con lecturas obtenidas desde TFBIND
-    public factorTranscripcion(lecturas_TFBIND lecturasTFBIND, boolean criterio, int NumeroObjetos, objetos_mineria2 objetosMineria, int opcion){
+    public factorTranscripcion(lecturas_TFBIND lecturasTFBIND, boolean criterio, int NumeroObjetos, objetosMineria objetosMineria, int opcion){
         System.out.println("Buscando información para : "+lecturasTFBIND.getFactor()+" ...");
         this.lecturasTFBIND = lecturasTFBIND;
         this.ID = lecturasTFBIND.getFactor();

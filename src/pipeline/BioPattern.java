@@ -110,21 +110,6 @@ public class BioPattern {
         //*
         float conf = Float.parseFloat(confiabilidad);  //confiabilidad de las busquedas en tfbind
 
-<<<<<<< HEAD
-        
-        Minado_FT MFT = new Minado_FT();
-        MFT.minado(rutaRegPromSecProb, cant_compl_p, criterio, conf, num_iteraciones);
-        //*
-        Busqueda_PubMed bpm = new Busqueda_PubMed();
-        bpm.busqueda_IDs(MFT.getListaFT(), MFT.getLista_homologos(), true);
-        //genero abstracts
-        //nuevo archivo.html
-        //nombre del archivo local donde va, es la entrada que debe pasar html
-        String abstracts = new lecturas_PM().BusquedaPM_Abstracts(bpm.getListaIDs(), fileAbstID);
-        bpm.limpiar_men();
-        //*/
-
-=======
         minado_FT mfts= new minado_FT();
         //ruta de archivo, confiabilidad, N Iteraciones, N de objetos, Criterio de busqueda, opcion para busqueda en HGNC (0: todos los mejores ramqueados, -1:solo el objeto con el mismo nombre, [1-n]: cantidad de espesifica de objetos HUGO)
         mfts.minado(rutaRegPromSecProb, conf,num_iteraciones,cantPromotores,criterio,1);
@@ -151,7 +136,6 @@ public class BioPattern {
         }
         
        
->>>>>>> hanuman
         /*
          // Se reciben los abstracts descargados y se devuelve el archivo de oraciones SVC necesario para
          // construir la BC con la que se haran inferencias para deducir patrones de regulacion.
@@ -260,22 +244,6 @@ public class BioPattern {
         Authenticator.setDefault(new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-<<<<<<< HEAD
-                /*JTextField jtf = new JTextField();
-                 JPasswordField jpf = new JPasswordField();
-                 if (JOptionPane.showConfirmDialog(null, new Object[]{jtf, jpf}, "Clave:", JOptionPane.OK_CANCEL_OPTION) == 0) {
-
-                 //String usuario = jtf.getText();
-                 //char[] clave = jpf.getPassword();*/
-                String usuario = "jlopez";
-                char[] clave = {'K', 'i', 't', 'e', 's', '0', '8', '.'};
-
-                return new PasswordAuthentication(usuario, clave);
-                /*} else {
-                 System.exit(0);
-                 return null;
-                 }*/
-=======
                 
                JTextField jtf = new JTextField();
                 JPasswordField jpf = new JPasswordField();
@@ -288,7 +256,7 @@ public class BioPattern {
                     System.exit(0);
                     return null;
                 }
->>>>>>> hanuman
+
             }
         });
 
