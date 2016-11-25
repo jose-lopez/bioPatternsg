@@ -38,7 +38,7 @@ public class minado_FT {
 
     public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos, boolean criterio, int opcion) {
         Runtime garbage = Runtime.getRuntime();
-        objetos_mineria2 objetosMineria = new objetos_mineria2();
+        objetosMineria objetosMineria = new objetosMineria();
         //Se crea un nuevo archivo de Objectos minados
         borrar_archivo("objetosMinados.txt");
         new objetosMinados().crear_archivo();
@@ -137,7 +137,7 @@ public class minado_FT {
         }
     }
     
-    public void guardar_objetosIteracion(objetos_mineria2 objetosMin){
+    public void guardar_objetosIteracion(objetosMineria objetosMin){
         ObjectContainer db = Db4o.openFile("objetosMineria.db");
         try {
             db.store(objetosMin);
@@ -169,7 +169,7 @@ public class minado_FT {
 
     }
 
-    public void leer_archivo_homologos(objetos_mineria2 objetosMineria, int opcion) {
+    public void leer_archivo_homologos(objetosMineria objetosMineria, int opcion) {
 
         System.out.println("**Leyendo archivo de Homologos...");
 
@@ -206,7 +206,7 @@ public class minado_FT {
 
     }
 
-    public void leer_archivo_ObjetosExperto(objetos_mineria2 objetosMineria, int opcion) {
+    public void leer_archivo_ObjetosExperto(objetosMineria objetosMineria, int opcion) {
 
         System.out.println("\n**Leyendo archivo de Objetos Experto...");
 
@@ -272,13 +272,13 @@ public class minado_FT {
 }
 
 //-------------------------------------------------------------------------------------------------//
-class objetos_mineria2 {
+class objetosMineria {
 
     private int Iteracion;
     private ArrayList<String> objetos_minados;
     private ArrayList<String> nuevos_objetos;
     
-    public objetos_mineria2() {
+    public objetosMineria() {
 
         this.objetos_minados = new ArrayList<>();
         this.nuevos_objetos = new ArrayList<>();
