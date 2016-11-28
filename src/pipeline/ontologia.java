@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class ontologia {
     private String GO;
-    private String FuncionMolecular;
+    private String nombre;
     private ArrayList <String> is_a;
     private ArrayList<String> sinonimos;
 
@@ -22,7 +22,21 @@ public class ontologia {
         is_a = new ArrayList<>();
         sinonimos = new ArrayList<>();
     }
-    
+
+
+    public void imprimir(){
+        System.out.println("GO= "+GO);
+        System.out.println("FM= "+nombre);
+        System.out.println("Sinonimos:");
+        for (int i = 0; i < sinonimos.size(); i++) {
+            System.out.println("    "+sinonimos.get(i));
+        }
+        System.out.println("is_a:");
+        for (int i = 0; i < is_a.size(); i++) {
+            System.out.println("    "+is_a.get(i));
+        }
+        
+    }
     
     public String getGO() {
         return GO;
@@ -32,12 +46,12 @@ public class ontologia {
         this.GO = GO;
     }
 
-    public String getFuncionMolecular() {
-        return FuncionMolecular;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setFuncionMolecular(String FuncionMolecular) {
-        this.FuncionMolecular = FuncionMolecular;
+    public void setNombre(String FuncionMolecular) {
+        this.nombre = FuncionMolecular;
     }
 
     public ArrayList<String> getIs_a() {
