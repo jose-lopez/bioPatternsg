@@ -38,14 +38,18 @@ public class lecturas_HGNC {
             try {
                 cri = unir_palabras(cri);
                 setID(cri);
-                String Url = "http://rest.genenames.org/search/" + cri;
+                //"http://rest.genenames.org/search/alias_name:" SLCO1B1 "OR prev_name:" SLCO1B1 " OR " SLCO1B1
+                
+                String Url = "http://rest.genenames.org/search/alias_name:" +cri+ "OR prev_name:" +cri+ " OR " +cri;
+                //String Url = "http://rest.genenames.org/search/" + cri;
                 Document doc = new conexionServ().conecta(Url);
                 factor = busqueda_lista_xml(doc, opcion,cri);
             } catch (Exception e) {
                 try {
                     contenido = unir_palabras(contenido);
                     setID(contenido);
-                    String Url = "http://rest.genenames.org/search/" + contenido;
+                    //String Url = "http://rest.genenames.org/search/" + contenido;
+                    String Url = "http://rest.genenames.org/search/alias_name:" +contenido+ "OR prev_name:" +contenido+ " OR " +contenido;
                     Document doc = new conexionServ().conecta(Url);
                     factor = busqueda_lista_xml(doc, opcion, cri);
 
@@ -58,7 +62,9 @@ public class lecturas_HGNC {
             try {
                 contenido = unir_palabras(contenido);
                 setID(contenido);
-                String Url = "http://rest.genenames.org/search/" + contenido;
+                //String Url = "http://rest.genenames.org/search/" + contenido;
+                 String Url = "http://rest.genenames.org/search/alias_name:" +contenido+ "OR prev_name:" +contenido+ " OR " +contenido;
+                   
                 Document doc = new conexionServ().conecta(Url);
                 factor = busqueda_lista_xml(doc, opcion, contenido);
             } catch (Exception ee) {
@@ -75,6 +81,8 @@ public class lecturas_HGNC {
 
             try {
                 // String nombre = busque String  Url = "http://rest.genenames.org/search/" + contenido;
+                
+                
                 String Url = "http://rest.genenames.org/fetch/symbol/" + factor.get(i);
                 Document doc = new conexionServ().conecta(Url);
                 busqueda_datos_xml(doc);
@@ -196,6 +204,16 @@ public class lecturas_HGNC {
 
                     }
                     //---------------------------------------------------
+                    //uniprot
+                    if (elm.getAttribute("name").equals("uniprot_ids")) {
+                        System.out.println("aquii");
+                        int ls = elm.getElementsByTagName("str").getLength();
+                        for (int j = 0; j < ls; j++) {
+                            String codUP = elm.getElementsByTagName("str").item(j).getTextContent();
+                            hgnc.setFuncionMolecular(new lecturas_Uniprot().obtenercodigoGO(codUP));
+                        }
+
+                    }
 
                 }
 
@@ -358,10 +376,12 @@ class HGNC {
     private String ensembl_gene_id;
     private ArrayList<String> sinonimos;
     private ArrayList<String> gene_family;
+    private ArrayList<String> funcionMolecular;
 
     public HGNC() {
         sinonimos = new ArrayList<>();
         gene_family = new ArrayList<>();
+        funcionMolecular = new ArrayList<>();
     }
 
     public void imprimir() {
@@ -422,6 +442,16 @@ class HGNC {
     public void setGene_family(ArrayList<String> gene_family) {
         this.gene_family = gene_family;
     }
+
+    public ArrayList<String> getFuncionMolecular() {
+        return funcionMolecular;
+    }
+
+    public void setFuncionMolecular(ArrayList<String> funcionMolecular) {
+        this.funcionMolecular = funcionMolecular;
+    }
+    
+    
 
     public ArrayList<String> ListaNombres() {
         ArrayList<String> Lista = new ArrayList<>();

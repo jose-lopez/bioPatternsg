@@ -18,7 +18,7 @@ import org.w3c.dom.NodeList;
  */
 public class lecturas_Uniprot {
 
-    public ArrayList<String> obtenercodigoUP(String codigo) {
+    public ArrayList<String> obtenercodigoGO(String codigo) {
         ArrayList<String> codigoGO = new ActivatableArrayList<>();
 
         String url = "http://www.uniprot.org/uniprot/" + codigo + ".xml";

@@ -31,13 +31,13 @@ public class factorTranscripcion {
     private lecturas_HGNC lecturas_HGNC;
     private lecturas_TFBIND lecturasTFBIND;
     private ArrayList<complejoProteinico> complejoProteinico;
-    private ArrayList<String> ontologia;
+    private ArrayList<String> funcionMolecular;
     
     public factorTranscripcion(){
         complejoProteinico = new ArrayList<>();
         lecturas_HGNC = new lecturas_HGNC();
         lecturasTFBIND = new lecturas_TFBIND();
-        ontologia = new ArrayList<>();
+        funcionMolecular = new ArrayList<>();
     }
     //constructor para la primera Iteracion con lecturas obtenidas desde TFBIND
     public factorTranscripcion(lecturas_TFBIND lecturasTFBIND, boolean criterio, int NumeroObjetos, objetosMineria objetosMineria, int opcion){
@@ -56,8 +56,6 @@ public class factorTranscripcion {
             cp.buscar_ligandos();
             complejoProteinico.add(cp);
         }
-            
-        
     }
      
     public ArrayList<String> Buscar_ID_complejosProteinicos(String FT, int Limite) {
@@ -206,7 +204,16 @@ public class factorTranscripcion {
     public void setComplejoProteinico(ArrayList<complejoProteinico> complejoProteinico) {
         this.complejoProteinico = complejoProteinico;
     }
-      
+
+    public ArrayList<String> getFuncionMolecular() {
+        return funcionMolecular;
+    }
+
+    public void setFuncionMolecular(ArrayList<String> funcionMolecular) {
+        this.funcionMolecular = funcionMolecular;
+    }
+     
+    
     
 }
 
