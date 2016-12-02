@@ -19,6 +19,7 @@ import java.util.List;
  * @author yacson-ramirez
  */
 public class busquedaPubMed_IDs {
+    
 
     public ArrayList<String> busqueda_IDs(boolean todas, int cantIDs) {
         System.out.println("\nGenerando combinaciones de objetos...");

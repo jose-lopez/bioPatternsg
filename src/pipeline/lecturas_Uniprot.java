@@ -15,6 +15,7 @@ import org.w3c.dom.NodeList;
  *
  * @author yacson-ramirez
  */
+
 public class lecturas_Uniprot {
 
     private Document doc;

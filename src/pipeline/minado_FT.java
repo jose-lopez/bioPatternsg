@@ -19,6 +19,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 
  */
+
 package pipeline;
 
 import com.db4o.Db4o;

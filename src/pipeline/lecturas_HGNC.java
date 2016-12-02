@@ -23,6 +23,7 @@ import org.w3c.dom.NodeList;
  *
  * @author yacson-ramirez
  */
+
 public class lecturas_HGNC {
 
     private String ID;

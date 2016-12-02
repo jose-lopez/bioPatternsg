@@ -23,7 +23,6 @@ public class ontologia {
         sinonimos = new ArrayList<>();
     }
 
-
     public void imprimir(){
         System.out.println("GO= "+GO);
         System.out.println("FM= "+nombre);
