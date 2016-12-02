@@ -38,6 +38,10 @@ public class ontologia {
         
     }
     
+    public void Obtener_Ontologia(){
+        
+    }
+    
     public String getGO() {
         return GO;
     }
