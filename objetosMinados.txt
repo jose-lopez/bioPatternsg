@@ -1,5 +1,2 @@
 CYP7A1;cytochrome P450 family 7 subfamily A member 1;CYP7;cytochrome P450, subfamily VIIA (cholesterol 7 alpha-monooxygenase), polypeptide 1;cytochrome P450, family 7, subfamily A, polypeptide 1
 RBM6;RNA binding motif protein 6;DEF-3;3G2;NY-LU-12;g16;DEF3
-NID1;nidogen 1;NID;nidogen (enactin);entactin
-QDPR;quinoid dihydropteridine reductase;DHPR;PKU2;SDR33C1
-FAM159A;family with sequence similarity 159 member A;family with sequence similarity 159, member A;MGC52498
