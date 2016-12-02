@@ -62,7 +62,7 @@ public class BioPattern {
 
     }
 
-    public Region pipelineBioPatternRP(String rutabloquesConsenso, String regionPromotora, String confiabilidad, int cantPromotores, int cant_compl_p, int num_iteraciones, boolean criterio) throws IOException {
+    public Region pipelineBioPatternRP(String rutaSecuenciaProb, String regionPromotora, String confiabilidad, int cantPromotores, int cant_compl_p, int num_iteraciones, boolean criterio) throws IOException {
 
         //Autenticación de proxy        
         autenticarProxy("150.187.65.3", "3128");
@@ -70,7 +70,7 @@ public class BioPattern {
         //String rutaRegsPromotorasHomolgs = new HomologosBlast().regionesPromotsHomolgs(rutaSecProb, cantPromotores);
 
         // Se reciben la region promotora de la secuencia problema y la de sus homólogas y se obtienen los bloques consenso que ellas comparten.
-        //String rutabloquesConsenso = new Alineador(rutaRegPromSecProb, rutaRegsPromotorasHomolgs).alineadorClustalw();
+        //String rutaSecuenciaProb = new Alineador(rutaRegPromSecProb, rutaRegsPromotorasHomolgs).alineadorClustalw();
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
         //confiabilidad de las busquedas en tfbind
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
