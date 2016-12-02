@@ -19,6 +19,8 @@ import org.w3c.dom.NodeList;
 public class lecturas_Uniprot {
 
     private Document doc;
+    private String Simbolo;
+    private String Nombre;
 
     public lecturas_Uniprot(String codigo) {
 
@@ -68,11 +70,35 @@ public class lecturas_Uniprot {
         return cod;
     }
 
-    public String obtener_Nombre() {
-        String nombre = null;
-        nombre = doc.getElementsByTagName("fullName").item(0).getTextContent();
-        return nombre;
-
+    public void obtener_Nombre() {
+               
+        Nombre = doc.getElementsByTagName("fullName").item(0).getTextContent();
+        
+        
+        Node node = doc.getElementsByTagName("gene").item(0);
+        
+        Element elemento = (Element)node;
+        Simbolo = elemento.getElementsByTagName("name").item(0).getTextContent();
+        System.out.println(Nombre+"  "+Simbolo);
+        
     }
+
+    public String getSimbolo() {
+        return Simbolo;
+    }
+
+    public void setSimbolo(String Simbolo) {
+        this.Simbolo = Simbolo;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+    
+    
 
 }

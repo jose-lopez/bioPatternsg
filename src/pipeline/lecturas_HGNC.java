@@ -31,35 +31,50 @@ public class lecturas_HGNC {
         sinonimosExperto = new ArrayList<>();
     }
 
-    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion) {
+    public void busquedaInfGen(String contenido, boolean criterio, int opcion) {
+
         String lectura = contenido.replace(" ", "+");
         lecturas_pathwaycommons lpat = new lecturas_pathwaycommons();
         String cUP = lpat.obtenercodigoUP(lectura);
+        System.out.println("cod_UP: " + cUP);
+
         if (!cUP.equals("")) {
             lecturas_Uniprot UP = new lecturas_Uniprot(cUP);
-            contenido = UP.obtener_Nombre();
+            UP.obtener_Nombre();
+            lectura = UP.getSimbolo();
             criterio = false;
+
+            if (!busqueda_genenames(lectura, criterio, 0)) {
+
+                lectura = UP.getNombre();
+                if (!busqueda_genenames(lectura, criterio, 0)) {
+                    busqueda_genenames(contenido, true, 0);
+                }
+            }
+
+        }else{
+            busqueda_genenames(contenido, true, 0);
         }
-        
+
+    }
+
+    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion) {
 
         ArrayList<String> factor = new ArrayList<>();
         if (criterio) {
             String cri = obtener_factor(contenido);
             try {
-                cri = unir_palabras(cri);
+                cri = cri.replace(" ", "+");
                 setID(cri);
-                //"http://rest.genenames.org/search/alias_name:" SLCO1B1 "OR prev_name:" SLCO1B1 " OR " SLCO1B1
 
-                String Url = "http://rest.genenames.org/search/alias_name:" + cri + "OR prev_name:" + cri + " OR " + cri;
-                //String Url = "http://rest.genenames.org/search/" + cri;
+                String Url = "http://rest.genenames.org/search/" + cri;
                 Document doc = new conexionServ().conecta(Url);
                 factor = busqueda_lista_xml(doc, opcion, cri);
             } catch (Exception e) {
                 try {
-                    contenido = unir_palabras(contenido);
+                    contenido = contenido.replace(" ", "+");
                     setID(contenido);
-                    //String Url = "http://rest.genenames.org/search/" + contenido;
-                    String Url = "http://rest.genenames.org/search/alias_name:" + contenido + "OR prev_name:" + contenido + " OR " + contenido;
+                    String Url = "http://rest.genenames.org/search/" + contenido;
                     Document doc = new conexionServ().conecta(Url);
                     factor = busqueda_lista_xml(doc, opcion, cri);
 
@@ -70,11 +85,9 @@ public class lecturas_HGNC {
         } else {
 
             try {
-                contenido = unir_palabras(contenido);
                 setID(contenido);
+                contenido = contenido.replace(" ", "+");
                 String Url = "http://rest.genenames.org/search/" + contenido;
-                // String Url = "http://rest.genenames.org/search/alias_name:+"+contenido+"+OR prev_name:+"+contenido+"+OR+"+contenido;
-
                 Document doc = new conexionServ().conecta(Url);
                 factor = busqueda_lista_xml(doc, opcion, contenido);
             } catch (Exception ee) {
@@ -87,12 +100,13 @@ public class lecturas_HGNC {
 
         //System.out.println("etiqueta: "+ID);
         //System.out.println("Factor: "+factor);
+        System.out.println("cantidad Objetos HUGO: " + factor.size());
         for (int i = 0; i < factor.size(); i++) {
 
             try {
                 // String nombre = busque String  Url = "http://rest.genenames.org/search/" + contenido;
 
-                //System.out.println("nombre: " + factor.get(i));
+                System.out.println("Simbolo HUGO: " + factor.get(i));
                 String Url = "http://rest.genenames.org/fetch/symbol/" + factor.get(i);
                 Document doc = new conexionServ().conecta(Url);
                 busqueda_datos_xml(doc);
@@ -103,7 +117,12 @@ public class lecturas_HGNC {
             }
         }
 
-        return true;
+        if (factor.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     private ArrayList<String> busqueda_lista_xml(Document doc, int opcion, String palabra) {
@@ -114,7 +133,7 @@ public class lecturas_HGNC {
         float score = Float.parseFloat(Element.getAttribute("maxScore"));
         nList = doc.getElementsByTagName("doc");
 
-        int cont = 0, ct = 0;
+        int cont = 0;
         for (int i = 0; i < nList.getLength(); i++) {
             nNode = nList.item(i);
             Element elemento = (Element) nNode;
@@ -122,7 +141,6 @@ public class lecturas_HGNC {
                 if (score == Float.parseFloat(elemento.getElementsByTagName("float").item(0).getTextContent())) {
                     //System.out.println(" simbolo "+elemento.getElementsByTagName("str").item(1).getTextContent());
                     nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
-                    ct++;
                 }
             } else if (opcion == -1) {
 
@@ -141,7 +159,6 @@ public class lecturas_HGNC {
             }
         }
 
-        //System.out.println("hugo: " + ct);
         return nombres;
     }
 

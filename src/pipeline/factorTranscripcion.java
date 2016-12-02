@@ -162,7 +162,7 @@ public class factorTranscripcion {
 
     private lecturas_HGNC lecturasHGNC(String ID, boolean criterio, int opcion) {
         lecturas_HGNC HGNC = new lecturas_HGNC();
-        HGNC.busqueda_genenames(ID, criterio, opcion);
+        HGNC.busquedaInfGen(ID, criterio, opcion);
         return HGNC;
     }
 
