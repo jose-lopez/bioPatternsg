@@ -184,8 +184,9 @@ public class minado_FT {
             while ((lectura = br.readLine()) != null) {
 
                 System.out.println("busqueda.." + lectura);
+                               
                 lecturas_HGNC HGNC = new lecturas_HGNC();
-                HGNC.busqueda_genenames(lectura, false, opcion);
+                HGNC.busquedaInfGen(lectura, true, opcion);
                 new objetosMinados().agregar_objetos(HGNC);
                 objetosMineria.agregar_objeto(HGNC);
                 guardarObjetos_Homologos_Experto(HGNC);
@@ -225,8 +226,9 @@ public class minado_FT {
 
                 for (int i = 0; i < separa.length; i++) {
                     System.out.println("Busqueda.." + lectura);
+                    
                     lecturas_HGNC HGNC = new lecturas_HGNC();
-                    HGNC.busqueda_genenames(lectura, false, opcion);
+                    HGNC.busquedaInfGen(lectura, false, opcion);
 
                     for (int j = 0; j < separa.length; j++) {
                         if (HGNC.getSinonimosExperto().contains(separa[j])) {

@@ -18,20 +18,23 @@ import org.w3c.dom.NodeList;
  */
 public class lecturas_Uniprot {
 
-    public ArrayList<String> obtenercodigoUP(String codigo) {
-        ArrayList<String> codigoGO = new ActivatableArrayList<>();
+    private Document doc;
+    private String Simbolo;
+    private String Nombre;
+
+    public lecturas_Uniprot(String codigo) {
 
         String url = "http://www.uniprot.org/uniprot/" + codigo + ".xml";
         try {
-            Document doc = new conexionServ().conecta(url);
-            revisa_xml(doc);
+            doc = new conexionServ().conecta(url);
+
         } catch (Exception e) {
 
         }
-        return codigoGO;
+
     }
 
-    private ArrayList<String> revisa_xml(Document doc) {
+    public ArrayList<String> Codigo_GO() {
         ArrayList<String> cod = new ArrayList<>();
 
         NodeList nList = doc.getElementsByTagName("dbReference");
@@ -54,7 +57,7 @@ public class lecturas_Uniprot {
                                 String sep[] = Element2.getAttribute("value").split(":");
                                 if (sep[0].equals("F")) {
                                     cod.add(id);
-                                    System.out.println(sep[1] + "  " + id);
+                                    //System.out.println(sep[1] + "  " + id);
                                 }
                             }
                         }
@@ -63,7 +66,39 @@ public class lecturas_Uniprot {
                 }
             }
         }
+
         return cod;
     }
+
+    public void obtener_Nombre() {
+               
+        Nombre = doc.getElementsByTagName("fullName").item(0).getTextContent();
+        
+        
+        Node node = doc.getElementsByTagName("gene").item(0);
+        
+        Element elemento = (Element)node;
+        Simbolo = elemento.getElementsByTagName("name").item(0).getTextContent();
+        System.out.println(Nombre+"  "+Simbolo);
+        
+    }
+
+    public String getSimbolo() {
+        return Simbolo;
+    }
+
+    public void setSimbolo(String Simbolo) {
+        this.Simbolo = Simbolo;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+    
+    
 
 }

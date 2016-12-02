@@ -17,14 +17,14 @@ import org.w3c.dom.NodeList;
  * @author yacson-ramirez
  */
 public class lecturas_QuickGO {
-     
-    public ontologia obtenercodigoUP(String codigo) {
+
+    public ontologia obtenerOntologia(String codigo) {
         ontologia ontologia = new ontologia();
 
-        String url = "http://www.ebi.ac.uk/QuickGO/GTerm?id="+codigo+"&format=oboxml&term=ancchart";
+        String url = "http://www.ebi.ac.uk/QuickGO/GTerm?id=" + codigo + "&format=oboxml&term=ancchart";
         try {
             Document doc = new conexionServ().conecta(url);
-            revisa_xml(doc);
+            ontologia = revisa_xml(doc);
         } catch (Exception e) {
 
         }
@@ -33,39 +33,40 @@ public class lecturas_QuickGO {
 
     private ontologia revisa_xml(Document doc) {
         ontologia ontologia = new ontologia();
-        
+
         NodeList nList = doc.getElementsByTagName("term");
-        
+
         for (int i = 0; i < nList.getLength(); i++) {
-            
-             Node nNode = nList.item(i);
-             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                 
-                 Element Element = (Element) nNode;
-                 ontologia.setGO(Element.getElementsByTagName("id").item(0).getTextContent());
-                 ontologia.setFuncionMolecular(Element.getElementsByTagName("name").item(0).getTextContent());
-                 NodeList nList2 = doc.getElementsByTagName("synonym_text");
-                 System.out.println(nList2.getLength());
+
+            Node nNode = nList.item(i);
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+                Element Element = (Element) nNode;
+                ontologia.setGO(Element.getElementsByTagName("id").item(0).getTextContent());
+                ontologia.setNombre(Element.getElementsByTagName("name").item(0).getTextContent());
+
+                NodeList nList2 = Element.getElementsByTagName("synonym_text");
+                for (int j = 0; j < nList2.getLength(); j++) {
+                    //System.out.println(nList2.item(j).getTextContent());
+                    
+                    ontologia.getSinonimos().add(nList2.item(j).getTextContent().trim());
+
+                }
                 
-                 for (int j = 0; j < nList2.getLength(); j++) {
-                     System.out.println("hola");
-//                     Node nNode2 = nList.item(j);
-//                      if (nNode2.getNodeType() == Node.ELEMENT_NODE) {
-//                          Element Element2 = (Element) nNode2;
-//                          //ontologia.getSinonimos().add(Element2.getElementsByTagName("synonym_text").item(j).getTextContent());
-//                          //System.out.println(Element2.getElementsByTagName("synonym_text").item(j).getTextContent());
-//                      }
-                     
-                 }
-                 
-             }
-            
+                NodeList nList3 = Element.getElementsByTagName("is_a");
+                //System.out.println(nList3.getLength());
+                for (int j = 0; j < nList3.getLength(); j++) {
+                    String cadena = nList3.item(j).getTextContent().replaceAll("\\s*$","");
+                    cadena = cadena.replaceAll("^\\s*","");
+                    //System.out.println(cadena);
+                    ontologia.getIs_a().add(cadena);
+                }
+
+            }
+
         }
-        
-        
+
         return ontologia;
     }
-    
-    
-    
+
 }
