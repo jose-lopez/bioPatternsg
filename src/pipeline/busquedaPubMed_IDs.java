@@ -214,7 +214,7 @@ public class busquedaPubMed_IDs {
 
         try {
             db.store(com);
-            System.out.println(com.getPalabra1() + "+" + com.getPalabra2());
+            //System.out.println(com.getPalabra1() + "+" + com.getPalabra2());
         } catch (Exception e) {
             System.out.println("Error al guardar en la base de datos combinaciones.db");
         } finally {
