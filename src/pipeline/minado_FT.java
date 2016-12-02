@@ -48,8 +48,8 @@ public class minado_FT {
         borrar_archivo("FT.db");
         borrar_archivo("objetosMineria.db");
                
-        leer_archivo_homologos(objetosMineria, opcion);
-        leer_archivo_ObjetosExperto(objetosMineria, opcion);
+       // leer_archivo_homologos(objetosMineria, opcion);
+       // leer_archivo_ObjetosExperto(objetosMineria, opcion);
 
         //Primera Iteracion
         System.out.println("\n====Iteracion 0====\n");

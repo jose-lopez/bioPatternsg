@@ -23,9 +23,9 @@ public class lecturas_PDB {
         //String url = "http://www.rcsb.org/pdb/files/" + cp + ".xml";
         String url = "http://www.rcsb.org/pdb/rest/describeMol?structureId=" + cp;
         try {
-            System.out.print("leyendo: " + cp);
+            System.out.print("leyendo: " + cp+"  ");
             revisa_xml_PDB(new conexionServ().conecta(url), CP, criterio, opcion);
-            System.out.println("   Listo..");
+            System.out.println("   ....ok");
         } catch (Exception ex) {
 
         }
@@ -63,7 +63,7 @@ public class lecturas_PDB {
                         String partes_etiqueta[] = etiqueta.split("/");
                         for (int j = 0; j < partes_etiqueta.length; j++) {
                             lecturas_HGNC HGNC = new lecturas_HGNC();
-                            HGNC.busqueda_genenames(partes_etiqueta[j], criterio, opcion);
+                            HGNC.busquedaInfGen(partes_etiqueta[j], criterio, opcion);
                             cp.getHGNC().add(HGNC);
                         }
 
