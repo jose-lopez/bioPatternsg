@@ -62,6 +62,7 @@ public class lecturas_PDB {
 
                         String partes_etiqueta[] = etiqueta.split("/");
                         for (int j = 0; j < partes_etiqueta.length; j++) {
+                            System.out.println("bucar:  "+ partes_etiqueta[j]);
                             lecturas_HGNC HGNC = new lecturas_HGNC();
                             HGNC.busquedaInfGen(partes_etiqueta[j], criterio, opcion);
                             cp.getHGNC().add(HGNC);

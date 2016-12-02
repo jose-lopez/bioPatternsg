@@ -5,6 +5,9 @@
  */
 package pipeline;
 
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -36,7 +39,7 @@ public class lecturas_HGNC {
         String lectura = contenido.replace(" ", "+");
         lecturas_pathwaycommons lpat = new lecturas_pathwaycommons();
         String cUP = lpat.obtenercodigoUP(lectura);
-        System.out.println("cod_UP: " + cUP);
+        //System.out.println("cod_UP: " + cUP);
 
         if (!cUP.equals("")) {
             lecturas_Uniprot UP = new lecturas_Uniprot(cUP);
@@ -100,13 +103,13 @@ public class lecturas_HGNC {
 
         //System.out.println("etiqueta: "+ID);
         //System.out.println("Factor: "+factor);
-        System.out.println("cantidad Objetos HUGO: " + factor.size());
+        //System.out.println("cantidad Objetos HUGO: " + factor.size());
         for (int i = 0; i < factor.size(); i++) {
 
             try {
                 // String nombre = busque String  Url = "http://rest.genenames.org/search/" + contenido;
 
-                System.out.println("Simbolo HUGO: " + factor.get(i));
+                //System.out.println("Simbolo HUGO: " + factor.get(i));
                 String Url = "http://rest.genenames.org/fetch/symbol/" + factor.get(i);
                 Document doc = new conexionServ().conecta(Url);
                 busqueda_datos_xml(doc);
@@ -233,14 +236,60 @@ public class lecturas_HGNC {
 
                     }
                     //---------------------------------------------------
+                    //Funcion Molecular
+                    if (elm.getAttribute("name").equals("uniprot_ids")) {
 
+                        int ls = elm.getElementsByTagName("str").getLength();
+                        for (int j = 0; j < ls; j++) {
+                            String codUP = elm.getElementsByTagName("str").item(j).getTextContent();
+                            lecturas_Uniprot letUP = new lecturas_Uniprot(codUP);
+                            hgnc.setFuncionMolecular(letUP.Codigos_GO());
+                                                        
+                        }
+
+                    }
+                    
                 }
 
             }
 
         }
         HGNC.add(hgnc);
+        //Guardar Ontologia
+        for (int i = 0; i < hgnc.getFuncionMolecular().size(); i++) {
+            buscarOntologia(hgnc.getFuncionMolecular().get(i));
+        }
 
+    }
+    
+    public void buscarOntologia(String GO){
+        ontologia ontologia = new ontologia();
+        lecturas_QuickGO letQGO = new lecturas_QuickGO();
+        ontologia = letQGO.obtenerOntologia(GO);
+        for (int i = 0; i < ontologia.getIs_a().size(); i++) {
+            buscarOntologia(ontologia.getIs_a().get(i));
+        }
+        
+    //guarda la funcion molecular en la base de datos de la Ontologia
+        guardar_Ontologia(ontologia);
+        
+    }
+    
+    private void guardar_Ontologia(ontologia ontologia) {
+
+        ObjectContainer db = Db4o.openFile("Ontologia.db");
+         try {
+
+            ObjectSet result = db.queryByExample(ontologia);
+             if (result.size()>0) {
+                 db.store(ontologia);
+             }
+        } catch (Exception e) {
+             System.out.println("Error al guardar en oOntologia.db...");
+        } finally {
+            db.close();
+        }
+                
     }
 
     public String obtener_factor(String desc) {

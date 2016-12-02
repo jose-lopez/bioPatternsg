@@ -33,7 +33,7 @@ public class lecturas_Uniprot {
 
     }
 
-    public ArrayList<String> Codigo_GO() {
+    public ArrayList<String> Codigos_GO() {
         ArrayList<String> cod = new ArrayList<>();
 
         NodeList nList = doc.getElementsByTagName("dbReference");
