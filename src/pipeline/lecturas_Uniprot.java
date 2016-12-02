@@ -5,7 +5,6 @@
  */
 package pipeline;
 
-import com.db4o.collections.ActivatableArrayList;
 import java.util.ArrayList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -79,8 +78,7 @@ public class lecturas_Uniprot {
         
         Element elemento = (Element)node;
         Simbolo = elemento.getElementsByTagName("name").item(0).getTextContent();
-        System.out.println(Nombre+"  "+Simbolo);
-        
+               
     }
 
     public String getSimbolo() {
