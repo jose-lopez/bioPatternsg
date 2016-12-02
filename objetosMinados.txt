@@ -1,1 +1,2 @@
 CYP7A1;cytochrome P450 family 7 subfamily A member 1;CYP7;cytochrome P450, subfamily VIIA (cholesterol 7 alpha-monooxygenase), polypeptide 1;cytochrome P450, family 7, subfamily A, polypeptide 1
+SLC10A2;solute carrier family 10 member 2;ASBT;ISBT;solute carrier family 10 (sodium/bile acid cotransporter), member 2
