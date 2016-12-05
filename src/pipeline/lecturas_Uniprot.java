@@ -15,7 +15,6 @@ import org.w3c.dom.NodeList;
  *
  * @author yacson-ramirez
  */
-
 public class lecturas_Uniprot {
 
     private Document doc;
@@ -71,15 +70,22 @@ public class lecturas_Uniprot {
     }
 
     public void obtener_Nombre() {
-               
-        Nombre = doc.getElementsByTagName("fullName").item(0).getTextContent();
-        
-        
+
+        try {
+            Nombre = doc.getElementsByTagName("fullName").item(0).getTextContent();
+        } catch (Exception e) {
+
+        }
+
         Node node = doc.getElementsByTagName("gene").item(0);
-        
-        Element elemento = (Element)node;
-        Simbolo = elemento.getElementsByTagName("name").item(0).getTextContent();
-               
+
+        try {
+            Element elemento = (Element) node;
+            Simbolo = elemento.getElementsByTagName("name").item(0).getTextContent();
+
+        } catch (Exception e) {
+        }
+
     }
 
     public String getSimbolo() {
@@ -97,7 +103,5 @@ public class lecturas_Uniprot {
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
     }
-    
-    
 
 }
