@@ -13,14 +13,29 @@ import java.util.ArrayList;
  */
 
 public class ontologia {
+    
     private String GO;
     private String nombre;
-    private ArrayList <String> is_a;
     private ArrayList<String> sinonimos;
+    private ArrayList <String> is_a;
+    private ArrayList <String> part_of;
+    private ArrayList <String> regulates;
+    private ArrayList <String> positively_regulates;
+    private ArrayList <String> negatively_regulates;
+    private ArrayList <String> occurs_in;
+    private ArrayList <String> capable_in;
+    private ArrayList <String> capable_of_part_of;
 
     public ontologia(){
-        is_a = new ArrayList<>();
         sinonimos = new ArrayList<>();
+        is_a = new ArrayList<>();
+        part_of = new ArrayList<>();
+        regulates = new ArrayList<>();
+        positively_regulates = new ArrayList<>();
+        negatively_regulates = new ArrayList<>();
+        occurs_in = new ArrayList<>();
+        capable_in = new ArrayList<>();
+        capable_of_part_of = new ArrayList<>();
     }
 
     public void imprimir(){

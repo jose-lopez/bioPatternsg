@@ -15,70 +15,82 @@ import java.util.ArrayList;
  * @author yacson
  */
 public class ObjetosMinadosGO {
-    
+
     private String nombre;
     private ArrayList<String> funcionMolecular;
     private ArrayList<String> procesoBiologico;
     private ArrayList<String> componenteCelular;
-    
-    public ObjetosMinadosGO(){
+
+    public ObjetosMinadosGO() {
         funcionMolecular = new ArrayList<>();
         procesoBiologico = new ArrayList<>();
         componenteCelular = new ArrayList<>();
     }
-    
-    public void guardarObjeto(ObjetosMinadosGO objeto){
-        
+
+    public void guardarObjeto(ObjetosMinadosGO objeto) {
+
         ObjectContainer db = Db4o.openFile("ObjetosMinadosGO.db");
         try {
 
             ObjectSet result = db.queryByExample(objeto);
-             if (result.size()>0) {
-                 db.store(objeto);
-                 for (int i = 0; i < funcionMolecular.size(); i++) {
-                     buscarOntologia(funcionMolecular.get(i));
-                 }
-             }
-        
-         }catch (Exception e) {
-             System.out.println("Error al guardar en ObetosMineria.db");
+            if (result.size() > 0) {
+                db.store(objeto);
+                for (int i = 0; i < funcionMolecular.size(); i++) {
+                    buscarOntologia(funcionMolecular.get(i));
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al guardar en ObetosMineria.db");
         } finally {
             db.close();
         }
-        
+
     }
-    
-    public void buscarOntologia(String GO){
+
+    public void buscarOntologia(String GO) {
         ontologia ontologia = new ontologia();
         lecturas_QuickGO letQGO = new lecturas_QuickGO();
         ontologia = letQGO.obtenerOntologia(GO);
-        for (int i = 0; i < ontologia.getIs_a().size(); i++) {
-            buscarOntologia(ontologia.getIs_a().get(i));
+        
+        if (!buscarObjeto(ontologia)) {
+            for (int i = 0; i < ontologia.getIs_a().size(); i++) {
+                buscarOntologia(ontologia.getIs_a().get(i));
+            }
+
+            guardar_Ontologia(ontologia);
         }
-        
-    
-    guardar_Ontologia(ontologia);
-        
     }
-    
+
     private void guardar_Ontologia(ontologia ontologia) {
 
         ObjectContainer db = Db4o.openFile("Ontologia.db");
-         try {
-
-            ObjectSet result = db.queryByExample(ontologia);
-             if (result.size()>0) {
-                 db.store(ontologia);
-             }
+        try {
+            db.store(ontologia);
         } catch (Exception e) {
-             System.out.println("Error al guardar en oOntologia.db...");
+            System.out.println("Error al guardar en oOntologia.db...");
         } finally {
             db.close();
         }
-                
+
     }
 
-    
+    private boolean buscarObjeto(ontologia objeto) {
+        boolean encontrado = false;
+        ObjectContainer db = Db4o.openFile("Ontologia.db");
+        try {
+
+            ObjectSet result = db.queryByExample(objeto);
+            if (result.size() > 0) {
+                encontrado = true;
+            }
+        } catch (Exception e) {
+
+        }
+
+        return encontrado;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -110,5 +122,5 @@ public class ObjetosMinadosGO {
     public void setComponenteCelular(ArrayList<String> componenteCelular) {
         this.componenteCelular = componenteCelular;
     }
-        
+
 }
