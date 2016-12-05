@@ -31,13 +31,13 @@ public class factorTranscripcion {
     private lecturas_HGNC lecturas_HGNC;
     private lecturas_TFBIND lecturasTFBIND;
     private ArrayList<complejoProteinico> complejoProteinico;
-    private ArrayList<String> funcionMolecular;
-
+   
     public factorTranscripcion() {
+        
         complejoProteinico = new ArrayList<>();
         lecturas_HGNC = new lecturas_HGNC();
         lecturasTFBIND = new lecturas_TFBIND();
-        funcionMolecular = new ArrayList<>();
+      
     }
 
     //constructor para la primera Iteracion con lecturas obtenidas desde TFBIND
@@ -206,12 +206,5 @@ public class factorTranscripcion {
         this.complejoProteinico = complejoProteinico;
     }
 
-    public ArrayList<String> getFuncionMolecular() {
-        return funcionMolecular;
-    }
-
-    public void setFuncionMolecular(ArrayList<String> funcionMolecular) {
-        this.funcionMolecular = funcionMolecular;
-    }
-
+   
 }

@@ -20,9 +20,16 @@ public class lecturas_Uniprot {
     private Document doc;
     private String Simbolo;
     private String Nombre;
+    private ArrayList<String> funcionMolecular;
+    private ArrayList<String> procesoBiologico;
+    private ArrayList<String> componenteCelular;
 
     public lecturas_Uniprot(String codigo) {
-
+        
+        funcionMolecular = new ArrayList<>();
+        procesoBiologico = new ArrayList<>();
+        componenteCelular = new ArrayList<>();
+        
         String url = "http://www.uniprot.org/uniprot/" + codigo + ".xml";
         try {
             doc = new conexionServ().conecta(url);
@@ -55,8 +62,12 @@ public class lecturas_Uniprot {
                             if (Element2.getAttribute("type").equals("term")) {
                                 String sep[] = Element2.getAttribute("value").split(":");
                                 if (sep[0].equals("F")) {
-                                    cod.add(id);
+                                    funcionMolecular.add(id);
                                     //System.out.println(sep[1] + "  " + id);
+                                }else if(sep[0].equals("C")){
+                                    componenteCelular.add(id);
+                                }else if(sep[0].equals("P")){
+                                    procesoBiologico.add(id);
                                 }
                             }
                         }
@@ -103,5 +114,31 @@ public class lecturas_Uniprot {
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
     }
+
+    public ArrayList<String> getFuncionMolecular() {
+        return funcionMolecular;
+    }
+
+    public void setFuncionMolecular(ArrayList<String> funcionMolecular) {
+        this.funcionMolecular = funcionMolecular;
+    }
+
+    public ArrayList<String> getProcesoBiologico() {
+        return procesoBiologico;
+    }
+
+    public void setProcesoBiologico(ArrayList<String> procesoBiologico) {
+        this.procesoBiologico = procesoBiologico;
+    }
+
+    public ArrayList<String> getComponenteCelular() {
+        return componenteCelular;
+    }
+
+    public void setComponenteCelular(ArrayList<String> componenteCelular) {
+        this.componenteCelular = componenteCelular;
+    }
+    
+    
 
 }

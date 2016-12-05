@@ -237,15 +237,22 @@ public class lecturas_HGNC {
 
                     }
                     //---------------------------------------------------
-                    //Funcion Molecular
+                    //Ontologia
                     if (elm.getAttribute("name").equals("uniprot_ids")) {
 
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
                             String codUP = elm.getElementsByTagName("str").item(j).getTextContent();
                             lecturas_Uniprot letUP = new lecturas_Uniprot(codUP);
-                            hgnc.setFuncionMolecular(letUP.Codigos_GO());
-                                                        
+                            ObjetosMinadosGO objGO = new ObjetosMinadosGO();
+                            objGO.setNombre(hgnc.getSimbolo());
+                            letUP.Codigos_GO();
+                            
+                            objGO.setFuncionMolecular(letUP.getFuncionMolecular());
+                            objGO.setComponenteCelular(letUP.getComponenteCelular());
+                            objGO.setProcesoBiologico(letUP.getProcesoBiologico());
+                            objGO.guardarObjeto(objGO);
+                                                                                    
                         }
 
                     }
@@ -256,43 +263,11 @@ public class lecturas_HGNC {
 
         }
         HGNC.add(hgnc);
-        //Guardar Ontologia
-        for (int i = 0; i < hgnc.getFuncionMolecular().size(); i++) {
-            buscarOntologia(hgnc.getFuncionMolecular().get(i));
-        }
+       
 
     }
     
-    public void buscarOntologia(String GO){
-        ontologia ontologia = new ontologia();
-        lecturas_QuickGO letQGO = new lecturas_QuickGO();
-        ontologia = letQGO.obtenerOntologia(GO);
-        for (int i = 0; i < ontologia.getIs_a().size(); i++) {
-            buscarOntologia(ontologia.getIs_a().get(i));
-        }
-        
-    //guarda la funcion molecular en la base de datos de la Ontologia
-        guardar_Ontologia(ontologia);
-        
-    }
     
-    private void guardar_Ontologia(ontologia ontologia) {
-
-        ObjectContainer db = Db4o.openFile("Ontologia.db");
-         try {
-
-            ObjectSet result = db.queryByExample(ontologia);
-             if (result.size()>0) {
-                 db.store(ontologia);
-             }
-        } catch (Exception e) {
-             System.out.println("Error al guardar en oOntologia.db...");
-        } finally {
-            db.close();
-        }
-                
-    }
-
     public String obtener_factor(String desc) {
         String pal = "";
         String[] palabras = desc.split(" ");
@@ -376,20 +351,6 @@ public class lecturas_HGNC {
         return false;
     }
 
-    public String unir_palabras(String oracion) {
-        String palabra = "";
-        String[] separa = oracion.split(" ");
-        for (int i = 0; i < separa.length; i++) {
-
-            palabra = palabra + separa[i];
-            if (i < separa.length - 1) {
-                palabra += "+";
-            }
-        }
-
-        return palabra;
-    }
-
     public void imprimir() {
         System.out.println("Lecturas HGNC");
         System.out.println("    ID: " + ID);
@@ -445,12 +406,10 @@ class HGNC {
     private String ensembl_gene_id;
     private ArrayList<String> sinonimos;
     private ArrayList<String> gene_family;
-    private ArrayList<String> funcionMolecular;
-
+   
     public HGNC() {
         sinonimos = new ArrayList<>();
         gene_family = new ArrayList<>();
-        funcionMolecular = new ArrayList<>();
     }
 
     public void imprimir() {
@@ -510,14 +469,6 @@ class HGNC {
 
     public void setGene_family(ArrayList<String> gene_family) {
         this.gene_family = gene_family;
-    }
-
-    public ArrayList<String> getFuncionMolecular() {
-        return funcionMolecular;
-    }
-
-    public void setFuncionMolecular(ArrayList<String> funcionMolecular) {
-        this.funcionMolecular = funcionMolecular;
     }
 
     public ArrayList<String> ListaNombres() {

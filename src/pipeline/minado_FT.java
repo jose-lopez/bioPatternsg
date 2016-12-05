@@ -48,7 +48,7 @@ public class minado_FT {
         //Borrar archivo de base de datos de factores de trancripcion
         borrar_archivo("FT.db");
         borrar_archivo("objetosMineria.db");
-        //borrar_archivo("Ontologia.db");
+        borrar_archivo("ObjetosMinadosGO.db");
                
         leer_archivo_homologos(objetosMineria, opcion);
         leer_archivo_ObjetosExperto(objetosMineria, opcion);
