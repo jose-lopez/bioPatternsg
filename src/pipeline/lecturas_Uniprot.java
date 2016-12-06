@@ -72,7 +72,6 @@ public class lecturas_Uniprot {
                             }
                         }
                     }
-
                 }
             }
         }

@@ -32,16 +32,16 @@ public class ObjetosMinadosGO {
         ObjectContainer db = Db4o.openFile("ObjetosMinadosGO.db");
         try {
 
-            ObjectSet result = db.queryByExample(objeto);
-            if (result.size() > 0) {
-                db.store(objeto);
+            ObjectSet result = db.queryByExample(this);
+            if (result.size() == 0) {
+                db.store(this);
                 for (int i = 0; i < funcionMolecular.size(); i++) {
                     buscarOntologia(funcionMolecular.get(i));
                 }
             }
 
         } catch (Exception e) {
-            System.out.println("Error al guardar en ObetosMineria.db");
+            System.out.println("Error al guardar en ObetosMinadosGO.db");
         } finally {
             db.close();
         }
@@ -52,7 +52,7 @@ public class ObjetosMinadosGO {
         ontologia ontologia = new ontologia();
         lecturas_QuickGO letQGO = new lecturas_QuickGO();
         ontologia = letQGO.obtenerOntologia(GO);
-        
+
         if (!buscarObjeto(ontologia)) {
             for (int i = 0; i < ontologia.getIs_a().size(); i++) {
                 buscarOntologia(ontologia.getIs_a().get(i));
@@ -68,7 +68,7 @@ public class ObjetosMinadosGO {
         try {
             db.store(ontologia);
         } catch (Exception e) {
-            System.out.println("Error al guardar en oOntologia.db...");
+            System.out.println("Error al guardar en Ontologia.db...");
         } finally {
             db.close();
         }
@@ -85,7 +85,9 @@ public class ObjetosMinadosGO {
                 encontrado = true;
             }
         } catch (Exception e) {
-
+            System.out.println("Error al acceder a Ontologia.db");
+        } finally {
+            db.close();
         }
 
         return encontrado;

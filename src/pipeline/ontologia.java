@@ -23,7 +23,7 @@ public class ontologia {
     private ArrayList <String> positively_regulates;
     private ArrayList <String> negatively_regulates;
     private ArrayList <String> occurs_in;
-    private ArrayList <String> capable_in;
+    private ArrayList <String> capable_of;
     private ArrayList <String> capable_of_part_of;
 
     public ontologia(){
@@ -34,7 +34,7 @@ public class ontologia {
         positively_regulates = new ArrayList<>();
         negatively_regulates = new ArrayList<>();
         occurs_in = new ArrayList<>();
-        capable_in = new ArrayList<>();
+        capable_of = new ArrayList<>();
         capable_of_part_of = new ArrayList<>();
     }
 
@@ -87,6 +87,63 @@ public class ontologia {
     public void setSinonimos(ArrayList<String> sinonimos) {
         this.sinonimos = sinonimos;
     }
+
+    public ArrayList<String> getPart_of() {
+        return part_of;
+    }
+
+    public void setPart_of(ArrayList<String> part_of) {
+        this.part_of = part_of;
+    }
+
+    public ArrayList<String> getRegulates() {
+        return regulates;
+    }
+
+    public void setRegulates(ArrayList<String> regulates) {
+        this.regulates = regulates;
+    }
+
+    public ArrayList<String> getPositively_regulates() {
+        return positively_regulates;
+    }
+
+    public void setPositively_regulates(ArrayList<String> positively_regulates) {
+        this.positively_regulates = positively_regulates;
+    }
+
+    public ArrayList<String> getNegatively_regulates() {
+        return negatively_regulates;
+    }
+
+    public void setNegatively_regulates(ArrayList<String> negatively_regulates) {
+        this.negatively_regulates = negatively_regulates;
+    }
+
+    public ArrayList<String> getOccurs_in() {
+        return occurs_in;
+    }
+
+    public void setOccurs_in(ArrayList<String> occurs_in) {
+        this.occurs_in = occurs_in;
+    }
+
+    public ArrayList<String> getCapable_of() {
+        return capable_of;
+    }
+
+    public void setCapable_of(ArrayList<String> capable_of) {
+        this.capable_of = capable_of;
+    }
+
+    public ArrayList<String> getCapable_of_part_of() {
+        return capable_of_part_of;
+    }
+
+    public void setCapable_of_part_of(ArrayList<String> capable_of_part_of) {
+        this.capable_of_part_of = capable_of_part_of;
+    }
+    
     
     
     

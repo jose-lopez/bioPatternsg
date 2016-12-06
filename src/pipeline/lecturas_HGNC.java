@@ -247,7 +247,6 @@ public class lecturas_HGNC {
                             ObjetosMinadosGO objGO = new ObjetosMinadosGO();
                             objGO.setNombre(hgnc.getSimbolo());
                             letUP.Codigos_GO();
-                            
                             objGO.setFuncionMolecular(letUP.getFuncionMolecular());
                             objGO.setComponenteCelular(letUP.getComponenteCelular());
                             objGO.setProcesoBiologico(letUP.getProcesoBiologico());
