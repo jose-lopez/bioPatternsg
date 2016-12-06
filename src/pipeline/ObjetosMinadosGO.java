@@ -57,7 +57,6 @@ public class ObjetosMinadosGO {
             for (int i = 0; i < ontologia.getIs_a().size(); i++) {
                 buscarOntologia(ontologia.getIs_a().get(i));
             }
-
             guardar_Ontologia(ontologia);
         }
     }
@@ -92,7 +91,47 @@ public class ObjetosMinadosGO {
 
         return encontrado;
     }
+    
+    public void imprimirTodo(){
+        
+        ObjetosMinadosGO objeto = new ObjetosMinadosGO();
+        ObjectContainer db = Db4o.openFile("ObjetosMinadosGO.db");
+        try {
 
+            ObjectSet result = db.queryByExample(objeto);
+            while (result.hasNext()) {
+                ObjetosMinadosGO obj = (ObjetosMinadosGO)result.next();
+                imprimir(obj);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al acceder a Ontologia.db");
+        } finally {
+            db.close();
+        }
+    }
+    
+    private void imprimir(ObjetosMinadosGO obj){
+        System.out.println("\n+++++++++++++++++++++++++++++++++++++++");
+        System.out.println(obj.getNombre());
+        System.out.println("funcion Molecular:");
+        for (int i = 0; i <obj.funcionMolecular.size(); i++) {
+            ontologia objeto = new ontologia();
+            //objeto.buscarObjeto(obj.funcionMolecular.get(i));
+        }
+        System.out.println("proceso biologico:");
+        for (int i = 0; i <obj.procesoBiologico.size(); i++) {
+            ontologia objeto = new ontologia();
+            //objeto.buscarObjeto(obj.procesoBiologico.get(i));
+        }
+        System.out.println("componente celular:");
+        for (int i = 0; i <obj.componenteCelular.size(); i++) {
+            ontologia objeto = new ontologia();
+            //objeto.buscarObjeto(obj.componenteCelular.get(i));
+        }
+        
+    }
+    
+    
     public String getNombre() {
         return nombre;
     }

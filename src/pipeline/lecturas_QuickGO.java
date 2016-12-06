@@ -86,7 +86,7 @@ public class lecturas_QuickGO {
                         ontologia.getCapable_of_part_of().add(to);
                     }
                     
-                    System.out.println("type: "+type+"  to: "+to);
+                    //System.out.println("type: "+type+"  to: "+to);
                     
                     
                     

@@ -5,28 +5,30 @@
  */
 package pipeline;
 
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
 import java.util.ArrayList;
 
 /**
  *
  * @author yacson-ramirez
  */
-
 public class ontologia {
-    
+
     private String GO;
     private String nombre;
     private ArrayList<String> sinonimos;
-    private ArrayList <String> is_a;
-    private ArrayList <String> part_of;
-    private ArrayList <String> regulates;
-    private ArrayList <String> positively_regulates;
-    private ArrayList <String> negatively_regulates;
-    private ArrayList <String> occurs_in;
-    private ArrayList <String> capable_of;
-    private ArrayList <String> capable_of_part_of;
+    private ArrayList<String> is_a;
+    private ArrayList<String> part_of;
+    private ArrayList<String> regulates;
+    private ArrayList<String> positively_regulates;
+    private ArrayList<String> negatively_regulates;
+    private ArrayList<String> occurs_in;
+    private ArrayList<String> capable_of;
+    private ArrayList<String> capable_of_part_of;
 
-    public ontologia(){
+    public ontologia() {
         sinonimos = new ArrayList<>();
         is_a = new ArrayList<>();
         part_of = new ArrayList<>();
@@ -38,24 +40,124 @@ public class ontologia {
         capable_of_part_of = new ArrayList<>();
     }
 
-    public void imprimir(){
-        System.out.println("GO= "+GO);
-        System.out.println("FM= "+nombre);
+    public void imprimirTodo() {
+        ontologia objeto = new ontologia();
+        ObjectContainer db = Db4o.openFile("Ontologia.db");
+        try {
+
+            ObjectSet result = db.queryByExample(objeto);
+            while (result.hasNext()) {
+                ontologia obj = (ontologia) result.next();
+                imprimir(obj);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al acceder a Ontologia.db");
+        } finally {
+            db.close();
+        }
+
+    }
+    //GO:0008123
+    private int max = 0;
+    
+
+    public void buscar(String GO) {
+        
+        buscarObjeto(GO, 0);
+
+
+    }
+
+    private void buscarObjeto(String GO, int nivel) {
+
+        ontologia objeto = new ontologia();
+        objeto.setGO(GO);
+        objeto = consultarBD(objeto);
+        
+        for (int i = 0; i < nivel; i++) {
+            System.out.print("      ");            
+        }
+        System.out.println(objeto.getNombre());
+        
+        nivel++;
+        for (int i = 0; i < objeto.is_a.size(); i++) {
+            buscarObjeto(objeto.is_a.get(i), nivel);
+        }
+                   
+    }
+
+    private ontologia consultarBD(ontologia obj) {
+        ontologia objeto = new ontologia();
+        ObjectContainer db = Db4o.openFile("Ontologia.db");
+        try {
+
+            ObjectSet result = db.queryByExample(obj);
+            while (result.hasNext()) {
+                objeto = (ontologia) result.next();
+
+            }
+        } catch (Exception e) {
+            System.out.println("Error al acceder a Ontologia.db");
+        } finally {
+            db.close();
+        }
+
+        return objeto;
+    }
+
+    private void imprimir(ontologia objeto) {
+        System.out.println("\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println(objeto.getGO());
+        System.out.println("Nombre: " + objeto.getNombre());
         System.out.println("Sinonimos:");
-        for (int i = 0; i < sinonimos.size(); i++) {
-            System.out.println("    "+sinonimos.get(i));
+        for (int i = 0; i < objeto.getSinonimos().size(); i++) {
+            System.out.println("    " + objeto.getSinonimos().get(i));
         }
-        System.out.println("is_a:");
-        for (int i = 0; i < is_a.size(); i++) {
-            System.out.println("    "+is_a.get(i));
+        if (objeto.getIs_a().size() > 0) {
+            System.out.println("________________________________");
+            for (int i = 0; i < objeto.getIs_a().size(); i++) {
+                System.out.println("is a--> " + objeto.getIs_a().get(i));
+            }
         }
-        
+        if (objeto.getRegulates().size() > 0) {
+            System.out.println("________________________________");
+            for (int i = 0; i < objeto.getIs_a().size(); i++) {
+                System.out.println("regulates--> " + objeto.getRegulates().get(i));
+            }
+        }
+        if (objeto.getCapable_of().size() > 0) {
+            System.out.println("________________________________");
+            for (int i = 0; i < objeto.getIs_a().size(); i++) {
+                System.out.println("capable of--> " + objeto.getCapable_of().get(i));
+            }
+        }
+        if (objeto.getCapable_of_part_of().size() > 0) {
+            System.out.println("________________________________");
+            for (int i = 0; i < objeto.getCapable_of_part_of().size(); i++) {
+                System.out.println("capable of part--> " + objeto.getCapable_of_part_of().get(i));
+            }
+        }
+        if (objeto.getNegatively_regulates().size() > 0) {
+            System.out.println("________________________________");
+            for (int i = 0; i < objeto.getNegatively_regulates().size(); i++) {
+                System.out.println("negatively regulates--> " + objeto.getNegatively_regulates().get(i));
+            }
+        }
+        if (objeto.getPositively_regulates().size() > 0) {
+            System.out.println("________________________________");
+            for (int i = 0; i < objeto.getPositively_regulates().size(); i++) {
+                System.out.println("positively regulates--> " + objeto.getPositively_regulates().get(i));
+            }
+        }
+        if (objeto.getOccurs_in().size() > 0) {
+            System.out.println("________________________________");
+            for (int i = 0; i < objeto.getOccurs_in().size(); i++) {
+                System.out.println("is a--> " + objeto.getOccurs_in().get(i));
+            }
+        }
+
     }
-    
-    public void Obtener_Ontologia(){
-        
-    }
-    
+
     public String getGO() {
         return GO;
     }
@@ -143,12 +245,6 @@ public class ontologia {
     public void setCapable_of_part_of(ArrayList<String> capable_of_part_of) {
         this.capable_of_part_of = capable_of_part_of;
     }
-    
-    
-    
-    
-    
-    
-}
 
+}
 
