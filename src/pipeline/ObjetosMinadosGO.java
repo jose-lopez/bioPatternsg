@@ -33,10 +33,19 @@ public class ObjetosMinadosGO {
         try {
 
             ObjectSet result = db.queryByExample(this);
-            if (result.size() == 0) {
+            if (!result.hasNext()) {
                 db.store(this);
                 for (int i = 0; i < funcionMolecular.size(); i++) {
+                    // System.out.println("funcion mlecular:  "+ funcionMolecular.get(i));
                     buscarOntologia(funcionMolecular.get(i));
+                }
+                for (int i = 0; i < procesoBiologico.size(); i++) {
+                    //System.out.println("proceso biologico:  "+ procesoBiologico.get(i));
+                    buscarOntologia(procesoBiologico.get(i));
+                }
+                for (int i = 0; i < componenteCelular.size(); i++) {
+                    // System.out.println("componente celular:  "+ componenteCelular.get(i));
+                    buscarOntologia(componenteCelular.get(i));
                 }
             }
 
@@ -57,6 +66,27 @@ public class ObjetosMinadosGO {
             for (int i = 0; i < ontologia.getIs_a().size(); i++) {
                 buscarOntologia(ontologia.getIs_a().get(i));
             }
+            for (int i = 0; i < ontologia.getPart_of().size(); i++) {
+                buscarOntologia(ontologia.getPart_of().get(i));
+            }
+            for (int i = 0; i < ontologia.getRegulates().size(); i++) {
+                buscarOntologia(ontologia.getRegulates().get(i));
+            }
+            for (int i = 0; i < ontologia.getNegatively_regulates().size(); i++) {
+                buscarOntologia(ontologia.getNegatively_regulates().get(i));
+            }
+            for (int i = 0; i < ontologia.getPositively_regulates().size(); i++) {
+                buscarOntologia(ontologia.getPositively_regulates().get(i));
+            }
+            for (int i = 0; i < ontologia.getCapable_of().size(); i++) {
+                buscarOntologia(ontologia.getCapable_of().get(i));
+            }
+            for (int i = 0; i < ontologia.getCapable_of_part_of().size(); i++) {
+                buscarOntologia(ontologia.getCapable_of_part_of().get(i));
+            }
+            for (int i = 0; i < ontologia.getOccurs_in().size(); i++) {
+                buscarOntologia(ontologia.getOccurs_in().get(i));
+            }
             guardar_Ontologia(ontologia);
         }
     }
@@ -66,6 +96,7 @@ public class ObjetosMinadosGO {
         ObjectContainer db = Db4o.openFile("Ontologia.db");
         try {
             db.store(ontologia);
+            //System.out.println("Guardando: "+ontologia.getNombre());
         } catch (Exception e) {
             System.out.println("Error al guardar en Ontologia.db...");
         } finally {
@@ -80,7 +111,7 @@ public class ObjetosMinadosGO {
         try {
 
             ObjectSet result = db.queryByExample(objeto);
-            if (result.size() > 0) {
+            if (result.hasNext()) {
                 encontrado = true;
             }
         } catch (Exception e) {
@@ -91,17 +122,45 @@ public class ObjetosMinadosGO {
 
         return encontrado;
     }
-    
-    public void imprimirTodo(){
-        
+
+    public void buscar(String nombre,String restriccion) {
+        ObjetosMinadosGO objetoGO = new ObjetosMinadosGO();
+        objetoGO.setNombre(nombre);
+        ObjectContainer db = Db4o.openFile("ObjetosMinadosGO.db");
+        try {
+
+            ObjectSet result = db.queryByExample(objetoGO);
+            while (result.hasNext()) {
+                objetoGO = (ObjetosMinadosGO) result.next();
+                break;
+            }
+        } catch (Exception e) {
+            System.out.println("Error al acceder a Ontologia.db");
+        } finally {
+            db.close();
+        }
+        imprimirTodo(objetoGO,restriccion);
+    }
+
+    public void imprimirTodo(String tipo,String restriccion) {
+
         ObjetosMinadosGO objeto = new ObjetosMinadosGO();
         ObjectContainer db = Db4o.openFile("ObjetosMinadosGO.db");
         try {
 
             ObjectSet result = db.queryByExample(objeto);
             while (result.hasNext()) {
-                ObjetosMinadosGO obj = (ObjetosMinadosGO)result.next();
-                imprimir(obj);
+                ObjetosMinadosGO obj = (ObjetosMinadosGO) result.next();
+                if (tipo.equals(null)) {
+                    imprimirTodo(obj,restriccion);
+                } else if (tipo.equals("F")) {
+                    imprimirFuncionMolecular(obj,restriccion);
+                } else if (tipo.equals("P")) {
+                    imprimirProcesobiologico(obj,restriccion);
+                } else if (tipo.equals("C")) {
+                    imprimirComponenteCelular(obj,restriccion);
+                }
+
             }
         } catch (Exception e) {
             System.out.println("Error al acceder a Ontologia.db");
@@ -109,29 +168,59 @@ public class ObjetosMinadosGO {
             db.close();
         }
     }
-    
-    private void imprimir(ObjetosMinadosGO obj){
-        System.out.println("\n+++++++++++++++++++++++++++++++++++++++");
+
+    private void imprimirTodo(ObjetosMinadosGO obj, String restriccion) {
+        System.out.println("\n________________________________________________________________");
         System.out.println(obj.getNombre());
-        System.out.println("funcion Molecular:");
-        for (int i = 0; i <obj.funcionMolecular.size(); i++) {
+        System.out.println("Funcion Molecular:");
+        for (int i = 0; i < obj.funcionMolecular.size(); i++) {
             ontologia objeto = new ontologia();
-            //objeto.buscarObjeto(obj.funcionMolecular.get(i));
+            objeto.buscar(obj.funcionMolecular.get(i),restriccion);
+
         }
-        System.out.println("proceso biologico:");
-        for (int i = 0; i <obj.procesoBiologico.size(); i++) {
+        System.out.println("\n_______________________________________________________________");
+        System.out.println("Proceso biologico:");
+        for (int i = 0; i < obj.procesoBiologico.size(); i++) {
             ontologia objeto = new ontologia();
-            //objeto.buscarObjeto(obj.procesoBiologico.get(i));
+            objeto.buscar(obj.procesoBiologico.get(i),restriccion);
         }
-        System.out.println("componente celular:");
-        for (int i = 0; i <obj.componenteCelular.size(); i++) {
+        System.out.println("\n________________________________________________________________");
+        System.out.println("Componente celular:");
+        for (int i = 0; i < obj.componenteCelular.size(); i++) {
             ontologia objeto = new ontologia();
-            //objeto.buscarObjeto(obj.componenteCelular.get(i));
+            objeto.buscar(obj.componenteCelular.get(i),restriccion);
         }
-        
+
     }
-    
-    
+
+    private void imprimirFuncionMolecular(ObjetosMinadosGO obj,String restriccion) {
+        System.out.println("\n________________________________________________________________");
+        System.out.println(obj.getNombre());
+        System.out.println("Funcion Molecular:");
+        for (int i = 0; i < obj.funcionMolecular.size(); i++) {
+            ontologia objeto = new ontologia();
+            objeto.buscar(obj.funcionMolecular.get(i),restriccion);
+        }
+    }
+
+    private void imprimirProcesobiologico(ObjetosMinadosGO obj, String restriccion) {
+        System.out.println("\n_______________________________________________________________");
+        System.out.println("Proceso biologico:");
+        for (int i = 0; i < obj.procesoBiologico.size(); i++) {
+            ontologia objeto = new ontologia();
+            objeto.buscar(obj.procesoBiologico.get(i),restriccion);
+        }
+    }
+
+    private void imprimirComponenteCelular(ObjetosMinadosGO obj, String restriccion) {
+        System.out.println("\n________________________________________________________________");
+        System.out.println("Componente celular:");
+        for (int i = 0; i < obj.componenteCelular.size(); i++) {
+            ontologia objeto = new ontologia();
+            objeto.buscar(obj.componenteCelular.get(i),restriccion);
+        }
+    }
+
     public String getNombre() {
         return nombre;
     }

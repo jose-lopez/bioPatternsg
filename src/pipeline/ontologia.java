@@ -44,7 +44,6 @@ public class ontologia {
         ontologia objeto = new ontologia();
         ObjectContainer db = Db4o.openFile("Ontologia.db");
         try {
-
             ObjectSet result = db.queryByExample(objeto);
             while (result.hasNext()) {
                 ontologia obj = (ontologia) result.next();
@@ -59,31 +58,61 @@ public class ontologia {
     }
     //GO:0008123
     private int max = 0;
-    
 
-    public void buscar(String GO) {
-        
-        buscarObjeto(GO, 0);
+    public void buscar(String GO, String restriccion) {
 
+        buscarObjeto(GO, 0, "", restriccion);
 
     }
 
-    private void buscarObjeto(String GO, int nivel) {
+    private void buscarObjeto(String GO, int nivel, String relacion, String restriccion) {
 
         ontologia objeto = new ontologia();
         objeto.setGO(GO);
         objeto = consultarBD(objeto);
-        
+
         for (int i = 0; i < nivel; i++) {
-            System.out.print("      ");            
+            System.out.print("      ");
         }
-        System.out.println(objeto.getNombre());
-        
+        System.out.println(relacion + objeto.getNombre() + " " + objeto.getGO());
+
         nivel++;
-        for (int i = 0; i < objeto.is_a.size(); i++) {
-            buscarObjeto(objeto.is_a.get(i), nivel);
+
+        if (restriccion.equals(null) || restriccion.equals("is a")) {
+
+            for (int i = 0; i < objeto.is_a.size(); i++) {
+                buscarObjeto(objeto.is_a.get(i), nivel, "is a--> ", restriccion);
+            }
+        } else if (restriccion.equals(null) || restriccion.equals("part of")) {
+            for (int i = 0; i < objeto.part_of.size(); i++) {
+                buscarObjeto(objeto.part_of.get(i), nivel, "part of--> ", restriccion);
+            }
+        } else if (restriccion.equals(null) || restriccion.equals("regulate")) {
+            for (int i = 0; i < objeto.regulates.size(); i++) {
+                buscarObjeto(objeto.regulates.get(i), nivel, "regulate--> ", restriccion);
+            }
+        } else if (restriccion.equals(null) || restriccion.equals("negatively regulate")) {
+            for (int i = 0; i < objeto.negatively_regulates.size(); i++) {
+                buscarObjeto(objeto.negatively_regulates.get(i), nivel, "negatively regulate--> ", restriccion);
+            }
+        } else if (restriccion.equals(null) || restriccion.equals("positively regulate")) {
+            for (int i = 0; i < objeto.positively_regulates.size(); i++) {
+                buscarObjeto(objeto.positively_regulates.get(i), nivel, "positively regulate--> ", restriccion);
+            }
+        } else if (restriccion.equals(null) || restriccion.equals("occurs in")) {
+            for (int i = 0; i < objeto.occurs_in.size(); i++) {
+                buscarObjeto(objeto.occurs_in.get(i), nivel, "occurs in--> ", restriccion);
+            }
+        } else if (restriccion.equals(null) || restriccion.equals("capable of")) {
+            for (int i = 0; i < objeto.capable_of.size(); i++) {
+                buscarObjeto(objeto.capable_of.get(i), nivel, "capable of--> ", restriccion);
+            }
+        } else if (restriccion.equals(null) || restriccion.equals("capable of part of")) {
+            for (int i = 0; i < objeto.capable_of_part_of.size(); i++) {
+                buscarObjeto(objeto.capable_of_part_of.get(i), nivel, "capable of part of--> ", restriccion);
+            }
         }
-                   
+
     }
 
     private ontologia consultarBD(ontologia obj) {
@@ -247,4 +276,3 @@ public class ontologia {
     }
 
 }
-

@@ -69,6 +69,8 @@ public class lecturas_QuickGO {
                     String to = element.getElementsByTagName("to").item(0).getTextContent();
                     type = type.replaceAll("\\s*$","");
                     type = type.replaceAll("^\\s*","");
+                    to = to.replaceAll("\\s*$","");
+                    to = to.replaceAll("^\\s*","");
                     
                     if(type.equals("part_of")){
                         ontologia.getPart_of().add(to);
@@ -87,9 +89,7 @@ public class lecturas_QuickGO {
                     }
                     
                     //System.out.println("type: "+type+"  to: "+to);
-                    
-                    
-                    
+                                       
                 }
 
             }
