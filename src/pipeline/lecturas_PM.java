@@ -127,7 +127,7 @@ public class lecturas_PM {
         }
     }
 
-    private String generar_html(String fuente) throws Exception {
+    public String generar_html(String fuente) throws Exception {
 
         String nombre_archivo = "abstracts_salida.html";
         File archivo_fuente = new File(fuente);
@@ -143,7 +143,7 @@ public class lecturas_PM {
                 + "	<meta charset=\"utf-8\">\n"
                 + "	<title>generación de archivo html</title>\n"
                 + "</head>\n"
-                + "<body>";
+                + "<body>\n";
 
         String pie = "\n</body>\n"
                 + "</html>";
@@ -164,6 +164,10 @@ public class lecturas_PM {
 
             while ((linea = leer.readLine()) != null) {
 
+                linea = linea.replaceAll("&", "&amp;");
+                linea = linea.replaceAll("<", "&lt;");
+                linea = linea.replaceAll(">", "&gt;");
+                
                 escribir.write(linea);
 
             }

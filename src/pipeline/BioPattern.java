@@ -119,7 +119,7 @@ public class BioPattern {
         
          // Se reciben los abstracts descargados y se devuelve el archivo de oraciones SVC necesario para
          // construir la BC con la que se haran inferencias para deducir patrones de regulacion.
-         String oracionesSVC = new Resumidor().resumidor(abstracts);
+         String oracionesSVC = new Resumidor().consultResumidor(abstracts);
 
          String base_conocimiento = new GeneradorBC().generador(oracionesSVC);
 
@@ -183,13 +183,13 @@ public class BioPattern {
         // construir la BC con la que se haran inferencias para deducir patrones de regulacion.
         
         */
-        String abstracts = "abstracts-BAXS-ascenso.html";
+        //String abstracts = "abstracts-BAXS-ascenso.html";
         
-        //String abstracts = "abstracts.html";
+        //String abstracts = "abstracts.html"; */
         
-        String oracionesSVC = new Resumidor().resumir(abstracts);
+        new Resumidor().resumidor();
 
-        String base_conocimiento = new GeneradorBC().generador(oracionesSVC);
+        /*String base_conocimiento = new GeneradorBC().generador(oracionesSVC);
 
         // Se infieren los distintos patrones de regulacion para la secuencia problema.
         Razonador razonador = new Razonador();
