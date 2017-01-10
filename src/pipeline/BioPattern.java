@@ -34,8 +34,8 @@ public class BioPattern {
 
     public static void main(String[] args) throws Exception {
         BioPattern biopattern = new BioPattern();
-        //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
-        biopattern.pipelineBioPatternRP(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), true);
+        biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
+        //biopattern.pipelineBioPatternRP(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), true);
         //biopattern.pruebas();
 
     }
@@ -183,8 +183,11 @@ public class BioPattern {
         // construir la BC con la que se haran inferencias para deducir patrones de regulacion.
         
         */
-        String abstracts = "abstracts_salida.html";
-        String oracionesSVC = new Resumidor().resumidor(abstracts);
+        String abstracts = "abstracts-BAXS-ascenso.html";
+        
+        //String abstracts = "abstracts.html";
+        
+        String oracionesSVC = new Resumidor().resumir(abstracts);
 
         String base_conocimiento = new GeneradorBC().generador(oracionesSVC);
 

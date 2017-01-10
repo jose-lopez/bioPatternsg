@@ -1,9 +1,0 @@
-SST;somatostatin;SMST
-EGF;epidermal growth factor;epidermal growth factor (beta-urogastrone)
-EGFR;epidermal growth factor receptor;ERBB;epidermal growth factor receptor (avian erythroblastic leukemia viral (v-erb-b) oncogene homolog);ERBB1
-GRB2;growth factor receptor bound protein 2;growth factor receptor-bound protein 2;NCKAP2
-SOS2;SOS Ras/Rho guanine nucleotide exchange factor 2;son of sevenless (Drosophilia) homolog 2;son of sevenless homolog 2 (Drosophila)
-RAC1;ras-related C3 botulinum toxin substrate 1 (rho family, small GTP binding protein Rac1);TC-25;p21-Rac1;Rac-1
-RAF1;Raf-1 proto-oncogene, serine/threonine kinase;v-raf-1 murine leukemia viral oncogene homolog 1;Raf-1;c-Raf;CRAF
-MAP2K1;mitogen-activated protein kinase kinase 1;PRKMK1;MEK1;MAPKK1
-MAPK11;mitogen-activated protein kinase 11;PRKM11;p38-2;p38Beta;SAPK2

@@ -1,4 +1,21 @@
 % diccionarios.pl
+%
+%    Copyright (C) 2015 
+%    Jacinto Dávila, Hilda Yelitza Contreras, M. Marilú Parra, Jose Lopez
+%
+%    This program is free software: you can redistribute it and/or modify
+%    it under the terms of the GNU Affero General Public License as
+%    published by the Free Software Foundation, either version 3 of the
+%    License, or (at your option) any later version.
+%
+%    This program is distributed in the hope that it will be useful,
+%    but WITHOUT ANY WARRANTY; without even the implied warranty of
+%    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%    GNU Affero General Public License for more details.
+%
+%    You should have received a copy of the GNU Affero General Public License
+%    along with this program.  If not, see <http://www.gnu.org/licenses/>
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Diccionarios %%
@@ -9,6 +26,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Español
 
 %% es_articulo(Palabra,Numero,Genero).
+
+:- encoding(utf8).
 
 es_articulo(el,singular,masculino).
 es_articulo(los,plural,masculino). 
@@ -1404,10 +1423,56 @@ verb(verbo([have])) --> [have].
 % conjugacion de verbos en ingles
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+verb(verbo([maintain])) --> [maintain].
+verb(verbo([maintains])) --> [maintains].
+verb(verbo([maintained])) --> [maintained].
+verb(verbo([maintaining])) --> [maintaining].
+verb(verbo([gain])) --> [gain].
+verb(verbo([gains])) --> [gains].
+verb(verbo([gained])) --> [gaining].
+verb(verbo([loss])) --> [loss].
+verb(verbo([losses])) --> [losses].
+verb(verbo([lossed])) --> [lossed].
+verb(verbo([lossing])) --> [lossing].
+verb(verbo([suggest])) --> [suggest].
+verb(verbo([suggests])) --> [suggests].
+verb(verbo([suggested])) --> [suggested].
+verb(verbo([suggesting])) --> [suggesting].
+verb(verbo([execute])) --> [execute].
+verb(verbo([executes])) --> [executes].
+verb(verbo([executed])) --> [executed].
+verb(verbo([executing])) --> [executing].
+verb(verbo([find])) --> [find].
+verb(verbo([finds])) --> [finds].
+verb(verbo([found])) --> [found].
+verb(verbo([finding])) --> [finding].
+verb(verbo([provide])) --> [provide].
+verb(verbo([provides])) --> [provides].
+verb(verbo([provided])) --> [provided].
+verb(verbo([providing])) --> [providing].
 verb(verbo([recruit])) --> [recruit].
 verb(verbo([recruits])) --> [recruits].
 verb(verbo([recruited])) --> [recruited].
 verb(verbo([recruiting])) --> [recruiting].
+verb(verbo([reveal])) --> [reveal].
+verb(verbo([reveals])) --> [reveals].
+verb(verbo([revealed])) --> [revealing].
+verb(verbo([report])) --> [report].
+verb(verbo([reports])) --> [reports].
+verb(verbo([reported])) --> [reported].
+verb(verbo([reporting])) --> [reporting].
+verb(verbo([ensure])) --> [ensure].
+verb(verbo([ensures])) --> [ensures].
+verb(verbo([ensured])) --> [ensured].
+verb(verbo([ensuring])) --> [ensuring].
+verb(verbo([release])) --> [release].
+verb(verbo([releases])) --> [releases].
+verb(verbo([released])) --> [released].
+verb(verbo([releasing])) --> [releasing].
+verb(verbo([arrest])) --> [arrest].
+verb(verbo([arrests])) --> [arrests].
+verb(verbo([arrested])) --> [arrested].
+verb(verbo([arresting])) --> [arresting].
 verb(verbo([bind])) --> [bind].
 verb(verbo([binds])) --> [binds].
 verb(verbo([bound])) --> [bound].
@@ -1460,10 +1525,6 @@ verb(verbo([induce])) --> [induce].
 verb(verbo([induces])) --> [induces].
 verb(verbo([induced])) --> [induced].
 verb(verbo([inducing])) --> [inducing].
-verb(verbo([repress])) --> [repress].
-verb(verbo([represses])) --> [represses].
-verb(verbo([repressed])) --> [repressed].
-verb(verbo([repressing])) --> [repressing].
 verb(verbo([enhance])) --> [enhance].
 verb(verbo([enhances])) --> [enhances].
 verb(verbo([enhanced])) --> [enhanced].
@@ -1483,7 +1544,6 @@ verb(verbo([reactivating])) --> [reactivating].
 verb(verbo([activate])) --> [activate].
 verb(verbo([activates])) --> [activates].
 verb(verbo([activated])) --> [activated].
-verb(verbo([activating])) --> [activating].
 % agregado 2015-08-25
 verb(verbo([phosphorylate])) --> [phosphorylate].
 verb(verbo([phosphorylates])) --> [phosphorylates].
@@ -1502,6 +1562,7 @@ verb(verbo([associate])) --> [associate].
 verb(verbo([associates])) --> [associates].
 verb(verbo([associated])) --> [associated].
 verb(verbo([associating])) --> [associating].
+verb(verbo([activating])) --> [activating].
 verb(verbo([dimerize])) --> [dimerize].
 verb(verbo([dimerizes])) --> [dimerizes].
 verb(verbo([dimerized])) --> [dimerized].
@@ -1519,14 +1580,27 @@ verb(verbo([down-regulates])) --> [down, '-', regulates].
 verb(verbo([down-regulated])) --> [down, '-', regulated].
 verb(verbo([down-regulating])) --> [down, '-', regulating].
 % fin de agregados en 2015-08-28
+verb(verbo([activating])) --> [activating].
+verb(verbo([conserve])) --> [conserve].
+verb(verbo([conserves])) --> [conserves].
+verb(verbo([conserved])) --> [conserved].
+verb(verbo([conserving])) --> [conserving].
 verb(verbo([inhibit])) --> [inhibit].
 verb(verbo([inhibits])) --> [inhibits].
 verb(verbo([inhibited])) --> [inhibited].
 verb(verbo([inhibiting])) --> [inhibiting].
+verb(verbo([act])) --> [act].
+verb(verbo([acts])) --> [acts].
+verb(verbo([acted])) --> [acted].
+verb(verbo([acting])) --> [acting].
 verb(verbo([increase])) --> [increase].
 verb(verbo([increases])) --> [increases].
 verb(verbo([increased])) --> [increased].
 verb(verbo([increasing])) --> [increasing].
+verb(verbo([confer])) --> [confer].
+verb(verbo([confers])) --> [confers].
+verb(verbo([conferred])) --> [conferred].
+verb(verbo([conferring])) --> [conferring].
 verb(verbo([decrease])) --> [decrease].
 verb(verbo([decreases])) --> [decreases].
 verb(verbo([decreased])) --> [decreased].
@@ -1535,10 +1609,18 @@ verb(verbo([regulate])) --> [regulate].
 verb(verbo([regulates])) --> [regulates].
 verb(verbo([regulated])) --> [regulated].
 verb(verbo([regulating])) --> [regulating].
+verb(verbo([provoke])) --> [provoke].
+verb(verbo([provokes])) --> [provokes].
+verb(verbo([provoked])) --> [provoked].
+verb(verbo([provoking])) --> [provoking].
 verb(verbo([modulate])) --> [modulate].
 verb(verbo([modulates])) --> [modulates].
 verb(verbo([modulated])) --> [modulated].
 verb(verbo([modulating])) --> [modulating].
+verb(verbo([cause])) --> [cause].
+verb(verbo([causes])) --> [causes].
+verb(verbo([caused])) --> [caused].
+verb(verbo([causing])) --> [causing].
 verb(verbo([require])) --> [require].
 verb(verbo([requires])) --> [requires].
 verb(verbo([required])) --> [required].
@@ -1563,10 +1645,6 @@ verb(verbo([stimulate])) --> [stimulate].
 verb(verbo([stimulates])) --> [stimulates].
 verb(verbo([stimulated])) --> [stimulated].
 verb(verbo([stimulating])) --> [stimulating].
-verb(verbo([synthesize])) --> [synthesize].
-verb(verbo([synthesized])) --> [synthesized].
-verb(verbo([synthesizes])) --> [synthesizes].
-verb(verbo([synthesizing])) --> [synthesizing].
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % verbos participios regulares 
@@ -1950,7 +2028,7 @@ verb_aux(verbo([estés])) --> [estés].
 verb_aux(verbo([esté])) --> [esté].
 verb_aux(verbo([estemos])) --> [estemos].
 verb_aux(verbo([estéis])) --> [estéis].
-x(verbo([estén])) --> [estén].
+verb_aux(verbo([estén])) --> [estén].
 verb_aux(verbo([estuviera])) --> [estuviera].
 verb_aux(verbo([estuviese])) --> [estuviese].
 verb_aux(verbo([estuvieras])) --> [estuvieras].
