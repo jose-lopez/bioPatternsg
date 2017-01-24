@@ -18,6 +18,10 @@
 %    along with this program.  If not, see <http://www.gnu.org/licenses/>
 %
 
+:- set_prolog_stack(global, limit(2 000 000 000)).
+:- set_prolog_stack(trail,  limit(2 000 000 000)).
+:- set_prolog_stack(local,  limit(2 000 000 000)).
+
 :- [resumidorpaso1entradas].
 :- [resumidorpaso2gramatica].
 :- [resumidorpaso3].

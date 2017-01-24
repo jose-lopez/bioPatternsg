@@ -70,7 +70,7 @@ public class GeneradorBC {
 
             while (oracionesSVC(n)) {
 
-                oracionesSVC = "abstracts/salida_" + n;
+                oracionesSVC = "abstracts/resumen_" + n + ".txt";
 
                 generador(oracionesSVC, archivoBC);
                 
@@ -90,7 +90,7 @@ public class GeneradorBC {
     private boolean oracionesSVC(int n) {
 
 
-        File archivo_fuente = new File("abstracts/salida_" + n);
+        File archivo_fuente = new File("abstracts/resumen_" + n + ".txt");
 
         return archivo_fuente.exists();
 
@@ -109,9 +109,9 @@ public class GeneradorBC {
         //File f = new File(generar_txt(oracionesSVC));
         File f = new File(oracionesSVC);
         File f1 = new File("aceptados2.txt");
-        //File f2 = new File("objetos_CREB.txt");        
+        File f2 = new File("objetos_CREB.txt");        
         //File f2 = new File("objetosMinados.txt");
-        File f2 = new File("objetosBAXSMinadosBC.txt");
+        //File f2 = new File("objetosBAXSMinadosBC.txt");
 
         //String salidaBC="";//variable en donde se guarda la salida del programa para
         //imprimir en el archivo

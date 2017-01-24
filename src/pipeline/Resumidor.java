@@ -197,12 +197,16 @@ public class Resumidor {
 
         // Comandon para realizar el resumen
         String resumirComando = "tell('salida.html'), resume('" + abstracts + "'), told.";
+        //String resumirComando = "tell('salida_1_p.html'), resume('abstracts_1.html'), told.";
         try {
 
             Query q = new Query("cd(resumidor_bioinformante).");
             System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
             generarResumen(resumirComando); // se realiza resumen del archivo de abstracts
+
+            q = new Query("cd(..)");
+            System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -231,8 +235,8 @@ public class Resumidor {
         Query q = new Query(resumirComando);
         System.out.println("Resumir: " + (q.hasSolution() ? "succeeded" : "failed"));
 
-        q = new Query("cd(..)");
-        System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+        //q = new Query("cd(..)");
+        //System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
         return q.hasSolution();
 
@@ -255,6 +259,7 @@ public class Resumidor {
 
         q = new Query("cd(..).");
         System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+
 
     }
 }
