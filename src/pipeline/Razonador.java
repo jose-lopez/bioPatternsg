@@ -1,24 +1,24 @@
  /*
-    Razonador.java
+ Razonador.java
 
 
-    Copyright (C) 2016.
-    Jose Lopez (jlopez@unet.edu.ve).
+ Copyright (C) 2016.
+ Jose Lopez (jlopez@unet.edu.ve).
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation, either version 3 of the
-    License, or (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
 
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-*/
+ */
 
 /*
  * To change this template, choose Tools | Templates
@@ -46,10 +46,19 @@ public class Razonador {
     private static final String prologConsult = "";
     private static final String regexCleaner = "[^\\d\\w ]";
 
-    public ArrayList<String> inferir_patrones(String bc) {
+    public boolean inferir_patrones(String bc) {
 
-        ArrayList<String> patrones = new ArrayList<>();
-        return patrones;
+        String consultPredictor = "[patron7].";
+        Query query = new Query(consultPredictor);
+        System.out.println(consultPredictor + " " + (query.hasSolution() ? "succeeded" : "failed"));
+        
+        String inferirPatrones = "tell('patrones.txt'), patron(P, [bind, activate,regulate], ['SRIF'], 10, LOf), told.";
+        //String inferirPatrones = "tell('patrones.txt'), findnsols(50, P, (patron(P, [bind, activate,regulate], ['SRIF'], 10, LOf), write(P), nl, write(LOf), nl), ListP), told.";
+        query = new Query(inferirPatrones);
+        System.out.println(inferirPatrones + " " + (query.hasSolution() ? "succeeded" : "failed"));
+        
+        return query.hasSolution();
+        
     }
 
     public ArrayList<String> regiones(ArrayList<factorTranscripcion> factores) {

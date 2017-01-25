@@ -192,8 +192,7 @@ public class BioPattern {
         String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl");
 
         // Se infieren los distintos patrones de regulacion para la secuencia problema.
-        /*Razonador razonador = new Razonador();
-        ArrayList<String> patrones = razonador.inferir_patrones(base_conocimiento);
+        new Razonador().inferir_patrones(base_conocimiento);        
 
        //*/
         

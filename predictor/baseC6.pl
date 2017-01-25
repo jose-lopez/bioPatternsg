@@ -1,0 +1,12 @@
+base([
+event('oxysterols',bind,'LXRa'),
+event('LXRa',associate,'RXR'),
+event('LXRa',associate,'cholesterol'),
+event('RXR',associate,'SHP'),
+event('cholesterol',associate,'SHP'),
+event('SHP',interact,'RXR'),
+event('RXR',recruit,'SHP'),
+event('RXR',interact,'oxysterols'),
+event('SHP',activate,'CYP7A1'),
+event('oxysterols',activate,'CYP7A1')
+]).
