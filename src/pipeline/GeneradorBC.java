@@ -61,25 +61,70 @@ public class GeneradorBC {
 
         String oracionesSVC;
 
+        Vector eventos = new Vector(100, 100);
+
         int n = 1;
 
-        FileWriter fichero = new FileWriter(baseC);
-        
+        String baseCtemp = "baseCTemp";
+
+        FileWriter fichero = new FileWriter(baseCtemp);
+        FileWriter fichero1 = new FileWriter("baseCdoc");
+
         try (PrintWriter archivoBC = new PrintWriter(fichero)) {
+
+            PrintWriter archivoBCdoc = new PrintWriter(fichero1);
             archivoBC.println("base([");
 
             while (oracionesSVC(n)) {
 
                 oracionesSVC = "abstracts/resumen_" + n + ".txt";
 
-                generador(oracionesSVC, archivoBC);
-                
+                generador(oracionesSVC, archivoBCdoc, eventos);
+
                 n++;
 
             }
-            
+           
+            int cont_eventos;
+            cont_eventos = printBC(archivoBC, eventos);
+            System.out.println("cantidad de eventos: " + cont_eventos);
+
             archivoBC.println("]).");
+
+            archivoBC.close();
+            
+            archivoBCdoc.println("Total de eventos: " + cont_eventos);
+            archivoBCdoc.close();
+
+            try (BufferedReader baseKB = new BufferedReader(new FileReader(new File(baseCtemp)))) {
+                PrintWriter kb = new PrintWriter(new FileWriter(baseC));
+                String lineaActual, lineaAnt;
+
+                lineaAnt = baseKB.readLine();
+
+                while (baseKB.ready()) {
+
+                    lineaActual = baseKB.readLine();
+
+                    if (!lineaActual.equals("]).")) {
+                        kb.println(lineaAnt);
+                        lineaAnt = lineaActual;
+
+                    } else {
+                        kb.println(lineaAnt.replace("),", ")"));
+                        kb.println(lineaActual);
+                        kb.close();
+                    }
+
+
+                }
+
+                baseKB.close();
+            }
+
         }
+
+
 
         return baseC;
 
@@ -89,14 +134,17 @@ public class GeneradorBC {
 
     private boolean oracionesSVC(int n) {
 
+        boolean existe = false;
 
         File archivo_fuente = new File("abstracts/resumen_" + n + ".txt");
 
-        return archivo_fuente.exists();
+        existe = archivo_fuente.exists();
+
+        return existe;
 
     }
 
-    public String generador(String oracionesSVC, PrintWriter baseC) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
+    public String generador(String oracionesSVC, PrintWriter baseC, Vector eventos) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
 
         /* descomenta aqui para correr ejemplo sencillo
          File f = new File("salida_resumidor.txt");
@@ -109,17 +157,11 @@ public class GeneradorBC {
         //File f = new File(generar_txt(oracionesSVC));
         File f = new File(oracionesSVC);
         File f1 = new File("aceptados2.txt");
-        File f2 = new File("objetos_CREB.txt");        
+        File f2 = new File("objetos_CREB.txt");
         //File f2 = new File("objetosMinados.txt");
         //File f2 = new File("objetosBAXSMinadosBC.txt");
 
-        //String salidaBC="";//variable en donde se guarda la salida del programa para
-        //imprimir en el archivo
-
-//File f2 = new File("objetosMinados-099-10-3-SRIF.txt");
-        //File f2 = new File("objetosMinados-098-20-2-SRIF.txt");
-        //*/
-
+        //System.out.println("Esto");
 
 
 
@@ -128,7 +170,7 @@ public class GeneradorBC {
         BufferedReader resumidor, diccionario, objetos, resumidor1, diccionario1, objetos1;
         String[] vec;
 
-        int i = 0, j = 0, l = 0, ii = 0, ll = 0, jj = 0;
+        int i = 0, j = 0, l = 0, ii = 0, ll = 0, jj = 0, contEventosArchivoActual = 0;
         resumidor = new BufferedReader(new FileReader(f));
         diccionario = new BufferedReader(new FileReader(f1));
         objetos = new BufferedReader(new FileReader(f2));
@@ -200,7 +242,7 @@ public class GeneradorBC {
         Vector verbos = new Vector(100, 100);
         Vector objetos_complemento = new Vector(1000, 1000);
         Vector relaciones = new Vector(100, 100);
-        Vector eventos = new Vector(100, 100);
+        //Vector eventos = new Vector(100, 100);
 
 
         //System.out.print("base([");
@@ -216,7 +258,10 @@ public class GeneradorBC {
 
             //salidaresumidor="[html]\n";//inicio de cabecera html para 
 
+            baseC.println("Archivo " + oracionesSVC);
+
             while (resumidor.ready()) {
+
                 //System.out.println(cont_lineas);
                 linea = resumidor.readLine();
                 //System.out.println(linea);
@@ -288,7 +333,7 @@ public class GeneradorBC {
                     int cant_alias = sinoms_compl.size();
                     for (int alias = 0; alias < cant_alias; alias++) {
                         //String comparador = "'"+(String)sinoms_compl.elementAt(alias);
-                        String comparador = (String)sinoms_compl.elementAt(alias);
+                        String comparador = (String) sinoms_compl.elementAt(alias);
                         if (contenido_complemento.indexOf(comparador) != -1) {
                             objetos_complemento.add(sinoms_compl.elementAt(0));
                         }
@@ -320,6 +365,8 @@ public class GeneradorBC {
                                     if (!eventos.contains(event)) {
                                         eventos.add(event);
                                         System.out.println("evento: " + event + "; Linea: " + cont_lineas);
+                                        baseC.println("evento: " + event + "; Linea: " + cont_lineas);
+                                        contEventosArchivoActual++;
                                     }
                                 }
 
@@ -341,15 +388,18 @@ public class GeneradorBC {
             }
 
 
+
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Error en:!!!!!!!!" + cont_lineas);
             //e.printStackTrace();
         }
 
-        //System.out.print("]).");
-        int cont_eventos;
-        cont_eventos = printBC(baseC, eventos);
-        System.out.println("cantidad de eventos: " + cont_eventos);
+        //*System.out.print("]).");
+
+     
+        System.out.println("eventos provenientes de " + oracionesSVC + " :" + contEventosArchivoActual);
+        baseC.println("eventos provenientes de " + oracionesSVC + " :" + contEventosArchivoActual);
+        
         return "Base.pl";
 
 
@@ -360,18 +410,20 @@ public class GeneradorBC {
 
         cant_eventos = eventos.size();
         String evento;
-        
+
         for (int i = 0; i < cant_eventos; i++) {
             if (i != (cant_eventos - 1)) {
                 evento = (String) eventos.elementAt(i) + ",";
 
             } else {
-                evento = (String) eventos.elementAt(i);
+                evento = (String) eventos.elementAt(i) + ",";
             }
 
             baseC.println(evento);
             // System.out.println(evento);
-        }          
+        }
+
+        //eventos.clear();
 
         return cant_eventos;
     }

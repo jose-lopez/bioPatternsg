@@ -1,9 +1,2 @@
-GW4064	--- bind
-NR1H4	--- activate
-NR0B2	--- associate
-CYP7A1	--- associate
-ABCC1	--- associate
-Basic fibroblast growth factor receptor 1	--- associate
-AML1	--- associate
-RARA	--- interact
-HNF4A      	--- bind -->Cholesterol 7-alpha-monooxygenase@
+[event(EGF,bind,EGFR),event(EGFR,activate,Ras),event(Ras,activate,CREB),event(CREB,bind,SRIF)]
+[EGF,EGFR,Ras,CREB,SRIF]

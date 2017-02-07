@@ -52,7 +52,7 @@ public class Razonador {
         Query query = new Query(consultPredictor);
         System.out.println(consultPredictor + " " + (query.hasSolution() ? "succeeded" : "failed"));
         
-        String inferirPatrones = "tell('patrones.txt'), patron(P, [bind, activate,regulate], ['SRIF'], 10, LOf), told.";
+        String inferirPatrones = "tell('patrones.txt'), patron(P, [bind, activate, regulate], ['SRIF'], 10,LOf), write(P),nl,write(LOf),nl,told.";
         //String inferirPatrones = "tell('patrones.txt'), findnsols(50, P, (patron(P, [bind, activate,regulate], ['SRIF'], 10, LOf), write(P), nl, write(LOf), nl), ListP), told.";
         query = new Query(inferirPatrones);
         System.out.println(inferirPatrones + " " + (query.hasSolution() ? "succeeded" : "failed"));

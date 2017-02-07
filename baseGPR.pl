@@ -1,4 +1,5 @@
 base([
+event('EGF',bind,'EGFR'),
 event('MAPK',activate,'MEK'),
 event('MEK',stimulate,'MAPK'),
 event('CREB',phosphorylate,'MAPK'),
@@ -24,7 +25,6 @@ event('Raf',increase,'CREB'),
 event('Ras',regulate,'CREB'),
 event('MEK',stimulate,'CREB'),
 event('Raf',phosphorylate,'MAPK'),
-event('EGF',bind,'EGFR'),
 event('EGF',activate,'Ras'),
 event('EGF',activate,'MAPK'),
 event('EGFR',activate,'Ras'),
@@ -135,3 +135,4 @@ event('MAPK',increase,'Ras'),
 event('MAPK',increase,'EGF'),
 event('EGFR',inhibit,'MAPK')
 ]).
+
