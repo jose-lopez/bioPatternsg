@@ -1,4 +1,4 @@
- /*
+/*
  Resumidor.java
 
 
@@ -67,36 +67,45 @@ public class Resumidor {
         }
 
         int n = 1;
-
-
+        String salida = "", entrada = "";
         while (generar_html(n)) {
             /*Se genera un archivo html en la carpeta resumidor_bioinformante 
-             llamado abstracts.html
+             llamado abstracts.html             * 
              */
 
+            System.out.println("Resumiendo abstracts_" + n + "................");
             //metodo que llama al consultResumidor
-            resumir("abstracts.html");
+
+            salida = "salida_" + n + ".html";
+            entrada = "abstracts_" + n + ".html";
+
+            resumir(entrada, n, salida);
+
+
 
             //recibe la ruta del resumen y genera un archivo txt
             //en la carpeta abstracts llamado resumen_(n).txt 
-            generar_salidaTXT(n, "resumidor_bioinformante/salida.html");
+            salida = "resumidor_bioinformante/salida_" + n + ".html";
+            generar_salidaTXT(n, salida);
+
+
             n++;
         }
-
+        
+        
+        
     }
 
     public boolean generar_html(int n) throws Exception {
         boolean encontrado = true;
+        String nombre_archivo = "resumidor_bioinformante/abstracts_" + n + ".html";
 
-        String nombre_archivo = "resumidor_bioinformante/abstracts.html";
+        try {
+            File ficherod = new File(nombre_archivo);
+            ficherod.delete();
+        } catch (Exception e) {
+        }
 
-        File archivo_fuente = new File("abstracts/abstracts_" + n);
-        File archivo_destino = new File(nombre_archivo);
-
-        BufferedWriter escribir;
-        BufferedReader leer;
-
-        String linea = "";
         String cabecera = "<!DOCTYPE html>\n"
                 + "<html>\n"
                 + "<head>\n"
@@ -108,42 +117,66 @@ public class Resumidor {
         String pie = "\n</body>\n"
                 + "</html>";
 
+        guardar_en_archivo(cabecera, nombre_archivo);
+        encontrado = leerArchivo(n, nombre_archivo);
+        guardar_en_archivo(pie, nombre_archivo);
+
+        return encontrado;
+    }
+
+    public boolean leerArchivo(int n, String nombre_archivo) {
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        boolean encontrado = true;
         try {
-            leer = new BufferedReader(new FileReader(archivo_fuente));
+            archivo = new File("abstracts/abstracts_" + n);
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
 
-            escribir = new BufferedWriter(new FileWriter(archivo_destino));
+            String linea = "";
+            while ((linea = br.readLine()) != null) {
 
-            if (archivo_fuente.exists()) {
+                linea = linea.replaceAll("&", "&amp;");
+                linea = linea.replaceAll("<", "&lt;");
+                linea = linea.replaceAll(">", "&gt;");
+                guardar_en_archivo(linea, nombre_archivo);
 
-                escribir.write(cabecera);
-
-                while ((linea = leer.readLine()) != null) {
-
-                    linea = linea.replaceAll("&", "&amp;");
-                    linea = linea.replaceAll("<", "&lt;");
-                    linea = linea.replaceAll(">", "&gt;");
-
-                    escribir.write(linea);
-
-                }
-
-                escribir.write(pie);
-
-                leer.close();
-
-                escribir.close();
-
-                System.out.println("..ok");
-            } else {
-
-                System.out.println("archivo no localizado");
-                encontrado = false;
             }
         } catch (Exception e) {
             encontrado = false;
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
         }
 
         return encontrado;
+    }
+
+    private void guardar_en_archivo(String texto, String nombre) {
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try {
+            fichero = new FileWriter(nombre, true);
+            pw = new PrintWriter(fichero);
+            pw.println(texto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != fichero) {
+                    fichero.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+
     }
 
     public void generar_salidaTXT(int n, String ruta) throws Exception {
@@ -193,16 +226,34 @@ public class Resumidor {
 
     }
 
-    public void resumir(String abstracts) { // El archivo de abstracts debe venir en formato HTML
+    public void resumir(String abstracts, int n, String salida) { // El archivo de abstracts debe venir en formato HTML
 
         // Comandon para realizar el resumen
-        String resumirComando = "tell('salida.html'), resume('" + abstracts + "'), told.";
+        String resumirComando = "tell('" + salida + "')" + ", resume('" + abstracts + "'), told.";
+        //String resumirComando = "tell('salida_1_p.html'), resume('abstracts_1.html'), told.";
+
+        Query q = new Query("cd(resumidor_bioinformante).");
+        System.out.println("cambio a directorio resumidor_bioinformante:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+
+
+        try {
+            File ficherod = new File(salida);
+            ficherod.delete();
+        } catch (Exception e) {
+        }
+        
         try {
 
-            Query q = new Query("cd(resumidor_bioinformante).");
-            System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+
+            //q = new Query("open('salida.html', write, Stream), flush_output(Stream), close(Stream).");
+            //System.out.println("cambio a directorio resumidor_bioinformante:" + " " + (q.hasMoreElements() ? "succeeded" : "failed"));
 
             generarResumen(resumirComando); // se realiza resumen del archivo de abstracts
+
+            q = new Query("cd(..)");
+            System.out.println("regresando a directorio raiz:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+
+
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -220,21 +271,15 @@ public class Resumidor {
 //---------------------------------------
     public boolean generarResumen(String resumirComando) {
 
-        /*
-         Query q = new Query("cd(..).");
-         System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
-
-         q = new Query("cd('abstracts').");
-         System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
-         * */
+        boolean hasSolution = false;
 
         Query q = new Query(resumirComando);
-        System.out.println("Resumir: " + (q.hasSolution() ? "succeeded" : "failed"));
+        hasSolution = q.hasSolution();
+        System.out.println("Resumir: " + (hasSolution ? "succeeded" : "failed"));
 
-        q = new Query("cd(..)");
-        System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
-
-        return q.hasSolution();
+        //q = new Query("cd(..)");
+        //System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+        return hasSolution;
 
     }
 
@@ -247,8 +292,8 @@ public class Resumidor {
     public void init(String codigoResumidorPNL) {
         //Abriendo el archivo
         Query q = new Query("cd(resumidor_bioinformante).");
-        System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
-
+        System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));        
+        
         String consultResumidor = "[" + codigoResumidorPNL + "].";
         Query query = new Query(consultResumidor);
         System.out.println(consultResumidor + " " + (query.hasSolution() ? "succeeded" : "failed"));

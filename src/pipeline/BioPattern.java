@@ -91,49 +91,9 @@ public class BioPattern {
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
         minado_FT mfts = new minado_FT();
         //ruta de archivo, confiabilidad, N Iteraciones, N de objetos, Criterio de busqueda, opcion para busqueda en HGNC (0: todos los mejores ramqueados, -1:solo el objeto con el mismo nombre, [1-n]: cantidad de espesifica de objetos HUGO)
-        mfts.minado(regionPromotora, conf, num_iteraciones, cantPromotores, criterio, 1);
-        mfts.obtenerFT();
-        busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
-        ArrayList<String> listaPMid = BPM.busqueda_IDs(false, 10);
-        //ArrayList<String> listaPMid =  BPM.consulta_PudMed(1000);
-        try {
-            new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500);
-        } catch (Exception ex) {
-            Logger.getLogger(BioPattern.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, criterio, 1); // Criterio: Se usa para decidir como procesar la etiqueta descritptora de un complejo.
+        mfts.obtenerFT();        
 
-        /* Busqueda_PubMed bm = new Busqueda_PubMed();
-         bm.listas_PubMed_Ids(listaFT, num_iteraciones, MFT.getObjetos_mineria(), cant_compl_p, criterio); // Se itera y se definen listas_PubMed y listas_FTs.
-         ArrayList<ArrayList> listas_PubMed = bm.get_listas_PubMed();
-         ArrayList<ArrayList> listas_FTs = bm.get_listas_FTs();*/
-        // String abstracts = new Resumidor().abstracts_PubMed(listas_PubMed);
-        /*
-         Busqueda_PubMed bm= new Busqueda_PubMed();
-         bm.listas_PubMed_Ids(listaFT, num_iteraciones,MFT.getObjetos_mineria(),cant_compl_p, criterio); // Se itera y se definen listas_PubMed y listas_FTs.
-         ArrayList<ArrayList> listas_PubMed = bm.get_listas_PubMed();
-         ArrayList<ArrayList> listas_FTs = bm.get_listas_FTs();
-                       
-            
-         // Se pasa el listado de PubMed Ids y se devuelve el archivo que contiene todos los abstracts descargados desde PubMed.
-         String abstracts = new Resumidor().abstracts_PubMed(listas_PubMed);
-        
-         // Se reciben los abstracts descargados y se devuelve el archivo de oraciones SVC necesario para
-         // construir la BC con la que se haran inferencias para deducir patrones de regulacion.
-         String oracionesSVC = new Resumidor().consultResumidor(abstracts);
-
-         String base_conocimiento = new GeneradorBC().generador(oracionesSVC);
-
-         // Se infieren los distintos patrones de regulacion para la secuencia problema.
-         Razonador razonador = new Razonador();
-         ArrayList<String> patrones = razonador.inferir_patrones(base_conocimiento);
-
-         /*
-         * ***********************
-         */
-
- /*ArrayList<ArrayList> listas_FTs = new ArrayList<>();
-         listas_FTs.add(listaFT);*/
-        //this.regionPromotora = "AGGTACCTTCTCCCCCATTGTAGAGAAAAGTGAAGTTCTTTTAGAGCCCCGTTACATCTTCAAGGCTTTTTATGAGATAATGGAGGAAATAAAGAGGGCTCAGTCCTTCTACTGTCCATATTTCATTCTCAAATCTGTTATTAGAGGAATGATTCTGATCTCCACCTACCATACACATGCCCTGTTGCTTGTTGGGCCTTCCTAAAATGTTAGAGTATGATGACAGATGGAGTTGTCTGGGTACATTTGTGTGCATTTAAGGGTGATAGTGTATTTGCTCTTTAAGAGCTGAGTGTTTGAGCCTCTGTTTGTGTGTAATTGAGTGTGCATGTGTGGGAGTGAAATTGTGGAATGTGTATGCTCATAGCACTGAGTGAAAATAAAAGATTGTATAAATCGTGGGGCATGTGGAATTGTGTGTGCCTGTGCGTGTGCAGTATTTTTTTTTTTTTAAGTAAGCCACTTTAGATCTTGTCACCTCCCCTGTCTTCTGTGATTGATTTTGCGAGGCTAATGGTGCGTAAAAGGGCTGGTGAGATCTGGGGGCGCCTCCTAGCCTGACGTCAGAGAGAGAGTTTAAAACAGAGGGAGACGGTTGAGAGCACACAAGCCGCTTTAGGAGCGAGGTTCGGAGCCATCGCTGCTGCCTGCTGATCCGCGCCTAGAGTTTGACCAGCCACTCTCCAGCTCGGCTTTCGCGGCGCCGAGATGCTGTCCTGCCGCCTCCAGTGCGCGCTGGCTGCGCTGTCCATCGTCCTGGCCCTGGGCTGTGTCACCGGCGCTCCCTCGGACCCCAGACT";
         Region region_promotora = new Region(this.regionPromotora);
         region_promotora.constructPromotor();
         return region_promotora;
@@ -153,7 +113,7 @@ public class BioPattern {
 
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
 
-        /* En el siguiente juego de instruccions se itera por niveles para minar pathways segun un criterio definido por el usuario.
+         /* En el siguiente juego de instruccions se itera por niveles para minar pathways segun un criterio definido por el usuario.
          * En este caso mediante un numero fijo de iteraciones. Varios niveles de busqueda se requieren para hallar pathways. En
          * esta etapa del pipeline se devuelve una "lista de listas" de PubMed Ids, cada lista en la lista 
          * contiene los PubMed IDs de cada iteracion ejecutada.
@@ -163,39 +123,28 @@ public class BioPattern {
          * listas_FTs contendra todos los objetos minados en todas las iteraciones; tambien una lista por iteracion.
          * Estos se emplearan mas adelante para organizar regiones promotoras.
          */
-        //boolean criterio = true;//criterio de busqueda genenames true = aplica criterio , false busca por la etiqueta completa
-        /*float conf = Float.parseFloat(confiabilidad);  //confiabilidad de las busquedas en tfbind
+        float conf = Float.parseFloat(confiabilidad);  //confiabilidad de las busquedas en tfbind
+
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
-        //
-        Minado_FT MFT = new Minado_FT();
-        MFT.minado(rutaRegPromSecProb, cant_compl_p, criterio, conf, num_iteraciones);
-
-        Busqueda_PubMed bpm = new Busqueda_PubMed();
-        bpm.busqueda_IDs(MFT.getListaFT(),MFT.getLista_homologos(),false);
-       //genero abstracts
-       //nuevo archivo.html
-       //nombre del archivo local donde va, es la entrada que debe pasar html
-        String abstracts = new lecturas_PM().BusquedaPM_Abstracts(bpm.getListaIDs(), fileAbstID);
-        bpm.limpiar_men();
-
-        
-        // Se reciben los abstracts descargados y se devuelve el archivo de oraciones SVC necesario para
-        // construir la BC con la que se haran inferencias para deducir patrones de regulacion.
-        
-        */
-        //String abstracts = "abstracts-BAXS-ascenso.html";
-        
-        //String abstracts = "abstracts.html"; */
+        minado_FT mfts = new minado_FT();
+        //ruta de archivo, confiabilidad, N Iteraciones, N de objetos, Criterio de busqueda, opcion para busqueda en HGNC (0: todos los mejores ramqueados, -1:solo el objeto con el mismo nombre, [1-n]: cantidad de espesifica de objetos HUGO)
+        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, criterio, 1); // Criterio: Se usa para decidir como procesar la etiqueta descritptora de un complejo.
+        mfts.obtenerFT();
+        busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
+        ArrayList<String> listaPMid = BPM.busqueda_IDs(false, 10); // cantidad de abstracts a descargar para cada combinación
+        //ArrayList<String> listaPMid =  BPM.consulta_PudMed(1000);
+        try {
+            new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500); // Número máximo de abstracts por archivo
+        } catch (Exception ex) {
+            Logger.getLogger(BioPattern.class.getName()).log(Level.SEVERE, null, ex);
+        }  
         
         new Resumidor().resumidor();
 
-        /*String base_conocimiento = new GeneradorBC().generador(oracionesSVC);
+        String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl");
 
-        // Se infieren los distintos patrones de regulacion para la secuencia problema.
-        Razonador razonador = new Razonador();
-        ArrayList<String> patrones = razonador.inferir_patrones(base_conocimiento);
-
-       //*/
+        //Se infieren los distintos patrones de regulacion para la secuencia problema.
+        new Razonador().inferir_patrones("baseC.pl"); 
         
         Region region_promotora = new Region(this.regionPromotora);
         //region_promotora.constructPromotor(MFT.getListaFT());
