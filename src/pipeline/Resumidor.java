@@ -68,115 +68,43 @@ public class Resumidor {
 
         int n = 1;
         String salida = "", entrada = "";
-        while (generar_html(n)) {
-            /*Se genera un archivo html en la carpeta resumidor_bioinformante 
-             llamado abstracts.html             * 
-             */
+        
+         while (buscarArchivo(n)) {
 
-            System.out.println("Resumiendo abstracts_" + n + "................");
             //metodo que llama al consultResumidor
-
             salida = "salida_" + n + ".html";
-            entrada = "abstracts_" + n + ".html";
-
+            entrada = "abstracts/abstracts_" + n + ".html";
+            System.out.println("Resumiendo abstracts_" + n + "................");
+            
             resumir(entrada, n, salida);
-
-
 
             //recibe la ruta del resumen y genera un archivo txt
             //en la carpeta abstracts llamado resumen_(n).txt 
             salida = "resumidor_bioinformante/salida_" + n + ".html";
             generar_salidaTXT(n, salida);
-
-
             n++;
         }
-        
+              
         
         
     }
-
-    public boolean generar_html(int n) throws Exception {
+    
+     private boolean buscarArchivo(int n){
         boolean encontrado = true;
-        String nombre_archivo = "resumidor_bioinformante/abstracts_" + n + ".html";
-
-        try {
-            File ficherod = new File(nombre_archivo);
-            ficherod.delete();
-        } catch (Exception e) {
-        }
-
-        String cabecera = "<!DOCTYPE html>\n"
-                + "<html>\n"
-                + "<head>\n"
-                + "	<meta charset=\"utf-8\">\n"
-                + "	<title>generación de archivo html</title>\n"
-                + "</head>\n"
-                + "<body>\n";
-
-        String pie = "\n</body>\n"
-                + "</html>";
-
-        guardar_en_archivo(cabecera, nombre_archivo);
-        encontrado = leerArchivo(n, nombre_archivo);
-        guardar_en_archivo(pie, nombre_archivo);
-
-        return encontrado;
-    }
-
-    public boolean leerArchivo(int n, String nombre_archivo) {
         File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
-        boolean encontrado = true;
+        String nombre_archivo = "abstracts/abstracts_" + n + ".html";
+
         try {
-            archivo = new File("abstracts/abstracts_" + n);
+            archivo = new File(nombre_archivo);
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
-
-            String linea = "";
-            while ((linea = br.readLine()) != null) {
-
-                linea = linea.replaceAll("&", "&amp;");
-                linea = linea.replaceAll("<", "&lt;");
-                linea = linea.replaceAll(">", "&gt;");
-                guardar_en_archivo(linea, nombre_archivo);
-
-            }
         } catch (Exception e) {
             encontrado = false;
-        } finally {
-            try {
-                if (null != fr) {
-                    fr.close();
-                }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
         }
-
+           
         return encontrado;
-    }
-
-    private void guardar_en_archivo(String texto, String nombre) {
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        try {
-            fichero = new FileWriter(nombre, true);
-            pw = new PrintWriter(fichero);
-            pw.println(texto);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (null != fichero) {
-                    fichero.close();
-                }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-
     }
 
     public void generar_salidaTXT(int n, String ruta) throws Exception {
