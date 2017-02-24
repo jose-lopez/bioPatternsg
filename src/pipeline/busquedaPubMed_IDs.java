@@ -21,11 +21,11 @@ import java.util.List;
 public class busquedaPubMed_IDs {
     
 
-    public ArrayList<String> busqueda_IDs(boolean todas, int cantIDs) {
+    public ArrayList<String> busqueda_IDs(boolean criterioCombinacion, int cantIDs) {
         System.out.println("\nGenerando combinaciones de objetos...");
         Objs_homologos_Expertos();
-        borrar_archivo("combinaciones.db");
-        ObjectContainer db = Db4o.openFile("FT.db");
+        borrar_archivo("mineria/combinaciones.db");
+        ObjectContainer db = Db4o.openFile("mineria/FT.db");
         factorTranscripcion FT = new factorTranscripcion();
         try {
 
@@ -33,11 +33,11 @@ public class busquedaPubMed_IDs {
             while (result.hasNext()) {
 
                 factorTranscripcion ft = (factorTranscripcion) result.next();
-                //System.out.println("FT + Ligando");
                 factor_ligando(ft);
-                //System.out.println("FT + Nuevos Objetos");
                 factor_nuevoObjeto(ft);
-                if (ft.getN_Iteracion() == 0 || todas) {
+                //Si criterioCombinacion es 'true' los objetos del experto se combinaran en todas las Iteraciones
+                //Si criterioCombinacion es 'false' los objetos del experto solo se combinaran en la primera Iteracion
+                if (ft.getN_Iteracion() == 0 || criterioCombinacion) {
                     //System.out.println("FT + Objetos experto y homologos");
                     factor_objetos_H_E(ft);
                 }
@@ -55,7 +55,7 @@ public class busquedaPubMed_IDs {
     public ArrayList<String> consulta_PudMed(int cantIDs) {
         System.out.println("Consulta Pudmed IDs");
         ArrayList<String> listaPM = new ArrayList<>();
-        ObjectContainer db = Db4o.openFile("combinaciones.db");
+        ObjectContainer db = Db4o.openFile("mineria/combinaciones.db");
         combinacion com = new combinacion();
         ObjectSet result = db.queryByExample(com);
         System.out.println("Combinaciones: "+result.size());
@@ -78,11 +78,11 @@ public class busquedaPubMed_IDs {
 
     private void factor_nuevoObjeto(factorTranscripcion FT) {
 
-        for (int i = 0; i < FT.getLecturas_HGNC().listaNombres().size(); i++) {
+        for (int i = 0; i < FT.listaNombres().size(); i++) {
             for (int j = 0; j < FT.getComplejoProteinico().size(); j++) {
                 ArrayList<String> listNO = FT.getComplejoProteinico().get(j).listaNombres();
                 for (int k = 0; k < listNO.size(); k++) {
-                    guardarCombinacion(FT.getLecturas_HGNC().listaNombres().get(i), listNO.get(k), true);
+                    guardarCombinacion(FT.listaNombres().get(i), listNO.get(k), true);
                 }
             }
         }
@@ -90,29 +90,29 @@ public class busquedaPubMed_IDs {
 
     private void factor_ligando(factorTranscripcion FT) {
 
-        for (int i = 0; i < FT.getLecturas_HGNC().listaNombres().size(); i++) {
+        for (int i = 0; i < FT.listaNombres().size(); i++) {
             for (int j = 0; j < FT.getComplejoProteinico().size(); j++) {
                 for (int k = 0; k < FT.getComplejoProteinico().get(j).getLigandos().size(); k++) {
-                    guardarCombinacion(FT.getLecturas_HGNC().listaNombres().get(i), FT.getComplejoProteinico().get(j).getLigandos().get(k).getId(), true);
-                    guardarCombinacion(FT.getLecturas_HGNC().listaNombres().get(i), FT.getComplejoProteinico().get(j).getLigandos().get(k).getNombre(), true);
+                    guardarCombinacion(FT.listaNombres().get(i), FT.getComplejoProteinico().get(j).getLigandos().get(k).getId(), true);
+                    guardarCombinacion(FT.listaNombres().get(i), FT.getComplejoProteinico().get(j).getLigandos().get(k).getNombre(), true);
                 }
             }
         }
     }
 
     private void factor_objetos_H_E(factorTranscripcion FT) {
-        ObjectContainer db = Db4o.openFile("ObjH_E.db");
-        lecturas_HGNC Obj = new lecturas_HGNC();
+        ObjectContainer db = Db4o.openFile("mineria/ObjH_E.db");
+        objetos_Experto Obj = new objetos_Experto();
         try {
 
             ObjectSet result = db.queryByExample(Obj);
             while (result.hasNext()) {
 
-                lecturas_HGNC obj = (lecturas_HGNC) result.next();
+                objetos_Experto obj = (objetos_Experto) result.next();
 
-                for (int i = 0; i < FT.getLecturas_HGNC().listaNombres().size(); i++) {
+                for (int i = 0; i < FT.listaNombres().size(); i++) {
                     for (int j = 0; j < obj.getHGNC().size(); j++) {
-                        guardarCombinacion(FT.getLecturas_HGNC().listaNombres().get(i), obj.listaNombres().get(i), true);
+                        guardarCombinacion(FT.listaNombres().get(i), obj.listaNombres().get(i), true);
                     }
                 }
 
@@ -125,14 +125,15 @@ public class busquedaPubMed_IDs {
     }
 
     private void Objs_homologos_Expertos() {
-        ObjectContainer db = Db4o.openFile("ObjH_E.db");
-        lecturas_HGNC Obj = new lecturas_HGNC();
+        ObjectContainer db = Db4o.openFile("mineria/ObjH_E.db");
+        objetos_Experto Obj = new objetos_Experto();
         ArrayList<String> nombres = new ActivatableArrayList<>();
         try {
             ObjectSet result = db.queryByExample(Obj);
             while (result.hasNext()) {
-                lecturas_HGNC obj = (lecturas_HGNC) result.next();
+                objetos_Experto obj = (objetos_Experto) result.next();
                 nombres.add(obj.getID());
+                //System.out.println(obj.getID());
             }
         } catch (Exception e) {
 
@@ -146,14 +147,15 @@ public class busquedaPubMed_IDs {
         while (s.hasNext()) {
 
             List<String> listares = (List<String>) s.next();
-            lecturas_HGNC obj1 = new lecturas_HGNC();
-            obj1 = HGNC(listares.get(0));
-            lecturas_HGNC obj2 = new lecturas_HGNC();
-            obj2 = HGNC(listares.get(1));
-
+            objetos_Experto obj1 = new objetos_Experto();
+            obj1 = objExp(listares.get(0));
+            objetos_Experto obj2 = new objetos_Experto();
+            obj2 = objExp(listares.get(1));
+            //System.out.println(listares.get(0)+" "+listares.get(1));
             for (int i = 0; i < obj1.listaNombres().size(); i++) {
                 for (int j = 0; j < obj2.listaNombres().size(); j++) {
-                    guardarCombinacion(obj1.listaNombres().get(i), obj2.listaNombres().get(j), false);
+                    //System.out.println(obj1.listaNombres().get(i)+" "+obj2.listaNombres().get(j));
+                    guardarCombinacion(obj1.listaNombres().get(i), obj2.listaNombres().get(j), true);
 
                 }
             }
@@ -161,14 +163,15 @@ public class busquedaPubMed_IDs {
         }
     }
 
-    private lecturas_HGNC HGNC(String obj) {
-        lecturas_HGNC HGNC = new lecturas_HGNC();
-        HGNC.setID(obj);
+    private objetos_Experto objExp(String obj) {
+        objetos_Experto objExp = new objetos_Experto();
+        objExp.setID(obj);
 
-        ObjectContainer db = Db4o.openFile("ObjH_E.db");
+        ObjectContainer db = Db4o.openFile("mineria/ObjH_E.db");
         try {
-            ObjectSet result = db.queryByExample(HGNC);
-            lecturas_HGNC objs = (lecturas_HGNC) result.next();
+            ObjectSet result = db.queryByExample(objExp);
+            objetos_Experto objs = (objetos_Experto) result.next();
+            //System.out.println(objs.listaNombres());
             return objs;
 
         } catch (Exception e) {
@@ -177,11 +180,11 @@ public class busquedaPubMed_IDs {
             db.close();
         }
 
-        return HGNC;
+        return objExp;
     }
 
     private void guardarCombinacion(String pal1, String pal2, boolean buscar) {
-
+        
         combinacion comb = new combinacion(pal1, pal2);
         combinacion comb2 = new combinacion(pal2, pal1);
         if (buscar && (!consultar(comb) && !consultar(comb2))) {
@@ -194,7 +197,7 @@ public class busquedaPubMed_IDs {
     private Boolean consultar(combinacion com) {
         boolean existe = false;
 
-        ObjectContainer db = Db4o.openFile("combinaciones.db");
+        ObjectContainer db = Db4o.openFile("mineria/combinaciones.db");
         try {
             //System.out.println(com.getPalabra1()+"+"+com.getPalabra2());
             ObjectSet result = db.queryByExample(com);
@@ -211,7 +214,7 @@ public class busquedaPubMed_IDs {
     }
 
     private void agregar(combinacion com) {
-        ObjectContainer db = Db4o.openFile("combinaciones.db");
+        ObjectContainer db = Db4o.openFile("mineria/combinaciones.db");
 
         try {
             db.store(com);

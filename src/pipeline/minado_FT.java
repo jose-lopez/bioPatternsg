@@ -19,7 +19,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 
  */
-
 package pipeline;
 
 import com.db4o.Db4o;
@@ -37,21 +36,16 @@ import java.util.logging.Logger;
 
 public class minado_FT {
 
-    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos, boolean criterio, int opcion) {
+    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos) {
         Runtime garbage = Runtime.getRuntime();
         objetosMineria objetosMineria = new objetosMineria();
+        
+        crearCarpeta("mineria");
         //Se crea un nuevo archivo de Objectos minados
-        borrar_archivo("objetosMinados.txt");
         new objetosMinados().crear_archivo();
-        //Nuevo archivo de objetos Homologos y Objetos de Experto
-        borrar_archivo("ObjH_E.db");
-        //Borrar archivo de base de datos de factores de trancripcion
-        borrar_archivo("FT.db");
-        borrar_archivo("objetosMineria.db");
-        borrar_archivo("ObjetosMinadosGO.db");
-               
-        leer_archivo_homologos(objetosMineria, opcion);
-        leer_archivo_ObjetosExperto(objetosMineria, opcion);
+                
+        leer_archivo_homologos(objetosMineria);
+        leer_archivo_ObjetosExperto(objetosMineria);
 
         //Primera Iteracion
         System.out.println("\n====Iteracion 0====\n");
@@ -59,13 +53,13 @@ public class minado_FT {
         ArrayList<lecturas_TFBIND> lecturasTFB = lecturasTFBID(ruta, confiabilidad);
         System.out.println(lecturasTFB.size() + " Factores de transcripcion encontrados");
         for (int i = 0; i < lecturasTFB.size(); i++) {
-            factorTranscripcion FT = new factorTranscripcion(lecturasTFB.get(i), criterio, numeroObjetos, objetosMineria, opcion);
+            factorTranscripcion FT = new factorTranscripcion(lecturasTFB.get(i), numeroObjetos, objetosMineria);
             objetosMineria.getObjetos_minados().add(FT.getID());
             objetosMineria.agregar_objeto(FT.getComplejoProteinico());
             new objetosMinados().agregar_objetos(FT);
             guardar_Factor_transcripcion(FT);
             System.out.println("Listo...");
-            FT=null;
+            FT = null;
             garbage.gc();
         }
         guardar_objetosIteracion(objetosMineria);
@@ -76,9 +70,9 @@ public class minado_FT {
             System.out.println("\n====Iteracion " + (i) + "====\n");
             ArrayList<String> Lista = objetosMineria.getNuevos_objetos();
             objetosMineria.setNuevos_objetos(new ArrayList<String>());
-           
+
             for (int j = 0; j < Lista.size(); j++) {
-                factorTranscripcion FT = new factorTranscripcion(Lista.get(j), true, i, numeroObjetos, opcion);
+                factorTranscripcion FT = new factorTranscripcion(Lista.get(j), i, numeroObjetos);
                 objetosMineria.getObjetos_minados().add(FT.getID());
                 objetosMineria.agregar_objeto(FT.getComplejoProteinico());
                 new objetosMinados().agregar_objetos(FT);
@@ -102,6 +96,35 @@ public class minado_FT {
         return lecturasTFBIND.leer_de_archivo(ruta, confiabilidad);
 
     }
+    
+    private void crearCarpeta(String nombre) {
+        File f = new File(nombre);
+        try {
+            borrarDirectorio(f);
+        } catch (Exception e) {
+
+        }
+        if (f.delete()) {
+            // System.out.println("El directorio   ha sido borrado correctamente");
+        } else {
+            //System.out.println("El directorio  no se ha podido borrar");
+        }
+
+        File file = new File(nombre);
+        file.mkdir();
+
+    }
+    
+    private void borrarDirectorio(File directorio) {
+        File[] ficheros = directorio.listFiles();
+        for (int i = 0; i < ficheros.length; i++) {
+            if (ficheros[i].isDirectory()) {
+                borrarDirectorio(ficheros[i]);
+            }
+            ficheros[i].delete();
+        }
+    }
+    
 
     public void crear_archivo(String nombre) {
 
@@ -125,34 +148,33 @@ public class minado_FT {
         }
     }
 
-        
     private void guardar_Factor_transcripcion(factorTranscripcion FT) {
 
-        ObjectContainer db = Db4o.openFile("FT.db");
+        ObjectContainer db = Db4o.openFile("mineria/FT.db");
         try {
             db.store(FT);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error al guardar FT.db...");
-        }finally {
+        } finally {
 
             db.close();
         }
     }
-    
-    public void guardar_objetosIteracion(objetosMineria objetosMin){
-        ObjectContainer db = Db4o.openFile("objetosMineria.db");
+
+    public void guardar_objetosIteracion(objetosMineria objetosMin) {
+        ObjectContainer db = Db4o.openFile("mineria/objetosMineria.db");
         try {
             db.store(objetosMin);
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error al guardar en objetosMineria.db...");
-        }finally {
+        } finally {
             db.close();
         }
     }
 
     public void obtenerFT() {
 
-        ObjectContainer db = Db4o.openFile("FT.db");
+        ObjectContainer db = Db4o.openFile("mineria/FT.db");
         factorTranscripcion FT = new factorTranscripcion();
         try {
 
@@ -171,7 +193,7 @@ public class minado_FT {
 
     }
 
-    public void leer_archivo_homologos(objetosMineria objetosMineria, int opcion) {
+    public void leer_archivo_homologos(objetosMineria objetosMineria) {
 
         System.out.println("**Leyendo archivo de Homologos...");
 
@@ -186,12 +208,15 @@ public class minado_FT {
             while ((lectura = br.readLine()) != null) {
 
                 System.out.println("busqueda.." + lectura);
-                               
-                lecturas_HGNC HGNC = new lecturas_HGNC();
-                HGNC.busquedaInfGen(lectura, true, opcion);
-                new objetosMinados().agregar_objetos(HGNC);
-                objetosMineria.agregar_objeto(HGNC);
-                guardarObjetos_Homologos_Experto(HGNC);
+                objetos_Experto objExp = new objetos_Experto();
+                objExp.setID(lectura);
+                objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(lectura));
+
+                new objetosMinados().agregar_objetos(objExp);
+                for (int i = 0; i < objExp.getHGNC().size(); i++) {
+                    objetosMineria.agregar_objeto(objExp.getHGNC().get(i));
+                }
+                guardarObjetos_Homologos_Experto(objExp);
 
             }
 
@@ -209,7 +234,7 @@ public class minado_FT {
 
     }
 
-    public void leer_archivo_ObjetosExperto(objetosMineria objetosMineria, int opcion) {
+    public void leer_archivo_ObjetosExperto(objetosMineria objetosMineria) {
 
         System.out.println("\n**Leyendo archivo de Objetos Experto...");
 
@@ -228,20 +253,23 @@ public class minado_FT {
 
                 for (int i = 0; i < separa.length; i++) {
                     System.out.println("Busqueda.." + lectura);
-                    
-                    lecturas_HGNC HGNC = new lecturas_HGNC();
-                    HGNC.busquedaInfGen(lectura, false, opcion);
 
-                    for (int j = 0; j < separa.length; j++) {
+                    /* for (int j = 0; j < separa.length; j++) {
                         if (HGNC.getSinonimosExperto().contains(separa[j])) {
                             HGNC.getSinonimosExperto().add(separa[j]);
                         }
 
-                    }
-                    new objetosMinados().agregar_objetos(HGNC);
-                    objetosMineria.agregar_objeto(HGNC);
-                    guardarObjetos_Homologos_Experto(HGNC);
+                    }*/
+                    objetos_Experto objExp = new objetos_Experto();
+                    objExp.setID(lectura);
+                    objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(lectura));
+                    
+                    new objetosMinados().agregar_objetos(objExp);
 
+                    for (int j = 0; j < objExp.getHGNC().size(); j++) {
+                        objetosMineria.agregar_objeto(objExp.getHGNC().get(j));
+                    }
+                    guardarObjetos_Homologos_Experto(objExp);
                 }
 
             }
@@ -260,14 +288,14 @@ public class minado_FT {
 
     }
 
-    private void guardarObjetos_Homologos_Experto(lecturas_HGNC HGNC) {
+    private void guardarObjetos_Homologos_Experto(objetos_Experto objExp) {
 
-        ObjectContainer db = Db4o.openFile("ObjH_E.db");
+        ObjectContainer db = Db4o.openFile("mineria/ObjH_E.db");
         try {
-            db.store(HGNC);
-        }catch(Exception e){
+            db.store(objExp);
+        } catch (Exception e) {
             System.out.println("Error al guardar en la base de datos ObjH_E.db");
-        }finally {
+        } finally {
 
             db.close();
         }
@@ -281,7 +309,7 @@ class objetosMineria {
     private int Iteracion;
     private ArrayList<String> objetos_minados;
     private ArrayList<String> nuevos_objetos;
-    
+
     public objetosMineria() {
 
         this.objetos_minados = new ArrayList<>();
@@ -319,10 +347,10 @@ class objetosMineria {
     public void setObjetos_minados(ArrayList<String> objetos_minados) {
         this.objetos_minados = objetos_minados;
     }
-    
-    public void agregarObjetosMinado(String objeto){
+
+    public void agregarObjetosMinado(String objeto) {
         this.objetos_minados.add(objeto);
-       
+
     }
 
     public ArrayList<String> getNuevos_objetos() {
@@ -333,13 +361,12 @@ class objetosMineria {
         this.nuevos_objetos = nuevos_objetos;
     }
 
-    public void agregar_objeto(lecturas_HGNC HGNC) {
+    public void agregar_objeto(HGNC HGNC) {
 
-        if (!objetos_minados.contains(HGNC.getID())) {
+        if (!objetos_minados.contains(HGNC.getSimbolo())) {
 
-            if (!nuevos_objetos.contains(HGNC.getID())) {
-                nuevos_objetos.add(HGNC.getID());
-                
+            if (!nuevos_objetos.contains(HGNC.getSimbolo()) && HGNC.getSimbolo() != null) {
+                nuevos_objetos.add(HGNC.getSimbolo());
             }
 
         }
@@ -352,12 +379,11 @@ class objetosMineria {
 
             for (int j = 0; j < objetos.get(i).getHGNC().size(); j++) {
 
-                lecturas_HGNC hgnc = objetos.get(i).getHGNC().get(j);
-                if (!objetos_minados.contains(hgnc.getID()) && objetos != null) {
+                HGNC hgnc = objetos.get(i).getHGNC().get(j);
+                if (!objetos_minados.contains(hgnc.getSimbolo()) && objetos != null) {
 
-                    if (!nuevos_objetos.contains(hgnc.getID())) {
-                        nuevos_objetos.add(hgnc.getID());
-                        
+                    if (!nuevos_objetos.contains(hgnc.getSimbolo())) {
+                        nuevos_objetos.add(hgnc.getSimbolo());
                     }
 
                 }
@@ -367,5 +393,5 @@ class objetosMineria {
         }
 
     }
-    
+
 }

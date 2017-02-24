@@ -29,7 +29,7 @@ public class ObjetosMinadosGO {
 
     public void guardarObjeto(ObjetosMinadosGO objeto) {
 
-        ObjectContainer db = Db4o.openFile("ObjetosMinadosGO.db");
+        ObjectContainer db = Db4o.openFile("mineria/ObjetosMinadosGO.db");
         try {
 
             ObjectSet result = db.queryByExample(this);
@@ -93,7 +93,7 @@ public class ObjetosMinadosGO {
 
     private void guardar_Ontologia(ontologia ontologia) {
 
-        ObjectContainer db = Db4o.openFile("Ontologia.db");
+        ObjectContainer db = Db4o.openFile("mineria/Ontologia.db");
         try {
             db.store(ontologia);
             //System.out.println("Guardando: "+ontologia.getNombre());
@@ -107,7 +107,7 @@ public class ObjetosMinadosGO {
 
     private boolean buscarObjeto(ontologia objeto) {
         boolean encontrado = false;
-        ObjectContainer db = Db4o.openFile("Ontologia.db");
+        ObjectContainer db = Db4o.openFile("mineria/Ontologia.db");
         try {
 
             ObjectSet result = db.queryByExample(objeto);
@@ -126,7 +126,7 @@ public class ObjetosMinadosGO {
     public void buscar(String nombre,String restriccion) {
         ObjetosMinadosGO objetoGO = new ObjetosMinadosGO();
         objetoGO.setNombre(nombre);
-        ObjectContainer db = Db4o.openFile("ObjetosMinadosGO.db");
+        ObjectContainer db = Db4o.openFile("mineria/ObjetosMinadosGO.db");
         try {
 
             ObjectSet result = db.queryByExample(objetoGO);
@@ -135,7 +135,7 @@ public class ObjetosMinadosGO {
                 break;
             }
         } catch (Exception e) {
-            System.out.println("Error al acceder a Ontologia.db");
+            System.out.println("Error al acceder a mineria/Ontologia.db");
         } finally {
             db.close();
         }
@@ -145,7 +145,7 @@ public class ObjetosMinadosGO {
     public void imprimirTodo(String tipo,String restriccion) {
 
         ObjetosMinadosGO objeto = new ObjetosMinadosGO();
-        ObjectContainer db = Db4o.openFile("ObjetosMinadosGO.db");
+        ObjectContainer db = Db4o.openFile("mineria/ObjetosMinadosGO.db");
         try {
 
             ObjectSet result = db.queryByExample(objeto);
@@ -163,7 +163,7 @@ public class ObjetosMinadosGO {
 
             }
         } catch (Exception e) {
-            System.out.println("Error al acceder a Ontologia.db");
+            System.out.println("Error al acceder a mineria/Ontologia.db");
         } finally {
             db.close();
         }
