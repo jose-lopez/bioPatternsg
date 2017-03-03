@@ -26,58 +26,54 @@ import org.w3c.dom.NodeList;
 
 public class lecturas_HGNC {
 
-    private String ID;
-    private ArrayList<String> sinonimosExperto;
-    private ArrayList<HGNC> HGNC;
-
+    
     public lecturas_HGNC() {
-        HGNC = new ArrayList<>();
-        sinonimosExperto = new ArrayList<>();
+        
     }
 
-    public void busquedaInfGen(String contenido, boolean criterio, int opcion) {
-
-        String lectura = contenido.replace(" ", "+");
+    public ArrayList<HGNC> busquedaInfGen(String contenido) {
+        ArrayList<HGNC> HGNC = new ArrayList<>();
+       
+        String lectura = contenido.replace(" ", "+");//se formatea la etiqueta para usarla en pathway commons
         lecturas_pathwaycommons lpat = new lecturas_pathwaycommons();
-        String cUP = lpat.obtenercodigoUP(lectura);
-        //System.out.println("cod_UP: " + cUP);
-
+        String cUP = lpat.obtenercodigoUP(lectura);// Se utiliza el motor de busqueda de pathway commons y se obtiene el objeto mejor ponderado
+        
         if (!cUP.equals("")) {
             lecturas_Uniprot UP = new lecturas_Uniprot(cUP);
-            UP.obtener_Nombre();
-            lectura = UP.getSimbolo();
-            criterio = false;
-
-            if (!busqueda_genenames(lectura, criterio, 0)) {
-
+            UP.obtener_Nombre();//Nombre recomendado Uniprot
+            lectura = UP.getSimbolo();//Simbolo recomendado Uniprot
+            
+            //busqueda de informacion usando el simbolo recomendado Uniprot
+            if (!busqueda_genenames(lectura, false, 0,HGNC)) {
+                //Si no se consigue informacion con el simbolo se hace la busqueda por el nombre recomendado por Uniprot
                 lectura = UP.getNombre();
-                if (!busqueda_genenames(lectura, criterio, 0)) {
-                    busqueda_genenames(contenido, true, 0);
+                if (!busqueda_genenames(lectura, false, 0,HGNC)) {
+                    //Si no se encuentra informacion con el nombre se Usa la etiqueta original y otro criterio de busqueda en genenames
+                    busqueda_genenames(contenido, true, 0,HGNC);
                 }
             }
 
         }else{
-            busqueda_genenames(contenido, true, 0);
+            //Si no se encuentra ningun resultado en pathwaycommons se utiliza la etiqueta original
+            busqueda_genenames(contenido, true, 0,HGNC);
         }
-
+        return HGNC;
     }
 
-    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion) {
+    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion, ArrayList<HGNC> HGNC) {
 
         ArrayList<String> factor = new ArrayList<>();
         if (criterio) {
             String cri = obtener_factor(contenido);
             try {
                 cri = cri.replace(" ", "+");
-                setID(cri);
-
+                
                 String Url = "http://rest.genenames.org/search/" + cri;
                 Document doc = new conexionServ().conecta(Url);
                 factor = busqueda_lista_xml(doc, opcion, cri);
             } catch (Exception e) {
                 try {
                     contenido = contenido.replace(" ", "+");
-                    setID(contenido);
                     String Url = "http://rest.genenames.org/search/" + contenido;
                     Document doc = new conexionServ().conecta(Url);
                     factor = busqueda_lista_xml(doc, opcion, cri);
@@ -89,7 +85,6 @@ public class lecturas_HGNC {
         } else {
 
             try {
-                setID(contenido);
                 contenido = contenido.replace(" ", "+");
                 String Url = "http://rest.genenames.org/search/" + contenido;
                 Document doc = new conexionServ().conecta(Url);
@@ -113,7 +108,7 @@ public class lecturas_HGNC {
                 //System.out.println("Simbolo HUGO: " + factor.get(i));
                 String Url = "http://rest.genenames.org/fetch/symbol/" + factor.get(i);
                 Document doc = new conexionServ().conecta(Url);
-                busqueda_datos_xml(doc);
+                HGNC.add(busqueda_datos_xml(doc));
 
             } catch (Exception e) {
                 // System.out.println("no se encuentra "+contenido+" en HUGO");
@@ -166,7 +161,7 @@ public class lecturas_HGNC {
         return nombres;
     }
 
-    private void busqueda_datos_xml(Document doc) {
+    private HGNC busqueda_datos_xml(Document doc) {
 
         HGNC hgnc = new HGNC();
         NodeList nList = doc.getElementsByTagName("doc");
@@ -261,8 +256,8 @@ public class lecturas_HGNC {
             }
 
         }
-        HGNC.add(hgnc);
-       
+        
+        return hgnc;
 
     }
     
@@ -348,51 +343,6 @@ public class lecturas_HGNC {
             }
         }
         return false;
-    }
-
-    public void imprimir() {
-        System.out.println("Lecturas HGNC");
-        System.out.println("    ID: " + ID);
-        System.out.println("-------------------------------");
-        for (int i = 0; i < HGNC.size(); i++) {
-            HGNC.get(i).imprimir();
-        }
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    public ArrayList<HGNC> getHGNC() {
-        return HGNC;
-    }
-
-    public void setHGNC(ArrayList<HGNC> HGNC) {
-        this.HGNC = HGNC;
-    }
-
-    public ArrayList<String> getSinonimosExperto() {
-        return sinonimosExperto;
-    }
-
-    public void setSinonimosExperto(ArrayList<String> sinonimosExperto) {
-        this.sinonimosExperto = sinonimosExperto;
-    }
-
-    public ArrayList<String> listaNombres() {
-        ArrayList<String> lista = new ArrayList<>();
-        lista.add(ID);
-        for (int i = 0; i < HGNC.size(); i++) {
-
-            lista.addAll(HGNC.get(i).ListaNombres());
-
-        }
-
-        return lista;
     }
 
 }

@@ -71,7 +71,7 @@ public class lecturas_QuickGO {
                     type = type.replaceAll("^\\s*","");
                     to = to.replaceAll("\\s*$","");
                     to = to.replaceAll("^\\s*","");
-                    
+                    //System.out.println(typ);
                     if(type.equals("part_of")){
                         ontologia.getPart_of().add(to);
                     }else if(type.equals("regulates")){

@@ -34,9 +34,10 @@ public class ObjetosMinadosGO {
 
             ObjectSet result = db.queryByExample(this);
             if (!result.hasNext()) {
+                System.out.println(nombre);
                 db.store(this);
                 for (int i = 0; i < funcionMolecular.size(); i++) {
-                    // System.out.println("funcion mlecular:  "+ funcionMolecular.get(i));
+                    //System.out.println("funcion mlecular:  "+ funcionMolecular.get(i));
                     buscarOntologia(funcionMolecular.get(i));
                 }
                 for (int i = 0; i < procesoBiologico.size(); i++) {
@@ -44,7 +45,7 @@ public class ObjetosMinadosGO {
                     buscarOntologia(procesoBiologico.get(i));
                 }
                 for (int i = 0; i < componenteCelular.size(); i++) {
-                    // System.out.println("componente celular:  "+ componenteCelular.get(i));
+                     //System.out.println("componente celular:  "+ componenteCelular.get(i));
                     buscarOntologia(componenteCelular.get(i));
                 }
             }
@@ -142,6 +143,25 @@ public class ObjetosMinadosGO {
         imprimirTodo(objetoGO,restriccion);
     }
 
+    
+    
+     public void imprimirTodo(){
+        ObjetosMinadosGO objeto = new ObjetosMinadosGO();
+        ObjectContainer db = Db4o.openFile("mineria/ObjetosMinadosGO.db");
+        try {
+
+            ObjectSet result = db.queryByExample(objeto);
+            while (result.hasNext()) {
+                ObjetosMinadosGO obj = (ObjetosMinadosGO) result.next();
+                System.out.println(obj.getNombre());
+                imprimirTodo(obj, null);
+            }
+        }catch(Exception e){}
+        finally{
+           db.close(); 
+        }
+     }
+    
     public void imprimirTodo(String tipo,String restriccion) {
 
         ObjetosMinadosGO objeto = new ObjetosMinadosGO();
@@ -151,7 +171,7 @@ public class ObjetosMinadosGO {
             ObjectSet result = db.queryByExample(objeto);
             while (result.hasNext()) {
                 ObjetosMinadosGO obj = (ObjetosMinadosGO) result.next();
-                if (tipo.equals(null)) {
+                if (tipo == null) {
                     imprimirTodo(obj,restriccion);
                 } else if (tipo.equals("F")) {
                     imprimirFuncionMolecular(obj,restriccion);
@@ -163,8 +183,35 @@ public class ObjetosMinadosGO {
 
             }
         } catch (Exception e) {
-            System.out.println("Error al acceder a mineria/Ontologia.db");
+            System.out.println("Error al acceder a mineria/ObjetosMinados.db");
         } finally {
+            db.close();
+        }
+    }
+    
+    public void vaciarOntologia_pl(){
+        ObjetosMinadosGO objeto = new ObjetosMinadosGO();
+        ObjectContainer db = Db4o.openFile("mineria/ObjetosMinadosGO.db");
+        ontologia ontologia = new ontologia();
+        try {
+
+            ObjectSet result = db.queryByExample(objeto);
+            while (result.hasNext()) {
+                ObjetosMinadosGO obj = (ObjetosMinadosGO) result.next();
+                ArrayList<String>ListaObj = new ArrayList<>();
+                for (int i = 0; i < obj.funcionMolecular.size(); i++) {
+                    ontologia.vaciar_pl(obj.funcionMolecular.get(i),null,null,ListaObj);
+                }
+                for (int i = 0; i < obj.procesoBiologico.size(); i++) {
+                    ontologia.vaciar_pl(obj.procesoBiologico.get(i),null,null,ListaObj);
+                }
+                for (int i = 0; i < obj.componenteCelular.size(); i++) {
+                    ontologia.vaciar_pl(obj.componenteCelular.get(i),null,null,ListaObj);
+                }
+            }
+        }catch(Exception e){
+            
+        }finally{
             db.close();
         }
     }
