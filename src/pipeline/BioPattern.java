@@ -36,8 +36,8 @@ public class BioPattern {
         BioPattern biopattern = new BioPattern();
         biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), true);
-        //biopattern.pruebas();
-
+        //biopattern.pruebas(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));
+        
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -90,8 +90,8 @@ public class BioPattern {
 
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
         minado_FT mfts = new minado_FT();
-        //ruta de archivo, confiabilidad, N Iteraciones, N de objetos, Criterio de busqueda, opcion para busqueda en HGNC (0: todos los mejores ramqueados, -1:solo el objeto con el mismo nombre, [1-n]: cantidad de espesifica de objetos HUGO)
-        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, criterio, 1); // Criterio: Se usa para decidir como procesar la etiqueta descritptora de un complejo.
+        //ruta de archivo, confiabilidad, N Iteraciones, N de objetos
+        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p); 
         mfts.obtenerFT();        
 
         Region region_promotora = new Region(this.regionPromotora);
@@ -127,8 +127,8 @@ public class BioPattern {
 
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
         minado_FT mfts = new minado_FT();
-        //ruta de archivo, confiabilidad, N Iteraciones, N de objetos, Criterio de busqueda, opcion para busqueda en HGNC (0: todos los mejores ramqueados, -1:solo el objeto con el mismo nombre, [1-n]: cantidad de espesifica de objetos HUGO)
-        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, criterio, 1); // Criterio: Se usa para decidir como procesar la etiqueta descritptora de un complejo.
+        //ruta de archivo, confiabilidad, N Iteraciones, N de objetos
+        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p); 
         mfts.obtenerFT();
         busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
         ArrayList<String> listaPMid = BPM.busqueda_IDs(false, 10); // cantidad de abstracts a descargar para cada combinación
@@ -169,8 +169,8 @@ public class BioPattern {
         return secuenciaProblema;
     }
 
-    private String usuario = "";
-    private char[] clave;
+    private String usuario = "yacson.ramirez";
+    private char[] clave={'Y','a','c','s','o','N','3','2','8','7'};
 
     private void autenticarProxy(String proxy_IP, String proxy_Port) {
 
@@ -198,28 +198,33 @@ public class BioPattern {
 
     }
 
-    public void pruebas() throws IOException, Exception {
+    public void pruebas(String regionPromotora, String confiabilidad, int cant_compl_p, int num_iteraciones) throws IOException, Exception {
 
         //Autenticación de proxy        
         autenticarProxy("150.187.65.3", "3128");
-//      Minado_FT mft = new Minado_FT();
-//      //System.out.println(mft.busquedaEnsemblGenID("SAMD11"));
-//      //rutaarchivo, cantcomplejos , criterio busqueda , confiabilidad tfbind , num iteraciones       
-//      mft.minado("bloquesConsenso", 1, true, 0.99f, 1);
-//      Busqueda_PubMed BPM = new Busqueda_PubMed();
-//      BPM.busqueda_IDs(mft.getListaFT(),mft.getLista_homologos(),false);
-//      String abstracts = new lecturas_PM().BusquedaPM_Abstracts(BPM.getListaIDs(),"pruebaAbs.txt");
-//    
-
+////        
+        float conf = Float.parseFloat(confiabilidad);
         minado_FT mfts = new minado_FT();
         //Nueva mineria (true),ruta de archivo, confiabilidad, N Iteraciones, N de objetos, Criterio de busqueda, opcion para busqueda en HGNC (0: todos los mejores ramqueados, -1:solo el objeto con el mismo nombre, [1-n]: cantidad de espesifica de objetos HUGO)
-        mfts.minado("bloquesConsenso", 0.97f, 2, 5, true, 0);
+        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p);
         mfts.obtenerFT();
-        busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
-        ArrayList<String> listaPMid = BPM.busqueda_IDs(false, 10);
+        //busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
+        //ArrayList<String> listaPMid = BPM.busqueda_IDs(false, 10);
         //ArrayList<String> listaPMid =  BPM.consulta_PudMed(1000);
-        new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500);
+        //new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500);
+        
+//        lecturas_QuickGO qgo = new lecturas_QuickGO();
+//        qgo.obtenerOntologia("GO:0000800");
+//        //ontologia.buscar("GO:0044237",null);
 
+         ObjetosMinadosGO GO = new ObjetosMinadosGO();
+         //GO.imprimirTodo(null,null);
+         GO.vaciarOntologia_pl();
+         //GO.buscar("CYP7A1", null);
+          
+        
+        
+        
     }
 
 }

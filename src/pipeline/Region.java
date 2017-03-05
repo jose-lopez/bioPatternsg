@@ -224,7 +224,6 @@ public class Region {
                 lecturas_TFBIND lectura = new lecturas_TFBIND(id, id, cadena);
                 factorTranscripcion ft = new factorTranscripcion();
                 ft.setID(id);
-                ft.getLecturas_HGNC().setID(id);
                 ft.setLecturasTFBIND(lectura);
 
                 Motivo motivo = new Motivo();
@@ -303,7 +302,7 @@ public class Region {
 
                 String cadena = m.getMotivo();
                 String[] motifFirma = m.getFactores().get(0).getLecturasTFBIND().getCadena().split(" ");
-                out.write(motifFirma[0] + "\t" + "\t" + cadena + "\t" + "\t" + m.getCoordenadas()[0] + "\t" + "\t" + m.getCoordenadas()[1] + "\t" + "\t" + m.getFactores().get(0).getLecturas_HGNC().getHGNC().get(0).getSimbolo() + "\t" + "\t" + m.getFactores().get(0).getLecturas_HGNC().getHGNC().get(0).getNombre() + "\n");
+                out.write(motifFirma[0] + "\t" + "\t" + cadena + "\t" + "\t" + m.getCoordenadas()[0] + "\t" + "\t" + m.getCoordenadas()[1] + "\t" + "\t" + m.getFactores().get(0).getHGNC().get(0).getSimbolo() + "\t" + "\t" + m.getFactores().get(0).getHGNC().get(0).getNombre() + "\n");
 
             }
 
