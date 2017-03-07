@@ -19,7 +19,7 @@ import java.util.ArrayList;
  *
  * @author yacson-ramirez
  */
-public class ontologia {
+public class ontologiaGO {
 
     private String GO;
     private String nombre;
@@ -33,7 +33,7 @@ public class ontologia {
     private ArrayList<String> capable_of;
     private ArrayList<String> capable_of_part_of;
 
-    public ontologia() {
+    public ontologiaGO() {
         sinonimos = new ArrayList<>();
         is_a = new ArrayList<>();
         part_of = new ArrayList<>();
@@ -46,16 +46,16 @@ public class ontologia {
     }
 
     public void imprimirTodo() {
-        ontologia objeto = new ontologia();
-        ObjectContainer db = Db4o.openFile("mineria/Ontologia.db");
+        ontologiaGO objeto = new ontologiaGO();
+        ObjectContainer db = Db4o.openFile("mineria/OntologiaGO.db");
         try {
             ObjectSet result = db.queryByExample(objeto);
             while (result.hasNext()) {
-                ontologia obj = (ontologia) result.next();
+                ontologiaGO obj = (ontologiaGO) result.next();
                 imprimir(obj);
             }
         } catch (Exception e) {
-            System.out.println("Error al acceder a Ontologia.db");
+            System.out.println("Error al acceder a OntologiaGO.db");
         } finally {
             db.close();
         }
@@ -72,7 +72,7 @@ public class ontologia {
 
     private void buscarObjeto(String GO, int nivel, String relacion, String restriccion) {
 
-        ontologia objeto = new ontologia();
+        ontologiaGO objeto = new ontologiaGO();
         objeto.setGO(GO);
         objeto = consultarBD(objeto);
 
@@ -122,7 +122,7 @@ public class ontologia {
       
     public void vaciar_pl(String GO, String obj, String relacion, ArrayList<String> listObj) {
 
-        ontologia objeto = new ontologia();
+        ontologiaGO objeto = new ontologiaGO();
         objeto.setGO(GO);
         objeto = consultarBD(objeto);
         
@@ -170,18 +170,18 @@ public class ontologia {
 
     }
 
-    private ontologia consultarBD(ontologia obj) {
-        ontologia objeto = new ontologia();
-        ObjectContainer db = Db4o.openFile("mineria/Ontologia.db");
+    private ontologiaGO consultarBD(ontologiaGO obj) {
+        ontologiaGO objeto = new ontologiaGO();
+        ObjectContainer db = Db4o.openFile("mineria/OntologiaGO.db");
         try {
 
             ObjectSet result = db.queryByExample(obj);
             while (result.hasNext()) {
-                objeto = (ontologia) result.next();
+                objeto = (ontologiaGO) result.next();
 
             }
         } catch (Exception e) {
-            System.out.println("Error al acceder a Ontologia.db");
+            System.out.println("Error al acceder a OntologiaGO.db");
         } finally {
             db.close();
         }
@@ -235,7 +235,7 @@ public class ontologia {
         return false;
     }
 
-    private void imprimir(ontologia objeto) {
+    private void imprimir(ontologiaGO objeto) {
         System.out.println("\n\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println(objeto.getGO());
         System.out.println("Nombre: " + objeto.getNombre());
