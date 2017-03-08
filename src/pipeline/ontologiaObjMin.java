@@ -29,7 +29,7 @@ public class ontologiaObjMin {
         Parent = new ArrayList<>();
     }
 
-    public void guardarObjeto(ontologiaObjMin objeto) {
+    public void guardarObjeto(ontologiaObjMin objeto, boolean GO, boolean mesh) {
 
         ObjectContainer db = Db4o.openFile("mineria/ontologiaObjMin.db");
         try {
@@ -38,20 +38,24 @@ public class ontologiaObjMin {
             if (!result.hasNext()) {
                 //System.out.println(nombre);
                 db.store(this);
-                for (int i = 0; i < funcionMolecular.size(); i++) {
-                    //System.out.println("funcion mlecular:  "+ funcionMolecular.get(i));
-                    buscarOntologiaGO(funcionMolecular.get(i));
+                if (GO) {
+                    for (int i = 0; i < funcionMolecular.size(); i++) {
+                        //System.out.println("funcion mlecular:  "+ funcionMolecular.get(i));
+                        buscarOntologiaGO(funcionMolecular.get(i));
+                    }
+                    for (int i = 0; i < procesoBiologico.size(); i++) {
+                        //System.out.println("proceso biologico:  "+ procesoBiologico.get(i));
+                        buscarOntologiaGO(procesoBiologico.get(i));
+                    }
+                    for (int i = 0; i < componenteCelular.size(); i++) {
+                        //System.out.println("componente celular:  "+ componenteCelular.get(i));
+                        buscarOntologiaGO(componenteCelular.get(i));
+                    }
                 }
-                for (int i = 0; i < procesoBiologico.size(); i++) {
-                    //System.out.println("proceso biologico:  "+ procesoBiologico.get(i));
-                    buscarOntologiaGO(procesoBiologico.get(i));
-                }
-                for (int i = 0; i < componenteCelular.size(); i++) {
-                     //System.out.println("componente celular:  "+ componenteCelular.get(i));
-                    buscarOntologiaGO(componenteCelular.get(i));
-                }
-                for (int i = 0; i < Parent.size(); i++) {
-                    buscarOntologiaMESH(Parent.get(i));
+                if (mesh) {
+                    for (int i = 0; i < Parent.size(); i++) {
+                        buscarOntologiaMESH(Parent.get(i));
+                    }
                 }
             }
 
@@ -63,20 +67,22 @@ public class ontologiaObjMin {
 
     }
 
-    public void buscarOntologiaMESH(String MESH){
+    public void buscarOntologiaMESH(String MESH) {
         ontologiaMESH ontologia = new ontologiaMESH();
         lecturas_MESH letMESH = new lecturas_MESH();
         ontologia = letMESH.obtenerOntologia(MESH);
         
-        if (!buscarObjeto(ontologia)) {
+        if (!buscarObjeto(ontologia) && !ontologia.getMESH().equals("1000048")) {
             for (int i = 0; i < ontologia.getParent().size(); i++) {
                 buscarOntologiaMESH(ontologia.getParent().get(i));
             }
             guardar_Ontologia(ontologia);
+        }else if( ontologia.getMESH().equals("1000048") &&  !buscarObjeto(ontologia)){
+            guardar_Ontologia(ontologia);
         }
-        
+
     }
-    
+
     public void buscarOntologiaGO(String GO) {
         ontologiaGO ontologia = new ontologiaGO();
         lecturas_QuickGO letQGO = new lecturas_QuickGO();
@@ -107,7 +113,7 @@ public class ontologiaObjMin {
             for (int i = 0; i < ontologia.getOccurs_in().size(); i++) {
                 buscarOntologiaGO(ontologia.getOccurs_in().get(i));
             }
-            guardar_Ontologia(ontologia);
+            ontologiaObjMin.this.guardar_Ontologia(ontologia);
         }
     }
 
@@ -124,13 +130,12 @@ public class ontologiaObjMin {
         }
 
     }
-    
-    private void guardar_Ontologia(ontologiaMESH ontologia) {
 
+    private void guardar_Ontologia(ontologiaMESH ontologia) {
         ObjectContainer db = Db4o.openFile("mineria/OntologiaMESH.db");
         try {
             db.store(ontologia);
-            //System.out.println("Guardando: "+ontologia.getNombre());
+            //System.out.println("Guardando: "+ontologia.getNombre()+" "+ontologia.getMESH());
         } catch (Exception e) {
             System.out.println("Error al guardar en OntologiaMESH.db...");
         } finally {
@@ -156,8 +161,8 @@ public class ontologiaObjMin {
 
         return encontrado;
     }
-    
-     private boolean buscarObjeto(ontologiaMESH objeto) {
+
+    private boolean buscarObjeto(ontologiaMESH objeto) {
         boolean encontrado = false;
         ObjectContainer db = Db4o.openFile("mineria/OntologiaMESH.db");
         try {
@@ -175,7 +180,7 @@ public class ontologiaObjMin {
         return encontrado;
     }
 
-    public void buscarGO(String nombre,String restriccion) {
+    public void buscarGO(String nombre, String restriccion) {
         ontologiaObjMin objetoGO = new ontologiaObjMin();
         objetoGO.setNombre(nombre);
         ObjectContainer db = Db4o.openFile("mineria/ontologiaObjMin.db");
@@ -191,14 +196,12 @@ public class ontologiaObjMin {
         } finally {
             db.close();
         }
-        imprimirTodo(objetoGO,restriccion);
+        imprimirTodo(objetoGO, restriccion);
     }
 
-    
-    
-     public void imprimirTodo(){
+    public void imprimirTodo() {
         ontologiaObjMin objeto = new ontologiaObjMin();
-        ObjectContainer db = Db4o.openFile("mineria/ObjetosMinadosGO.db");
+        ObjectContainer db = Db4o.openFile("mineria/ontologiaObjMin.db");
         try {
 
             ObjectSet result = db.queryByExample(objeto);
@@ -207,62 +210,71 @@ public class ontologiaObjMin {
                 System.out.println(obj.getNombre());
                 imprimirTodo(obj, null);
             }
-        }catch(Exception e){}
-        finally{
-           db.close(); 
+        } catch (Exception e) {
+        } finally {
+            db.close();
         }
-     }
-    
-    public void imprimirTodo(String tipo,String restriccion) {
+    }
+
+    public void imprimirTodo(String tipo, String restriccion) {
 
         ontologiaObjMin objeto = new ontologiaObjMin();
-        ObjectContainer db = Db4o.openFile("mineria/ObjetosMinadosGO.db");
+        ObjectContainer db = Db4o.openFile("mineria/ontologiaObjMin.db");
         try {
 
             ObjectSet result = db.queryByExample(objeto);
             while (result.hasNext()) {
                 ontologiaObjMin obj = (ontologiaObjMin) result.next();
                 if (tipo == null) {
-                    imprimirTodo(obj,restriccion);
+                    imprimirTodo(obj, restriccion);
                 } else if (tipo.equals("F")) {
-                    imprimirFuncionMolecular(obj,restriccion);
+                    imprimirFuncionMolecular(obj, restriccion);
                 } else if (tipo.equals("P")) {
-                    imprimirProcesobiologico(obj,restriccion);
+                    imprimirProcesobiologico(obj, restriccion);
                 } else if (tipo.equals("C")) {
-                    imprimirComponenteCelular(obj,restriccion);
+                    imprimirComponenteCelular(obj, restriccion);
                 }
 
             }
         } catch (Exception e) {
-            System.out.println("Error al acceder a mineria/ObjetosMinados.db");
+            System.out.println("Error al acceder a mineria/ontologiaObjMin.db");
         } finally {
             db.close();
         }
     }
-    
-    public void vaciarOntologia_pl(){
+
+    public void vaciarOntologia_pl(boolean GO,boolean MESH) {
         ontologiaObjMin objeto = new ontologiaObjMin();
-        ObjectContainer db = Db4o.openFile("mineria/ObjetosMinadosGO.db");
-        ontologiaGO ontologia = new ontologiaGO();
+        ObjectContainer db = Db4o.openFile("mineria/ontologiaObjMin.db");
+        ontologiaGO ontologiaGO = new ontologiaGO();
+        ontologiaMESH ontologiaMESH = new ontologiaMESH();
         try {
 
             ObjectSet result = db.queryByExample(objeto);
             while (result.hasNext()) {
                 ontologiaObjMin obj = (ontologiaObjMin) result.next();
-                ArrayList<String>ListaObj = new ArrayList<>();
-                for (int i = 0; i < obj.funcionMolecular.size(); i++) {
-                    ontologia.vaciar_pl(obj.funcionMolecular.get(i),null,null,ListaObj);
+                ArrayList<String> ListaObj = new ArrayList<>();
+                if (GO) {
+                    for (int i = 0; i < obj.funcionMolecular.size(); i++) {
+                        ontologiaGO.vaciar_pl(obj.funcionMolecular.get(i), null, null, ListaObj);
+                    }
+                    for (int i = 0; i < obj.procesoBiologico.size(); i++) {
+                        ontologiaGO.vaciar_pl(obj.procesoBiologico.get(i), null, null, ListaObj);
+                    }
+                    for (int i = 0; i < obj.componenteCelular.size(); i++) {
+                        ontologiaGO.vaciar_pl(obj.componenteCelular.get(i), null, null, ListaObj);
+                    }
                 }
-                for (int i = 0; i < obj.procesoBiologico.size(); i++) {
-                    ontologia.vaciar_pl(obj.procesoBiologico.get(i),null,null,ListaObj);
-                }
-                for (int i = 0; i < obj.componenteCelular.size(); i++) {
-                    ontologia.vaciar_pl(obj.componenteCelular.get(i),null,null,ListaObj);
+                
+                if (MESH) {
+                    for (int i = 0; i < obj.Parent.size(); i++) {
+                        ontologiaMESH.vaciar_pl(obj.Parent.get(i), null, ListaObj);
+                    }
                 }
             }
-        }catch(Exception e){
-            
-        }finally{
+        } catch (Exception e) {
+
+        } finally {
             db.close();
         }
     }
@@ -273,31 +285,31 @@ public class ontologiaObjMin {
         System.out.println("Funcion Molecular:");
         for (int i = 0; i < obj.funcionMolecular.size(); i++) {
             ontologiaGO objeto = new ontologiaGO();
-            objeto.buscar(obj.funcionMolecular.get(i),restriccion);
+            objeto.buscar(obj.funcionMolecular.get(i), restriccion);
 
         }
         System.out.println("\n_______________________________________________________________");
         System.out.println("Proceso biologico:");
         for (int i = 0; i < obj.procesoBiologico.size(); i++) {
             ontologiaGO objeto = new ontologiaGO();
-            objeto.buscar(obj.procesoBiologico.get(i),restriccion);
+            objeto.buscar(obj.procesoBiologico.get(i), restriccion);
         }
         System.out.println("\n________________________________________________________________");
         System.out.println("Componente celular:");
         for (int i = 0; i < obj.componenteCelular.size(); i++) {
             ontologiaGO objeto = new ontologiaGO();
-            objeto.buscar(obj.componenteCelular.get(i),restriccion);
+            objeto.buscar(obj.componenteCelular.get(i), restriccion);
         }
 
     }
 
-    private void imprimirFuncionMolecular(ontologiaObjMin obj,String restriccion) {
+    private void imprimirFuncionMolecular(ontologiaObjMin obj, String restriccion) {
         System.out.println("\n________________________________________________________________");
         System.out.println(obj.getNombre());
         System.out.println("Funcion Molecular:");
         for (int i = 0; i < obj.funcionMolecular.size(); i++) {
             ontologiaGO objeto = new ontologiaGO();
-            objeto.buscar(obj.funcionMolecular.get(i),restriccion);
+            objeto.buscar(obj.funcionMolecular.get(i), restriccion);
         }
     }
 
@@ -306,7 +318,7 @@ public class ontologiaObjMin {
         System.out.println("Proceso biologico:");
         for (int i = 0; i < obj.procesoBiologico.size(); i++) {
             ontologiaGO objeto = new ontologiaGO();
-            objeto.buscar(obj.procesoBiologico.get(i),restriccion);
+            objeto.buscar(obj.procesoBiologico.get(i), restriccion);
         }
     }
 
@@ -315,7 +327,7 @@ public class ontologiaObjMin {
         System.out.println("Componente celular:");
         for (int i = 0; i < obj.componenteCelular.size(); i++) {
             ontologiaGO objeto = new ontologiaGO();
-            objeto.buscar(obj.componenteCelular.get(i),restriccion);
+            objeto.buscar(obj.componenteCelular.get(i), restriccion);
         }
     }
 
@@ -359,7 +371,4 @@ public class ontologiaObjMin {
         this.Parent = Parent;
     }
 
-    
-    
-    
 }

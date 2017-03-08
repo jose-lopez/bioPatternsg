@@ -252,7 +252,7 @@ public class lecturas_HGNC {
                             mesh = letMesh.obtenerOntologia(letMesh.busquedaTerm(hgnc.getSimbolo()));
                             ontologia.setParent(mesh.getParent());
                             //-------------------------------------
-                            ontologia.guardarObjeto(ontologia);                                                                                    
+                            ontologia.guardarObjeto(ontologia,false,true);                                                                                    
                         }
 
                     }
