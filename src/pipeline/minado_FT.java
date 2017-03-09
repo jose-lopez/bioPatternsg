@@ -39,11 +39,11 @@ public class minado_FT {
     public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos) {
         Runtime garbage = Runtime.getRuntime();
         objetosMineria objetosMineria = new objetosMineria();
-        
+
         crearCarpeta("mineria");
         //Se crea un nuevo archivo de Objectos minados
         new objetosMinados().crear_archivo();
-                
+
         leer_archivo_homologos(objetosMineria);
         leer_archivo_ObjetosExperto(objetosMineria);
 
@@ -96,7 +96,7 @@ public class minado_FT {
         return lecturasTFBIND.leer_de_archivo(ruta, confiabilidad);
 
     }
-    
+
     private void crearCarpeta(String nombre) {
         File f = new File(nombre);
         try {
@@ -114,7 +114,7 @@ public class minado_FT {
         file.mkdir();
 
     }
-    
+
     private void borrarDirectorio(File directorio) {
         File[] ficheros = directorio.listFiles();
         for (int i = 0; i < ficheros.length; i++) {
@@ -124,7 +124,6 @@ public class minado_FT {
             ficheros[i].delete();
         }
     }
-    
 
     public void crear_archivo(String nombre) {
 
@@ -176,9 +175,11 @@ public class minado_FT {
 
         ObjectContainer db = Db4o.openFile("mineria/FT.db");
         factorTranscripcion FT = new factorTranscripcion();
+        
         try {
-
+            
             ObjectSet result = db.queryByExample(FT);
+            System.out.println("hola mundo"+result.size());
             while (result.hasNext()) {
 
                 factorTranscripcion ft = (factorTranscripcion) result.next();
@@ -186,7 +187,7 @@ public class minado_FT {
                 System.out.println("====================================================");
             }
         } catch (Exception e) {
-
+            System.out.println("error");
         } finally {
             db.close();
         }
@@ -263,7 +264,7 @@ public class minado_FT {
                     objetos_Experto objExp = new objetos_Experto();
                     objExp.setID(lectura);
                     objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(lectura));
-                    
+
                     new objetosMinados().agregar_objetos(objExp);
 
                     for (int j = 0; j < objExp.getHGNC().size(); j++) {
@@ -299,6 +300,29 @@ public class minado_FT {
 
             db.close();
         }
+
+    }
+
+    public void vaciar_bc_pl() {
+
+        ObjectContainer db = Db4o.openFile("mineria/FT.db");
+        factorTranscripcion FT = new factorTranscripcion();
+        try {
+
+            ObjectSet result = db.queryByExample(FT);
+            while (result.hasNext()) {
+
+                factorTranscripcion ft = (factorTranscripcion) result.next();
+                ft.vaciar_pl();
+            }
+        } catch (Exception e) {
+
+        } finally {
+            db.close();
+        }
+
+        ontologiaObjMin ontologias = new ontologiaObjMin();
+        ontologias.vaciarOntologia_pl(true, true);
 
     }
 }

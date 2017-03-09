@@ -31,11 +31,11 @@ public class factorTranscripcion {
     private lecturas_TFBIND lecturasTFBIND;
     private ArrayList<complejoProteinico> complejoProteinico;
     private ArrayList<HGNC> HGNC;
-    
+
     public factorTranscripcion() {
-        
+
         complejoProteinico = new ArrayList<>();
-       // lecturas_HGNC = new lecturas_HGNC();
+        // lecturas_HGNC = new lecturas_HGNC();
         lecturasTFBIND = new lecturas_TFBIND();
         HGNC = new ArrayList<>();
     }
@@ -129,14 +129,14 @@ public class factorTranscripcion {
     }
 
     //constructor para la segunda Iteracion en adelante
-    public factorTranscripcion(String ID,int N_Iteracion, int NumeroObjetos) {
+    public factorTranscripcion(String ID, int N_Iteracion, int NumeroObjetos) {
 
         System.out.println("Buscando información para: " + ID + " ...");
         this.lecturasTFBIND = new lecturas_TFBIND();
         this.ID = ID;
         this.N_Iteracion = N_Iteracion;
         this.HGNC = new lecturas_HGNC().busquedaInfGen(ID);
-      //  this.lecturas_HGNC = lecturasHGNC(ID);
+        //  this.lecturas_HGNC = lecturasHGNC(ID);
         this.complejoProteinico = new ArrayList<>();
 
         ArrayList<String> IDCP = Buscar_ID_complejosProteinicos(ID, NumeroObjetos);
@@ -164,6 +164,23 @@ public class factorTranscripcion {
 
     }
 
+    public void vaciar_pl() {
+
+        String ligandos = "[";
+        for (int i = 0; i < complejoProteinico.size(); i++) {
+            complejoProteinico.get(i).vaciar_pl();
+            for (int j = 0; j < complejoProteinico.get(i).getLigandos().size(); j++) {
+                if (j == 0) {
+                    ligandos += "\'" + complejoProteinico.get(i).getLigandos().get(j).getId() + "\'";
+                } else {
+                    ligandos += ",\'" + complejoProteinico.get(i).getLigandos().get(j).getId() + "\'";
+                }
+            }
+        }
+        ligandos+="]";
+        new escribirBC("ligandos(\'"+ID+"\',"+ligandos+").");
+    }
+
     private lecturas_HGNC lecturasHGNC(String ID) {
         lecturas_HGNC HGNC = new lecturas_HGNC();
         this.HGNC = HGNC.busquedaInfGen(ID);
@@ -178,7 +195,7 @@ public class factorTranscripcion {
         }
         return lista;
     }
-        
+
     public int getN_Iteracion() {
         return N_Iteracion;
     }
@@ -202,17 +219,15 @@ public class factorTranscripcion {
     public void setHGNC(ArrayList<HGNC> HGNC) {
         this.HGNC = HGNC;
     }
-    
-    
-    
-   /* public lecturas_HGNC getLecturas_HGNC() {
+
+    /* public lecturas_HGNC getLecturas_HGNC() {
         return lecturas_HGNC;
     }
 
     public void setLecturas_HGNC(lecturas_HGNC lecturas_HGNC) {
         this.lecturas_HGNC = lecturas_HGNC;
     }
-*/
+     */
     public lecturas_TFBIND getLecturasTFBIND() {
         return lecturasTFBIND;
     }
@@ -229,5 +244,4 @@ public class factorTranscripcion {
         this.complejoProteinico = complejoProteinico;
     }
 
-   
 }

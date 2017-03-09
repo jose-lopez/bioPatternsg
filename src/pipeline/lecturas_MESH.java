@@ -58,8 +58,6 @@ public class lecturas_MESH {
         ontologiaMESH ontologia = new ontologiaMESH();
         NodeList nList = doc.getElementsByTagName("Item");
         String nombre = null;
-        ArrayList<String> labelInt = new ArrayList<>();
-        ArrayList<String> labelParent = new ArrayList<>();
         for (int i = 0; i < nList.getLength(); i++) {
             Element element = (Element) nList.item(i);
             if (nombre == null && element.getAttribute("Name").toString().equals("string")) {

@@ -118,6 +118,16 @@ public class complejoProteinico {
         //System.out.println(cadena);
         this.DNA.add(cadena);
     }
+    
+    public void vaciar_pl(){
+        
+        new escribirBC("complejo(\'"+ID+"\').");
+        for (int i = 0; i < ligandos.size(); i++) {
+            ligandos.get(i).vaciar_pl();
+        }
+        
+        
+    }
 
     public ArrayList<String> getPdbx_keywords() {
         return pdbx_keywords;

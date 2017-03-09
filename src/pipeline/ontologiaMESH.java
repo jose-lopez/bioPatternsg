@@ -58,8 +58,8 @@ public class ontologiaMESH {
         objeto.setMESH(MESH);
         objeto = consultarBD(objeto);
         
-        if (obj != null) {
-            String cadena = "parent(\'" + obj + "\',\'" + objeto.getNombre() + "\').";
+        if (obj != null && objeto.getNombre() != null) {
+            String cadena = "is_a(\'" + obj + "\',\'" + objeto.getNombre() + "\').";
             if (!revisar_en_archivo(cadena)) {
                 escribirArchivo(cadena);
             }
@@ -99,7 +99,7 @@ public class ontologiaMESH {
         BufferedReader br = null;
 
         try {
-            archivo = new File("ontologia.pl");
+            archivo = new File("mineria/ontologia.pl");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             String linea;
@@ -119,7 +119,7 @@ public class ontologiaMESH {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("ontologia.pl", true);
+            fichero = new FileWriter("mineria/ontologia.pl", true);
             pw = new PrintWriter(fichero);
             System.out.println(cadena);
             pw.println(cadena);
@@ -137,6 +137,31 @@ public class ontologiaMESH {
 
     }
     
+    public void buscar(String MESH){
+        
+        buscarObjeto(MESH, 0, "");
+        
+    }
+    
+    private void buscarObjeto(String MESH, int nivel,String relacion){
+        ontologiaMESH objeto = new ontologiaMESH();
+        objeto.setMESH(MESH);
+        objeto = consultarBD(objeto);
+        
+        for (int i = 0; i < nivel; i++) {
+            System.out.print("      ");
+        }
+        
+        System.out.println(relacion + objeto.getNombre());
+        nivel++;
+        
+        for (int i = 0; i < objeto.getParent().size(); i++) {
+            if (!objeto.getParent().get(i).equals("1000048")) {
+                buscarObjeto(objeto.getParent().get(i), nivel, "m_is_a->  ");
+            }
+            
+        }
+    }
     
 }
 

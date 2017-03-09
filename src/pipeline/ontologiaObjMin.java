@@ -73,12 +73,11 @@ public class ontologiaObjMin {
         ontologia = letMESH.obtenerOntologia(MESH);
         
         if (!buscarObjeto(ontologia) && !ontologia.getMESH().equals("1000048")) {
+            guardar_Ontologia(ontologia);
             for (int i = 0; i < ontologia.getParent().size(); i++) {
                 buscarOntologiaMESH(ontologia.getParent().get(i));
             }
-            guardar_Ontologia(ontologia);
-        }else if( ontologia.getMESH().equals("1000048") &&  !buscarObjeto(ontologia)){
-            guardar_Ontologia(ontologia);
+           
         }
 
     }
@@ -180,6 +179,7 @@ public class ontologiaObjMin {
         return encontrado;
     }
 
+       
     public void buscarGO(String nombre, String restriccion) {
         ontologiaObjMin objetoGO = new ontologiaObjMin();
         objetoGO.setNombre(nombre);
@@ -233,6 +233,8 @@ public class ontologiaObjMin {
                     imprimirProcesobiologico(obj, restriccion);
                 } else if (tipo.equals("C")) {
                     imprimirComponenteCelular(obj, restriccion);
+                } else if(tipo.equals("M")){
+                    imprimirMESH(obj);
                 }
 
             }
@@ -328,6 +330,15 @@ public class ontologiaObjMin {
         for (int i = 0; i < obj.componenteCelular.size(); i++) {
             ontologiaGO objeto = new ontologiaGO();
             objeto.buscar(obj.componenteCelular.get(i), restriccion);
+        }
+    }
+    
+    private void imprimirMESH(ontologiaObjMin obj){
+        System.out.println("\n________________________________________________________________");
+        System.out.println("MESH:");
+        for (int i = 0; i < obj.Parent.size(); i++) {
+            ontologiaMESH objeto = new ontologiaMESH();
+            objeto.buscar(obj.Parent.get(i));
         }
     }
 

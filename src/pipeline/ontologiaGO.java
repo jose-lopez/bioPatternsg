@@ -194,7 +194,7 @@ public class ontologiaGO {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("ontologia.pl", true);
+            fichero = new FileWriter("mineria/ontologia.pl", true);
             pw = new PrintWriter(fichero);
             System.out.println(cadena);
             pw.println(cadena);
