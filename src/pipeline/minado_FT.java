@@ -33,6 +33,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jdk.nashorn.internal.parser.TokenType;
 
 public class minado_FT {
 
@@ -180,10 +181,13 @@ public class minado_FT {
 
             ObjectSet result = db.queryByExample(FT);
             while (result.hasNext()) {
+                try {
+                    factorTranscripcion ft = (factorTranscripcion) result.next();
+                    ft.imprimir();
+                    System.out.println("====================================================");
+                } catch (Exception e) {
 
-                factorTranscripcion ft = (factorTranscripcion) result.next();
-                ft.imprimir();
-                System.out.println("====================================================");
+                }
             }
         } catch (Exception e) {
             System.out.println("error");

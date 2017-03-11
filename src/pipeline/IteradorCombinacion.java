@@ -1,4 +1,4 @@
- /*
+/*
     IteradorCombinacion.java
 
 
@@ -18,110 +18,115 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-*/
-
+ */
 package pipeline;
 
-
+import EDU.purdue.cs.bloat.reflect.Catch;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class IteradorCombinacion implements Iterable<List<String>> {
-	private List<String> lista;
-	private Integer k;
 
-	public IteradorCombinacion(List<String> s, Integer k) {
-		lista = s;
-		this.k = k;
-	}
+    private List<String> lista;
+    private Integer k;
 
-	@Override
-	public Iterator<List<String>> iterator() {
+    public IteradorCombinacion(List<String> s, Integer k) {
+        lista = s;
+        this.k = k;
+    }
 
-		return new IteradorCombn(lista, k);
-	}
+    @Override
+    public Iterator<List<String>> iterator() {
 
-	private class IteradorCombn implements Iterator<List<String>> {
-		private int actualSize, maxresult;
-		private Integer curIndex;
-		private String[] result;
-		private int[] indices;
-		private String[] arrayList;
-		private List<String> elem = null;
+        return new IteradorCombn(lista, k);
+    }
 
-		public IteradorCombn(List<String> s, Integer k) {
-			actualSize = k;// desde d�nde
-			curIndex = 0;
-			maxresult = k;
-			arrayList = new String[s.size()];
-			for (int i = 0; i < arrayList.length; i++) { // la lista s la vuelca en arrayList
-				arrayList[i] = s.get(i);
-			}
-			this.result = new String[actualSize < s.size() ? actualSize : s.size()]; 
-			//el tama�o de result va a ser el valor menor entre actualSize y el tama�o de s
-			indices = new int[result.length];
+    private class IteradorCombn implements Iterator<List<String>> {
 
-			for (int i = 0; i < result.length; i++) {
-				indices[i] = result.length - 2 - i;
-			}
-		}
+        private int actualSize, maxresult;
+        private Integer curIndex;
+        private String[] result;
+        private int[] indices;
+        private String[] arrayList;
+        private List<String> elem = null;
 
-		public boolean hasNext() {
-			elem = null;
-			while ((elem == null && curIndex != -1)) {
+        public IteradorCombn(List<String> s, Integer k) {
+            actualSize = k;// desde d�nde
+            curIndex = 0;
+            maxresult = k;
+            arrayList = new String[s.size()];
+            for (int i = 0; i < arrayList.length; i++) { // la lista s la vuelca en arrayList
+                arrayList[i] = s.get(i);
+            }
+            this.result = new String[actualSize < s.size() ? actualSize : s.size()];
+            //el tama�o de result va a ser el valor menor entre actualSize y el tama�o de s
+            indices = new int[result.length];
 
-				indices[curIndex]++;
-				if (indices[curIndex] == (curIndex == 0 ? arrayList.length: indices[curIndex - 1])) {
-					
-					indices[curIndex] = indices.length - curIndex - 2;
-					curIndex--;
-				} else {
+            for (int i = 0; i < result.length; i++) {
+                indices[i] = result.length - 2 - i;
+            }
+        }
 
-					result[curIndex] = arrayList[indices[curIndex]];
-					
-					if (curIndex < indices.length - 1)
-						curIndex++;
-					else {
-						elem = new LinkedList<String>();
-						for (String s : result) {
-							elem.add(s);
-						}
+        public boolean hasNext() {
+            elem = null;
 
-					}
-				}
-			}
-			if (elem == null) {
-				if (actualSize < maxresult) {
-					actualSize++;
-					this.result = new String[actualSize < arrayList.length ? actualSize
-							: arrayList.length];
-					indices = new int[result.length];
+            while ((elem == null && curIndex != -1)) {
 
-					for (int i = 0; i < result.length; i++) {
+                indices[curIndex]++;
+                if (indices[curIndex] == (curIndex == 0 ? arrayList.length : indices[curIndex - 1])) {
 
-						indices[i] = result.length - 2 - i;
-					}
-					curIndex = 0;
+                    indices[curIndex] = indices.length - curIndex - 2;
+                    curIndex--;
+                } else {
 
-					return this.hasNext();
-				} else {
-					return false;
-				}
-			} else {
-				return true;
-			}
-		}
+                    result[curIndex] = arrayList[indices[curIndex]];
 
-		@Override
-		public List<String> next() {
-			return elem;
-		}
+                    if (curIndex < indices.length - 1) {
+                        curIndex++;
+                    } else {
+                        elem = new LinkedList<String>();
+                        for (String s : result) {
+                            elem.add(s);
+                        }
 
-		@Override
-		public void remove() {
-			// TODO Auto-generated method stub
+                    }
+                }
 
-		}
-	}
+            }
+            if (elem == null) {
+                if (actualSize < maxresult) {
+                    actualSize++;
+                    this.result = new String[actualSize < arrayList.length ? actualSize
+                            : arrayList.length];
+                    indices = new int[result.length];
+
+                    for (int i = 0; i < result.length; i++) {
+
+                        indices[i] = result.length - 2 - i;
+                    }
+                    curIndex = 0;
+
+                    return this.hasNext();
+                } else {
+                    return false;
+                }
+            } else {
+                return true;
+            }
+
+        }
+
+        @Override
+        public List<String> next() {
+            return elem;
+        }
+
+        @Override
+        public void remove() {
+            // TODO Auto-generated method stub
+
+        }
+
+    }
 }

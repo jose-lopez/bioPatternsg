@@ -35,9 +35,9 @@ public class BioPattern {
 
     public static void main(String[] args) throws Exception {
         BioPattern biopattern = new BioPattern();
-        biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
+        //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), true);
-        //biopattern.pruebas();
+        biopattern.pruebas();
 
     }
 
@@ -130,7 +130,7 @@ public class BioPattern {
         mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p);
         mfts.obtenerFT();
         busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
-        ArrayList<String> listaPMid = BPM.busqueda_IDs(false, 10); // cantidad de abstracts a descargar para cada combinación
+        ArrayList<String> listaPMid = BPM.busqueda_IDs(false, 10,false); // cantidad de abstracts a descargar para cada combinación
         //ArrayList<String> listaPMid =  BPM.consulta_PudMed(1000);
         try {
             new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500); // Número máximo de abstracts por archivo
@@ -165,7 +165,6 @@ public class BioPattern {
         return secuenciaProblema;
     }
 
-    
     private String usuario = "";
     private char[] clave;
     //private char[] clave = {'', '', '', '', '', '', '', '', '', ''};
@@ -223,57 +222,61 @@ public class BioPattern {
             switch (resp) {
 
                 case "1":
-                    //Nueva mineria (true),ruta de archivo, confiabilidad, N Iteraciones, N de objetos, Criterio de busqueda, opcion para busqueda en HGNC (0: todos los mejores ramqueados, -1:solo el objeto con el mismo nombre, [1-n]: cantidad de espesifica de objetos HUGO)
-                    System.out.println("\n------------------------- \nNUEVO PROCESO DE MINERIA\n-------------------------");
-                    System.out.println("\nIngrese los datos de configuracion\n");
-                    while (true) {
-                        System.out.print("*Nombre de archivo region promotora:");
-                        regionPromotora = lectura.nextLine();
-                        if (!regionPromotora.equals("")) {
-                            break;
-                        } else {
-                            System.out.println("Debe ingresar un nombre de archivo");
-                        }
-                    }
-                    while (true) {
-                        try {
-                            System.out.print("*Indice de confiabilidad TFbind (0-100): ");
-                            String confi = lectura.nextLine();
-                            conf = Float.parseFloat(confi) / 100;
 
-                            if (conf > 1) {
-                                System.out.println("El dato ingresado debe ser numerico entre 0 y 100");
-                            } else {
+                    System.out.println("Seguro desea iniciar un proceso de mineria nuevo se perderan archivos de procesos anteriores S/N: ");
+                    String opcion = lectura.nextLine();
+                    if (opcion.equalsIgnoreCase("S")) {
+                        System.out.println("\n------------------------- \nNUEVO PROCESO DE MINERIA\n-------------------------");
+                        System.out.println("\nIngrese los datos de configuracion\n");
+                        while (true) {
+                            System.out.print("*Nombre de archivo region promotora:");
+                            regionPromotora = lectura.nextLine();
+                            if (!regionPromotora.equals("")) {
                                 break;
+                            } else {
+                                System.out.println("Debe ingresar un nombre de archivo");
                             }
-                        } catch (Exception e) {
-                            System.out.println("El dato ingresado debe ser numerico entre 0 y 100");
                         }
-                    }
+                        while (true) {
+                            try {
+                                System.out.print("*Indice de confiabilidad TFbind (0-100): ");
+                                String confi = lectura.nextLine();
+                                conf = Float.parseFloat(confi) / 100;
 
-                    while (true) {
-                        try {
-                            System.out.print("*Numero de objetos PDB maximos: ");
-                            can_objs = Integer.parseInt(lectura.nextLine());
-                            break;
-                        } catch (Exception e) {
-                            System.out.println("El dato ingresado debe ser numerico");
+                                if (conf > 1) {
+                                    System.out.println("El dato ingresado debe ser numerico entre 0 y 100");
+                                } else {
+                                    break;
+                                }
+                            } catch (Exception e) {
+                                System.out.println("El dato ingresado debe ser numerico entre 0 y 100");
+                            }
                         }
-                    }
 
-                    while (true) {
-                        try {
-                            System.out.print("*Numero de iteraciones: ");
-                            num_iter = Integer.parseInt(lectura.nextLine());
-                            break;
-                        } catch (Exception e) {
-                            System.out.println("El dato ingresado debe ser numerico");
+                        while (true) {
+                            try {
+                                System.out.print("*Numero de objetos PDB maximos: ");
+                                can_objs = Integer.parseInt(lectura.nextLine());
+                                break;
+                            } catch (Exception e) {
+                                System.out.println("El dato ingresado debe ser numerico");
+                            }
                         }
-                    }
 
-                    System.out.println("\n***MINERIA EN PROCESO***\n");
-                    mfts.minado(regionPromotora, conf, num_iter, can_objs);
-                    mfts.obtenerFT();
+                        while (true) {
+                            try {
+                                System.out.print("*Numero de iteraciones: ");
+                                num_iter = Integer.parseInt(lectura.nextLine());
+                                break;
+                            } catch (Exception e) {
+                                System.out.println("El dato ingresado debe ser numerico");
+                            }
+                        }
+
+                        System.out.println("\n***MINERIA EN PROCESO***\n");
+                        mfts.minado(regionPromotora, conf, num_iter, can_objs);
+                        mfts.obtenerFT();
+                    }
                     break;
 
                 case "2":
@@ -283,8 +286,18 @@ public class BioPattern {
 
                 case "3":
                     System.out.println("\n---------------------\nBUSQUEDA DE ABSTRACTS\n---------------------");
+                    int cantPMID;
+                    while (true) {
+                        try {
+                            System.out.print("Numero maximo de Pubmed Ids por cada busqueda: ");
+                            cantPMID = Integer.parseInt(lectura.nextLine());
+                            break;
+                        } catch (Exception e) {
+                            System.out.println("Debe ingresar un numero entero");
+                        }
+                    }
                     busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
-                    ArrayList<String> listaPMid = BPM.busqueda_IDs(false, 10);
+                    ArrayList<String> listaPMid = BPM.busqueda_IDs(false, cantPMID,true);
                     try {
                         new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500);
                     } catch (Exception e) {
