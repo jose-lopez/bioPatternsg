@@ -175,11 +175,10 @@ public class minado_FT {
 
         ObjectContainer db = Db4o.openFile("mineria/FT.db");
         factorTranscripcion FT = new factorTranscripcion();
-        
+
         try {
-            
+
             ObjectSet result = db.queryByExample(FT);
-            System.out.println("hola mundo"+result.size());
             while (result.hasNext()) {
 
                 factorTranscripcion ft = (factorTranscripcion) result.next();
@@ -311,9 +310,11 @@ public class minado_FT {
 
             ObjectSet result = db.queryByExample(FT);
             while (result.hasNext()) {
-
-                factorTranscripcion ft = (factorTranscripcion) result.next();
-                ft.vaciar_pl();
+                try {
+                    factorTranscripcion ft = (factorTranscripcion) result.next();
+                    ft.vaciar_pl("objetosMinados.pl");
+                } catch (Exception e) {
+                }
             }
         } catch (Exception e) {
 

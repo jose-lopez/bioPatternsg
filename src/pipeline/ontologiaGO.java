@@ -64,6 +64,13 @@ public class ontologiaGO {
     //GO:0008123
     private int max = 0;
 
+    public String buscar(String GO) {
+        ontologiaGO objeto = new ontologiaGO();
+        objeto.setGO(GO);
+        objeto = consultarBD(objeto);
+        return objeto.getNombre();
+    }
+
     public void buscar(String GO, String restriccion) {
 
         buscarObjeto(GO, 0, "", restriccion);
@@ -119,52 +126,49 @@ public class ontologiaGO {
 
     }
 
-      
-    public void vaciar_pl(String GO, String obj, String relacion, ArrayList<String> listObj) {
+    public void vaciar_pl(String GO, String obj, String relacion, ArrayList<String> listObj,String archivo) {
 
         ontologiaGO objeto = new ontologiaGO();
         objeto.setGO(GO);
         objeto = consultarBD(objeto);
-        
+
         if (obj != null) {
             String cadena = relacion + "(\'" + obj + "\',\'" + objeto.getNombre() + "\').";
-            if (!revisar_en_archivo(cadena)) {
-                escribirArchivo(cadena);
-            }
+            new escribirBC(cadena,archivo);
         }
         if (!listObj.contains(GO)) {
             listObj.add(GO);
 
             for (int i = 0; i < objeto.is_a.size(); i++) {
-                vaciar_pl(objeto.is_a.get(i), objeto.getNombre(), "is_a", listObj);
+                vaciar_pl(objeto.is_a.get(i), objeto.getNombre(), "is_a", listObj,archivo);
             }
 
             for (int i = 0; i < objeto.capable_of.size(); i++) {
-                vaciar_pl(objeto.capable_of.get(i), objeto.getNombre(), "capable_of", listObj);
+                vaciar_pl(objeto.capable_of.get(i), objeto.getNombre(), "capable_of", listObj,archivo);
             }
 
             for (int i = 0; i < objeto.capable_of_part_of.size(); i++) {
-                vaciar_pl(objeto.capable_of_part_of.get(i), objeto.getNombre(), "capable_of_part_of", listObj);
+                vaciar_pl(objeto.capable_of_part_of.get(i), objeto.getNombre(), "capable_of_part_of", listObj,archivo);
             }
 
             for (int i = 0; i < objeto.negatively_regulates.size(); i++) {
-                vaciar_pl(objeto.negatively_regulates.get(i), objeto.getNombre(), "negatively_regulates", listObj);
+                vaciar_pl(objeto.negatively_regulates.get(i), objeto.getNombre(), "negatively_regulates", listObj,archivo);
             }
 
             for (int i = 0; i < objeto.positively_regulates.size(); i++) {
-                vaciar_pl(objeto.positively_regulates.get(i), objeto.getNombre(), "positively_regulates", listObj);
+                vaciar_pl(objeto.positively_regulates.get(i), objeto.getNombre(), "positively_regulates", listObj,archivo);
             }
 
             for (int i = 0; i < objeto.part_of.size(); i++) {
-                vaciar_pl(objeto.part_of.get(i), objeto.getNombre(), "part_of", listObj);
+                vaciar_pl(objeto.part_of.get(i), objeto.getNombre(), "part_of", listObj,archivo);
             }
 
             for (int i = 0; i < objeto.regulates.size(); i++) {
-                vaciar_pl(objeto.regulates.get(i), objeto.getNombre(), "regulates", listObj);
+                vaciar_pl(objeto.regulates.get(i), objeto.getNombre(), "regulates", listObj,archivo);
             }
 
             for (int i = 0; i < objeto.occurs_in.size(); i++) {
-                vaciar_pl(objeto.occurs_in.get(i), objeto.getNombre(), "occurs_in", listObj);
+                vaciar_pl(objeto.occurs_in.get(i), objeto.getNombre(), "occurs_in", listObj,archivo);
             }
         }
 
@@ -178,7 +182,6 @@ public class ontologiaGO {
             ObjectSet result = db.queryByExample(obj);
             while (result.hasNext()) {
                 objeto = (ontologiaGO) result.next();
-
             }
         } catch (Exception e) {
             System.out.println("Error al acceder a OntologiaGO.db");
@@ -187,52 +190,6 @@ public class ontologiaGO {
         }
 
         return objeto;
-    }
-
-    private void escribirArchivo(String cadena) {
-
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        try {
-            fichero = new FileWriter("mineria/ontologia.pl", true);
-            pw = new PrintWriter(fichero);
-            System.out.println(cadena);
-            pw.println(cadena);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (null != fichero) {
-                    fichero.close();
-                }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-
-    }
-
-    private boolean revisar_en_archivo(String objeto) {
-
-        File archivo = null;
-        FileReader fr = null;
-        BufferedReader br = null;
-
-        try {
-            archivo = new File("ontologia.pl");
-            fr = new FileReader(archivo);
-            br = new BufferedReader(fr);
-            String linea;
-
-            while ((linea = br.readLine()) != null) {
-
-                if (linea.equals(objeto)) {
-                    return true;
-                }
-            }
-        } catch (Exception e) {
-        }
-        return false;
     }
 
     private void imprimir(ontologiaGO objeto) {

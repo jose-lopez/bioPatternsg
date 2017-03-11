@@ -164,13 +164,13 @@ public class factorTranscripcion {
 
     }
 
-    public void vaciar_pl() {
+    public void vaciar_pl(String archivo) {
 
         String ligandos = "[";
         for (int i = 0; i < complejoProteinico.size(); i++) {
-            complejoProteinico.get(i).vaciar_pl();
+            complejoProteinico.get(i).vaciar_pl(archivo);
             for (int j = 0; j < complejoProteinico.get(i).getLigandos().size(); j++) {
-                if (j == 0) {
+                if (ligandos.equals("[")) {
                     ligandos += "\'" + complejoProteinico.get(i).getLigandos().get(j).getId() + "\'";
                 } else {
                     ligandos += ",\'" + complejoProteinico.get(i).getLigandos().get(j).getId() + "\'";
@@ -178,7 +178,10 @@ public class factorTranscripcion {
             }
         }
         ligandos+="]";
-        new escribirBC("ligandos(\'"+ID+"\',"+ligandos+").");
+        if (!ligandos.equals("[]")) {
+            new escribirBC("ligandos(\'"+ID+"\',"+ligandos+").",archivo);
+        }
+       
     }
 
     private lecturas_HGNC lecturasHGNC(String ID) {

@@ -70,7 +70,7 @@ public class complejoProteinico {
         if (getHGNC().size() > 0) {
             System.out.println("OBJETOS ENCONTRADOS:");
             for (int i = 0; i < getHGNC().size(); i++) {
-                System.out.println("   -"+getHGNC().get(i).getSimbolo());
+                System.out.println("   -" + getHGNC().get(i).getSimbolo());
             }
         }
     }
@@ -118,15 +118,27 @@ public class complejoProteinico {
         //System.out.println(cadena);
         this.DNA.add(cadena);
     }
-    
-    public void vaciar_pl(){
-        
-        new escribirBC("complejo(\'"+ID+"\').");
+
+    public void vaciar_pl(String archivo) {
+
+        new escribirBC("complejo(\'" + ID + "\').",archivo);
         for (int i = 0; i < ligandos.size(); i++) {
-            ligandos.get(i).vaciar_pl();
+            ligandos.get(i).vaciar_pl(archivo);
         }
-        
-        
+
+        String cadena = "[";
+        for (int i = 0; i < HGNC.size(); i++) {
+            if (cadena.equals("[")) {
+                cadena += "\'" + HGNC.get(i).getSimbolo() + "\'";
+            } else {
+                cadena += ",\'" + HGNC.get(i).getSimbolo() + "\'";
+            }
+        }
+        cadena += "]";
+        if (!cadena.equals("[]")) {
+            new escribirBC("componentes(\'" + ID + "\'," + cadena + ").",archivo);
+        }
+
     }
 
     public ArrayList<String> getPdbx_keywords() {
@@ -144,15 +156,15 @@ public class complejoProteinico {
     public void setLigandos(ArrayList<ligando> ligandos) {
         this.ligandos = ligandos;
     }
-    
-    public ArrayList<String> listaNombres(){
+
+    public ArrayList<String> listaNombres() {
         ArrayList lista = new ArrayList();
-        
+
         for (int i = 0; i < HGNC.size(); i++) {
             lista.addAll(HGNC.get(i).ListaNombres());
         }
-        
-        return  lista;
+
+        return lista;
     }
 
 }

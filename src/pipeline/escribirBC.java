@@ -17,21 +17,20 @@ import java.io.PrintWriter;
  */
 public class escribirBC {
     
-    public escribirBC(String cadena){
-        if(!revisar_en_archivo(cadena)){
-            System.out.println(cadena);
-            escribirArchivo(cadena);
+    public escribirBC(String cadena, String archivo){
+        if(!revisar_en_archivo(cadena, archivo)){
+            escribirArchivo(cadena, archivo);
         }
     }
     
-    private boolean revisar_en_archivo(String objeto) {
+    private boolean revisar_en_archivo(String objeto, String ruta) {
 
         File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
 
         try {
-            archivo = new File("mineria/baseC.pl");
+            archivo = new File("mineria/"+ruta);
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             String linea;
@@ -47,12 +46,12 @@ public class escribirBC {
         return false;
     }
     
-     private void escribirArchivo(String cadena) {
+     private void escribirArchivo(String cadena, String archivo) {
 
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("mineria/baseC.pl", true);
+            fichero = new FileWriter("mineria/"+archivo, true);
             pw = new PrintWriter(fichero);
             System.out.println(cadena);
             pw.println(cadena);

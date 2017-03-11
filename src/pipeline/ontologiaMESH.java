@@ -52,24 +52,30 @@ public class ontologiaMESH {
         this.parent = parent;
     }
     
-    public void vaciar_pl(String MESH, String obj, ArrayList<String> listObj) {
+    public String buscarNombre(String MESH){
+        ontologiaMESH objeto = new ontologiaMESH();
+        objeto.setMESH(MESH);
+        objeto = consultarBD(objeto);
+        return objeto.Nombre;
+    }
+    
+    public void vaciar_pl(String MESH, String obj, ArrayList<String> listObj,String archivo) {
 
         ontologiaMESH objeto = new ontologiaMESH();
         objeto.setMESH(MESH);
         objeto = consultarBD(objeto);
         
         if (obj != null && objeto.getNombre() != null) {
-            String cadena = "is_a(\'" + obj + "\',\'" + objeto.getNombre() + "\').";
-            if (!revisar_en_archivo(cadena)) {
-                escribirArchivo(cadena);
-            }
+            String cadena = "parent(\'" + obj + "\',\'" + objeto.getNombre() + "\').";
+            new escribirBC(cadena,archivo);
+            
         }
 
         if (!listObj.contains(MESH)) {
             listObj.add(MESH);
          
             for (int i = 0; i < objeto.getParent().size(); i++) {
-                vaciar_pl(objeto.getParent().get(i), objeto.getNombre(), listObj);
+                vaciar_pl(objeto.getParent().get(i), objeto.getNombre(), listObj, archivo);
             }
         }
 
@@ -91,52 +97,7 @@ public class ontologiaMESH {
         }
         return objeto;
     }
-
-    private boolean revisar_en_archivo(String objeto) {
-
-        File archivo = null;
-        FileReader fr = null;
-        BufferedReader br = null;
-
-        try {
-            archivo = new File("mineria/ontologia.pl");
-            fr = new FileReader(archivo);
-            br = new BufferedReader(fr);
-            String linea;
-
-            while ((linea = br.readLine()) != null) {
-                if (linea.equals(objeto)) {
-                    return true;
-                }
-            }
-        } catch (Exception e) {
-        }
-        return false;
-    }
-
-    private void escribirArchivo(String cadena) {
-
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        try {
-            fichero = new FileWriter("mineria/ontologia.pl", true);
-            pw = new PrintWriter(fichero);
-            System.out.println(cadena);
-            pw.println(cadena);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (null != fichero) {
-                    fichero.close();
-                }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
-
-    }
-    
+        
     public void buscar(String MESH){
         
         buscarObjeto(MESH, 0, "");
@@ -157,7 +118,7 @@ public class ontologiaMESH {
         
         for (int i = 0; i < objeto.getParent().size(); i++) {
             if (!objeto.getParent().get(i).equals("1000048")) {
-                buscarObjeto(objeto.getParent().get(i), nivel, "m_is_a->  ");
+                buscarObjeto(objeto.getParent().get(i), nivel, "parent->  ");
             }
             
         }

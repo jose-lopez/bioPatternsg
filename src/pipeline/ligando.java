@@ -51,9 +51,9 @@ public class ligando {
                 
     }
     
-    public void vaciar_pl(){
-        String cadena = "ligand(\'"+id+"\').";
-        new escribirBC(cadena);
+    public void vaciar_pl(String archivo){
+        String cadena = "ligando(\'"+id+"\').";
+        new escribirBC(cadena,archivo);
     }
        
     public String getId() {

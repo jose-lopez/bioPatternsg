@@ -19,7 +19,6 @@ import java.util.List;
  * @author yacson-ramirez
  */
 public class busquedaPubMed_IDs {
-    
 
     public ArrayList<String> busqueda_IDs(boolean criterioCombinacion, int cantIDs) {
         System.out.println("\nGenerando combinaciones de objetos...");
@@ -31,15 +30,18 @@ public class busquedaPubMed_IDs {
 
             ObjectSet result = db.queryByExample(FT);
             while (result.hasNext()) {
+                try {
+                    factorTranscripcion ft = (factorTranscripcion) result.next();
+                    factor_ligando(ft);
+                    factor_nuevoObjeto(ft);
+                    //Si criterioCombinacion es 'true' los objetos del experto se combinaran en todas las Iteraciones
+                    //Si criterioCombinacion es 'false' los objetos del experto solo se combinaran en la primera Iteracion
+                    if (ft.getN_Iteracion() == 0 || criterioCombinacion) {
+                        //System.out.println("FT + Objetos experto y homologos");
+                        factor_objetos_H_E(ft);
+                    }
+                } catch (Exception e) {
 
-                factorTranscripcion ft = (factorTranscripcion) result.next();
-                factor_ligando(ft);
-                factor_nuevoObjeto(ft);
-                //Si criterioCombinacion es 'true' los objetos del experto se combinaran en todas las Iteraciones
-                //Si criterioCombinacion es 'false' los objetos del experto solo se combinaran en la primera Iteracion
-                if (ft.getN_Iteracion() == 0 || criterioCombinacion) {
-                    //System.out.println("FT + Objetos experto y homologos");
-                    factor_objetos_H_E(ft);
                 }
 
             }
@@ -57,19 +59,29 @@ public class busquedaPubMed_IDs {
         ArrayList<String> listaPM = new ArrayList<>();
         ObjectContainer db = Db4o.openFile("mineria/combinaciones.db");
         combinacion com = new combinacion();
-        ObjectSet result = db.queryByExample(com);
-        System.out.println("Combinaciones: "+result.size());
-        while (result.hasNext()) {
-            combinacion c = (combinacion) result.next();
-            ArrayList<String> lista = new ArrayList<>();
-            //System.out.print(c.getPalabra1() + "+" + c.getPalabra2());
-            lista = new lecturas_PM().busquedaPM_ID(c.getPalabra1() + "+" + c.getPalabra2(), cantIDs);
-            //System.out.println("  ids: "+lista.size());
-            for (int i = 0; i < lista.size(); i++) {
-                if (!listaPM.contains(lista.get(i))) {
-                    listaPM.add(lista.get(i));
+        try {
+            ObjectSet result = db.queryByExample(com);
+            System.out.println("Combinaciones: " + result.size());
+            while (result.hasNext()) {
+                try {
+                    combinacion c = (combinacion) result.next();
+                    ArrayList<String> lista = new ArrayList<>();
+                    //System.out.print(c.getPalabra1() + "+" + c.getPalabra2());
+                    lista = new lecturas_PM().busquedaPM_ID(c.getPalabra1() + "+" + c.getPalabra2(), cantIDs);
+                    //System.out.println("  ids: "+lista.size());
+                    for (int i = 0; i < lista.size(); i++) {
+                        if (!listaPM.contains(lista.get(i))) {
+                            listaPM.add(lista.get(i));
+                        }
+                    }
+                } catch (Exception e) {
+
                 }
             }
+        } catch (Exception e) {
+
+        } finally {
+            db.close();
         }
 
         System.out.println(listaPM.size() + " PudMed IDs Encontrados");
@@ -107,13 +119,15 @@ public class busquedaPubMed_IDs {
 
             ObjectSet result = db.queryByExample(Obj);
             while (result.hasNext()) {
+                try {
+                    objetos_Experto obj = (objetos_Experto) result.next();
 
-                objetos_Experto obj = (objetos_Experto) result.next();
-
-                for (int i = 0; i < FT.listaNombres().size(); i++) {
-                    for (int j = 0; j < obj.getHGNC().size(); j++) {
-                        guardarCombinacion(FT.listaNombres().get(i), obj.listaNombres().get(i), true);
+                    for (int i = 0; i < FT.listaNombres().size(); i++) {
+                        for (int j = 0; j < obj.getHGNC().size(); j++) {
+                            guardarCombinacion(FT.listaNombres().get(i), obj.listaNombres().get(i), true);
+                        }
                     }
+                } catch (Exception e) {
                 }
 
             }
@@ -131,9 +145,12 @@ public class busquedaPubMed_IDs {
         try {
             ObjectSet result = db.queryByExample(Obj);
             while (result.hasNext()) {
-                objetos_Experto obj = (objetos_Experto) result.next();
-                nombres.add(obj.getID());
-                //System.out.println(obj.getID());
+                try {
+                    objetos_Experto obj = (objetos_Experto) result.next();
+                    nombres.add(obj.getID());
+                    //System.out.println(obj.getID());
+                } catch (Exception e) {
+                }
             }
         } catch (Exception e) {
 
@@ -145,19 +162,21 @@ public class busquedaPubMed_IDs {
         Iterator s = it.iterator();
 
         while (s.hasNext()) {
+            try {
+                List<String> listares = (List<String>) s.next();
+                objetos_Experto obj1 = new objetos_Experto();
+                obj1 = objExp(listares.get(0));
+                objetos_Experto obj2 = new objetos_Experto();
+                obj2 = objExp(listares.get(1));
+                //System.out.println(listares.get(0)+" "+listares.get(1));
+                for (int i = 0; i < obj1.listaNombres().size(); i++) {
+                    for (int j = 0; j < obj2.listaNombres().size(); j++) {
+                        //System.out.println(obj1.listaNombres().get(i)+" "+obj2.listaNombres().get(j));
+                        guardarCombinacion(obj1.listaNombres().get(i), obj2.listaNombres().get(j), true);
 
-            List<String> listares = (List<String>) s.next();
-            objetos_Experto obj1 = new objetos_Experto();
-            obj1 = objExp(listares.get(0));
-            objetos_Experto obj2 = new objetos_Experto();
-            obj2 = objExp(listares.get(1));
-            //System.out.println(listares.get(0)+" "+listares.get(1));
-            for (int i = 0; i < obj1.listaNombres().size(); i++) {
-                for (int j = 0; j < obj2.listaNombres().size(); j++) {
-                    //System.out.println(obj1.listaNombres().get(i)+" "+obj2.listaNombres().get(j));
-                    guardarCombinacion(obj1.listaNombres().get(i), obj2.listaNombres().get(j), true);
-
+                    }
                 }
+            } catch (Exception e) {
             }
 
         }
@@ -184,7 +203,7 @@ public class busquedaPubMed_IDs {
     }
 
     private void guardarCombinacion(String pal1, String pal2, boolean buscar) {
-        
+
         combinacion comb = new combinacion(pal1, pal2);
         combinacion comb2 = new combinacion(pal2, pal1);
         if (buscar && (!consultar(comb) && !consultar(comb2))) {
