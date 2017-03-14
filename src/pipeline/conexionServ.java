@@ -44,7 +44,7 @@ public class conexionServ {
         Document doc = null;
         //System.out.println("url: " + Url);
         int cont = 0;
-        while (cont < 10) {
+        while (cont < 100) {
             try {
                 cont++;
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -59,7 +59,7 @@ public class conexionServ {
 
                    // System.out.println("Error de conexion con: "+Url);
                     //System.out.println("reintentando..."+cont );
-                    Thread.sleep(1000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException ex1) {
                     //Logger.getLogger(lecturas_rcsb.class.getName()).log(Level.SEVERE, null, ex1);
                 }

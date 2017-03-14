@@ -23,39 +23,41 @@ import org.w3c.dom.NodeList;
  *
  * @author yacson-ramirez
  */
-
 public class lecturas_HGNC {
 
-    
     public lecturas_HGNC() {
-        
+
     }
 
     public ArrayList<HGNC> busquedaInfGen(String contenido) {
         ArrayList<HGNC> HGNC = new ArrayList<>();
-       
-        String lectura = contenido.replace(" ", "+");//se formatea la etiqueta para usarla en pathway commons
-        lecturas_pathwaycommons lpat = new lecturas_pathwaycommons();
-        String cUP = lpat.obtenercodigoUP(lectura);// Se utiliza el motor de busqueda de pathway commons y se obtiene el objeto mejor ponderado
-        
-        if (!cUP.equals("")) {
-            lecturas_Uniprot UP = new lecturas_Uniprot(cUP);
-            UP.obtener_Nombre();//Nombre recomendado Uniprot
-            lectura = UP.getSimbolo();//Simbolo recomendado Uniprot
-            
-            //busqueda de informacion usando el simbolo recomendado Uniprot
-            if (!busqueda_genenames(lectura, false, 0,HGNC)) {
-                //Si no se consigue informacion con el simbolo se hace la busqueda por el nombre recomendado por Uniprot
-                lectura = UP.getNombre();
-                if (!busqueda_genenames(lectura, false, 0,HGNC)) {
-                    //Si no se encuentra informacion con el nombre se Usa la etiqueta original y otro criterio de busqueda en genenames
-                    busqueda_genenames(contenido, true, 0,HGNC);
-                }
-            }
 
-        }else{
-            //Si no se encuentra ningun resultado en pathwaycommons se utiliza la etiqueta original
-            busqueda_genenames(contenido, true, 0,HGNC);
+        try {
+            String lectura = contenido.replace(" ", "+");//se formatea la etiqueta para usarla en pathway commons
+            lecturas_pathwaycommons lpat = new lecturas_pathwaycommons();
+            String cUP = lpat.obtenercodigoUP(lectura);// Se utiliza el motor de busqueda de pathway commons y se obtiene el objeto mejor ponderado
+
+            if (!cUP.equals("")) {
+                lecturas_Uniprot UP = new lecturas_Uniprot(cUP);
+                UP.obtener_Nombre();//Nombre recomendado Uniprot
+                lectura = UP.getSimbolo();//Simbolo recomendado Uniprot
+
+                //busqueda de informacion usando el simbolo recomendado Uniprot
+                if (!busqueda_genenames(lectura, false, 0, HGNC)) {
+                    //Si no se consigue informacion con el simbolo se hace la busqueda por el nombre recomendado por Uniprot
+                    lectura = UP.getNombre();
+                    if (!busqueda_genenames(lectura, false, 0, HGNC)) {
+                        //Si no se encuentra informacion con el nombre se Usa la etiqueta original y otro criterio de busqueda en genenames
+                        busqueda_genenames(contenido, true, 0, HGNC);
+                    }
+                }
+
+            } else {
+                //Si no se encuentra ningun resultado en pathwaycommons se utiliza la etiqueta original
+                busqueda_genenames(contenido, true, 0, HGNC);
+            }
+        } catch (Exception e) {
+
         }
         return HGNC;
     }
@@ -67,7 +69,7 @@ public class lecturas_HGNC {
             String cri = obtener_factor(contenido);
             try {
                 cri = cri.replace(" ", "+");
-                
+
                 String Url = "http://rest.genenames.org/search/" + cri;
                 Document doc = new conexionServ().conecta(Url);
                 factor = busqueda_lista_xml(doc, opcion, cri);
@@ -245,28 +247,26 @@ public class lecturas_HGNC {
                             ontologia.setFuncionMolecular(letUP.getFuncionMolecular());
                             ontologia.setComponenteCelular(letUP.getComponenteCelular());
                             ontologia.setProcesoBiologico(letUP.getProcesoBiologico());
-                            
+
                             //ontologia MESH
                             lecturas_MESH letMesh = new lecturas_MESH();
                             ontologia.getParent().add(letMesh.busquedaTerm(hgnc.getSimbolo()));
                             //-------------------------------------
-                            ontologia.guardarObjeto(ontologia,true,true);                                                                                    
+                            ontologia.guardarObjeto(ontologia, true, true);
                         }
 
                     }
-                    
-                    
+
                 }
 
             }
 
         }
-        
+
         return hgnc;
 
     }
-    
-    
+
     public String obtener_factor(String desc) {
         String pal = "";
         String[] palabras = desc.split(" ");
@@ -360,7 +360,7 @@ class HGNC {
     private String ensembl_gene_id;
     private ArrayList<String> sinonimos;
     private ArrayList<String> gene_family;
-   
+
     public HGNC() {
         sinonimos = new ArrayList<>();
         gene_family = new ArrayList<>();

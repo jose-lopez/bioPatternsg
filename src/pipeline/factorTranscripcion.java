@@ -149,6 +149,15 @@ public class factorTranscripcion {
         }
     }
 
+    public void NuevosObjetos(ArrayList<String> Lista){
+        for (int i = 0; i < this.complejoProteinico.size(); i++) {
+            this.complejoProteinico.get(i).NuevosObjetos(Lista);
+        }
+        
+        
+        
+    }
+    
     public void imprimir() {
         System.out.println("**Iteracion: " + N_Iteracion);
         System.out.println("Factor de Trancripcion: " + ID);
@@ -181,7 +190,20 @@ public class factorTranscripcion {
         if (!ligandos.equals("[]")) {
             new escribirBC("ligandos(\'"+ID+"\',"+ligandos+").",archivo);
         }
-       
+        String cadena = "[";
+        for (int i = 0; i < HGNC.size(); i++) {
+            
+            if(HGNC.get(i).equals(ID)){
+                cadena +="\'"+HGNC.get(i).getNombre()+"\'";
+                for (int j = 0; j < HGNC.get(i).getSinonimos().size(); j++) {
+                    cadena+=",\'"+HGNC.get(i).getSinonimos()+"\'";
+                    
+                }
+                break;
+            }
+        }
+        cadena+="]";
+        new escribirBC("sinonimos(\'"+ID+"\',"+cadena+").", archivo);
     }
 
     private lecturas_HGNC lecturasHGNC(String ID) {

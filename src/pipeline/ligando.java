@@ -54,6 +54,8 @@ public class ligando {
     public void vaciar_pl(String archivo){
         String cadena = "ligando(\'"+id+"\').";
         new escribirBC(cadena,archivo);
+        cadena = "sinonimos(\'"+id+"\',[\'"+nombre+"\']).";
+        new escribirBC(cadena, archivo);
     }
        
     public String getId() {

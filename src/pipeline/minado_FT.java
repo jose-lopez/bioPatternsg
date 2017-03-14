@@ -47,7 +47,13 @@ public class minado_FT {
 
         leer_archivo_homologos(objetosMineria);
         leer_archivo_ObjetosExperto(objetosMineria);
+        //primera Iteracion partiendo de TFBind
+        primeraIteracion(ruta, confiabilidad, numeroObjetos, objetosMineria);
+        //Segunda Iteracion en adelante partiendo de nuevos objetos encontrados en PDB
+        Iteraciones(false, new ArrayList<String>(), numeroObjetos, Iteraciones, objetosMineria);
+    }
 
+    private void primeraIteracion(String ruta, float confiabilidad, int numeroObjetos, objetosMineria objetosMineria) {
         //Primera Iteracion
         System.out.println("\n====Iteracion 0====\n");
         objetosMineria.setIteracion(0);
@@ -61,16 +67,21 @@ public class minado_FT {
             guardar_Factor_transcripcion(FT);
             System.out.println("Listo...");
             FT = null;
-            garbage.gc();
         }
         guardar_objetosIteracion(objetosMineria);
         objetosMineria.imprimir();
+    }
 
+    private void Iteraciones(boolean ReinicioMin, ArrayList<String> Lista, int numeroObjetos, int Iteraciones, objetosMineria objetosMineria) {
         //Iteracion 2 en adelante
         for (int i = 1; i < Iteraciones; i++) {
             System.out.println("\n====Iteracion " + (i) + "====\n");
-            ArrayList<String> Lista = objetosMineria.getNuevos_objetos();
-            objetosMineria.setNuevos_objetos(new ArrayList<String>());
+
+            if (!ReinicioMin) {
+                Lista = objetosMineria.getNuevos_objetos();
+                objetosMineria.setNuevos_objetos(new ArrayList<String>());
+            }
+            ReinicioMin = false;
 
             for (int j = 0; j < Lista.size(); j++) {
                 factorTranscripcion FT = new factorTranscripcion(Lista.get(j), i, numeroObjetos);
@@ -79,23 +90,90 @@ public class minado_FT {
                 new objetosMinados().agregar_objetos(FT);
                 guardar_Factor_transcripcion(FT);
                 System.out.println("Listo....");
-                garbage.gc();
             }
+
             objetosMineria.setIteracion(i);
             guardar_objetosIteracion(objetosMineria);
             objetosMineria.imprimir();
         }
-
     }
-
 //  se obtinen lecturas de TFBIND recibe la ruta del archivo bloquesconsenso 
 //  y el porsentaje de confiabnilidad, debuelve un listado con los factores de transcripcion 
 //  encontrados y algunas caracteristicas que ofrece TFBIND
+
     private ArrayList<lecturas_TFBIND> lecturasTFBID(String ruta, float confiabilidad) {
 
         lecturas_TFBIND lecturasTFBIND = new lecturas_TFBIND();
         return lecturasTFBIND.leer_de_archivo(ruta, confiabilidad);
 
+    }
+
+    public void reanudarMinado() {
+
+        configuracion conf = new configuracion();
+        conf.verconfiguracion();
+
+        objetosMineria objMin = new objetosMineria();
+        objMin = recuperarObjetosMin();
+
+        System.out.println("Reanudando Iteracion: " + objMin.getIteracion());
+                
+        ArrayList<String> Lista = new ArrayList<>();
+        ArrayList<String> NuevosObj = new ArrayList<>();
+        factorTranscripcion ft = new factorTranscripcion();
+        
+        for (int i = 0; i < objMin.getNuevos_objetos().size(); i++) {
+            if (buscarObjeto(objMin.getNuevos_objetos().get(i), ft)) {
+                objMin.getObjetos_minados().add(objMin.getNuevos_objetos().get(i));
+                ft.NuevosObjetos(NuevosObj);
+            } else {
+                Lista.add(objMin.getNuevos_objetos().get(i));
+            }
+        }
+        System.out.println("\n Nuevos Objetos");
+        for (int i = 0; i < Lista.size(); i++) {
+            System.out.println(Lista.get(i));
+        }
+        
+        objMin.setNuevos_objetos(NuevosObj);
+        
+    }
+
+    private boolean buscarObjeto(String objeto, factorTranscripcion FT) {
+        objetosMineria obj = new objetosMineria();
+        ObjectContainer db = Db4o.openFile("mineria/FT.db");
+        factorTranscripcion ft = new factorTranscripcion();
+        ft.setID(objeto);
+        try {
+            ObjectSet result = db.queryByExample(ft);
+            while (result.hasNext()) {
+                FT = (factorTranscripcion) result.next();
+                return true;
+            }
+        } catch (Exception e) {
+
+        } finally {
+            db.close();
+        }
+
+        return false;
+    }
+
+    private objetosMineria recuperarObjetosMin() {
+        objetosMineria obj = new objetosMineria();
+        ObjectContainer db = Db4o.openFile("mineria/objetosMineria.db");
+
+        try {
+            ObjectSet result = db.queryByExample(obj);
+            while (result.hasNext()) {
+                obj = (objetosMineria) result.next();
+            }
+        } catch (Exception e) {
+        } finally {
+            db.close();
+        }
+
+        return obj;
     }
 
     private void crearCarpeta(String nombre) {
@@ -378,8 +456,9 @@ class objetosMineria {
     }
 
     public void agregarObjetosMinado(String objeto) {
-        this.objetos_minados.add(objeto);
-
+        if (objeto != null) {
+            this.objetos_minados.add(objeto);
+        }
     }
 
     public ArrayList<String> getNuevos_objetos() {
@@ -409,7 +488,7 @@ class objetosMineria {
             for (int j = 0; j < objetos.get(i).getHGNC().size(); j++) {
 
                 HGNC hgnc = objetos.get(i).getHGNC().get(j);
-                if (!objetos_minados.contains(hgnc.getSimbolo()) && objetos != null) {
+                if (!objetos_minados.contains(hgnc.getSimbolo()) && hgnc.getSimbolo()!= null) {
 
                     if (!nuevos_objetos.contains(hgnc.getSimbolo())) {
                         nuevos_objetos.add(hgnc.getSimbolo());

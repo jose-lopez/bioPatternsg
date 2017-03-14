@@ -34,7 +34,7 @@ public class complejoProteinico {
         this.ligandos = new ArrayList<>();
         this.HGNC = new ArrayList<>();
     }
-
+    
     public complejoProteinico(String ID, ArrayList<HGNC> HGNC, ArrayList<String> DNA, ArrayList<String> pdbx_keywords) {
         this.ID = ID;
         this.HGNC = HGNC;
@@ -138,6 +138,16 @@ public class complejoProteinico {
         if (!cadena.equals("[]")) {
             new escribirBC("componentes(\'" + ID + "\'," + cadena + ").",archivo);
         }
+        
+        
+        for (int i = 0; i < HGNC.size(); i++) {
+            cadena = "[\'"+HGNC.get(i).getNombre()+"\'";
+            for (int j = 0; j < HGNC.get(i).getSinonimos().size(); j++) {
+                cadena+=",\'"+HGNC.get(i).getSinonimos().get(j)+"\'";
+            }
+            cadena+="]";
+            new escribirBC("sinonimos(\'"+HGNC.get(i).getSimbolo()+"\',"+cadena+").", archivo);
+        }
 
     }
 
@@ -165,6 +175,16 @@ public class complejoProteinico {
         }
 
         return lista;
+    }
+    
+    public void NuevosObjetos(ArrayList<String> Lista){
+        for (int i = 0; i < this.HGNC.size(); i++) {
+            if (!Lista.contains(HGNC.get(i).getSimbolo())) {
+                Lista.add(HGNC.get(i).getSimbolo());
+            }
+            
+        }
+        
     }
 
 }

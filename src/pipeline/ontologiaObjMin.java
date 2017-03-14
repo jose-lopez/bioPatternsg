@@ -290,6 +290,8 @@ public class ontologiaObjMin {
         ontologiaGO GO = new ontologiaGO();
         ontologiaMESH mesh = new ontologiaMESH();
         
+        new escribirBC("objeto(\'"+obj.nombre+"\').","ontologiaMESH.pl");
+        
         for (int i = 0; i < obj.funcionMolecular.size(); i++) {
             if (FM.equals("[")) {
                 FM+="\'"+GO.buscar(obj.funcionMolecular.get(i))+"\'";

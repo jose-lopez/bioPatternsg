@@ -37,7 +37,7 @@ public class BioPattern {
         BioPattern biopattern = new BioPattern();
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), true);
-        biopattern.pruebas();
+        biopattern.menu();
 
     }
 
@@ -165,9 +165,9 @@ public class BioPattern {
         return secuenciaProblema;
     }
 
-    private String usuario = "";
-    private char[] clave;
-    //private char[] clave = {'', '', '', '', '', '', '', '', '', ''};
+    private String usuario = "yacson.ramirez";
+    //private char[] clave;
+    private char[] clave = {'Y', 'a', 'c', 's', 'o', 'N', '3', '2', '8', '7'};
 
     private void autenticarProxy(String proxy_IP, String proxy_Port) {
 
@@ -202,6 +202,7 @@ public class BioPattern {
     }
 
     public void menu() {
+        
         minado_FT mfts = new minado_FT();
         Scanner lectura = new Scanner(System.in);
         String resp = "";
@@ -210,13 +211,15 @@ public class BioPattern {
         float conf;
         String regionPromotora = "";
 
-        while (!resp.equals("5")) {
+        autenticarProxy("150.187.65.3", "3128");
+        while (!resp.equals("6")) {
             System.out.println("\n======================================");
             System.out.println("1.- Nueva mineria");
-            System.out.println("2.- Ver objetos minados");
-            System.out.println("3.- Buscar Abstracts Pubmed");
-            System.out.println("4.- vaciar base de conocimiento");
-            System.out.println("5.- Salir");
+            System.out.println("2.- Continuar mineria");
+            System.out.println("3.- Ver objetos minados");
+            System.out.println("4.- Buscar Abstracts Pubmed");
+            System.out.println("5.- vaciar base de conocimiento");
+            System.out.println("6.- Salir");
             resp = lectura.nextLine();
 
             switch (resp) {
@@ -226,7 +229,7 @@ public class BioPattern {
                     System.out.println("Seguro desea iniciar un proceso de mineria nuevo se perderan archivos de procesos anteriores S/N: ");
                     String opcion = lectura.nextLine();
                     if (opcion.equalsIgnoreCase("S")) {
-                        System.out.println("\n------------------------- \nNUEVO PROCESO DE MINERIA\n-------------------------");
+                        System.out.println("\n-------------------------\nNUEVO PROCESO DE MINERIA\n-------------------------");
                         System.out.println("\nIngrese los datos de configuracion\n");
                         while (true) {
                             System.out.print("*Nombre de archivo region promotora:");
@@ -272,19 +275,23 @@ public class BioPattern {
                                 System.out.println("El dato ingresado debe ser numerico");
                             }
                         }
-
+                        new configuracion().guardarConfiguracion(regionPromotora, num_iter, can_objs, conf);
                         System.out.println("\n***MINERIA EN PROCESO***\n");
                         mfts.minado(regionPromotora, conf, num_iter, can_objs);
                         mfts.obtenerFT();
                     }
                     break;
-
+                    
                 case "2":
+                    mfts.reanudarMinado();
+                    break;
+                    
+                case "3":
                     System.out.println("\n-------------------------------\nINFORMCAICON DE OBJETOS MINADOS\n-------------------------------");
                     mfts.obtenerFT();
                     break;
 
-                case "3":
+                case "4":
                     System.out.println("\n---------------------\nBUSQUEDA DE ABSTRACTS\n---------------------");
                     int cantPMID;
                     while (true) {
@@ -297,14 +304,14 @@ public class BioPattern {
                         }
                     }
                     busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
-                    ArrayList<String> listaPMid = BPM.busqueda_IDs(false, cantPMID,true);
+                    ArrayList<String> listaPMid = BPM.busqueda_IDs(false, cantPMID,false);
                     try {
                         new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500);
                     } catch (Exception e) {
                     }
                     break;
 
-                case "4":
+                case "5":
                     System.out.println("\n---------------------------------\nVACIADO DE BASE DE CONOCIMIENTO\n---------------------------------");
                     mfts.vaciar_bc_pl();
                     break;

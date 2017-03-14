@@ -66,7 +66,7 @@ public class ontologiaMESH {
         objeto = consultarBD(objeto);
         
         if (obj != null && objeto.getNombre() != null) {
-            String cadena = "parent(\'" + obj + "\',\'" + objeto.getNombre() + "\').";
+            String cadena = "is_a(\'" + obj + "\',\'" + objeto.getNombre() + "\').";
             new escribirBC(cadena,archivo);
             
         }
