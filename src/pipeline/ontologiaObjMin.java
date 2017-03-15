@@ -336,7 +336,7 @@ public class ontologiaObjMin {
             new escribirBC("cc(\'"+obj.nombre+"\',"+CC+").","ontologiaGO.pl");
         }
         if (!MESH.equals("")) {
-            new escribirBC("parent(\'"+obj.nombre+"\',\'"+MESH+"\').","ontologiaMESH.pl");
+            new escribirBC("is_a(\'"+obj.nombre+"\',\'"+MESH+"\').","ontologiaMESH.pl");
         }
         
         

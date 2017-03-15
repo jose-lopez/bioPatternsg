@@ -75,17 +75,17 @@ public class lecturas_TFBIND {
             br = new BufferedReader(fr);
             String metodo;
             System.out.println("");
-            System.out.println("Leyendo bloques consenso desde "+ruta);
+            System.out.println("* Leyendo bloques consenso desde "+ruta);
             ArrayList<String> control_factores = new ArrayList<>();
             
                     
             while ((metodo = br.readLine()) != null) {
                
-                System.out.println("buscando registros FT desde TFBIND para: " + metodo);
+                System.out.println("* buscando registros FT desde TFBIND para: " + metodo);
                 lecturas = obtener_lecturas(metodo, confiabilidad, control_factores);
 
             }
-            System.out.println("registros tfbind completados para: " + ruta);
+            System.out.println("...ok");
 
         } catch (Exception e) {
         

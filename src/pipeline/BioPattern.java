@@ -166,8 +166,8 @@ public class BioPattern {
     }
 
     private String usuario = "yacson.ramirez";
-    //private char[] clave;
-    private char[] clave = {'Y', 'a', 'c', 's', 'o', 'N', '3', '2', '8', '7'};
+    private char[] clave;
+    //private char[] clave = {'', '', '', '', '', '', '', '', '', ''};
 
     private void autenticarProxy(String proxy_IP, String proxy_Port) {
 
@@ -275,15 +275,15 @@ public class BioPattern {
                                 System.out.println("El dato ingresado debe ser numerico");
                             }
                         }
-                        new configuracion().guardarConfiguracion(regionPromotora, num_iter, can_objs, conf);
-                        System.out.println("\n***MINERIA EN PROCESO***\n");
+                                       
                         mfts.minado(regionPromotora, conf, num_iter, can_objs);
                         mfts.obtenerFT();
                     }
                     break;
                     
                 case "2":
-                    mfts.reanudarMinado();
+                    configuracion config = new configuracion();
+                    config.reanudar_mineria();
                     break;
                     
                 case "3":
@@ -315,11 +315,7 @@ public class BioPattern {
                     System.out.println("\n---------------------------------\nVACIADO DE BASE DE CONOCIMIENTO\n---------------------------------");
                     mfts.vaciar_bc_pl();
                     break;
-
             }
-
         }
-
     }
-
 }

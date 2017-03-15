@@ -233,38 +233,34 @@ public class lecturas_HGNC {
                         }
 
                     }
-                    //---------------------------------------------------
-                    //Ontologia GO
+                    //-----------------------------------------------------------
+                    //Busqueda de Ontologias
+                    ontologiaObjMin ontologia = new ontologiaObjMin();
+                    ontologia.setNombre(hgnc.getSimbolo());
+                    //Ontologia GO --------------------------------------------
                     if (elm.getAttribute("name").equals("uniprot_ids")) {
-
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
                             String codUP = elm.getElementsByTagName("str").item(j).getTextContent();
                             lecturas_Uniprot letUP = new lecturas_Uniprot(codUP);
-                            ontologiaObjMin ontologia = new ontologiaObjMin();
-                            ontologia.setNombre(hgnc.getSimbolo());
                             letUP.Codigos_GO();
                             ontologia.setFuncionMolecular(letUP.getFuncionMolecular());
                             ontologia.setComponenteCelular(letUP.getComponenteCelular());
                             ontologia.setProcesoBiologico(letUP.getProcesoBiologico());
-
-                            //ontologia MESH
-                            lecturas_MESH letMesh = new lecturas_MESH();
-                            ontologia.getParent().add(letMesh.busquedaTerm(hgnc.getSimbolo()));
-                            //-------------------------------------
-                            ontologia.guardarObjeto(ontologia, true, true);
                         }
-
                     }
+                    //ontologia MESH--------------------------------------------
+                    lecturas_MESH letMesh = new lecturas_MESH();
+                    ontologia.getParent().add(letMesh.busquedaTerm(hgnc.getSimbolo()));
+                    //----------------------------------------------------------
+                    ontologia.guardarObjeto(ontologia, false, false);
 
                 }
 
             }
 
         }
-
         return hgnc;
-
     }
 
     public String obtener_factor(String desc) {
