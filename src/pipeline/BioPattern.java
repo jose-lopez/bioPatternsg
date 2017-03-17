@@ -168,9 +168,9 @@ public class BioPattern {
         return secuenciaProblema;
     }
 
-    private String usuario = "yacson.ramirez";
-    //private char[] clave;
-    private char[] clave = {'Y', 'a', 'c', 's', 'o', 'N', '3', '2', '8', '7'};
+    private String usuario = "";
+    private char[] clave;
+    //private char[] clave = {'', '', '', '', '', '', '', '', '', ''};
 
     private void autenticarProxy(String proxy_IP, String proxy_Port) {
 

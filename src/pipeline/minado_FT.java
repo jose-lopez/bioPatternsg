@@ -59,7 +59,7 @@ public class minado_FT {
 
     public void primeraIteracion(String ruta, float confiabilidad, int numeroObjetos, objetosMineria objetosMineria, configuracion config, ArrayList<lecturas_TFBIND> lecturas,boolean GO, boolean MESH) {
         //Primera Iteracion
-        System.out.println("\n====Iteracion 0====\n");
+        System.out.println("\n\n====Iteracion 0====\n");
         objetosMineria.setIteracion(0);
         ArrayList<lecturas_TFBIND> lecturasTFB;
         if (lecturas.size() == 0) {
@@ -89,7 +89,7 @@ public class minado_FT {
     public void Iteraciones(boolean ReinicioMin, ArrayList<String> Lista, int numeroObjetos, int Iteraciones, objetosMineria objetosMineria, configuracion config, int iter,boolean GO, boolean MESH) {
         //Iteracion 2 en adelante
         for (int i = iter; i < Iteraciones; i++) {
-            System.out.println("\n====Iteracion " + (i) + "====\n");
+            System.out.println("\n\n====Iteracion " + (i) + "====\n");
 
             if (!ReinicioMin) {
                 Lista = objetosMineria.getNuevos_objetos();
@@ -292,7 +292,7 @@ public class minado_FT {
     }
 
     public void buscarHomologos(ArrayList<String> lista, objetosMineria objetosMineria, configuracion config, boolean GO, boolean MESH) {
-        System.out.println("\n**Leyendo archivo de Homologos...");
+        System.out.println("\n\n**Leyendo archivo de Homologos...");
         for (int i = 0; i < lista.size(); i++) {
             System.out.println("busqueda.." + lista.get(i));
             objetos_Experto objExp = new objetos_Experto();
@@ -311,7 +311,7 @@ public class minado_FT {
     }
 
     public void buscarObjetosExperto(ArrayList<String> lista, objetosMineria objetosMineria, configuracion config,boolean GO, boolean MESH) {
-        System.out.println("\n**Leyendo archivo de Objetos Experto...");
+        System.out.println("\n\n**Leyendo archivo de Objetos Experto...");
         for (int i = 0; i < lista.size(); i++) {
             System.out.println("busqueda.." + lista.get(i));
             objetos_Experto objExp = new objetos_Experto();

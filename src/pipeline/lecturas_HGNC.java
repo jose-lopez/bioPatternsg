@@ -241,18 +241,26 @@ public class lecturas_HGNC {
                     if (elm.getAttribute("name").equals("uniprot_ids") && GO) {
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
-                            String codUP = elm.getElementsByTagName("str").item(j).getTextContent();
-                            lecturas_Uniprot letUP = new lecturas_Uniprot(codUP);
-                            letUP.Codigos_GO();
-                            ontologia.setFuncionMolecular(letUP.getFuncionMolecular());
-                            ontologia.setComponenteCelular(letUP.getComponenteCelular());
-                            ontologia.setProcesoBiologico(letUP.getProcesoBiologico());
+                            try {
+                                String codUP = elm.getElementsByTagName("str").item(j).getTextContent();
+                                lecturas_Uniprot letUP = new lecturas_Uniprot(codUP);
+                                letUP.Codigos_GO();
+                                ontologia.setFuncionMolecular(letUP.getFuncionMolecular());
+                                ontologia.setComponenteCelular(letUP.getComponenteCelular());
+                                ontologia.setProcesoBiologico(letUP.getProcesoBiologico());
+                            } catch (Exception e) {
+
+                            }
                         }
                     }
                     //ontologia MESH--------------------------------------------
                     if (MESH) {
-                        lecturas_MESH letMesh = new lecturas_MESH();
-                        ontologia.getParent().add(letMesh.busquedaTerm(hgnc.getSimbolo()));
+                        try {
+                            lecturas_MESH letMesh = new lecturas_MESH();
+                            ontologia.getParent().add(letMesh.busquedaTerm(hgnc.getSimbolo()));
+                        } catch (Exception e) {
+
+                        }
                     }
                     //----------------------------------------------------------
                     if (GO || MESH) {

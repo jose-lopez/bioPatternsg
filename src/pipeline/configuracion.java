@@ -187,7 +187,6 @@ public class configuracion {
         switch (punto) {
             case 1:
                 mfts.buscarHomologos(revisarObjH_E("homologos", objetosMineria), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
-                System.out.println("\n");
                 mfts.buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ActivatableArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
@@ -199,7 +198,6 @@ public class configuracion {
             case 2:
                 revisarObjH_E("homologos", objetosMineria);
                 mfts.buscarObjetosExperto(revisarObjH_E("objetos_Experto.txt", objetosMineria), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
-                System.out.println("\n");
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
                 BPM.busqueda_IDs(false, 10, false, this);
@@ -211,7 +209,6 @@ public class configuracion {
                 revisarObjH_E("homologos", objetosMineria);
                 revisarObjH_E("objetos_Experto.txt", objetosMineria);
                 ArrayList<lecturas_TFBIND> lecturas = actualizarListaTFBind(objetosMineria);
-                System.out.println("\n");
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, lecturas, crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
                 BPM.busqueda_IDs(false, 10, false, this);
@@ -221,7 +218,6 @@ public class configuracion {
                 break;
             case 4:
                 ArrayList<String> ListaObj = reanudarIteracion(objetosMineria);
-                System.out.println("\n");
                 mfts.Iteraciones(true, ListaObj, cantComplejos, numIteraciones, objetosMineria, this, objetosMineria.getIteracion() + 1, crearOntologiaGO, crearOntologiaMESH);
                 BPM.busqueda_IDs(false, 10, false, this);
                 listaPMid = BPM.busqueda_IDs(false, 10, false, this);
@@ -230,20 +226,17 @@ public class configuracion {
                 break;
 
             case 5:
-                System.out.println("\n");
                 BPM.busqueda_IDs(false, 10, false, this);
                 listaPMid = BPM.busqueda_IDs(false, 10, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 break;
             case 6:
-                System.out.println("\n");
                 listaPMid = BPM.consulta_PudMed(10);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 break;
             case 7:
-                System.out.println("\n");
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 break;
         }
