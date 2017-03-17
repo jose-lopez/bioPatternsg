@@ -41,11 +41,11 @@ public class factorTranscripcion {
     }
 
     //constructor para la primera Iteracion con lecturas obtenidas desde TFBIND
-    public factorTranscripcion(lecturas_TFBIND lecturasTFBIND, int NumeroObjetos, objetosMineria objetosMineria) {
+    public factorTranscripcion(lecturas_TFBIND lecturasTFBIND, int NumeroObjetos, objetosMineria objetosMineria,boolean GO, boolean MESH) {
         System.out.println("Buscando información para : " + lecturasTFBIND.getFactor() + " ...");
         this.lecturasTFBIND = lecturasTFBIND;
         this.ID = lecturasTFBIND.getFactor();
-        this.HGNC = new lecturas_HGNC().busquedaInfGen(ID);
+        this.HGNC = new lecturas_HGNC().busquedaInfGen(ID,GO,MESH);
         this.N_Iteracion = 0;
         this.complejoProteinico = new ArrayList<>();
 
@@ -53,7 +53,7 @@ public class factorTranscripcion {
 
         for (int i = 0; i < IDCP.size(); i++) {
             complejoProteinico cp = new complejoProteinico();
-            cp = new lecturas_PDB().Busqueda_PDB(IDCP.get(i));
+            cp = new lecturas_PDB().Busqueda_PDB(IDCP.get(i),GO,MESH);
             cp.buscar_ligandos();
             complejoProteinico.add(cp);
         }
@@ -129,13 +129,13 @@ public class factorTranscripcion {
     }
 
     //constructor para la segunda Iteracion en adelante
-    public factorTranscripcion(String ID, int N_Iteracion, int NumeroObjetos) {
+    public factorTranscripcion(String ID, int N_Iteracion, int NumeroObjetos,boolean GO, boolean MESH) {
 
         System.out.println("Buscando información para: " + ID + " ...");
         this.lecturasTFBIND = new lecturas_TFBIND();
         this.ID = ID;
         this.N_Iteracion = N_Iteracion;
-        this.HGNC = new lecturas_HGNC().busquedaInfGen(ID);
+        this.HGNC = new lecturas_HGNC().busquedaInfGen(ID,GO,MESH);
         //  this.lecturas_HGNC = lecturasHGNC(ID);
         this.complejoProteinico = new ArrayList<>();
 
@@ -143,15 +143,15 @@ public class factorTranscripcion {
 
         for (int i = 0; i < IDCP.size(); i++) {
             complejoProteinico cp = new complejoProteinico();
-            cp = new lecturas_PDB().Busqueda_PDB(IDCP.get(i));
+            cp = new lecturas_PDB().Busqueda_PDB(IDCP.get(i),GO,MESH);
             cp.buscar_ligandos();
             complejoProteinico.add(cp);
         }
     }
 
     public void NuevosObjetos(ArrayList<String> Lista){
-        for (int i = 0; i < this.complejoProteinico.size(); i++) {
-            this.complejoProteinico.get(i).NuevosObjetos(Lista);
+        for (int i = 0; i < complejoProteinico.size(); i++) {
+            complejoProteinico.get(i).NuevosObjetos(Lista);
         }
         
         
@@ -206,9 +206,9 @@ public class factorTranscripcion {
         new escribirBC("sinonimos(\'"+ID+"\',"+cadena+").", archivo);
     }
 
-    private lecturas_HGNC lecturasHGNC(String ID) {
+    private lecturas_HGNC lecturasHGNC(String ID,boolean GO,boolean MESH) {
         lecturas_HGNC HGNC = new lecturas_HGNC();
-        this.HGNC = HGNC.busquedaInfGen(ID);
+        this.HGNC = HGNC.busquedaInfGen(ID,GO,MESH);
         return HGNC;
     }
 

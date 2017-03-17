@@ -29,7 +29,7 @@ public class lecturas_HGNC {
 
     }
 
-    public ArrayList<HGNC> busquedaInfGen(String contenido) {
+    public ArrayList<HGNC> busquedaInfGen(String contenido, boolean GO, boolean MESH) {
         ArrayList<HGNC> HGNC = new ArrayList<>();
 
         try {
@@ -43,18 +43,18 @@ public class lecturas_HGNC {
                 lectura = UP.getSimbolo();//Simbolo recomendado Uniprot
 
                 //busqueda de informacion usando el simbolo recomendado Uniprot
-                if (!busqueda_genenames(lectura, false, 0, HGNC)) {
+                if (!busqueda_genenames(lectura, false, 0, HGNC, GO, MESH)) {
                     //Si no se consigue informacion con el simbolo se hace la busqueda por el nombre recomendado por Uniprot
                     lectura = UP.getNombre();
-                    if (!busqueda_genenames(lectura, false, 0, HGNC)) {
+                    if (!busqueda_genenames(lectura, false, 0, HGNC, GO, MESH)) {
                         //Si no se encuentra informacion con el nombre se Usa la etiqueta original y otro criterio de busqueda en genenames
-                        busqueda_genenames(contenido, true, 0, HGNC);
+                        busqueda_genenames(contenido, true, 0, HGNC, GO, MESH);
                     }
                 }
 
             } else {
                 //Si no se encuentra ningun resultado en pathwaycommons se utiliza la etiqueta original
-                busqueda_genenames(contenido, true, 0, HGNC);
+                busqueda_genenames(contenido, true, 0, HGNC, GO, MESH);
             }
         } catch (Exception e) {
 
@@ -62,7 +62,7 @@ public class lecturas_HGNC {
         return HGNC;
     }
 
-    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion, ArrayList<HGNC> HGNC) {
+    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion, ArrayList<HGNC> HGNC, boolean GO, boolean MESH) {
 
         ArrayList<String> factor = new ArrayList<>();
         if (criterio) {
@@ -110,7 +110,7 @@ public class lecturas_HGNC {
                 //System.out.println("Simbolo HUGO: " + factor.get(i));
                 String Url = "http://rest.genenames.org/fetch/symbol/" + factor.get(i);
                 Document doc = new conexionServ().conecta(Url);
-                HGNC.add(busqueda_datos_xml(doc));
+                HGNC.add(busqueda_datos_xml(doc, GO, MESH));
 
             } catch (Exception e) {
                 // System.out.println("no se encuentra "+contenido+" en HUGO");
@@ -163,7 +163,7 @@ public class lecturas_HGNC {
         return nombres;
     }
 
-    private HGNC busqueda_datos_xml(Document doc) {
+    private HGNC busqueda_datos_xml(Document doc, boolean GO, boolean MESH) {
 
         HGNC hgnc = new HGNC();
         NodeList nList = doc.getElementsByTagName("doc");
@@ -238,7 +238,7 @@ public class lecturas_HGNC {
                     ontologiaObjMin ontologia = new ontologiaObjMin();
                     ontologia.setNombre(hgnc.getSimbolo());
                     //Ontologia GO --------------------------------------------
-                    if (elm.getAttribute("name").equals("uniprot_ids")) {
+                    if (elm.getAttribute("name").equals("uniprot_ids") && GO) {
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
                             String codUP = elm.getElementsByTagName("str").item(j).getTextContent();
@@ -250,10 +250,14 @@ public class lecturas_HGNC {
                         }
                     }
                     //ontologia MESH--------------------------------------------
-                    lecturas_MESH letMesh = new lecturas_MESH();
-                    ontologia.getParent().add(letMesh.busquedaTerm(hgnc.getSimbolo()));
+                    if (MESH) {
+                        lecturas_MESH letMesh = new lecturas_MESH();
+                        ontologia.getParent().add(letMesh.busquedaTerm(hgnc.getSimbolo()));
+                    }
                     //----------------------------------------------------------
-                    ontologia.guardarObjeto(ontologia, false, false);
+                    if (GO || MESH) {
+                        ontologia.guardarObjeto(ontologia, GO, MESH);
+                    }
 
                 }
 

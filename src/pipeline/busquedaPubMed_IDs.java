@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class busquedaPubMed_IDs {
 
-    public ArrayList<String> busqueda_IDs(boolean criterioCombinacion, int cantIDs, boolean mostrarComb) {
+    public ArrayList<String> busqueda_IDs(boolean criterioCombinacion, int cantIDs, boolean mostrarComb, configuracion config) {
         System.out.println("\nGenerando combinaciones de objetos...");
         Objs_homologos_Expertos(mostrarComb);
         borrar_archivo("mineria/combinaciones.db");
@@ -50,7 +50,10 @@ public class busquedaPubMed_IDs {
         } finally {
             db.close();
         }
+        config.setCombinaciones(true);
+        config.guardar(config);
         System.out.println("Listo...");
+        
         return consulta_PudMed(cantIDs);
     }
 
@@ -83,7 +86,6 @@ public class busquedaPubMed_IDs {
         } finally {
             db.close();
         }
-
         System.out.println(listaPM.size() + " PudMed IDs Encontrados");
         return listaPM;
     }

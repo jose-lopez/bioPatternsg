@@ -181,6 +181,7 @@ public class complejoProteinico {
         for (int i = 0; i < this.HGNC.size(); i++) {
             if (!Lista.contains(HGNC.get(i).getSimbolo())) {
                 Lista.add(HGNC.get(i).getSimbolo());
+                //System.out.println("nuevo "+HGNC.get(i).getSimbolo());
             }
             
         }

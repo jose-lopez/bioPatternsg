@@ -37,33 +37,41 @@ import jdk.nashorn.internal.parser.TokenType;
 
 public class minado_FT {
 
-    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos) {
+    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos,boolean GO, boolean MESH) {
 
         objetosMineria objetosMineria = new objetosMineria();
         crearCarpeta("mineria");
-        //Se crea un nuevo archivo de Objectos minados
-        new configuracion().guardarConfiguracion(ruta, Iteraciones, numeroObjetos, confiabilidad);
+
+        configuracion config = new configuracion();
+        config.guardarConfiguracion(ruta, Iteraciones, numeroObjetos, confiabilidad,GO,MESH);
+
         new objetosMinados().crear_archivo();
 
-        buscarHomologos(listaObjetos_homologosExperto("homologos"), objetosMineria);
-        buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria);
+        buscarHomologos(listaObjetos_homologosExperto("homologos"), objetosMineria, config,GO,MESH);
+
+        buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria, config,GO,MESH);
 
         //primera Iteracion partiendo de TFBind
-        primeraIteracion(ruta, confiabilidad, numeroObjetos, objetosMineria);
+        primeraIteracion(ruta, confiabilidad, numeroObjetos, objetosMineria, config, new ArrayList<lecturas_TFBIND>(),GO,MESH);
         //Segunda Iteracion en adelante partiendo de nuevos objetos encontrados en PDB
-        Iteraciones(false, new ArrayList<String>(), numeroObjetos, Iteraciones, objetosMineria);
+        Iteraciones(false, new ArrayList<String>(), numeroObjetos, Iteraciones, objetosMineria, config,1,GO,MESH);
     }
 
-    public void primeraIteracion(String ruta, float confiabilidad, int numeroObjetos, objetosMineria objetosMineria) {
+    public void primeraIteracion(String ruta, float confiabilidad, int numeroObjetos, objetosMineria objetosMineria, configuracion config, ArrayList<lecturas_TFBIND> lecturas,boolean GO, boolean MESH) {
         //Primera Iteracion
         System.out.println("\n====Iteracion 0====\n");
         objetosMineria.setIteracion(0);
-        ArrayList<lecturas_TFBIND> lecturasTFB = lecturasTFBID(ruta, confiabilidad);
-        System.out.println("* " + lecturasTFB.size() + " Factores de transcripcion encontrados");
-        new configuracion().guardar_lecturasTFBIND(lecturasTFB);
-        
+        ArrayList<lecturas_TFBIND> lecturasTFB;
+        if (lecturas.size() == 0) {
+            lecturasTFB = lecturasTFBID(ruta, confiabilidad);
+            System.out.println("* " + lecturasTFB.size() + " Factores de transcripcion encontrados");
+            config.setTfbind(lecturasTFB);
+            config.guardar(config);
+        } else {
+            lecturasTFB = lecturas;
+        }
         for (int i = 0; i < lecturasTFB.size(); i++) {
-            factorTranscripcion FT = new factorTranscripcion(lecturasTFB.get(i), numeroObjetos, objetosMineria);
+            factorTranscripcion FT = new factorTranscripcion(lecturasTFB.get(i), numeroObjetos, objetosMineria,GO,MESH);
             objetosMineria.getObjetos_minados().add(FT.getID());
             objetosMineria.agregar_objeto(FT.getComplejoProteinico());
             new objetosMinados().agregar_objetos(FT);
@@ -72,12 +80,15 @@ public class minado_FT {
             FT = null;
         }
         guardar_objetosIteracion(objetosMineria);
+        config.setLecturas_tfbind(true);
+        config.guardar(config);
         objetosMineria.imprimir();
+
     }
 
-    public void Iteraciones(boolean ReinicioMin, ArrayList<String> Lista, int numeroObjetos, int Iteraciones, objetosMineria objetosMineria) {
+    public void Iteraciones(boolean ReinicioMin, ArrayList<String> Lista, int numeroObjetos, int Iteraciones, objetosMineria objetosMineria, configuracion config, int iter,boolean GO, boolean MESH) {
         //Iteracion 2 en adelante
-        for (int i = 1; i < Iteraciones; i++) {
+        for (int i = iter; i < Iteraciones; i++) {
             System.out.println("\n====Iteracion " + (i) + "====\n");
 
             if (!ReinicioMin) {
@@ -87,7 +98,7 @@ public class minado_FT {
             ReinicioMin = false;
 
             for (int j = 0; j < Lista.size(); j++) {
-                factorTranscripcion FT = new factorTranscripcion(Lista.get(j), i, numeroObjetos);
+                factorTranscripcion FT = new factorTranscripcion(Lista.get(j), i, numeroObjetos,GO,MESH);
                 objetosMineria.getObjetos_minados().add(FT.getID());
                 objetosMineria.agregar_objeto(FT.getComplejoProteinico());
                 new objetosMinados().agregar_objetos(FT);
@@ -99,6 +110,8 @@ public class minado_FT {
             guardar_objetosIteracion(objetosMineria);
             objetosMineria.imprimir();
         }
+        config.setProcesoIteraciones(true);
+        config.guardar(config);
     }
 //  se obtinen lecturas de TFBIND recibe la ruta del archivo bloquesconsenso 
 //  y el porsentaje de confiabnilidad, debuelve un listado con los factores de transcripcion 
@@ -114,7 +127,7 @@ public class minado_FT {
     public void reanudarMinado() {
 
         configuracion conf = new configuracion();
-        conf.verconfiguracion();
+        conf.obtener();
 
         objetosMineria objMin = new objetosMineria();
         objMin = recuperarObjetosMin();
@@ -179,7 +192,7 @@ public class minado_FT {
         return obj;
     }
 
-    private void crearCarpeta(String nombre) {
+    public void crearCarpeta(String nombre) {
         File f = new File(nombre);
         try {
             borrarDirectorio(f);
@@ -220,7 +233,7 @@ public class minado_FT {
 
     }
 
-    private void borrar_archivo(String nombre) {
+    public void borrar_archivo(String nombre) {
         try {
             File ficherod = new File(nombre);
             ficherod.delete();
@@ -278,29 +291,32 @@ public class minado_FT {
 
     }
 
-    public void buscarHomologos(ArrayList<String> lista, objetosMineria objetosMineria) {
+    public void buscarHomologos(ArrayList<String> lista, objetosMineria objetosMineria, configuracion config, boolean GO, boolean MESH) {
         System.out.println("\n**Leyendo archivo de Homologos...");
         for (int i = 0; i < lista.size(); i++) {
             System.out.println("busqueda.." + lista.get(i));
             objetos_Experto objExp = new objetos_Experto();
             objExp.setID(lista.get(i));
-            objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(lista.get(i)));
+            objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(lista.get(i),GO,MESH));
             new objetosMinados().agregar_objetos(objExp);
 
             for (int j = 0; j < objExp.getHGNC().size(); j++) {
                 objetosMineria.agregar_objeto(objExp.getHGNC().get(j));
             }
             guardarObjetos_Homologos_Experto(objExp);
+
         }
+        config.setHomologos(true);
+        config.guardar(config);
     }
 
-    public void buscarObjetosExperto(ArrayList<String> lista, objetosMineria objetosMineria) {
+    public void buscarObjetosExperto(ArrayList<String> lista, objetosMineria objetosMineria, configuracion config,boolean GO, boolean MESH) {
         System.out.println("\n**Leyendo archivo de Objetos Experto...");
         for (int i = 0; i < lista.size(); i++) {
             System.out.println("busqueda.." + lista.get(i));
             objetos_Experto objExp = new objetos_Experto();
             objExp.setID(lista.get(i));
-            objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(lista.get(i)));
+            objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(lista.get(i),GO,MESH));
             new objetosMinados().agregar_objetos(objExp);
 
             for (int j = 0; j < objExp.getHGNC().size(); j++) {
@@ -308,6 +324,8 @@ public class minado_FT {
             }
             guardarObjetos_Homologos_Experto(objExp);
         }
+        config.setObjetosExperto(true);
+        config.guardar(config);
     }
 
     private ArrayList<String> listaObjetos_homologosExperto(String ruta) {
@@ -342,7 +360,7 @@ public class minado_FT {
 
     }
 
-    public void vaciar_bc_pl() {
+    public void vaciar_bc_pl(boolean GO,boolean MESH) {
 
         ObjectContainer db = Db4o.openFile("mineria/FT.db");
         factorTranscripcion FT = new factorTranscripcion();
@@ -363,7 +381,7 @@ public class minado_FT {
         }
 
         ontologiaObjMin ontologias = new ontologiaObjMin();
-        ontologias.vaciarOntologia_pl(true, true);
+        ontologias.vaciarOntologia_pl(GO, MESH);
 
     }
 }
@@ -416,6 +434,7 @@ class objetosMineria {
     public void agregarObjetosMinado(String objeto) {
         if (objeto != null) {
             this.objetos_minados.add(objeto);
+            
         }
     }
 
@@ -437,6 +456,15 @@ class objetosMineria {
 
         }
 
+    }
+    
+    public void agregar_objeto(String objeto){
+        if(!objetos_minados.contains(objeto)){
+            if(!nuevos_objetos.contains(objeto) && objeto != null){
+                nuevos_objetos.add(objeto);
+                //System.out.println("nuevo "+objeto);
+            }
+        }
     }
 
     public void agregar_objeto(ArrayList<complejoProteinico> objetos) {
