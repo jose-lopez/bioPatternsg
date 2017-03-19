@@ -123,7 +123,7 @@ public class BioPattern {
          * listas_FTs contendra todos los objetos minados en todas las iteraciones; tambien una lista por iteracion.
          * Estos se emplearan mas adelante para organizar regiones promotoras.
          */
-        float conf = Float.parseFloat(confiabilidad);  //confiabilidad de las busquedas en tfbind
+        /*float conf = Float.parseFloat(confiabilidad);  //confiabilidad de las busquedas en tfbind
 
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
         minado_FT mfts = new minado_FT();
@@ -137,7 +137,8 @@ public class BioPattern {
             new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500); // Número máximo de abstracts por archivo
         } catch (Exception ex) {
             Logger.getLogger(BioPattern.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+        }
+        */
         
         new Resumidor().resumidor();
 

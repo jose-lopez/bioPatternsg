@@ -69,19 +69,19 @@ public class Resumidor {
         int n = 1;
         String salida = "", entrada = "";
         
-         while (buscarArchivo(n)) {
+         while (buscarAbstractHtml(n)) {
 
             //metodo que llama al consultResumidor
             salida = "salida_" + n + ".html";
-            entrada = "abstracts/abstracts_" + n + ".html";
+            entrada = "abstracts_" + n + ".html";
             System.out.println("Resumiendo abstracts_" + n + "................");
             
             resumir(entrada, n, salida);
 
             //recibe la ruta del resumen y genera un archivo txt
             //en la carpeta abstracts llamado resumen_(n).txt 
-            salida = "resumidor_bioinformante/salida_" + n + ".html";
-            generar_salidaTXT(n, salida);
+            salida = "abstracts/salida_" + n + ".html";
+            generarResumenTXT(n, salida);
             n++;
         }
               
@@ -89,17 +89,18 @@ public class Resumidor {
         
     }
     
-     private boolean buscarArchivo(int n){
+     private boolean buscarAbstractHtml(int n){
         boolean encontrado = true;
         File archivo = null;
-        FileReader fr = null;
-        BufferedReader br = null;
+        
+       
         String nombre_archivo = "abstracts/abstracts_" + n + ".html";
 
         try {
             archivo = new File(nombre_archivo);
-            fr = new FileReader(archivo);
-            br = new BufferedReader(fr);
+            
+            encontrado = archivo.exists();
+           
         } catch (Exception e) {
             encontrado = false;
         }
@@ -107,11 +108,13 @@ public class Resumidor {
         return encontrado;
     }
 
-    public void generar_salidaTXT(int n, String ruta) throws Exception {
+    public void generarResumenTXT(int n, String ruta) throws Exception {
         String nombre_archivo = "abstracts/resumen_" + n + ".txt";
 
         File archivo_fuente = new File(ruta);
         File archivo_destino = new File(nombre_archivo);
+        
+        //archivo_destino.delete();
 
         BufferedWriter escribir;
         BufferedReader leer;
@@ -151,6 +154,9 @@ public class Resumidor {
             System.out.println("archivo no localizado");
 
         }
+        
+        //archivo_fuente.delete();
+        
 
     }
 
@@ -160,8 +166,8 @@ public class Resumidor {
         String resumirComando = "tell('" + salida + "')" + ", resume('" + abstracts + "'), told.";
         //String resumirComando = "tell('salida_1_p.html'), resume('abstracts_1.html'), told.";
 
-        Query q = new Query("cd(resumidor_bioinformante).");
-        System.out.println("cambio a directorio resumidor_bioinformante:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+        Query q = new Query("cd(abstracts).");
+        System.out.println("cambio a directorio abstracts:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
 
         try {
