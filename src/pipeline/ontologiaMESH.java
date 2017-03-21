@@ -66,7 +66,7 @@ public class ontologiaMESH {
         objeto = consultarBD(objeto);
         
         if (obj != null && objeto.getNombre() != null) {
-            String cadena = "is_a(\'" + obj + "\',\'" + objeto.getNombre() + "\').";
+            String cadena = "is_a(\"" + obj + "\",\"" + objeto.getNombre() + "\").";
             new escribirBC(cadena,archivo);
             
         }
@@ -118,7 +118,7 @@ public class ontologiaMESH {
         
         for (int i = 0; i < objeto.getParent().size(); i++) {
             if (!objeto.getParent().get(i).equals("1000048")) {
-                buscarObjeto(objeto.getParent().get(i), nivel, "parent->  ");
+                buscarObjeto(objeto.getParent().get(i), nivel, "is a->  ");
             }
             
         }
