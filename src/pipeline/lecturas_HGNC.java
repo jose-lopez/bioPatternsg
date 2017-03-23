@@ -138,18 +138,21 @@ public class lecturas_HGNC {
         for (int i = 0; i < nList.getLength(); i++) {
             nNode = nList.item(i);
             Element elemento = (Element) nNode;
+            
+            //opcion = 0; Se toman todos los simbolos con que tengan la mejor ponderacion 
             if (opcion == 0) {
                 if (score == Float.parseFloat(elemento.getElementsByTagName("float").item(0).getTextContent())) {
                     //System.out.println(" simbolo "+elemento.getElementsByTagName("str").item(1).getTextContent());
                     nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
                 }
+            //opcion = -1; Se toman todos los simbolos que muestre la busqueda
             } else if (opcion == -1) {
-
+                
                 if (elemento.getElementsByTagName("str").item(1).getTextContent().equals(palabra)) {
                     nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
                     break;
                 }
-
+            //opcion >= 1; Se toman tantos simbolos como sea el valor de la variable opcion
             } else if (opcion >= 1) {
                 if (cont < opcion) {
                     cont++;
