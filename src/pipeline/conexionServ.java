@@ -67,7 +67,7 @@ public class conexionServ {
             }
         }
         if(cont>=10){
-            System.out.println("Error de conexion imposible acceder a: "+Url);
+          //  System.out.println("Error de conexion imposible acceder a: "+Url);
         }
 
         return doc;

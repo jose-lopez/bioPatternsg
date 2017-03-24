@@ -133,7 +133,7 @@ public class ontologiaGO {
         objeto = consultarBD(objeto);
 
         if (obj != null) {
-            String cadena = relacion + "(\'" + obj + "\',\'" + objeto.getNombre() + "\').";
+            String cadena = relacion + "(\"" + obj + "\",\"" + objeto.getNombre() + "\").";
             new escribirBC(cadena,archivo);
         }
         if (!listObj.contains(GO)) {

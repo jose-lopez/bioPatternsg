@@ -121,7 +121,7 @@ public class complejoProteinico {
 
     public void vaciar_pl(String archivo) {
 
-        new escribirBC("complejo(\'" + ID + "\').",archivo);
+        new escribirBC("complejo(\"" + ID + "\").",archivo);
         for (int i = 0; i < ligandos.size(); i++) {
             ligandos.get(i).vaciar_pl(archivo);
         }
@@ -129,24 +129,25 @@ public class complejoProteinico {
         String cadena = "[";
         for (int i = 0; i < HGNC.size(); i++) {
             if (cadena.equals("[")) {
-                cadena += "\'" + HGNC.get(i).getSimbolo() + "\'";
+                cadena += "\"" + HGNC.get(i).getSimbolo() + "\"";
             } else {
-                cadena += ",\'" + HGNC.get(i).getSimbolo() + "\'";
+                cadena += ",\"" + HGNC.get(i).getSimbolo() + "\"";
             }
         }
         cadena += "]";
         if (!cadena.equals("[]")) {
-            new escribirBC("componentes(\'" + ID + "\'," + cadena + ").",archivo);
+            new escribirBC("componentes(\"" + ID + "\"," + cadena + ").",archivo);
         }
         
         
         for (int i = 0; i < HGNC.size(); i++) {
-            cadena = "[\'"+HGNC.get(i).getNombre()+"\'";
+            cadena = "[\""+HGNC.get(i).getSimbolo()+"\",";
+            cadena += "\""+HGNC.get(i).getNombre()+"\"";
             for (int j = 0; j < HGNC.get(i).getSinonimos().size(); j++) {
-                cadena+=",\'"+HGNC.get(i).getSinonimos().get(j)+"\'";
+                cadena+=",\""+HGNC.get(i).getSinonimos().get(j)+"\"";
             }
             cadena+="]";
-            new escribirBC("sinonimos(\'"+HGNC.get(i).getSimbolo()+"\',"+cadena+").", archivo);
+            new escribirBC("sinonimos(\""+HGNC.get(i).getSimbolo()+"\","+cadena+").", archivo);
         }
 
     }

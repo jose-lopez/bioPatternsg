@@ -180,30 +180,30 @@ public class factorTranscripcion {
             complejoProteinico.get(i).vaciar_pl(archivo);
             for (int j = 0; j < complejoProteinico.get(i).getLigandos().size(); j++) {
                 if (ligandos.equals("[")) {
-                    ligandos += "\'" + complejoProteinico.get(i).getLigandos().get(j).getId() + "\'";
+                    ligandos += "\"" + complejoProteinico.get(i).getLigandos().get(j).getId() + "\"";
                 } else {
-                    ligandos += ",\'" + complejoProteinico.get(i).getLigandos().get(j).getId() + "\'";
+                    ligandos += ",\"" + complejoProteinico.get(i).getLigandos().get(j).getId() + "\"";
                 }
             }
         }
         ligandos+="]";
         if (!ligandos.equals("[]")) {
-            new escribirBC("ligandos(\'"+ID+"\',"+ligandos+").",archivo);
+            new escribirBC("ligandos(\""+ID+"\","+ligandos+").",archivo);
         }
         String cadena = "[";
         for (int i = 0; i < HGNC.size(); i++) {
             
-            if(HGNC.get(i).equals(ID)){
-                cadena +="\'"+HGNC.get(i).getNombre()+"\'";
+            if(HGNC.get(i).getSimbolo().equals(ID)){
+                cadena +="\""+HGNC.get(i).getSimbolo()+"\",";
+                cadena +="\""+HGNC.get(i).getNombre()+"\"";
                 for (int j = 0; j < HGNC.get(i).getSinonimos().size(); j++) {
-                    cadena+=",\'"+HGNC.get(i).getSinonimos()+"\'";
-                    
+                    cadena+=",\""+HGNC.get(i).getSinonimos().get(j)+"\"";
                 }
                 break;
             }
         }
         cadena+="]";
-        new escribirBC("sinonimos(\'"+ID+"\',"+cadena+").", archivo);
+        new escribirBC("sinonimos(\""+ID+"\","+cadena+").", archivo);
     }
 
     private lecturas_HGNC lecturasHGNC(String ID,boolean GO,boolean MESH) {
