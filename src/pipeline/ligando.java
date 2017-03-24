@@ -27,6 +27,12 @@
  */
 package pipeline;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
 /**
  *
  * @author yacson
@@ -44,7 +50,14 @@ public class ligando {
         System.out.println("    -Ligando ID: "+id+ "  Nombre: "+nombre);
                 
     }
-
+    
+    public void vaciar_pl(String archivo){
+        String cadena = "ligando(\'"+id+"\').";
+        new escribirBC(cadena,archivo);
+        cadena = "sinonimos(\'"+id+"\',[\'"+nombre+"\']).";
+        new escribirBC(cadena, archivo);
+    }
+       
     public String getId() {
         return id;
     }

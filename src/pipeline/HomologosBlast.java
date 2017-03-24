@@ -70,7 +70,7 @@ public class HomologosBlast {
 
             String command;
 
-            command = "blastx -query " + secuencia + " -out salidaBlast -db pdbaa -task blastx";
+            command = "blastx -query " + secuencia + " -out salidaBlastCYP1A1 -db pdbaa -task blastx";
             final Process r = Runtime.getRuntime().exec(command);
             BufferedReader in = new BufferedReader(new InputStreamReader(r.getInputStream()));
             String line;
@@ -284,16 +284,12 @@ public class HomologosBlast {
     }
 
 
-
-
-
-
     public void prepararIDsH() {
 
         FileReader buf = null;
         des = new Vector<String>();
         try {
-            buf = new FileReader(new File("salidaBlast"));
+            buf = new FileReader(new File("salidaBlastCYP1A1"));
             FileWriter s = new FileWriter(new File("salidaBlast_IDs"));
             es = new PrintWriter(s);
             FileWriter ss = new FileWriter(new File("salidaBlast_des"));

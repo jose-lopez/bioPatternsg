@@ -17,13 +17,13 @@ import org.w3c.dom.NodeList;
  */
 public class lecturas_PDB {
 
-    public complejoProteinico Busqueda_PDB(String cp, boolean criterio, int opcion) {
+    public complejoProteinico Busqueda_PDB(String cp, boolean GO, boolean MESH) {
         complejoProteinico CP = new complejoProteinico();
         CP.setID(cp);
         String url = "http://www.rcsb.org/pdb/rest/describeMol?structureId=" + cp;
         try {
             System.out.print("leyendo: " + cp + "  ");
-            revisa_xml_PDB(new conexionServ().conecta(url), CP, criterio, opcion);
+            revisa_xml_PDB(new conexionServ().conecta(url), CP, GO, MESH);
             System.out.println("   ....ok");
         } catch (Exception ex) {
 
@@ -32,7 +32,7 @@ public class lecturas_PDB {
     }
 
     //busquedas PDB   
-    private void revisa_xml_PDB(Document doc, complejoProteinico cp, boolean criterio, int opcion) {
+    private void revisa_xml_PDB(Document doc, complejoProteinico cp, boolean GO, boolean MESH) {
 
         NodeList nList = doc.getElementsByTagName("polymerDescription");
 
@@ -61,18 +61,25 @@ public class lecturas_PDB {
 
                     String partes_etiqueta[] = etiqueta.split("/");
                     for (int j = 0; j < partes_etiqueta.length; j++) {
-                        lecturas_HGNC HGNC = new lecturas_HGNC();
-                        HGNC.busquedaInfGen(partes_etiqueta[j], criterio, opcion);
-                        boolean encontrado = false;
-                        for (int k = 0; k < cp.getHGNC().size(); k++) {
-                            if (cp.getHGNC().get(k).getID().equals(HGNC.getID())) {
-                                encontrado = true;
-                                break;
+                        //lecturas_HGNC HGNC = new lecturas_HGNC();
+                        //HGNC.busquedaInfGen(partes_etiqueta[j]);
+
+                        ArrayList<HGNC> L_HGNC = new lecturas_HGNC().busquedaInfGen(partes_etiqueta[j], GO, MESH);
+
+                        for (int l = 0; l < L_HGNC.size(); l++) {
+                            boolean encontrado = false;
+                            for (int k = 0; k < cp.getHGNC().size(); k++) {
+                                if (cp.getHGNC().get(k).getSimbolo().equals(L_HGNC.get(l).getSimbolo())) {
+                                    encontrado = true;
+                                    break;
+                                }
                             }
+                            if (!encontrado) {
+                                cp.getHGNC().add(L_HGNC.get(l));
+                            }
+
                         }
-                        if (!encontrado) {
-                            cp.getHGNC().add(HGNC);
-                        }
+
                     }
 
                 }

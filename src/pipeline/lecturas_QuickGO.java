@@ -18,8 +18,8 @@ import org.w3c.dom.NodeList;
  */
 public class lecturas_QuickGO {
 
-    public ontologia obtenerOntologia(String codigo) {
-        ontologia ontologia = new ontologia();
+    public ontologiaGO obtenerOntologia(String codigo) {
+        ontologiaGO ontologia = new ontologiaGO();
 
         String url = "http://www.ebi.ac.uk/QuickGO/GTerm?id=" + codigo + "&format=oboxml&term=ancchart";
         try {
@@ -31,8 +31,8 @@ public class lecturas_QuickGO {
         return ontologia;
     }
 
-    private ontologia revisa_xml(Document doc) {
-        ontologia ontologia = new ontologia();
+    private ontologiaGO revisa_xml(Document doc) {
+        ontologiaGO ontologia = new ontologiaGO();
 
         NodeList nList = doc.getElementsByTagName("term");
 
@@ -71,7 +71,7 @@ public class lecturas_QuickGO {
                     type = type.replaceAll("^\\s*","");
                     to = to.replaceAll("\\s*$","");
                     to = to.replaceAll("^\\s*","");
-                    
+                    //System.out.println(typ);
                     if(type.equals("part_of")){
                         ontologia.getPart_of().add(to);
                     }else if(type.equals("regulates")){

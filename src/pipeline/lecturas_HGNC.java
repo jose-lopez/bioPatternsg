@@ -23,53 +23,52 @@ import org.w3c.dom.NodeList;
  *
  * @author yacson-ramirez
  */
-
 public class lecturas_HGNC {
 
-    private String ID;
-    private ArrayList<String> sinonimosExperto;
-    private ArrayList<HGNC> HGNC;
-
     public lecturas_HGNC() {
-        HGNC = new ArrayList<>();
-        sinonimosExperto = new ArrayList<>();
+
     }
 
-    public void busquedaInfGen(String contenido, boolean criterio, int opcion) {
+    public ArrayList<HGNC> busquedaInfGen(String contenido, boolean GO, boolean MESH) {
+        ArrayList<HGNC> HGNC = new ArrayList<>();
 
-        String lectura = contenido.replace(" ", "+");
-        lecturas_pathwaycommons lpat = new lecturas_pathwaycommons();
-        String cUP = lpat.obtenercodigoUP(lectura);
-        //System.out.println("cod_UP: " + cUP);
+        try {
+            String lectura = contenido.replace(" ", "+");//se formatea la etiqueta para usarla en pathway commons
+            lecturas_pathwaycommons lpat = new lecturas_pathwaycommons();
+            String cUP = lpat.obtenercodigoUP(lectura);// Se utiliza el motor de busqueda de pathway commons y se obtiene el objeto mejor ponderado
 
-        if (!cUP.equals("")) {
-            lecturas_Uniprot UP = new lecturas_Uniprot(cUP);
-            UP.obtener_Nombre();
-            lectura = UP.getSimbolo();
-            criterio = false;
+            if (!cUP.equals("")) {
+                lecturas_Uniprot UP = new lecturas_Uniprot(cUP);
+                UP.obtener_Nombre();//Nombre recomendado Uniprot
+                lectura = UP.getSimbolo();//Simbolo recomendado Uniprot
 
-            if (!busqueda_genenames(lectura, criterio, 0)) {
-
-                lectura = UP.getNombre();
-                if (!busqueda_genenames(lectura, criterio, 0)) {
-                    busqueda_genenames(contenido, true, 0);
+                //busqueda de informacion usando el simbolo recomendado Uniprot
+                if (!busqueda_genenames(lectura, false, 0, HGNC, GO, MESH)) {
+                    //Si no se consigue informacion con el simbolo se hace la busqueda por el nombre recomendado por Uniprot
+                    lectura = UP.getNombre();
+                    if (!busqueda_genenames(lectura, false, 0, HGNC, GO, MESH)) {
+                        //Si no se encuentra informacion con el nombre se Usa la etiqueta original y otro criterio de busqueda en genenames
+                        busqueda_genenames(contenido, true, 0, HGNC, GO, MESH);
+                    }
                 }
+
+            } else {
+                //Si no se encuentra ningun resultado en pathwaycommons se utiliza la etiqueta original
+                busqueda_genenames(contenido, true, 0, HGNC, GO, MESH);
             }
+        } catch (Exception e) {
 
-        }else{
-            busqueda_genenames(contenido, true, 0);
         }
-
+        return HGNC;
     }
 
-    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion) {
+    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion, ArrayList<HGNC> HGNC, boolean GO, boolean MESH) {
 
         ArrayList<String> factor = new ArrayList<>();
         if (criterio) {
             String cri = obtener_factor(contenido);
             try {
                 cri = cri.replace(" ", "+");
-                setID(cri);
 
                 String Url = "http://rest.genenames.org/search/" + cri;
                 Document doc = new conexionServ().conecta(Url);
@@ -77,7 +76,6 @@ public class lecturas_HGNC {
             } catch (Exception e) {
                 try {
                     contenido = contenido.replace(" ", "+");
-                    setID(contenido);
                     String Url = "http://rest.genenames.org/search/" + contenido;
                     Document doc = new conexionServ().conecta(Url);
                     factor = busqueda_lista_xml(doc, opcion, cri);
@@ -89,7 +87,6 @@ public class lecturas_HGNC {
         } else {
 
             try {
-                setID(contenido);
                 contenido = contenido.replace(" ", "+");
                 String Url = "http://rest.genenames.org/search/" + contenido;
                 Document doc = new conexionServ().conecta(Url);
@@ -113,7 +110,7 @@ public class lecturas_HGNC {
                 //System.out.println("Simbolo HUGO: " + factor.get(i));
                 String Url = "http://rest.genenames.org/fetch/symbol/" + factor.get(i);
                 Document doc = new conexionServ().conecta(Url);
-                busqueda_datos_xml(doc);
+                HGNC.add(busqueda_datos_xml(doc, GO, MESH));
 
             } catch (Exception e) {
                 // System.out.println("no se encuentra "+contenido+" en HUGO");
@@ -166,7 +163,7 @@ public class lecturas_HGNC {
         return nombres;
     }
 
-    private void busqueda_datos_xml(Document doc) {
+    private HGNC busqueda_datos_xml(Document doc, boolean GO, boolean MESH) {
 
         HGNC hgnc = new HGNC();
         NodeList nList = doc.getElementsByTagName("doc");
@@ -236,37 +233,48 @@ public class lecturas_HGNC {
                         }
 
                     }
-                    //---------------------------------------------------
-                    //Ontologia
-                    if (elm.getAttribute("name").equals("uniprot_ids")) {
-
+                    //-----------------------------------------------------------
+                    //Busqueda de Ontologias
+                    ontologiaObjMin ontologia = new ontologiaObjMin();
+                    ontologia.setNombre(hgnc.getSimbolo());
+                    //Ontologia GO --------------------------------------------
+                    if (elm.getAttribute("name").equals("uniprot_ids") && GO) {
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
-                            String codUP = elm.getElementsByTagName("str").item(j).getTextContent();
-                            lecturas_Uniprot letUP = new lecturas_Uniprot(codUP);
-                            ObjetosMinadosGO objGO = new ObjetosMinadosGO();
-                            objGO.setNombre(hgnc.getSimbolo());
-                            letUP.Codigos_GO();
-                            objGO.setFuncionMolecular(letUP.getFuncionMolecular());
-                            objGO.setComponenteCelular(letUP.getComponenteCelular());
-                            objGO.setProcesoBiologico(letUP.getProcesoBiologico());
-                            objGO.guardarObjeto(objGO);
-                                                                                    
-                        }
+                            try {
+                                String codUP = elm.getElementsByTagName("str").item(j).getTextContent();
+                                lecturas_Uniprot letUP = new lecturas_Uniprot(codUP);
+                                letUP.Codigos_GO();
+                                ontologia.setFuncionMolecular(letUP.getFuncionMolecular());
+                                ontologia.setComponenteCelular(letUP.getComponenteCelular());
+                                ontologia.setProcesoBiologico(letUP.getProcesoBiologico());
+                            } catch (Exception e) {
 
+                            }
+                        }
                     }
-                    
+                    //ontologia MESH--------------------------------------------
+                    if (MESH) {
+                        try {
+                            lecturas_MESH letMesh = new lecturas_MESH();
+                            ontologia.getParent().add(letMesh.busquedaTerm(hgnc.getSimbolo()));
+                        } catch (Exception e) {
+
+                        }
+                    }
+                    //----------------------------------------------------------
+                    if (GO || MESH) {
+                        ontologia.guardarObjeto(ontologia, GO, MESH);
+                    }
+
                 }
 
             }
 
         }
-        HGNC.add(hgnc);
-       
-
+        return hgnc;
     }
-    
-    
+
     public String obtener_factor(String desc) {
         String pal = "";
         String[] palabras = desc.split(" ");
@@ -350,51 +358,6 @@ public class lecturas_HGNC {
         return false;
     }
 
-    public void imprimir() {
-        System.out.println("Lecturas HGNC");
-        System.out.println("    ID: " + ID);
-        System.out.println("-------------------------------");
-        for (int i = 0; i < HGNC.size(); i++) {
-            HGNC.get(i).imprimir();
-        }
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    public ArrayList<HGNC> getHGNC() {
-        return HGNC;
-    }
-
-    public void setHGNC(ArrayList<HGNC> HGNC) {
-        this.HGNC = HGNC;
-    }
-
-    public ArrayList<String> getSinonimosExperto() {
-        return sinonimosExperto;
-    }
-
-    public void setSinonimosExperto(ArrayList<String> sinonimosExperto) {
-        this.sinonimosExperto = sinonimosExperto;
-    }
-
-    public ArrayList<String> listaNombres() {
-        ArrayList<String> lista = new ArrayList<>();
-        lista.add(ID);
-        for (int i = 0; i < HGNC.size(); i++) {
-
-            lista.addAll(HGNC.get(i).ListaNombres());
-
-        }
-
-        return lista;
-    }
-
 }
 
 class HGNC {
@@ -405,7 +368,7 @@ class HGNC {
     private String ensembl_gene_id;
     private ArrayList<String> sinonimos;
     private ArrayList<String> gene_family;
-   
+
     public HGNC() {
         sinonimos = new ArrayList<>();
         gene_family = new ArrayList<>();

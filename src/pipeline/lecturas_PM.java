@@ -63,7 +63,7 @@ public class lecturas_PM {
         return listID;
     }
 
-    public void BusquedaPM_Abstracts(ArrayList<String> listaIDs, String fileAbstID, int cant_por_archivo) throws Exception {
+    public void BusquedaPM_Abstracts(ArrayList<String> listaIDs, String fileAbstID, int cant_por_archivo,configuracion config){
 
         crearCarpeta(fileAbstID);
         String cabecera = "<!DOCTYPE html>\r"
@@ -108,6 +108,8 @@ public class lecturas_PM {
 
             }
         }
+        config.setAbstracts(true);
+        config.guardar(config);
         System.out.println("Listo..");
 
                 

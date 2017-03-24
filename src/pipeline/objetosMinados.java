@@ -27,7 +27,7 @@ public class objetosMinados {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("objetosMinados.txt");
+            fichero = new FileWriter("mineria/objetosMinados.txt");
         } catch (IOException ex) {
             Logger.getLogger(minado_FT.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -39,26 +39,26 @@ public class objetosMinados {
         String cadena = "";
         if (!revisar_en_archivo(FT.getID())) {
             ArrayList<String> listaObj = new ArrayList<>();
-            if (FT.getLecturas_HGNC().getHGNC().size() > 0 && FT.getLecturas_HGNC().getHGNC().get(0).getSimbolo().equals(FT.getID())) {
+            if (FT.getHGNC().size() > 0 && FT.getHGNC().get(0).getSimbolo().equals(FT.getID())) {
                 agregar_a_lista(listaObj, FT.getID());
-                agregar_a_lista(listaObj, FT.getLecturas_HGNC().getHGNC().get(0).getNombre());
+                agregar_a_lista(listaObj, FT.getHGNC().get(0).getNombre());
 
-                for (int i = 0; i < FT.getLecturas_HGNC().getHGNC().get(0).getSinonimos().size(); i++) {
-                    agregar_a_lista(listaObj, FT.getLecturas_HGNC().getHGNC().get(0).getSinonimos().get(i));
+                for (int i = 0; i < FT.getHGNC().get(0).getSinonimos().size(); i++) {
+                    agregar_a_lista(listaObj, FT.getHGNC().get(0).getSinonimos().get(i));
 
                 }
                 escribir_en_archivo(construirCadena(listaObj));
 
             } else {
                 escribir_en_archivo(FT.getID());
-                for (int i = 0; i < FT.getLecturas_HGNC().getHGNC().size(); i++) {
+                for (int i = 0; i < FT.getHGNC().size(); i++) {
                     listaObj = new ArrayList<>();
-                    if (!revisar_en_archivo(FT.getLecturas_HGNC().getHGNC().get(i).getSimbolo())) {
-                        agregar_a_lista(listaObj, FT.getLecturas_HGNC().getHGNC().get(i).getSimbolo());
-                        agregar_a_lista(listaObj, FT.getLecturas_HGNC().getHGNC().get(i).getNombre());
+                    if (!revisar_en_archivo(FT.getHGNC().get(i).getSimbolo())) {
+                        agregar_a_lista(listaObj, FT.getHGNC().get(i).getSimbolo());
+                        agregar_a_lista(listaObj, FT.getHGNC().get(i).getNombre());
 
-                        for (int j = 0; j < FT.getLecturas_HGNC().getHGNC().get(i).getSinonimos().size(); j++) {
-                            agregar_a_lista(listaObj, FT.getLecturas_HGNC().getHGNC().get(i).getSinonimos().get(j));
+                        for (int j = 0; j < FT.getHGNC().get(i).getSinonimos().size(); j++) {
+                            agregar_a_lista(listaObj, FT.getHGNC().get(i).getSinonimos().get(j));
                         }
                         escribir_en_archivo(construirCadena(listaObj));
                     }
@@ -71,7 +71,7 @@ public class objetosMinados {
                 agregar_objetos(FT.getComplejoProteinico().get(i).getHGNC().get(j));
                 for (int k = 0; k < FT.getComplejoProteinico().get(i).getLigandos().size(); k++) {
                     if (!revisar_en_archivo(FT.getComplejoProteinico().get(i).getLigandos().get(k).getId())) {
-                        String Cadena = FT.getComplejoProteinico().get(i).getLigandos().get(k).getId()+";"+FT.getComplejoProteinico().get(i).getLigandos().get(k).getNombre();
+                        String Cadena = FT.getComplejoProteinico().get(i).getLigandos().get(k).getId() + ";" + FT.getComplejoProteinico().get(i).getLigandos().get(k).getNombre();
                         escribir_en_archivo(Cadena);
                     }
                 }
@@ -79,28 +79,42 @@ public class objetosMinados {
         }
     }
 
-    public void agregar_objetos(lecturas_HGNC HGNC) {
+    public void agregar_objetos(HGNC HGNC) {
+       
+        if (!revisar_en_archivo(HGNC.getSimbolo())) {
+            ArrayList<String> listaObj = new ArrayList<>();
+            agregar_a_lista(listaObj, HGNC.getSimbolo());
+            agregar_a_lista(listaObj, HGNC.getNombre());
+            for (int j = 0; j < HGNC.getSinonimos().size(); j++) {
+                agregar_a_lista(listaObj, HGNC.getSinonimos().get(j));
+            }
+            escribir_en_archivo(construirCadena(listaObj));
 
-        if (!revisar_en_archivo(HGNC.getID())) {
+        }
+    }
 
-            if (HGNC.getHGNC().size() > 0 && HGNC.getID().equals(HGNC.getHGNC().get(0).getSimbolo())) {
+    public void agregar_objetos(objetos_Experto objExp) {
+        
+        if (!revisar_en_archivo(objExp.getID())) {
+
+            if (objExp.getHGNC().size() > 0 && objExp.getID().equals(objExp.getHGNC().get(0).getSimbolo())) {
                 ArrayList<String> listaObj = new ArrayList<>();
-                agregar_a_lista(listaObj, HGNC.getID());
-                agregar_a_lista(listaObj, HGNC.getHGNC().get(0).getNombre());
+                agregar_a_lista(listaObj, objExp.getID());
+                agregar_a_lista(listaObj, objExp.getHGNC().get(0).getNombre());
 
-                for (int i = 0; i < HGNC.getHGNC().get(0).getSinonimos().size(); i++) {
-                    agregar_a_lista(listaObj, HGNC.getHGNC().get(0).getSinonimos().get(i));
+                for (int i = 0; i < objExp.getHGNC().get(0).getSinonimos().size(); i++) {
+                    agregar_a_lista(listaObj, objExp.getHGNC().get(0).getSinonimos().get(i));
                 }
                 escribir_en_archivo(construirCadena(listaObj));
             } else {
-                escribir_en_archivo(HGNC.getID());
-                for (int i = 0; i < HGNC.getHGNC().size(); i++) {
-                    if (!revisar_en_archivo(HGNC.getHGNC().get(i).getSimbolo())) {
+                escribir_en_archivo(objExp.getID());
+                for (int i = 0; i < objExp.getHGNC().size(); i++) {
+                    if (!revisar_en_archivo(objExp.getHGNC().get(i).getSimbolo())) {
                         ArrayList<String> listaObj = new ArrayList<>();
-                        agregar_a_lista(listaObj, HGNC.getHGNC().get(i).getSimbolo());
-                        agregar_a_lista(listaObj, HGNC.getHGNC().get(i).getNombre());
-                        for (int j = 0; j < HGNC.getHGNC().get(i).getSinonimos().size(); j++) {
-                            agregar_a_lista(listaObj,HGNC.getHGNC().get(i).getSinonimos().get(j) );
+                        agregar_a_lista(listaObj, objExp.getHGNC().get(i).getSimbolo());
+                        agregar_a_lista(listaObj, objExp.getHGNC().get(i).getNombre());
+                        for (int j = 0; j < objExp.getHGNC().get(i).getSinonimos().size(); j++) {
+                            agregar_a_lista(listaObj, objExp.getHGNC().get(i).getSinonimos().get(j));
                         }
                         escribir_en_archivo(construirCadena(listaObj));
                     }
@@ -119,7 +133,7 @@ public class objetosMinados {
         BufferedReader br = null;
 
         try {
-            archivo = new File("objetosMinados.txt");
+            archivo = new File("mineria/objetosMinados.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             String linea;
@@ -137,24 +151,25 @@ public class objetosMinados {
     }
 
     private void escribir_en_archivo(String cadena) {
-
         FileWriter fichero = null;
         PrintWriter pw = null;
-        try {
-            fichero = new FileWriter("objetosMinados.txt", true);
-            pw = new PrintWriter(fichero);
-
-            pw.println(cadena);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
+        if (!cadena.equals("null")) {
             try {
-                if (null != fichero) {
-                    fichero.close();
+                fichero = new FileWriter("mineria/objetosMinados.txt", true);
+                pw = new PrintWriter(fichero);
+
+                pw.println(cadena);
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (null != fichero) {
+                        fichero.close();
+                    }
+                } catch (Exception e2) {
+                    e2.printStackTrace();
                 }
-            } catch (Exception e2) {
-                e2.printStackTrace();
             }
         }
     }
