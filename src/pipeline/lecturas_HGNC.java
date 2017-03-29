@@ -31,35 +31,16 @@ public class lecturas_HGNC {
 
     public ArrayList<HGNC> busquedaInfGen(String contenido, boolean GO, boolean MESH) {
         ArrayList<HGNC> HGNC = new ArrayList<>();
-
-        try {
-            String lectura = contenido.replace(" ", "+");//se formatea la etiqueta para usarla en pathway commons
-            lecturas_pathwaycommons lpat = new lecturas_pathwaycommons();
-            String cUP = lpat.obtenercodigoUP(lectura);// Se utiliza el motor de busqueda de pathway commons y se obtiene el objeto mejor ponderado
-
-            if (!cUP.equals("")) {
-                lecturas_Uniprot UP = new lecturas_Uniprot(cUP);
-                UP.obtener_Nombre();//Nombre recomendado Uniprot
-                lectura = UP.getSimbolo();//Simbolo recomendado Uniprot
-
-                //busqueda de informacion usando el simbolo recomendado Uniprot
-                if (!busqueda_genenames(lectura, false, 0, HGNC, GO, MESH)) {
-                    //Si no se consigue informacion con el simbolo se hace la busqueda por el nombre recomendado por Uniprot
-                    lectura = UP.getNombre();
-                    if (!busqueda_genenames(lectura, false, 0, HGNC, GO, MESH)) {
-                        //Si no se encuentra informacion con el nombre se Usa la etiqueta original y otro criterio de busqueda en genenames
-                        busqueda_genenames(contenido, true, 0, HGNC, GO, MESH);
-                    }
-                }
-
-            } else {
-                //Si no se encuentra ningun resultado en pathwaycommons se utiliza la etiqueta original
-                busqueda_genenames(contenido, true, 0, HGNC, GO, MESH);
-            }
-        } catch (Exception e) {
-
+        //System.out.println("Etiqueta:  "+contenido);
+        if (busqueda_genenames(contenido, false, 0, HGNC, GO, MESH)) {
+            return HGNC;
+        } else if (busqueda_genenames(contenido, true, 0, HGNC, GO, MESH)) {
+            return HGNC;
+        } else {
+            return HGNC;
+            //lecturas pathwaycommons
         }
-        return HGNC;
+                
     }
 
     public boolean busqueda_genenames(String contenido, boolean criterio, int opcion, ArrayList<HGNC> HGNC, boolean GO, boolean MESH) {
@@ -138,21 +119,21 @@ public class lecturas_HGNC {
         for (int i = 0; i < nList.getLength(); i++) {
             nNode = nList.item(i);
             Element elemento = (Element) nNode;
-            
+
             //opcion = 0; Se toman todos los simbolos con que tengan la mejor ponderacion 
             if (opcion == 0) {
                 if (score == Float.parseFloat(elemento.getElementsByTagName("float").item(0).getTextContent())) {
                     //System.out.println(" simbolo "+elemento.getElementsByTagName("str").item(1).getTextContent());
                     nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
                 }
-            //opcion = -1; Se toman todos los simbolos que muestre la busqueda
+                //opcion = -1; Se toman todos los simbolos que muestre la busqueda
             } else if (opcion == -1) {
-                
+
                 if (elemento.getElementsByTagName("str").item(1).getTextContent().equals(palabra)) {
                     nombres.add(elemento.getElementsByTagName("str").item(1).getTextContent());
                     break;
                 }
-            //opcion >= 1; Se toman tantos simbolos como sea el valor de la variable opcion
+                //opcion >= 1; Se toman tantos simbolos como sea el valor de la variable opcion
             } else if (opcion >= 1) {
                 if (cont < opcion) {
                     cont++;

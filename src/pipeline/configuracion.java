@@ -27,16 +27,18 @@ public class configuracion {
     private int cantComplejos;
     private float confiabilidad_tfbind;
     private String RegionPromotora;
-    private ArrayList<lecturas_TFBIND> tfbind;
+    private boolean crearOntologiaGO;
+    private boolean crearOntologiaMESH;
+//-------------------------------------//
     private boolean homologos;
     private boolean objetosExperto;
+    private ArrayList<lecturas_TFBIND> tfbind;
     private boolean lecturas_tfbind;
     private boolean procesoIteraciones;
     private boolean combinaciones;
     private boolean abstracts;
     private boolean vaciado_pl;
-    private boolean crearOntologiaGO;
-    private boolean crearOntologiaMESH;
+    private boolean generarResumenes;
 
     public configuracion() {
         RegionPromotora = null;
@@ -99,7 +101,7 @@ public class configuracion {
         }
     }
 
-    public configuracion obtener() {
+    public configuracion recuperarConfiguracion() {
         ObjectContainer db = Db4o.openFile("mineria/config.db");
         configuracion conf = new configuracion();
         try {
@@ -138,6 +140,7 @@ public class configuracion {
         System.out.println("*Numero de iteraciones: " + this.numIteraciones);
         System.out.println("*Confiabilidad TFBind: " + (int)(this.confiabilidad_tfbind*100));
         System.out.print("*Creacion de ontologias GeneOntology: ");
+        
         if (crearOntologiaGO) {
             System.out.println("Si");
         } else {
@@ -154,7 +157,7 @@ public class configuracion {
 
     public void reanudar_mineria() {
         System.out.print("Preparando");
-        obtener();
+        recuperarConfiguracion();
         //verConfiguracion();
         objetosMineria objMin = new objetosMineria();
         objMin = recuperarObjetosMin();
@@ -190,8 +193,7 @@ public class configuracion {
                 mfts.buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ActivatableArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                BPM.busqueda_IDs(false, 10, false, this);
-                listaPMid = BPM.busqueda_IDs(false, 10, false, this);
+                listaPMid = BPM.busqueda_IDs(false, 20, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 break;
@@ -200,8 +202,7 @@ public class configuracion {
                 mfts.buscarObjetosExperto(revisarObjH_E("objetos_Experto.txt", objetosMineria), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                BPM.busqueda_IDs(false, 10, false, this);
-                listaPMid = BPM.busqueda_IDs(false, 10, false, this);
+                listaPMid = BPM.busqueda_IDs(false, 20, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 break;
@@ -211,28 +212,25 @@ public class configuracion {
                 ArrayList<lecturas_TFBIND> lecturas = actualizarListaTFBind(objetosMineria);
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, lecturas, crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                BPM.busqueda_IDs(false, 10, false, this);
-                listaPMid = BPM.busqueda_IDs(false, 10, false, this);
+                listaPMid = BPM.busqueda_IDs(false, 20, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 break;
             case 4:
                 ArrayList<String> ListaObj = reanudarIteracion(objetosMineria);
                 mfts.Iteraciones(true, ListaObj, cantComplejos, numIteraciones, objetosMineria, this, objetosMineria.getIteracion() + 1, crearOntologiaGO, crearOntologiaMESH);
-                BPM.busqueda_IDs(false, 10, false, this);
-                listaPMid = BPM.busqueda_IDs(false, 10, false, this);
+                listaPMid = BPM.busqueda_IDs(false, 20, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 break;
 
             case 5:
-                BPM.busqueda_IDs(false, 10, false, this);
-                listaPMid = BPM.busqueda_IDs(false, 10, false, this);
+                listaPMid = BPM.busqueda_IDs(false, 20, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 break;
             case 6:
-                listaPMid = BPM.consulta_PudMed(10);
+                listaPMid = BPM.consulta_PudMed(20);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 break;
@@ -639,4 +637,12 @@ public class configuracion {
         this.crearOntologiaMESH = crearOntologiaMESH;
     }
 
+    public boolean isGenerarResumenes() {
+        return generarResumenes;
+    }
+
+    public void setGenerarResumenes(boolean generarResumenes) {
+        this.generarResumenes = generarResumenes;
+    }
+        
 }

@@ -126,7 +126,7 @@ public class minado_FT {
     public void reanudarMinado() {
 
         configuracion conf = new configuracion();
-        conf.obtener();
+        conf.recuperarConfiguracion();
 
         objetosMineria objMin = new objetosMineria();
         objMin = recuperarObjetosMin();

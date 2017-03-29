@@ -33,7 +33,7 @@ public class lecturas_Uniprot {
         String url = "http://www.uniprot.org/uniprot/" + codigo + ".xml";
         try {
             doc = new conexionServ().conecta(url);
-
+            obtener_Nombre();
         } catch (Exception e) {
 
         }

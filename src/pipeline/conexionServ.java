@@ -1,4 +1,4 @@
- /*
+/*
     conexionServ.java
 
 
@@ -18,9 +18,9 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-*/
+ */
 
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -40,11 +40,11 @@ import org.w3c.dom.Document;
 public class conexionServ {
 
     public Document conecta(String Url) {
-        
+
         Document doc = null;
         //System.out.println("url: " + Url);
         int cont = 0;
-        while (cont < 100) {
+        while (cont < 5) {
             try {
                 cont++;
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -52,22 +52,23 @@ public class conexionServ {
                 URL url = new URL(Url);
                 doc = db.parse(url.openStream());
                 doc.getDocumentElement().normalize();
+                
                 break;
             } catch (Exception ex) {
-                
+
                 try {
 
-                   // System.out.println("Error de conexion con: "+Url);
+                    // System.out.println("Error de conexion con: "+Url);
                     //System.out.println("reintentando..."+cont );
-                    Thread.sleep(5000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException ex1) {
                     //Logger.getLogger(lecturas_rcsb.class.getName()).log(Level.SEVERE, null, ex1);
                 }
 
             }
         }
-        if(cont>=10){
-          //  System.out.println("Error de conexion imposible acceder a: "+Url);
+        if (cont >= 10) {
+            //  System.out.println("Error de conexion imposible acceder a: "+Url);
         }
 
         return doc;

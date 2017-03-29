@@ -23,7 +23,6 @@ public class busquedaPubMed_IDs {
     public ArrayList<String> busqueda_IDs(boolean criterioCombinacion, int cantIDs, boolean mostrarComb, configuracion config) {
         System.out.println("\nGenerando combinaciones de objetos...");
         Objs_homologos_Expertos(mostrarComb);
-        borrar_archivo("mineria/combinaciones.db");
         ObjectContainer db = Db4o.openFile("mineria/FT.db");
         factorTranscripcion FT = new factorTranscripcion();
         try {
