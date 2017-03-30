@@ -29,6 +29,7 @@ public class configuracion {
     private String RegionPromotora;
     private boolean crearOntologiaGO;
     private boolean crearOntologiaMESH;
+    private int cantidadPMID;
 //-------------------------------------//
     private boolean homologos; //Lectura de homologos
     private boolean objetosExperto; // Lectura objetos del experto
@@ -49,13 +50,14 @@ public class configuracion {
         tfbind = new ArrayList<lecturas_TFBIND>();
     }
 
-    public void guardarConfiguracion(String regionProm, int numIter, int cantCompl, float conf, boolean GO, boolean MESH) {
+    public void guardarConfiguracion(String regionProm, int numIter, int cantCompl, float conf, boolean GO, boolean MESH , int cantPMID) {
         this.RegionPromotora = regionProm;
         this.cantComplejos = cantCompl;
         this.numIteraciones = numIter;
         this.confiabilidad_tfbind = conf;
         this.crearOntologiaGO = GO;
         this.crearOntologiaMESH = MESH;
+        this.cantidadPMID = cantPMID;
         ObjectContainer db = Db4o.openFile("mineria/config.db");
         try {
             db.store(this);
@@ -117,6 +119,7 @@ public class configuracion {
                 this.cantComplejos = config.cantComplejos;
                 this.numIteraciones = config.numIteraciones;
                 this.confiabilidad_tfbind = config.confiabilidad_tfbind;
+                this.cantidadPMID = config.cantidadPMID;
                 this.tfbind = config.tfbind;
                 this.homologos = config.homologos;
                 this.objetosExperto = config.objetosExperto;
@@ -130,6 +133,7 @@ public class configuracion {
                 this.generarResumenes = config.generarResumenes;
                 this.resumenes = config.resumenes;
                 this.GenerarBC = config.GenerarBC;
+                
             }
         } catch (Exception e) {
             System.out.println("No fue posible guardar la configuracion");
@@ -204,7 +208,7 @@ public class configuracion {
                 mfts.buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ActivatableArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                listaPMid = BPM.busqueda_IDs(false, 20, false, this);
+                listaPMid = BPM.busqueda_IDs(false, cantidadPMID, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
@@ -217,7 +221,7 @@ public class configuracion {
                 mfts.buscarObjetosExperto(revisarObjH_E("objetos_Experto.txt", objetosMineria), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                listaPMid = BPM.busqueda_IDs(false, 20, false, this);
+                listaPMid = BPM.busqueda_IDs(false, cantidadPMID, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
@@ -231,7 +235,7 @@ public class configuracion {
                 ArrayList<lecturas_TFBIND> lecturas = actualizarListaTFBind(objetosMineria);
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, lecturas, crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                listaPMid = BPM.busqueda_IDs(false, 20, false, this);
+                listaPMid = BPM.busqueda_IDs(false, cantidadPMID, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
@@ -242,7 +246,7 @@ public class configuracion {
             case 4:
                 ArrayList<String> ListaObj = reanudarIteracion(objetosMineria);
                 mfts.Iteraciones(true, ListaObj, cantComplejos, numIteraciones, objetosMineria, this, objetosMineria.getIteracion() + 1, crearOntologiaGO, crearOntologiaMESH);
-                listaPMid = BPM.busqueda_IDs(false, 20, false, this);
+                listaPMid = BPM.busqueda_IDs(false, cantidadPMID, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
@@ -252,7 +256,7 @@ public class configuracion {
                 break;
 
             case 5:
-                listaPMid = BPM.busqueda_IDs(false, 20, false, this);
+                listaPMid = BPM.busqueda_IDs(false, cantidadPMID, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
@@ -261,7 +265,7 @@ public class configuracion {
                 }catch(Exception e){}
                 break;
             case 6:
-                listaPMid = BPM.consulta_PudMed(20);
+                listaPMid = BPM.consulta_PudMed(cantidadPMID);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
@@ -710,8 +714,14 @@ public class configuracion {
     public void setGenerarBC(boolean GenerarBC) {
         this.GenerarBC = GenerarBC;
     }
-    
-    
-    
+
+    public int getCantidadPMID() {
+        return cantidadPMID;
+    }
+
+    public void setCantidadPMID(int cantidadPMID) {
+        this.cantidadPMID = cantidadPMID;
+    }
+      
         
 }

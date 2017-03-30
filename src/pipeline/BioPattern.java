@@ -90,10 +90,11 @@ public class BioPattern {
         float conf = Float.parseFloat(confiabilidad);  //confiabilidad de las busquedas en tfbind
         boolean buscarOntologiaGO = true;
         boolean buscarOntologiaMESH = true;
+        int cantPMID = 20;
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
         minado_FT mfts = new minado_FT();
         //ruta de archivo, confiabilidad, N Iteraciones, N de objetos
-        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH);
+        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH,cantPMID);
         mfts.obtenerFT();
 
         Region region_promotora = new Region(this.regionPromotora);
@@ -175,12 +176,13 @@ public class BioPattern {
             int iteraciones = config.ingresar_numIteracioens();
             boolean GO = config.buscarGO();
             boolean MESH = config.buscarMESH();
+            int cantPMID = 20; //numero de pubmed IDs
             
-            mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH);
+            mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH,cantPMID);
             
             busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
 
-            ArrayList<String> listaPMid = BPM.busqueda_IDs(false, 20, false, config);
+            ArrayList<String> listaPMid = BPM.busqueda_IDs(false, cantPMID, false, config);
 
             new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500, config); // Número máximo de abstracts por archivo
 

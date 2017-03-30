@@ -36,13 +36,13 @@ import java.util.logging.Logger;
 
 public class minado_FT {
 
-    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos,boolean GO, boolean MESH) {
+    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos,boolean GO, boolean MESH, int cantPMID) {
 
         objetosMineria objetosMineria = new objetosMineria();
         crearCarpeta("mineria");
 
         configuracion config = new configuracion();
-        config.guardarConfiguracion(ruta, Iteraciones, numeroObjetos, confiabilidad,GO,MESH);
+        config.guardarConfiguracion(ruta, Iteraciones, numeroObjetos, confiabilidad,GO,MESH, cantPMID);
 
         new objetosMinados().crear_archivo();
 
