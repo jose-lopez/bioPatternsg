@@ -30,17 +30,21 @@ public class configuracion {
     private boolean crearOntologiaGO;
     private boolean crearOntologiaMESH;
 //-------------------------------------//
-    private boolean homologos;
-    private boolean objetosExperto;
-    private ArrayList<lecturas_TFBIND> tfbind;
-    private boolean lecturas_tfbind;
-    private boolean procesoIteraciones;
-    private boolean combinaciones;
-    private boolean abstracts;
-    private boolean vaciado_pl;
-    private boolean generarResumenes;
-
+    private boolean homologos; //Lectura de homologos
+    private boolean objetosExperto; // Lectura objetos del experto
+    private ArrayList<lecturas_TFBIND> tfbind; //lista de facores de transcripcion
+    private boolean lecturas_tfbind; //primera iteracion
+    private boolean procesoIteraciones; //proceso de Iteraciones 2 en adelante
+    private boolean combinaciones; // generacion de comobinaciones de palabras clave
+    private boolean abstracts; // buesqueda de abstracts en PUBMED
+    private boolean vaciado_pl; // vaciado de objetos minados y ontologias a formato prolog
+    private boolean generarResumenes; //generacion de resumenes a partir de los abstracts
+    private int resumenes; //archivos resumidos
+    private boolean GenerarBC;
+    
+    
     public configuracion() {
+        resumenes = 1;
         RegionPromotora = null;
         tfbind = new ArrayList<lecturas_TFBIND>();
     }
@@ -82,7 +86,7 @@ public class configuracion {
         }
     }
 
-    public void guardar(configuracion confNueva) {
+    public void guardar() {
         ObjectContainer db = Db4o.openFile("mineria/config.db");
         configuracion conf = new configuracion();
         try {
@@ -90,7 +94,7 @@ public class configuracion {
 
             while (result.hasNext()) {
                 configuracion config = (configuracion) result.next();
-                config = confNueva;
+                config = this;
                 db.store(config);
                 //System.out.println("guardado");
             }
@@ -123,6 +127,9 @@ public class configuracion {
                 this.vaciado_pl = config.vaciado_pl;
                 this.crearOntologiaGO = config.crearOntologiaGO;
                 this.crearOntologiaMESH = config.crearOntologiaMESH;
+                this.generarResumenes = config.generarResumenes;
+                this.resumenes = config.resumenes;
+                this.GenerarBC = config.GenerarBC;
             }
         } catch (Exception e) {
             System.out.println("No fue posible guardar la configuracion");
@@ -155,7 +162,7 @@ public class configuracion {
 
     }
 
-    public void reanudar_mineria() {
+    public void reanudar_proceso() {
         System.out.print("Preparando");
         recuperarConfiguracion();
         //verConfiguracion();
@@ -179,6 +186,10 @@ public class configuracion {
             reanudar(6, objMin);
         } else if (!vaciado_pl) {
             reanudar(7, objMin);
+        } else if(!generarResumenes){
+            reanudar(8, objMin);
+        } else if(!GenerarBC){
+            reanudar(9,objMin);
         }
     }
 
@@ -196,6 +207,10 @@ public class configuracion {
                 listaPMid = BPM.busqueda_IDs(false, 20, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                new Resumidor().resumidor(this);
+                try{
+                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
+                }catch(Exception e){}
                 break;
             case 2:
                 revisarObjH_E("homologos", objetosMineria);
@@ -205,6 +220,10 @@ public class configuracion {
                 listaPMid = BPM.busqueda_IDs(false, 20, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                new Resumidor().resumidor(this);
+                try{
+                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
+                }catch(Exception e){}
                 break;
             case 3:
                 revisarObjH_E("homologos", objetosMineria);
@@ -215,6 +234,10 @@ public class configuracion {
                 listaPMid = BPM.busqueda_IDs(false, 20, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                new Resumidor().resumidor(this);
+                try{
+                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
+                }catch(Exception e){}
                 break;
             case 4:
                 ArrayList<String> ListaObj = reanudarIteracion(objetosMineria);
@@ -222,21 +245,48 @@ public class configuracion {
                 listaPMid = BPM.busqueda_IDs(false, 20, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                new Resumidor().resumidor(this);
+                try{
+                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
+                }catch(Exception e){}
                 break;
 
             case 5:
                 listaPMid = BPM.busqueda_IDs(false, 20, false, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                new Resumidor().resumidor(this);
+                try{
+                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
+                }catch(Exception e){}
                 break;
             case 6:
                 listaPMid = BPM.consulta_PudMed(20);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                new Resumidor().resumidor(this);
+                try{
+                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
+                }catch(Exception e){}
                 break;
             case 7:
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                new Resumidor().resumidor(this);
+                try{
+                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
+                }catch(Exception e){}
                 break;
+            case 8:
+                new Resumidor().resumidor(this);
+                try{
+                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
+                }catch(Exception e){}
+            break;
+            case 9:
+                try{
+                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
+                }catch(Exception e){}
+                 break;
         }
 
     }
@@ -644,5 +694,24 @@ public class configuracion {
     public void setGenerarResumenes(boolean generarResumenes) {
         this.generarResumenes = generarResumenes;
     }
+
+    public int getResumenes() {
+        return resumenes;
+    }
+
+    public void setResumenes(int resumenes) {
+        this.resumenes = resumenes;
+    }
+
+    public boolean isGenerarBC() {
+        return GenerarBC;
+    }
+
+    public void setGenerarBC(boolean GenerarBC) {
+        this.GenerarBC = GenerarBC;
+    }
+    
+    
+    
         
 }

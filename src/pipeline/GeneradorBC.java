@@ -52,12 +52,13 @@ public class GeneradorBC {
         //**** generadorBC.generador("abstracts-experimento-SRIF-26112015-Part-I-II-salida.txt")****;
         //baseC.generador("ENSG00000157005SST1-gen-comparable-1-salida.txt");
         //baseC.generador("abstracts-experimento-SRIF-26112015-Part-I-II-salida.txt");
-        generador.generadorBC("baseC.pl");
+        configuracion config = new configuracion();
+        generador.generadorBC("baseC.pl",config);
 
 
     }
 
-    public String generadorBC(String baseC) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
+    public String generadorBC(String baseC, configuracion config) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
 
         String oracionesSVC;
 
@@ -124,7 +125,7 @@ public class GeneradorBC {
 
         }
 
-
+        
 
         return baseC;
 

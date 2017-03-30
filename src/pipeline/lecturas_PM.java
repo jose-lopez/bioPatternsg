@@ -109,7 +109,7 @@ public class lecturas_PM {
             }
         }
         config.setAbstracts(true);
-        config.guardar(config);
+        config.guardar();
         System.out.println("Listo..");
 
                 

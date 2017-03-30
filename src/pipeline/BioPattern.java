@@ -35,10 +35,10 @@ public class BioPattern {
 
     public static void main(String[] args) throws Exception {
         BioPattern biopattern = new BioPattern();
-        biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
+        //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), true);
         //biopattern.pruebas();
-
+        biopattern.pipelineBioPattern();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -123,12 +123,11 @@ public class BioPattern {
          * listas_FTs contendra todos los objetos minados en todas las iteraciones; tambien una lista por iteracion.
          * Estos se emplearan mas adelante para organizar regiones promotoras.
          */
-        
+        configuracion config = new configuracion();
         /*
         float conf = Float.parseFloat(confiabilidad);  //confiabilidad de las busquedas en tfbind
         boolean buscarOntologiaGO = true;
         boolean buscarOntologiaMESH = true;
-        configuracion config = new configuracion();
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
         minado_FT mfts = new minado_FT();
         //ruta de archivo, confiabilidad, N Iteraciones, N de objetos
@@ -144,9 +143,9 @@ public class BioPattern {
         }
         /*/
 
-        new Resumidor().resumidor();
+        new Resumidor().resumidor(config);
         
-        String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl");
+        String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",config);
 
         //Se infieren los distintos patrones de regulacion para la secuencia problema.
         //new Razonador().inferir_patrones("baseC.pl"); 
@@ -156,6 +155,52 @@ public class BioPattern {
 
     }
 
+    public void pipelineBioPattern() throws StringIndexOutOfBoundsException, Exception{
+        //Autenticación de proxy        
+        autenticarProxy("150.187.65.3", "3128");
+        
+        minado_FT mfts = new minado_FT();
+        configuracion config = new configuracion();
+                
+        config.recuperarConfiguracion();
+        
+        if (config.getRegionPromotora() == null) {
+
+            System.out.println("\n-------------------------\nNUEVO PROCESO DE MINERIA\n-------------------------");
+            System.out.println("\nIngrese los datos de configuracion\n");
+            
+            String regProm = config.IngresarRegionPromotora();
+            float conf = config.IngresarConfiabilidad();
+            int cantObjs = config.ingresarCantComplejos();
+            int iteraciones = config.ingresar_numIteracioens();
+            boolean GO = config.buscarGO();
+            boolean MESH = config.buscarMESH();
+            
+            mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH);
+            
+            busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
+
+            ArrayList<String> listaPMid = BPM.busqueda_IDs(false, 20, false, config);
+
+            new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500, config); // Número máximo de abstracts por archivo
+
+            mfts.vaciar_bc_pl(GO, MESH);
+            
+            new Resumidor().resumidor(config);
+            
+            String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",config);
+                
+        }else if (config.reiniciar()) {
+            mfts.crearCarpeta("mineria");
+            config = new configuracion();
+            pipelineBioPattern();
+        } else {
+            config.reanudar_proceso();
+        }
+        
+        
+    }
+    
     public void setRegionPromotora(String regionPromotora) {
         this.regionPromotora = regionPromotora;
     }
@@ -172,9 +217,9 @@ public class BioPattern {
         return secuenciaProblema;
     }
 
-    private String usuario = "";
-    private char[] clave;
-    //private char[] clave = {'', '', '', '', '', '', '', '', '', ''};
+    private String usuario = "yacson.ramirez";
+    //private char[] clave;
+    private char[] clave = {'Y', 'a', 'c', 's', 'o', 'N', '3', '2', '8', '7'};
 
     private void autenticarProxy(String proxy_IP, String proxy_Port) {
 
@@ -202,164 +247,10 @@ public class BioPattern {
     }
 
     public void pruebas() {
-
         //Autenticación de proxy        
         autenticarProxy("150.187.65.3", "3128");
-        minado_FT mfts = new minado_FT();
-        configuracion config = new configuracion();
-        Scanner lectura = new Scanner(System.in);
-
-        config.obtener();
-
-        if (config.getRegionPromotora() == null) {
-
-            System.out.println("\n-------------------------\nNUEVO PROCESO DE MINERIA\n-------------------------");
-            System.out.println("\nIngrese los datos de configuracion\n");
-
-            String regProm = config.IngresarRegionPromotora();
-            float conf = config.IngresarConfiabilidad();
-            int cantObjs = config.ingresarCantComplejos();
-            int iteraciones = config.ingresar_numIteracioens();
-            boolean GO = config.buscarGO();
-            boolean MESH = config.buscarMESH();
-
-            mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH);
-
-            busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
-
-            ArrayList<String> listaPMid = BPM.busqueda_IDs(false, 10, false, config);
-
-            new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500, config); // Número máximo de abstracts por archivo
-
-            mfts.vaciar_bc_pl(GO, MESH);
-
-        } else if (config.reiniciar()) {
-            mfts.crearCarpeta("mineria");
-            config = new configuracion();
-            pruebas();
-        } else {
-            config.reanudar_mineria();
-        }
-
+        
     }
 
-    public void menu() {
-
-        minado_FT mfts = new minado_FT();
-        Scanner lectura = new Scanner(System.in);
-        String resp = "";
-        int can_objs;
-        int num_iter;
-        float conf;
-        boolean buscarOntologiaGO = false;
-        boolean buscarOntologiaMESH = false;
-        String regionPromotora = "";
-        configuracion config = new configuracion();
-
-        autenticarProxy("150.187.65.3", "3128");
-        while (!resp.equals("6")) {
-            System.out.println("\n======================================");
-            System.out.println("1.- Nueva mineria");
-            System.out.println("2.- Continuar mineria");
-            System.out.println("3.- Ver objetos minados");
-            System.out.println("4.- Buscar Abstracts Pubmed");
-            System.out.println("5.- vaciar base de conocimiento");
-            System.out.println("6.- Salir");
-            resp = lectura.nextLine();
-
-            switch (resp) {
-
-                case "1":
-
-                    System.out.println("Seguro desea iniciar un proceso de mineria nuevo se perderan archivos de procesos anteriores S/N: ");
-                    String opcion = lectura.nextLine();
-                    if (opcion.equalsIgnoreCase("S")) {
-                        System.out.println("\n-------------------------\nNUEVO PROCESO DE MINERIA\n-------------------------");
-                        System.out.println("\nIngrese los datos de configuracion\n");
-                        while (true) {
-                            System.out.print("*Nombre de archivo region promotora:");
-                            regionPromotora = lectura.nextLine();
-                            if (!regionPromotora.equals("")) {
-                                break;
-                            } else {
-                                System.out.println("Debe ingresar un nombre de archivo");
-                            }
-                        }
-                        while (true) {
-                            try {
-                                System.out.print("*Indice de confiabilidad TFbind (0-100): ");
-                                String confi = lectura.nextLine();
-                                conf = Float.parseFloat(confi) / 100;
-
-                                if (conf > 1) {
-                                    System.out.println("El dato ingresado debe ser numerico entre 0 y 100");
-                                } else {
-                                    break;
-                                }
-                            } catch (Exception e) {
-                                System.out.println("El dato ingresado debe ser numerico entre 0 y 100");
-                            }
-                        }
-
-                        while (true) {
-                            try {
-                                System.out.print("*Numero de objetos PDB maximos: ");
-                                can_objs = Integer.parseInt(lectura.nextLine());
-                                break;
-                            } catch (Exception e) {
-                                System.out.println("El dato ingresado debe ser numerico");
-                            }
-                        }
-
-                        while (true) {
-                            try {
-                                System.out.print("*Numero de iteraciones: ");
-                                num_iter = Integer.parseInt(lectura.nextLine());
-                                break;
-                            } catch (Exception e) {
-                                System.out.println("El dato ingresado debe ser numerico");
-                            }
-                        }
-
-                        mfts.minado(regionPromotora, conf, num_iter, can_objs, buscarOntologiaGO, buscarOntologiaMESH);
-                        mfts.obtenerFT();
-                    }
-                    break;
-
-                case "2":
-                    config.reanudar_mineria();
-                    break;
-
-                case "3":
-                    System.out.println("\n-------------------------------\nINFORMCAICON DE OBJETOS MINADOS\n-------------------------------");
-                    mfts.obtenerFT();
-                    break;
-
-                case "4":
-                    System.out.println("\n---------------------\nBUSQUEDA DE ABSTRACTS\n---------------------");
-                    int cantPMID;
-                    while (true) {
-                        try {
-                            System.out.print("Numero maximo de Pubmed Ids por cada busqueda: ");
-                            cantPMID = Integer.parseInt(lectura.nextLine());
-                            break;
-                        } catch (Exception e) {
-                            System.out.println("Debe ingresar un numero entero");
-                        }
-                    }
-                    busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
-                    ArrayList<String> listaPMid = BPM.busqueda_IDs(false, cantPMID, false, config);
-                    try {
-                        new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500, config);
-                    } catch (Exception e) {
-                    }
-                    break;
-
-                case "5":
-                    System.out.println("\n---------------------------------\nVACIADO DE BASE DE CONOCIMIENTO\n---------------------------------");
-                    mfts.vaciar_bc_pl(false, false);
-                    break;
-            }
-        }
-    }
+    
 }

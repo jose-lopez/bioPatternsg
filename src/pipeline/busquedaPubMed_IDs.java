@@ -50,7 +50,7 @@ public class busquedaPubMed_IDs {
             db.close();
         }
         config.setCombinaciones(true);
-        config.guardar(config);
+        config.guardar();
         System.out.println("Listo...");
         
         return consulta_PudMed(cantIDs);

@@ -96,13 +96,13 @@ public class lecturas_PDB {
             Node nNode = nList.item(i);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element Element = (Element) nNode;
-                //System.out.println(Element.getAttribute("type"));
+                System.out.print("tipo: "+Element.getAttribute("type")+" ");
 
                 if (Element.getAttribute("type").equalsIgnoreCase("dna")) {
                     NodeList nList2 = Element.getElementsByTagName("polymerDescription");
                     Node nNode2 = nList2.item(0);
                     Element des = (Element) nNode2;
-                    //System.out.println(des.getAttribute("description"));
+                    System.out.println(des.getAttribute("description"));
                     String separa[] = des.getAttribute("description").split(" ");
                     if (separa.length > 1) {
                         try {
@@ -119,15 +119,25 @@ public class lecturas_PDB {
                     }
 
                 } else {
-                    NodeList nList2 = Element.getElementsByTagName("accession");
+
+                    NodeList nList2 = Element.getElementsByTagName("macroMolecule");
                     Node nNode2 = nList2.item(0);
                     Element des = (Element) nNode2;
-                    //System.out.println(des.getAttribute("id"));
-                    String etiqueta = (des.getAttribute("id"));
-
-                    lecturas_Uniprot UP = new lecturas_Uniprot(etiqueta);
+                    String nombre = des.getAttribute("name");
+                    //System.out.println(nombre);
+                    
+                    NodeList nList3 = des.getElementsByTagName("accession");
+                    Node nNode3 = nList3.item(0);
+                    Element des2 = (Element) nNode3;
+                    String idUP = (des2.getAttribute("id"));
+                    ArrayList<HGNC> L_HGNC = new ArrayList<>();
+                    if (idUP.length() == 6) {
+                        lecturas_Uniprot UP = new lecturas_Uniprot(idUP);
+                        L_HGNC = new lecturas_HGNC().busquedaInfGen(UP.getSimbolo(), GO, MESH);
+                    } else {
+                        L_HGNC = new lecturas_HGNC().busquedaInfGen(nombre, GO, MESH);
+                    }
                     //System.out.println(UP.getSimbolo());
-                    ArrayList<HGNC> L_HGNC = new lecturas_HGNC().busquedaInfGen(UP.getSimbolo(), GO, MESH);
 
                     for (int l = 0; l < L_HGNC.size(); l++) {
                         boolean encontrado = false;

@@ -20,7 +20,7 @@
 
  */
 
-/*
+ /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -53,7 +53,7 @@ import org.jpl7.Variable;
  */
 public class Resumidor {
 
-    public void resumidor() throws Exception {
+    public void resumidor(configuracion config) {
 
         String resumidorCodigo = "resumidorcompleto";// Comando para cargar el consultResumidor
 
@@ -66,45 +66,46 @@ public class Resumidor {
             t.printStackTrace();
         }
 
-        int n = 1;
+        int n = config.getResumenes();
         String salida = "", entrada = "";
-        
-         while (buscarAbstractHtml(n)) {
 
+        while (buscarAbstractHtml(n)) {
             //metodo que llama al consultResumidor
             salida = "salida_" + n + ".html";
             entrada = "abstracts_" + n + ".html";
             System.out.println("Resumiendo abstracts_" + n + "................");
-            
-            resumir(entrada, n, salida);
 
+            resumir(entrada, n, salida);
             //recibe la ruta del resumen y genera un archivo txt
             //en la carpeta abstracts llamado resumen_(n).txt 
             salida = "abstracts/salida_" + n + ".html";
-            generarResumenTXT(n, salida);
+            try {
+                generarResumenTXT(n, salida);
+            } catch (Exception e) {
+            }
+            config.setResumenes(n);
+            config.guardar();
             n++;
         }
-              
-        
-        
+        config.setGenerarResumenes(true);
+        config.guardar();
     }
-    
-     private boolean buscarAbstractHtml(int n){
+
+    private boolean buscarAbstractHtml(int n) {
         boolean encontrado = true;
         File archivo = null;
-        
-       
+
         String nombre_archivo = "abstracts/abstracts_" + n + ".html";
 
         try {
             archivo = new File(nombre_archivo);
-            
+
             encontrado = archivo.exists();
-           
+
         } catch (Exception e) {
             encontrado = false;
         }
-           
+
         return encontrado;
     }
 
@@ -113,9 +114,8 @@ public class Resumidor {
 
         File archivo_fuente = new File(ruta);
         File archivo_destino = new File(nombre_archivo);
-        
-        //archivo_destino.delete();
 
+        //archivo_destino.delete();
         BufferedWriter escribir;
         BufferedReader leer;
 
@@ -154,10 +154,8 @@ public class Resumidor {
             System.out.println("archivo no localizado");
 
         }
-        
-        //archivo_fuente.delete();
-        
 
+        //archivo_fuente.delete();
     }
 
     public void resumir(String abstracts, int n, String salida) { // El archivo de abstracts debe venir en formato HTML
@@ -169,25 +167,20 @@ public class Resumidor {
         Query q = new Query("cd(abstracts).");
         System.out.println("cambio a directorio abstracts:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
-
         try {
             File ficherod = new File(salida);
             ficherod.delete();
         } catch (Exception e) {
         }
-        
-        try {
 
+        try {
 
             //q = new Query("open('salida.html', write, Stream), flush_output(Stream), close(Stream).");
             //System.out.println("cambio a directorio resumidor_bioinformante:" + " " + (q.hasMoreElements() ? "succeeded" : "failed"));
-
             generarResumen(resumirComando); // se realiza resumen del archivo de abstracts
 
             q = new Query("cd(..)");
             System.out.println("regresando a directorio raiz:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
-
-
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -226,8 +219,8 @@ public class Resumidor {
     public void init(String codigoResumidorPNL) {
         //Abriendo el archivo
         Query q = new Query("cd(resumidor_bioinformante).");
-        System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));        
-        
+        System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+
         String consultResumidor = "[" + codigoResumidorPNL + "].";
         Query query = new Query(consultResumidor);
         System.out.println(consultResumidor + " " + (query.hasSolution() ? "succeeded" : "failed"));

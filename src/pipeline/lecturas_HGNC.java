@@ -29,12 +29,12 @@ public class lecturas_HGNC {
 
     }
 
-    public ArrayList<HGNC> busquedaInfGen(String contenido, boolean GO, boolean MESH) {
+    public ArrayList<HGNC> busquedaInfGen(String etiqueta, boolean GO, boolean MESH) {
         ArrayList<HGNC> HGNC = new ArrayList<>();
         //System.out.println("Etiqueta:  "+contenido);
-        if (busqueda_genenames(contenido, false, 0, HGNC, GO, MESH)) {
+        if (busqueda_genenames(etiqueta, false, 0, HGNC, GO, MESH)) {
             return HGNC;
-        } else if (busqueda_genenames(contenido, true, 0, HGNC, GO, MESH)) {
+        } else if (busqueda_genenames(etiqueta, true, 0, HGNC, GO, MESH)) {
             return HGNC;
         } else {
             return HGNC;

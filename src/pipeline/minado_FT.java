@@ -65,7 +65,7 @@ public class minado_FT {
             lecturasTFB = lecturasTFBID(ruta, confiabilidad);
             System.out.println("* " + lecturasTFB.size() + " Factores de transcripcion encontrados");
             config.setTfbind(lecturasTFB);
-            config.guardar(config);
+            config.guardar();
         } else {
             lecturasTFB = lecturas;
         }
@@ -80,7 +80,7 @@ public class minado_FT {
         }
         guardar_objetosIteracion(objetosMineria);
         config.setLecturas_tfbind(true);
-        config.guardar(config);
+        config.guardar();
         objetosMineria.imprimir();
 
     }
@@ -110,7 +110,7 @@ public class minado_FT {
             objetosMineria.imprimir();
         }
         config.setProcesoIteraciones(true);
-        config.guardar(config);
+        config.guardar();
     }
 //  se obtinen lecturas de TFBIND recibe la ruta del archivo bloquesconsenso 
 //  y el porsentaje de confiabnilidad, debuelve un listado con los factores de transcripcion 
@@ -120,37 +120,6 @@ public class minado_FT {
 
         lecturas_TFBIND lecturasTFBIND = new lecturas_TFBIND();
         return lecturasTFBIND.leer_de_archivo(ruta, confiabilidad);
-
-    }
-
-    public void reanudarMinado() {
-
-        configuracion conf = new configuracion();
-        conf.recuperarConfiguracion();
-
-        objetosMineria objMin = new objetosMineria();
-        objMin = recuperarObjetosMin();
-
-        System.out.println("Reanudando Iteracion: " + objMin.getIteracion());
-
-        ArrayList<String> Lista = new ArrayList<>();
-        ArrayList<String> NuevosObj = new ArrayList<>();
-        factorTranscripcion ft = new factorTranscripcion();
-
-        for (int i = 0; i < objMin.getNuevos_objetos().size(); i++) {
-            if (buscarObjeto(objMin.getNuevos_objetos().get(i), ft)) {
-                objMin.getObjetos_minados().add(objMin.getNuevos_objetos().get(i));
-                ft.NuevosObjetos(NuevosObj);
-            } else {
-                Lista.add(objMin.getNuevos_objetos().get(i));
-            }
-        }
-        System.out.println("\n Nuevos Objetos");
-        for (int i = 0; i < Lista.size(); i++) {
-            System.out.println(Lista.get(i));
-        }
-
-        objMin.setNuevos_objetos(NuevosObj);
 
     }
 
@@ -306,7 +275,7 @@ public class minado_FT {
 
         }
         config.setHomologos(true);
-        config.guardar(config);
+        config.guardar();
     }
 
     public void buscarObjetosExperto(ArrayList<String> lista, objetosMineria objetosMineria, configuracion config,boolean GO, boolean MESH) {
@@ -324,7 +293,7 @@ public class minado_FT {
             guardarObjetos_Homologos_Experto(objExp);
         }
         config.setObjetosExperto(true);
-        config.guardar(config);
+        config.guardar();
     }
 
     private ArrayList<String> listaObjetos_homologosExperto(String ruta) {
