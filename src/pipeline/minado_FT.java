@@ -338,7 +338,7 @@ public class minado_FT {
             while (result.hasNext()) {
                 try {
                     factorTranscripcion ft = (factorTranscripcion) result.next();
-                    ft.vaciar_pl("objetosMinados.pl");
+                    ft.vaciar_pl("mineria/objetosMinados.pl");
                 } catch (Exception e) {
                 }
             }
