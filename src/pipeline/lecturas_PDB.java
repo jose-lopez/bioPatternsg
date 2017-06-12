@@ -96,13 +96,13 @@ public class lecturas_PDB {
             Node nNode = nList.item(i);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element Element = (Element) nNode;
-                System.out.print("tipo: "+Element.getAttribute("type")+" ");
+               // System.out.print("tipo: "+Element.getAttribute("type")+" ");
 
                 if (Element.getAttribute("type").equalsIgnoreCase("dna")) {
                     NodeList nList2 = Element.getElementsByTagName("polymerDescription");
                     Node nNode2 = nList2.item(0);
                     Element des = (Element) nNode2;
-                    System.out.println(des.getAttribute("description"));
+                    //System.out.println(des.getAttribute("description"));
                     String separa[] = des.getAttribute("description").split(" ");
                     if (separa.length > 1) {
                         try {

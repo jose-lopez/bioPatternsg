@@ -112,6 +112,7 @@ public class minado_FT {
         config.setProcesoIteraciones(true);
         config.guardar();
     }
+
 //  se obtinen lecturas de TFBIND recibe la ruta del archivo bloquesconsenso 
 //  y el porsentaje de confiabnilidad, debuelve un listado con los factores de transcripcion 
 //  encontrados y algunas caracteristicas que ofrece TFBIND
@@ -218,7 +219,6 @@ public class minado_FT {
         } catch (Exception e) {
             System.out.println("Error al guardar FT.db...");
         } finally {
-
             db.close();
         }
     }
