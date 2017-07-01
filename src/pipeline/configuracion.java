@@ -42,6 +42,7 @@ public class configuracion {
     private boolean generarResumenes; //generacion de resumenes a partir de los abstracts
     private int resumenes; //archivos resumidos
     private boolean GenerarBC;
+    private boolean InferirPatrones;
     
     
     public configuracion() {
@@ -133,6 +134,7 @@ public class configuracion {
                 this.generarResumenes = config.generarResumenes;
                 this.resumenes = config.resumenes;
                 this.GenerarBC = config.GenerarBC;
+                this.InferirPatrones = config.InferirPatrones;
                 
             }
         } catch (Exception e) {
@@ -194,6 +196,8 @@ public class configuracion {
             reanudar(8, objMin);
         } else if(!GenerarBC){
             reanudar(9,objMin);
+        }else if(!InferirPatrones){
+            reanudar(10,objMin);
         }
     }
 
@@ -215,6 +219,7 @@ public class configuracion {
                 try{
                  String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
                 }catch(Exception e){}
+                new Razonador().inferir_patrones("baseC.pl",this); 
                 break;
             case 2:
                 revisarObjH_E("homologos", objetosMineria);
@@ -228,6 +233,7 @@ public class configuracion {
                 try{
                  String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
                 }catch(Exception e){}
+                new Razonador().inferir_patrones("baseC.pl",this);
                 break;
             case 3:
                 revisarObjH_E("homologos", objetosMineria);
@@ -242,6 +248,7 @@ public class configuracion {
                 try{
                  String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
                 }catch(Exception e){}
+                new Razonador().inferir_patrones("baseC.pl",this);
                 break;
             case 4:
                 ArrayList<String> ListaObj = reanudarIteracion(objetosMineria);
@@ -253,6 +260,7 @@ public class configuracion {
                 try{
                  String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
                 }catch(Exception e){}
+                new Razonador().inferir_patrones("baseC.pl",this);
                 break;
 
             case 5:
@@ -263,6 +271,7 @@ public class configuracion {
                 try{
                  String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
                 }catch(Exception e){}
+                new Razonador().inferir_patrones("baseC.pl",this);
                 break;
             case 6:
                 listaPMid = BPM.consulta_PudMed(cantidadPMID);
@@ -272,6 +281,7 @@ public class configuracion {
                 try{
                  String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
                 }catch(Exception e){}
+                new Razonador().inferir_patrones("baseC.pl",this);
                 break;
             case 7:
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
@@ -279,18 +289,26 @@ public class configuracion {
                 try{
                  String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
                 }catch(Exception e){}
+                new Razonador().inferir_patrones("baseC.pl",this);
                 break;
             case 8:
                 new Resumidor().resumidor(this);
                 try{
                  String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
                 }catch(Exception e){}
+                new Razonador().inferir_patrones("baseC.pl",this);
             break;
             case 9:
                 try{
                  String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
                 }catch(Exception e){}
-                 break;
+                new Razonador().inferir_patrones("baseC.pl",this);
+            break;
+            case 10:
+                new Razonador().inferir_patrones("baseC.pl",this);
+            break;
+            
+                 
         }
 
     }
@@ -722,6 +740,15 @@ public class configuracion {
     public void setCantidadPMID(int cantidadPMID) {
         this.cantidadPMID = cantidadPMID;
     }
+
+    public boolean isInferirPatrones() {
+        return InferirPatrones;
+    }
+
+    public void setInferirPatrones(boolean InferirPatrones) {
+        this.InferirPatrones = InferirPatrones;
+    }
+    
       
         
 }

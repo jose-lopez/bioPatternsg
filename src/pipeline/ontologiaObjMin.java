@@ -290,7 +290,7 @@ public class ontologiaObjMin {
         ontologiaGO GO = new ontologiaGO();
         ontologiaMESH mesh = new ontologiaMESH();
         
-        new escribirBC("objeto(\""+obj.nombre+"\").","mineria/ontologiaMESH.pl");
+        new escribirBC("objeto(\""+obj.nombre+"\").","ontologiaMESH.pl");
         
         for (int i = 0; i < obj.funcionMolecular.size(); i++) {
             if (FM.equals("[")) {
@@ -327,16 +327,16 @@ public class ontologiaObjMin {
        
         
         if (!FM.equals("[]")) {
-            new escribirBC("fm(\""+obj.nombre+"\","+FM+").","mineria/ontologiaGO.pl");
+            new escribirBC("fm(\""+obj.nombre+"\","+FM+").","ontologiaGO.pl");
         }
         if (!PB.equals("[]")) {
-            new escribirBC("pb(\""+obj.nombre+"\","+PB+").","mineria/ontologiaGO.pl");
+            new escribirBC("pb(\""+obj.nombre+"\","+PB+").","ontologiaGO.pl");
         }
         if (!CC.equals("[]")) {
-            new escribirBC("cc(\""+obj.nombre+"\","+CC+").","mineria/ontologiaGO.pl");
+            new escribirBC("cc(\""+obj.nombre+"\","+CC+").","ontologiaGO.pl");
         }
         if (!MESH.equals("")) {
-            new escribirBC("is_a(\""+obj.nombre+"\",\""+MESH+"\").","mineria/ontologiaMESH.pl");
+            new escribirBC("is_a(\""+obj.nombre+"\",\""+MESH+"\").","ontologiaMESH.pl");
         }
         
         

@@ -35,10 +35,10 @@ public class BioPattern {
 
     public static void main(String[] args) throws Exception {
         BioPattern biopattern = new BioPattern();
-        biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
+        //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), true);
         //biopattern.pruebas();
-        //biopattern.pipelineBioPattern();
+        biopattern.pipelineBioPattern();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -145,9 +145,9 @@ public class BioPattern {
         /*/
 
          new Resumidor().resumidor(config);
-        // String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",config);
+        String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",config);
         //Se infieren los distintos patrones de regulacion para la secuencia problema.
-        //new Razonador().inferir_patrones("baseC.pl"); 
+        new Razonador().inferir_patrones("baseC.pl",config); 
         Region region_promotora = new Region(this.regionPromotora);
         //region_promotora.constructPromotor(MFT.getListaFT());
         return region_promotora;
@@ -189,6 +189,9 @@ public class BioPattern {
 
             new Resumidor().resumidor(config);
             String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",config);
+            
+            new Razonador().inferir_patrones("baseC.pl",config);
+       
         } else if (config.reiniciar()) {
             mfts.crearCarpeta("mineria");
             config = new configuracion();
@@ -246,7 +249,9 @@ public class BioPattern {
 
     public void pruebas() {
         //Autenticación de proxy        
-        autenticarProxy("150.187.65.3", "3128");
+        //autenticarProxy("150.187.65.3", "3128");
+        minado_FT mtf = new minado_FT();
+        mtf.vaciar_bc_pl(true, true);
 
     }
 

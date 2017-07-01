@@ -3,7 +3,7 @@
 
 
  Copyright (C) 2016.
- Jose Lopez (jlopez@unet.edu.ve). Yackson Ramirez (yackson.ramirez).
+ Jose Lopez (jlopez@unet.edu.ve). Yacson Ramirez (yacson.ramirez).
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as
@@ -116,20 +116,15 @@ public class GeneradorBC {
                         kb.println(lineaActual);
                         kb.close();
                     }
-
-
                 }
-
                 baseKB.close();
             }
-
         }
 
-        
+        config.setGenerarBC(true);
+        config.guardar();
 
         return baseC;
-
-
 
     }
 
