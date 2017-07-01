@@ -30,6 +30,7 @@ public class configuracion {
     private boolean crearOntologiaGO;
     private boolean crearOntologiaMESH;
     private int cantidadPMID;
+    private String rutaPMID_experto;
 //-------------------------------------//
     private boolean homologos; //Lectura de homologos
     private boolean objetosExperto; // Lectura objetos del experto
@@ -43,15 +44,14 @@ public class configuracion {
     private int resumenes; //archivos resumidos
     private boolean GenerarBC;
     private boolean InferirPatrones;
-    
-    
+
     public configuracion() {
         resumenes = 1;
         RegionPromotora = null;
         tfbind = new ArrayList<lecturas_TFBIND>();
     }
 
-    public void guardarConfiguracion(String regionProm, int numIter, int cantCompl, float conf, boolean GO, boolean MESH , int cantPMID) {
+    public void guardarConfiguracion(String regionProm, int numIter, int cantCompl, float conf, boolean GO, boolean MESH, int cantPMID, String PMidExp) {
         this.RegionPromotora = regionProm;
         this.cantComplejos = cantCompl;
         this.numIteraciones = numIter;
@@ -59,6 +59,7 @@ public class configuracion {
         this.crearOntologiaGO = GO;
         this.crearOntologiaMESH = MESH;
         this.cantidadPMID = cantPMID;
+        this.rutaPMID_experto = PMidExp;
         ObjectContainer db = Db4o.openFile("mineria/config.db");
         try {
             db.store(this);
@@ -121,6 +122,8 @@ public class configuracion {
                 this.numIteraciones = config.numIteraciones;
                 this.confiabilidad_tfbind = config.confiabilidad_tfbind;
                 this.cantidadPMID = config.cantidadPMID;
+                this.rutaPMID_experto = config.rutaPMID_experto;
+                //------------------------------------------------------//
                 this.tfbind = config.tfbind;
                 this.homologos = config.homologos;
                 this.objetosExperto = config.objetosExperto;
@@ -135,7 +138,7 @@ public class configuracion {
                 this.resumenes = config.resumenes;
                 this.GenerarBC = config.GenerarBC;
                 this.InferirPatrones = config.InferirPatrones;
-                
+
             }
         } catch (Exception e) {
             System.out.println("No fue posible guardar la configuracion");
@@ -150,10 +153,10 @@ public class configuracion {
         //System.out.println("\n**Configuracion de minado**");
         System.out.println("\n*Region promotora: " + this.RegionPromotora);
         System.out.println("*Cantidad de complejos: " + this.cantComplejos);
-        System.out.println("*Numero de iteraciones: " + this.numIteraciones);
-        System.out.println("*Confiabilidad TFBind: " + (int)(this.confiabilidad_tfbind*100));
+        System.out.println("*Numero de niveles: " + this.numIteraciones);
+        System.out.println("*Confiabilidad TFBind: " + (int) (this.confiabilidad_tfbind * 100));
         System.out.print("*Creacion de ontologias GeneOntology: ");
-        
+
         if (crearOntologiaGO) {
             System.out.println("Si");
         } else {
@@ -165,7 +168,35 @@ public class configuracion {
         } else {
             System.out.println("No");
         }
-
+        
+        estadoactual();
+    }
+    
+    private void estadoactual(){
+        System.out.print("\nEstado actual: ");
+        if(!homologos){
+            System.out.println("Busqueda de homologos");
+        }else if(!objetosExperto){
+            System.out.println("Busqueda objetos del Experto");
+        }else if(!lecturas_tfbind){
+            System.out.println("Lecturas desde Tfbind");
+        }else if(!procesoIteraciones){
+            objetosMineria objMin = new objetosMineria();
+            objMin = recuperarObjetosMin();
+            System.out.println("Busqueda de objetos PDB nivel "+(objMin.getIteracion()+1));
+        }else if(!combinaciones){
+            System.out.println("Generando combinaciones de palabras clave");
+        }else if(!abstracts){
+            System.out.println("Busquedas en PubMed ");
+        }else if(!vaciado_pl){
+            System.out.println("Vaciado de Objetos minados a formato prolog (.pl)");
+        }else if(!generarResumenes){
+            System.out.println("Generando resumenes actual: "+resumenes);
+        }else if(!GenerarBC){
+            System.out.println("Generar base de conocimiento");
+        }else if(!InferirPatrones){
+            System.out.println("Inferir patrones");
+        }
     }
 
     public void reanudar_proceso() {
@@ -192,12 +223,12 @@ public class configuracion {
             reanudar(6, objMin);
         } else if (!vaciado_pl) {
             reanudar(7, objMin);
-        } else if(!generarResumenes){
+        } else if (!generarResumenes) {
             reanudar(8, objMin);
-        } else if(!GenerarBC){
-            reanudar(9,objMin);
-        }else if(!InferirPatrones){
-            reanudar(10,objMin);
+        } else if (!GenerarBC) {
+            reanudar(9, objMin);
+        } else if (!InferirPatrones) {
+            reanudar(10, objMin);
         }
     }
 
@@ -216,10 +247,11 @@ public class configuracion {
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
-                try{
-                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
-                }catch(Exception e){}
-                new Razonador().inferir_patrones("baseC.pl",this); 
+                try {
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                } catch (Exception e) {
+                }
+                new Razonador().inferir_patrones("baseC.pl", this);
                 break;
             case 2:
                 revisarObjH_E("homologos", objetosMineria);
@@ -230,10 +262,11 @@ public class configuracion {
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
-                try{
-                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
-                }catch(Exception e){}
-                new Razonador().inferir_patrones("baseC.pl",this);
+                try {
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                } catch (Exception e) {
+                }
+                new Razonador().inferir_patrones("baseC.pl", this);
                 break;
             case 3:
                 revisarObjH_E("homologos", objetosMineria);
@@ -245,10 +278,11 @@ public class configuracion {
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
-                try{
-                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
-                }catch(Exception e){}
-                new Razonador().inferir_patrones("baseC.pl",this);
+                try {
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                } catch (Exception e) {
+                }
+                new Razonador().inferir_patrones("baseC.pl", this);
                 break;
             case 4:
                 ArrayList<String> ListaObj = reanudarIteracion(objetosMineria);
@@ -257,10 +291,11 @@ public class configuracion {
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
-                try{
-                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
-                }catch(Exception e){}
-                new Razonador().inferir_patrones("baseC.pl",this);
+                try {
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                } catch (Exception e) {
+                }
+                new Razonador().inferir_patrones("baseC.pl", this);
                 break;
 
             case 5:
@@ -268,47 +303,51 @@ public class configuracion {
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
-                try{
-                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
-                }catch(Exception e){}
-                new Razonador().inferir_patrones("baseC.pl",this);
+                try {
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                } catch (Exception e) {
+                }
+                new Razonador().inferir_patrones("baseC.pl", this);
                 break;
             case 6:
-                listaPMid = BPM.consulta_PudMed(cantidadPMID);
+                listaPMid = BPM.consulta_PudMed(cantidadPMID,this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
-                try{
-                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
-                }catch(Exception e){}
-                new Razonador().inferir_patrones("baseC.pl",this);
+                try {
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                } catch (Exception e) {
+                }
+                new Razonador().inferir_patrones("baseC.pl", this);
                 break;
             case 7:
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
-                try{
-                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
-                }catch(Exception e){}
-                new Razonador().inferir_patrones("baseC.pl",this);
+                try {
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                } catch (Exception e) {
+                }
+                new Razonador().inferir_patrones("baseC.pl", this);
                 break;
             case 8:
                 new Resumidor().resumidor(this);
-                try{
-                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
-                }catch(Exception e){}
-                new Razonador().inferir_patrones("baseC.pl",this);
-            break;
+                try {
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                } catch (Exception e) {
+                }
+                new Razonador().inferir_patrones("baseC.pl", this);
+                break;
             case 9:
-                try{
-                 String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",this);
-                }catch(Exception e){}
-                new Razonador().inferir_patrones("baseC.pl",this);
-            break;
+                try {
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                } catch (Exception e) {
+                }
+                new Razonador().inferir_patrones("baseC.pl", this);
+                break;
             case 10:
-                new Razonador().inferir_patrones("baseC.pl",this);
-            break;
-            
-                 
+                new Razonador().inferir_patrones("baseC.pl", this);
+                break;
+
         }
 
     }
@@ -353,7 +392,7 @@ public class configuracion {
                 Lista.add(objMin.getNuevos_objetos().get(i));
             }
         }
-        
+
         objMin.setNuevos_objetos(NuevosObj);
     }
 
@@ -472,7 +511,7 @@ public class configuracion {
         Scanner lectura = new Scanner(System.in);
         String regionPromotora;
         while (true) {
-            System.out.print("*Nombre de archivo region promotora:");
+            System.out.print("*Nombre de archivo region promotora: ");
             regionPromotora = lectura.nextLine();
             if (!regionPromotora.equals("")) {
                 break;
@@ -488,7 +527,7 @@ public class configuracion {
         float conf;
         while (true) {
             try {
-                System.out.print("*Indice de confiabilidad TFbind (0-100): ");
+                System.out.print("*Indice de confiabilidad en TFbind (0-100): ");
                 String confi = lectura.nextLine();
                 conf = Float.parseFloat(confi) / 100;
 
@@ -509,7 +548,7 @@ public class configuracion {
         Scanner lectura = new Scanner(System.in);
         while (true) {
             try {
-                System.out.print("*Numero de objetos PDB maximos: ");
+                System.out.print("*Numero maximo de objetos PDB : ");
                 can_objs = Integer.parseInt(lectura.nextLine());
                 break;
             } catch (Exception e) {
@@ -524,7 +563,7 @@ public class configuracion {
         Scanner lectura = new Scanner(System.in);
         while (true) {
             try {
-                System.out.print("*Numero de iteraciones: ");
+                System.out.print("*Numero de niveles de busqueda: ");
                 num_iter = Integer.parseInt(lectura.nextLine());
                 break;
             } catch (Exception e) {
@@ -595,6 +634,40 @@ public class configuracion {
             }
         }
         return MESH;
+    }
+
+    public String PMidExperto() {
+        String ruta = "";
+        Scanner lectura = new Scanner(System.in);
+        boolean r;
+
+        while (true) {
+            System.out.print("*Desea agregar PubMed ID de Experto?  ..S/N: ");
+            String resp = lectura.nextLine();
+            if (resp.equalsIgnoreCase("s")) {
+                r = true;
+                break;
+            } else if (resp.equalsIgnoreCase("n")) {
+                r = false;
+                break;
+            } else {
+                System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+            }
+
+        }
+        if (r) {
+            while (true) {
+                System.out.print("*Indique el nombre del archivo donde estan los PubMed Ids: ");
+                ruta = lectura.nextLine();
+                if (!ruta.equals("")) {
+                    break;
+                } else {
+                    System.out.println("Debe ingresar un nombre de archivo");
+                }
+            }
+        }
+
+        return ruta;
     }
 
     public int getNumIteraciones() {
@@ -748,7 +821,13 @@ public class configuracion {
     public void setInferirPatrones(boolean InferirPatrones) {
         this.InferirPatrones = InferirPatrones;
     }
-    
-      
-        
+
+    public String getRutaPMID_experto() {
+        return rutaPMID_experto;
+    }
+
+    public void setRutaPMID_experto(String rutaPMID_experto) {
+        this.rutaPMID_experto = rutaPMID_experto;
+    }
+
 }

@@ -36,13 +36,13 @@ import java.util.logging.Logger;
 
 public class minado_FT {
 
-    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos,boolean GO, boolean MESH, int cantPMID) {
+    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos,boolean GO, boolean MESH, int cantPMID, String PMidExp) {
 
         objetosMineria objetosMineria = new objetosMineria();
         crearCarpeta("mineria");
 
         configuracion config = new configuracion();
-        config.guardarConfiguracion(ruta, Iteraciones, numeroObjetos, confiabilidad,GO,MESH, cantPMID);
+        config.guardarConfiguracion(ruta, Iteraciones, numeroObjetos, confiabilidad,GO,MESH, cantPMID,PMidExp);
 
         new objetosMinados().crear_archivo();
 
@@ -58,7 +58,7 @@ public class minado_FT {
 
     public void primeraIteracion(String ruta, float confiabilidad, int numeroObjetos, objetosMineria objetosMineria, configuracion config, ArrayList<lecturas_TFBIND> lecturas,boolean GO, boolean MESH) {
         //Primera Iteracion
-        System.out.println("\n\n====Iteracion 0====\n");
+        System.out.println("\n\n==== Nivel 0 ====\n");
         objetosMineria.setIteracion(0);
         ArrayList<lecturas_TFBIND> lecturasTFB;
         if (lecturas.size() == 0) {
@@ -75,7 +75,7 @@ public class minado_FT {
             objetosMineria.agregar_objeto(FT.getComplejoProteinico());
             new objetosMinados().agregar_objetos(FT);
             guardar_Factor_transcripcion(FT);
-            System.out.println("...ok");
+            //System.out.println("...ok");
             FT = null;
         }
         guardar_objetosIteracion(objetosMineria);
@@ -88,7 +88,7 @@ public class minado_FT {
     public void Iteraciones(boolean ReinicioMin, ArrayList<String> Lista, int numeroObjetos, int Iteraciones, objetosMineria objetosMineria, configuracion config, int iter,boolean GO, boolean MESH) {
         //Iteracion 2 en adelante
         for (int i = iter; i < Iteraciones; i++) {
-            System.out.println("\n\n====Iteracion " + (i) + "====\n");
+            System.out.println("\n\n==== Nivel " + (i) + " ====\n");
 
             if (!ReinicioMin) {
                 Lista = objetosMineria.getNuevos_objetos();
@@ -102,7 +102,7 @@ public class minado_FT {
                 objetosMineria.agregar_objeto(FT.getComplejoProteinico());
                 new objetosMinados().agregar_objetos(FT);
                 guardar_Factor_transcripcion(FT);
-                System.out.println("Listo....");
+                //System.out.println("Listo....");
             }
 
             objetosMineria.setIteracion(i);

@@ -94,7 +94,7 @@ public class BioPattern {
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
         minado_FT mfts = new minado_FT();
         //ruta de archivo, confiabilidad, N Iteraciones, N de objetos
-        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH, cantPMID);
+        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH, cantPMID,"");
         mfts.obtenerFT();
 
         Region region_promotora = new Region(this.regionPromotora);
@@ -175,9 +175,10 @@ public class BioPattern {
             int iteraciones = config.ingresar_numIteracioens();
             boolean GO = config.buscarGO();
             boolean MESH = config.buscarMESH();
-            int cantPMID = 1000; //numero de pubmed IDs
+            String rutaPMidExp = config.PMidExperto();
+            int cantPMID = 10000; //numero de pubmed IDs
 
-            mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, cantPMID);
+            mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, cantPMID, rutaPMidExp);
 
             busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
 
@@ -251,7 +252,12 @@ public class BioPattern {
         //Autenticación de proxy        
         //autenticarProxy("150.187.65.3", "3128");
         minado_FT mtf = new minado_FT();
-        mtf.vaciar_bc_pl(true, true);
+       configuracion config = new configuracion();
+       
+       //config.PMidExperto();
+       
+       busquedaPubMed_IDs bpm = new busquedaPubMed_IDs();
+       bpm.PMidExperto("PubMedIDExperto.txt", new ArrayList<String>());
 
     }
 

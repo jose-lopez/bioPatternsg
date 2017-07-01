@@ -9,7 +9,9 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.collections.ActivatableArrayList;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -31,13 +33,13 @@ public class busquedaPubMed_IDs {
             while (result.hasNext()) {
                 try {
                     factorTranscripcion ft = (factorTranscripcion) result.next();
-                    factor_ligando(ft,mostrarComb);
-                    factor_nuevoObjeto(ft,mostrarComb);
+                    factor_ligando(ft, mostrarComb);
+                    factor_nuevoObjeto(ft, mostrarComb);
                     //Si criterioCombinacion es 'true' los objetos del experto se combinaran en todas las Iteraciones
                     //Si criterioCombinacion es 'false' los objetos del experto solo se combinaran en la primera Iteracion
                     if (ft.getN_Iteracion() == 0 || criterioCombinacion) {
                         //System.out.println("FT + Objetos experto y homologos");
-                        factor_objetos_H_E(ft,mostrarComb);
+                        factor_objetos_H_E(ft, mostrarComb);
                     }
                 } catch (Exception e) {
 
@@ -52,15 +54,20 @@ public class busquedaPubMed_IDs {
         config.setCombinaciones(true);
         config.guardar();
         System.out.println("Listo...");
-        
-        return consulta_PudMed(cantIDs);
+
+        return consulta_PudMed(cantIDs, config);
     }
 
-    public ArrayList<String> consulta_PudMed(int cantIDs) {
+    public ArrayList<String> consulta_PudMed(int cantIDs, configuracion config) {
         System.out.println("Consulta Pudmed IDs");
         ArrayList<String> listaPM = new ArrayList<>();
         ObjectContainer db = Db4o.openFile("mineria/combinaciones.db");
         combinacion com = new combinacion();
+
+        if (!config.getRutaPMID_experto().equals("")) {
+            PMidExperto(config.getRutaPMID_experto(), listaPM);
+        }
+
         try {
             ObjectSet result = db.queryByExample(com);
             System.out.println("Combinaciones: " + result.size());
@@ -89,31 +96,31 @@ public class busquedaPubMed_IDs {
         return listaPM;
     }
 
-    private void factor_nuevoObjeto(factorTranscripcion FT,boolean mostrarComb) {
+    private void factor_nuevoObjeto(factorTranscripcion FT, boolean mostrarComb) {
 
         for (int i = 0; i < FT.listaNombres().size(); i++) {
             for (int j = 0; j < FT.getComplejoProteinico().size(); j++) {
                 ArrayList<String> listNO = FT.getComplejoProteinico().get(j).listaNombres();
                 for (int k = 0; k < listNO.size(); k++) {
-                    guardarCombinacion(FT.listaNombres().get(i), listNO.get(k), true,mostrarComb);
+                    guardarCombinacion(FT.listaNombres().get(i), listNO.get(k), true, mostrarComb);
                 }
             }
         }
     }
 
-    private void factor_ligando(factorTranscripcion FT,boolean mostrarComb) {
+    private void factor_ligando(factorTranscripcion FT, boolean mostrarComb) {
 
         for (int i = 0; i < FT.listaNombres().size(); i++) {
             for (int j = 0; j < FT.getComplejoProteinico().size(); j++) {
                 for (int k = 0; k < FT.getComplejoProteinico().get(j).getLigandos().size(); k++) {
-                    guardarCombinacion(FT.listaNombres().get(i), FT.getComplejoProteinico().get(j).getLigandos().get(k).getId(), true,mostrarComb);
-                    guardarCombinacion(FT.listaNombres().get(i), FT.getComplejoProteinico().get(j).getLigandos().get(k).getNombre(), true,mostrarComb);
+                    guardarCombinacion(FT.listaNombres().get(i), FT.getComplejoProteinico().get(j).getLigandos().get(k).getId(), true, mostrarComb);
+                    guardarCombinacion(FT.listaNombres().get(i), FT.getComplejoProteinico().get(j).getLigandos().get(k).getNombre(), true, mostrarComb);
                 }
             }
         }
     }
 
-    private void factor_objetos_H_E(factorTranscripcion FT,boolean mostrarComb) {
+    private void factor_objetos_H_E(factorTranscripcion FT, boolean mostrarComb) {
         ObjectContainer db = Db4o.openFile("mineria/ObjH_E.db");
         objetos_Experto Obj = new objetos_Experto();
         try {
@@ -125,7 +132,7 @@ public class busquedaPubMed_IDs {
 
                     for (int i = 0; i < FT.listaNombres().size(); i++) {
                         for (int j = 0; j < obj.getHGNC().size(); j++) {
-                            guardarCombinacion(FT.listaNombres().get(i), obj.listaNombres().get(i), true,mostrarComb);
+                            guardarCombinacion(FT.listaNombres().get(i), obj.listaNombres().get(i), true, mostrarComb);
                         }
                     }
                 } catch (Exception e) {
@@ -173,7 +180,7 @@ public class busquedaPubMed_IDs {
                     for (int i = 0; i < obj1.listaNombres().size(); i++) {
                         for (int j = 0; j < obj2.listaNombres().size(); j++) {
                             //System.out.println(obj1.listaNombres().get(i)+" "+obj2.listaNombres().get(j));
-                            guardarCombinacion(obj1.listaNombres().get(i), obj2.listaNombres().get(j), true,mostrarComb);
+                            guardarCombinacion(obj1.listaNombres().get(i), obj2.listaNombres().get(j), true, mostrarComb);
 
                         }
                     }
@@ -204,13 +211,13 @@ public class busquedaPubMed_IDs {
         return objExp;
     }
 
-    private void guardarCombinacion(String pal1, String pal2, boolean buscar,boolean mostarComb) {
+    private void guardarCombinacion(String pal1, String pal2, boolean buscar, boolean mostarComb) {
 
         combinacion comb = new combinacion(pal1, pal2);
         combinacion comb2 = new combinacion(pal2, pal1);
         if (buscar && (!consultar(comb) && !consultar(comb2))) {
             //System.out.println(pal1 + "+" + pal2);
-            agregar(comb,mostarComb);
+            agregar(comb, mostarComb);
         }
 
     }
@@ -258,6 +265,26 @@ public class busquedaPubMed_IDs {
         } catch (Exception e) {
 
         }
+    }
+
+    public void PMidExperto(String rutaPMID_experto, ArrayList<String> listaPM) {
+
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            archivo = new File(rutaPMID_experto);
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String lectura;
+            while ((lectura = br.readLine()) != null) {
+                if (!listaPM.contains(lectura)) {
+                    listaPM.add(lectura);
+                }
+            }
+        } catch (Exception e) {
+        }
+
     }
 
 }

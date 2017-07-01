@@ -22,9 +22,9 @@ public class lecturas_PDB {
         CP.setID(cp);
         String url = "http://www.rcsb.org/pdb/rest/describeMol?structureId=" + cp;
         try {
-            System.out.print("leyendo: " + cp + "  ");
+            //System.out.print("leyendo: " + cp + "  ");
             revisa_xml_PDB2(new conexionServ().conecta(url), CP, GO, MESH);
-            System.out.println("   ....ok");
+           // System.out.println("   ....ok");
         } catch (Exception ex) {
 
         }
