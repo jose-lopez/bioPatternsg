@@ -63,7 +63,7 @@ public class BioPattern {
 
     }
 
-    public Region pipelineBioPatternRP(String rutaSecuenciaProb, String regionPromotora, String confiabilidad, int cantPromotores, int cant_compl_p, int num_iteraciones, boolean criterio) throws IOException {
+    public Region pipelineBioPatternRP(String regionPromotora, String confiabilidad, int cant_compl_p, int num_iteraciones) throws IOException {
 
         //Autenticación de proxy        
         autenticarProxy("150.187.65.3", "3128");
@@ -88,8 +88,8 @@ public class BioPattern {
          * Estos se emplearan mas adelante para organizar regiones promotoras.
          */
         float conf = Float.parseFloat(confiabilidad);  //confiabilidad de las busquedas en tfbind
-        boolean buscarOntologiaGO = true;
-        boolean buscarOntologiaMESH = true;
+        boolean buscarOntologiaGO = false;
+        boolean buscarOntologiaMESH = false;
         int cantPMID = 20;
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
         minado_FT mfts = new minado_FT();
