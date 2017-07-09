@@ -42,12 +42,10 @@ public class busquedaPubMed_IDs {
                         factor_objetos_H_E(ft, mostrarComb);
                     }
                 } catch (Exception e) {
-
                 }
 
             }
         } catch (Exception e) {
-
         } finally {
             db.close();
         }
@@ -64,8 +62,12 @@ public class busquedaPubMed_IDs {
         ObjectContainer db = Db4o.openFile("mineria/combinaciones.db");
         combinacion com = new combinacion();
 
-        if (!config.getRutaPMID_experto().equals("")) {
-            PMidExperto(config.getRutaPMID_experto(), listaPM);
+        try {
+
+            if (!config.getRutaPMID_experto().equals("")) {
+                PMidExperto(config.getRutaPMID_experto(), listaPM);
+            }
+        } catch (Exception e) {
         }
 
         try {
@@ -84,11 +86,9 @@ public class busquedaPubMed_IDs {
                         }
                     }
                 } catch (Exception e) {
-
                 }
             }
         } catch (Exception e) {
-
         } finally {
             db.close();
         }
@@ -140,7 +140,6 @@ public class busquedaPubMed_IDs {
 
             }
         } catch (Exception e) {
-
         } finally {
             db.close();
         }
@@ -161,7 +160,6 @@ public class busquedaPubMed_IDs {
                 }
             }
         } catch (Exception e) {
-
         } finally {
             db.close();
         }
@@ -203,7 +201,6 @@ public class busquedaPubMed_IDs {
             return objs;
 
         } catch (Exception e) {
-
         } finally {
             db.close();
         }
@@ -233,7 +230,6 @@ public class busquedaPubMed_IDs {
                 existe = true;
             }
         } catch (Exception e) {
-
         } finally {
             db.close();
         }
@@ -263,7 +259,6 @@ public class busquedaPubMed_IDs {
             File ficherod = new File(nombre);
             ficherod.delete();
         } catch (Exception e) {
-
         }
     }
 
@@ -286,7 +281,6 @@ public class busquedaPubMed_IDs {
         }
 
     }
-
 }
 
 class combinacion {
@@ -317,5 +311,4 @@ class combinacion {
     public void setPalabra2(String palabra2) {
         this.palabra2 = palabra2;
     }
-
 }

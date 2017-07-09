@@ -189,6 +189,7 @@ public class BioPattern {
             mfts.vaciar_bc_pl(GO, MESH);
 
             new Resumidor().resumidor(config);
+            
             String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",config);
             
             new Razonador().inferir_patrones("baseC.pl",config);
