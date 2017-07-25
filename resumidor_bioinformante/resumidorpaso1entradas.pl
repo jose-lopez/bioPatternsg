@@ -141,21 +141,24 @@ trashes --> trash, !, trashes.
 trashes --> [].
 
 trash --> tag_marker(End), string(_), End, !.
-trash --> white.
-trash --> [S], {code_type(S, space)}.
+% trash --> white.
+trash --> [S], {code_type(S, space);code_type(S, white)}.
 trash --> "\t".  
 trash --> "\r".  % elimina fines de linea
 trash --> "\n".  % elimina salto de linea
 
-% 
+
 tag_marker("-->") --> "<!--".  %html comments
-tag_marker(">") --> "<", lexem('/'), lexem(T), {to_skip(T)}, !. 
-tag_marker(">") --> "<", lexem(T), {T\='/', to_skip(T)}.
+tag_marker(">") --> "<". %any other html tag gets removed
+
+% , lexem('/'), lexem(T), {to_skip(T)}, !. 
+% tag_marker(">") --> "<", lexem(T), {T\='/', to_skip(T)}.
 
 to_skip(T) :- not(to_keep(T)). 
 
 to_keep(p).
-to_keep(b).  
+to_keep(b).
+to_keep('PRE').   
 
 %lexem('\r') --> "\r". 
 %lexem('\n') --> "\n".
@@ -179,7 +182,7 @@ lexem(?) --> "?".
 lexem(¿) --> "¿".
 lexem(':') --> ":".
 lexem(&) --> "&".
-lexem(;) --> ";". 
+lexem(';') --> ";". 
 lexem('|') --> "|". 
 lexem('\'') --> "'". 
 lexem('\\') --> "\\". 
@@ -211,11 +214,13 @@ identifier_c([H | T]) --> alpha(H), !, many_alnum(T).
 alpha(H) --> [H], {(code_type(H, alnum);code_type(H, csym);
                     code_type(H, prolog_symbol); 
 		  code_type(H, graph)),
+	          not(atom_codes('<', [H])), % excluye el comienzo de un tag
 	          not(atom_codes('.', [H])), !}. % excluye al fin de oracion
 alnum(H) --> [H], {(code_type(H, alnum);code_type(H, csym);
                     code_type(H, prolog_symbol); 
 	           code_type(H, graph)), 
-                   not(atom_codes('.', [H])), !}. % excluye al fin de oracion
+	          not(atom_codes('<', [H])), % excluye el comienzo de un tag
+                  not(atom_codes('.', [H])), !}. % excluye al fin de oracion
 
 many_alnum([H | T]) --> alnum(H), !, many_alnum(T).
 

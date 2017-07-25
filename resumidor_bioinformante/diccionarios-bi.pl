@@ -1,608 +1,29 @@
-% resumidor_adaptado_biologia.pl
-% modificado por última vez el 1 de Diciembre de 2014, Jacinto Dávila
-% modificado por ultima vez el 14 de Enero de 2004. 
-% Copyright (C) H. Yelitza Contreras <hyelitza@ula.ve> and Jacinto Dávila <jacinto@ula.ve>
+% diccionarios.pl
 %
-%This program is free software; you can redistribute it
-%and/or modify it under the terms of the GNU General Public License
-%as published by the Free Software Foundation; either version 2 of
-%the License, or any later version.
+%    Copyright (C) 2015 
+%    Jacinto DÃ¡vila, Hilda Yelitza Contreras, M. MarilÃº Parra, Jose Lopez
 %
-%This program is distributed in the hope that it will be
-%useful, but WITHOUT ANY WARRANTY; without even the implied
-%warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-%See the GNU General Public License for more details.
+%    This program is free software: you can redistribute it and/or modify
+%    it under the terms of the GNU Affero General Public License as
+%    published by the Free Software Foundation, either version 3 of the
+%    License, or (at your option) any later version.
 %
-%You should have received a copy of the GNU General Public
-%License along with this program; if not, write to the Free
-%Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-%02111-1307 USA or see http://www.opensource.org/licenses/gpl-license.php
-% 
-% Autor: H. Yelitza Contreras <hyelitza@ula.ve> and Jacinto Dávila <jacinto@ula.ve>
-% Adaptación: Jacinto Dávila Marilú Parra <mmarilu@ula.ve>
-% Direccion: Universidad de Los Andes. Mérida, Venezuela. 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Resumidor: obtener tópicos de un texto 
-% Dado un archivo de texto (ascii) obtiene los tópicos del texto 
-% y los retorna en la salida estándar.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% resumir/0
-% resumir/1 resumir(+TipoSalida)
-% Lee la entrada estandar y dado el texto de un documento retorna
-% por cada párrafo una lista de tópicos. 
-% La salida por defecto (usando resumidor/0) es párrafo original, 
-% párrafo williams y tópicos del párrafo.
-% Si se requiere otra salida se puede usar resumidor/1 con los
-% siguientes valores: 
-% TipoSalida = 0, sólo imprime en la salida los tópicos resultantes
-% de cada párrafo en salida html
-% TipoSalida = 1, sólo imprime en la salida los tópicos sin procesar 
-% del texto 
-
-%% El archivo diccionario contiene las definiciones de las palabras que pueden resultar importantes para la ontologia
-%% Funciona como un traductor intermedio de palabras de procesos obtenidos de la ontologia a acciones
-%% pertinentes para el contexto de estudio que en este caso son verbos.
-
-:- ['diccionario.pl']. 
-
-:- encoding(utf8).
-
-% Esta linea es necesaria para poder modificar terminales de la gramatica en tiempo real. 
-:- dynamic verbo/1,verb/2,predicado/1.
-
-% Sección agregada de la última versión del resumidor
-:- use_module(library('http/http_open.pl')).
-:- use_module(library(sgml)).
-
-factor(1). 
-
-resume(URL) :-
-    descargar(URL, HTML),
-    aplana_html(HTML, Bloques), !, 
-    write('<B>Resumen autom&aacute;tico  </B>'), write('<hr>'),
-    resume_e(Bloques, _Parrafos, _ParrafosUpper, _TodosTopicos),
-    write('<hr>').
-
-% ----------------------------------------------------------------------------------- resume_e
-% resume_e( +Bloques, -Parrafos, -ParrafosUpper, -TodosTopicos ).
-% sigue una estrategia diferente a resume_todo, convirtiendo todos los
-% bloques en un gran arreglo de simbolos ascii que es alimentado a leer_parrafo.
+%    This program is distributed in the hope that it will be useful,
+%    but WITHOUT ANY WARRANTY; without even the implied warranty of
+%    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%    GNU Affero General Public License for more details.
 %
-resume_e(Bloques, Parrafos, ParrafosUpper, TodosTopicos) :-
-        convierte_bloques(Bloques, L),
-        % invocar al resumidor de yelitza sobre esa lista.
-        leer_parrafos(L, _, Parrafos,ParrafosUpper,_, TodosTopicos), !, % <-- llama al resumidor de Yelitza
-    	%write(Parrafos), 
-	%write(ParrafosUpper),
-	%escribe_lista(TodosTopicos), 
-	%escribe_lista(Parrafos). 
-        salida_html( Parrafos, ParrafosUpper, TodosTopicos ). 
-
-% --------------------------------------------------------------------------------------- leer_parrafos
-% Leer los parrafos en una lista con los caracteres obtenidos de un documento. 
+%    You should have received a copy of the GNU Affero General Public License
+%    along with this program.  If not, see <http://www.gnu.org/licenses/>
 %
-% leer_parrafos(Ascci-, REstoAscci+, Parrafos+, ParrafosUpper+, Proximo+, Topicos+)
-% dado que la lista L de entrada puede contener mas de un
-% parrafo, este procedimiento extrae todos los parrafos de
-% esa lista con invocaciones repetidas a leer_parrafo, tal
-% como fue implementado por Y. Contreras.
-%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Diccionarios %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-leer_parrafos([], [], [], [], -1, []).
 
-leer_parrafos(L, RestoL, TodosParrafos,TodosParrafosUpper, ProximoC, NTopicos) :-
-  leer_parrafo( L, Resto1, PrimerParrafo, PrimParrafoUpper, _ ),
-  claridad(PrimerParrafo, ParrafoW),
-  !,
-  extraer_topico(ParrafoW, Topicos),
-  topico_comun(Topicos, TopicosPonderados),
-  % selecciona_topico(TopicosPonderados, -1, [], Topico),
-  % write('Topico comun: '), write(Topico), nl,
-  % ( Topico \= [] -> NTopicos = [Topico|RestoTopicos]  ; NTopicos = RestoTopicos ), !,
-  leer_parrafos( Resto1, RestoL, Siguientes, SiguientesUpper, ProximoC, RestoTopicos ),
-  append( TopicosPonderados, RestoTopicos, NTopicos ), 
-  append( PrimerParrafo, Siguientes, TodosParrafos),
-  append( PrimParrafoUpper, SiguientesUpper, TodosParrafosUpper ).
-
-% ----------------------------------------------------  descargar
-% Prolog recupera desde Internet los documentos SGML, devuelve una lista que contiene un solo nodo raíz de un arbol
-% construido analizando la estructura secuencial del documento SGML. 
-
-descargar(URL, HTML) :- 
-    is_absolute_url(URL),
-    http_open(URL, In, []), !,
-    set_stream(In, encoding(utf8)), 
-    carga_parcial_html(In, HTML), 
-    close(In). 
-
-descargar(FILE, HTML) :-
-    open(FILE, read, In, []), !,
-    set_stream(In, encoding(utf8)),  
-    carga_parcial_html(In, HTML),   
-    close(In). 
-
-carga_parcial_html(File, Term) :-
-	% seek(In, Start, bof, _),
-	% set_sgml_parser(Parser, charpos(Start)),
-	Len is 200000, % Caret - Start,
-	% open(File, read, In),
-        new_sgml_parser(Parser, []),
-	% set_sgml_parser(Parser, doctype(_)),
-	set_sgml_parser(Parser, dialect(sgml)),
-        % set_sgml_parser(Parser, file(File)),
-        % set_sgml_parser(Parser, dialect(xml)),
-        sgml_parse(Parser,
-                   [ source(File),
-		     content_length(Len),
-		     parse(input),	% do not complete document
-		     document(Term), 
-		     max_errors(100)
-		     %call(error, aviso_error)
-                   ]).
-
-% -------------------------------------------------------- aplana_html
-% El predicado "aplana_html" convierte una lista estructurada, obtenida al leer un archivo
-% sgml, html o xml, en una lista plana con algunos marcadores incluidos. 
-% Es usada para reducir el texto de entrada al contenido esencial para resumir. 
-
-
-aplana_html([], []).
-
-% Detecta un ancla, marca su posicion y desecha su "contenido"
-% tambien REMUEVE los 10 siguiente elementos en el documento. 
-aplana_html([element(a,_,_)|Resto], Lista) :-
-  ( ( Resto = [_1,_2,_3,_4,_5,_6, _7|NResto], ! ) ;
-      ( NResto = Resto ) ),
-  aplana_html(NResto, Lista). 
-
-aplana_html([element(link,_,_)|Resto], Lista) :-
-  ( ( Resto = [_1,_2,_3,_4,_5,_6, _7|NResto], ! ) ;
-      ( NResto = Resto ) ),
-  aplana_html(NResto, Lista). 
-
-aplana_html([element(script,_,_)|Resto], Lista) :-
-  ( ( Resto = [_1,_2,_3,_4,_5,_6, _7|NResto], ! ) ;
-      ( NResto = Resto ) ),
-  aplana_html(NResto, Lista). 
-
-% Detecta un cambio de font
-aplana_html([element(font,_,Contenido)|Resto], ['<font>'|Lista]) :-
-  aplana_html(Contenido, Elemento_Plano),
-  aplana_html(Resto, Resto_Aplanado),
-  % write(Elemento_Plano), % nl, read(_),
-  append(Elemento_Plano, Resto_Aplanado, Lista).
-
-% Detecta las negritas
-aplana_html([element(b,_,Contenido)|Resto], ['<b>'|Lista]) :-
-  aplana_html(Contenido, Elemento_Plano),
-  aplana_html(Resto, Resto_Aplanado),
-  % write(Elemento_Plano), % nl, read(_),
-  append(Elemento_Plano, Resto_Aplanado, Lista).
-
-% Detecta los extraños u
-aplana_html([element(u,_,Contenido)|Resto], ['<u>'|Lista]) :-
-  aplana_html(Contenido, Elemento_Plano),
-  aplana_html(Resto, Resto_Aplanado),
-  % write(Elemento_Plano), % nl, read(_),
-  append(Elemento_Plano, Resto_Aplanado, Lista).
-
-% Detecta los p
-aplana_html([element(p,_,Contenido)|Resto], Lista) :-
-  aplana_html(Contenido, Elemento_Plano),
-  %['<p>'|Elemento_Plano] = NElemento_Plano, 
-  %append(NElemento_Plano, ['</p>'], NNElemento_Plano), 
-  aplana_html(Resto, Resto_Aplanado),
-  % write(Elemento_Plano), % nl, read(_),
-  append(Elemento_Plano, Resto_Aplanado, Lista).
-
-aplana_html([element(_,_,Contenido)|Resto], Lista) :-
-  aplana_html(Contenido, Elemento_Plano),
-  aplana_html(Resto, Resto_Aplanado),
-  % write(Elemento_Plano), % nl, read(_),
-  append(Elemento_Plano, Resto_Aplanado, Lista).
-
-aplana_html([Elemento|Resto], [Elemento|RResto] ) :-
-  % write(Elemento), % nl, read(_),
-  aplana_html(Resto, RResto).
-
-% ----------------------------------------------------------------------------------- convierte_bloques
-% convierte_bloques
-% hace el trabajo para resume_e
-convierte_bloques([], []).
-convierte_bloques([Bloque|OtrosBloques], Lista) :-
-    atom_chars(Bloque, L),
-    filtrar_etiquetas_html(L, LF), 
-    convierte_bloques(OtrosBloques, LL),
-    append(LF, LL, Lista).
-
-
-filtrar_etiquetas_html([], []) :- !. 
-filtrar_etiquetas_html(['<'|Resto], Salida) :- !,
-    quita_etiqueta(Resto, Diferencia), 
-    filtrar_etiquetas_html( Diferencia, Salida).
-filtrar_etiquetas_html([S|Resto], [S|Salida]) :-
-    filtrar_etiquetas_html( Resto, Salida).
-
-
-quita_etiqueta([], []) :- !. 
-quita_etiqueta(['>'|Resto], Resto) :- !. 
-quita_etiqueta([S|Resto], Salida) :-
-    quita_etiqueta(Resto, Salida).
-
-
-% Fin de la sección agregada
-
-%factor(0).
-
-resumir :- leer_texto.
-
-resumir(TipoSalida) :- leer_texto(TipoSalida).
-
-leer_texto :-
-    %% llamar al paso 1 (leer, tokennizer)
-    leer_parrafo(Parrafo,_,ProximoC),
-    write('PÁRRAFO = '),
-    write(Parrafo), !, nl, nl,
-    %% llamar al paso 2 (oracion = sujeto,verbo,complemento)
-    claridad(Parrafo,ParrafoW), 
-    !, 
-    write('PÁRRAFO WILLIAMS = '),
-    write(ParrafoW), nl, nl,
-    %% llamar al paso 3 (obtener tópico)
-    extraer_topico(ParrafoW,Topicos), 
-    write('TÓPICOS = '),
-    write(Topicos), nl, nl,
-    %% llamar al paso 3 (obtener tópico común)
-    topico_comun(Topicos,Topico), 
-    write('TÓPICO COMÚN = '),
-    write(Topico), nl, nl,
-    leer_resto_texto(ProximoC).
-
-leer_texto(1) :-
-    %% llamar al paso 1 (leer, tokennizer)
-    leer_parrafo(Parrafo,_,ProximoC),
-    %% llamar al paso 2 (oracion = sujeto,verbo,complemento)
-    claridad(Parrafo,ParrafoW), 
-    !, 
-    %% llamar al paso 3 (obtener tópico)
-    extraer_topico(ParrafoW,Topicos), 
-    write('TÓPICOS = '),
-    write(Topicos), nl, nl,
-    leer_resto_texto(ProximoC,1).
-
-leer_texto(0) :-
-    %% llamar al paso 1 (leer, tokennizer)
-    leer_parrafo(Parrafo,ParrafoUpper,ProximoC),
-    %% llamar al paso 2 (oracion = sujeto,verbo,complemento)
-    claridad(Parrafo,ParrafoW), 
-    !, 
-    %% llamar al paso 3 (obtener tópico)
-    extraer_topico(ParrafoW,Topicos), 
-    topico_comun(Topicos,Topico), 
-    %write('TÓPICO COMUN = '),
-    %write(Topico), nl, nl,
-    %write(Parrafo),nl,nl,
-    %write(ParrafoUpper),nl,nl,
-    %write(Topico),nl,nl,
-    salida_html(Parrafo,ParrafoUpper,Topico),
-    leer_resto_texto(ProximoC,0).
-
-leer_resto_texto(ProximoC) :- 
-    tipo_caracter(ProximoC,fin,-1),
-    !.
-    
-leer_resto_texto(ProximoC) :- 
-    tipo_caracter(ProximoC,_,_),
-    leer_texto.
-
-leer_resto_texto(ProximoC,_) :- 
-    tipo_caracter(ProximoC,fin,-1),
-    !.
-    
-leer_resto_texto(ProximoC,TipoSalida) :- 
-    tipo_caracter(ProximoC,_,_),
-    leer_texto(TipoSalida).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% salida_html(+Texto,+TextoUpper,+Topico).
-% Dado el texto de un parrafo, resalta sus tópicos en negrita del texto
-% original (TextoUpper) en una salida HTML (salida estandar).
-
-salida_html(Texto,TextoUpper,Topico):-
-    etiquetar_topicos(Topico,Texto,TextoUpper,TextoEtiquetado),
-    imprimir_etiquetas_encabezado,%%tell('/home/dahyana/Escritorio/prueba.txt'),write('['),told,
-    imprimir_texto(TextoEtiquetado),%%append('/home/dahyana/Escritorio/prueba.txt'),write(']'),told,
-    imprimir_etiquetas_cierre.
-
-etiquetar_topicos([],_,TextoUpper,TextoUpper).
-
-etiquetar_topicos([Topico|Resto],Texto,TextoUpper,TextoEtiquetado):-
-    topico(Topico,TopicoLista),
-    etiquetar_topico_en_texto(TopicoLista,Texto,TextoUpper,TextoTopico),
-    etiquetar_topicos(Resto,Texto,TextoTopico,TextoEtiquetado).
-
-etiquetar_topico_en_texto(_,[],[],[]):- fail,!.
-
-etiquetar_topico_en_texto(TopicoLista,[Oracion|_],[OracionUpper|TextoUpper],[OracionEtiqueta|TextoUpper]):-
-    subset(TopicoLista,Oracion),
-    insertar_etiqueta(TopicoLista,Oracion,OracionUpper,OracionEtiqueta).    
-
-etiquetar_topico_en_texto(TopicoLista,[_|Texto],[OracionUpper|TextoUpper],[OracionUpper|TextoTopico]):-
-    etiquetar_topico_en_texto(TopicoLista,Texto,TextoUpper,TextoTopico).
-
-insertar_etiqueta(TopicoLista,Oracion,OracionUpper,OracionEtiqueta):-
-    topico_en_oracion(OracionDividida,TopicoLista,Oracion,[]),
-    insertar_bold(OracionDividida,OracionUpper,OracionEtiqueta).
-
-insertar_bold(OracionDivida,OracionUpper,OracionEtiqueta):-
-    dividir_oracion_upper(OracionDivida,OracionUpper,[Antes,Topico,Despues]),
-    append(Antes,[[60,66,62]],AntesEtiqueta),
-    append(AntesEtiqueta,Topico,AntesEtiquetaTopico),
-    append(AntesEtiquetaTopico,[[60,47,66,62]],AntesTopicoEtiqueta),
-    append(AntesTopicoEtiqueta,Despues,OracionEtiqueta).    
-
-dividir_oracion_upper([Antes,Topico,Despues],OracionUpper,[AntesUpper,TopicoUpper,DespuesUpper]) :-
-    lista_upper(Antes,OracionUpper,RestoAntes,AntesUpper),
-    lista_upper(Topico,RestoAntes,RestoTopico,TopicoUpper),
-    lista_upper(Despues,RestoTopico,[],DespuesUpper).
-
-% lista_upper(SubListaLower,ListaUpper,RestoUpper,SubListaUpper)
-
-lista_upper([],L,L,[]).
-
-lista_upper(SubListaLower,[P1|ListaUpper],RestoUpper,[P1|SubListaUpper]) :-
-    es_especial(P1),
-    lista_upper(SubListaLower,ListaUpper,RestoUpper,SubListaUpper).
-
-lista_upper([_|SubListaLower],[P1|ListaUpper],RestoUpper,[P1|SubListaUpper]) :-
-    lista_upper(SubListaLower,ListaUpper,RestoUpper,SubListaUpper).
-
-topico_en_oracion([T1,TopicoLista,T2],TopicoLista) --> 
-    antes(T1), igual(TopicoLista), despues(T2).
-
-antes([X|Resto]) --> [X|Resto].
-antes([]) --> [].
-despues([]) --> [].
-despues([X|Resto]) --> [X|Resto].
-igual(Topico,TopicoResto,Resto):- append(Topico,Resto,TopicoResto).
-
-imprimir_etiquetas_encabezado :-
-    write('<P>'),nl.
-
-imprimir_texto([]).
-
-imprimir_texto([Oracion|Resto]):-
-    member([60,66,62],Oracion),
-    imprimir_oracion(Oracion),
-    write('.   '),%%append('/home/dahyana/Escritorio/prueba.txt'),write(Oracion),write(', '),told,
-    imprimir_texto(Resto).
-
-imprimir_texto([_|Resto]):-
-    imprimir_texto(Resto).
-
-imprimir_oracion([]).
-
-imprimir_oracion(['-', P|RestoO]) :-
-  write('-'), imprimir_palabra(P), !, 
-  imprimir_oracion(RestoO).
-
-imprimir_oracion([')',','|RestoO]) :-
-  write('),'), !, 
-  imprimir_oracion(RestoO).
-
-imprimir_oracion(['('|RestoO]) :-
-  write(' ('), !, 
-  imprimir_oracion(RestoO).
-
-imprimir_oracion([')'|RestoO]) :-
-  write(')'), !, 
-  imprimir_oracion(RestoO).
-
-imprimir_oracion(['[', Palabra|RestoO]) :-
-  write('['), imprimir_palabra(Palabra), !, 
-  imprimir_oracion(RestoO).
-
-imprimir_oracion([']'|RestoO]) :-
-  write(']'), !, write(' '), 
-  imprimir_oracion(RestoO).
-
-imprimir_oracion([Palabra,','|RestoO]) :-
-  write(' '), imprimir_palabra(Palabra), write(','), !, 
-  imprimir_oracion(RestoO).
-
-imprimir_oracion([Palabra,';'|RestoO]) :-
-  write(' '), 
-  imprimir_palabra(Palabra), write(';'), !, 
-  imprimir_oracion(RestoO).
-
-imprimir_oracion([Palabra,':'|RestoO]) :-
-  write(' '), 
-  imprimir_palabra(Palabra), write(':'), !, 
-  imprimir_oracion(RestoO).
-
-imprimir_oracion([Palabra|Resto]):-
-    imprimir_especial(Palabra), !,
-    imprimir_oracion(Resto).
-
-imprimir_oracion([Palabra|RestoO]) :-
-  write(' '), imprimir_palabra(Palabra), !, 
-  imprimir_oracion(RestoO).
-
-% retirada esta clausula..por una anterior
-%imprimir_oracion([Palabra|Resto]):-
-%   write(' '),
-%   write(Palabra),
-%   imprimir_oracion(Resto).
-
-
-imprimir_palabra(P) :- imprimir_especial(P), !.
-imprimir_palabra(P) :- print(P).
-
-% portray(P) :- name(P, L), convert_html_chars(L, W), name(N, W), write(N). 
-
-convert_html_chars([],[]).
-convert_html_chars([225|R], [38, 97, 97, 99, 117, 116, 101, 59|RR]) :- !, convert_html_chars(R, RR).
-convert_html_chars([233|R], [38, 101, 97, 99, 117, 116, 101, 59|RR]) :- !, convert_html_chars(R, RR).
-convert_html_chars([237|R], [38, 105, 97, 99, 117, 116, 101, 59|RR]) :- !, convert_html_chars(R, RR).
-convert_html_chars([243|R], [38, 111, 97, 99, 117, 116, 101, 59|RR]) :- !, convert_html_chars(R, RR).
-convert_html_chars([250|R], [38, 117, 97, 99, 117, 116, 101, 59|RR]) :- !, convert_html_chars(R, RR).
-convert_html_chars([241|R], [38, 110, 116, 105, 108, 100, 101, 59|RR]) :- !, convert_html_chars(R, RR).
-convert_html_chars([209|R], [38, 78, 116, 105, 108, 100, 101, 59|RR]) :- !, convert_html_chars(R, RR).
-convert_html_chars([L|R], [L|RR]) :- convert_html_chars(R, RR). 
-
-%
-% imprimir_especial(Palabra):-
-%   es_coma(Palabra).
-
-imprimir_especial(Palabra):-
-    es_especial(Palabra).   
-
-es_coma([44]) :- write(',').
-%% Aplicacion de estilos para resaltar los topicos de las oraciones
-%% Si el usuario desea cambiar el aspecto, basta con que modifique las propiedades del estilo imp en la pagina index.html
-
-es_especial([60,66,62]) :- write('<b>').
-es_especial([60,47,66,62]) :- write('</b>').
-
-  %es_especial([60,66,62]) :- write('<span id="imp">').
-  %es_especial([60,47,66,62]) :- write('</span>').
-  % es_especial(A) :- write(<!-), write(A), write(>).
-
-imprimir_etiquetas_cierre :-
-    nl,write(' </P>').
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Paso 4 : Tópico Común %%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% obtener tópicos del párrafo %
-%%%% eliminar las referencias de anáforas por [esta_antes]
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% topico_comun(+ListaTopicosParrafo, -TopicoComun).
-%% Dado una lista de tópicos de un párrafo retorna su tópico común
-%% El tópico común identifica el arranque y el discurso del párrafo
-%% resuelve las referencias anafóricas simples y la repetición de tópicos 
-%% del texto, además fusiona la ponderación de relevancia de cada tópico. 
-%% Al final se selecciona según la ponderación de la lista los tópicos más 
-%% frecuentes y más específicos.
-
-topico_comun(ListaTopicosParrafo, TopicoComun) :-
-    identificar_topico_arranque(ListaTopicosParrafo, ListaPonderada),
-    resolver_anafora(ListaPonderada,ListaSinAnaforas),
-    simplificar_topicos_identicos(ListaSinAnaforas, ListaSinDuplicados),
-    seleccionar_topico_comun(ListaSinDuplicados, TopicoComun).
-    % write(TopicoComun).
-
-%% identificar_topico_arranque(+ListaTopicosParrafo, -ListaPonderada).
-%% Identifica el arranque y el discurso del párrafo, asocia un 0 al arranque
-%% (primer tópico) y un 1 al discurso (resto de los tópicos).
-%% Cada elemento de la lista ListaPonderada tiene dos elementos el numero
-%% ponderado y la lista de palabras de la oracion.
-
-identificar_topico_arranque([], []).
-identificar_topico_arranque([Topico|RestoTopicos], [[0,Topico]|RestoLista]):-
-    identificar_discurso(RestoTopicos, RestoLista).
-
-identificar_discurso([], []).
-identificar_discurso([[]|RestoTopicos], RestoLista):-
-    identificar_discurso(RestoTopicos, RestoLista).
-identificar_discurso([Topico|RestoTopicos], [[1,Topico]|RestoLista]):-
-    identificar_discurso(RestoTopicos, RestoLista).
-
-%% resolver_anafora(+ListaPonderada,-ListaSinAnafora).
-%% Realiza las asociaciones anafóricas del párrafo, simplifica los tópicos
-%% y reajusta la frecuencia de los tópicos.
-%% Busca la ocurrencia de la(s) anáfora(s) del Párrafo, previamente 
-%% identificadas como [esta_antes] con los datos de género y número del 
-%% pronombre correspondiente. La anáfora divide la lista de tópicos en dos
-%% listas: Antes y Después. Para resolver la anáfora debe buscarse en la lista 
-%% Antes un determinante del tópico semejante al del [esta_antes], se 
-%% recorre la lista en sentido contrario. Se continua buscando en la lista 
-%% Después hasta el final del parrafo.
-
-resolver_anafora([Topico|[]],Topico).
-
-resolver_anafora(ListaPonderada,ListaSinAnafora):-
-    buscar_anafora(ListaPonderada,Antes,Despues,DatosLinguisticosAnafora),
-    invertir_lista(Antes,AntesInvertida),
-    relacionar_topico_anterior(AntesInvertida,DatosLinguisticosAnafora,TopicosRelacionado),
-    invertir_lista(TopicosRelacionado,TopicosRelacionadoInvertido),
-    concatenar_listas([TopicosRelacionadoInvertido,Despues],ListaNueva,[]),
-    resolver_anafora(ListaNueva,ListaSinAnafora).
-
-resolver_anafora(ListaPonderada,ListaPonderada).
-
-%% buscar_anafora(ListaPonderada,Antes,Despues,DatosLinguisticosAnafora).
-
-buscar_anafora([],[],[],[]):- fail,!.
-
-buscar_anafora([Topico|RestoTopico],_,RestoTopico,DatosLinguisticosAnafora):-
-    topico_es_anafora(Topico),
-    obtener_datos_linguisticos(Topico, DatosLinguisticosAnafora).
-
-buscar_anafora([Topico|RestoTopico],[Topico|Antes],Despues,DatosLinguisticosAnafora):-
-    buscar_anafora(RestoTopico,Antes,Despues,DatosLinguisticosAnafora).
-        
-topico_es_anafora([_,[[esta_antes],_]]).
-
-obtener_datos_linguisticos([_,[[esta_antes],[Numero,Genero]]],[Numero,Genero]).
-
-%% invertir_lista(Lista,ListaInvertida)
-%%
-
-invertir_lista(Lista,ListaInvertida):-
-    reverse(Lista,ListaInvertida).
-
-%%% frecuencia(Topico,Frecuencia).
-%% dado un topico retorna su frecuencia o numero de ponderacion
-
-frecuencia([Frecuencia,_],Frecuencia).
-
-%% topico(Topico,Topico).
-%% dado un topico retorna la lista que contiene la oracion del topico
-
-topico([_,Topico],Topico).
-
-topico_ponderado([Frecuencia,Topico],Frecuencia,Topico).
-
-%% relacionar_topico_anterior(Antes,DatosLinguisticosAnafora,TopicosRelacionado).
-%%
-%% Busca en la lista Antes invertida un determinante con los mismos
-%% datos lingüísticos de la anáfora, cuando lo encuentre aumenta la ponderación
-%% del tópico.
-
-relacionar_topico_anterior([],_,[]).
-
-relacionar_topico_anterior([Topico|Resto],DatosLinguisticosAnafora,[TopicoRelacionado|Resto]):-
-    topico(Topico,TopicoLista),
-    contiene_articulo_relacionado(TopicoLista,DatosLinguisticosAnafora),
-    relacionar_topico(Topico,TopicoRelacionado).
-
-relacionar_topico_anterior([Topico|Antes],DatosLinguisticosAnafora,[Topico|TopicosRelacionado]):-
-    relacionar_topico_anterior(Antes,DatosLinguisticosAnafora,TopicosRelacionado).
-
-relacionar_topico([Frecuencia,Topico],[FrecuenciaNueva,Topico]):-
-    FrecuenciaNueva is Frecuencia + 1.
-
-%% contiene_articulo_relacionado(Topico,DatosLinguisticosAnafora).
-%%
-
-contiene_articulo_relacionado([],_):- fail,!.
-
-contiene_articulo_relacionado([Palabra|_],[NumeroAnafora,GeneroAnafora]):-
-    es_articulo(Palabra,NumeroAnafora,GeneroAnafora).
-
-contiene_articulo_relacionado([Palabra|_],_):-
-    es_articulo(Palabra,_,_),
-    fail,!.
-
-contiene_articulo_relacionado([_|Resto],DatosLinguisticosAnafora):-
-    contiene_articulo_relacionado(Resto,DatosLinguisticosAnafora).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  EspaÃ±ol
 
 %% es_articulo(Palabra,Numero,Genero).
 
@@ -642,100 +63,6 @@ concatenar_listas([TopicosRelacionado,Despues]) -->
 lista([X|Resto]) --> [X|Resto].
 lista([])--> [].
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% simplificar_topicos_identicos(ListaSinAnaforas, ListaSinDuplicados).
-%% Busca los tópicos que contengan palabras identicas en orden secuencial en la 
-%% lista anterior. 
-
-simplificar_topicos_identicos([], []).
-
-simplificar_topicos_identicos([Topico|[]], [Topico|[]]).
-
-simplificar_topicos_identicos([Topico|RestoListaSinAnaforas], [TopicoFusionado|ListaSinDuplicados]):-
-    fusionar_topicos(Topico,RestoListaSinAnaforas,[TopicoFusionado|ListaFusionada]),
-    simplificar_topicos_identicos(ListaFusionada,ListaSinDuplicados).
-
-%% fusionar_topicos(Topico,RestoListaSinAnaforas,ListaFusionada),
-%% Aplica al primer tópico de la lista un filtro para obtener solo los
-%% sustantivos y adjetivos de la frase nominal que representa al tópico.
-%% Se obtiene una lista de palabras (en donde no hay ni determinantes, ni 
-%% pronombres, ni conectores) y aplica fusionar palabra a cada uno de los 
-%% elementos.
-
-fusionar_topicos(TopicoPonderado,RestoListaSinAnaforas,ListaFusionada):-
-    topico(TopicoPonderado,Topico),
-    filtrar_sustantivo_adjetivo(Topico,ListaSustantivoAdjetivo),
-    fusionar_palabra(ListaSustantivoAdjetivo,TopicoPonderado,RestoListaSinAnaforas,ListaFusionada).
-
-%% filtrar_sustantivo_adjetivo(Topico, ListaSustantivoAdjetivo)
-
-filtrar_sustantivo_adjetivo([], []).
-
-filtrar_sustantivo_adjetivo([Topico|Resto], ListaSustantivoAdjetivo):-
-    es_articulo(Topico,_,_),!,
-    filtrar_sustantivo_adjetivo(Resto,ListaSustantivoAdjetivo).
-
-filtrar_sustantivo_adjetivo([Topico|Resto], ListaSustantivoAdjetivo):-
-    es_pronombre(Topico),!,
-    filtrar_sustantivo_adjetivo(Resto,ListaSustantivoAdjetivo).
-
-filtrar_sustantivo_adjetivo([Topico|Resto], ListaSustantivoAdjetivo):-
-    es_conjuncion(Topico),!,
-    filtrar_sustantivo_adjetivo(Resto,ListaSustantivoAdjetivo).
-
-filtrar_sustantivo_adjetivo([Topico|Resto], [Topico|ListaSustantivoAdjetivo]):-
-    filtrar_sustantivo_adjetivo(Resto,ListaSustantivoAdjetivo).
-        
-%% pronombres en ingles
-%% personales
-es_pronombre(I).
-es_pronombre(you).
-es_pronombre(he).
-es_pronombre(she).
-es_pronombre(we).
-es_pronombre(they).
-
-%% acusativos
-es_pronombre(me).
-es_pronombre(you).
-es_pronombre(him).
-es_pronombre(her).
-es_pronombre(it).
-es_pronombre(us).
-es_pronombre(them).
-
-%% posesivos
-es_pronombre(mine).
-es_pronombre(yours).
-es_pronombre(his).
-es_pronombre(hers).
-es_pronombre(ours).
-es_pronombre(theirs).
-
-%% reflexivos
-es_pronombre(myself).
-es_pronombre(yourself).
-es_pronombre(himself).
-es_pronombre(herself).
-es_pronombre(itself).
-es_pronombre(ourselves).
-es_pronombre(themselves).
-
-%% indefinidos
-es_pronombre(anyone).
-es_pronombre(someone).
-es_pronombre(nobody).
-es_pronombre(everybody).
-es_pronombre(somebody).
-es_pronombre(anybody).
-
-%% relativos
-es_pronombre(that).
-es_pronombre(who).
-es_pronombre(whose).
-es_pronombre(which).
-es_pronombre(whom).
-
 % espanol
 es_pronombre(lo).
 es_pronombre(le).
@@ -762,42 +89,7 @@ es_conjuncion(con).
 es_conjuncion(como).
 es_conjuncion(para).
 es_conjuncion(que).
-es_conjuncion(qué). 
-
-%% en ingles
-%% coordinativas
-es_conjuncion(and). 
-es_conjuncion(now).
-es_conjuncion(but).
-es_conjuncion(still).
-es_conjuncion(yet).
-es_conjuncion(only).
-es_conjuncion(while).
-es_conjuncion(then).
-es_conjuncion(so).
-es_conjuncion(for).
-es_conjuncion(either).
-es_conjuncion(neither).
-es_conjuncion(however).
-es_conjuncion(therefor).
-es_conjuncion(nevertheless).
-
-%% subordinativas
-es_conjuncion(that).
-es_conjuncion(because).
-es_conjuncion(since).
-es_conjuncion(as).
-es_conjuncion(so).
-es_conjuncion(lest).
-es_conjuncion(if).
-es_conjuncion(unless).
-es_conjuncion(although).
-es_conjuncion(though).
-es_conjuncion(while).
-es_conjuncion(until).
-es_conjuncion(when).
-es_conjuncion(why).
-es_conjuncion(whether).
+es_conjuncion(quÃ©). 
 
 %% adjetivo_posesivo_antsustantivo
 
@@ -817,15 +109,6 @@ adjetivo_posesivo_antsustantivo(vuestra).
 adjetivo_posesivo_antsustantivo(vuestras).
 adjetivo_posesivo_antsustantivo(su).
 adjetivo_posesivo_antsustantivo(sus).
-
-%% ingles
-adjetivo_posesivo_antsustantivo(my).
-adjetivo_posesivo_antsustantivo(your).
-adjetivo_posesivo_antsustantivo(his).
-adjetivo_posesivo_antsustantivo(her).
-adjetivo_posesivo_antsustantivo(its).
-adjetivo_posesivo_antsustantivo(our).
-adjetivo_posesivo_antsustantivo(their).
 
 %% adjetivo_posesivo_despsustantivo
 
@@ -854,353 +137,6 @@ adjetivo_posesivo_despsustantivo(suya).
 adjetivo_posesivo_despsustantivo(suyos).
 adjetivo_posesivo_despsustantivo(suyas).
 
-%% fusionar_palabra(Palabra,Topico, Lista,ListaFusionada).
-%% Recorre la lista de palabras del tópico, previamente filtradas hasta el final
-
-fusionar_palabra([],Topico,Lista,[Topico|Lista]).
-
-fusionar_palabra([Palabra|Resto],Topico,ListaTopicos,ListaFusionada):- 
-    buscar_palabra_en_lista(Palabra,Topico,TopicoResultante,ListaTopicos,ListaResultante),
-    fusionar_palabra(Resto,TopicoResultante,ListaResultante,ListaFusionada).
-
-fusionar_palabra([_|RestoListaPalabras],Topico,ListaTopicos,ListaFusionada):- 
-    fusionar_palabra(RestoListaPalabras,Topico,ListaTopicos,ListaFusionada).
-
-%% buscar_palabra_en_lista(Palabra,Topico,ListaTopicos,ListaResultante).
-%% Recorre la lista del resto de los tópicos en donde hay que buscar una palabra
-%% que pertenece a un tópico anterior. Si la busqueda tiene éxito entonces se construye 
-%% una lista con los tópicos en donde aparezca dicha palabra. Se escoge de dicha lista 
-%% mas el tópico original el más representativo.
-
-buscar_palabra_en_lista(_,Topico,Topico,[],[]).
-
-buscar_palabra_en_lista(Palabra,Topico,TopicoResultante,[TopicoPonderado|Resto],Resultado):-
-    topico(TopicoPonderado,TopicoResto),
-    member(Palabra,TopicoResto),
-    escoger_topico_representativo(Topico,TopicoPonderado,TopicoRepresentativo),
-    buscar_palabra_en_lista(Palabra,TopicoRepresentativo,TopicoResultante,Resto,Resultado).
-
-buscar_palabra_en_lista(Palabra,Topico,TopicoResultante,[TopicoResto|Resto],[TopicoResto|ListaResultante]):-
-    buscar_palabra_en_lista(Palabra,Topico,TopicoResultante,Resto,ListaResultante).
-
-%% El mejor de los topicos que se estan fusionando es el primer topico que aparece en el 
-%% texto. Se asume que el escritor del texto sabe ordenar sus ideas y coloco el mejor topico 
-%% antes. Se escoge el segundo topico en el orden del texto si este tiene mejor ponderacion.
-
-escoger_topico_representativo(Topico1,Topico2,TopicoResultado):-
-    frecuencia(Topico1,Frecuencia1),
-    frecuencia(Topico2,Frecuencia2),
-    topico(Topico2,TopicoR),
-    Frecuencia2 > Frecuencia1,
-    FrecuenciaR is Frecuencia1 + Frecuencia2,
-    topico_ponderado(TopicoResultado,FrecuenciaR,TopicoR).
-
-escoger_topico_representativo(Topico1,Topico2,TopicoResultado):- 
-    frecuencia(Topico1,Frecuencia1),
-    frecuencia(Topico2,Frecuencia2),
-    topico(Topico1,TopicoR),    
-    FrecuenciaR is Frecuencia1 + Frecuencia2,
-    topico_ponderado(TopicoResultado,FrecuenciaR,TopicoR).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% seleccionar_topico_comun(+ListaTopicosSinDuplicados, -TopicoComun).
-% Selecciona de la lista resultante de tópicos aquellos mejor poderados.
-% Toma en cuenta la cardinalidad de la lista de tópicos y un factor de 
-% resumen, el cual esta entre [0,1,2]. Donde 0 son todos los Tópicos menos
-% los que tiene 0 de ponderación. El 1 indica que descarta los 0 y los 1 
-% de cardinalidad baja. El 2 escoje solo el mejor tópico por cada parrafo.
-
-seleccionar_topico_comun(ListaSinDuplicados, TopicoComun):-
-    ordenar_descendentemente(ListaSinDuplicados,ListaOrdenada),
-    obtener_relevantes(ListaOrdenada,TopicoComun).
-
-ordenar_descendentemente(ListaSinDuplicados,ListaOrdenada):-
-    sort(ListaSinDuplicados,ListaOrdenada).
-
-%% factor 1 por defecto
-
-obtener_relevantes(ListaOrdenada,TopicoComun):-
-    factor(0),
-    filtrar_ceros(ListaOrdenada,TopicoComun).
-
-obtener_relevantes(ListaOrdenada,TopicoComun):-
-    factor(2),
-    mejor_topico(ListaOrdenada,TopicoComun).
-
-obtener_relevantes(ListaOrdenada,TopicoComun):-
-    filtrar_ceros_unos(ListaOrdenada,TopicoComun).
-    
-filtrar_ceros([],[]).
-
-filtrar_ceros([Topico|Resto],TopicoComun):-
-    frecuencia(Topico,0),
-    filtrar_ceros(Resto,TopicoComun).
-
-filtrar_ceros(ListaOrdenada,ListaOrdenada).
-
-filtrar_ceros_unos([],[]).
-
-filtrar_ceros_unos([Topico|Resto],TopicoComun):-
-    frecuencia(Topico,0),
-    filtrar_ceros_unos(Resto,TopicoComun).
-
-filtrar_ceros_unos([Topico|Resto],TopicoComun):-
-    frecuencia(Topico,1),
-    topico(Topico,TopicoLista),
-    length(TopicoLista,Cardinalidad),
-    Cardinalidad < 2,
-    filtrar_ceros_unos(Resto,TopicoComun).
-
-filtrar_ceros_unos([Topico|Resto],[Topico|TopicoComun]):-
-    frecuencia(Topico,1),
-    filtrar_ceros_unos(Resto,TopicoComun).
-
-filtrar_ceros_unos(ListaOrdenada,ListaOrdenada).
-
-mejor_topico([],[]).
-
-mejor_topico(ListaOrdenada,[TopicoComun]):-
-    last(TopicoComun,ListaOrdenada).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Paso 3 : Tópicos %%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% obtener tópicos de cada oración %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Primitivas para obtener de la Oración Williams el sujeto, verbo y 
-%% complemento.
-
-%% sujeto(+OracionW, -Sujeto) 
-%% obtener el sujeto de la oracion Williams
-
-sujeto([sujeto(S)|_],S).
-
-%% verbo(+OracionW, -Verbo)
-%% obtener el verbo de la oracion Williams
-
-% cuando el verbo es simple
-verbo([sujeto(_),verbo(V)|_],V).
-% cuando el verbo es una lista de verbos, devuelve el primer verbo 
-% del verbo compuesto
-verbo_compuesto([sujeto(_),[verbo(V)|_]|_],V).
-% cuando el verbo es binario, se devuelve los dos verbos
-verbo_binario([sujeto(_),[verbo(V1),verbo(V2)]|_],V1,V2).
-% cuando la oración es impersonal, pronombre "se"
-verbo_impersonal([sujeto(_),[sujeto_verbo(V)|_]|_],V).
-
-%% complemento(+OracionW, -Complemento)
-%% obtener el complemento de la oracion Williams
-
-complemento([sujeto(_),_,complemento(C)],C).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% extraer_topico(+ParrafoWilliams,-TopicosParrafo)
-%% Dado un párrafo Williams (con el criterio de claridad local), retorna
-%% sus tópicos (de que se habla en cada oración del párrafo).
-
-extraer_topico([],[]).
-
-%% Caso Tópico 1
-%% Se obtiene el verbo de la oración, si es copulativo se obtiene el sujeto
-%% de la oración, al sujeto se le aplica el filtro de expresiones y el 
-%% resultado es el tópico de la oración.
-%% Los verbos copulativos o sustantivo, expresan la idea de esencia o 
-%% sustancia. El tópico de una oración con verbo copulativo es el sujeto de 
-%% la oración. Para saber si un verbo es copulativo se revisa la lista de 
-%% verbos verb_aux. No interesa cuando el verbo es compuesto y el verbo 
-%% copulativo es usado como auxiliar.
-
-extraer_topico([OracionWilliams|ParrafoWilliams],[Topico|TopicosParrafo]) :-
-    verbo(OracionWilliams,Verbo),
-%    buscar_verbos([activacion,abastecimiento,utilizacion],ListaVerbos),
-%    agregar_verbos(ListaVerbos),
-    %% si el verbo es auxiliar o copulativo
-    verb_aux(_,Verbo,[]), 
-    sujeto(OracionWilliams,Sujeto), 
-    %% Obtener Tópico a partir del Sujeto
-    filtrar_expresion(TopicoSujeto,Sujeto,[]),
-    filtrar_coma(TopicoSujeto,Topico,_,(,)),
-    extraer_topico(ParrafoWilliams,TopicosParrafo).
-
-%% Caso Tópico 3
-%% Caso particular de ciertos verbos ("revelar" y "puede contraer")
-%% para el ejemplo de las vacas locas.
-%% Tópico compuesto en el complemento. 
-
-extraer_topico([OracionWilliams|ParrafoWilliams],[Topico|TopicosParrafo]) :-
-    %% si el verbo de la oración es uno de este grupo
-    verbo(OracionWilliams,[reveló]), 
-    complemento(OracionWilliams,Complemento),
-    %% Obtener Tópico a partir del Complemento
-    filtrar_expresion(TopicoComplemento,Complemento,[]),
-    claridad([TopicoComplemento],[ComplementoWilliams]),
-    sujeto(ComplementoWilliams,Sujeto),
-    filtrar_expresion(Topico1,Sujeto,[]),
-    verbo_binario(ComplementoWilliams,[pueden],[contraer]),
-    complemento(ComplementoWilliams,Complemento2),
-    filtrar_expresion(Topico2,Complemento2,[]),
-    construir_topico([Topico2, [en], Topico1],Topico,[]),
-    extraer_topico(ParrafoWilliams,TopicosParrafo).
-
-%% Caso Tópico con anáforas.
-%% el sujeto se refiere a un topico mencionado anteriormente. Se agrega el topico del
-%% del complemento de la oracion que contiene esta referencia anaforica
-
-extraer_topico([OracionWilliams|ParrafoWilliams],[[[esta_antes],[Numero,Genero]],TopicoComplemento|TopicosParrafo]) :-
-    sujeto(OracionWilliams,Sujeto), 
-    filtrar_expresion(Topico_posible,Sujeto,[]),
-    contiene_anafora(Numero,Genero,Topico_posible,[]),
-    complemento(OracionWilliams,Complemento),
-    claridad([Complemento],[ComplementoWilliams]),
-    extraer_topico_complemento(ComplementoWilliams,TopicoComplemento),
-    extraer_topico(ParrafoWilliams,TopicosParrafo).
-
-extraer_topico([OracionWilliams|ParrafoWilliams],[[[esta_antes],[Numero,Genero]],Topico|TopicosParrafo]) :-
-    sujeto(OracionWilliams,Sujeto), 
-    filtrar_expresion(Topico_posible,Sujeto,[]),
-    contiene_anafora(Numero,Genero,Topico_posible,[]),
-    complemento(OracionWilliams,Complemento),
-    filtrar_coma(Complemento,TopicoComplemento,_,(,)),
-    filtrar_expresion(Topico,TopicoComplemento,[]),
-    extraer_topico(ParrafoWilliams,TopicosParrafo).
-
-
-%% Caso Tópico 2
-%% verbo con pronombre impersonal "se", la oración es impersonal. 
-%% Generalmente estas oraciones tienen su tópico en el complemento.
-
-extraer_topico([OracionWilliams|ParrafoWilliams],[Topico|TopicosParrafo]) :-
-    %% si el verbo contiene el pronombre impersonal "se"
-    verbo_impersonal(OracionWilliams,[se]),
-    complemento(OracionWilliams,Complemento),
-    %% Obtener Tópicos a partir del Complemento de la oracion
-    claridad([Complemento],[ComplementoWilliams]),
-    extraer_topico_complemento(ComplementoWilliams,Topico),
-    extraer_topico(ParrafoWilliams,TopicosParrafo).
-
-extraer_topico([OracionWilliams|ParrafoWilliams],[Topico|TopicosParrafo]) :-
-    %% si el verbo contiene el pronombre impersonal "se"
-    verbo_impersonal(OracionWilliams,[se]),
-    complemento(OracionWilliams,Complemento),
-    %% Obtener Tópicos a partir del Complemento de la oracion
-    filtrar_coma(Complemento,TopicoComplemento,_,(,)),  
-    filtrar_expresion(Topico,TopicoComplemento,[]),
-    extraer_topico(ParrafoWilliams,TopicosParrafo).
-
-%% Caso Tópico por defecto
-%% los demás verbos (predicativos) expresan estado o acción
-
-extraer_topico([OracionWilliams|ParrafoWilliams],[Topico|TopicosParrafo]) :-
-    complemento(OracionWilliams,[]),
-    sujeto(OracionWilliams,Sujeto), 
-    filtrar_expresion(Topico,Sujeto,[]),
-    extraer_topico(ParrafoWilliams,TopicosParrafo).
-
-extraer_topico([OracionWilliams|ParrafoWilliams],[TopicoSujeto,TopicoComplementoFiltrado|TopicosParrafo]) :-
-    sujeto(OracionWilliams,Sujeto), 
-    filtrar_expresion(TopicoS,Sujeto,[]),
-    filtrar_coma(TopicoS,TopicoSujeto,_,(,)),
-    %% Obtener Tópicos a partir del Complemento de la oracion
-    complemento(OracionWilliams,Complemento),
-    claridad([Complemento],[]),
-    filtrar_coma(Complemento,TopicoComplemento,_,(,)),  
-    filtrar_expresion(TopicoComplementoFiltrado,TopicoComplemento,[]),  
-    extraer_topico(ParrafoWilliams,TopicosParrafo).
-
-extraer_topico([OracionWilliams|ParrafoWilliams],[TopicoSujeto,TopicoComplemento|TopicosParrafo]) :-
-    sujeto(OracionWilliams,Sujeto), 
-    filtrar_expresion(TopicoS,Sujeto,[]),
-    filtrar_coma(TopicoS,TopicoSujeto,_,(,)),
-    %% Obtener Tópicos a partir del Complemento, cuando éste es una oración con verbo
-    complemento(OracionWilliams,Complemento),
-    claridad([Complemento],[ComplementoWilliams]),
-    extraer_topico_complemento(ComplementoWilliams,TopicoComplemento),
-    extraer_topico(ParrafoWilliams,TopicosParrafo).
-
-extraer_topico_complemento([],[]).
-
-extraer_topico_complemento(ComplementoWilliams,Topico):-
-    verbo(ComplementoWilliams,Verbo),
-    verb_aux(_,Verbo,[]), 
-    sujeto(ComplementoWilliams,Sujeto),
-    filtrar_coma(Sujeto,SujetoSinComa,_,(,)),
-    filtrar_expresion(Topico,SujetoSinComa,[]).
-
-extraer_topico_complemento(ComplementoWilliams,Topico):-
-    verbo_impersonal(ComplementoWilliams,[se]),
-    complemento(ComplementoWilliams,Complemento),
-    filtrar_coma(Complemento,TopicoComplemento,_,(,)),
-    filtrar_expresion(Topico,TopicoComplemento,[]).
-
-extraer_topico_complemento(ComplementoWilliams,Topico):-
-    sujeto(ComplementoWilliams,Sujeto),
-    filtrar_expresion([],Sujeto,[]),
-    complemento(ComplementoWilliams,Complemento),
-    filtrar_coma(Complemento,ComplementoSinComa,_,(,)),
-    filtrar_expresion(Topico,ComplementoSinComa,[]).
-
-extraer_topico_complemento(ComplementoWilliams,Topico):-
-    sujeto(ComplementoWilliams,Sujeto),
-    filtrar_expresion(TopicoPosible,Sujeto,[]),
-    es_conjuncion(TopicoPosible),
-    complemento(ComplementoWilliams,Complemento),
-    filtrar_coma(Complemento,ComplementoSinComa,_,(,)),
-    filtrar_expresion(Topico,ComplementoSinComa,[]).
-
-extraer_topico_complemento(ComplementoWilliams,Topico):-
-    sujeto(ComplementoWilliams,Sujeto),
-    filtrar_coma(Sujeto,SujetoSinComa,_,(,)),
-    filtrar_expresion(Topico,SujetoSinComa,[]).
-    
-filtrar_coma([],[],[],_).
-
-filtrar_coma([Palabra|RestoOracion],[],RestoOracion,Coma):-
-    igual(Coma,Palabra).
-
-filtrar_coma([Palabra|RestoOracion],[Palabra|Antes],Despues,Coma):-
-    filtrar_coma(RestoOracion,Antes,Despues,Coma).
-
-igual(X,X).
-
-%% construir tópicos compuestos (con DCG)
-
-construir_topico([T1,C,T2]) --> topico(T1), conector(C), topico(T2).
-
-topico([X|Resto]) --> [X|Resto].
-conector([X|Resto]) --> [X|Resto].
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% filtrar_expresion(-TextoSinExpresion) *DCG
-%% filtrar_expresion(-TextoSinExpresion, +Texto, +Listavacia) *Prolog
-%%
-%% Filtra una frase y elimina las expresiones de evaluación, conectores 
-%% lógicos y de tiempo y espacio de la oración. Estas expresiones no son 
-%% parte del tópico. Williams define el uso de estas expresiones como 
-%% cohesion entre las oraciones de un párrafo. pág 49 del libro de Style
-
-filtrar_expresion([]) --> []. 
-
-filtrar_expresion(Topico) --> expresion(_), filtrar_expresion(Topico).
-
-filtrar_expresion(Topico) --> filtrar_expresion_resto(Topico), expresion(_).
-
-filtrar_expresion(Resto) --> filtrar_expresion_resto(Resto).
-
-filtrar_expresion_resto([]) --> []. 
-
-filtrar_expresion_resto([X|Resto]) --> [X|Resto].
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% chequea si la frase contiene anaforas
-% por ahora sólo identifica pronombres.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-contiene_anafora(Numero,Genero) --> pronombre(Numero,Genero).
-contiene_anafora(Numero,Genero) --> palabra(_), pronombre(Numero,Genero), palabra(_).
-palabra([X|Resto]) --> [X|Resto].
-palabra([]) --> [].
-
 pronombre(singular,_) --> [esto].
 pronombre(plural,masculino) --> [estos].
 pronombre(singular,femenino) --> [esta].
@@ -1212,272 +148,8 @@ pronombre(singular,femenino) --> [aquella].
 pronombre(plural,femenino) --> [aquellas].
 pronombre(plural,masculino) --> [aquellos].
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Paso 2 : Construir Tabla %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% sujeto, verbo, complemento
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% claridad(+Parrafo,-ParrafoWilliams)
-% Implementa el concepto de Claridad de Williams. La claridad local de 
-% oración es la estructura fija del discurso escrito: sujeto, verbo y 
-% complemento.
-% Procesa el párrafo de entrada (dividido en tokens) y retorna un párrafo 
-% donde cada oración es una lista de la siguiente forma: 
-% [sujeto(Sujeto),verbo(Verbo),complemento(Complemento)]
-
-claridad([],[]).
-
-% claridad([Oracion|RestoParrafo],[OracionWilliams|RestoParrafoWilliams]) :-
-%   s(OracionWilliams,Oracion,[]),
-%   claridad(RestoParrafo,RestoParrafoWilliams).
-
-% Se utiliza un setof para la gramatica s con el fin de usar el primer termino
-% de la lista L, pues es el termino donde el sujeto es de menor longitud, es decir
-% se tiene el primer verbo de la oración.
-
-claridad([Oracion|RestoParrafo],[OracionWilliams|RestoParrafoWilliams]) :-
-      setof(OracionW,s(OracionW,Oracion,[]),Lista),
-      oracion(Lista,OracionWilliams),OracionWilliams = [sujeto(L1),verbo(Vr),complemento(L2)],
-      write(L1), nl, nl, write(Vr), nl, nl, write(L2),
-      % assert (relacion(Vr,L1,L2)
-     % verb_aux(Vr)-> mandar(L2);
-      % mostrar(L2),
-      % mostrar(L1),
-      claridad(RestoParrafo,RestoParrafoWilliams).
-
-claridad([_|RestoParrafo],RestoParrafoWilliams) :-
-    claridad(RestoParrafo,RestoParrafoWilliams).
-
-/*mandar([Cab|Cola]):-
-verb_part(Cab)-> mostrar2[Cola];
-
-
-mostrar2([Cab|Cola]):-
-*/
-% assert elementos
-mostrar([]).
-mostrar([Cab| Cola]):-
-	(es_conjuncion(Cab),!, write('enlace');
-	articulo(Cab), !, write('enlace'); 
-   	adjetivo_posesivo_antsustantivo(Cab), !, write('enlace');
-	adjetivo_posesivo_despsustantivo(Cab), !, write('enlace');
-        pronom(Cab),!, write('enlace'); 
-        write('objeto')),
- 	mostrar(Cola).
-
-	% write(Cab), nl, nl,
-        % (es_conjuncion(Cab), es_pronombre(Cab), articulo(Cab), adjetivo_posesivo_antsustantivo(Cab),
-        % adjetivo_posesivo_despsustantivo(Cab),!, write('objeto');write('enlace')),
-       
-	%(es_pronombre(Cab)) -> write('pronombre'); write('no es pronombre'),
-	% (articulo(Cab)) -> write('articulo'),
- 	 %(adjetivo_posesivo_antsustantivo(Cab)) -> write('adjetivo'),
-	 %(adjetivo_posesivo_despsustantivo(Cab)) -> write('adjetivo'),
-	 % write('objeto '), 
-         % assert(predicado(Cab)), 
-	 % assert(predicado(Cab)),
-         % mostrar(Cola).
-
-
-% oracion, retorne la oracion con menor sujeto que tenga el verbo mas complejo.
-
-oracion([Oracion|[]],Oracion).
-
-oracion([Oracion1,Oracion2|_],Oracion2) :-
-    sujeto(Oracion1,Sujeto1),
-    sujeto(Oracion2,Sujeto1).
-
-oracion([Oracion1,_|_],Oracion1).
-
-% s(?Estructura,+Oracion,+ListaVacia)
-% Implementa una gramática basada en verbos, sólo reconoce el verbo principal 
-% de la oración (a través de un diccionario de verbos). Lo que esta antes del
-% verbo es el sujeto y lo que esta después es el complemento. Usa DCG.
-% Contienen la definición básica de las oraciones: frase nominal, frase verbal 
-% (verbo y complemento). Es decir s --> np,vp
-% Retorna la estructura (Estructura) de la oración (Oracion), en términos 
-% de sujeto, verbo y complemento (Retorna una lista con estos elementos).
-
-s([NP,V,C]) --> np(NP), vp(V,C).
-
-% frase nominal (np)
-% Frase que contiene algún nombre (sustantivo), correspondiente al sujeto
-% sintáctico de la oración. Considera algunas frases o colocaciones que 
-% tienen conflictos con los verbos.
-
-np(sujeto([C1,C2|Resto])) --> colocacion(C1,C2), !, np_resto(Resto).
-np(sujeto([C1,C2,C3|Resto])) --> colocacion(C1,C2,C3), !, np_resto(Resto).
-np(sujeto([X|Resto])) --> [X|Resto].
-
-np_resto([X|Resto]) --> [X|Resto].
-
-colocacion(a,partir) --> [a,partir].
-colocacion(es,decir) --> [es,decir].
-colocacion(es,importante,señalar) --> [es,importante,señalar].
-
-% frase verbal (vp)
-% constituida por el verbo (verb) y el complemento de la oración (comp).
-
-vp(V,C) --> verb_compuesto(V), comp(C).
-vp(V,C) --> verb_impersonal(V), comp(C).
-vp(V,C) --> verb_aux(V), comp(C).
-vp(V,C) --> verb(V), comp(C).
-vp(V,C) --> verb_ont(V), comp(C).
-
-%% oración impersonal: usa el pronombre "se", el sujeto permisible es la 
-%% generalidad de la gente.
-
-verb_impersonal([V1,V2,V3,V4]) -->  impersonal(V1,V2), verb_compuesto([V3,V4]).
-verb_impersonal([V1,V2,V3]) -->  impersonal(V1), verb_compuesto([V2,V3]).
-verb_impersonal([V1,V2,V3]) -->  impersonal(V1,V2), resto_impersonal(V3).
-verb_impersonal([V1,V2]) -->  impersonal(V1), resto_impersonal(V2).
-impersonal(sujeto_verbo([se]), sujeto_verbo([le])) --> [se, le].
-impersonal(sujeto_verbo([se]), sujeto_verbo([les])) --> [se, les].
-impersonal(sujeto_verbo([se])) --> [se].
-%% si el verbo no esta en el diccionario de verbos
-resto_impersonal(verbo([X])) --> [X]. 
-
-%% casos de verbos compuestos
-
-% Los verbos en participio solo pueden estar despues de los verbos
-% auxiliares. Si no es asi son sustantivos o adjetivos.
-
-verb_compuesto([V1,V2]) --> verb_aux(V1), verb_part(V2). 
-verb_compuesto([V1,V2]) --> verb_aux(V1), verb(V2).
-verb_compuesto([V1,V2]) --> verb_aux(V1), verb_aux(V2).
-verb_compuesto([V1,V2]) --> verb(V1), verb(V2).
-
-% complemento de la frase verbal
-
-comp(complemento([Y|Resto])) --> [Y|Resto].
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Tokenizer progresivo
-% Nueva interfaz para el tokenizador.
-%
-
-leer_bloque(Bloque, Tokens) :-
-    % name(Bloque, Lista),
-    atom_codes(Bloque, Lista), 
-    leer_parrafo(Lista, _, Tokens, _, _). 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Paso 1 : Leer, Tokenizer
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% archivo entrada/salida, tokens
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% Esto corresponde al primer paso para escribir resumenes.
-%% Consiste en dividir el texto en fases del pensamiento: párrafos, 
-%% oraciones y palabras. 
-%% Este tokenizador genera lee la entrada estandar y por cada 
-%% párrafo genera como salida dos listas de token, la primera 
-%% con los tokens en lower-case y la segunda con los tokens 
-%% originales del texto (incluye upper-case).
-    
-% leer_parrafo(-BloqueEntrada, +BloqueSalida, -Atomos,-AtomosUpper,-ProximoC)
-% Lee una línea del texto, separándola en una lista de átomos.
-% Atomos = párrafo lower-case, delimitado por el caracter especial 
-% de fin de línea [10]. AtomosUpper = párrafo original del texto 
-% (incluye upper-case). BloqueEntrada es una lista con todo los digitos ascci 
-% de un bloque del texto original (ver tesis Marilu). BloqueSalida contiene la
-% lista de esos digitos aun sin procesar. 
-
-leer_parrafo(BE, BS, Atomos,AtomosUpper,ProximoC) :-
-    leer_caracter(BE, BN, PrimerC, PrimerCUpper, PrimerT),
-    leer_resto_p(BN, BS, PrimerC, PrimerCUpper, PrimerT, Atomos, AtomosUpper, ProximoC).
-    
-leer_resto_p(BE, BS, '.','.',especial,Parrafo, ParrafoUpper,ProximoC) :- 
-    !,
-    leer_caracter(BE, BN, Caracter, CaracterUpper, TipoC),
-    leer_resto_p(BN, BS, Caracter,CaracterUpper,TipoC, Parrafo, ParrafoUpper, ProximoC).
-
-leer_resto_p(BE, BS, ' ',' ',blanco,Parrafo,ParrafoUpper,ProximoC) :- 
-    !,
-    leer_caracter(BE, BN, Caracter,CaracterUpper,TipoC),
-    leer_resto_p(BN, BS, Caracter,CaracterUpper,TipoC,Parrafo,ParrafoUpper,ProximoC).
-
-leer_resto_p(B, B, Caracter,Caracter,fin,[],[],Caracter) :- !.  
-
-leer_resto_p(BE, BS, PrimerC,PrimerCUpper,PrimerT,[Oracion|Atomos],[OracionUpper|AtomosUpper],ProximoCaracter) :- 
-    leer_oracion(BE, BN, PrimerC,PrimerCUpper,PrimerT,Oracion,OracionUpper,ProximoC),
-    char_type_char(ProximoC,ProximoT,PC),
-    leer_resto_p(BN, BS, ProximoC,PC,ProximoT,Atomos,AtomosUpper,ProximoCaracter).
-
-leer_atomos(BE, BS, Atomos, AtomosUpper, ProximoC) :-
-    leer_caracter(BE, BN, PrimerC, PrimerCUpper, PrimerT),
-    leer_oracion(BN, BS, PrimerC, PrimerCUpper, PrimerT, Atomos, AtomosUpper, ProximoC).
-
-leer_oracion(B, B, Caracter,Caracter,fin,[],[],Caracter) :- !.
-
-leer_oracion(B, B, '.','.',especial,[],[],'.') :- !.
-
-leer_oracion(BE, BS, _,_,blanco,Atomos,AtomosUpper,ProximoC) :- 
-    !,
-    leer_atomos(BE, BS, Atomos,AtomosUpper,ProximoC).
-
-leer_oracion(BE, BS, PrimerC,PrimerCUpper,especial,[PrimerC|Atomos],[PrimerCUpper|AtomosUpper],ProximoC) :-
-    !,
-    %atom_codes(A,[PrimerC]),
-    %atom_codes(AUpper,[PrimerCUpper]),
-    leer_atomos(BE, BS, Atomos,AtomosUpper,ProximoC).
-       
-
-leer_oracion(BE, BS, PrimerC,PrimerCUpper,PrimerT,[A|Atomos],[AUpper|AtomosUpper],ProximoCaracter) :- 
-    palabra_completa(BE, BN, PrimerC,PrimerCUpper,PrimerT,ProximoC,ProximoT,A,AUpper),
-    leer_oracion(BN, BS, ProximoC,ProximoC,ProximoT,Atomos,AtomosUpper,ProximoCaracter).
-
-leer_caracter([], [], end_of_file, end_of_file, fin) :- !. 
-
-
-leer_caracter([C|RestoC], RestoC, CaracterLower,C,Tipo) :-  
-    char_type_char(C, Tipo, CaracterLower). % refering to Covingtons code
-
-palabra_completa(BE, BS, PrimerC,PrimerCUpper,alfa,ProximoC,ProximoT,Palabra,PalabraUpper) :-
-    !,
-    leer_caracter(BE, BN, Caracter,CaracterUpper,TipoC),
-    palabra_completa_alfa(BN, BS, Caracter,CaracterUpper,TipoC,Lista,ListaUpper,ProximoC,ProximoT),
-    atom_chars(Palabra,[PrimerC|Lista]),
-    atom_chars(PalabraUpper,[PrimerCUpper|ListaUpper]).
-    
-palabra_completa(BE, BS, PrimerC,_,num,ProximoC,ProximoT,Palabra,Palabra) :-
-    !,
-    leer_caracter(BE, BN, Caracter,_,TipoC),
-    palabra_numerica_completa(BN, BS, Caracter,TipoC,Lista,ProximoC,ProximoT),
-    append([PrimerC|Lista],[','],ListaP), 
-    %atom_codes(A,ListaP),
-    %atom_chars(A,L), 
-    append(L2,[(',')],ListaP), 
-    concat_atom(L2,Palabra).
-
-palabra_completa_alfa(BE, BS, PrimerC,PrimerCUpper,alfa,[PrimerC|Lista],[PrimerCUpper|ListaUpper],ProximoC,ProximoT) :-
-    !,
-    leer_caracter(BE, BN, Caracter,CaracterUpper,TipoC),
-    palabra_completa_alfa(BN, BS, Caracter,CaracterUpper,TipoC,Lista,ListaUpper,ProximoC,ProximoT).
-
-palabra_completa_alfa(BE, BS, PrimerC,PrimerCUpper,num,[PrimerC|Lista],[PrimerCUpper|ListaUpper],ProximoC,ProximoT) :-
-    !,
-    leer_caracter(BE, BN, Caracter,CaracterUpper,TipoC),
-    palabra_completa_alfa(BN, BS, Caracter,CaracterUpper,TipoC,Lista,ListaUpper,ProximoC,ProximoT).
-
-palabra_completa_alfa(B, B, PrimerC,_,PrimerT,[],[],PrimerC,PrimerT).
-
-palabra_numerica_completa(BE, BS, PrimerC,PrimerT,[PrimerC|Lista],ProximoC,ProximoT) :-
-    member(PrimerT,[num,alfa]),
-    !,
-    leer_caracter(BE, BN, Caracter,TipoC),
-    palabra_numerica_completa(BN, BS, Caracter,TipoC,Lista,ProximoC,ProximoT).
-
-palabra_numerica_completa(BE, BS, PrimerC,_,[PrimerC|Lista],ProximoC,ProximoT) :-
-    member(PrimerC,['.',',']),
-    leer_caracter(BE, BN, Caracter,TipoC),
-    member(TipoC,[num]),
-    palabra_numerica_completa(BN, BS, Caracter,TipoC,Lista,ProximoC,ProximoT).
-
-palabra_numerica_completa(B, B, PrimerC,PrimerT,[],PrimerC,PrimerT).
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5 fin del tokenizadorutf.pl
-
-%% modificado por Jacinto Dávila - 2012 Junio 21
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Tokenizer
+%% modificado por Jacinto DÃ¡vila - 2012 Junio 21
 
 %% tomado de 
 % et.pl - M. Covington      2003 February 12
@@ -1496,34 +168,16 @@ palabra_numerica_completa(B, B, PrimerC,PrimerT,[],PrimerC,PrimerT).
 %   Classifies all characters as letter, digit, special, etc.,
 %   and also translates each character into the character that
 %   will represent it, converting upper to lower case.
-% modified to handle a code as input directly :JD
-%char_type_char(Char, Type, Tr) :-
-%   atom_codes(Char, [Code]), 
-%   char_type_char(Code, Type, Tr). 
 
 char_type_char(Char,Type,Tr) :-
   char_table(Char,Type,Tr),
    !.
-
-%char_type_char(Code,Type,Tr) :-
-%   atom_codes(Char, [Code]), 
-%   char_table(Char,Type,Tr),
-%   !.
-
-% Donald changed this from special to letter.
-% Using downcase_atom saves having an enormous table
-% and should handle all languages.
-% letter -> alfa
-%char_type_char(Char,alfa,Char2) :-
-%   char_type(Char, alnum), 
-%   downcase_atom(Char,Char2).  
 
 char_type_char(C,alfa,C).
 
 % End of line marks
 % eol -> fin
 char_table(end_of_file, fin, end_of_file).
-
 
 char_table('\n',        especial, '\n'       ).
 % Whitespace characters
@@ -1585,42 +239,37 @@ char_table('8',   alfa,     '8' ).
 char_table('9',   alfa,     '9' ).
 
 % Everything else is a letter character.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Diccionarios %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % diccionario de expresiones (Williams y texto)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% Conectores lógicos
+%% Conectores lÃ³gicos
 
 expresion([(,)]) --> [(,)].
-expresion([además]) --> [además].
+expresion([ademÃ¡s]) --> [ademÃ¡s].
 expresion([como, resultado]) --> [como, resultado].
 expresion([pero]) --> [pero].
 expresion([no, obstante]) --> [no, obstante].
 expresion([de, esta, forma]) --> [de, esta, forma].
 expresion([sin, embargo]) --> [sin, embargo].
 expresion([en, vista, de]) --> [en, vista, de].
-expresion([también]) --> [también].
+expresion([tambiÃ©n]) --> [tambiÃ©n].
 expresion([que]) --> [que].
 expresion([y]) --> [y].
 
 %% Expresiones de tiempo y espacio
 
-expresion([más, tarde]) --> [más, tarde].
-expresion([en, américa]) --> [en, américa].
+expresion([mÃ¡s, tarde]) --> [mÃ¡s, tarde].
+expresion([en, amÃ©rica]) --> [en, amÃ©rica].
 expresion([en, europa]) --> [en, europa].
-expresion([en, los, últimos, años]) --> [en, los, últimos, años].
+expresion([en, los, Ãºltimos, aÃ±os]) --> [en, los, Ãºltimos, aÃ±os].
 expresion([en, el, siglo, X]) --> [en, el, siglo, X].
 expresion([del, siglo, X]) --> [del, siglo, X].
 expresion([siglo, X]) --> [siglo, X].
 expresion([a, principios, de]) --> [a, principios, de].
 expresion([a, principios, del]) --> [a, principios, del].
-expresion([de, esa, época]) --> [de, esa, época].
+expresion([de, esa, Ã©poca]) --> [de, esa, Ã©poca].
 expresion([en, X]) --> [en, X].
 expresion([actualmente]) --> [actualmente].
 expresion([desde, X]) --> [desde, X].
@@ -1634,7 +283,7 @@ expresion([cuando]) --> [cuando].
 
 expresion([no]) --> [no].
 expresion([entonces]) --> [entonces].
-expresion([quizás]) --> [quizás].
+expresion([quizÃ¡s]) --> [quizÃ¡s].
 expresion([afirmativamente]) --> [afirmativamente].
 expresion([bajo, estas, circunstancias]) --> [bajo, estas, circunstancias].
 expresion([a, partir]) --> [a, partir].
@@ -1642,7 +291,7 @@ expresion([en, consecuencia]) --> [en, consecuencia].
 expresion([como, consecuencia]) --> [como, consecuencia].
 expresion([se, concluye]) --> [se, concluye].
 expresion([con, base, en, el, marco, antes, descrito]) --> [con, base, en, el, marco, antes, descrito].
-expresion([es, importante, señalar]) --> [es, importante, señalar].
+expresion([es, importante, seÃ±alar]) --> [es, importante, seÃ±alar].
 expresion([adicionalmente]) --> [adicionalmente].
 expresion([debido, a]) --> [debido, a].
 expresion([por, tanto]) --> [por, tanto].
@@ -1650,32 +299,32 @@ expresion([por, lo, tanto]) --> [por, lo, tanto].
 expresion([por, ejemplo]) --> [por, ejemplo].
 expresion([se, sabe]) --> [se, sabe].
 expresion([el, presente]) --> [el, presente].
-expresion([a, través, de]) --> [a, través, de].
-expresion([a, través, del]) --> [a, través, del].
+expresion([a, travÃ©s, de]) --> [a, travÃ©s, de].
+expresion([a, travÃ©s, del]) --> [a, travÃ©s, del].
 expresion([de, acuerdo, con]) --> [de, acuerdo, con].
 expresion([por, otra, parte]) --> [por, otra, parte].
 expresion([por, otro, lado]) --> [por, otro, lado].
 expresion([por, su, parte]) --> [por, su, parte].
-expresion([por, esta, razón]) --> [por, esta, razón].
-expresion([por, último]) --> [por, último].
+expresion([por, esta, razÃ³n]) --> [por, esta, razÃ³n].
+expresion([por, Ãºltimo]) --> [por, Ãºltimo].
 expresion([por]) --> [por].
-expresion([más, específicamente]) --> [más, específicamente].
-expresion([según]) --> [según].
-expresion([aún]) --> [aún].
+expresion([mÃ¡s, especÃ­ficamente]) --> [mÃ¡s, especÃ­ficamente].
+expresion([segÃºn]) --> [segÃºn].
+expresion([aÃºn]) --> [aÃºn].
 expresion([a, su, vez]) --> [a, su, vez].
-expresion([teóricamente]) --> [teóricamente].
+expresion([teÃ³ricamente]) --> [teÃ³ricamente].
 expresion([solo]) --> [solo].
-expresion([cómo]) --> [cómo].
+expresion([cÃ³mo]) --> [cÃ³mo].
 expresion([a]) --> [a].
 expresion([de]) --> [de].
 expresion([de, ellas]) --> [de, ellas].
 expresion([como, objetivo]) --> [como, objetivo].
 expresion([dentro, del, mencionado, sector]) --> [dentro, del, mencionado, sector].
 expresion([para]) --> [para].
-expresion([paradójicamente]) --> [paradójicamente].
+expresion([paradÃ³jicamente]) --> [paradÃ³jicamente].
 expresion([de, otra, manera]) --> [de, otra, manera].
-expresion([con, el, propósito, de]) --> [con, el, propósito, de].
-expresion([con, ese, propósito]) --> [con, ese, propósito].
+expresion([con, el, propÃ³sito, de]) --> [con, el, propÃ³sito, de].
+expresion([con, ese, propÃ³sito]) --> [con, ese, propÃ³sito].
 expresion([cabe]) --> [cabe].
 
 
@@ -1929,7 +578,7 @@ verb(verbo([difundir])) --> [difundir].
 verb(verbo([dirigir])) --> [dirigir].
 verb(verbo([dirigiendo])) --> [dirigiendo].
 
-verb(verbo([diseñar])) --> [diseñar].
+verb(verbo([diseÃ±ar])) --> [diseÃ±ar].
 verb(verbo([disminuir])) --> [disminuir].
 verb(verbo([disminuyendo])) --> [disminuyendo].
 verb(verbo([distinguir])) --> [distinguir].
@@ -2303,7 +952,7 @@ verb(verbo([seguir])) --> [seguir].
 verb(verbo([seleccionando])) --> [seleccionando].
 verb(verbo([seleccionar])) --> [seleccionar].
 verb(verbo([sembrar])) --> [sembrar].
-verb(verbo([señalar])) --> [señalar].
+verb(verbo([seÃ±alar])) --> [seÃ±alar].
 verb(verbo([ser])) --> [ser].
 verb(verbo([siendo])) --> [siendo].
 verb(verbo([siguiendo])) --> [siguiendo].
@@ -2379,7 +1028,7 @@ verb(verbo([apuntarse])) --> [apuntarse].
 verb(verbo([asociarse])) --> [asociarse].
 
 verb(verbo([aventurarse])) --> [aventurarse].
-verb(verbo([basándose])) --> [basándose].
+verb(verbo([basÃ¡ndose])) --> [basÃ¡ndose].
 verb(verbo([bloquearse])) --> [bloquearse].
 verb(verbo([carecerse])) --> [carecerse].
 verb(verbo([coactivarse])) --> [coactivarse].
@@ -2411,12 +1060,12 @@ verb(verbo([derivarse])) --> [derivarse].
 verb(verbo([desarrollarse])) --> [desarrollarse].
 verb(verbo([describirse])) --> [describirse].
 verb(verbo([desintegrarse])) --> [desintegrarse].
-verb(verbo([destinándose])) --> [destinándose].
+verb(verbo([destinÃ¡ndose])) --> [destinÃ¡ndose].
 verb(verbo([detectarse])) --> [detectarse].
 verb(verbo([dirigirse])) --> [dirigirse].
 verb(verbo([diferenciarse])) --> [diferenciarse].
-verb(verbo([diversificándose])) --> [diversificándose].
-verb(verbo([dividiéndose])) --> [dividiéndose].
+verb(verbo([diversificÃ¡ndose])) --> [diversificÃ¡ndose].
+verb(verbo([dividiÃ©ndose])) --> [dividiÃ©ndose].
 verb(verbo([duplicarse])) --> [duplicarse].
 verb(verbo([encargarse])) --> [encargarse].
 verb(verbo([enfrentarse])) --> [enfrentarse].
@@ -2427,7 +1076,7 @@ verb(verbo([entregarse])) --> [entregarse].
 verb(verbo([envolverse])) --> [envolverse].
 
 verb(verbo([esforzarse])) --> [esforzarse].
-verb(verbo([especializándose])) --> [especializándose].
+verb(verbo([especializÃ¡ndose])) --> [especializÃ¡ndose].
 verb(verbo([especializarse])) --> [especializarse].
 
 verb(verbo([erigirse])) --> [erigirse].
@@ -2437,12 +1086,12 @@ verb(verbo([establecerse])) --> [establecerse].
 verb(verbo([evidenciarse])) --> [evidenciarse].
 verb(verbo([expandirse])) --> [expandirse].
 verb(verbo([exponerse])) --> [exponerse].
-verb(verbo([formándose])) --> [formándose].
+verb(verbo([formÃ¡ndose])) --> [formÃ¡ndose].
 verb(verbo([fortalecerse])) --> [fortalecerse].
 verb(verbo([fumarse])) --> [fumarse].
 verb(verbo([hacerse])) --> [hacerse].
 verb(verbo([incluirse])) --> [incluirse].
-verb(verbo([incorporándose])) --> [incorporándose].
+verb(verbo([incorporÃ¡ndose])) --> [incorporÃ¡ndose].
 verb(verbo([inhibirse])) --> [inhibirse].
 verb(verbo([iniciarse])) --> [iniciarse].
 verb(verbo([inquietarse])) --> [inquietarse].
@@ -2450,7 +1099,7 @@ verb(verbo([instalarse])) --> [instalarse].
 verb(verbo([introducirse])) --> [introducirse].
 verb(verbo([involucrarse])) --> [involucrarse].
 verb(verbo([mantenerse])) --> [mantenerse].
-verb(verbo([manteniéndose])) --> [manteniéndose].
+verb(verbo([manteniÃ©ndose])) --> [manteniÃ©ndose].
 verb(verbo([obstruirse])) --> [obstruirse].
 verb(verbo([optarse])) --> [optarse].
 verb(verbo([organizarse])) --> [organizarse].
@@ -2465,7 +1114,7 @@ verb(verbo([reconvertirse])) --> [reconvertirse].
 verb(verbo([recuperarse])) --> [recuperarse].
 verb(verbo([reducirse])) --> [reducirse].
 verb(verbo([reestaurarse])) --> [reestaurarse].
-verb(verbo([refiriéndose])) --> [refiriéndose].
+verb(verbo([refiriÃ©ndose])) --> [refiriÃ©ndose].
 
 verb(verbo([regularse])) --> [regularse].
 verb(verbo([repetirse])) --> [repetirse].
@@ -2476,7 +1125,7 @@ verb(verbo([retirarse])) --> [retirarse].
 verb(verbo([revelarse])) --> [revelarse].
 verb(verbo([secuenciarse])) --> [secuenciarse].
 
-verb(verbo([señalarse])) --> [señalarse].
+verb(verbo([seÃ±alarse])) --> [seÃ±alarse].
 verb(verbo([situarse])) --> [situarse].
 verb(verbo([substituirse])) --> [substituirse].
 verb(verbo([superarse])) --> [superarse].
@@ -2484,61 +1133,61 @@ verb(verbo([tomarse])) --> [tomarse].
 
 % verbos irregulares obtenidos manualmente
 
-verb(verbo([comenzó])) --> [comenzó].
+verb(verbo([comenzÃ³])) --> [comenzÃ³].
 verb(verbo([identifica])) --> [identifica].
 verb(verbo([origina])) --> [origina].
 verb(verbo([aparece])) --> [aparece].
 verb(verbo([crea])) --> [crea].
-verb(verbo([formó])) --> [formó].
-verb(verbo([provocó])) --> [provocó].
-verb(verbo([realizó])) --> [realizó].
-verb(verbo([concedió])) --> [concedió].
+verb(verbo([formÃ³])) --> [formÃ³].
+verb(verbo([provocÃ³])) --> [provocÃ³].
+verb(verbo([realizÃ³])) --> [realizÃ³].
+verb(verbo([concediÃ³])) --> [concediÃ³].
 verb(verbo([permite])) --> [permite].
-verb(verbo([consolidó])) --> [consolidó].
+verb(verbo([consolidÃ³])) --> [consolidÃ³].
 verb(verbo([transforma])) --> [transforma].
-verb(verbo([ejecutó])) --> [ejecutó].
-verb(verbo([extendió])) --> [extendió].
-verb(verbo([consistía])) --> [consistía].
+verb(verbo([ejecutÃ³])) --> [ejecutÃ³].
+verb(verbo([extendiÃ³])) --> [extendiÃ³].
+verb(verbo([consistÃ­a])) --> [consistÃ­a].
 verb(verbo([desarrollaron])) --> [desarrollaron].
-verb(verbo([diseñó])) --> [diseñó].
-verb(verbo([promovía])) --> [promovía].
-verb(verbo([orientó])) --> [orientó].
+verb(verbo([diseÃ±Ã³])) --> [diseÃ±Ã³].
+verb(verbo([promovÃ­a])) --> [promovÃ­a].
+verb(verbo([orientÃ³])) --> [orientÃ³].
 verb(verbo([realizaba])) --> [realizaba].
 verb(verbo([realizaban])) --> [realizaban].
-verb(verbo([efectuó])) --> [efectuó].
+verb(verbo([efectuÃ³])) --> [efectuÃ³].
 verb(verbo([transportaba])) --> [transportaba].
-verb(verbo([establecía])) --> [establecía].
+verb(verbo([establecÃ­a])) --> [establecÃ­a].
 verb(verbo([efectuaban])) --> [efectuaban].
-verb(verbo([ofrecía])) --> [ofrecía].
+verb(verbo([ofrecÃ­a])) --> [ofrecÃ­a].
 verb(verbo([destinaba])) --> [destinaba].
 verb(verbo([controlaba])) --> [controlaba].
 verb(verbo([mantuvo])) --> [mantuvo].
-verb(verbo([logró])) --> [logró].
+verb(verbo([logrÃ³])) --> [logrÃ³].
 verb(verbo([localizaron])) --> [localizaron].
 verb(verbo([consiste])) --> [consiste].
-verb(verbo([rompió])) --> [rompió].
+verb(verbo([rompiÃ³])) --> [rompiÃ³].
 verb(verbo([fijaba])) --> [fijaba].
 verb(verbo([lograban])) --> [lograban].
-verb(verbo([obtenía])) --> [obtenía].
-verb(verbo([superó])) --> [superó].
+verb(verbo([obtenÃ­a])) --> [obtenÃ­a].
+verb(verbo([superÃ³])) --> [superÃ³].
 verb(verbo([trasladaron])) --> [trasladaron].
-verb(verbo([ocasionó])) --> [ocasionó].
-verb(verbo([manifestó])) --> [manifestó].
+verb(verbo([ocasionÃ³])) --> [ocasionÃ³].
+verb(verbo([manifestÃ³])) --> [manifestÃ³].
 verb(verbo([sostuvo])) --> [sostuvo].
-verb(verbo([dependían])) --> [dependían].
-verb(verbo([correspondía])) --> [correspondía].
-verb(verbo([correspondían])) --> [correspondían].
-verb(verbo([dependía])) --> [dependía].
-verb(verbo([existía])) --> [existía].
-verb(verbo([existían])) --> [existían].
-verb(verbo([desconocían])) --> [desconocían].
-verb(verbo([dinamizaría])) --> [dinamizaría].
-verb(verbo([varían])) --> [varían].
-verb(verbo([varía])) --> [varía].
+verb(verbo([dependÃ­an])) --> [dependÃ­an].
+verb(verbo([correspondÃ­a])) --> [correspondÃ­a].
+verb(verbo([correspondÃ­an])) --> [correspondÃ­an].
+verb(verbo([dependÃ­a])) --> [dependÃ­a].
+verb(verbo([existÃ­a])) --> [existÃ­a].
+verb(verbo([existÃ­an])) --> [existÃ­an].
+verb(verbo([desconocÃ­an])) --> [desconocÃ­an].
+verb(verbo([dinamizarÃ­a])) --> [dinamizarÃ­a].
+verb(verbo([varÃ­an])) --> [varÃ­an].
+verb(verbo([varÃ­a])) --> [varÃ­a].
 verb(verbo([manejaba])) --> [manejaba].
-verb(verbo([permitía])) --> [permitía].
+verb(verbo([permitÃ­a])) --> [permitÃ­a].
 verb(verbo([comienza])) --> [comienza].
-verb(verbo([reveló])) --> [reveló].
+verb(verbo([revelÃ³])) --> [revelÃ³].
 verb(verbo([contraer])) --> [contraer].
 verb(verbo([ocurrido])) --> [ocurrido].
 verb(verbo([funciona])) --> [funciona].
@@ -2604,36 +1253,36 @@ verb(verbo([debo])) --> [debo].
 verb(verbo([debes])) --> [debes].
 verb(verbo([debe])) --> [debe].
 verb(verbo([debemos])) --> [debemos].
-verb(verbo([debéis])) --> [debéis].
+verb(verbo([debÃ©is])) --> [debÃ©is].
 verb(verbo([deben])) --> [deben].
-verb(verbo([debía])) --> [debía].
-verb(verbo([debías])) --> [debías].
-verb(verbo([debía])) --> [debía].
-verb(verbo([debíamos])) --> [debíamos].
-verb(verbo([debíais])) --> [debíais].
-verb(verbo([debían])) --> [debían].
-verb(verbo([debí])) --> [debí].
+verb(verbo([debÃ­a])) --> [debÃ­a].
+verb(verbo([debÃ­as])) --> [debÃ­as].
+verb(verbo([debÃ­a])) --> [debÃ­a].
+verb(verbo([debÃ­amos])) --> [debÃ­amos].
+verb(verbo([debÃ­ais])) --> [debÃ­ais].
+verb(verbo([debÃ­an])) --> [debÃ­an].
+verb(verbo([debÃ­])) --> [debÃ­].
 verb(verbo([debiste])) --> [debiste].
-verb(verbo([debió])) --> [debió].
+verb(verbo([debiÃ³])) --> [debiÃ³].
 verb(verbo([debimos])) --> [debimos].
 verb(verbo([debisteis])) --> [debisteis].
 verb(verbo([debieron])) --> [debieron].
-verb(verbo([deberé])) --> [deberé].
-verb(verbo([deberás])) --> [deberás].
-verb(verbo([deberá])) --> [deberá].
+verb(verbo([deberÃ©])) --> [deberÃ©].
+verb(verbo([deberÃ¡s])) --> [deberÃ¡s].
+verb(verbo([deberÃ¡])) --> [deberÃ¡].
 verb(verbo([deberemos])) --> [deberemos].
-verb(verbo([deberéis])) --> [deberéis].
-verb(verbo([deberán])) --> [deberán].
-verb(verbo([debería])) --> [debería].
-verb(verbo([deberías])) --> [deberías].
-verb(verbo([debería])) --> [debería].
-verb(verbo([deberíamos])) --> [deberíamos].
-verb(verbo([deberíais])) --> [deberíais].
-verb(verbo([deberían])) --> [deberían].
+verb(verbo([deberÃ©is])) --> [deberÃ©is].
+verb(verbo([deberÃ¡n])) --> [deberÃ¡n].
+verb(verbo([deberÃ­a])) --> [deberÃ­a].
+verb(verbo([deberÃ­as])) --> [deberÃ­as].
+verb(verbo([deberÃ­a])) --> [deberÃ­a].
+verb(verbo([deberÃ­amos])) --> [deberÃ­amos].
+verb(verbo([deberÃ­ais])) --> [deberÃ­ais].
+verb(verbo([deberÃ­an])) --> [deberÃ­an].
 verb(verbo([deba])) --> [deba].
 verb(verbo([debas])) --> [debas].
 verb(verbo([debamos])) --> [debamos].
-verb(verbo([debáis])) --> [debáis].
+verb(verbo([debÃ¡is])) --> [debÃ¡is].
 verb(verbo([deban])) --> [deban].
 verb(verbo([debiera])) --> [debiera].
 verb(verbo([debiese])) --> [debiese].
@@ -2641,8 +1290,8 @@ verb(verbo([debieras])) --> [debieras].
 verb(verbo([debieses])) --> [debieses].
 verb(verbo([debiera])) --> [debiera].
 verb(verbo([debiese])) --> [debiese].
-verb(verbo([debiéramos])) --> [debiéramos].
-verb(verbo([debiésemos])) --> [debiésemos].
+verb(verbo([debiÃ©ramos])) --> [debiÃ©ramos].
+verb(verbo([debiÃ©semos])) --> [debiÃ©semos].
 verb(verbo([debierais])) --> [debierais].
 verb(verbo([debieseis])) --> [debieseis].
 verb(verbo([debieran])) --> [debieran].
@@ -2650,7 +1299,7 @@ verb(verbo([debiesen])) --> [debiesen].
 verb(verbo([debiere])) --> [debiere].
 verb(verbo([debieres])) --> [debieres].
 verb(verbo([debiere])) --> [debiere].
-verb(verbo([debiéremos])) --> [debiéremos].
+verb(verbo([debiÃ©remos])) --> [debiÃ©remos].
 verb(verbo([debiereis])) --> [debiereis].
 verb(verbo([debieren])) --> [debieren].
 verb(verbo([tener])) --> [tener].
@@ -2659,37 +1308,37 @@ verb(verbo([tengo])) --> [tengo].
 verb(verbo([tienes])) --> [tienes].
 verb(verbo([tiene])) --> [tiene].
 verb(verbo([tenemos])) --> [tenemos].
-verb(verbo([tenéis])) --> [tenéis].
+verb(verbo([tenÃ©is])) --> [tenÃ©is].
 verb(verbo([tienen])) --> [tienen].
-verb(verbo([tenía])) --> [tenía].
-verb(verbo([tenías])) --> [tenías].
-verb(verbo([tenía])) --> [tenía].
-verb(verbo([teníamos])) --> [teníamos].
-verb(verbo([teníais])) --> [teníais].
-verb(verbo([tenían])) --> [tenían].
+verb(verbo([tenÃ­a])) --> [tenÃ­a].
+verb(verbo([tenÃ­as])) --> [tenÃ­as].
+verb(verbo([tenÃ­a])) --> [tenÃ­a].
+verb(verbo([tenÃ­amos])) --> [tenÃ­amos].
+verb(verbo([tenÃ­ais])) --> [tenÃ­ais].
+verb(verbo([tenÃ­an])) --> [tenÃ­an].
 verb(verbo([tuve])) --> [tuve].
 verb(verbo([tuviste])) --> [tuviste].
 verb(verbo([tuvo])) --> [tuvo].
 verb(verbo([tuvimos])) --> [tuvimos].
 verb(verbo([tuvisteis])) --> [tuvisteis].
 verb(verbo([tuvieron])) --> [tuvieron].
-verb(verbo([tendré])) --> [tendré].
-verb(verbo([tendrás])) --> [tendrás].
-verb(verbo([tendrá])) --> [tendrá].
+verb(verbo([tendrÃ©])) --> [tendrÃ©].
+verb(verbo([tendrÃ¡s])) --> [tendrÃ¡s].
+verb(verbo([tendrÃ¡])) --> [tendrÃ¡].
 verb(verbo([tendremos])) --> [tendremos].
-verb(verbo([tendréis])) --> [tendréis].
-verb(verbo([tendrán])) --> [tendrán].
-verb(verbo([tendría])) --> [tendría].
-verb(verbo([tendrías])) --> [tendrías].
-verb(verbo([tendría])) --> [tendría].
-verb(verbo([tendríamos])) --> [tendríamos].
-verb(verbo([tendríais])) --> [tendríais].
-verb(verbo([tendrían])) --> [tendrían].
+verb(verbo([tendrÃ©is])) --> [tendrÃ©is].
+verb(verbo([tendrÃ¡n])) --> [tendrÃ¡n].
+verb(verbo([tendrÃ­a])) --> [tendrÃ­a].
+verb(verbo([tendrÃ­as])) --> [tendrÃ­as].
+verb(verbo([tendrÃ­a])) --> [tendrÃ­a].
+verb(verbo([tendrÃ­amos])) --> [tendrÃ­amos].
+verb(verbo([tendrÃ­ais])) --> [tendrÃ­ais].
+verb(verbo([tendrÃ­an])) --> [tendrÃ­an].
 verb(verbo([tenga])) --> [tenga].
 verb(verbo([tengas])) --> [tengas].
 verb(verbo([tenga])) --> [tenga].
 verb(verbo([tengamos])) --> [tengamos].
-verb(verbo([tengáis])) --> [tengáis].
+verb(verbo([tengÃ¡is])) --> [tengÃ¡is].
 verb(verbo([tengan])) --> [tengan].
 verb(verbo([tuviera])) --> [tuviera].
 verb(verbo([tuviese])) --> [tuviese].
@@ -2697,8 +1346,8 @@ verb(verbo([tuvieras])) --> [tuvieras].
 verb(verbo([tuvieses])) --> [tuvieses].
 verb(verbo([tuviera])) --> [tuviera].
 verb(verbo([tuviese])) --> [tuviese].
-verb(verbo([tuviéramos])) --> [tuviéramos].
-verb(verbo([tuviésemos])) --> [tuviésemos].
+verb(verbo([tuviÃ©ramos])) --> [tuviÃ©ramos].
+verb(verbo([tuviÃ©semos])) --> [tuviÃ©semos].
 verb(verbo([tuvierais])) --> [tuvierais].
 verb(verbo([tuvieseis])) --> [tuvieseis].
 verb(verbo([tuvieran])) --> [tuvieran].
@@ -2706,7 +1355,7 @@ verb(verbo([tuviesen])) --> [tuviesen].
 verb(verbo([tuviere])) --> [tuviere].
 verb(verbo([tuvieres])) --> [tuvieres].
 verb(verbo([tuviere])) --> [tuviere].
-verb(verbo([tuviéremos])) --> [tuviéremos].
+verb(verbo([tuviÃ©remos])) --> [tuviÃ©remos].
 verb(verbo([tuviereis])) --> [tuviereis].
 verb(verbo([tuvieren])) --> [tuvieren].
 verb(verbo([poder])) --> [poder].
@@ -2715,37 +1364,37 @@ verb(verbo([puedo])) --> [puedo].
 verb(verbo([puedes])) --> [puedes].
 verb(verbo([puede])) --> [puede].
 verb(verbo([podemos])) --> [podemos].
-verb(verbo([podéis])) --> [podéis].
+verb(verbo([podÃ©is])) --> [podÃ©is].
 verb(verbo([pueden])) --> [pueden].
-verb(verbo([podía])) --> [podía].
-verb(verbo([podías])) --> [podías].
-verb(verbo([podía])) --> [podía].
-verb(verbo([podíamos])) --> [podíamos].
-verb(verbo([podíais])) --> [podíais].
-verb(verbo([podían])) --> [podían].
+verb(verbo([podÃ­a])) --> [podÃ­a].
+verb(verbo([podÃ­as])) --> [podÃ­as].
+verb(verbo([podÃ­a])) --> [podÃ­a].
+verb(verbo([podÃ­amos])) --> [podÃ­amos].
+verb(verbo([podÃ­ais])) --> [podÃ­ais].
+verb(verbo([podÃ­an])) --> [podÃ­an].
 verb(verbo([pude])) --> [pude].
 verb(verbo([pudiste])) --> [pudiste].
 verb(verbo([pudo])) --> [pudo].
 verb(verbo([pudimos])) --> [pudimos].
 verb(verbo([pudisteis])) --> [pudisteis].
 verb(verbo([pudieron])) --> [pudieron].
-verb(verbo([podré])) --> [podré].
-verb(verbo([podrás])) --> [podrás].
-verb(verbo([podrá])) --> [podrá].
+verb(verbo([podrÃ©])) --> [podrÃ©].
+verb(verbo([podrÃ¡s])) --> [podrÃ¡s].
+verb(verbo([podrÃ¡])) --> [podrÃ¡].
 verb(verbo([podremos])) --> [podremos].
-verb(verbo([podréis])) --> [podréis].
-verb(verbo([podrán])) --> [podrán].
-verb(verbo([podría])) --> [podría].
-verb(verbo([podrías])) --> [podrías].
-verb(verbo([podría])) --> [podría].
-verb(verbo([podríamos])) --> [podríamos].
-verb(verbo([podríais])) --> [podríais].
-verb(verbo([podrían])) --> [podrían].
+verb(verbo([podrÃ©is])) --> [podrÃ©is].
+verb(verbo([podrÃ¡n])) --> [podrÃ¡n].
+verb(verbo([podrÃ­a])) --> [podrÃ­a].
+verb(verbo([podrÃ­as])) --> [podrÃ­as].
+verb(verbo([podrÃ­a])) --> [podrÃ­a].
+verb(verbo([podrÃ­amos])) --> [podrÃ­amos].
+verb(verbo([podrÃ­ais])) --> [podrÃ­ais].
+verb(verbo([podrÃ­an])) --> [podrÃ­an].
 verb(verbo([pueda])) --> [pueda].
 verb(verbo([puedas])) --> [puedas].
 verb(verbo([pueda])) --> [pueda].
 verb(verbo([podamos])) --> [podamos].
-verb(verbo([podáis])) --> [podáis].
+verb(verbo([podÃ¡is])) --> [podÃ¡is].
 verb(verbo([puedan])) --> [puedan].
 verb(verbo([pudiera])) --> [pudiera].
 verb(verbo([pudiese])) --> [pudiese].
@@ -2753,8 +1402,8 @@ verb(verbo([pudieras])) --> [pudieras].
 verb(verbo([pudieses])) --> [pudieses].
 verb(verbo([pudiera])) --> [pudiera].
 verb(verbo([pudiese])) --> [pudiese].
-verb(verbo([pudiéramos])) --> [pudiéramos].
-verb(verbo([pudiésemos])) --> [pudiésemos].
+verb(verbo([pudiÃ©ramos])) --> [pudiÃ©ramos].
+verb(verbo([pudiÃ©semos])) --> [pudiÃ©semos].
 verb(verbo([pudierais])) --> [pudierais].
 verb(verbo([pudieseis])) --> [pudieseis].
 verb(verbo([pudieran])) --> [pudieran].
@@ -2762,7 +1411,7 @@ verb(verbo([pudiesen])) --> [pudiesen].
 verb(verbo([pudiere])) --> [pudiere].
 verb(verbo([pudieres])) --> [pudieres].
 verb(verbo([pudiere])) --> [pudiere].
-verb(verbo([pudiéremos])) --> [pudiéremos].
+verb(verbo([pudiÃ©remos])) --> [pudiÃ©remos].
 verb(verbo([pudiereis])) --> [pudiereis].
 verb(verbo([pudieren])) --> [pudieren].
 verb(verbo([love])) --> [love].
@@ -2893,6 +1542,42 @@ verb(verbo([reactivating])) --> [reactivating].
 verb(verbo([activate])) --> [activate].
 verb(verbo([activates])) --> [activates].
 verb(verbo([activated])) --> [activated].
+% agregado 2015-08-25
+verb(verbo([phosphorylate])) --> [phosphorylate].
+verb(verbo([phosphorylates])) --> [phosphorylates].
+verb(verbo([phosphorylated])) --> [phosphorylated].
+verb(verbo([phosphorylating])) --> [phosphorylating].
+% agregado 2015-08-28
+verb(verbo([trimerize])) --> [trimerize].
+verb(verbo([trimerizes])) --> [trimerizes].
+verb(verbo([trimerized])) --> [trimerized].
+verb(verbo([trimerizing])) --> [trimerizing].
+verb(verbo([heterodimerize])) --> [heterodimerize].
+verb(verbo([heterodimerizes])) --> [heterodimerizes].
+verb(verbo([heterodimerized])) --> [heterodimerized].
+verb(verbo([heterodimerizing])) --> [heterodimerizing].
+verb(verbo([associate])) --> [associate].
+verb(verbo([associates])) --> [associates].
+verb(verbo([associated])) --> [associated].
+verb(verbo([associating])) --> [associating].
+verb(verbo([activating])) --> [activating].
+verb(verbo([dimerize])) --> [dimerize].
+verb(verbo([dimerizes])) --> [dimerizes].
+verb(verbo([dimerized])) --> [dimerized].
+verb(verbo([dimerizing])) --> [dimerizing].
+verb(verbo([transcriptional-activate])) --> [transcriptional,'-',activate].
+verb(verbo([transcriptional-activates])) --> [transcriptional,'-',activates].
+verb(verbo([transcriptional-activated])) --> [transcriptional,'-', activated].
+verb(verbo([transcriptional-activating])) --> [transcriptional, '-', activating].
+verb(verbo([up-regulate])) --> [up, '-', regulate].
+verb(verbo([up-regulates])) --> [up, '-', regulates].
+verb(verbo([up-regulated])) --> [up,'-', regulated].
+verb(verbo([up-regulating])) --> [up,'-',regulating].
+verb(verbo([down-regulate])) --> [down, '-', regulate].
+verb(verbo([down-regulates])) --> [down, '-', regulates].
+verb(verbo([down-regulated])) --> [down, '-', regulated].
+verb(verbo([down-regulating])) --> [down, '-', regulating].
+% fin de agregados en 2015-08-28
 verb(verbo([activating])) --> [activating].
 verb(verbo([conserve])) --> [conserve].
 verb(verbo([conserves])) --> [conserves].
@@ -2966,7 +1651,7 @@ verb(verbo([stimulating])) --> [stimulating].
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 verb_part(verbo([acometido])) --> [acometido].
-verb_part(verbo([acompañado])) --> [acompañado].
+verb_part(verbo([acompaÃ±ado])) --> [acompaÃ±ado].
 verb_part(verbo([adecuado])) --> [adecuado].
 verb_part(verbo([adelantado])) --> [adelantado].
 verb_part(verbo([adherido])) --> [adherido].
@@ -3011,7 +1696,7 @@ verb_part(verbo([conformado])) --> [conformado].
 verb_part(verbo([conocido])) --> [conocido].
 verb_part(verbo([considerado])) --> [considerado].
 verb_part(verbo([consolidado])) --> [consolidado].
-verb_part(verbo([consolidó])) --> [consolidó].
+verb_part(verbo([consolidÃ³])) --> [consolidÃ³].
 verb_part(verbo([consumido])) --> [consumido].
 verb_part(verbo([contado])) --> [contado].
 verb_part(verbo([contagiado])) --> [contagiado].
@@ -3046,7 +1731,7 @@ verb_part(verbo([determinado])) --> [determinado].
 verb_part(verbo([dictado])) --> [dictado].
 verb_part(verbo([diferenciado])) --> [diferenciado].
 verb_part(verbo([dirigido])) --> [dirigido].
-verb_part(verbo([diseñado])) --> [diseñado].
+verb_part(verbo([diseÃ±ado])) --> [diseÃ±ado].
 verb_part(verbo([disminuido])) --> [disminuido].
 verb_part(verbo([dominado])) --> [dominado].
 verb_part(verbo([ejercido])) --> [ejercido].
@@ -3055,7 +1740,7 @@ verb_part(verbo([eliminado])) --> [eliminado].
 verb_part(verbo([empleado])) --> [empleado].
 verb_part(verbo([encontrado])) --> [encontrado].
 verb_part(verbo([enfrentado])) --> [enfrentado].
-verb_part(verbo([engañado])) --> [engañado].
+verb_part(verbo([engaÃ±ado])) --> [engaÃ±ado].
 verb_part(verbo([engarzado])) --> [engarzado].
 verb_part(verbo([envasado])) --> [envasado].
 verb_part(verbo([esforzado])) --> [esforzado].
@@ -3153,7 +1838,7 @@ verb_part(verbo([secado])) --> [secado].
 verb_part(verbo([secuenciado])) --> [secuenciado].
 
 verb_part(verbo([sembrado])) --> [sembrado].
-verb_part(verbo([señalado])) --> [señalado].
+verb_part(verbo([seÃ±alado])) --> [seÃ±alado].
 verb_part(verbo([sentido])) --> [sentido].
 verb_part(verbo([servido])) --> [servido].
 verb_part(verbo([sido])) --> [sido].
@@ -3172,7 +1857,7 @@ verb_part(verbo([sustituido])) --> [sustituido].
 verb_part(verbo([tejido])) --> [tejido].
 verb_part(verbo([tenido])) --> [tenido].
 verb_part(verbo([terminado])) --> [terminado].
-verb_part(verbo([traído])) --> [traído].
+verb_part(verbo([traÃ­do])) --> [traÃ­do].
 verb_part(verbo([transcurrido])) --> [transcurrido].
 verb_part(verbo([transmitido])) --> [transmitido].
 verb_part(verbo([tratado])) --> [tratado].
@@ -3199,36 +1884,36 @@ verb_aux(verbo([ha])) --> [ha].
 verb_aux(verbo([hay])) --> [hay].
 verb_aux(verbo([hemos])) --> [hemos].
 verb_aux(verbo([habemos])) --> [habemos].
-verb_aux(verbo([habéis])) --> [habéis].
+verb_aux(verbo([habÃ©is])) --> [habÃ©is].
 verb_aux(verbo([han])) --> [han].
-verb_aux(verbo([había])) --> [había].
-verb_aux(verbo([habías])) --> [habías].
-verb_aux(verbo([había])) --> [había].
-verb_aux(verbo([habíamos])) --> [habíamos].
-verb_aux(verbo([habíais])) --> [habíais].
-verb_aux(verbo([habían])) --> [habían].
+verb_aux(verbo([habÃ­a])) --> [habÃ­a].
+verb_aux(verbo([habÃ­as])) --> [habÃ­as].
+verb_aux(verbo([habÃ­a])) --> [habÃ­a].
+verb_aux(verbo([habÃ­amos])) --> [habÃ­amos].
+verb_aux(verbo([habÃ­ais])) --> [habÃ­ais].
+verb_aux(verbo([habÃ­an])) --> [habÃ­an].
 verb_aux(verbo([hube])) --> [hube].
 verb_aux(verbo([hubiste])) --> [hubiste].
 verb_aux(verbo([hubo])) --> [hubo].
 verb_aux(verbo([hubimos])) --> [hubimos].
 verb_aux(verbo([hubisteis])) --> [hubisteis].
 verb_aux(verbo([hubieron])) --> [hubieron].
-verb_aux(verbo([habré])) --> [habré].
-verb_aux(verbo([habrás])) --> [habrás].
-verb_aux(verbo([habrá])) --> [habrá].
+verb_aux(verbo([habrÃ©])) --> [habrÃ©].
+verb_aux(verbo([habrÃ¡s])) --> [habrÃ¡s].
+verb_aux(verbo([habrÃ¡])) --> [habrÃ¡].
 verb_aux(verbo([habremos])) --> [habremos].
-verb_aux(verbo([habréis])) --> [habréis].
-verb_aux(verbo([habrán])) --> [habrán].
-verb_aux(verbo([habría])) --> [habría].
-verb_aux(verbo([habrías])) --> [habrías].
-verb_aux(verbo([habría])) --> [habría].
-verb_aux(verbo([habríamos])) --> [habríamos].
-verb_aux(verbo([habríais])) --> [habríais].
-verb_aux(verbo([habrían])) --> [habrían].
+verb_aux(verbo([habrÃ©is])) --> [habrÃ©is].
+verb_aux(verbo([habrÃ¡n])) --> [habrÃ¡n].
+verb_aux(verbo([habrÃ­a])) --> [habrÃ­a].
+verb_aux(verbo([habrÃ­as])) --> [habrÃ­as].
+verb_aux(verbo([habrÃ­a])) --> [habrÃ­a].
+verb_aux(verbo([habrÃ­amos])) --> [habrÃ­amos].
+verb_aux(verbo([habrÃ­ais])) --> [habrÃ­ais].
+verb_aux(verbo([habrÃ­an])) --> [habrÃ­an].
 verb_aux(verbo([haya])) --> [haya].
 verb_aux(verbo([hayas])) --> [hayas].
 verb_aux(verbo([hayamos])) --> [hayamos].
-verb_aux(verbo([hayáis])) --> [hayáis].
+verb_aux(verbo([hayÃ¡is])) --> [hayÃ¡is].
 verb_aux(verbo([hayan])) --> [hayan].
 verb_aux(verbo([hubiera])) --> [hubiera].
 verb_aux(verbo([hubiese])) --> [hubiese].
@@ -3236,8 +1921,8 @@ verb_aux(verbo([hubieras])) --> [hubieras].
 verb_aux(verbo([hubieses])) --> [hubieses].
 verb_aux(verbo([hubiera])) --> [hubiera].
 verb_aux(verbo([hubiese])) --> [hubiese].
-verb_aux(verbo([hubiéramos])) --> [hubiéramos].
-verb_aux(verbo([hubiésemos])) --> [hubiésemos].
+verb_aux(verbo([hubiÃ©ramos])) --> [hubiÃ©ramos].
+verb_aux(verbo([hubiÃ©semos])) --> [hubiÃ©semos].
 verb_aux(verbo([hubierais])) --> [hubierais].
 verb_aux(verbo([hubieseis])) --> [hubieseis].
 verb_aux(verbo([hubieran])) --> [hubieran].
@@ -3245,7 +1930,7 @@ verb_aux(verbo([hubiesen])) --> [hubiesen].
 verb_aux(verbo([hubiere])) --> [hubiere].
 verb_aux(verbo([hubieres])) --> [hubieres].
 verb_aux(verbo([hubiere])) --> [hubiere].
-verb_aux(verbo([hubiéremos])) --> [hubiéremos].
+verb_aux(verbo([hubiÃ©remos])) --> [hubiÃ©remos].
 verb_aux(verbo([hubiereis])) --> [hubiereis].
 verb_aux(verbo([hubieren])) --> [hubieren].
 verb_aux(verbo([ser])) --> [ser].
@@ -3259,7 +1944,7 @@ verb_aux(verbo([son])) --> [son].
 verb_aux(verbo([era])) --> [era].
 verb_aux(verbo([eras])) --> [eras].
 verb_aux(verbo([era])) --> [era].
-verb_aux(verbo([éramos])) --> [éramos].
+verb_aux(verbo([Ã©ramos])) --> [Ã©ramos].
 verb_aux(verbo([erais])) --> [erais].
 verb_aux(verbo([eran])) --> [eran].
 verb_aux(verbo([fui])) --> [fui].
@@ -3268,23 +1953,23 @@ verb_aux(verbo([fue])) --> [fue].
 verb_aux(verbo([fuimos])) --> [fuimos].
 verb_aux(verbo([fuisteis])) --> [fuisteis].
 verb_aux(verbo([fueron])) --> [fueron].
-verb_aux(verbo([seré])) --> [seré].
-verb_aux(verbo([serás])) --> [serás].
-verb_aux(verbo([será])) --> [será].
+verb_aux(verbo([serÃ©])) --> [serÃ©].
+verb_aux(verbo([serÃ¡s])) --> [serÃ¡s].
+verb_aux(verbo([serÃ¡])) --> [serÃ¡].
 verb_aux(verbo([seremos])) --> [seremos].
-verb_aux(verbo([seréis])) --> [seréis].
-verb_aux(verbo([serán])) --> [serán].
-verb_aux(verbo([sería])) --> [sería].
-verb_aux(verbo([serías])) --> [serías].
-verb_aux(verbo([sería])) --> [sería].
-verb_aux(verbo([seríamos])) --> [seríamos].
-verb_aux(verbo([seríais])) --> [seríais].
-verb_aux(verbo([serían])) --> [serían].
+verb_aux(verbo([serÃ©is])) --> [serÃ©is].
+verb_aux(verbo([serÃ¡n])) --> [serÃ¡n].
+verb_aux(verbo([serÃ­a])) --> [serÃ­a].
+verb_aux(verbo([serÃ­as])) --> [serÃ­as].
+verb_aux(verbo([serÃ­a])) --> [serÃ­a].
+verb_aux(verbo([serÃ­amos])) --> [serÃ­amos].
+verb_aux(verbo([serÃ­ais])) --> [serÃ­ais].
+verb_aux(verbo([serÃ­an])) --> [serÃ­an].
 verb_aux(verbo([sea])) --> [sea].
 verb_aux(verbo([seas])) --> [seas].
 verb_aux(verbo([sea])) --> [sea].
 verb_aux(verbo([seamos])) --> [seamos].
-verb_aux(verbo([seáis])) --> [seáis].
+verb_aux(verbo([seÃ¡is])) --> [seÃ¡is].
 verb_aux(verbo([sean])) --> [sean].
 verb_aux(verbo([fuera])) --> [fuera].
 verb_aux(verbo([fuese])) --> [fuese].
@@ -3292,8 +1977,8 @@ verb_aux(verbo([fueras])) --> [fueras].
 verb_aux(verbo([fueses])) --> [fueses].
 verb_aux(verbo([fuera])) --> [fuera].
 verb_aux(verbo([fuese])) --> [fuese].
-verb_aux(verbo([fuéramos])) --> [fuéramos].
-verb_aux(verbo([fuésemos])) --> [fuésemos].
+verb_aux(verbo([fuÃ©ramos])) --> [fuÃ©ramos].
+verb_aux(verbo([fuÃ©semos])) --> [fuÃ©semos].
 verb_aux(verbo([fuerais])) --> [fuerais].
 verb_aux(verbo([fueseis])) --> [fueseis].
 verb_aux(verbo([fueran])) --> [fueran].
@@ -3301,21 +1986,21 @@ verb_aux(verbo([fuesen])) --> [fuesen].
 verb_aux(verbo([fuere])) --> [fuere].
 verb_aux(verbo([fueres])) --> [fueres].
 verb_aux(verbo([fuere])) --> [fuere].
-verb_aux(verbo([fuéremos])) --> [fuéremos].
+verb_aux(verbo([fuÃ©remos])) --> [fuÃ©remos].
 verb_aux(verbo([fuereis])) --> [fuereis].
 verb_aux(verbo([fueren])) --> [fueren].
 verb_aux(verbo([estar])) --> [estar].
 verb_aux(verbo([estando])) --> [estando].
 verb_aux(verbo([estoy])) --> [estoy].
-verb_aux(verbo([estás])) --> [estás].
-verb_aux(verbo([está])) --> [está].
+verb_aux(verbo([estÃ¡s])) --> [estÃ¡s].
+verb_aux(verbo([estÃ¡])) --> [estÃ¡].
 verb_aux(verbo([estamos])) --> [estamos].
-verb_aux(verbo([estáis])) --> [estáis].
-verb_aux(verbo([están])) --> [están].
+verb_aux(verbo([estÃ¡is])) --> [estÃ¡is].
+verb_aux(verbo([estÃ¡n])) --> [estÃ¡n].
 verb_aux(verbo([estaba])) --> [estaba].
 verb_aux(verbo([estabas])) --> [estabas].
 verb_aux(verbo([estaba])) --> [estaba].
-verb_aux(verbo([estábamos])) --> [estábamos].
+verb_aux(verbo([estÃ¡bamos])) --> [estÃ¡bamos].
 verb_aux(verbo([estabais])) --> [estabais].
 verb_aux(verbo([estaban])) --> [estaban].
 verb_aux(verbo([estuve])) --> [estuve].
@@ -3324,32 +2009,32 @@ verb_aux(verbo([estuvo])) --> [estuvo].
 verb_aux(verbo([estuvimos])) --> [estuvimos].
 verb_aux(verbo([estuvisteis])) --> [estuvisteis].
 verb_aux(verbo([estuvieron])) --> [estuvieron].
-verb_aux(verbo([estaré])) --> [estaré].
-verb_aux(verbo([estarás])) --> [estarás].
-verb_aux(verbo([estará])) --> [estará].
+verb_aux(verbo([estarÃ©])) --> [estarÃ©].
+verb_aux(verbo([estarÃ¡s])) --> [estarÃ¡s].
+verb_aux(verbo([estarÃ¡])) --> [estarÃ¡].
 verb_aux(verbo([estaremos])) --> [estaremos].
-verb_aux(verbo([estaréis])) --> [estaréis].
-verb_aux(verbo([estarán])) --> [estarán].
-verb_aux(verbo([estaría])) --> [estaría].
-verb_aux(verbo([estarías])) --> [estarías].
-verb_aux(verbo([estaría])) --> [estaría].
-verb_aux(verbo([estaríamos])) --> [estaríamos].
-verb_aux(verbo([estaríais])) --> [estaríais].
-verb_aux(verbo([estarían])) --> [estarían].
-verb_aux(verbo([esté])) --> [esté].
-verb_aux(verbo([estés])) --> [estés].
-verb_aux(verbo([esté])) --> [esté].
+verb_aux(verbo([estarÃ©is])) --> [estarÃ©is].
+verb_aux(verbo([estarÃ¡n])) --> [estarÃ¡n].
+verb_aux(verbo([estarÃ­a])) --> [estarÃ­a].
+verb_aux(verbo([estarÃ­as])) --> [estarÃ­as].
+verb_aux(verbo([estarÃ­a])) --> [estarÃ­a].
+verb_aux(verbo([estarÃ­amos])) --> [estarÃ­amos].
+verb_aux(verbo([estarÃ­ais])) --> [estarÃ­ais].
+verb_aux(verbo([estarÃ­an])) --> [estarÃ­an].
+verb_aux(verbo([estÃ©])) --> [estÃ©].
+verb_aux(verbo([estÃ©s])) --> [estÃ©s].
+verb_aux(verbo([estÃ©])) --> [estÃ©].
 verb_aux(verbo([estemos])) --> [estemos].
-verb_aux(verbo([estéis])) --> [estéis].
-verb_aux(verbo([estén])) --> [estén].
+verb_aux(verbo([estÃ©is])) --> [estÃ©is].
+verb_aux(verbo([estÃ©n])) --> [estÃ©n].
 verb_aux(verbo([estuviera])) --> [estuviera].
 verb_aux(verbo([estuviese])) --> [estuviese].
 verb_aux(verbo([estuvieras])) --> [estuvieras].
 verb_aux(verbo([estuvieses])) --> [estuvieses].
 verb_aux(verbo([estuviera])) --> [estuviera].
 verb_aux(verbo([estuviese])) --> [estuviese].
-verb_aux(verbo([estuviéramos])) --> [estuviéramos].
-verb_aux(verbo([estuviésemos])) --> [estuviésemos].
+verb_aux(verbo([estuviÃ©ramos])) --> [estuviÃ©ramos].
+verb_aux(verbo([estuviÃ©semos])) --> [estuviÃ©semos].
 verb_aux(verbo([estuvierais])) --> [estuvierais].
 verb_aux(verbo([estuvieseis])) --> [estuvieseis].
 verb_aux(verbo([estuvieran])) --> [estuvieran].
@@ -3357,7 +2042,7 @@ verb_aux(verbo([estuviesen])) --> [estuviesen].
 verb_aux(verbo([estuviere])) --> [estuviere].
 verb_aux(verbo([estuvieres])) --> [estuvieres].
 verb_aux(verbo([estuviere])) --> [estuviere].
-verb_aux(verbo([estuviéremos])) --> [estuviéremos].
+verb_aux(verbo([estuviÃ©remos])) --> [estuviÃ©remos].
 verb_aux(verbo([estuviereis])) --> [estuviereis].
 verb_aux(verbo([estuvieren])) --> [estuvieren].
 
@@ -3365,3 +2050,54 @@ verb_aux(verbo([estuvieren])) --> [estuvieren].
 % predicado
 
 predicado(aaa).
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  InglÃ©s
+
+%% en ingles
+%% coordinativas
+es_conjuncion(and). 
+es_conjuncion(now).
+es_conjuncion(but).
+es_conjuncion(still).
+es_conjuncion(yet).
+es_conjuncion(only).
+es_conjuncion(while).
+es_conjuncion(then).
+es_conjuncion(so).
+es_conjuncion(for).
+es_conjuncion(either).
+es_conjuncion(neither).
+es_conjuncion(however).
+es_conjuncion(therefor).
+es_conjuncion(nevertheless).
+
+%% subordinativas
+es_conjuncion(that).
+es_conjuncion(because).
+es_conjuncion(since).
+es_conjuncion(as).
+es_conjuncion(so).
+es_conjuncion(lest).
+es_conjuncion(if).
+es_conjuncion(unless).
+es_conjuncion(although).
+es_conjuncion(though).
+es_conjuncion(while).
+es_conjuncion(until).
+es_conjuncion(when).
+es_conjuncion(why).
+es_conjuncion(whether).
+
+%% ingles
+adjetivo_posesivo_antsustantivo(my).
+adjetivo_posesivo_antsustantivo(your).
+adjetivo_posesivo_antsustantivo(his).
+adjetivo_posesivo_antsustantivo(her).
+adjetivo_posesivo_antsustantivo(its).
+adjetivo_posesivo_antsustantivo(our).
+adjetivo_posesivo_antsustantivo(their).
+
+
+

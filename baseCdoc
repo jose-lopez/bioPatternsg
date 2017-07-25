@@ -1,9 +1,18 @@
 Archivo abstracts/resumen_1.txt
+evento: event('ATF',regulate,'EGF'); Linea: 5
 evento: event('EGF',bind,'EGFR'); Linea: 7
-eventos provenientes de abstracts/resumen_1.txt :1
+evento: event('EGF',activate,'Ras'); Linea: 8
+evento: event('EGF',activate,'MAPK'); Linea: 8
+evento: event('EGFR',activate,'Ras'); Linea: 8
+evento: event('EGFR',activate,'MAPK'); Linea: 8
+eventos provenientes de abstracts/resumen_1.txt :6
 Archivo abstracts/resumen_2.txt
-evento: event('MEK',prevent,'Ras'); Linea: 14
-evento: event('Ras',activate,'CREB'); Linea: 15
-evento: event('CREB',inhibit,'Ras'); Linea: 16
-eventos provenientes de abstracts/resumen_2.txt :3
-Total de eventos: 4
+evento: event('MEK',prevent,'Ras'); Linea: 20
+evento: event('Ras',activate,'CREB'); Linea: 21
+evento: event('CREB',inhibit,'Ras'); Linea: 22
+evento: event('CREB',bind,'SST'); Linea: 29
+evento: event('SST',phosphorylate,'CREB'); Linea: 32
+evento: event('SST',phosphorylate,'CREBBP'); Linea: 32
+evento: event('CREB',bind,'CREBBP'); Linea: 33
+eventos provenientes de abstracts/resumen_2.txt :7
+Total de eventos: 13

@@ -1,6 +1,15 @@
 base([
+event('ATF',regulate,'EGF'),
 event('EGF',bind,'EGFR'),
+event('EGF',activate,'Ras'),
+event('EGF',activate,'MAPK'),
+event('EGFR',activate,'Ras'),
+event('EGFR',activate,'MAPK'),
 event('MEK',prevent,'Ras'),
 event('Ras',activate,'CREB'),
-event('CREB',inhibit,'Ras')
+event('CREB',inhibit,'Ras'),
+event('CREB',bind,'SST'),
+event('SST',phosphorylate,'CREB'),
+event('SST',phosphorylate,'CREBBP'),
+event('CREB',bind,'CREBBP')
 ]).

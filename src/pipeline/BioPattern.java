@@ -94,7 +94,7 @@ public class BioPattern {
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
         minado_FT mfts = new minado_FT();
         //ruta de archivo, confiabilidad, N Iteraciones, N de objetos
-        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH, cantPMID,"");
+        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH, cantPMID, "");
         mfts.obtenerFT();
 
         Region region_promotora = new Region(this.regionPromotora);
@@ -126,29 +126,33 @@ public class BioPattern {
          */
         configuracion config = new configuracion();
         /*
-        float conf = Float.parseFloat(confiabilidad);  //confiabilidad de las busquedas en tfbind
-        boolean buscarOntologiaGO = true;
-        boolean buscarOntologiaMESH = true;
-        // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
-        minado_FT mfts = new minado_FT();
-        //ruta de archivo, confiabilidad, N Iteraciones, N de objetos
-        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH);
-        mfts.obtenerFT();
-        busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
-        ArrayList<String> listaPMid = BPM.busqueda_IDs(false, 10, false, config); // cantidad de abstracts a descargar para cada combinación
-        //ArrayList<String> listaPMid =  BPM.consulta_PudMed(1000);
-        try {
-            new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500, config); // Número máximo de abstracts por archivo
-        } catch (Exception ex) {
-            Logger.getLogger(BioPattern.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        /*/
+         float conf = Float.parseFloat(confiabilidad);  //confiabilidad de las busquedas en tfbind
+         boolean buscarOntologiaGO = true;
+         boolean buscarOntologiaMESH = true;
+         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
+         minado_FT mfts = new minado_FT();
+         //ruta de archivo, confiabilidad, N Iteraciones, N de objetos
+         mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH);
+         mfts.obtenerFT();
+         busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
+         ArrayList<String> listaPMid = BPM.busqueda_IDs(false, 10, false, config); // cantidad de abstracts a descargar para cada combinación
+         //ArrayList<String> listaPMid =  BPM.consulta_PudMed(1000);
+         try {
+         new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500, config); // Número máximo de abstracts por archivo
+         } catch (Exception ex) {
+         Logger.getLogger(BioPattern.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         /*/
 
-         new Resumidor().resumidor(config);
-        String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",config);
+        new Resumidor().resumidor(config);
+        
+        String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", config);
+        
         //Se infieren los distintos patrones de regulacion para la secuencia problema.
-        new Razonador().inferir_patrones("baseC.pl",config); 
+        new Razonador().inferir_patrones("baseC.pl", config);
+        
         Region region_promotora = new Region(this.regionPromotora);
+        
         //region_promotora.constructPromotor(MFT.getListaFT());
         return region_promotora;
 
@@ -165,7 +169,7 @@ public class BioPattern {
         } catch (Exception e) {
         }
         if (config.getRegionPromotora() == null) {
-
+            /*
             System.out.println("\n-------------------------\nNUEVO PROCESO DE MINERIA\n-------------------------");
             System.out.println("\nIngrese los datos de configuracion\n");
 
@@ -187,13 +191,16 @@ public class BioPattern {
             new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500, config); // Número máximo de abstracts por archivo
 
             mfts.vaciar_bc_pl(GO, MESH);
+            //*/
 
             new Resumidor().resumidor(config);
+
+            String kb = new GeneradorBC().generadorBC("baseC.pl", config);
             
-            String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl",config);
-            
-            new Razonador().inferir_patrones("baseC.pl",config);
-       
+            //String kb = "baseC.pl";
+
+            new Razonador().inferir_patrones(kb, config);
+
         } else if (config.reiniciar()) {
             mfts.crearCarpeta("mineria");
             config = new configuracion();
@@ -219,7 +226,6 @@ public class BioPattern {
     public String getSecuenciaProblema() {
         return secuenciaProblema;
     }
-
     private String usuario = "yacson.ramirez";
     //private char[] clave;
     private char[] clave = {'Y', 'a', 'c', 's', 'o', 'N', '3', '2', '8', '7'};
@@ -253,13 +259,12 @@ public class BioPattern {
         //Autenticación de proxy        
         //autenticarProxy("150.187.65.3", "3128");
         minado_FT mtf = new minado_FT();
-       configuracion config = new configuracion();
-       
-       //config.PMidExperto();
-       
-       busquedaPubMed_IDs bpm = new busquedaPubMed_IDs();
-       bpm.PMidExperto("PubMedIDExperto.txt", new ArrayList<String>());
+        configuracion config = new configuracion();
+
+        //config.PMidExperto();
+
+        busquedaPubMed_IDs bpm = new busquedaPubMed_IDs();
+        bpm.PMidExperto("PubMedIDExperto.txt", new ArrayList<String>());
 
     }
-
 }

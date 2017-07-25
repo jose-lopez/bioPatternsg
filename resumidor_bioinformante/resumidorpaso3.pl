@@ -25,11 +25,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% obtener tópicos de cada oración %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-:- encoding(utf8).
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Primitivas para obtener de la Oración Williams el sujeto, verbo y 
 %% complemento.
+
+:- encoding(utf8). 
 
 %% sujeto(+OracionW, -Sujeto) 
 %% obtener el sujeto de la oracion Williams

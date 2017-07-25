@@ -1,3 +1,6 @@
+:- discontiguous cell_receptor/1.
+:- discontiguous protein/1.
+
 ligand('EGF').
 cell_receptor('EGFR').
 growth_factor('GRB2').
@@ -11,3 +14,4 @@ transporter('MNK').
 nuclear_receptor('CREB').
 cell_receptor('SSTR5').
 hormone('SRIF').
+generic_transcription_factor('').

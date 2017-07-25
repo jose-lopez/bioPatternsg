@@ -18,8 +18,15 @@
 % The KB regulatory events that we need from the Summarizer.
 % 
 
-%member(E, [E|_]).
-%member(E, [_|R]) :- member(E,R). 
+member(E, [E|_]).
+member(E, [_|R]) :- member(E,R). 
+
+patron(P) :-
+	comienzo(Inicio), Inicio = [event(_,_,N)], 
+	eventos_intermedios(N, Intermedios, NN),
+	final(NN, Final),
+	une(Inicio, Intermedios, H),
+	une(H, Final, P).
 
 patron(P, R, O, S, Lf) :-
         R \= [], O \= [], 
@@ -60,10 +67,10 @@ une([P|R], L, NR) :- member(P, L), une(R, L, NR).
 
 comienzo([event(N, Rel, NN)]) :-
 	% 3. El primer evento de un pathway debe contener un ligando.
-	ligand(N),
+	ligand(N),receptor(NN),
         base(B), % 1. Solo pueden haber eventos de la BC en los pathways.
         member(event(N, Rel, NN), B),
-	member(Rel,[bind]).
+	member(Rel,[bind,activate]).
 
 %2. El programa debe conectar eventos tipo event(S,V,O) y siempre debe cumplirse que event(Si,_,Oj) sea seguido por event(Oj,_,_); es decir, que el sujeto del evento siguiente sea el objeto del evento predecesor.
 
@@ -97,7 +104,7 @@ eventos_intermedios(O, L, N1, [event(N1, Rel1, N)|R], NL, LOf) :- L > 0,
 
 final(N, [event(N, Rel, NN)]) :- %base(B),	
 	%member(event(N, Rel, NN), B), % 1. Solo pueden haber eventos de la BC en los pathways. 
-	member(Rel, ['bind','activate','regulate','inhibit']),
+	member(Rel, [bind,activate,increase,regulate,enhance,induce,recognize,lead,trigger,target,express,reactivate,modulate,promote,mediate,synthesize]),
 	transcription_factor(N), 
         % 3. El primer evento de un pathway debe contener un ligando como sujeto y el objeto del ultimo evento en un pathway deber una proteina.
 	protein(NN).
@@ -153,10 +160,10 @@ enzyme(X):-gtp_ase(X).
 enzyme(X):-kinase(X).
 protein(X):-hormone(X).
 protein(X):-cell_receptor(X).
+receptor(X):-cell_receptor(X);nuclear_receptor(X).
 
+%:- [baseCv].
 :- [baseC].
-%:- [baseCp].
 %:- [baseGPR].
 %:- [baseL].
 :- [objetosCREB].
-%:- [objetos5].

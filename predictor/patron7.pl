@@ -1,4 +1,4 @@
-% patron6.pl
+% patron7.pl
 %
 % ?  forall(member(I, [10, 20]), (patron(P, [bind, activate, regulate], ['SRIF', 'CREB'], I), print_pattern(P))).
 %
@@ -18,8 +18,8 @@
 % The KB regulatory events that we need from the Summarizer.
 % 
 
-member(E, [E|_]).
-member(E, [_|R]) :- member(E,R). 
+%member(E, [E|_]).
+%member(E, [_|R]) :- member(E,R). 
 
 patron(P, R, O, S, Lf) :-
         R \= [], O \= [], 
@@ -154,7 +154,9 @@ enzyme(X):-kinase(X).
 protein(X):-hormone(X).
 protein(X):-cell_receptor(X).
 
+:- [baseCv].
 %:- [baseCp].
-:- [baseGPR].
+%:- [baseGPR].
 %:- [baseL].
 :- [objetosCREB].
+%:- [objetos5].

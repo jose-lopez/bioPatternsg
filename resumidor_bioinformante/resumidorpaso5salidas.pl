@@ -22,7 +22,6 @@
 
 :- encoding(utf8).
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % salida_html(+Texto,+TextoUpper,+Topico).
 % Dado el texto de un parrafo, resalta sus tópicos en negrita del texto

@@ -1,0 +1,12 @@
+base([
+event('EGF',activate,'EGFR'), 
+event('EGFR',activate,'GRB2'),
+event('GRB2',associate,'SOS'),
+event('SOS',activate,'Ras'),
+event('Ras',associate,'Raf'),
+event('Raf',interact,'MEK'),
+event('MEK',activate,'MAPK'),
+event('MAPK',phosphorylate,'MNK'),
+event('MNK',activate,'CREB'),
+event('CREB',regulate,'SRIF')
+]).

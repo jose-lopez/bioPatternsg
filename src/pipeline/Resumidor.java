@@ -55,8 +55,8 @@ public class Resumidor {
 
     public void resumidor(configuracion config) {
 
-        String resumidorCodigo = "resumidorcompleto";// Comando para cargar el consultResumidor
-
+        String resumidorCodigo = "resumidorcompleto";// Comando para cargar el consultResumidor        
+        
         try {
 
             init(resumidorCodigo); // se carga codigo del consultResumidor

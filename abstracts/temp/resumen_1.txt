@@ -5,9 +5,3 @@
 [sujeto(['Knockdown', of, 'ATF6&alpha;', or, 'XBP1,', which]), verbo([regulate]), complemento(['UPR-induced', chaperone, 'production,', inhibited, 'EGF', stimulated, cell, proliferation])].
 [sujeto(['Supporting', biological, 'relevance,']), verbo([increased]), complemento([levels, of, 'EGF', receptor, during, tumor, progression, were, correlated, with, increased, expression, of, the, 'UPR', gene, signature])].
 [sujeto(['Since', 'UPR', activation, occurs, in, &, 'lt;2', 'min,', it, is, an, initial, cell, response, when, 'EGF']), verbo([binds]), complemento(['EGFR'])].
-[sujeto(['Aberrant', activation, of, the, 'EGF', receptor, '(', 'EGFR)', contributes, to, many, human, cancers, by]), verbo([activating]), complemento([the, 'Ras-MAPK', pathway, and, other, pathways])].
-[sujeto(['Here,', we, show, that, human, 'EGFR', preferentially]), verbo([phosphorylates]), complemento([peptide, substrates, that, are, primed, by, a, prior, phosphorylation])].
-[sujeto(['Using', peptides, based, on, the, sequence, of, the, adaptor, protein, 'Shc1,', we, show, that, 'Src']), verbo([mediates]), complemento([the, priming, 'phosphorylation,', thus, promoting, subsequent, phosphorylation, by, 'EGFR'])].
-[sujeto(['Importantly,', the, doubly]), verbo([phosphorylated]), complemento(['Shc1', peptide, binds, more, tightly, than, singly, phosphorylated, peptide, to, the, 'Ras', activator, 'Grb2;', this, binding, is, a, key, step, in, activating, the, 'Ras-MAPK', pathway])].
-[sujeto(['Finally,', a, crystal, structure, of, 'EGFR', in, complex, with, a, primed, 'Shc1', peptide]), verbo([reveals]), complemento([the, structural, basis, for, 'EGFR', substrate, specificity])].
-[sujeto(['These', results]), verbo([provide]), complemento([a, molecular, explanation, for, the, integration, of, 'Src', and, 'EGFR', signaling, with, downstream, effectors, such, as, 'Ras'])].

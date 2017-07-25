@@ -1544,6 +1544,7 @@ verb(verbo([reactivating])) --> [reactivating].
 verb(verbo([activate])) --> [activate].
 verb(verbo([activates])) --> [activates].
 verb(verbo([activated])) --> [activated].
+verb(verbo([activating])) --> [activating].
 % agregado 2015-08-25
 verb(verbo([phosphorylate])) --> [phosphorylate].
 verb(verbo([phosphorylates])) --> [phosphorylates].
@@ -1562,7 +1563,7 @@ verb(verbo([associate])) --> [associate].
 verb(verbo([associates])) --> [associates].
 verb(verbo([associated])) --> [associated].
 verb(verbo([associating])) --> [associating].
-verb(verbo([activating])) --> [activating].
+
 verb(verbo([dimerize])) --> [dimerize].
 verb(verbo([dimerizes])) --> [dimerizes].
 verb(verbo([dimerized])) --> [dimerized].
@@ -1580,7 +1581,7 @@ verb(verbo([down-regulates])) --> [down, '-', regulates].
 verb(verbo([down-regulated])) --> [down, '-', regulated].
 verb(verbo([down-regulating])) --> [down, '-', regulating].
 % fin de agregados en 2015-08-28
-verb(verbo([activating])) --> [activating].
+
 verb(verbo([conserve])) --> [conserve].
 verb(verbo([conserves])) --> [conserves].
 verb(verbo([conserved])) --> [conserved].
@@ -1645,6 +1646,11 @@ verb(verbo([stimulate])) --> [stimulate].
 verb(verbo([stimulates])) --> [stimulates].
 verb(verbo([stimulated])) --> [stimulated].
 verb(verbo([stimulating])) --> [stimulating].
+%verb(verbo([bring])) --> [bring]. 
+%verb(verbo([brings])) --> [brings].
+%verb(verbo([brought])) --> [brought].
+%verb(verbo([bringing])) --> [bringing].
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % verbos participios regulares 
@@ -2072,8 +2078,9 @@ es_conjuncion(for).
 es_conjuncion(either).
 es_conjuncion(neither).
 es_conjuncion(however).
-es_conjuncion(therefor).
+es_conjuncion(therefore).
 es_conjuncion(nevertheless).
+es_conjunction(furthermore). 
 
 %% subordinativas
 es_conjuncion(that).

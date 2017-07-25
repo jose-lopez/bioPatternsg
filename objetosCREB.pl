@@ -13,5 +13,5 @@ kinase('MAPK').
 transporter('MNK').
 nuclear_receptor('CREB').
 cell_receptor('SSTR5').
-hormone('SRIF').
+hormone('SST').
 generic_transcription_factor('').

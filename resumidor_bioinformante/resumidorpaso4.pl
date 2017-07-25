@@ -20,13 +20,13 @@
 %    along with this program.  If not, see <http://www.gnu.org/licenses/>
 %
 
-:- encoding(utf8).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Paso 4 : Tópico Común %%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% obtener tópicos del párrafo %
 %%%% eliminar las referencias de anáforas por [esta_antes]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+:- encoding(utf8).
 
 %% topico_comun(+ListaTopicosParrafo, -TopicoComun).
 %% Dado una lista de tópicos de un párrafo retorna su tópico común
