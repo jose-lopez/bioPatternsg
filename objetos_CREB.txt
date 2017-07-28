@@ -9,4 +9,4 @@ MAPK;MAP2K3;mitogen-activated protein kinase kinase 3;PRKMK3;MEK3;MKK3;MAPKK3;MA
 MNK;ATP7A;ATPase, Cu++ transporting, alpha polypeptide;Menkes syndrome;copper pump 1;copper-transporting ATPase 1
 CREB;CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;KAT3A
 SSTR5;somatostatin receptor;SST1-selective somatostatin (analog 5)
-SRIF;somatostatin;SMST;SST;somatostatin-14;somatostatin-28;prepro-somatostatin
+SST;somatostatin;SMST;SRIF;somatostatin-14;somatostatin-28;prepro-somatostatin

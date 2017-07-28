@@ -153,8 +153,8 @@ public class GeneradorBC {
         //File f = new File(generar_txt(oracionesSVC));
         File f = new File(oracionesSVC);
         File f1 = new File("aceptados2.txt");
-        //File f2 = new File("objetos_CREB.txt");
-        File f2 = new File("objetosMinados.txt");
+        File f2 = new File("objetos_CREB.txt");
+        //File f2 = new File("objetosMinados.txt");
         //File f2 = new File("objetosBAXSMinadosBC.txt");
 
         //System.out.println("Esto");

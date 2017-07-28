@@ -1,4 +1,4 @@
-SST;somatostatin;SMST
+SST;somatostatin;SMST;SRIF
 EGF;epidermal growth factor;epidermal growth factor (beta-urogastrone)
 EGFR;epidermal growth factor receptor;ERBB;epidermal growth factor receptor (avian erythroblastic leukemia viral (v-erb-b) oncogene homolog);ERBB1
 GRB2;growth factor receptor bound protein 2;growth factor receptor-bound protein 2;NCKAP2

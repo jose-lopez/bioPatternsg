@@ -199,7 +199,7 @@ public class BioPattern {
             
             //String kb = "baseC.pl";
 
-            new Razonador().inferir_patrones(kb, config);
+            //new Razonador().inferir_patrones(kb, config);
 
         } else if (config.reiniciar()) {
             mfts.crearCarpeta("mineria");
