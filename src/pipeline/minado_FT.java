@@ -329,7 +329,6 @@ public class minado_FT {
     }
 
     public void vaciar_bc_pl(boolean GO,boolean MESH) {
-
         ObjectContainer db = Db4o.openFile("mineria/FT.db");
         factorTranscripcion FT = new factorTranscripcion();
         try {
@@ -339,7 +338,7 @@ public class minado_FT {
                 try {
                     factorTranscripcion ft = (factorTranscripcion) result.next();
                     ft.vaciar_pl("objetosMinados.pl");
-                } catch (Exception e) {
+                    } catch (Exception e) {
                 }
             }
         } catch (Exception e) {

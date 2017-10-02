@@ -26,10 +26,9 @@ import org.w3c.dom.NodeList;
 public class lecturas_MESH {
 
     public String busquedaTerm(String term) {
-
+        //term = term.replace(" ", "+");
         String id = null;
         String url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=mesh&term=" + term;
-
         try {
             Document doc = new conexionServ().conecta(url);
             NodeList nList = doc.getElementsByTagName("Id");

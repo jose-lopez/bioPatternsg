@@ -20,13 +20,15 @@ import java.util.ArrayList;
  * @author yacson-ramirez
  */
 public class ontologiaMESH {
+
     private String MESH;
     private String Nombre;
     private ArrayList<String> parent;
 
-    public ontologiaMESH(){
+    public ontologiaMESH() {
         parent = new ArrayList<>();
     }
+
     public String getNombre() {
         return Nombre;
     }
@@ -35,7 +37,6 @@ public class ontologiaMESH {
         this.Nombre = Nombre;
     }
 
-   
     public String getMESH() {
         return MESH;
     }
@@ -51,29 +52,37 @@ public class ontologiaMESH {
     public void setParent(ArrayList<String> parent) {
         this.parent = parent;
     }
-    
-    public String buscarNombre(String MESH){
+
+    public String buscarNombre(String MESH) {
         ontologiaMESH objeto = new ontologiaMESH();
         objeto.setMESH(MESH);
         objeto = consultarBD(objeto);
         return objeto.Nombre;
     }
-    
-    public void vaciar_pl(String MESH, String obj, ArrayList<String> listObj,String archivo) {
+
+    public void vaciar_pl(String MESH, String obj, ArrayList<String> listObj, String archivo) {
 
         ontologiaMESH objeto = new ontologiaMESH();
         objeto.setMESH(MESH);
         objeto = consultarBD(objeto);
-        
+        String ruta_wnr = "well_know_rules.pl";
+
         if (obj != null && objeto.getNombre() != null) {
             String cadena = "is_a(\"" + obj + "\",\"" + objeto.getNombre() + "\").";
-            new escribirBC(cadena,archivo);
+            new escribirBC(cadena, archivo);
+
+            //procesando texto para crear las reglas en formato prolog
+            String obj1 = procesarTexto(objeto.getNombre());
+            String obj2 = procesarTexto(obj);
+
+            String rule = obj1 + "(X):-" + obj2 + "(X).";
+            new escribirBC(rule, ruta_wnr);
             
         }
 
         if (!listObj.contains(MESH)) {
             listObj.add(MESH);
-         
+
             for (int i = 0; i < objeto.getParent().size(); i++) {
                 vaciar_pl(objeto.getParent().get(i), objeto.getNombre(), listObj, archivo);
             }
@@ -97,32 +106,41 @@ public class ontologiaMESH {
         }
         return objeto;
     }
-        
-    public void buscar(String MESH){
-        
+
+    public void buscar(String MESH) {
+
         buscarObjeto(MESH, 0, "");
-        
+
     }
-    
-    private void buscarObjeto(String MESH, int nivel,String relacion){
+
+    private void buscarObjeto(String MESH, int nivel, String relacion) {
         ontologiaMESH objeto = new ontologiaMESH();
         objeto.setMESH(MESH);
         objeto = consultarBD(objeto);
-        
+
         for (int i = 0; i < nivel; i++) {
             System.out.print("      ");
         }
-        
+
         System.out.println(relacion + objeto.getNombre());
         nivel++;
-        
+
         for (int i = 0; i < objeto.getParent().size(); i++) {
             if (!objeto.getParent().get(i).equals("1000048")) {
                 buscarObjeto(objeto.getParent().get(i), nivel, "is a->  ");
             }
-            
+
         }
     }
-    
-}
 
+    public String procesarTexto(String texto) {
+        String aux = texto.toLowerCase();
+        aux = aux.replace(" ", "_");
+        aux = aux.replace("-", "_");
+        aux = aux.replace(",", "_");
+        aux = aux.replace("(", "_");
+        aux = aux.replace(")", "_");
+        aux = aux.replace("__", "_");
+        return aux;
+    }
+}

@@ -21,7 +21,7 @@ public class lecturas_QuickGO {
     public ontologiaGO obtenerOntologia(String codigo) {
         ontologiaGO ontologia = new ontologiaGO();
 
-        String url = "http://www.ebi.ac.uk/QuickGO/GTerm?id=" + codigo + "&format=oboxml&term=ancchart";
+        String url = "http://www.ebi.ac.uk/QuickGO-Old/GTerm?id=" + codigo + "&format=oboxml&term=ancchart";
         try {
             Document doc = new conexionServ().conecta(url);
             ontologia = revisa_xml(doc);
@@ -48,9 +48,7 @@ public class lecturas_QuickGO {
                 NodeList nList2 = Element.getElementsByTagName("synonym_text");
                 for (int j = 0; j < nList2.getLength(); j++) {
                     //System.out.println(nList2.item(j).getTextContent());
-                    
                     ontologia.getSinonimos().add(nList2.item(j).getTextContent().trim());
-
                 }
                 
                 NodeList nList3 = Element.getElementsByTagName("is_a");

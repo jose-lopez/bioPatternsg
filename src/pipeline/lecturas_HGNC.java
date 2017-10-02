@@ -40,7 +40,7 @@ public class lecturas_HGNC {
             return HGNC;
             //lecturas pathwaycommons
         }
-                
+
     }
 
     public boolean busqueda_genenames(String contenido, boolean criterio, int opcion, ArrayList<HGNC> HGNC, boolean GO, boolean MESH) {
@@ -222,16 +222,19 @@ public class lecturas_HGNC {
                     ontologiaObjMin ontologia = new ontologiaObjMin();
                     ontologia.setNombre(hgnc.getSimbolo());
                     //Ontologia GO --------------------------------------------
-                    if (elm.getAttribute("name").equals("uniprot_ids") && GO) {
+                    lecturas_Uniprot letUP = null;
+                    if (elm.getAttribute("name").equals("uniprot_ids")) {
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
                             try {
                                 String codUP = elm.getElementsByTagName("str").item(j).getTextContent();
-                                lecturas_Uniprot letUP = new lecturas_Uniprot(codUP);
+                                letUP = new lecturas_Uniprot(codUP);
                                 letUP.Codigos_GO();
-                                ontologia.setFuncionMolecular(letUP.getFuncionMolecular());
-                                ontologia.setComponenteCelular(letUP.getComponenteCelular());
-                                ontologia.setProcesoBiologico(letUP.getProcesoBiologico());
+                                if (GO) {
+                                    ontologia.setFuncionMolecular(letUP.getFuncionMolecular());
+                                    ontologia.setComponenteCelular(letUP.getComponenteCelular());
+                                    ontologia.setProcesoBiologico(letUP.getProcesoBiologico());
+                                }
                             } catch (Exception e) {
 
                             }
@@ -241,7 +244,14 @@ public class lecturas_HGNC {
                     if (MESH) {
                         try {
                             lecturas_MESH letMesh = new lecturas_MESH();
-                            ontologia.getParent().add(letMesh.busquedaTerm(hgnc.getSimbolo()));
+                            //System.out.println(hgnc.getSimbolo()+"  "+hgnc.getNombre());
+                            String termino;
+                            if(letUP.getNombre()!="" && letUP.getNombre()!=null){
+                                termino = letUP.getNombre().replace(" ", "+");
+                            }else{
+                                termino=hgnc.getSimbolo();
+                            }
+                            ontologia.getParent().add(letMesh.busquedaTerm(termino));
                         } catch (Exception e) {
 
                         }
