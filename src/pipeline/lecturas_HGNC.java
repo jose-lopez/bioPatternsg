@@ -241,17 +241,16 @@ public class lecturas_HGNC {
                         }
                     }
                     //ontologia MESH--------------------------------------------
-                    if (MESH) {
+                      if (MESH) {
                         try {
                             lecturas_MESH letMesh = new lecturas_MESH();
                             //System.out.println(hgnc.getSimbolo()+"  "+hgnc.getNombre());
-                            String termino;
-                            if(letUP.getNombre()!="" && letUP.getNombre()!=null){
-                                termino = letUP.getNombre().replace(" ", "+");
-                            }else{
-                                termino=hgnc.getSimbolo();
+                            String idmesh = letMesh.busquedaTerm(hgnc.getNombre().replace(" ", "+"),1);
+                            if(idmesh==null){
+                              idmesh = letMesh.busquedaTerm(hgnc.getSimbolo(),2);
                             }
-                            ontologia.getParent().add(letMesh.busquedaTerm(termino));
+                            
+                              ontologia.getParent().add(idmesh);
                         } catch (Exception e) {
 
                         }
