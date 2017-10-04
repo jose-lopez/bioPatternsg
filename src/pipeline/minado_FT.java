@@ -329,6 +329,26 @@ public class minado_FT {
     }
 
     public void vaciar_bc_pl(boolean GO,boolean MESH) {
+        
+        //-------------------------------------------------------
+        ObjectContainer dbHE = Db4o.openFile("mineria/ObjH_E.db");
+        objetos_Experto objEH = new objetos_Experto();
+        try{
+            ObjectSet result = dbHE.queryByExample(objEH);
+            while (result.hasNext()) {
+                try {
+                    objetos_Experto obj = (objetos_Experto) result.next();
+                    obj.vaciar_pl("objetosMinados.pl");
+                    } catch (Exception e) {
+                }
+            }
+        }catch(Exception e){
+            
+        }finally{
+            dbHE.close();
+        }
+               
+        //----------------------------------
         ObjectContainer db = Db4o.openFile("mineria/FT.db");
         factorTranscripcion FT = new factorTranscripcion();
         try {
