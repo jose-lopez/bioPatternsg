@@ -21,7 +21,8 @@ public class lecturas_QuickGO {
     public ontologiaGO obtenerOntologia(String codigo) {
         ontologiaGO ontologia = new ontologiaGO();
 
-        String url = "http://www.ebi.ac.uk/QuickGO-Old/GTerm?id=" + codigo + "&format=oboxml&term=ancchart";
+        String url = "http://www.ebi.ac.uk/QuickGO-Old/GTerm?id=" + codigo + "&format=oboxml";
+        
         try {
             Document doc = new conexionServ().conecta(url);
             ontologia = revisa_xml(doc);

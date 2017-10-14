@@ -45,6 +45,8 @@ public class factorTranscripcion {
         System.out.println("Buscando información para : " + lecturasTFBIND.getFactor() + " ...");
         this.lecturasTFBIND = lecturasTFBIND;
         this.ID = lecturasTFBIND.getFactor();
+        lecturas_Uniprot uniprot = new lecturas_Uniprot(ID);
+        uniprot.
         this.HGNC = new lecturas_HGNC().busquedaInfGen(ID,GO,MESH);
         this.N_Iteracion = 0;
         this.complejoProteinico = new ArrayList<>();
@@ -159,8 +161,8 @@ public class factorTranscripcion {
     }
     
     public void imprimir() {
-        System.out.println("**Iteracion: " + N_Iteracion);
-        System.out.println("Factor de Trancripcion: " + ID);
+        //System.out.println("**Iteracion: " + N_Iteracion);
+        System.out.println("Objeto: " + ID);
         System.out.println("Lecturas HGNC");
         for (int i = 0; i < HGNC.size(); i++) {
             HGNC.get(i).imprimir();

@@ -370,6 +370,27 @@ public class ontologiaObjMin {
        // System.out.println("\n________________________________________________________________");
         imprimirMESH(obj);
     }
+    
+    public void buscarObjeto(String nombre){
+        
+        ontologiaObjMin objeto = new ontologiaObjMin();
+        objeto.setNombre(nombre);
+        ObjectContainer db = Db4o.openFile("mineria/ontologiaObjMin.db");
+        try {
+
+            ObjectSet result = db.queryByExample(objeto);
+            while (result.hasNext()) {
+                objeto = (ontologiaObjMin) result.next();
+                
+                // break;
+            }
+            imprimirTodo(objeto, null);
+        } catch (Exception e) {
+        } finally {
+            db.close();
+        }
+        
+    }
 
     private void imprimirFuncionMolecular(ontologiaObjMin obj, String restriccion) {
         System.out.println("\n________________________________________________________________");
