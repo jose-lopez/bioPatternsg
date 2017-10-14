@@ -25,10 +25,16 @@ import org.w3c.dom.NodeList;
  */
 public class lecturas_MESH {
 
-    public String busquedaTerm(String term) {
+    public String busquedaTerm(String term , int tipo) {
         //term = term.replace(" ", "+");
         String id = null;
-        String url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=mesh&term=" + term;
+        String url;
+        if (tipo == 1) {
+            url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=mesh&term=" + term + "&retstart=6&retmax=6&tool=biomed3";
+        } else {
+            url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=mesh&term=" + term + "&retmax=6&tool=biomed3";
+        }
+       
         try {
             Document doc = new conexionServ().conecta(url);
             NodeList nList = doc.getElementsByTagName("Id");
