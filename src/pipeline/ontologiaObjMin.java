@@ -293,55 +293,55 @@ public class ontologiaObjMin {
         ontologiaGO GO = new ontologiaGO();
         ontologiaMESH mesh = new ontologiaMESH();
         
-        new escribirBC("objeto(\""+obj.nombre+"\").","ontologiaMESH.pl");
+        new escribirBC("objeto(\'"+obj.nombre.replace("\'", "")+"\').","ontologiaMESH.pl");
         
         for (int i = 0; i < obj.funcionMolecular.size(); i++) {
             if (FM.equals("[")) {
-                FM+="\""+GO.buscar(obj.funcionMolecular.get(i))+"\"";
+                FM+="\'"+GO.buscar(obj.funcionMolecular.get(i)).replace("\'", "")+"\'";
             }else{
-                FM+=",\""+GO.buscar(obj.funcionMolecular.get(i))+"\"";
+                FM+=",\'"+GO.buscar(obj.funcionMolecular.get(i)).replace("\'", "")+"\'";
             }
         }
         FM+="]";
         
         for (int i = 0; i < obj.procesoBiologico.size(); i++) {
             if (PB.equals("[")) {
-                PB+="\""+GO.buscar(obj.procesoBiologico.get(i))+"\"";
+                PB+="\'"+GO.buscar(obj.procesoBiologico.get(i)).replace("\'", "")+"\'";
             }else{
-                PB+=",\""+GO.buscar(obj.procesoBiologico.get(i))+"\"";
+                PB+=",\'"+GO.buscar(obj.procesoBiologico.get(i)).replace("\'", "")+"\'";
             }
         }
         PB+="]";
         
         for (int i = 0; i < obj.componenteCelular.size(); i++) {
             if (CC.equals("[")) {
-                CC+="\""+GO.buscar(obj.componenteCelular.get(i))+"\"";
+                CC+="\'"+GO.buscar(obj.componenteCelular.get(i)).replace("\'", "")+"\'";
             }else{
-                CC+=",\""+GO.buscar(obj.componenteCelular.get(i))+"\"";
+                CC+=",\'"+GO.buscar(obj.componenteCelular.get(i)).replace("\'", "")+"\'";
             }
         }
         CC+="]";
         
         for (int i = 0; i < obj.Parent.size(); i++) {
             
-                MESH =mesh.buscarNombre(obj.Parent.get(i));
+                MESH =mesh.buscarNombre(obj.Parent.get(i)).replace("\'", "");
             
         }
        
         
         if (!FM.equals("[]")) {
-            new escribirBC("fm(\""+obj.nombre+"\","+FM+").","ontologiaGO.pl");
+            new escribirBC("fm(\'"+obj.nombre.replace("\'", "")+"\',"+FM+").","ontologiaGO.pl");
         }
         if (!PB.equals("[]")) {
-            new escribirBC("pb(\""+obj.nombre+"\","+PB+").","ontologiaGO.pl");
+            new escribirBC("pb(\'"+obj.nombre.replace("\'", "")+"\',"+PB+").","ontologiaGO.pl");
         }
         if (!CC.equals("[]")) {
-            new escribirBC("cc(\""+obj.nombre+"\","+CC+").","ontologiaGO.pl");
+            new escribirBC("cc(\'"+obj.nombre.replace("\'", "")+"\',"+CC+").","ontologiaGO.pl");
         }
         if (!MESH.equals("")) {
-            new escribirBC("is_a(\""+obj.nombre+"\",\""+MESH+"\").","ontologiaMESH.pl");
+            new escribirBC("is_a(\'"+obj.nombre.replace("\'", "")+"\',\'"+MESH+"\').","ontologiaMESH.pl");
             String aux = mesh.procesarTexto(MESH);
-            new escribirBC(aux+"(\""+obj.nombre+"\").","objetosMinados.pl");
+            new escribirBC(aux+"(\'"+obj.nombre.replace("\'", "")+"\').","objetosMinados.pl");
         }
         
         

@@ -33,15 +33,15 @@ public class objetos_Experto {
         for (int i = 0; i < HGNC.size(); i++) {
             
             //if(HGNC.get(i).getSimbolo().equals(ID)){
-                cadena +="\""+HGNC.get(i).getSimbolo()+"\",";
-                cadena +="\""+HGNC.get(i).getNombre()+"\"";
+                cadena +="\'"+HGNC.get(i).getSimbolo().replace("\'", "")+"\',";
+                cadena +="\'"+HGNC.get(i).getNombre().replace("\'", "")+"\'";
                 for (int j = 0; j < HGNC.get(i).getSinonimos().size(); j++) {
-                    cadena+=",\""+HGNC.get(i).getSinonimos().get(j)+"\"";
+                    cadena+=",\'"+HGNC.get(i).getSinonimos().get(j).replace("\'", "")+"\'";
                 }
               //  break;
             //}
             cadena+="]";
-        new escribirBC("sinonimos(\""+HGNC.get(i).getSimbolo()+"\","+cadena+").", archivo);
+        new escribirBC("sinonimos(\'"+HGNC.get(i).getSimbolo().replace("\'", "")+"\',"+cadena+").", archivo);
         }
         
     }

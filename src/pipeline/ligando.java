@@ -52,9 +52,9 @@ public class ligando {
     }
     
     public void vaciar_pl(String archivo){
-        String cadena = "ligando(\""+id+"\").";
+        String cadena = "ligando(\'"+id.replace("\'", "")+"\').";
         new escribirBC(cadena,archivo);
-        cadena = "sinonimos(\""+id+"\",[\""+id+"\",\""+nombre+"\"]).";
+        cadena = "sinonimos(\'"+id.replace("\'", "")+"\',[\'"+id.replace("\'", "")+"\',\'"+nombre.replace("\'", "")+"\']).";
         new escribirBC(cadena, archivo);
     }
        

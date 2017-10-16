@@ -265,7 +265,10 @@ public class minado_FT {
             System.out.println("busqueda.." + lista.get(i));
             objetos_Experto objExp = new objetos_Experto();
             objExp.setID(lista.get(i));
-            objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(lista.get(i),GO,MESH));
+            lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
+            String simbolo = pc.obtenercodigoUP(lista.get(i));
+            
+            objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(simbolo,GO,MESH));
             new objetosMinados().agregar_objetos(objExp);
 
             for (int j = 0; j < objExp.getHGNC().size(); j++) {
@@ -284,7 +287,11 @@ public class minado_FT {
             System.out.println("busqueda.." + lista.get(i));
             objetos_Experto objExp = new objetos_Experto();
             objExp.setID(lista.get(i));
-            objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(lista.get(i),GO,MESH));
+            lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
+            String simbolo = pc.obtenercodigoUP(lista.get(i));
+            
+            
+            objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(simbolo,GO,MESH));
             new objetosMinados().agregar_objetos(objExp);
 
             for (int j = 0; j < objExp.getHGNC().size(); j++) {

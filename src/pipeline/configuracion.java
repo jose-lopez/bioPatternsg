@@ -680,7 +680,8 @@ public class configuracion {
             System.out.println("***Ver Detalles de objetos Minados***");
             System.out.println("1.- Listar Objetos minados");
             System.out.println("2.- Ver Detalle de Objeto");
-            System.out.println("3.- Ontologias");
+            System.out.println("3.-Listar Ligandos");
+            System.out.println("4.- Ontologias");
             System.out.println("0.-Salir");
 
             String resp = lectura.nextLine();
@@ -693,15 +694,24 @@ public class configuracion {
                     for (int i = 0; i < lista.size(); i++) {
                         System.out.println(lista.get(i));
                     }
+                    System.out.println();
                     break;
 
                 case "2":
                     detalle_objeto();
-
+                    System.out.println();
                     break;
-                    
+
                 case "3":
-                    ontologiaObjMin objont = new  ontologiaObjMin();
+                    System.out.println("\n Lista de ligandos encontrados");
+                    ArrayList<String> ligandos = listar_ligandos();
+                    for (int i = 0; i < ligandos.size(); i++) {
+                        System.out.println(ligandos.get(i));
+                    }
+                    System.out.println();
+                    break;
+                case "4":
+                    ontologiaObjMin objont = new ontologiaObjMin();
                     objont.imprimirTodo();
                     break;
                 case "0":
@@ -741,11 +751,11 @@ public class configuracion {
         if (listaOM.contains(simbolo)) {
             factorTranscripcion FT = new factorTranscripcion();
             buscar_Objeto(simbolo, FT);
-            ontologiaObjMin objont =new ontologiaObjMin();
-            
+            ontologiaObjMin objont = new ontologiaObjMin();
+
             ontologiaObjMin ontologias = new ontologiaObjMin();
             ontologias.buscarObjeto(simbolo);
-            
+
         } else {
             System.out.println("no encontrado");
         }
@@ -770,6 +780,30 @@ public class configuracion {
         }
 
         return false;
+    }
+
+    private ArrayList<String> listar_ligandos() {
+        ArrayList<String> listaLigandos = new ArrayList<>();
+        factorTranscripcion obj = new factorTranscripcion();
+        ObjectContainer db = Db4o.openFile("mineria/FT.db");
+        try {
+            ObjectSet result = db.queryByExample(obj);
+            while (result.hasNext()) {
+                obj = (factorTranscripcion) result.next();
+                for (int i = 0; i < obj.getComplejoProteinico().size(); i++) {
+                    complejoProteinico comp = obj.getComplejoProteinico().get(i);
+                    for (int j = 0; j < comp.getLigandos().size(); j++) {
+                        if (!listaLigandos.contains(comp.getLigandos().get(j).getId())) {
+                            listaLigandos.add(comp.getLigandos().get(j).getId());
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            db.close();
+        }
+        return listaLigandos;
     }
 
     public int getNumIteraciones() {

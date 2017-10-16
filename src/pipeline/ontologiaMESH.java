@@ -68,7 +68,7 @@ public class ontologiaMESH {
         String ruta_wnr = "well_know_rules.pl";
 
         if (obj != null && objeto.getNombre() != null) {
-            String cadena = "is_a(\"" + obj + "\",\"" + objeto.getNombre() + "\").";
+            String cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'" + objeto.getNombre().replace("\'", "") + "\').";
             new escribirBC(cadena, archivo);
 
             //procesando texto para crear las reglas en formato prolog
