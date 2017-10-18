@@ -258,7 +258,7 @@ public class lecturas_HGNC {
                             //System.out.println(hgnc.getSimbolo() + "  " + hgnc.getNombre());
                             String idmesh = letMesh.busquedaTerm(hgnc.getNombre().replace(" ", "+"), 1);
                             if (idmesh == null) {
-                                idmesh = letMesh.busquedaTerm(hgnc.getSimbolo(), 2);
+                                idmesh = letMesh.busquedaTerm(hgnc.getSimbolo(),2);
                             }
                             ontologia.getParent().add(idmesh);
                             ont = true;

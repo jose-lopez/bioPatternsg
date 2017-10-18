@@ -70,7 +70,16 @@ public class ontologiaMESH {
         if (obj != null && objeto.getNombre() != null) {
             String cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'" + objeto.getNombre().replace("\'", "") + "\').";
             new escribirBC(cadena, archivo);
-
+            String[] separa = obj.split(",");
+            if(separa[0].equals("Receptors")){
+               cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'Receptors\').";
+               new escribirBC(cadena, archivo);
+               String obj1 = procesarTexto("Receptors");
+               String obj2 = procesarTexto(obj);
+               String rule = obj1 + "(X):-" + obj2 + "(X).";
+               new escribirBC(rule, ruta_wnr);
+               
+            }
             //procesando texto para crear las reglas en formato prolog
             String obj1 = procesarTexto(objeto.getNombre());
             String obj2 = procesarTexto(obj);

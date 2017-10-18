@@ -25,7 +25,7 @@ import org.w3c.dom.NodeList;
  */
 public class lecturas_MESH {
 
-    public String busquedaTerm(String term , int tipo) {
+    public String busquedaTerm(String term, int tipo ) {
         //term = term.replace(" ", "+");
         String id = null;
         String url;
