@@ -150,6 +150,8 @@ public class ontologiaMESH {
         aux = aux.replace("(", "_");
         aux = aux.replace(")", "_");
         aux = aux.replace("__", "_");
+        
+        aux = "wkr_"+aux;
         return aux;
     }
 }

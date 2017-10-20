@@ -177,15 +177,18 @@ public class factorTranscripcion {
     }
 
     public void vaciar_pl(String archivo) {
-
+        ArrayList<String> AuxLig = new ArrayList<>();
         String ligandos = "[";
         for (int i = 0; i < complejoProteinico.size(); i++) {
             complejoProteinico.get(i).vaciar_pl(archivo);
             for (int j = 0; j < complejoProteinico.get(i).getLigandos().size(); j++) {
-                if (ligandos.equals("[")) {
-                    ligandos += "\'" + complejoProteinico.get(i).getLigandos().get(j).getId().replace("\'", "") + "\'";
-                } else {
-                    ligandos += ",\'" + complejoProteinico.get(i).getLigandos().get(j).getId().replace("\'", "") + "\'";
+                if (!AuxLig.contains(complejoProteinico.get(i).getLigandos().get(j).getId())) {
+                    if (ligandos.equals("[")) {
+                        ligandos += "\'" + complejoProteinico.get(i).getLigandos().get(j).getId().replace("\'", "") + "\'";
+                    } else {
+                        ligandos += ",\'" + complejoProteinico.get(i).getLigandos().get(j).getId().replace("\'", "") + "\'";
+                    }
+                    AuxLig.add(complejoProteinico.get(i).getLigandos().get(j).getId());
                 }
             }
         }
