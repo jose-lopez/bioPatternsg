@@ -168,33 +168,33 @@ public class configuracion {
         } else {
             System.out.println("No");
         }
-        
+
         estadoactual();
     }
-    
-    private void estadoactual(){
+
+    private void estadoactual() {
         System.out.print("\nEstado actual: ");
-        if(!homologos){
+        if (!homologos) {
             System.out.println("Busqueda de homologos");
-        }else if(!objetosExperto){
+        } else if (!objetosExperto) {
             System.out.println("Busqueda objetos del Experto");
-        }else if(!lecturas_tfbind){
+        } else if (!lecturas_tfbind) {
             System.out.println("Lecturas desde Tfbind");
-        }else if(!procesoIteraciones){
+        } else if (!procesoIteraciones) {
             objetosMineria objMin = new objetosMineria();
             objMin = recuperarObjetosMin();
-            System.out.println("Busqueda de objetos PDB nivel "+(objMin.getIteracion()+1));
-        }else if(!combinaciones){
+            System.out.println("Busqueda de objetos PDB nivel " + (objMin.getIteracion() + 1));
+        } else if (!combinaciones) {
             System.out.println("Generando combinaciones de palabras clave");
-        }else if(!abstracts){
+        } else if (!abstracts) {
             System.out.println("Busquedas en PubMed ");
-        }else if(!vaciado_pl){
+        } else if (!vaciado_pl) {
             System.out.println("Vaciado de Objetos minados a formato prolog (.pl)");
-        }else if(!generarResumenes){
-            System.out.println("Generando resumenes actual: "+resumenes);
-        }else if(!GenerarBC){
+        } else if (!generarResumenes) {
+            System.out.println("Generando resumenes actual: " + resumenes);
+        } else if (!GenerarBC) {
             System.out.println("Generar base de conocimiento");
-        }else if(!InferirPatrones){
+        } else if (!InferirPatrones) {
             System.out.println("Inferir patrones");
         }
     }
@@ -229,6 +229,9 @@ public class configuracion {
             reanudar(9, objMin);
         } else if (!InferirPatrones) {
             reanudar(10, objMin);
+        } else {
+            //proceso terminado
+            ver_detalles();
         }
     }
 
@@ -310,7 +313,7 @@ public class configuracion {
                 new Razonador().inferir_patrones("baseC.pl", this);
                 break;
             case 6:
-                listaPMid = BPM.consulta_PudMed(cantidadPMID,this);
+                listaPMid = BPM.consulta_PudMed(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
@@ -668,6 +671,139 @@ public class configuracion {
         }
 
         return ruta;
+    }
+
+    public void ver_detalles() {
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        while (r) {
+            System.out.println("***Ver Detalles de objetos Minados***");
+            System.out.println("1.- Listar Objetos minados");
+            System.out.println("2.- Ver Detalle de Objeto");
+            System.out.println("3.-Listar Ligandos");
+            System.out.println("4.- Ontologias");
+            System.out.println("0.-Salir");
+
+            String resp = lectura.nextLine();
+
+            switch (resp) {
+
+                case "1":
+                    ArrayList<String> lista = listar_objetos_minados();
+                    System.out.println("Lista de objetos minados:\n");
+                    for (int i = 0; i < lista.size(); i++) {
+                        System.out.println(lista.get(i));
+                    }
+                    System.out.println();
+                    break;
+
+                case "2":
+                    detalle_objeto();
+                    System.out.println();
+                    break;
+
+                case "3":
+                    System.out.println("\n Lista de ligandos encontrados");
+                    ArrayList<String> ligandos = listar_ligandos();
+                    for (int i = 0; i < ligandos.size(); i++) {
+                        System.out.println(ligandos.get(i));
+                    }
+                    System.out.println();
+                    break;
+                case "4":
+                    ontologiaObjMin objont = new ontologiaObjMin();
+                    objont.imprimirTodo();
+                    break;
+                case "0":
+                    r = false;
+                    break;
+            }
+        }
+
+    }
+
+    public ArrayList<String> listar_objetos_minados() {
+
+        objetosMineria obj = new objetosMineria();
+        ObjectContainer db = Db4o.openFile("mineria/objetosMineria.db");
+
+        try {
+            ObjectSet result = db.queryByExample(obj);
+            while (result.hasNext()) {
+
+                obj = (objetosMineria) result.next();
+
+            }
+        } catch (Exception e) {
+        } finally {
+            db.close();
+        }
+
+        return obj.getObjetos_minados();
+    }
+
+    public void detalle_objeto() {
+        Scanner lectura = new Scanner(System.in);
+        System.out.print("Ingrese el simbolo del objeto que desea consultar: ");
+        String simbolo = lectura.nextLine();
+
+        ArrayList<String> listaOM = listar_objetos_minados();
+        if (listaOM.contains(simbolo)) {
+            factorTranscripcion FT = new factorTranscripcion();
+            buscar_Objeto(simbolo, FT);
+            ontologiaObjMin objont = new ontologiaObjMin();
+
+            ontologiaObjMin ontologias = new ontologiaObjMin();
+            ontologias.buscarObjeto(simbolo);
+
+        } else {
+            System.out.println("no encontrado");
+        }
+    }
+
+    private boolean buscar_Objeto(String objeto, factorTranscripcion FT) {
+        objetosMineria obj = new objetosMineria();
+        ObjectContainer db = Db4o.openFile("mineria/FT.db");
+        factorTranscripcion ft = new factorTranscripcion();
+        ft.setID(objeto);
+        try {
+            ObjectSet result = db.queryByExample(ft);
+            while (result.hasNext()) {
+                FT = (factorTranscripcion) result.next();
+                FT.imprimir();
+                return true;
+            }
+        } catch (Exception e) {
+
+        } finally {
+            db.close();
+        }
+
+        return false;
+    }
+
+    private ArrayList<String> listar_ligandos() {
+        ArrayList<String> listaLigandos = new ArrayList<>();
+        factorTranscripcion obj = new factorTranscripcion();
+        ObjectContainer db = Db4o.openFile("mineria/FT.db");
+        try {
+            ObjectSet result = db.queryByExample(obj);
+            while (result.hasNext()) {
+                obj = (factorTranscripcion) result.next();
+                for (int i = 0; i < obj.getComplejoProteinico().size(); i++) {
+                    complejoProteinico comp = obj.getComplejoProteinico().get(i);
+                    for (int j = 0; j < comp.getLigandos().size(); j++) {
+                        if (!listaLigandos.contains(comp.getLigandos().get(j).getId())) {
+                            listaLigandos.add(comp.getLigandos().get(j).getId());
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            db.close();
+        }
+        return listaLigandos;
     }
 
     public int getNumIteraciones() {

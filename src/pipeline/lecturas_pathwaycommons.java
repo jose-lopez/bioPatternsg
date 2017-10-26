@@ -19,10 +19,11 @@ public class lecturas_pathwaycommons {
     public String obtenercodigoUP(String gen) {
         String codigoUP = "";
 
-        String url = "http://www.pathwaycommons.org/pc/webservice.do?version=2.0&q=+" + gen + "&format=xml&cmd=search";
+        //String url = "http://www.pathwaycommons.org/pc/webservice.do?version=2.0&q=+" + gen + "&format=xml&cmd=search";
+        String url = "http://www.pathwaycommons.org/pc2/search.xml?q="+gen+"&datasource=ctd";
         try {
             Document doc = new conexionServ().conecta(url);
-            codigoUP = revisa_xml(doc);
+            codigoUP = revisa_xml2(doc);
         } catch (Exception e) {
 
         }
@@ -47,6 +48,14 @@ public class lecturas_pathwaycommons {
             }
         }
         return cod;
+    }
+    
+     private String revisa_xml2(Document doc) {
+        String simbolo = "";
+
+        NodeList nList = doc.getElementsByTagName("name");
+        simbolo = nList.item(0).getTextContent();
+        return simbolo;
     }
 
 }

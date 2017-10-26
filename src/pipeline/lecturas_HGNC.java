@@ -33,6 +33,7 @@ public class lecturas_HGNC {
         ArrayList<HGNC> HGNC = new ArrayList<>();
         //System.out.println("Etiqueta:  "+contenido);
         if (busqueda_genenames(etiqueta, false, 0, HGNC, GO, MESH)) {
+
             return HGNC;
         } else if (busqueda_genenames(etiqueta, true, 0, HGNC, GO, MESH)) {
             return HGNC;
@@ -40,7 +41,7 @@ public class lecturas_HGNC {
             return HGNC;
             //lecturas pathwaycommons
         }
-                
+
     }
 
     public boolean busqueda_genenames(String contenido, boolean criterio, int opcion, ArrayList<HGNC> HGNC, boolean GO, boolean MESH) {
@@ -82,7 +83,7 @@ public class lecturas_HGNC {
 
         //System.out.println("etiqueta: "+ID);
         //System.out.println("Factor: "+factor);
-        //System.out.println("cantidad Objetos HUGO: " + factor.size());
+        // System.out.println("cantidad Objetos HUGO: " + factor.size());
         for (int i = 0; i < factor.size(); i++) {
 
             try {
@@ -152,6 +153,7 @@ public class lecturas_HGNC {
         HGNC hgnc = new HGNC();
         NodeList nList = doc.getElementsByTagName("doc");
         Node nNode = nList.item(0);
+        boolean ont = false;
 
         if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
@@ -162,6 +164,7 @@ public class lecturas_HGNC {
             //-------------------------------------------------------
             //ensemble gene id
             NodeList list = elemento.getElementsByTagName("str");
+            ontologiaObjMin ontologia = new ontologiaObjMin();
             for (int i = 0; i < list.getLength(); i++) {
                 Node nodo = list.item(i);
                 if (nodo.getNodeType() == nodo.ELEMENT_NODE) {
@@ -217,42 +220,61 @@ public class lecturas_HGNC {
                         }
 
                     }
+
                     //-----------------------------------------------------------
                     //Busqueda de Ontologias
-                    ontologiaObjMin ontologia = new ontologiaObjMin();
                     ontologia.setNombre(hgnc.getSimbolo());
                     //Ontologia GO --------------------------------------------
-                    if (elm.getAttribute("name").equals("uniprot_ids") && GO) {
+                    lecturas_Uniprot letUP = null;
+                    if (elm.getAttribute("name").equals("uniprot_ids")) {
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
                             try {
                                 String codUP = elm.getElementsByTagName("str").item(j).getTextContent();
-                                lecturas_Uniprot letUP = new lecturas_Uniprot(codUP);
+                                letUP = new lecturas_Uniprot(codUP);
                                 letUP.Codigos_GO();
-                                ontologia.setFuncionMolecular(letUP.getFuncionMolecular());
-                                ontologia.setComponenteCelular(letUP.getComponenteCelular());
-                                ontologia.setProcesoBiologico(letUP.getProcesoBiologico());
+                                if (GO) {
+                                    ontologia.setFuncionMolecular(letUP.getFuncionMolecular());
+                                    ontologia.setComponenteCelular(letUP.getComponenteCelular());
+                                    ontologia.setProcesoBiologico(letUP.getProcesoBiologico());
+                                }
                             } catch (Exception e) {
 
                             }
                         }
+                        
+                        for (int j = 0; j < letUP.getSinonimos().size(); j++) {
+                            if(!hgnc.getSinonimos().contains(letUP.getSinonimos().get(j))){
+                                hgnc.getSinonimos().add(letUP.getSinonimos().get(j));
+                                //System.out.println(letUP.getSinonimos().get(j));
+                            }
+                        }
+ 
                     }
                     //ontologia MESH--------------------------------------------
-                    if (MESH) {
+                    if (MESH && !ont) {
                         try {
                             lecturas_MESH letMesh = new lecturas_MESH();
-                            ontologia.getParent().add(letMesh.busquedaTerm(hgnc.getSimbolo()));
+                            //System.out.println(hgnc.getSimbolo() + "  " + hgnc.getNombre());
+                            String idmesh = letMesh.busquedaTerm(hgnc.getNombre().replace(" ", "+"), 1);
+                            if (idmesh == null) {
+                                idmesh = letMesh.busquedaTerm(hgnc.getSimbolo(),2);
+                            }
+                            ontologia.getParent().add(idmesh);
+                            ont = true;
                         } catch (Exception e) {
 
                         }
-                    }
-                    //----------------------------------------------------------
-                    if (GO || MESH) {
-                        ontologia.guardarObjeto(ontologia, GO, MESH);
+
                     }
 
                 }
 
+            }
+
+            //----------------------------------------------------------
+            if (GO || MESH) {
+                ontologia.guardarObjeto(ontologia, GO, MESH);
             }
 
         }

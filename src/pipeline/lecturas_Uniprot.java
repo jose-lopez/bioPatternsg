@@ -20,6 +20,7 @@ public class lecturas_Uniprot {
     private Document doc;
     private String Simbolo;
     private String Nombre;
+    private ArrayList<String> sinonimos;
     private ArrayList<String> funcionMolecular;
     private ArrayList<String> procesoBiologico;
     private ArrayList<String> componenteCelular;
@@ -29,8 +30,10 @@ public class lecturas_Uniprot {
         funcionMolecular = new ArrayList<>();
         procesoBiologico = new ArrayList<>();
         componenteCelular = new ArrayList<>();
+        sinonimos = new ArrayList<>();
         
         String url = "http://www.uniprot.org/uniprot/" + codigo + ".xml";
+        
         try {
             doc = new conexionServ().conecta(url);
             obtener_Nombre();
@@ -80,7 +83,15 @@ public class lecturas_Uniprot {
     }
 
     public void obtener_Nombre() {
+        
+        NodeList lista = doc.getElementsByTagName("fullName");
 
+        for (int i = 0; i < lista.getLength(); i++) {
+            
+            String nom = lista.item(i).getTextContent();
+            sinonimos.add(nom);
+        }
+        
         try {
             Nombre = doc.getElementsByTagName("fullName").item(0).getTextContent();
         } catch (Exception e) {
@@ -136,6 +147,22 @@ public class lecturas_Uniprot {
 
     public void setComponenteCelular(ArrayList<String> componenteCelular) {
         this.componenteCelular = componenteCelular;
+    }
+
+    public Document getDoc() {
+        return doc;
+    }
+
+    public void setDoc(Document doc) {
+        this.doc = doc;
+    }
+
+    public ArrayList<String> getSinonimos() {
+        return sinonimos;
+    }
+
+    public void setSinonimos(ArrayList<String> sinonimos) {
+        this.sinonimos = sinonimos;
     }
     
     
