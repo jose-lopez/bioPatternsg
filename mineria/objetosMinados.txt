@@ -6,75 +6,10 @@ SOS
 SOS1;SOS Ras/Rac guanine nucleotide exchange factor 1;GINGF;gingival fibromatosis, hereditary, 1;son of sevenless homolog 1 (Drosophila);HGF;GF1
 SOS2;SOS Ras/Rho guanine nucleotide exchange factor 2;son of sevenless (Drosophilia) homolog 2;son of sevenless homolog 2 (Drosophila)
 Ras
-RRAS;related RAS viral (r-ras) oncogene homolog
-RRAS2;related RAS viral (r-ras) oncogene homolog 2;TC21
+NRAS;NRAS proto-oncogene, GTPase;neuroblastoma RAS viral (v-ras) oncogene homolog;neuroblastoma RAS viral oncogene homolog;N-ras
+RAB42P1;RAB42, member RAS oncogene family, pseudogene 1;RAB42;RAB42P;RAB42, member RAS homolog family;RAB42, member RAS homolog family, pseudogene;RAB42, member RAS oncogene family, pseudogene
+RHOT1P1;ras homolog family member T1 pseudogene 1;RHOT3;RHOT1P;ras homolog gene family, member T3;ras homolog gene family, member T1 pseudogene;ras homolog gene family, member T1 pseudogene 1
 Raf
 ARAF;A-Raf proto-oncogene, serine/threonine kinase;ARAF1;v-raf murine sarcoma 3611 viral oncogene homolog 1
 BRAF;B-Raf proto-oncogene, serine/threonine kinase;v-raf murine sarcoma viral oncogene homolog B;BRAF1
 RAF1;Raf-1 proto-oncogene, serine/threonine kinase;v-raf-1 murine leukemia viral oncogene homolog 1;Raf-1;c-Raf;CRAF
-MEK
-LAMTOR3;late endosomal/lysosomal adaptor, MAPK and MTOR activator 3;MAP2K1IP1;MAPKSP1;mitogen-activated protein kinase kinase 1 interacting protein 1;MAPK scaffold protein 1;MP1;MAPBP;Ragulator3
-MAPK
-LAMTOR1;late endosomal/lysosomal adaptor, MAPK and MTOR activator 1;C11orf59;chromosome 11 open reading frame 59;FLJ20625;p18;p27RF-Rho;Pdro;Ragulator1
-LAMTOR2;late endosomal/lysosomal adaptor, MAPK and MTOR activator 2;ROBLD3;roadblock domain containing 3;MAPBPIP;MAPKSP1AP;p14;ENDAP;Ragulator2
-LAMTOR3P1;late endosomal/lysosomal adaptor, MAPK and MTOR activator 3 pseudogene 1
-LAMTOR3P2;late endosomal/lysosomal adaptor, MAPK and MTOR activator 3 pseudogene 2
-LAMTOR4;late endosomal/lysosomal adaptor, MAPK and MTOR activator 4;C7orf59;chromosome 7 open reading frame 59
-LAMTOR5;late endosomal/lysosomal adaptor, MAPK and MTOR activator 5;HBXIP;hepatitis B virus x interacting protein;XIP;MGC71071
-LAMTOR5P1;late endosomal/lysosomal adaptor, MAPK and MTOR activator 5 pseudogene 1;HBXIPP1;hepatitis B virus x interacting protein pseudogene 1;HBXIPL
-MCRIP1;MAPK regulated corepressor interacting protein 1;FAM195B;family with sequence similarity 195, member B;family with sequence similarity 195 member B;GRAN2;MCRIP
-MCRIP2;MAPK regulated corepressor interacting protein 2;C16orf14;FAM195A;chromosome 16 open reading frame 14;family with sequence similarity 195, member A;family with sequence similarity 195 member A;MGC15416
-MCRIP2P1;MAPK regulated corepressor interacting protein 2 pseudogene 1;FAM195CP;family with sequence similarity 195, member C, pseudogene
-MCRIP2P2;MAPK regulated corepressor interacting protein 2 pseudogene 2;FAM195DP;MCRIP2P1;family with sequence similarity 195, member D, pseudogene;MAPK regulated co-repressor interacting protein 2 pseudogene 2
-MNK
-ATP7A;ATPase copper transporting alpha;MNK;Menkes syndrome;ATPase, Cu++ transporting, alpha polypeptide
-CDPCR3HD
-SRY;sex determining region Y;TDF
-LYF1
-LEF1;lymphoid enhancer binding factor 1;lymphoid enhancer-binding factor 1;TCF1ALPHA;TCF10;TCF7L3
-AML1
-RUNX1;runt related transcription factor 1;AML1;CBFA2;acute myeloid leukemia 1;runt-related transcription factor 1;PEBP2A2;AMLCR1
-CBFB;core-binding factor beta subunit;core-binding factor, beta subunit;PEBP2B
-CEBP
-CEBPA;CCAAT/enhancer binding protein alpha;CEBP;CCAAT/enhancer binding protein (C/EBP), alpha;C/EBP-alpha
-CPEB1;cytoplasmic polyadenylation element binding protein 1;FLJ13203;CPEB
-CAP
-CLIP1;CAP-Gly domain containing linker protein 1;RSN;restin (Reed-Steinberg cell-expressed intermediate filament-associated protein);CAP-GLY domain containing linker protein 1;CYLN1;CLIP170;CLIP;CLIP-170
-CLIP2;CAP-Gly domain containing linker protein 2;WBSCR4;CYLN2;WBSCR3;cytoplasmic linker 2;Williams-Beuren syndrome chromosome region 3;CAP-GLY domain containing linker protein 2;CLIP-115;KIAA0291;WSCR4;CLIP;WSCR3
-CLIP3;CAP-Gly domain containing linker protein 3;CAP-GLY domain containing linker protein 3;CLIPR-59;RSNL1
-CLIP4;CAP-Gly domain containing linker protein family member 4;RSNL2;restin-like 2;CAP-GLY domain containing linker protein family, member 4;FLJ21069
-CMTR1;cap methyltransferase 1;KIAA0082;FTSJD2;FtsJ methyltransferase domain containing 2;MTr1;ISG95
-CMTR2;cap methyltransferase 2;FTSJD1;FtsJ methyltransferase domain containing 1;FLJ11171;AFT;MTr2
-CTIF;cap binding complex dependent translation initiation factor;KIAA0427;CBP80/20-dependent translation initiation factor
-NCBP1;nuclear cap binding protein subunit 1;NCBP;nuclear cap binding protein subunit 1, 80kD;nuclear cap binding protein subunit 1, 80kDa;CBP80;Sto1
-NCBP2;nuclear cap binding protein subunit 2;nuclear cap binding protein subunit 2, 20kD;nuclear cap binding protein subunit 2, 20kDa;NIP1;CBP20;Cbc2
-NCBP2L;nuclear cap binding protein subunit 2 like
-NCBP3;nuclear cap binding subunit 3;C17orf85;chromosome 17 open reading frame 85;HSA277841;ELG
-TCAP;titin-cap;LGMD2G;limb girdle muscular dystrophy 2G (autosomal recessive);titin-cap (telethonin);T-cap;TELE;telethonin;CMD1N
-GATA3;GATA binding protein 3;GATA-binding protein 3;HDR
-ZN;ZINC ION
-MYOD
-MDFI;MyoD family inhibitor;I-mfa
-MDFIC;MyoD family inhibitor domain containing;HIC;MDFIC1
-MDFIC2;MyoD family inhibitor domain containing 2
-CDXA
-GATA1;GATA binding protein 1;GF1;GATA-binding protein 1 (globin transcription factor 1);globin transcription factor 1;ERYF1;NFE1;GATA-1;NF-E1
-ACT;ACETATE ION
-GATA2;GATA binding protein 2;GATA-binding protein 2;NFE1B
-AP4
-REPIN1;replication initiator 1;ZNF464;zinc finger protein 464 (RIP60);RIP60;AP4;H_DJ0584D14.12;Zfp464
-USF
-USF1;upstream transcription factor 1;UEF;MLTFI;bHLHb11
-ATF
-BATF;basic leucine zipper ATF-like transcription factor;basic leucine zipper transcription factor, ATF-like;B-ATF;SFA-2;BATF1
-BATF2;basic leucine zipper ATF-like transcription factor 2;basic leucine zipper transcription factor, ATF-like 2;MGC20410
-BATF3;basic leucine zipper ATF-like transcription factor 3;basic leucine zipper transcription factor, ATF-like 3;JUNDM1;SNFT;JDP1
-CREBZF;CREB/ATF bZIP transcription factor;ZF
-ATF2;activating transcription factor 2;CREB2;cAMP responsive element binding protein 2;TREB7;CRE-BP1;HB16
-CREB
-CREBBP;CREB binding protein;RSTS;Rubinstein-Taybi syndrome;RTS;CBP;KAT3A
-CRTC1;CREB regulated transcription coactivator 1;MECT1;mucoepidermoid carcinoma translocated 1;KIAA0616;FLJ14027;TORC1
-CRTC2;CREB regulated transcription coactivator 2;TORC2
-CRTC3;CREB regulated transcription coactivator 3;FLJ21868
-53W;5-(3,5-dimethyl-1,2-oxazol-4-yl)-2-[2-(4-methoxyphenyl)ethyl]-1-[2-(morpholin-4-yl)ethyl]-1H-benzimidazole
-CREBP1CJUN

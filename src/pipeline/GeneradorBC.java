@@ -53,7 +53,7 @@ public class GeneradorBC {
         //baseC.generador("ENSG00000157005SST1-gen-comparable-1-salida.txt");
         //baseC.generador("abstracts-experimento-SRIF-26112015-Part-I-II-salida.txt");
         configuracion config = new configuracion();
-        generador.generadorBC("baseC.pl",config);
+        generador.generadorBC("baseC.pl", config);
 
 
     }
@@ -68,8 +68,8 @@ public class GeneradorBC {
 
         String baseCtemp = "baseCTemp";
 
-        FileWriter fichero = new FileWriter(baseCtemp);
-        FileWriter fichero1 = new FileWriter("baseCdoc");
+        FileWriter fichero = new FileWriter(baseCtemp); // BC temporal. Se procesa para generer baseC.pl
+        FileWriter fichero1 = new FileWriter("baseCdoc"); // BC documentada. Permite saber archivo y linea de un evento.
 
         try (PrintWriter archivoBC = new PrintWriter(fichero)) {
 
@@ -85,7 +85,7 @@ public class GeneradorBC {
                 n++;
 
             }
-           
+
             int cont_eventos;
             cont_eventos = printBC(archivoBC, eventos);
             System.out.println("cantidad de eventos: " + cont_eventos);
@@ -93,7 +93,7 @@ public class GeneradorBC {
             archivoBC.println("]).");
 
             archivoBC.close();
-            
+
             archivoBCdoc.println("Total de eventos: " + cont_eventos);
             archivoBCdoc.close();
 
@@ -392,10 +392,10 @@ public class GeneradorBC {
 
         //*System.out.print("]).");
 
-     
+
         System.out.println("eventos provenientes de " + oracionesSVC + " :" + contEventosArchivoActual);
         baseC.println("eventos provenientes de " + oracionesSVC + " :" + contEventosArchivoActual);
-        
+
         return "Base.pl";
 
 

@@ -12,4 +12,6 @@ evento: event('CREB',inhibit,'Ras'); Linea: 22
 evento: event('CREB',bind,'SST'); Linea: 29
 evento: event('SST',phosphorylate,'CREB'); Linea: 32
 eventos provenientes de abstracts/resumen_2.txt :5
+Archivo abstracts/resumen_3.txt
+eventos provenientes de abstracts/resumen_3.txt :0
 Total de eventos: 10

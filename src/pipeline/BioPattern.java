@@ -36,9 +36,8 @@ public class BioPattern {
     public static void main(String[] args) throws Exception {
         BioPattern biopattern = new BioPattern();
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
-        //biopattern.pipelineBioPatternRP(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), true);
-        //biopattern.pruebas();
-        biopattern.pipelineBioPattern();
+        biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
+        //biopattern.pipelineBioPattern();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -145,14 +144,14 @@ public class BioPattern {
          /*/
 
         new Resumidor().resumidor(config);
-        
+
         String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", config);
-        
+
         //Se infieren los distintos patrones de regulacion para la secuencia problema.
         new Razonador().inferir_patrones("baseC.pl", config);
-        
+
         Region region_promotora = new Region(this.regionPromotora);
-        
+
         //region_promotora.constructPromotor(MFT.getListaFT());
         return region_promotora;
 
@@ -170,36 +169,36 @@ public class BioPattern {
         }
         if (config.getRegionPromotora() == null) {
             /*
-            System.out.println("\n-------------------------\nNUEVO PROCESO DE MINERIA\n-------------------------");
-            System.out.println("\nIngrese los datos de configuracion\n");
+             System.out.println("\n-------------------------\nNUEVO PROCESO DE MINERIA\n-------------------------");
+             System.out.println("\nIngrese los datos de configuracion\n");
 
-            String regProm = config.IngresarRegionPromotora();
-            float conf = config.IngresarConfiabilidad();
-            int cantObjs = config.ingresarCantComplejos();
-            int iteraciones = config.ingresar_numIteracioens();
-            boolean GO = config.buscarGO();
-            boolean MESH = config.buscarMESH();
-            String rutaPMidExp = config.PMidExperto();
-            int cantPMID = 10000; //numero de pubmed IDs
+             String regProm = config.IngresarRegionPromotora();
+             float conf = config.IngresarConfiabilidad();
+             int cantObjs = config.ingresarCantComplejos();
+             int iteraciones = config.ingresar_numIteracioens();
+             boolean GO = config.buscarGO();
+             boolean MESH = config.buscarMESH();
+             String rutaPMidExp = config.PMidExperto();
+             int cantPMID = 10000; //numero de pubmed IDs
 
-            mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, cantPMID, rutaPMidExp);
+             mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, cantPMID, rutaPMidExp);
 
-            busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
+             busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
 
-            ArrayList<String> listaPMid = BPM.busqueda_IDs(false, cantPMID, false, config);
+             ArrayList<String> listaPMid = BPM.busqueda_IDs(false, cantPMID, false, config);
 
-            new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500, config); // Número máximo de abstracts por archivo
+             new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500, config); // Número máximo de abstracts por archivo
 
-            mfts.vaciar_bc_pl(GO, MESH);
-            //*/
+             mfts.vaciar_bc_pl(GO, MESH);
+             //*/
 
             new Resumidor().resumidor(config);
 
             String kb = new GeneradorBC().generadorBC("baseC.pl", config);
-            
+
             //String kb = "baseC.pl";
 
-            //new Razonador().inferir_patrones(kb, config);
+            new Razonador().inferir_patrones(kb, config);
 
         } else if (config.reiniciar()) {
             mfts.crearCarpeta("mineria");

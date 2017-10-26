@@ -7,7 +7,9 @@
 % ?  findnsols(50, P, (patron(estricto, P, <aqui va la lista de los objetos deseados>, [bind, activate, regulate], ['SRIF', 'CREB'], 10), ListP), print_some(5, ListP). 
 %
 % ?  findnsols(50, P, (patron(noestricto, P, <aqui va la lista de los objetos deseados>, [bind, activate, regulate], ['SRIF', 'CREB'], 10), ListP), print_some(5, ListP).
-%
+
+% Consulta empleada en la actualidad 26-10-2017
+% tell('patrones.txt'), findnsols(50, P, (patron(P,[bind,activate,increase,regulate,enhance,induce,recognize,lead,trigger,target,express,reactivate,modulate,promote,mediate,synthesize], ['SST'], 10, LOf), write(P), nl, write(LOf), nl), ListP), told.
 
 :- discontiguous synonymous/2.
 :- discontiguous adaptor_protein/1.
