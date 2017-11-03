@@ -71,6 +71,7 @@ public class ontologiaMESH {
             String cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'" + objeto.getNombre().replace("\'", "") + "\').";
             new escribirBC(cadena, archivo);
             String[] separa = obj.split(",");
+            crear_rama_artificial(obj, ruta_wnr, archivo);
             if(separa[0].equals("Receptors")){
                cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'Receptors\').";
                new escribirBC(cadena, archivo);
@@ -98,6 +99,59 @@ public class ontologiaMESH {
         }
 
     }
+    
+    private void crear_rama_artificial(String obj, String ruta_wnr, String ruta_mesh) {
+        String[] separa = obj.split(",");
+        String cadena = null;
+        if (separa[0].equals("Receptors")) {
+            cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'Receptors\').";
+            new escribirBC(cadena, ruta_mesh);
+            String obj1 = procesarTexto("Receptors");
+            String obj2 = procesarTexto(obj);
+            String rule = obj1 + "(X):-" + obj2 + "(X).";
+            new escribirBC(rule, ruta_wnr);
+        } else if (separa[0].equals("Adaptor Proteins")) {
+            cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'Adaptor Proteins\').";
+            new escribirBC(cadena, ruta_mesh);
+            String obj1 = procesarTexto("Adaptor Proteins");
+            String obj2 = procesarTexto(obj);
+            String rule = obj1 + "(X):-" + obj2 + "(X).";
+            new escribirBC(rule, ruta_wnr);
+        } else if (obj.equals("Intracellular Signaling Peptides and Proteins")) {
+            String obj1 = procesarTexto("ligand");
+            String obj2 = procesarTexto(obj);
+            String rule = obj1 + "(X):-" + obj2 + "(X).";
+            new escribirBC(rule, ruta_wnr);
+        } else if (obj.equals("Intercellular Signaling Peptides and Proteins")) {
+            String obj1 = procesarTexto("ligand");
+            String obj2 = procesarTexto(obj);
+            String rule = obj1 + "(X):-" + obj2 + "(X).";
+            new escribirBC(rule, ruta_wnr);
+        } else if (obj.equals("Circadian Rhythm Signaling Peptides and Proteins")) {
+            String obj1 = procesarTexto("ligand");
+            String obj2 = procesarTexto(obj);
+            String rule = obj1 + "(X):-" + obj2 + "(X).";
+            new escribirBC(rule, ruta_wnr);
+        }
+        
+        //-----------------------------------------------------------
+        String rule = procesarTexto("ligand");
+        new escribirBC(rule+"(\'\').", ruta_wnr);
+        rule = procesarTexto("proteins");
+        new escribirBC(rule+"(\'\').", ruta_wnr);
+        rule = procesarTexto("transcription factors");
+        new escribirBC(rule+"(\'\').", ruta_wnr);
+        rule =procesarTexto("adaptor proteins");
+        new escribirBC(rule+"(\'\').", ruta_wnr);
+        rule = procesarTexto("receptors");
+        new escribirBC(rule+"(\'\').", ruta_wnr);
+        rule = procesarTexto("enzymes");
+        new escribirBC(rule+"(\'\').", ruta_wnr);
+        rule = procesarTexto("transcription factors");
+        new escribirBC(rule+"(\'\').", ruta_wnr);
+        
+    }
+
 
     private ontologiaMESH consultarBD(ontologiaMESH obj) {
         ontologiaMESH objeto = new ontologiaMESH();

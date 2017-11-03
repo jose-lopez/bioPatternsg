@@ -146,26 +146,51 @@ activates(X,Y) :- phosphorylates(X,Y).
 phosphorylated(X) :- phosphorylates(_Y,X).
 associates(X,Y) :- activates(X,Y).
 interacts(X,Y) :- activates(X,Y).
-transcription_factor(X):-nuclear_receptor(X).
-transcription_factor(X):-generic_transcription_factor(X).
-protein(X):-nuclear_receptor(X).
-protein(X):-transcription_factor(X).
-protein(X):-enzyme(X).
-protein(X):-transporter(X).
-protein(X):-generic_protein(X).
-dna_sequence(X):-response_element(X). % synonymous ('response element', 'motif').
-dna_sequence(X):-motif(X).
-adaptor_protein(X) :-nucleotide_exchange_factor(X).
+
+
+%transcription_factor(X):-nuclear_receptor(X).
+%transcription_factor(X):-generic_transcription_factor(X).
+%protein(X):-nuclear_receptor(X).
+%protein(X):-transcription_factor(X).
+%protein(X):-enzyme(X).
+%protein(X):-transporter(X).
+%protein(X):-generic_protein(X).
+%dna_sequence(X):-response_element(X). % synonymous ('response element', 'motif').
+%dna_sequence(X):-motif(X).
+%adaptor_protein(X) :-nucleotide_exchange_factor(X).
 %growth_factor(X):-mitogen(X).
-protein(X):-adaptor_protein(X).
-enzyme(X):-gtp_ase(X).
-enzyme(X):-kinase(X).
-protein(X):-hormone(X).
-protein(X):-cell_receptor(X).
-receptor(X):-cell_receptor(X);nuclear_receptor(X).
+%protein(X):-adaptor_protein(X).
+%enzyme(X):-gtp_ase(X).
+%enzyme(X):-kinase(X).
+%protein(X):-hormone(X).
+%protein(X):-cell_receptor(X).
+%receptor(X):-cell_receptor(X);nuclear_receptor(X).
 
 %:- [baseCv].
 :- [baseC].
 %:- [baseGPR].
 %:- [baseL].
-:- [objetosCREB].
+%:- [objetosCREB].
+
+:-[mineria/ontologiaMESH].
+:-[mineria/objetosMinados].
+:-[mineria/well_know_rules].
+
+%**************************************************************************
+
+protein(X):-transcription_factor(X),!.
+protein(X):- sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_proteins(O),!.
+transcription_factor(X):- sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_transcription_factors(O),!.
+adaptor_proteins(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_adaptor_proteins(O),!.
+receptor(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_receptors(O),!.
+enzyme(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_enzymes(O),!.
+ligand(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),(wkr_ligand(O);ligando(O)),!.
+enzyme(X):-wkr_enzymes(X),!.
+
+%******************************************
+%Buscar objeto en una lista dada 
+
+buscar_en_lista(L,[L|_]).
+buscar_en_lista(L,[_|Ys]):-buscar_en_lista(L,Ys).
+
+%*************************************************************************

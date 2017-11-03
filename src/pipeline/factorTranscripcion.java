@@ -218,6 +218,10 @@ public class factorTranscripcion {
                 new escribirBC("sinonimos(\'" + HGNC.get(i).getSimbolo().replace("\'", "") + "\'," + cadena + ").", archivo);
             }
         }
+        
+        if(N_Iteracion==0){
+            new escribirBC("wkr_transcription_factors(\'"+ID.replace("\'", "")+"\').",archivo);
+        }
 
     }
 
