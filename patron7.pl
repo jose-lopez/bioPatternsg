@@ -152,8 +152,7 @@ interacts(X,Y) :- activates(X,Y).
 %transcription_factor(X):-generic_transcription_factor(X).
 %protein(X):-nuclear_receptor(X).
 %protein(X):-transcription_factor(X).
-%protein(X):-enzyme(X).
-%protein(X):-transporter(X).
+%protein(X):-enzyme(X).%protein(X):-transporter(X).
 %protein(X):-generic_protein(X).
 %dna_sequence(X):-response_element(X). % synonymous ('response element', 'motif').
 %dna_sequence(X):-motif(X).
@@ -176,8 +175,6 @@ interacts(X,Y) :- activates(X,Y).
 :-[mineria/objetosMinados].
 :-[mineria/well_know_rules].
 
-%**************************************************************************
-
 protein(X):-transcription_factor(X),!.
 protein(X):- sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_proteins(O),!.
 transcription_factor(X):- sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_transcription_factors(O),!.
@@ -185,7 +182,7 @@ adaptor_proteins(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_adaptor_proteins(
 receptor(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_receptors(O),!.
 enzyme(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_enzymes(O),!.
 ligand(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),(wkr_ligand(O);ligando(O)),!.
-enzyme(X):-wkr_enzymes(X),!.
+
 
 %******************************************
 %Buscar objeto en una lista dada 
