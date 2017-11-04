@@ -220,7 +220,7 @@ public class factorTranscripcion {
         }
         
         if(N_Iteracion==0){
-            new escribirBC("wkr_transcription_factors(\'"+ID.replace("\'", "")+"\').",archivo);
+            new escribirBC("transcription_factors(\'"+ID.replace("\'", "")+"\').",archivo);
         }
 
     }

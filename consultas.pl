@@ -14,14 +14,13 @@ receptor_ontologia(X):-is_a(X,Y),receptor_ontologia(Y),!.
 
 %**************************************************************************
 
-protein(X):-transcription_factor(X),!.
-protein(X):- sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_proteins(O),!.
-transcription_factor(X):- sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_transcription_factors(O),!.
-adaptor_proteins(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_adaptor_proteins(O),!.
-receptor(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_receptors(O),!.
-enzyme(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_enzymes(O),!.
-ligand(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),(wkr_ligand(O);ligando(O)),!.
-
+protein(X):-transcription_factor(X).
+protein(X):-wkr_proteins(X).
+transcription_factor(X):-wkr_transcription_factors(X);transcription_factors(X).
+adaptor_proteins(X):-wkr_adaptor_proteins(X).
+receptor(X):-wkr_receptors(X).
+enzyme(X):-wkr_enzymes(X).
+ligand(X):-(wkr_ligand(X);ligando(X)).
 
 %******************************************
 %Buscar objeto en una lista dada 

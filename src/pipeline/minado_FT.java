@@ -369,6 +369,8 @@ public class minado_FT {
 
     public void vaciar_bc_pl(boolean GO, boolean MESH) {
 
+        new escribirBC("ligando(\'\').", "objetosMinados.pl");
+        new escribirBC("transcription_factors(\'\').","objetosMinados.pl");
         //-------------------------------------------------------
         ObjectContainer dbHE = Db4o.openFile("mineria/ObjH_E.db");
         objetos_Experto objEH = new objetos_Experto();

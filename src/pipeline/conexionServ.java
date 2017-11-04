@@ -44,7 +44,7 @@ public class conexionServ {
         Document doc = null;
         //System.out.println("url: " + Url);
         int cont = 0;
-        while (cont < 5) {
+        while (cont < 10) {
             try {
                 cont++;
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

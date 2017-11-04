@@ -82,7 +82,7 @@ eventos_intermedios(O, _, N1, [event(N1, Rel1, N)], N, LOf) :-
 	member(Rel1, [trimerize,require,heterodimerize,interact,associate,phosphorylate,recruit,dimerize,recognize,participate,activate]),
 	% Se asegura que el objeto de cierre no esté presente en eventos intermedios pues es el objeto regulado.
 	% Además se asegura que no haya ligandos en el camino pues eso indica más de un pathway en el recorrido.
-	not(member(N,O)), not(ligand(N)),
+	not(member(N,O)), protein(N),
 	une([N1],[N],LOf). 
 %	member(event(N, Rel2, N2), B), % 1. Solo pueden haber eventos de la BC en los pathways. 
 %	member(Rel2,[interact,associate,recruit,activate]).
@@ -95,7 +95,7 @@ eventos_intermedios(O, L, N1, [event(N1, Rel1, N)|R], NL, LOf) :- L > 0,
 %	member(event(N, Rel2, N2), B), % 1. Solo pueden haber eventos de la BC en los pathways. 
 %	member(Rel2,[interact,associate,recruit,activate]),
 	% Aqui la restricción que se asegura de que no hayan objetos finales o ligandos en el camino.
-	not(member(N,O)), not(ligand(N)),	
+	not(member(N,O)), protein(N),	
         LL is L - 1,
         eventos_intermedios(O, LL, N, R, NL,NLOf),
 	% Restricción que se asegura de que no hayan eventos repetidos en el pathway en proceso.
@@ -152,7 +152,8 @@ interacts(X,Y) :- activates(X,Y).
 %transcription_factor(X):-generic_transcription_factor(X).
 %protein(X):-nuclear_receptor(X).
 %protein(X):-transcription_factor(X).
-%protein(X):-enzyme(X).%protein(X):-transporter(X).
+%protein(X):-enzyme(X).
+%protein(X):-transporter(X).
 %protein(X):-generic_protein(X).
 %dna_sequence(X):-response_element(X). % synonymous ('response element', 'motif').
 %dna_sequence(X):-motif(X).
@@ -171,23 +172,19 @@ interacts(X,Y) :- activates(X,Y).
 %:- [baseL].
 %:- [objetosCREB].
 
-:-[mineria/ontologiaMESH].
+% ------------------------------------------------------------------------------
+% Reglas a partir de las ontologias
+% ------------------------------------------------------------------------------
+
 :-[mineria/objetosMinados].
 :-[mineria/well_know_rules].
 
-protein(X):-transcription_factor(X),!.
-protein(X):- sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_proteins(O),!.
-transcription_factor(X):- sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_transcription_factors(O),!.
-adaptor_proteins(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_adaptor_proteins(O),!.
-receptor(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_receptors(O),!.
-enzyme(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),wkr_enzymes(O),!.
-ligand(X):-sinonimos(O,Ls),buscar_en_lista(X,Ls),(wkr_ligand(O);ligando(O)),!.
+protein(X):-transcription_factor(X).
+protein(X):-wkr_proteins(X).
+transcription_factor(X):-wkr_transcription_factors(X);transcription_factors(X).
+adaptor_proteins(X):-wkr_adaptor_proteins(X).
+receptor(X):-wkr_receptors(X).
+enzyme(X):-wkr_enzymes(X).
+ligand(X):-(wkr_ligand(X);ligando(X)).
 
-
-%******************************************
-%Buscar objeto en una lista dada 
-
-buscar_en_lista(L,[L|_]).
-buscar_en_lista(L,[_|Ys]):-buscar_en_lista(L,Ys).
-
-%*************************************************************************
+%-------------------------------------------------------------------------------
