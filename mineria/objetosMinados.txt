@@ -1,15 +1,13 @@
-SST;somatostatin;SMST
-EGF;epidermal growth factor;epidermal growth factor (beta-urogastrone)
-EGFR;epidermal growth factor receptor;ERBB;epidermal growth factor receptor (avian erythroblastic leukemia viral (v-erb-b) oncogene homolog);ERBB1
-GRB2;growth factor receptor bound protein 2;growth factor receptor-bound protein 2;NCKAP2
+SST;somatostatin;SMST;Somatostatin;Growth hormone release-inhibiting factor;Somatostatin-28;Somatostatin-14
+EGF;epidermal growth factor;epidermal growth factor (beta-urogastrone);Pro-epidermal growth factor;Epidermal growth factor;Urogastrone
+EGFR;epidermal growth factor receptor;ERBB;epidermal growth factor receptor (avian erythroblastic leukemia viral (v-erb-b) oncogene homolog);ERBB1;Epidermal growth factor receptor;Proto-oncogene c-ErbB-1;Receptor tyrosine-protein kinase erbB-1
+GRB2;growth factor receptor bound protein 2;growth factor receptor-bound protein 2;NCKAP2;Growth factor receptor-bound protein 2;Adapter protein GRB2;Protein Ash;SH2/SH3 adapter GRB2
 SOS
-SOS1;SOS Ras/Rac guanine nucleotide exchange factor 1;GINGF;gingival fibromatosis, hereditary, 1;son of sevenless homolog 1 (Drosophila);HGF;GF1
-SOS2;SOS Ras/Rho guanine nucleotide exchange factor 2;son of sevenless (Drosophilia) homolog 2;son of sevenless homolog 2 (Drosophila)
+SOS1;SOS Ras/Rac guanine nucleotide exchange factor 1;GINGF;gingival fibromatosis, hereditary, 1;son of sevenless homolog 1 (Drosophila);HGF;GF1;Son of sevenless homolog 1
+SOS2;SOS Ras/Rho guanine nucleotide exchange factor 2;son of sevenless (Drosophilia) homolog 2;son of sevenless homolog 2 (Drosophila);Son of sevenless homolog 2
 Ras
-NRAS;NRAS proto-oncogene, GTPase;neuroblastoma RAS viral (v-ras) oncogene homolog;neuroblastoma RAS viral oncogene homolog;N-ras
-RAB42P1;RAB42, member RAS oncogene family, pseudogene 1;RAB42;RAB42P;RAB42, member RAS homolog family;RAB42, member RAS homolog family, pseudogene;RAB42, member RAS oncogene family, pseudogene
-RHOT1P1;ras homolog family member T1 pseudogene 1;RHOT3;RHOT1P;ras homolog gene family, member T3;ras homolog gene family, member T1 pseudogene;ras homolog gene family, member T1 pseudogene 1
+REM1;RRAD and GEM like GTPase 1;REM;RAS (RAD and GEM)-like GTP-binding;GES;GTP-binding protein REM 1;GTPase-regulating endothelial cell sprouting;Rad and Gem-like GTP-binding protein 1
 Raf
-ARAF;A-Raf proto-oncogene, serine/threonine kinase;ARAF1;v-raf murine sarcoma 3611 viral oncogene homolog 1
-BRAF;B-Raf proto-oncogene, serine/threonine kinase;v-raf murine sarcoma viral oncogene homolog B;BRAF1
-RAF1;Raf-1 proto-oncogene, serine/threonine kinase;v-raf-1 murine leukemia viral oncogene homolog 1;Raf-1;c-Raf;CRAF
+ARAF;A-Raf proto-oncogene, serine/threonine kinase;ARAF1;v-raf murine sarcoma 3611 viral oncogene homolog 1;Serine/threonine-protein kinase A-Raf;Proto-oncogene A-Raf;Proto-oncogene A-Raf-1;Proto-oncogene Pks
+MEK
+MAP2K1;mitogen-activated protein kinase kinase 1;PRKMK1;MEK1;MAPKK1;Dual specificity mitogen-activated protein kinase kinase 1;ERK activator kinase 1;MAPK/ERK kinase 1

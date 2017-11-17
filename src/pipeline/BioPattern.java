@@ -36,8 +36,8 @@ public class BioPattern {
     public static void main(String[] args) throws Exception {
         BioPattern biopattern = new BioPattern();
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
-        biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
-        //biopattern.pipelineBioPattern();
+        //biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
+        biopattern.pipelineBioPattern();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -168,7 +168,7 @@ public class BioPattern {
         } catch (Exception e) {
         }
         if (config.getRegionPromotora() == null) {
-            /*
+            //*
              System.out.println("\n-------------------------\nNUEVO PROCESO DE MINERIA\n-------------------------");
              System.out.println("\nIngrese los datos de configuracion\n");
 
@@ -176,8 +176,10 @@ public class BioPattern {
              float conf = config.IngresarConfiabilidad();
              int cantObjs = config.ingresarCantComplejos();
              int iteraciones = config.ingresar_numIteracioens();
-             boolean GO = config.buscarGO();
-             boolean MESH = config.buscarMESH();
+             //boolean GO = config.buscarGO();
+             //boolean MESH = config.buscarMESH();
+             boolean MESH = true;
+             boolean GO = false;
              String rutaPMidExp = config.PMidExperto();
              int cantPMID = 10000; //numero de pubmed IDs
 
@@ -198,7 +200,7 @@ public class BioPattern {
 
             //String kb = "baseC.pl";
 
-            new Razonador().inferir_patrones(kb, config);
+            //new Razonador().inferir_patrones(kb, config);
 
         } else if (config.reiniciar()) {
             mfts.crearCarpeta("mineria");
