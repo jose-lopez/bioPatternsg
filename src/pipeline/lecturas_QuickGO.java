@@ -21,11 +21,10 @@ public class lecturas_QuickGO {
     public ontologiaGO obtenerOntologia(String codigo) {
         ontologiaGO ontologia = new ontologiaGO();
 
-        String url = "http://www.ebi.ac.uk/QuickGO-Old/GTerm?id="+codigo+"&format=oboxml";
+        String url = "https://www.ebi.ac.uk/QuickGO-Old/GTerm?id="+codigo+"&format=oboxml";
         
         try {
             Document doc = new conexionServ().conecta(url);
-            System.out.println("cone");
             ontologia = revisa_xml(doc);
         } catch (Exception e) {
 
