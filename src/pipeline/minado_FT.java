@@ -266,7 +266,9 @@ public class minado_FT {
             objExp.setID(lista.get(i));
             lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
             String simbolo = pc.obtenercodigoUP(lista.get(i));
-
+            if (simbolo == "") {
+                simbolo = lista.get(i);
+            }
             objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH));
             new objetosMinados().agregar_objetos(objExp);
 
@@ -289,6 +291,9 @@ public class minado_FT {
             objExp.setID(lista.get(i));
             lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
             String simbolo = pc.obtenercodigoUP(lista.get(i));
+            if (simbolo == "") {
+                simbolo = lista.get(i);
+            }
 
             objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH));
             new objetosMinados().agregar_objetos(objExp);
@@ -370,7 +375,7 @@ public class minado_FT {
     public void vaciar_bc_pl(boolean GO, boolean MESH) {
 
         new escribirBC("ligando(\'\').", "objetosMinados.pl");
-        new escribirBC("transcription_factors(\'\').","objetosMinados.pl");
+        new escribirBC("transcription_factors(\'\').", "objetosMinados.pl");
         //-------------------------------------------------------
         ObjectContainer dbHE = Db4o.openFile("mineria/ObjH_E.db");
         objetos_Experto objEH = new objetos_Experto();
