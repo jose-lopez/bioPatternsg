@@ -264,12 +264,18 @@ public class minado_FT {
             System.out.println("busqueda.." + lista.get(i));
             objetos_Experto objExp = new objetos_Experto();
             objExp.setID(lista.get(i));
-            lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
-            String simbolo = pc.obtenercodigoUP(lista.get(i));
-            if (simbolo == "") {
-                simbolo = lista.get(i);
+
+            ArrayList<HGNC> infgen = new ArrayList<>();
+            infgen = new lecturas_HGNC().busquedaInfGen(lista.get(i), GO, MESH);
+
+            if (infgen.size() == 0) {
+                lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
+                String simbolo = pc.obtenercodigoUP(lista.get(i));
+                infgen = new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH);
             }
-            objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH));
+
+            objExp.setHGNC(infgen);
+
             new objetosMinados().agregar_objetos(objExp);
 
             for (int j = 0; j < objExp.getHGNC().size(); j++) {
@@ -289,13 +295,18 @@ public class minado_FT {
             System.out.println("busqueda.." + lista.get(i));
             objetos_Experto objExp = new objetos_Experto();
             objExp.setID(lista.get(i));
-            lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
-            String simbolo = pc.obtenercodigoUP(lista.get(i));
-            if (simbolo == "") {
-                simbolo = lista.get(i);
+            
+            ArrayList<HGNC> infgen = new ArrayList<>();
+            infgen = new lecturas_HGNC().busquedaInfGen(lista.get(i), GO, MESH);
+
+            if (infgen.size() == 0) {
+                lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
+                String simbolo = pc.obtenercodigoUP(lista.get(i));
+                infgen = new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH);
             }
 
-            objExp.setHGNC(new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH));
+            objExp.setHGNC(infgen);
+                 
             new objetosMinados().agregar_objetos(objExp);
 
             for (int j = 0; j < objExp.getHGNC().size(); j++) {

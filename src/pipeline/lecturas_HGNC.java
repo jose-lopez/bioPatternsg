@@ -256,7 +256,7 @@ public class lecturas_HGNC {
                         try {
                             lecturas_MESH letMesh = new lecturas_MESH();
                             //System.out.println(hgnc.getSimbolo() + "  " + hgnc.getNombre());
-                            String idmesh = letMesh.busquedaTerm(hgnc.getNombre().replace(" ", "+"), 1);
+                            String idmesh = letMesh.busquedaTerm(hgnc.getNombre().replace(" ", "+"), 2);
                             if (idmesh == null) {
                                 idmesh = letMesh.busquedaTerm(hgnc.getSimbolo(),2);
                             }

@@ -45,12 +45,18 @@ public class factorTranscripcion {
         System.out.println("Buscando información para : " + lecturasTFBIND.getFactor() + " ...");
         this.lecturasTFBIND = lecturasTFBIND;
         this.ID = lecturasTFBIND.getFactor();
-        lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
-        String simbolo = pc.obtenercodigoUP(ID);
-        if (simbolo == "") {
-            simbolo = ID;
+
+        ArrayList<HGNC> infgen = new ArrayList<>();
+        infgen = new lecturas_HGNC().busquedaInfGen(ID, GO, MESH);
+
+        if (infgen.size() == 0) {
+            lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
+            String simbolo = pc.obtenercodigoUP(ID);
+            infgen = new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH);
         }
-        this.HGNC = new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH);
+
+        this.HGNC = infgen;
+
         this.N_Iteracion = 0;
         this.complejoProteinico = new ArrayList<>();
 
@@ -218,9 +224,9 @@ public class factorTranscripcion {
                 new escribirBC("sinonimos(\'" + HGNC.get(i).getSimbolo().replace("\'", "") + "\'," + cadena + ").", archivo);
             }
         }
-        
-        if(N_Iteracion==0){
-            new escribirBC("transcription_factors(\'"+ID.replace("\'", "")+"\').",archivo);
+
+        if (N_Iteracion == 0) {
+            new escribirBC("transcription_factors(\'" + ID.replace("\'", "") + "\').", archivo);
         }
 
     }
