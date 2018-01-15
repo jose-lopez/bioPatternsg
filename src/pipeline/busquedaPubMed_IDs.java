@@ -49,6 +49,7 @@ public class busquedaPubMed_IDs {
         } finally {
             db.close();
         }
+        
         config.setCombinaciones(true);
         config.guardar();
         System.out.println("Listo...");

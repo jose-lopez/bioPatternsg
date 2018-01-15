@@ -6,6 +6,9 @@
 package pipeline;
 
 import EDU.purdue.cs.bloat.decorate.Main;
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,6 +41,7 @@ public class BioPattern {
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
         biopattern.pipelineBioPattern();
+        //biopattern.pruebas();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -93,7 +97,7 @@ public class BioPattern {
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
         minado_FT mfts = new minado_FT();
         //ruta de archivo, confiabilidad, N Iteraciones, N de objetos
-        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH, cantPMID, "");
+        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH, cantPMID, "", new configuracion());
         mfts.obtenerFT();
 
         Region region_promotora = new Region(this.regionPromotora);
@@ -159,7 +163,7 @@ public class BioPattern {
 
     public void pipelineBioPattern() throws StringIndexOutOfBoundsException, Exception {
         //Autenticación de proxy        
-        autenticarProxy("150.187.65.3", "3128");
+        // autenticarProxy("150.187.65.3", "3128");
 
         minado_FT mfts = new minado_FT();
         configuracion config = new configuracion();
@@ -169,39 +173,39 @@ public class BioPattern {
         }
         if (config.getRegionPromotora() == null) {
             //*
-             System.out.println("\n-------------------------\nNUEVO PROCESO DE MINERIA\n-------------------------");
-             System.out.println("\nIngrese los datos de configuracion\n");
+            System.out.println("\n-------------------------\nNUEVO PROCESO DE MINERIA\n-------------------------");
+            System.out.println("\nIngrese los datos de configuracion\n");
 
-             String regProm = config.IngresarRegionPromotora();
-             float conf = config.IngresarConfiabilidad();
-             int cantObjs = config.ingresarCantComplejos();
-             int iteraciones = config.ingresar_numIteracioens();
-             //boolean GO = config.buscarGO();
-             //boolean MESH = config.buscarMESH();
-             boolean MESH = true;
-             boolean GO = false;
-             String rutaPMidExp = config.PMidExperto();
-             int cantPMID = 10000; //numero de pubmed IDs
+            String regProm = config.IngresarRegionPromotora();
+            float conf = config.IngresarConfiabilidad();
+            int cantObjs = config.ingresarCantComplejos();
+            int iteraciones = config.ingresar_numIteracioens();
+            //boolean GO = config.buscarGO();
+            //boolean MESH = config.buscarMESH();
+            boolean MESH = true;
+            boolean GO = false;
+            String rutaPMidExp = config.PMidExperto();
+            int cantPMID = 20; //numero de pubmed IDs
 
-             mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, cantPMID, rutaPMidExp);
+            mfts.crearCarpeta("mineria");
+            config.guardarConfiguracion(regProm, iteraciones, cantObjs, conf, GO, MESH, cantPMID, rutaPMidExp);
 
-             busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
+            mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, cantPMID, rutaPMidExp, config);
 
-             ArrayList<String> listaPMid = BPM.busqueda_IDs(false, cantPMID, false, config);
+            busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
 
-             new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500, config); // Número máximo de abstracts por archivo
+            ArrayList<String> listaPMid = BPM.busqueda_IDs(false, cantPMID, false, config);
 
-             mfts.vaciar_bc_pl(GO, MESH);
-             //*/
+            new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500, config); // Número máximo de abstracts por archivo
+
+            mfts.vaciar_bc_pl(GO, MESH);
 
             new Resumidor().resumidor(config);
 
             String kb = new GeneradorBC().generadorBC("baseC.pl", config);
 
             //String kb = "baseC.pl";
-
             //new Razonador().inferir_patrones(kb, config);
-
         } else if (config.reiniciar()) {
             mfts.crearCarpeta("mineria");
             config = new configuracion();
@@ -259,13 +263,11 @@ public class BioPattern {
     public void pruebas() {
         //Autenticación de proxy        
         //autenticarProxy("150.187.65.3", "3128");
-        minado_FT mtf = new minado_FT();
-        configuracion config = new configuracion();
+//https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=Proto-oncogene c-ErbB-1+Somatostatin-28&retmax=20&usehistory=y
+//https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=GF1+Adapter+protein+GRB2&retmax=20&usehistory=y
 
-        //config.PMidExperto();
+        new lecturas_PM().busquedaPM_ID("GF1+Adapter+protein+GRB2", 10);
 
-        busquedaPubMed_IDs bpm = new busquedaPubMed_IDs();
-        bpm.PMidExperto("PubMedIDExperto.txt", new ArrayList<String>());
 
     }
 }

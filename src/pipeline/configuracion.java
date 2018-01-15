@@ -93,14 +93,15 @@ public class configuracion {
     public void guardar() {
         ObjectContainer db = Db4o.openFile("mineria/config.db");
         configuracion conf = new configuracion();
+        conf.RegionPromotora = this.RegionPromotora;
         try {
             ObjectSet result = db.queryByExample(conf);
-
             while (result.hasNext()) {
                 configuracion config = (configuracion) result.next();
                 config = this;
                 db.store(config);
-                //System.out.println("guardado");
+                //verConfiguracion();
+                break;
             }
         } catch (Exception e) {
             System.out.println("No fue posible guardar la configuracion");
@@ -138,7 +139,8 @@ public class configuracion {
                 this.resumenes = config.resumenes;
                 this.GenerarBC = config.GenerarBC;
                 this.InferirPatrones = config.InferirPatrones;
-
+                
+                
             }
         } catch (Exception e) {
             System.out.println("No fue posible guardar la configuracion");
