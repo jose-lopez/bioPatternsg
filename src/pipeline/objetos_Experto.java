@@ -30,8 +30,9 @@ public class objetos_Experto {
     
     public void vaciar_pl(String archivo) {
         boolean encontrado = false;
-        String cadena = "[";
+       
         for (int i = 0; i < HGNC.size(); i++) {
+            String cadena = "[";
             cadena += "\'" + HGNC.get(i).getSimbolo().replace("\'", "") + "\',";
             cadena += "\'" + HGNC.get(i).getNombre().replace("\'", "") + "\'";
             for (int j = 0; j < HGNC.get(i).getSinonimos().size(); j++) {
@@ -39,6 +40,7 @@ public class objetos_Experto {
             }
             
             cadena += "]";
+            //System.out.println("Experto: "+cadena);
             new escribirBC("sinonimos(\'" + HGNC.get(i).getSimbolo().replace("\'", "") + "\'," + cadena + ").", archivo);
        
             ArrayList<String> lista = HGNC.get(i).ListaNombres();

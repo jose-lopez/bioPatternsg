@@ -380,7 +380,7 @@ public class minado_FT {
     }
 
     public void vaciar_bc_pl(boolean GO, boolean MESH) {
-
+        System.out.println("vaciando ontologias y objetos minados a formato .pl");
         new escribirBC("ligando(\'\').", "objetosMinados.pl");
         new escribirBC("transcription_factors(\'\').", "objetosMinados.pl");
         //-------------------------------------------------------

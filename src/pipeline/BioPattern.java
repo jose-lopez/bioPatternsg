@@ -163,7 +163,7 @@ public class BioPattern {
 
     public void pipelineBioPattern() throws StringIndexOutOfBoundsException, Exception {
         //Autenticación de proxy        
-        // autenticarProxy("150.187.65.3", "3128");
+        //autenticarProxy("150.187.65.3", "3128");
 
         minado_FT mfts = new minado_FT();
         configuracion config = new configuracion();
@@ -185,7 +185,7 @@ public class BioPattern {
             boolean MESH = true;
             boolean GO = false;
             String rutaPMidExp = config.PMidExperto();
-            int cantPMID = 20; //numero de pubmed IDs
+            int cantPMID = config.ingresar_cantPubMedId(); //numero de pubmed IDs
 
             mfts.crearCarpeta("mineria");
             config.guardarConfiguracion(regProm, iteraciones, cantObjs, conf, GO, MESH, cantPMID, rutaPMidExp);
@@ -205,7 +205,7 @@ public class BioPattern {
             String kb = new GeneradorBC().generadorBC("baseC.pl", config);
 
             //String kb = "baseC.pl";
-            //new Razonador().inferir_patrones(kb, config);
+            new Razonador().inferir_patrones(kb, config);
         } else if (config.reiniciar()) {
             mfts.crearCarpeta("mineria");
             config = new configuracion();
@@ -261,13 +261,10 @@ public class BioPattern {
     }
 
     public void pruebas() {
-        //Autenticación de proxy        
-        //autenticarProxy("150.187.65.3", "3128");
-//https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=Proto-oncogene c-ErbB-1+Somatostatin-28&retmax=20&usehistory=y
-//https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=GF1+Adapter+protein+GRB2&retmax=20&usehistory=y
-
-        new lecturas_PM().busquedaPM_ID("GF1+Adapter+protein+GRB2", 10);
-
-
+        
+       consultasJPL jpl = new consultasJPL();
+       
+       jpl.prueba();
+        
     }
 }

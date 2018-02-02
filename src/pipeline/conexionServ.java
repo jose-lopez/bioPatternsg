@@ -42,36 +42,65 @@ public class conexionServ {
     public Document conecta(String Url) {
 
         Document doc = null;
-        //System.out.println("url: " + Url);
         int cont = 0;
-        while (cont < 10) {
-            try {
-                cont++;
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder db = dbf.newDocumentBuilder();
-                URL url = new URL(Url);
-                doc = db.parse(url.openStream());
-                doc.getDocumentElement().normalize();
-                
+        hiloConexion conex = new hiloConexion(Url);
+        conex.start();
+
+        int tmax = 0;
+        int intentos =0;
+        while (intentos < 5) {
+            //System.out.println("t= "+tmax);         
+            if(conex.doc != null){
+                doc = conex.doc;
+                conex.stop();
                 break;
-            } catch (Exception ex) {
+            }
+            
+            if(tmax > 240){
+                tmax = 0;
+                intentos++;
+                conex.stop();
+                System.out.println("conexion fallida");
+                conex.start();
+            }
+                  
+            tmax++;
+            try {
 
-                try {
-
-                    // System.out.println("Error de conexion con: "+Url);
-                    //System.out.println("reintentando..."+cont );
-                    Thread.sleep(2000);
-                } catch (InterruptedException ex1) {
-                    //Logger.getLogger(lecturas_rcsb.class.getName()).log(Level.SEVERE, null, ex1);
-                }
-
+                Thread.sleep(250);
+                
+            } catch (InterruptedException ex1) {
+                //Logger.getLogger(lecturas_rcsb.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
-        if (cont >= 10) {
-              //System.out.println("Error de conexion imposible acceder a: "+Url);
-        }
-
+       
         return doc;
     }
 
+}
+
+class hiloConexion extends Thread {
+
+    Document doc;
+    String Url;
+
+    public hiloConexion(String url) {
+        this.Url = url;
+        this.doc = null;
+    }
+
+    public void run() {
+        try {
+            System.out.print("url: " + Url);
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            URL url = new URL(Url);
+            doc = db.parse(url.openStream());
+            doc.getDocumentElement().normalize();
+            System.out.println("  .....ok");
+        } catch (Exception e) {
+
+        }
+
+    }
 }

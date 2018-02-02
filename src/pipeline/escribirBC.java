@@ -53,7 +53,7 @@ public class escribirBC {
         try {
             fichero = new FileWriter("mineria/"+archivo, true);
             pw = new PrintWriter(fichero);
-            System.out.println(cadena);
+            //System.out.println(cadena);
             pw.println(cadena);
         } catch (Exception e) {
             e.printStackTrace();

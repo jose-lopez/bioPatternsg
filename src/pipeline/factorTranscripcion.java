@@ -202,9 +202,9 @@ public class factorTranscripcion {
         if (!ligandos.equals("[]")) {
             new escribirBC("ligandos(\'" + ID.replace("\'", "") + "\'," + ligandos + ").", archivo);
         }
-        String cadena = "[";
+       
         for (int i = 0; i < HGNC.size(); i++) {
-
+            String cadena = "[";
             if (HGNC.get(i).getSimbolo().equals(ID)) {
                 cadena += "\'" + HGNC.get(i).getSimbolo().replace("\'", "") + "\',";
                 cadena += "\'" + HGNC.get(i).getNombre().replace("\'", "") + "\'";
@@ -212,6 +212,7 @@ public class factorTranscripcion {
                     cadena += ",\'" + HGNC.get(i).getSinonimos().get(j).replace("\'", "") + "\'";
                 }
                 cadena += "]";
+               // System.out.println("iteracion: "+cadena);
                 new escribirBC("sinonimos(\'" + ID + "\'," + cadena + ").", archivo);
 
             } else {
@@ -221,6 +222,7 @@ public class factorTranscripcion {
                     cadena += ",\'" + HGNC.get(i).getSinonimos().get(j).replace("\'", "") + "\'";
                 }
                 cadena += "]";
+                //System.out.println("iteracion: "+cadena);
                 new escribirBC("sinonimos(\'" + HGNC.get(i).getSimbolo().replace("\'", "") + "\'," + cadena + ").", archivo);
             }
         }

@@ -208,6 +208,7 @@ public class configuracion {
         objetosMineria objMin = new objetosMineria();
         objMin = recuperarObjetosMin();
         //System.out.println(objMin.getNuevos_objetos().size());
+        System.out.println();
         if (!homologos) {
             //System.out.println("\nReanudar desde busqueda de homologos ...");
             reanudar(1, objMin);
@@ -576,6 +577,21 @@ public class configuracion {
             }
         }
         return num_iter;
+    }
+    
+     public int ingresar_cantPubMedId() {
+        int cant_pm_id;
+        Scanner lectura = new Scanner(System.in);
+        while (true) {
+            try {
+                System.out.print("*Cantidad maxima de PubMed Ids para cada busqueda: ");
+                cant_pm_id = Integer.parseInt(lectura.nextLine());
+                break;
+            } catch (Exception e) {
+                System.out.println("El dato ingresado debe ser numerico");
+            }
+        }
+        return cant_pm_id;
     }
 
     public boolean reiniciar() {
