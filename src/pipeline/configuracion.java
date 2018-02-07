@@ -255,6 +255,8 @@ public class configuracion {
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    objetos_patrones objetos_patrones = new objetos_patrones();
+                    objetos_patrones.generar_archivo();
                 } catch (Exception e) {
                 }
                 new Razonador().inferir_patrones("baseC.pl", this);
@@ -270,6 +272,8 @@ public class configuracion {
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    objetos_patrones objetos_patrones = new objetos_patrones();
+                    objetos_patrones.generar_archivo();
                 } catch (Exception e) {
                 }
                 new Razonador().inferir_patrones("baseC.pl", this);
@@ -286,6 +290,8 @@ public class configuracion {
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    objetos_patrones objetos_patrones = new objetos_patrones();
+                    objetos_patrones.generar_archivo();
                 } catch (Exception e) {
                 }
                 new Razonador().inferir_patrones("baseC.pl", this);
@@ -331,6 +337,8 @@ public class configuracion {
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    objetos_patrones objetos_patrones = new objetos_patrones();
+                    objetos_patrones.generar_archivo();
                 } catch (Exception e) {
                 }
                 new Razonador().inferir_patrones("baseC.pl", this);
@@ -339,6 +347,8 @@ public class configuracion {
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    objetos_patrones objetos_patrones = new objetos_patrones();
+                    objetos_patrones.generar_archivo();
                 } catch (Exception e) {
                 }
                 new Razonador().inferir_patrones("baseC.pl", this);
@@ -346,6 +356,8 @@ public class configuracion {
             case 9:
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    objetos_patrones objetos_patrones = new objetos_patrones();
+                    objetos_patrones.generar_archivo();
                 } catch (Exception e) {
                 }
                 new Razonador().inferir_patrones("baseC.pl", this);

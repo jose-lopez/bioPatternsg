@@ -163,7 +163,7 @@ public class BioPattern {
 
     public void pipelineBioPattern() throws StringIndexOutOfBoundsException, Exception {
         //Autenticación de proxy        
-        //autenticarProxy("150.187.65.3", "3128");
+        autenticarProxy("150.187.65.3", "3128");
 
         minado_FT mfts = new minado_FT();
         configuracion config = new configuracion();
@@ -203,7 +203,10 @@ public class BioPattern {
             new Resumidor().resumidor(config);
 
             String kb = new GeneradorBC().generadorBC("baseC.pl", config);
-
+            
+            objetos_patrones objetos_patrones = new objetos_patrones();
+            objetos_patrones.generar_archivo();
+                        
             //String kb = "baseC.pl";
             new Razonador().inferir_patrones(kb, config);
         } else if (config.reiniciar()) {
@@ -262,9 +265,16 @@ public class BioPattern {
 
     public void pruebas() {
         
-       consultasJPL jpl = new consultasJPL();
+      /* minado_FT mft = new minado_FT();
        
-       jpl.prueba();
-        
+       mft.vaciar_bc_pl(false, true);
+       
+       objetos_patrones rp = new objetos_patrones();
+       rp.generar_archivo();*/
+      
+      consultasJPL jpl = new consultasJPL();
+      
+      jpl.buscar_patrones();
+      
     }
 }
