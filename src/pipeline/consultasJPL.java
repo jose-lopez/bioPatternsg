@@ -154,7 +154,7 @@ public class consultasJPL {
             }
 
             if (!lista.contains(separa[2]) && !pat) {
-                System.out.println(lista);
+                //System.out.println(lista);
                 //System.out.println(even);
                 String patronaux = patron + ";" + even;
                 if (cont < 10) {
