@@ -42,8 +42,9 @@ public class configuracion {
     private boolean vaciado_pl; // vaciado de objetos minados y ontologias a formato prolog
     private boolean generarResumenes; //generacion de resumenes a partir de los abstracts
     private int resumenes; //archivos resumidos
-    private boolean GenerarBC;
-    private boolean InferirPatrones;
+    private boolean GenerarBC;//Lista de eventos encontrados en los resumenes
+    private boolean objetosPatrones; //genera archivo con clasificacion espesifica de los objetos en la BC a partir de las ontologias
+    private boolean InferirPatrones; //crea los pathwayusando los eventos, y la informacin de las ontologias
 
     public configuracion() {
         resumenes = 1;
@@ -138,9 +139,9 @@ public class configuracion {
                 this.generarResumenes = config.generarResumenes;
                 this.resumenes = config.resumenes;
                 this.GenerarBC = config.GenerarBC;
+                this.objetosPatrones = config.objetosPatrones;
                 this.InferirPatrones = config.InferirPatrones;
-                
-                
+
             }
         } catch (Exception e) {
             System.out.println("No fue posible guardar la configuracion");
@@ -196,7 +197,9 @@ public class configuracion {
             System.out.println("Generando resumenes actual: " + resumenes);
         } else if (!GenerarBC) {
             System.out.println("Generar base de conocimiento");
-        } else if (!InferirPatrones) {
+        } else if(!objetosPatrones){
+            System.out.println("Generar archivo objetospatrones.pl");
+        }else if (!InferirPatrones) {
             System.out.println("Inferir patrones");
         }
     }
@@ -230,8 +233,10 @@ public class configuracion {
             reanudar(8, objMin);
         } else if (!GenerarBC) {
             reanudar(9, objMin);
-        } else if (!InferirPatrones) {
+        }else if(!objetosPatrones){ 
             reanudar(10, objMin);
+        }else if (!InferirPatrones) {
+            reanudar(11, objMin);
         } else {
             //proceso terminado
             ver_detalles();
@@ -256,10 +261,10 @@ public class configuracion {
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo();
+                    objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new Razonador().inferir_patrones("baseC.pl", this);
+                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 2:
                 revisarObjH_E("homologos", objetosMineria);
@@ -273,10 +278,10 @@ public class configuracion {
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo();
+                    objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new Razonador().inferir_patrones("baseC.pl", this);
+                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 3:
                 revisarObjH_E("homologos", objetosMineria);
@@ -291,10 +296,10 @@ public class configuracion {
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo();
+                    objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new Razonador().inferir_patrones("baseC.pl", this);
+                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 4:
                 ArrayList<String> ListaObj = reanudarIteracion(objetosMineria);
@@ -305,9 +310,11 @@ public class configuracion {
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    objetos_patrones objetos_patrones = new objetos_patrones();
+                    objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new Razonador().inferir_patrones("baseC.pl", this);
+                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
 
             case 5:
@@ -317,9 +324,11 @@ public class configuracion {
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    objetos_patrones objetos_patrones = new objetos_patrones();
+                    objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new Razonador().inferir_patrones("baseC.pl", this);
+                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 6:
                 listaPMid = BPM.consulta_PudMed(cantidadPMID, this);
@@ -328,9 +337,11 @@ public class configuracion {
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    objetos_patrones objetos_patrones = new objetos_patrones();
+                    objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new Razonador().inferir_patrones("baseC.pl", this);
+                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 7:
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
@@ -338,32 +349,36 @@ public class configuracion {
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo();
+                    objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new Razonador().inferir_patrones("baseC.pl", this);
+                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 8:
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo();
+                    objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new Razonador().inferir_patrones("baseC.pl", this);
+                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 9:
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo();
+                    objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new Razonador().inferir_patrones("baseC.pl", this);
+                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 10:
-                new Razonador().inferir_patrones("baseC.pl", this);
+                objetos_patrones objetos_patrones = new objetos_patrones();
+                objetos_patrones.generar_archivo(this);
+                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+            case 11:
+                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
 
         }
@@ -590,8 +605,8 @@ public class configuracion {
         }
         return num_iter;
     }
-    
-     public int ingresar_cantPubMedId() {
+
+    public int ingresar_cantPubMedId() {
         int cant_pm_id;
         Scanner lectura = new Scanner(System.in);
         while (true) {

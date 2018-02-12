@@ -19,7 +19,7 @@ import org.jpl7.Query;
  */
 public class objetos_patrones {
 
-    public void generar_archivo() {
+    public void generar_archivo(configuracion config) {
 
         String archivo = "[consultas].";
         Query q = new Query(archivo);
@@ -29,9 +29,11 @@ public class objetos_patrones {
         System.out.println(lista);
                 
         clasificar_objetos(lista);
+        
+        q.close();
     }
 
-    public ArrayList<String> listaObjetos() {
+    private ArrayList<String> listaObjetos() {
         ArrayList<String> lista = new ArrayList<>();
 
         String consulta = "listar_eventos(A,B).";
@@ -59,15 +61,17 @@ public class objetos_patrones {
             }
                         
         }
+        
+        q2.close();
 
         return lista;
     }
     
-    public void clasificar_objetos(ArrayList<String> lista){
+    private void clasificar_objetos(ArrayList<String> lista){
         
         crear_archivo();
         String ruta = "objetos_patrones.pl";
-        //new escribirBC("%"+lista.toString(), ruta);
+        new escribirBC("%//"+lista.toString(), ruta);
         
         for (int i = 0; i < lista.size(); i++) {
             String obj = lista.get(i);
@@ -100,13 +104,18 @@ public class objetos_patrones {
             if (q4.hasSolution()) {
                 new escribirBC(consulta, ruta);
             }
+            
+            q1.close();
+            q2.close();
+            q3.close();
+            q4.close();
                  
         }
                       
         
     }
     
-    public void crear_archivo() {
+    private void crear_archivo() {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {

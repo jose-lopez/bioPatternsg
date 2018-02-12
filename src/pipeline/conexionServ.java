@@ -47,22 +47,25 @@ public class conexionServ {
         conex.start();
 
         int tmax = 0;
-        int intentos =0;
-        while (intentos < 5) {
-            //System.out.println("t= "+tmax);         
+        int intentos = 0;
+        while (intentos < 10) {
+                    
             if(conex.doc != null){
                 doc = conex.doc;
                 conex.stop();
                 break;
             }
             
-            if(tmax > 240){
+            if(tmax > 500){
                 tmax = 0;
-                intentos++;
                 conex.stop();
-                System.out.println("conexion fallida");
+               // System.out.println("Falla de conexion con: "+Url);
+                conex = new hiloConexion(Url);
                 conex.start();
+                intentos++;
+                                
             }
+            
                   
             tmax++;
             try {
@@ -73,7 +76,10 @@ public class conexionServ {
                 //Logger.getLogger(lecturas_rcsb.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
-       
+        
+        if(intentos>=10){
+            System.out.println("Fallo en conexion con: "+Url);
+        }       
         return doc;
     }
 
@@ -91,13 +97,13 @@ class hiloConexion extends Thread {
 
     public void run() {
         try {
-            System.out.print("url: " + Url);
+            //System.out.print("url: " + Url);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             URL url = new URL(Url);
             doc = db.parse(url.openStream());
             doc.getDocumentElement().normalize();
-            System.out.println("  .....ok");
+            //System.out.println("  .....ok");
         } catch (Exception e) {
 
         }
