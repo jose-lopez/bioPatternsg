@@ -27,6 +27,9 @@
  */
 package pipeline;
 
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -63,7 +66,7 @@ public class lecturas_PM {
         return listID;
     }
 
-    public void BusquedaPM_Abstracts(ArrayList<String> listaIDs, String fileAbstID, int cant_por_archivo,configuracion config){
+    public void BusquedaPM_Abstracts(String fileAbstID, int cant_por_archivo,configuracion config){
 
         crearCarpeta(fileAbstID);
         String cabecera = "<!DOCTYPE html>\r"
@@ -76,8 +79,22 @@ public class lecturas_PM {
 
         String pie = "</body>\r"
                 + "</html>";
+        
+        ArrayList<String> listaIDs = new ArrayList<>();
+        ObjectContainer db = Db4o.openFile("mineria/pubmed_id.db");
+        PMIDS pm = new PMIDS();
+        try {
+          
+            ObjectSet result = db.queryByExample(pm);
+            PMIDS aux = (PMIDS) result.get(0);
+            listaIDs.addAll(aux.pubmed_ids);
+                      
+        } catch (Exception e) {
+        } finally {
+            db.close();
+        }    
 
-        System.out.println("generando archivo " + fileAbstID);
+        System.out.print("\n\n Generando coleccion de  abstracts .....");
         int cont1 = 0, cont2 = 1;
         ArrayList<String> lista = new ArrayList<>();
         for (int i = 0; i < listaIDs.size(); i++) {
@@ -110,7 +127,7 @@ public class lecturas_PM {
         }
         config.setAbstracts(true);
         config.guardar();
-        System.out.println("Listo..");
+        System.out.println("ok");
 
                 
     }
@@ -166,9 +183,10 @@ public class lecturas_PM {
             fichero = new FileWriter(ruta, true);
             pw = new PrintWriter(fichero);
             //pw.println("PMID:"+ ID);
-            String linea = "";
-            for (int i = 0; i < Abstract.size(); i++) {
-                linea = Abstract.get(i).replaceAll("&", "&amp;");
+           // String linea = "";
+                                  
+            for (String linea : Abstract) {
+                linea = linea.replaceAll("&", "&amp;");
                 linea = linea.replaceAll("<", "&lt;");
                 linea = linea.replaceAll(">", "&gt;");
                 pw.println(linea);

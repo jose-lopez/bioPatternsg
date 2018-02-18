@@ -23,8 +23,8 @@ public class lecturas_PDB {
         String url = "http://www.rcsb.org/pdb/rest/describeMol?structureId=" + cp;
         try {
             //System.out.print("leyendo: " + cp + "  ");
-            revisa_xml_PDB2(new conexionServ().conecta(url), CP, GO, MESH);
-           // System.out.println("   ....ok");
+            revisa_xml_PDB(new conexionServ().conecta(url), CP, GO, MESH);
+            // System.out.println("   ....ok");
         } catch (Exception ex) {
 
         }
@@ -34,69 +34,13 @@ public class lecturas_PDB {
     //busquedas PDB   
     private void revisa_xml_PDB(Document doc, complejoProteinico cp, boolean GO, boolean MESH) {
 
-        NodeList nList = doc.getElementsByTagName("polymerDescription");
-
-        for (int i = 0; i < nList.getLength(); i++) {
-
-            Node nNode = nList.item(i);
-
-            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-                Element Element = (Element) nNode;
-                String etiqueta = (Element.getAttribute("description"));
-                //System.out.println("obj PDB: "+etiqueta);
-                String separa[] = etiqueta.split(" ");
-                //System.out.println("    Description: " + Element.getElementsByTagName("PDBx:pdbx_description").item(0).getTextContent());
-
-                if (separa[0].equalsIgnoreCase("DNA") || separa[0].equalsIgnoreCase("mRNA")) {
-                    try {
-                        cp.setDNA(separa[1]);
-                    } catch (Exception e) {
-                        System.out.println("Error AND " + etiqueta);
-                    }
-
-                } else {
-//=====================================================================================
-                    //BUSQUEDA DE INFORMACION HGNC DEL OBJETO
-
-                    String partes_etiqueta[] = etiqueta.split("/");
-                    for (int j = 0; j < partes_etiqueta.length; j++) {
-                        //lecturas_HGNC HGNC = new lecturas_HGNC();
-                        //HGNC.busquedaInfGen(partes_etiqueta[j]);
-
-                        ArrayList<HGNC> L_HGNC = new lecturas_HGNC().busquedaInfGen(partes_etiqueta[j], GO, MESH);
-
-                        for (int l = 0; l < L_HGNC.size(); l++) {
-                            boolean encontrado = false;
-                            for (int k = 0; k < cp.getHGNC().size(); k++) {
-                                if (cp.getHGNC().get(k).getSimbolo().equals(L_HGNC.get(l).getSimbolo())) {
-                                    encontrado = true;
-                                    break;
-                                }
-                            }
-                            if (!encontrado) {
-                                cp.getHGNC().add(L_HGNC.get(l));
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-        }
-    }
-
-    private void revisa_xml_PDB2(Document doc, complejoProteinico cp, boolean GO, boolean MESH) {
-
         NodeList nList = doc.getElementsByTagName("polymer");
 
         for (int i = 0; i < nList.getLength(); i++) {
             Node nNode = nList.item(i);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element Element = (Element) nNode;
-               // System.out.print("tipo: "+Element.getAttribute("type")+" ");
+                // System.out.print("tipo: "+Element.getAttribute("type")+" ");
 
                 if (Element.getAttribute("type").equalsIgnoreCase("dna")) {
                     NodeList nList2 = Element.getElementsByTagName("polymerDescription");
@@ -125,7 +69,7 @@ public class lecturas_PDB {
                     Element des = (Element) nNode2;
                     String nombre = des.getAttribute("name");
                     //System.out.println(nombre);
-                    
+
                     NodeList nList3 = des.getElementsByTagName("accession");
                     Node nNode3 = nList3.item(0);
                     Element des2 = (Element) nNode3;
@@ -139,16 +83,16 @@ public class lecturas_PDB {
                     }
                     //System.out.println(UP.getSimbolo());
 
-                    for (int l = 0; l < L_HGNC.size(); l++) {
+                    for (HGNC hgnc : L_HGNC) {
                         boolean encontrado = false;
-                        for (int k = 0; k < cp.getHGNC().size(); k++) {
-                            if (cp.getHGNC().get(k).getSimbolo().equals(L_HGNC.get(l).getSimbolo())) {
+                        for (HGNC hgnc2 : cp.getHGNC()) {
+                            if (hgnc2.getSimbolo().equals(hgnc.getSimbolo())) {
                                 encontrado = true;
                                 break;
                             }
                         }
                         if (!encontrado) {
-                            cp.getHGNC().add(L_HGNC.get(l));
+                            cp.getHGNC().add(hgnc);
                         }
                     }
                 }

@@ -38,13 +38,14 @@ public class configuracion {
     private boolean lecturas_tfbind; //primera iteracion
     private boolean procesoIteraciones; //proceso de Iteraciones 2 en adelante
     private boolean combinaciones; // generacion de comobinaciones de palabras clave
+    private boolean pubmedids; // busqeda de los pubmed ids
     private boolean abstracts; // buesqueda de abstracts en PUBMED
     private boolean vaciado_pl; // vaciado de objetos minados y ontologias a formato prolog
     private boolean generarResumenes; //generacion de resumenes a partir de los abstracts
     private int resumenes; //archivos resumidos
     private boolean GenerarBC;//Lista de eventos encontrados en los resumenes
     private boolean objetosPatrones; //genera archivo con clasificacion espesifica de los objetos en la BC a partir de las ontologias
-    private boolean InferirPatrones; //crea los pathwayusando los eventos, y la informacin de las ontologias
+    private boolean InferirPatrones; //crea los pathway usando los eventos, y la informacin de las ontologias
 
     public configuracion() {
         resumenes = 1;
@@ -132,6 +133,7 @@ public class configuracion {
                 this.lecturas_tfbind = config.lecturas_tfbind;
                 this.procesoIteraciones = config.procesoIteraciones;
                 this.combinaciones = config.combinaciones;
+                this.pubmedids = config.pubmedids;
                 this.abstracts = config.abstracts;
                 this.vaciado_pl = config.vaciado_pl;
                 this.crearOntologiaGO = config.crearOntologiaGO;
@@ -189,6 +191,8 @@ public class configuracion {
             System.out.println("Busqueda de objetos PDB nivel " + (objMin.getIteracion() + 1));
         } else if (!combinaciones) {
             System.out.println("Generando combinaciones de palabras clave");
+        } else if (!pubmedids) {
+            System.out.println("Busqueda de PubMed IDs");
         } else if (!abstracts) {
             System.out.println("Busquedas en PubMed ");
         } else if (!vaciado_pl) {
@@ -197,9 +201,9 @@ public class configuracion {
             System.out.println("Generando resumenes actual: " + resumenes);
         } else if (!GenerarBC) {
             System.out.println("Generar base de conocimiento");
-        } else if(!objetosPatrones){
+        } else if (!objetosPatrones) {
             System.out.println("Generar archivo objetospatrones.pl");
-        }else if (!InferirPatrones) {
+        } else if (!InferirPatrones) {
             System.out.println("Inferir patrones");
         }
     }
@@ -225,18 +229,20 @@ public class configuracion {
             reanudar(4, objMin);
         } else if (!combinaciones) {
             reanudar(5, objMin);
-        } else if (!abstracts) {
+        } else if (!pubmedids) {
             reanudar(6, objMin);
-        } else if (!vaciado_pl) {
+        } else if (!abstracts) {
             reanudar(7, objMin);
-        } else if (!generarResumenes) {
+        } else if (!vaciado_pl) {
             reanudar(8, objMin);
-        } else if (!GenerarBC) {
+        } else if (!generarResumenes) {
             reanudar(9, objMin);
-        }else if(!objetosPatrones){ 
+        } else if (!GenerarBC) {
             reanudar(10, objMin);
-        }else if (!InferirPatrones) {
+        } else if (!objetosPatrones) {
             reanudar(11, objMin);
+        } else if (!InferirPatrones) {
+            reanudar(12, objMin);
         } else {
             //proceso terminado
             ver_detalles();
@@ -245,7 +251,6 @@ public class configuracion {
 
     private void reanudar(int punto, objetosMineria objetosMineria) {
         minado_FT mfts = new minado_FT();
-        busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
         lecturas_PM lpm = new lecturas_PM();
         ArrayList<String> listaPMid;
         switch (punto) {
@@ -254,8 +259,11 @@ public class configuracion {
                 mfts.buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ActivatableArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                listaPMid = BPM.busqueda_IDs(false, cantidadPMID, false, this);
-                lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
+                //BPM.generar_combinaciones(false, this);
+                //BPM.buscar_PubMed_Ids(cantidadPMID, this);
+                new combinaciones().generar_combinaciones(false, this);
+                new PubMed_IDs().buscar(cantidadPMID, this);
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
                 try {
@@ -271,8 +279,11 @@ public class configuracion {
                 mfts.buscarObjetosExperto(revisarObjH_E("objetos_Experto.txt", objetosMineria), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                listaPMid = BPM.busqueda_IDs(false, cantidadPMID, false, this);
-                lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
+               //BPM.generar_combinaciones(false, this);
+                //BPM.buscar_PubMed_Ids(cantidadPMID, this);
+                new combinaciones().generar_combinaciones(false, this);
+                new PubMed_IDs().buscar(cantidadPMID, this);
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
                 try {
@@ -289,8 +300,11 @@ public class configuracion {
                 ArrayList<lecturas_TFBIND> lecturas = actualizarListaTFBind(objetosMineria);
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, lecturas, crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                listaPMid = BPM.busqueda_IDs(false, cantidadPMID, false, this);
-                lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
+                //BPM.generar_combinaciones(false, this);
+                //BPM.buscar_PubMed_Ids(cantidadPMID, this);
+                new combinaciones().generar_combinaciones(false, this);
+                new PubMed_IDs().buscar(cantidadPMID, this);
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
                 try {
@@ -304,8 +318,11 @@ public class configuracion {
             case 4:
                 ArrayList<String> ListaObj = reanudarIteracion(objetosMineria);
                 mfts.Iteraciones(true, ListaObj, cantComplejos, numIteraciones, objetosMineria, this, objetosMineria.getIteracion() + 1, crearOntologiaGO, crearOntologiaMESH);
-                listaPMid = BPM.busqueda_IDs(false, cantidadPMID, false, this);
-                lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
+                //BPM.generar_combinaciones(false, this);
+                //BPM.buscar_PubMed_Ids(cantidadPMID, this);
+                new combinaciones().generar_combinaciones(false, this);
+                new PubMed_IDs().buscar(cantidadPMID, this);
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
                 try {
@@ -318,8 +335,11 @@ public class configuracion {
                 break;
 
             case 5:
-                listaPMid = BPM.busqueda_IDs(false, cantidadPMID, false, this);
-                lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
+                //BPM.generar_combinaciones(false, this);
+                //BPM.buscar_PubMed_Ids(cantidadPMID, this);
+                new combinaciones().generar_combinaciones(false, this);
+                new PubMed_IDs().buscar(cantidadPMID, this);
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
                 try {
@@ -331,8 +351,9 @@ public class configuracion {
                 new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 6:
-                listaPMid = BPM.consulta_PudMed(cantidadPMID, this);
-                lpm.BusquedaPM_Abstracts(listaPMid, "abstracts", 500, this);
+                //BPM.buscar_PubMed_Ids(cantidadPMID, this);
+                new PubMed_IDs().buscar(cantidadPMID, this);
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
                 try {
@@ -344,6 +365,7 @@ public class configuracion {
                 new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 7:
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
                 try {
@@ -355,6 +377,7 @@ public class configuracion {
                 new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 8:
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -365,6 +388,7 @@ public class configuracion {
                 new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 9:
+                new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
                     objetos_patrones objetos_patrones = new objetos_patrones();
@@ -374,10 +398,18 @@ public class configuracion {
                 new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 10:
-                objetos_patrones objetos_patrones = new objetos_patrones();
-                objetos_patrones.generar_archivo(this);
+                try {
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    objetos_patrones objetos_patrones = new objetos_patrones();
+                    objetos_patrones.generar_archivo(this);
+                } catch (Exception e) {
+                }
                 new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
             case 11:
+                objetos_patrones objetos_patrones = new objetos_patrones();
+                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+                break;
+            case 12:
                 new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
 
@@ -1010,5 +1042,23 @@ public class configuracion {
     public void setRutaPMID_experto(String rutaPMID_experto) {
         this.rutaPMID_experto = rutaPMID_experto;
     }
+
+    public boolean isPubmedids() {
+        return pubmedids;
+    }
+
+    public void setPubmedids(boolean pubmedids) {
+        this.pubmedids = pubmedids;
+    }
+
+    public boolean isObjetosPatrones() {
+        return objetosPatrones;
+    }
+
+    public void setObjetosPatrones(boolean objetosPatrones) {
+        this.objetosPatrones = objetosPatrones;
+    }
+    
+    
 
 }

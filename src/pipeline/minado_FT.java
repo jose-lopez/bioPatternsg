@@ -38,16 +38,20 @@ public class minado_FT {
 
     public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos, boolean GO, boolean MESH, int cantPMID, String PMidExp, configuracion config) {
 
+        //lleva un control de los objetos minados y los nuevos objetos encontrados en el proceso
         objetosMineria objetosMineria = new objetosMineria();
-             
+        //crea el archivo objetosMinados.txt con la informacion de cada objeto minado en el proceso     
         new objetosMinados().crear_archivo();
 
+        //buca informacion en los diferentes servicios sobre cada homologo en la lista de homologos
         buscarHomologos(listaObjetos_homologosExperto("homologos"), objetosMineria, config, GO, MESH);
 
+        //buca informacion en los diferentes servicios sobre cada objetos agregado por el experto
         buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria, config, GO, MESH);
 
         //primera Iteracion partiendo de TFBind
         primeraIteracion(ruta, confiabilidad, numeroObjetos, objetosMineria, config, new ArrayList<lecturas_TFBIND>(), GO, MESH);
+
         //Segunda Iteracion en adelante partiendo de nuevos objetos encontrados en PDB
         Iteraciones(false, new ArrayList<String>(), numeroObjetos, Iteraciones, objetosMineria, config, 1, GO, MESH);
     }
@@ -57,54 +61,92 @@ public class minado_FT {
         System.out.println("\n\n==== Nivel 0 ====\n");
         objetosMineria.setIteracion(0);
         ArrayList<lecturas_TFBIND> lecturasTFB;
+        // si la lista 'lecturas' esta vacia indica que aun no se a consultado a tfbinb y se procede a hacerlo
         if (lecturas.size() == 0) {
+            // se envia la ruta del archivo con la region promotora
+            // y el procentaje de confiabilidad para obtener las lecturas de tfbind
             lecturasTFB = lecturasTFBID(ruta, confiabilidad);
             System.out.println("* " + lecturasTFB.size() + " Factores de transcripcion encontrados");
+            //se guardan el lista de lecturas tfbind en caso de que se reinicie el proceso
             config.setTfbind(lecturasTFB);
             config.guardar();
         } else {
+            //si el proceso se recupera desde este punto toma la lista de lecturas de tfbind y continua desde aqui
             lecturasTFB = lecturas;
         }
-        for (int i = 0; i < lecturasTFB.size(); i++) {
-            factorTranscripcion FT = new factorTranscripcion(lecturasTFB.get(i), numeroObjetos, objetosMineria, GO, MESH);
+
+        for (lecturas_TFBIND lectura : lecturasTFB) {
+            //se busca toda la informacion correspondiente al factor de transcripcion
+            factorTranscripcion FT = new factorTranscripcion(lectura, numeroObjetos, objetosMineria, GO, MESH);
+
+            //se agregar el factor de transcripcion a los objetos minados
             objetosMineria.getObjetos_minados().add(FT.getID());
+
+            //se agregan los nuevos objetos encontrados a la lista de nuevos objetos
             objetosMineria.agregar_objeto(FT.getComplejoProteinico());
+
+            //se agrega la informacion al archivo mineria/objetosMinados.txt
+            //objeto minado, ligandos, nuevos objetos
             new objetosMinados().agregar_objetos(FT);
+
+            //se guarda la informacion del objeto minado en 'mineria/FT.db'
             guardar_Factor_transcripcion(FT);
             //System.out.println("...ok");
             FT = null;
         }
+        //se guarda los objetos minados y los nuevos objetos de la iteracion en 'mineria/objetosMineria.db'
         guardar_objetosIteracion(objetosMineria);
+        //se guarda el cheklist que indica que ya se culmino con el proceso de la primera iteracion
         config.setLecturas_tfbind(true);
         config.guardar();
-        objetosMineria.imprimir();
+        //objetosMineria.imprimir();
 
     }
 
-    public void Iteraciones(boolean ReinicioMin, ArrayList<String> Lista, int numeroObjetos, int Iteraciones, objetosMineria objetosMineria, configuracion config, int iter, boolean GO, boolean MESH) {
+    public void Iteraciones(boolean Reanudar, ArrayList<String> Lista, int numeroObjetos, int Iteraciones, objetosMineria objetosMineria, configuracion config, int iter, boolean GO, boolean MESH) {
         //Iteracion 2 en adelante
+
+        //la variable 'iter' indica la iteracion en la que esta el proceso altualmente si este es reanudado
+        //La variable Iteraciones indica el numero total de iteraciones que tendra el proceso
         for (int i = iter; i < Iteraciones; i++) {
             System.out.println("\n\n==== Nivel " + (i) + " ====\n");
 
-            if (!ReinicioMin) {
-                Lista = objetosMineria.getNuevos_objetos();
-                objetosMineria.setNuevos_objetos(new ArrayList<String>());
+            //si Reanudar = true se toman los objetos que llegan por los parametros
+            //Lista = en este llegan los objetos que faltan por minar en la iteracion
+            //objetosMineria = tiene la informacion de los objetos minados y nuevos objetos que van hasta el momento
+            //si Reanudar = false el proceso indica que el proceso comienza de 0
+            if (!Reanudar) {
+                Lista = objetosMineria.getNuevos_objetos(); // se cargan los nuevos objetos encontrados en la iteracion anterior
+                objetosMineria.setNuevos_objetos(new ArrayList<String>());// se borran los objetos nuevos de la iteracion anterior para agregar los nuevos objetos de la iteracion actual
             }
-            ReinicioMin = false;
+            Reanudar = false;
 
-            for (int j = 0; j < Lista.size(); j++) {
-                factorTranscripcion FT = new factorTranscripcion(Lista.get(j), i, numeroObjetos, GO, MESH);
+            for (String objeto : Lista) {
+                // se busca toda la informacion correspondiente al objeto
+                // nombre, simbolo, sinonimos, complejos, nuevos objetos, ligandos
+                factorTranscripcion FT = new factorTranscripcion(objeto, i, numeroObjetos, GO, MESH);
+
+                //se agrega el objeto a la lista de objetos minados
                 objetosMineria.getObjetos_minados().add(FT.getID());
+
+                //se agrega la informacion de nuevos objetos encontrados a la lista de nuevos objetos ausar en la siguente iteracion
                 objetosMineria.agregar_objeto(FT.getComplejoProteinico());
+
+                // se guarda la informacion obtenida sobre el objeto en el archivo objetosMinados.txt
+                //nombres, ligandos,
                 new objetosMinados().agregar_objetos(FT);
+
+                //se guarda la informacion del objeto minado en mineria/FT.db
                 guardar_Factor_transcripcion(FT);
                 //System.out.println("Listo....");
             }
 
+            //se guarda la lista de objetos minados y nuevos objetos en la iteracion
             objetosMineria.setIteracion(i);
             guardar_objetosIteracion(objetosMineria);
-            objetosMineria.imprimir();
+            //objetosMineria.imprimir();
         }
+        //se guarda el checklist que indica que el proceso de iteraciones culmino
         config.setProcesoIteraciones(true);
         config.guardar();
     }
@@ -174,6 +216,7 @@ public class minado_FT {
 
     }
 
+    // elimina todos los archivos contenidos dentro del directorio
     private void borrarDirectorio(File directorio) {
         File[] ficheros = directorio.listFiles();
         for (int i = 0; i < ficheros.length; i++) {
@@ -254,63 +297,78 @@ public class minado_FT {
 
     }
 
-    public void buscarHomologos(ArrayList<String> lista, objetosMineria objetosMineria, configuracion config, boolean GO, boolean MESH) {
+    public void buscarHomologos(ArrayList<String> homologos, objetosMineria objetosMineria, configuracion config, boolean GO, boolean MESH) {
         System.out.println("\n\n**Leyendo archivo de Homologos...");
-        for (int i = 0; i < lista.size(); i++) {
-            System.out.println("busqueda.." + lista.get(i));
-            objetos_Experto objExp = new objetos_Experto();
-            objExp.setID(lista.get(i));
 
+        for (String homologo : homologos) {
+
+            System.out.println("busqueda.." + homologo);
+            objetos_Experto objExp = new objetos_Experto();// la clase objeto_Experto tiene los aributos necesarios para guardar la informacion de cada objeto
+            objExp.setID(homologo);
+
+            //busca la informacion del objeto haciendo uso de HGNC
             ArrayList<HGNC> infgen = new ArrayList<>();
-            infgen = new lecturas_HGNC().busquedaInfGen(lista.get(i), GO, MESH);
+            infgen = new lecturas_HGNC().busquedaInfGen(homologo, GO, MESH);
 
+            //si no existe informacion en HGNC se hace uso de los servicios de pathwaycommons 
+            //y con el nombre que se obtenga de intenta buscar de nuevo en HGNC
             if (infgen.size() == 0) {
                 lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
-                String simbolo = pc.obtenercodigoUP(lista.get(i));
+                String simbolo = pc.obtenercodigoUP(homologo);
                 infgen = new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH);
             }
 
             objExp.setHGNC(infgen);
-
+            //se agrega la informacion del objeto a los objetos minados
             new objetosMinados().agregar_objetos(objExp);
 
-            for (int j = 0; j < objExp.getHGNC().size(); j++) {
-                objetosMineria.agregar_objeto(objExp.getHGNC().get(j));
-            }
+            //En ocaciones HGNC no da como respuesta un objeto unico si no que un listado de ellos
+            //en estos casos se agrega cada objeto al listado de objetos minados
+            objExp.getHGNC().forEach(objhgnc -> objetosMineria.agregar_objeto(objhgnc));
+
             guardarObjetos_Homologos_Experto(objExp);
-            buscar_coincidencia(lista.get(i), objExp.getHGNC());
+
+            buscar_coincidencia(homologo, objExp.getHGNC());
 
         }
+        //guarda el checklist que indica que culmino la busqueda de informacion sobre los homologos
         config.setHomologos(true);
         config.guardar();
     }
 
     public void buscarObjetosExperto(ArrayList<String> lista, objetosMineria objetosMineria, configuracion config, boolean GO, boolean MESH) {
         System.out.println("\n\n**Leyendo archivo de Objetos Experto...");
-        for (int i = 0; i < lista.size(); i++) {
-            System.out.println("busqueda.." + lista.get(i));
-            objetos_Experto objExp = new objetos_Experto();
-            objExp.setID(lista.get(i));
-            
-            ArrayList<HGNC> infgen = new ArrayList<>();
-            infgen = new lecturas_HGNC().busquedaInfGen(lista.get(i), GO, MESH);
 
+        for (String objeto : lista) {
+
+            System.out.println("busqueda.." + objeto);
+            objetos_Experto objExp = new objetos_Experto();// la clase objeto_Experto tiene los aributos necesarios para guardar la informacion de cada objeto
+            objExp.setID(objeto);
+
+            //busca la informacion del objeto haciendo uso de HGNC
+            ArrayList<HGNC> infgen = new ArrayList<>();
+            infgen = new lecturas_HGNC().busquedaInfGen(objeto, GO, MESH);
+
+            //En ocaciones HGNC no da como respuesta un objeto unico si no que un listado de ellos
+            //en estos casos se agrega cada objeto al listado de objetos minados
             if (infgen.size() == 0) {
                 lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
-                String simbolo = pc.obtenercodigoUP(lista.get(i));
+                String simbolo = pc.obtenercodigoUP(objeto);
                 infgen = new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH);
             }
 
             objExp.setHGNC(infgen);
-                 
+            //se agrega la informacion del objeto a los objetos minados
             new objetosMinados().agregar_objetos(objExp);
 
-            for (int j = 0; j < objExp.getHGNC().size(); j++) {
-                objetosMineria.agregar_objeto(objExp.getHGNC().get(j));
-            }
+            //En ocaciones HGNC no da como respuesta un objeto unico si no que un listado de ellos
+            //en estos casos se agrega cada objeto al listado de objetos minados
+            objExp.getHGNC().forEach(objhgnc -> objetosMineria.agregar_objeto(objhgnc));
+
             guardarObjetos_Homologos_Experto(objExp);
-            buscar_coincidencia(lista.get(i), objExp.getHGNC());
+            buscar_coincidencia(objeto, objExp.getHGNC());
         }
+        //guarda el checklist que indica que culmino la busqueda de informacion sobre los objetos del experto
         config.setObjetosExperto(true);
         config.guardar();
     }
@@ -318,8 +376,8 @@ public class minado_FT {
     private void buscar_coincidencia(String obj, ArrayList<HGNC> hgnc) {
         boolean encontrado = false;
 
-        for (int i = 0; i < hgnc.size(); i++) {
-            ArrayList<String> lista = hgnc.get(i).ListaNombres();
+        for (HGNC h : hgnc) {
+            ArrayList<String> lista = h.ListaNombres();
             if (lista.contains(obj)) {
                 encontrado = true;
                 break;
@@ -407,13 +465,11 @@ public class minado_FT {
         try {
 
             ObjectSet result = db.queryByExample(FT);
-            while (result.hasNext()) {
-                try {
-                    factorTranscripcion ft = (factorTranscripcion) result.next();
-                    ft.vaciar_pl("objetosMinados.pl");
-                } catch (Exception e) {
-                }
-            }
+            result.forEach((f) -> {
+                factorTranscripcion ft = (factorTranscripcion) f;
+                ft.vaciar_pl("objetosMinados.pl");
+            });
+
         } catch (Exception e) {
 
         } finally {
@@ -509,22 +565,15 @@ class objetosMineria {
 
     public void agregar_objeto(ArrayList<complejoProteinico> objetos) {
 
-        for (int i = 0; i < objetos.size(); i++) {
-
-            for (int j = 0; j < objetos.get(i).getHGNC().size(); j++) {
-
-                HGNC hgnc = objetos.get(i).getHGNC().get(j);
-                if (!objetos_minados.contains(hgnc.getSimbolo()) && hgnc.getSimbolo() != null) {
-
-                    if (!nuevos_objetos.contains(hgnc.getSimbolo())) {
-                        nuevos_objetos.add(hgnc.getSimbolo());
+        objetos.forEach((objeto) -> {
+            objeto.getHGNC().forEach((objHGNC) -> {
+                if (!objetos_minados.contains(objHGNC.getSimbolo()) && objHGNC.getSimbolo() != null) {
+                    if (!nuevos_objetos.contains(objHGNC.getSimbolo())) {
+                        nuevos_objetos.add(objHGNC.getSimbolo());
                     }
-
                 }
-
-            }
-
-        }
+            });
+        });
 
     }
 

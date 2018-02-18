@@ -34,7 +34,6 @@ public class consultasJPL {
         q.hasSolution();
 
         //buscar_receptores();
-        
         buscar_complejos();
 
     }
@@ -48,53 +47,100 @@ public class consultasJPL {
             System.out.println(q2.allSolutions()[i]);
         }
     }
-    
-    
-    public void buscar_complejos(){
+
+    public void buscar_complejos() {
         ArrayList<pathway> pathway = new ArrayList<>();
         pathway = cargarPatrones();
-        
-        for (int i = 0; i < pathway.size(); i++) {
-           ArrayList<String> objetos = pathway.get(i).getObjetos();
+
+        pathway.forEach((p) -> {
+            ArrayList<String> objetos = p.getObjetos();
             ArrayList<Integer> pos_enzymas = new ArrayList<>();
             for (int j = 0; j < objetos.size(); j++) {
-                String consulta = "enzyme("+objetos.get(j)+").";
+                String consulta = "enzyme(" + objetos.get(j) + ").";
                 Query q2 = new Query(consulta);
                 if (q2.hasSolution()) {
-                    System.out.println("enzyne: "+objetos.get(j));
+                    System.out.println("enzyne: " + objetos.get(j));
                     pos_enzymas.add(j);
                 }
             }
-            
+
             System.out.println("Pathway:");
-            System.out.println(pathway.get(i).getPatron());
+            System.out.println(p.getPatron());
             //complejos por enzimas
-            separar_complejo(pos_enzymas, objetos, pathway.get(i).getPatron());
-                        
-        }
-        
+            separar_complejo(pos_enzymas, objetos, p.getPatron());
+
+        });
+
     }
-    
-    public void separar_complejo(ArrayList<Integer> pos,ArrayList<String> ObjPat, String Patron){
-        
+
+    public void separar_complejo(ArrayList<Integer> pos, ArrayList<String> ObjPat, String Patron) {
+
         int posin = pos.get(0);
-        int posfin = pos.get(pos.size()-1)+1;
-        
+        int posfin = pos.get(pos.size() - 1) + 1;
+
         ArrayList<String> primerComplejo = new ArrayList<>();
-        
+
         for (int i = 0; i <= posin; i++) {
             primerComplejo.add(ObjPat.get(i));
         }
-        
+
         ArrayList<String> segundoComplejo = new ArrayList<>();
-        for (int i = posfin-1; i < ObjPat.size()-1; i++) {
+        for (int i = posfin - 1; i < ObjPat.size() - 1; i++) {
             segundoComplejo.add(ObjPat.get(i));
         }
-                
-        System.out.println("complejo: "+primerComplejo);
-        System.out.println("complejo: "+segundoComplejo);
+
+        String tipo = tipo_Complejo(Patron);
+
+        System.out.println("complejo: " + primerComplejo + "  " + tipo);
+        System.out.println("complejo: " + segundoComplejo + "  " + tipo);
         System.out.println("\n\n");
-        
+
+    }
+
+    public String tipo_Complejo(String Patron) {
+        String tipo = "";
+
+        ArrayList<String> eventosUP = new ArrayList<>();
+        eventosUP.add("activate");
+        eventosUP.add("phosphorylate");
+        eventosUP.add("regulate");
+        eventosUP.add("transcriptional-activate");
+        eventosUP.add("up-regulate");
+        eventosUP.add("enhance");
+        eventosUP.add("induce");
+        eventosUP.add("lead");
+        eventosUP.add("trigger");
+        eventosUP.add("translate");
+        eventosUP.add("transcribe");
+        eventosUP.add("reactivate");
+        eventosUP.add("promote");
+        eventosUP.add("synthesize");
+
+        ArrayList<String> eventosDOWN = new ArrayList<>();
+        eventosDOWN.add("inhibit");
+        eventosDOWN.add("down-regulate");
+        eventosDOWN.add("repress");
+        eventosDOWN.add("prevent");
+        eventosDOWN.add("suppress");
+        eventosDOWN.add("retain");
+
+        String separa[] = Patron.split(";");
+
+        for (int i = 0; i < separa.length; i++) {
+            String sep[] = separa[i].split(",");
+
+            if (eventosUP.contains(sep[1])) {
+                tipo = "estimulatorio";
+                // break;
+            }
+
+            if (eventosDOWN.contains(sep[1])) {
+                tipo = "inhibitorio";
+                break;
+            }
+        }
+
+        return tipo;
     }
 
     public ArrayList<pathway> cargarPatrones() {
@@ -104,17 +150,13 @@ public class consultasJPL {
         pathway pathway = new pathway();
         try {
             ObjectSet result = db.queryByExample(pathway);
-
-            while (result.hasNext()) {
-                pathway res = (pathway) result.next();
-                pathways.add(res);
-            }
+            result.parallelStream().forEach(p -> pathways.add((pathway) p));
         } catch (Exception e) {
 
-        } finally{
+        } finally {
             db.close();
         }
-              
+
         return pathways;
     }
 

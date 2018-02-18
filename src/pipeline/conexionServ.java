@@ -40,7 +40,7 @@ import org.w3c.dom.Document;
 public class conexionServ {
 
     public Document conecta(String Url) {
-
+       // System.out.println("url: " + Url);
         Document doc = null;
         int cont = 0;
         hiloConexion conex = new hiloConexion(Url);

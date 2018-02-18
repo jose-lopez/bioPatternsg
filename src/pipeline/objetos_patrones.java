@@ -21,7 +21,7 @@ public class objetos_patrones {
 
     public void generar_archivo(configuracion config) {
 
-        String archivo = "[consultas].";
+        String archivo = "[generaObjetosPatrones].";
         Query q = new Query(archivo);
         q.hasSolution();
 
@@ -73,36 +73,42 @@ public class objetos_patrones {
         String ruta = "objetos_patrones.pl";
         new escribirBC("%//"+lista.toString(), ruta);
         
-        for (int i = 0; i < lista.size(); i++) {
-            String obj = lista.get(i);
-            ArrayList<String> familias = new ArrayList<>();
-            
-            String consulta = "ligand('"+obj+"').";
+        
+        for (String obj:lista) {
+                                   
+            String consulta = "p_ligand('"+obj+"').";
             Query q1 = new Query(consulta);
             
             if (q1.hasSolution()) {
-                new escribirBC(consulta, ruta);
+                new escribirBC("ligand('"+obj+"').", ruta);
             }
             
-            consulta = "receptor('"+obj+"').";
+            consulta = "p_receptor('"+obj+"').";
             Query q2 = new Query(consulta);
             
             if (q2.hasSolution()) {
-                new escribirBC(consulta, ruta);
+                new escribirBC("receptor('"+obj+"').", ruta);
             }
             
-            consulta = "transcription_factor('"+obj+"').";
+            consulta = "p_transcription_factor('"+obj+"').";
             Query q3 = new Query(consulta);
             
             if (q3.hasSolution()) {
-                new escribirBC(consulta, ruta);
+                new escribirBC("transcription_factor('"+obj+"').", ruta);
             }
             
-            consulta = "protein('"+obj+"').";
+            consulta = "p_protein('"+obj+"').";
             Query q4 = new Query(consulta);
             
             if (q4.hasSolution()) {
-                new escribirBC(consulta, ruta);
+                new escribirBC("protein('"+obj+"').", ruta);
+            }
+            
+            consulta = "p_enzyme('"+obj+"').";
+            Query q5 = new Query(consulta);
+            
+            if (q5.hasSolution()) {
+                new escribirBC("enzyme('"+obj+"').", ruta);
             }
             
             q1.close();

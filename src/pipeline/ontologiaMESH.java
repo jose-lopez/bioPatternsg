@@ -189,9 +189,9 @@ public class ontologiaMESH {
         System.out.println(relacion + objeto.getNombre());
         nivel++;
 
-        for (int i = 0; i < objeto.getParent().size(); i++) {
-            if (!objeto.getParent().get(i).equals("1000048")) {
-                buscarObjeto(objeto.getParent().get(i), nivel, "is a->  ");
+        for (String obj : objeto.getParent()) {
+            if (!obj.equals("1000048")) {
+                buscarObjeto(obj, nivel, "is a->  ");
             }
 
         }
@@ -205,6 +205,7 @@ public class ontologiaMESH {
         aux = aux.replace("(", "_");
         aux = aux.replace(")", "_");
         aux = aux.replace("'", "");
+        aux = aux.replace("+", "");
         aux = aux.replace("__", "_");
         aux = "wkr_"+aux;
         return aux;

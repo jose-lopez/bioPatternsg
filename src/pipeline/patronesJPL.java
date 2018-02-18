@@ -31,48 +31,43 @@ public class patronesJPL {
         ArrayList<String> listaInicio = inicio();
 
         ArrayList<String> objEnlace = new ArrayList<>();
-        for (int i = 0; i < listaInicio.size(); i++) {
 
-            String sep1[] = listaInicio.get(i).split(",");
-           
+        listaInicio.parallelStream().forEach((obj) -> {
+            String sep1[] = obj.split(",");
             if (!objEnlace.contains(sep1[2])) {
                 objEnlace.add(sep1[2]);
             }
-
-            System.out.println("evento inicio:  " + listaInicio.get(i));
-        }
+            System.out.println("evento inicio:  " + obj);
+        });
 
         ArrayList<String> listaFin = new ArrayList<>();
 
-        for (int i = 0; i < objCierre.size(); i++) {
-            listaFin.addAll(fin(objCierre.get(i)));
-        }
-
+        objCierre.forEach(obj -> listaFin.addAll(fin(obj)));
+      
         if (objCierre.size() == 0) {
             listaFin.addAll(fin(""));
         }
 
         ArrayList<String> FT = new ArrayList<>();
-        for (int i = 0; i < listaFin.size(); i++) {
-            String sep[] = listaFin.get(i).split(",");
+        
+        listaFin.forEach((String fin) -> {
+            String sep[] = fin.split(",");
             if (!FT.contains(sep[0])) {
                 FT.add(sep[0]);
             }
-
+            
             if (!objCierre.contains(sep[2])) {
                 objCierre.add(sep[2]);
             }
 
-            System.out.println("evento fin:  " + listaFin.get(i));
-        }
-
-        for (int i = 0; i < objEnlace.size(); i++) {
-
-            intermedios(new ArrayList<String>(), objEnlace.get(i), FT, "", 0, listaInicio, listaFin, objCierre);
-        }
-
-        config.setInferirPatrones(true);
-        config.guardar();
+            System.out.println("evento fin:  " + fin);
+            
+        });
+        
+       objEnlace.forEach(enlace -> intermedios(new ArrayList<String>(), enlace, FT, "", 0, listaInicio, listaFin, objCierre));
+      
+       config.setInferirPatrones(true);
+       config.guardar();
 
     }
 
@@ -145,15 +140,12 @@ public class patronesJPL {
             even = objini + even;
             String separa[] = even.split(",");
 
-            for (int j = 0; j < cierre.size(); j++) {
-                if (cierre.get(j).equals(separa[2])) {
-                    cierre.remove(j);
-                }
-            }
+            cierre.removeIf(x -> x.equals(separa[2]));
 
             boolean pat = false;
-            for (int j = 0; j < FT.size(); j++) {
-                if (separa[2].equals(FT.get(j)) && !lista.contains(separa[2]) && cierre.size() > 0) {
+            
+            for (String factorT : FT) {
+                if (separa[2].equals(factorT) && !lista.contains(separa[2]) && cierre.size() > 0) {
                     ArrayList<String> listaAux = new ArrayList<>();
                     listaAux.addAll(lista);
                     listaAux.add(separa[2]);
@@ -187,39 +179,41 @@ public class patronesJPL {
 
         ArrayList<String> patrones = new ArrayList<>();
 
-        for (int i = 0; i < listain.size(); i++) {
-            String sep1[] = listain.get(i).split(",");
+        listain.parallelStream().forEach((objin) -> {
+            String sep1[] = objin.split(",");
             if (primero.equals(sep1[2])) {
                 if (!enlista.contains(sep1[0])) {
-                    String pataux = listain.get(i) + patron;
+                    String pataux = objin + patron;
                     if (!patrones.contains(pataux)) {
                         patrones.add(pataux);
                         //System.out.println(pataux);
                     }
                 }
             }
-        }
-
-        for (int i = 0; i < patrones.size(); i++) {
-            for (int j = 0; j < listafin.size(); j++) {
-                String sep2[] = listafin.get(j).split(",");
+        });
+        
+        patrones.stream().forEach((Patron) -> {
+            
+            listafin.stream().forEach((fin) -> {
+                String sep2[] = fin.split(",");
                 if (ultimo.equals(sep2[0])) {
-                    String patronF = patrones.get(i) + ";" + listafin.get(j);
-
+                    String patronF = Patron + ";" + fin;
                     ArrayList<String> list = listarObetosPatron(patronF);
-                    for (int k = 0; k < Objcierre.size(); k++) {
-                        if (Objcierre.get(k).equals(list.get(list.size() - 1))) {
+                    
+                    Objcierre.stream().forEach((cierre) -> {
+                        if (cierre.equals(list.get(list.size() - 1))) {
                             System.out.println("\n\n" + patronF);
                             System.out.println(list);
                             escribirArchivo(patronF, list.toString(), "patrones.txt");
                             guardar_Patron(patronF, list);
                         }
-                    }
-
+                        
+                    });
                 }
-
-            }
-        }
+            });
+            
+        });
+      
 
     }
 
@@ -246,14 +240,14 @@ public class patronesJPL {
         }
 
     }
-    
-    private void guardar_Patron(String patron , ArrayList<String> objetos){
-        
+
+    private void guardar_Patron(String patron, ArrayList<String> objetos) {
+
         ObjectContainer db = Db4o.openFile("mineria/patrones.db");
         pathway pathway = new pathway();
         pathway.setPatron(patron);
         pathway.setObjetos(objetos);
-        
+
         try {
             db.store(pathway);
         } catch (Exception e) {
@@ -261,8 +255,7 @@ public class patronesJPL {
         } finally {
             db.close();
         }
-        
-        
+
     }
 
     private void borrar_archivo(String nombre) {
@@ -278,6 +271,7 @@ public class patronesJPL {
         ArrayList<String> lista = new ArrayList<>();
 
         String sep1[] = patron.split(";");
+                        
         for (int i = 0; i < sep1.length; i++) {
             String sep2[] = sep1[i].split(",");
             if (!lista.contains(sep2[0])) {

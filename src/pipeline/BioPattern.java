@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.print.DocFlavor;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -165,14 +166,19 @@ public class BioPattern {
         //Autenticación de proxy        
         autenticarProxy("150.187.65.3", "3128");
 
-        minado_FT mfts = new minado_FT();
-        configuracion config = new configuracion();
+        minado_FT mfts = new minado_FT(); // clase que contiene los metodos donde se buscara la informacion de los objetos minados
+        
+        configuracion config = new configuracion(); // clase donde se guarda la informacion de configuracion inicial del proceso de minado y los diferentes checklist que indican desde donde continuar la ejecucion
+        
         try {
-            config.recuperarConfiguracion();
+            config.recuperarConfiguracion(); // recupera la configuracion actual y el checklist que indica desde que punto puede continuar la ejecucion
         } catch (Exception e) {
         }
+        
         if (config.getRegionPromotora() == null) {
-            //*
+            
+        //* Las siguientes lineas muestran un menu donde el usuario puede ingresar los datos de configuracion para ejecutar el proceso de mineria
+            
             System.out.println("\n-------------------------\nNUEVO PROCESO DE MINERIA\n-------------------------");
             System.out.println("\nIngrese los datos de configuracion\n");
 
@@ -186,34 +192,50 @@ public class BioPattern {
             boolean GO = false;
             String rutaPMidExp = config.PMidExperto();
             int cantPMID = config.ingresar_cantPubMedId(); //numero de pubmed IDs
-
-            mfts.crearCarpeta("mineria");
+        //fin de menu
+        //-------------------------------------------------------------------------------------------------------------
+        
+            // crea una carpeta nueva 'mineria' donde se guardaran diferentes archivos generados durante el proceso .. si ya existe esta carpeta se eliminara con todos su contenido y se creara de nuevo vacia
+            mfts.crearCarpeta("mineria"); 
+            
+            //se guarda los datos de configuracion que se ingresaron el el menu anterior en mineria/config.db
             config.guardarConfiguracion(regProm, iteraciones, cantObjs, conf, GO, MESH, cantPMID, rutaPMidExp);
-
+            
+            //este metodo ejecuta el proceso de busqueda de informacio desde objetos del experto, homologos y los objetos encontrados en los diferentes niveles de busqueda
             mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, cantPMID, rutaPMidExp, config);
-
-            busquedaPubMed_IDs BPM = new busquedaPubMed_IDs();
-
-            ArrayList<String> listaPMid = BPM.busqueda_IDs(false, cantPMID, false, config);
-
-            new lecturas_PM().BusquedaPM_Abstracts(listaPMid, "abstracts", 500, config); // Número máximo de abstracts por archivo
-
+                        
+            //este metodo genera todas las combinaciones de objetos encontrados en el proceso anterior y guarda las ombinaciones en 'mineria/combinaciones.db'
+            new combinaciones().generar_combinaciones(false, config);
+            //este metodo toma el archivo de combinaciones anterior y procede a buscar PubMed IDs que resulten de cada combinacion guarda los IDs en 'mineria/PubMedId.db'
+            new PubMed_IDs().buscar(cantPMID, config);
+            // este metodo toma la el archivo de PubMed Ids y procede a hacer la busqueda abstracts 
+            //y crear una coleccion de archivos con extencion html en el directorio 'abctracts'
+            new lecturas_PM().BusquedaPM_Abstracts("abstracts", 500, config); // Número máximo de abstracts por archivo
+            
+            //este metodo toma la imformacion minada tanto de los objetos minados como de las ontologias y la vacia en formato prolog
+            //crea los archivos 'objetosMinados.pl' , ontologiaGO.pl, ontologiaMESH.pl , well_know_rules.pl
             mfts.vaciar_bc_pl(GO, MESH);
-
+            
+            //este metodo llama al resumidor_bioinformante hace uso de la coleccion de abstracts 
             new Resumidor().resumidor(config);
-
+            
+            // crea la bace de conocimiento con el listado de eventos encontrados por el resumidor
             String kb = new GeneradorBC().generadorBC("baseC.pl", config);
             
-            objetos_patrones objetos_patrones = new objetos_patrones();
-            objetos_patrones.generar_archivo();
-                        
+            // se crea el archivo 'mineria/objetos_patrones.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
+            new objetos_patrones().generar_archivo(config);
+
             //String kb = "baseC.pl";
-            new Razonador().inferir_patrones(kb, config);
+            //new Razonador().inferir_patrones(kb, config);
+            new patronesJPL().buscar_patrones(new ArrayList<String>(), config);
+
         } else if (config.reiniciar()) {
+            //reinia el proceso de mineria 
             mfts.crearCarpeta("mineria");
             config = new configuracion();
             pipelineBioPattern();
         } else {
+            //se reanuda desde el punto donde se marco el ultimo checklist
             config.reanudar_proceso();
         }
 
@@ -234,9 +256,9 @@ public class BioPattern {
     public String getSecuenciaProblema() {
         return secuenciaProblema;
     }
-    private String usuario = "yacson.ramirez";
-    //private char[] clave;
-    private char[] clave = {'Y', 'a', 'c', 's', 'o', 'N', '3', '2', '8', '7'};
+    private String usuario = "";
+    private char[] clave;
+   // private char[] clave = {'', '', '', '', '', '', '', '', '', ''};
 
     private void autenticarProxy(String proxy_IP, String proxy_Port) {
 
@@ -264,17 +286,9 @@ public class BioPattern {
     }
 
     public void pruebas() {
-        
-      /* minado_FT mft = new minado_FT();
-       
-       mft.vaciar_bc_pl(false, true);
-       
-       objetos_patrones rp = new objetos_patrones();
-       rp.generar_archivo();*/
-      
-      consultasJPL jpl = new consultasJPL();
-      
-      jpl.buscar_patrones();
-      
+
+      new combinaciones().generar_combinaciones(false, new configuracion());
+    
+
     }
 }

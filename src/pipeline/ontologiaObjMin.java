@@ -262,21 +262,17 @@ public class ontologiaObjMin {
                 ArrayList<String> ListaObj = new ArrayList<>();
                 vaciarpl(obj);
                 if (GO) {
-                    for (int i = 0; i < obj.funcionMolecular.size(); i++) {
-                        ontologiaGO.vaciar_pl(obj.funcionMolecular.get(i), null, null, ListaObj,"ontologiaGO.pl");
-                    }
-                    for (int i = 0; i < obj.procesoBiologico.size(); i++) {
-                        ontologiaGO.vaciar_pl(obj.procesoBiologico.get(i), null, null, ListaObj,"ontologiaGO.pl");
-                    }
-                    for (int i = 0; i < obj.componenteCelular.size(); i++) {
-                        ontologiaGO.vaciar_pl(obj.componenteCelular.get(i), null, null, ListaObj,"ontologiaGO.pl");
-                    }
+                    
+                    funcionMolecular.forEach(fm -> ontologiaGO.vaciar_pl(fm, null, null, ListaObj,"ontologiaGO.pl"));
+                    
+                    procesoBiologico.forEach(pb -> ontologiaGO.vaciar_pl(pb, null, null, ListaObj,"ontologiaGO.pl"));
+                    
+                    componenteCelular.forEach(cc -> ontologiaGO.vaciar_pl(cc, null, null, ListaObj,"ontologiaGO.pl"));
+                    
                 }
                 
                 if (MESH) {
-                    for (int i = 0; i < obj.Parent.size(); i++) {
-                        ontologiaMESH.vaciar_pl(obj.Parent.get(i), null, ListaObj,"ontologiaMESH.pl");
-                    }
+                   Parent.forEach(p -> ontologiaMESH.vaciar_pl(p, null, ListaObj,"ontologiaMESH.pl"));
                 }
             }
         } catch (Exception e) {
@@ -295,36 +291,37 @@ public class ontologiaObjMin {
         
         new escribirBC("objeto(\'"+obj.nombre.replace("\'", "")+"\').","ontologiaMESH.pl");
               
-        for (int i = 0; i < obj.funcionMolecular.size(); i++) {
+        
+        
+        for (String fm : obj.funcionMolecular) {
             if (FM.equals("[")) {
-                FM+="\'"+GO.buscar(obj.funcionMolecular.get(i)).replace("\'", "")+"\'";
+                FM+="\'"+GO.buscar(fm).replace("\'", "")+"\'";
             }else{
-                FM+=",\'"+GO.buscar(obj.funcionMolecular.get(i)).replace("\'", "")+"\'";
+                FM+=",\'"+GO.buscar(fm).replace("\'", "")+"\'";
             }
         }
         FM+="]";
         
-        for (int i = 0; i < obj.procesoBiologico.size(); i++) {
+        for (String pb : obj.procesoBiologico) {
             if (PB.equals("[")) {
-                PB+="\'"+GO.buscar(obj.procesoBiologico.get(i)).replace("\'", "")+"\'";
+                PB+="\'"+GO.buscar(pb).replace("\'", "")+"\'";
             }else{
-                PB+=",\'"+GO.buscar(obj.procesoBiologico.get(i)).replace("\'", "")+"\'";
+                PB+=",\'"+GO.buscar(pb).replace("\'", "")+"\'";
             }
         }
         PB+="]";
         
-        for (int i = 0; i < obj.componenteCelular.size(); i++) {
+        for (String cc : obj.componenteCelular) {
             if (CC.equals("[")) {
-                CC+="\'"+GO.buscar(obj.componenteCelular.get(i)).replace("\'", "")+"\'";
+                CC+="\'"+GO.buscar(cc).replace("\'", "")+"\'";
             }else{
-                CC+=",\'"+GO.buscar(obj.componenteCelular.get(i)).replace("\'", "")+"\'";
+                CC+=",\'"+GO.buscar(cc).replace("\'", "")+"\'";
             }
         }
         CC+="]";
         
-        for (int i = 0; i < obj.Parent.size(); i++) {
-            
-                MESH =mesh.buscarNombre(obj.Parent.get(i)).replace("\'", "");
+        for (String m : obj.Parent) {
+             MESH =mesh.buscarNombre(m).replace("\'", "");
             
         }
        

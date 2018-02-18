@@ -138,38 +138,25 @@ public class ontologiaGO {
         }
         if (!listObj.contains(GO)) {
             listObj.add(GO);
+            final String obj_nombre = objeto.getNombre();
+            
 
-            for (int i = 0; i < objeto.is_a.size(); i++) {
-                vaciar_pl(objeto.is_a.get(i), objeto.getNombre(), "is_a", listObj,archivo);
-            }
+            objeto.is_a.forEach(t -> vaciar_pl(t, obj_nombre, "is_a", listObj,archivo));
+            
+            objeto.capable_of.forEach(t -> vaciar_pl(t, obj_nombre, "capable_of", listObj,archivo));
+            
+            objeto.capable_of_part_of.forEach(t -> vaciar_pl(t, obj_nombre, "capable_of_part_of", listObj,archivo));
 
-            for (int i = 0; i < objeto.capable_of.size(); i++) {
-                vaciar_pl(objeto.capable_of.get(i), objeto.getNombre(), "capable_of", listObj,archivo);
-            }
-
-            for (int i = 0; i < objeto.capable_of_part_of.size(); i++) {
-                vaciar_pl(objeto.capable_of_part_of.get(i), objeto.getNombre(), "capable_of_part_of", listObj,archivo);
-            }
-
-            for (int i = 0; i < objeto.negatively_regulates.size(); i++) {
-                vaciar_pl(objeto.negatively_regulates.get(i), objeto.getNombre(), "negatively_regulates", listObj,archivo);
-            }
-
-            for (int i = 0; i < objeto.positively_regulates.size(); i++) {
-                vaciar_pl(objeto.positively_regulates.get(i), objeto.getNombre(), "positively_regulates", listObj,archivo);
-            }
-
-            for (int i = 0; i < objeto.part_of.size(); i++) {
-                vaciar_pl(objeto.part_of.get(i), objeto.getNombre(), "part_of", listObj,archivo);
-            }
-
-            for (int i = 0; i < objeto.regulates.size(); i++) {
-                vaciar_pl(objeto.regulates.get(i), objeto.getNombre(), "regulates", listObj,archivo);
-            }
-
-            for (int i = 0; i < objeto.occurs_in.size(); i++) {
-                vaciar_pl(objeto.occurs_in.get(i), objeto.getNombre(), "occurs_in", listObj,archivo);
-            }
+            objeto.negatively_regulates.forEach(t -> vaciar_pl(t, obj_nombre, "negatively_regulates", listObj,archivo));
+                        
+            objeto.positively_regulates.forEach(t -> vaciar_pl(t, obj_nombre, "positively_regulates", listObj,archivo));
+            
+            objeto.part_of.forEach(t -> vaciar_pl(t, obj_nombre, "part_of", listObj,archivo));
+            
+            objeto.regulates.forEach(t -> vaciar_pl(t, obj_nombre, "regulates", listObj,archivo));
+                       
+            objeto.occurs_in.forEach(t -> vaciar_pl(t, obj_nombre, "occurs_in", listObj,archivo));
+                      
         }
 
     }

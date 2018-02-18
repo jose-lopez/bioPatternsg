@@ -243,9 +243,9 @@ public class lecturas_HGNC {
                             }
                         }
                         
-                        for (int j = 0; j < letUP.getSinonimos().size(); j++) {
-                            if(!hgnc.getSinonimos().contains(letUP.getSinonimos().get(j))){
-                                hgnc.getSinonimos().add(letUP.getSinonimos().get(j));
+                        for (String sinonimo : letUP.getSinonimos()) {
+                            if(!hgnc.getSinonimos().contains(sinonimo)){
+                                hgnc.getSinonimos().add(sinonimo);
                                 //System.out.println(letUP.getSinonimos().get(j));
                             }
                         }
@@ -444,11 +444,8 @@ class HGNC {
 
         Lista.add(Simbolo);
         Lista.add(Nombre);
-
-        for (int i = 0; i < sinonimos.size(); i++) {
-            Lista.add(sinonimos.get(i));
-        }
-
+        Lista.addAll(sinonimos);
+        
         return Lista;
     }
 

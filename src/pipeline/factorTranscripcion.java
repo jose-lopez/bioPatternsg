@@ -35,7 +35,6 @@ public class factorTranscripcion {
     public factorTranscripcion() {
 
         complejoProteinico = new ArrayList<>();
-        // lecturas_HGNC = new lecturas_HGNC();
         lecturasTFBIND = new lecturas_TFBIND();
         HGNC = new ArrayList<>();
     }
@@ -147,17 +146,18 @@ public class factorTranscripcion {
         this.ID = ID;
         this.N_Iteracion = N_Iteracion;
         this.HGNC = new lecturas_HGNC().busquedaInfGen(ID, GO, MESH);
-        //  this.lecturas_HGNC = lecturasHGNC(ID);
         this.complejoProteinico = new ArrayList<>();
 
         ArrayList<String> IDCP = Buscar_ID_complejosProteinicos(ID, NumeroObjetos);
-
-        for (int i = 0; i < IDCP.size(); i++) {
+        
+        IDCP.forEach((idcp) -> {
             complejoProteinico cp = new complejoProteinico();
-            cp = new lecturas_PDB().Busqueda_PDB(IDCP.get(i), GO, MESH);
+            cp = new lecturas_PDB().Busqueda_PDB(idcp, GO, MESH);
             cp.buscar_ligandos();
             complejoProteinico.add(cp);
-        }
+        });
+
+        
     }
 
     public void NuevosObjetos(ArrayList<String> Lista) {
@@ -185,16 +185,17 @@ public class factorTranscripcion {
     public void vaciar_pl(String archivo) {
         ArrayList<String> AuxLig = new ArrayList<>();
         String ligandos = "[";
-        for (int i = 0; i < complejoProteinico.size(); i++) {
-            complejoProteinico.get(i).vaciar_pl(archivo);
-            for (int j = 0; j < complejoProteinico.get(i).getLigandos().size(); j++) {
-                if (!AuxLig.contains(complejoProteinico.get(i).getLigandos().get(j).getId())) {
+             
+        for (complejoProteinico comp : complejoProteinico) {
+            comp.vaciar_pl(archivo);
+            for (ligando ligando : comp.getLigandos()) {
+                if (!AuxLig.contains(ligando.getId())) {
                     if (ligandos.equals("[")) {
-                        ligandos += "\'" + complejoProteinico.get(i).getLigandos().get(j).getId().replace("\'", "") + "\'";
+                        ligandos += "\'" + ligando.getId().replace("\'", "") + "\'";
                     } else {
-                        ligandos += ",\'" + complejoProteinico.get(i).getLigandos().get(j).getId().replace("\'", "") + "\'";
+                        ligandos += ",\'" + ligando.getId().replace("\'", "") + "\'";
                     }
-                    AuxLig.add(complejoProteinico.get(i).getLigandos().get(j).getId());
+                    AuxLig.add(ligando.getId());
                 }
             }
         }
@@ -203,27 +204,27 @@ public class factorTranscripcion {
             new escribirBC("ligandos(\'" + ID.replace("\'", "") + "\'," + ligandos + ").", archivo);
         }
        
-        for (int i = 0; i < HGNC.size(); i++) {
+        for (HGNC hgnc : HGNC) {
             String cadena = "[";
-            if (HGNC.get(i).getSimbolo().equals(ID)) {
-                cadena += "\'" + HGNC.get(i).getSimbolo().replace("\'", "") + "\',";
-                cadena += "\'" + HGNC.get(i).getNombre().replace("\'", "") + "\'";
-                for (int j = 0; j < HGNC.get(i).getSinonimos().size(); j++) {
-                    cadena += ",\'" + HGNC.get(i).getSinonimos().get(j).replace("\'", "") + "\'";
+            if (hgnc.getSimbolo().equals(ID)) {
+                cadena += "\'" + hgnc.getSimbolo().replace("\'", "") + "\',";
+                cadena += "\'" + hgnc.getNombre().replace("\'", "") + "\'";
+                for (String sinonimo : hgnc.getSinonimos()) {
+                    cadena += ",\'" + sinonimo.replace("\'", "") + "\'";
                 }
                 cadena += "]";
                // System.out.println("iteracion: "+cadena);
                 new escribirBC("sinonimos(\'" + ID + "\'," + cadena + ").", archivo);
 
             } else {
-                cadena += "\'" + HGNC.get(i).getSimbolo().replace("\'", "") + "\',";
-                cadena += "\'" + HGNC.get(i).getNombre().replace("\'", "") + "\'";
-                for (int j = 0; j < HGNC.get(i).getSinonimos().size(); j++) {
-                    cadena += ",\'" + HGNC.get(i).getSinonimos().get(j).replace("\'", "") + "\'";
+                cadena += "\'" + hgnc.getSimbolo().replace("\'", "") + "\',";
+                cadena += "\'" + hgnc.getNombre().replace("\'", "") + "\'";
+                for (String sinonimo : hgnc.getSinonimos()) {
+                    cadena += ",\'" + sinonimo.replace("\'", "") + "\'";
                 }
                 cadena += "]";
                 //System.out.println("iteracion: "+cadena);
-                new escribirBC("sinonimos(\'" + HGNC.get(i).getSimbolo().replace("\'", "") + "\'," + cadena + ").", archivo);
+                new escribirBC("sinonimos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadena + ").", archivo);
             }
         }
 
@@ -242,9 +243,8 @@ public class factorTranscripcion {
     public ArrayList<String> listaNombres() {
         ArrayList<String> lista = new ArrayList<>();
         lista.add(ID);
-        for (int i = 0; i < HGNC.size(); i++) {
-            lista.addAll(HGNC.get(i).ListaNombres());
-        }
+        HGNC.parallelStream().forEach(hgnc ->lista.addAll(hgnc.ListaNombres()) );
+                
         return lista;
     }
 

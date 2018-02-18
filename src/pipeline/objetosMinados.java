@@ -38,27 +38,30 @@ public class objetosMinados {
 
         String cadena = "";
         if (!revisar_en_archivo(FT.getID())) {
+
             ArrayList<String> listaObj = new ArrayList<>();
             if (FT.getHGNC().size() > 0 && FT.getHGNC().get(0).getSimbolo().equals(FT.getID())) {
+
                 agregar_a_lista(listaObj, FT.getID());
                 agregar_a_lista(listaObj, FT.getHGNC().get(0).getNombre());
 
-                for (int i = 0; i < FT.getHGNC().get(0).getSinonimos().size(); i++) {
-                    agregar_a_lista(listaObj, FT.getHGNC().get(0).getSinonimos().get(i));
-
+                for (String sinonimo : FT.getHGNC().get(0).getSinonimos()) {
+                    agregar_a_lista(listaObj, sinonimo);
                 }
+
                 escribir_en_archivo(construirCadena(listaObj));
 
             } else {
                 escribir_en_archivo(FT.getID());
-                for (int i = 0; i < FT.getHGNC().size(); i++) {
-                    listaObj = new ArrayList<>();
-                    if (!revisar_en_archivo(FT.getHGNC().get(i).getSimbolo())) {
-                        agregar_a_lista(listaObj, FT.getHGNC().get(i).getSimbolo());
-                        agregar_a_lista(listaObj, FT.getHGNC().get(i).getNombre());
 
-                        for (int j = 0; j < FT.getHGNC().get(i).getSinonimos().size(); j++) {
-                            agregar_a_lista(listaObj, FT.getHGNC().get(i).getSinonimos().get(j));
+                for (HGNC hgnc : FT.getHGNC()) {
+                    listaObj = new ArrayList<>();
+                    if (!revisar_en_archivo(hgnc.getSimbolo())) {
+                        agregar_a_lista(listaObj, hgnc.getSimbolo());
+                        agregar_a_lista(listaObj, hgnc.getNombre());
+
+                        for (String sinonimo : hgnc.getSinonimos()) {
+                            agregar_a_lista(listaObj, sinonimo);
                         }
                         escribir_en_archivo(construirCadena(listaObj));
                     }
@@ -66,12 +69,12 @@ public class objetosMinados {
             }
         }
 
-        for (int i = 0; i < FT.getComplejoProteinico().size(); i++) {
-            for (int j = 0; j < FT.getComplejoProteinico().get(i).getHGNC().size(); j++) {
-                agregar_objetos(FT.getComplejoProteinico().get(i).getHGNC().get(j));
-                for (int k = 0; k < FT.getComplejoProteinico().get(i).getLigandos().size(); k++) {
-                    if (!revisar_en_archivo(FT.getComplejoProteinico().get(i).getLigandos().get(k).getId())) {
-                        String Cadena = FT.getComplejoProteinico().get(i).getLigandos().get(k).getId() + ";" + FT.getComplejoProteinico().get(i).getLigandos().get(k).getNombre();
+        for (complejoProteinico complejo : FT.getComplejoProteinico()) {
+            for (HGNC hgnc : complejo.getHGNC()) {
+                agregar_objetos(hgnc);
+                for (ligando ligando : complejo.getLigandos()) {
+                    if (!revisar_en_archivo(ligando.getId())) {
+                        String Cadena = ligando.getId() + ";" + ligando.getNombre();
                         escribir_en_archivo(Cadena);
                     }
                 }
@@ -80,46 +83,49 @@ public class objetosMinados {
     }
 
     public void agregar_objetos(HGNC HGNC) {
-       
+
         if (!revisar_en_archivo(HGNC.getSimbolo())) {
             ArrayList<String> listaObj = new ArrayList<>();
             agregar_a_lista(listaObj, HGNC.getSimbolo());
             agregar_a_lista(listaObj, HGNC.getNombre());
-            for (int j = 0; j < HGNC.getSinonimos().size(); j++) {
-                agregar_a_lista(listaObj, HGNC.getSinonimos().get(j));
-            }
+
+            HGNC.getSinonimos().forEach(obj -> agregar_a_lista(listaObj, obj));
+
             escribir_en_archivo(construirCadena(listaObj));
 
         }
     }
 
     public void agregar_objetos(objetos_Experto objExp) {
-        
+        //revisa si el objetos ya extite en el archivo mineria/objetosMinados.txt
         if (!revisar_en_archivo(objExp.getID())) {
-
+            //si el primer objeto de HGNC es el mismo que el objeto de el experto se guarda como uno solo y se descartan los demas
             if (objExp.getHGNC().size() > 0 && objExp.getID().equals(objExp.getHGNC().get(0).getSimbolo())) {
+
                 ArrayList<String> listaObj = new ArrayList<>();
                 agregar_a_lista(listaObj, objExp.getID());
                 agregar_a_lista(listaObj, objExp.getHGNC().get(0).getNombre());
 
-                for (int i = 0; i < objExp.getHGNC().get(0).getSinonimos().size(); i++) {
-                    agregar_a_lista(listaObj, objExp.getHGNC().get(0).getSinonimos().get(i));
-                }
+                objExp.getHGNC().get(0).getSinonimos().forEach(sinonimo -> agregar_a_lista(listaObj, sinonimo));
+
                 escribir_en_archivo(construirCadena(listaObj));
+
             } else {
+                //si el objeto del experto no es igual que los objetos de HGNC se guardan todos por separado
                 escribir_en_archivo(objExp.getID());
-                for (int i = 0; i < objExp.getHGNC().size(); i++) {
-                    if (!revisar_en_archivo(objExp.getHGNC().get(i).getSimbolo())) {
+
+                objExp.getHGNC().forEach((obj) -> {
+                    if (!revisar_en_archivo(obj.getSimbolo())) {
                         ArrayList<String> listaObj = new ArrayList<>();
-                        agregar_a_lista(listaObj, objExp.getHGNC().get(i).getSimbolo());
-                        agregar_a_lista(listaObj, objExp.getHGNC().get(i).getNombre());
-                        for (int j = 0; j < objExp.getHGNC().get(i).getSinonimos().size(); j++) {
-                            agregar_a_lista(listaObj, objExp.getHGNC().get(i).getSinonimos().get(j));
-                        }
+                        agregar_a_lista(listaObj, obj.getSimbolo());
+                        agregar_a_lista(listaObj, obj.getNombre());
+
+                        obj.getSinonimos().forEach(obj2 -> agregar_a_lista(listaObj, obj2));
+
                         escribir_en_archivo(construirCadena(listaObj));
                     }
+                });
 
-                }
             }
 
         }
@@ -159,7 +165,7 @@ public class objetosMinados {
                 pw = new PrintWriter(fichero);
 
                 pw.println(cadena);
-                
+
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -176,6 +182,7 @@ public class objetosMinados {
 
     private String construirCadena(ArrayList<String> listaObj) {
         String cadena = "";
+
         for (int i = 0; i < listaObj.size() - 1; i++) {
             cadena = cadena + listaObj.get(i) + ";";
         }
