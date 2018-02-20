@@ -22,28 +22,27 @@ public class objetos_Experto {
     public ArrayList<String> listaNombres() {
         ArrayList<String> lista = new ArrayList<>();
         lista.add(ID);
-        for (int i = 0; i < HGNC.size(); i++) {
-            lista.addAll(HGNC.get(i).ListaNombres());
-        }
+        HGNC.forEach(hgnc ->  lista.addAll(hgnc.ListaNombres()));
+         
         return lista;
     }
     
     public void vaciar_pl(String archivo) {
         boolean encontrado = false;
-       
-        for (int i = 0; i < HGNC.size(); i++) {
+        
+        for (HGNC hgnc : HGNC) {
             String cadena = "[";
-            cadena += "\'" + HGNC.get(i).getSimbolo().replace("\'", "") + "\',";
-            cadena += "\'" + HGNC.get(i).getNombre().replace("\'", "") + "\'";
-            for (int j = 0; j < HGNC.get(i).getSinonimos().size(); j++) {
-                cadena += ",\'" + HGNC.get(i).getSinonimos().get(j).replace("\'", "") + "\'";
+            cadena += "\'" + hgnc.getSimbolo().replace("\'", "") + "\',";
+            cadena += "\'" + hgnc.getNombre().replace("\'", "") + "\'";
+            for (String sinonimo : hgnc.getSinonimos()) {
+                cadena += ",\'" + sinonimo.replace("\'", "") + "\'";
             }
             
             cadena += "]";
             //System.out.println("Experto: "+cadena);
-            new escribirBC("sinonimos(\'" + HGNC.get(i).getSimbolo().replace("\'", "") + "\'," + cadena + ").", archivo);
+            new escribirBC("sinonimos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadena + ").", archivo);
        
-            ArrayList<String> lista = HGNC.get(i).ListaNombres();
+            ArrayList<String> lista = hgnc.ListaNombres();
             if (lista.contains(ID)) {
                 encontrado = true;
             }

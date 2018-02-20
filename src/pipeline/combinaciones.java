@@ -22,32 +22,44 @@ public class combinaciones {
 
     public void generar_combinaciones(boolean criterio, configuracion config) {
         System.out.print("\nGenerando conbinaciones de objetos .....");
-        
-        borrar_archivo();
 
-        factorTranscripcion FT = new factorTranscripcion();
-        ArrayList<String> combinacion = new ArrayList<>();
+        //Si ya existe un archivo mineria/combinaciones.db es eliminado y comienza el proceso de nuevo
+        borrar_archivo();
+        
+        // Lista en la que se guardaran todas las combinaciones generadas
+        ArrayList<String> combinacion = new ArrayList<>(); 
 
         objetos_Experto HE = new objetos_Experto();
 
+        // se cargan la informacion de homologos y objetos del experto y se guardan temporalmente en una lista
         ObjectContainer dbhe = Db4o.openFile("mineria/ObjH_E.db");
         ObjectSet resulthe = dbhe.queryByExample(HE);
         ArrayList<objetos_Experto> homologos_experto = new ArrayList<>();
         homologos_experto.addAll(resulthe);
-
         dbhe.close();
+        //---------------------------------------------------------------
 
+        //se generan todas las combinaciones entre objetosdel experto y homologos entre si
         Objs_homologos_Expertos(homologos_experto, combinacion);
 
+        //el siguiente juego de instrucciones genera combinaciones de los objetos encontrados en las diferentes Iteraciones
+        factorTranscripcion FT = new factorTranscripcion();
         ObjectContainer db = Db4o.openFile("mineria/FT.db");
         ObjectSet result = db.queryByExample(FT);
 
         result.parallelStream().forEach((ft) -> {
-            factorTranscripcion factorT = (factorTranscripcion) ft;
 
+            factorTranscripcion factorT = (factorTranscripcion) ft;
+            
+            // combina un objeto con los ligandos encontrados a partir de este
             factor_ligando(combinacion, factorT);
+            
+            //combina un objeto con los nuevos objetos encontrados a partir de este
             factor_nuevoObjeto(combinacion, factorT);
 
+            //combina un objeto minado en las iteraciones con los objetos del experto y homologos
+            //si criterio = false; solo se ejecutara en la iteracion 0 objetos encontrados en tfbind
+            //si criterio = true; se ejecutara en todas las iteraciones
             if (factorT.getN_Iteracion() == 0 || criterio) {
                 factor_objetos_H_E(combinacion, factorT, homologos_experto);
             }
@@ -56,24 +68,29 @@ public class combinaciones {
 
         db.close();
 
+        //generadas todas las combinaciones de guardan en mineria/combinaciones.db
         guardar_combinaciones(combinacion);
-        
+
+        //se guarda el checklist que indica que el proceso de generar combinaciones a terminado
         config.setCombinaciones(true);
         config.guardar();
-        
+
         System.out.println("ok");
 
     }
 
+    //Busca todas las permutaciones en un listado de objetos del experto mas homologos
     private void Objs_homologos_Expertos(ArrayList<objetos_Experto> objetos, ArrayList<String> combinacion) {
 
         ArrayList<String> nombres = new ActivatableArrayList<>();
 
+        //se carga una lista que contine los ID de cada objeto
         objetos.parallelStream().forEach((t) -> {
             objetos_Experto obj = (objetos_Experto) t;
             nombres.add(obj.getID());
         });
 
+        //las siguientes instrucciones encuentra las permutaciones en combinaciones de pares en la lista de ID cargada antes
         if (nombres.size() > 1) {
             IteradorCombinacion it = new IteradorCombinacion(nombres, 2);
             Iterator s = it.iterator();
@@ -81,17 +98,18 @@ public class combinaciones {
             while (s.hasNext()) {
                 try {
                     List<String> listares = (List<String>) s.next();
-                    objetos_Experto obj1 = new objetos_Experto();
-                    obj1 = objExp(listares.get(0));
-                    objetos_Experto obj2 = new objetos_Experto();
-                    obj2 = objExp(listares.get(1));
-                    //System.out.println(listares.get(0)+" "+listares.get(1));
-
-                    for (String nombre1 : obj1.listaNombres()) {
-                        for (String nombre2 : obj2.listaNombres()) {
+                    
+                    //obtenida el par de IDs de una combinacion 
+                    //se procede a generar las cominaciones entre simbolos y sinonimos de los mismos
+                    final objetos_Experto obj1 = objExp(listares.get(0));
+                    final objetos_Experto obj2 = objExp(listares.get(1));
+                   
+                    obj1.listaNombres().parallelStream().forEach((nombre1) -> {
+                        obj2.listaNombres().parallelStream().forEach((nombre2) -> {
                             insertar_combinacion(combinacion, nombre1, nombre2);
-                        }
-                    }
+                        });
+                    });
+                   
                 } catch (Exception e) {
                 }
 
@@ -99,6 +117,8 @@ public class combinaciones {
         }
     }
 
+    //consulta un objeto por su ID en la base de datos y retona todo la imformacion de este
+    //solo para homologos y objetos del experto
     private objetos_Experto objExp(String obj) {
         objetos_Experto objExp = new objetos_Experto();
         objExp.setID(obj);
@@ -113,10 +133,10 @@ public class combinaciones {
         } finally {
             db.close();
         }
-
         return objExp;
     }
 
+    //genera combinaciones entre un objeto minado y ligandos encontrados a partir de este
     private void factor_ligando(ArrayList<String> combinaciones, factorTranscripcion FT) {
 
         FT.listaNombres().parallelStream().forEach((nombre) -> {
@@ -129,34 +149,34 @@ public class combinaciones {
         });
 
     }
-
+    
+    //genera combinaciones entre un objeto minado y nuevos ojetos encontrados a partir de este
     private void factor_nuevoObjeto(ArrayList<String> combinaciones, factorTranscripcion FT) {
 
-        FT.listaNombres().parallelStream().forEach((nombre) -> {
+        FT.listaNombres().parallelStream().forEach((nombre1) -> {
             FT.getComplejoProteinico().parallelStream().forEach((comp) -> {
                 comp.listaNombres().parallelStream().forEach((nombre2) -> {
-                    insertar_combinacion(combinaciones, nombre, nombre2);
+                    insertar_combinacion(combinaciones, nombre1, nombre2);
                 });
             });
         });
 
     }
 
+    //genera combinaciones entre un objeto minado y los objetos del experto y homologos
     private void factor_objetos_H_E(ArrayList<String> combinaciones, factorTranscripcion FT, ArrayList<objetos_Experto> listaHE) {
 
-        listaHE.parallelStream().forEach((t) -> {
-            objetos_Experto obj = (objetos_Experto) t;
-            FT.listaNombres().parallelStream().forEach((nombre) -> {
-                obj.listaNombres().parallelStream().forEach((nombre2) -> {
-                    insertar_combinacion(combinaciones, nombre, nombre2);
+        listaHE.parallelStream().forEach((objExp) -> {
+            FT.listaNombres().parallelStream().forEach((nombre1) -> {
+                objExp.listaNombres().parallelStream().forEach((nombre2) -> {
+                    insertar_combinacion(combinaciones, nombre1, nombre2);
                 });
             });
         });
-
     }
 
+    //iserta una combinacion de palabras a la lista de combinaciones
     public void insertar_combinacion(ArrayList<String> combinaciones, String palabra1, String palabra2) {
-
         if (!combinaciones.contains(palabra1 + "+" + palabra2) && !combinaciones.contains(palabra2 + "+" + palabra1) && !palabra1.equals(palabra2)) {
             combinaciones.add(palabra1 + "+" + palabra2);
             //System.out.println(palabra1 + "+" + palabra2);
@@ -166,7 +186,7 @@ public class combinaciones {
 
     public void guardar_combinaciones(ArrayList<String> combinacion) {
         ObjectContainer db = Db4o.openFile("mineria/combinaciones.db");
-        combinacion2 comb = new combinacion2();
+        combinacion comb = new combinacion();
         comb.combinaciones = combinacion;
 
         try {
@@ -179,8 +199,8 @@ public class combinaciones {
         }
 
     }
-    
-     public void borrar_archivo() {
+
+    public void borrar_archivo() {
         try {
             File ficherod = new File("mineria/combinaciones.db");
             ficherod.delete();
@@ -188,10 +208,9 @@ public class combinaciones {
 
         }
     }
-    
-    
+
 }
 
-class combinacion2 {
+class combinacion {
     public ArrayList<String> combinaciones = new ArrayList<>();
 }

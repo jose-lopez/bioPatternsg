@@ -98,7 +98,7 @@ public class BioPattern {
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
         minado_FT mfts = new minado_FT();
         //ruta de archivo, confiabilidad, N Iteraciones, N de objetos
-        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH, cantPMID, "", new configuracion());
+        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH, new configuracion());
         mfts.obtenerFT();
 
         Region region_promotora = new Region(this.regionPromotora);
@@ -164,7 +164,7 @@ public class BioPattern {
 
     public void pipelineBioPattern() throws StringIndexOutOfBoundsException, Exception {
         //Autenticación de proxy        
-        autenticarProxy("150.187.65.3", "3128");
+        //autenticarProxy("150.187.65.3", "3128");
 
         minado_FT mfts = new minado_FT(); // clase que contiene los metodos donde se buscara la informacion de los objetos minados
         
@@ -185,7 +185,7 @@ public class BioPattern {
             String regProm = config.IngresarRegionPromotora();
             float conf = config.IngresarConfiabilidad();
             int cantObjs = config.ingresarCantComplejos();
-            int iteraciones = config.ingresar_numIteracioens();
+            int iteraciones = config.ingresar_numIteraciones();
             //boolean GO = config.buscarGO();
             //boolean MESH = config.buscarMESH();
             boolean MESH = true;
@@ -202,13 +202,15 @@ public class BioPattern {
             config.guardarConfiguracion(regProm, iteraciones, cantObjs, conf, GO, MESH, cantPMID, rutaPMidExp);
             
             //este metodo ejecuta el proceso de busqueda de informacio desde objetos del experto, homologos y los objetos encontrados en los diferentes niveles de busqueda
-            mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, cantPMID, rutaPMidExp, config);
+            mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, config);
                         
             //este metodo genera todas las combinaciones de objetos encontrados en el proceso anterior y guarda las ombinaciones en 'mineria/combinaciones.db'
             new combinaciones().generar_combinaciones(false, config);
+            
             //este metodo toma el archivo de combinaciones anterior y procede a buscar PubMed IDs que resulten de cada combinacion guarda los IDs en 'mineria/PubMedId.db'
             new PubMed_IDs().buscar(cantPMID, config);
-            // este metodo toma la el archivo de PubMed Ids y procede a hacer la busqueda abstracts 
+            
+            //este metodo toma la el archivo de PubMed Ids y procede a hacer la busqueda abstracts 
             //y crear una coleccion de archivos con extencion html en el directorio 'abctracts'
             new lecturas_PM().BusquedaPM_Abstracts("abstracts", 500, config); // Número máximo de abstracts por archivo
             
@@ -282,13 +284,9 @@ public class BioPattern {
                 return new PasswordAuthentication(usuario, clave);
             }
         });
-
     }
 
     public void pruebas() {
-
-      new combinaciones().generar_combinaciones(false, new configuracion());
-    
-
+      
     }
 }

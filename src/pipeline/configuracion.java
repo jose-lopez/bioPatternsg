@@ -23,6 +23,7 @@ import java.util.logging.Logger;
  */
 public class configuracion {
 
+    //conjunto de variables que indican la configuracion inicial del proceso
     private int numIteraciones;
     private int cantComplejos;
     private float confiabilidad_tfbind;
@@ -32,6 +33,8 @@ public class configuracion {
     private int cantidadPMID;
     private String rutaPMID_experto;
 //-------------------------------------//
+
+    //conjunto de variables que indican los diferen checklist que debe complir el proceso
     private boolean homologos; //Lectura de homologos
     private boolean objetosExperto; // Lectura objetos del experto
     private ArrayList<lecturas_TFBIND> tfbind; //lista de facores de transcripcion
@@ -46,6 +49,7 @@ public class configuracion {
     private boolean GenerarBC;//Lista de eventos encontrados en los resumenes
     private boolean objetosPatrones; //genera archivo con clasificacion espesifica de los objetos en la BC a partir de las ontologias
     private boolean InferirPatrones; //crea los pathway usando los eventos, y la informacin de las ontologias
+    //----------------------------------------------------------------------------
 
     public configuracion() {
         resumenes = 1;
@@ -53,6 +57,7 @@ public class configuracion {
         tfbind = new ArrayList<lecturas_TFBIND>();
     }
 
+    //guarda la configuracion inicial del proceso
     public void guardarConfiguracion(String regionProm, int numIter, int cantCompl, float conf, boolean GO, boolean MESH, int cantPMID, String PMidExp) {
         this.RegionPromotora = regionProm;
         this.cantComplejos = cantCompl;
@@ -73,6 +78,7 @@ public class configuracion {
         }
     }
 
+    //guarda las lecturas obtenidas en tfbind. Necesario si el proceso se reanuda deste este punto
     public void guardar_lecturasTFBIND(ArrayList<lecturas_TFBIND> lecturas) {
         ObjectContainer db = Db4o.openFile("mineria/config.db");
         configuracion conf = new configuracion();
@@ -92,6 +98,7 @@ public class configuracion {
         }
     }
 
+    //este metodo sera llamado cada vez que culmine una tarea el proceso y se agregue un checklist
     public void guardar() {
         ObjectContainer db = Db4o.openFile("mineria/config.db");
         configuracion conf = new configuracion();
@@ -112,6 +119,7 @@ public class configuracion {
         }
     }
 
+    //recupera la informacion guardada.. para poder continuar un proceso desde el ultimo checklist guardado
     public configuracion recuperarConfiguracion() {
         ObjectContainer db = Db4o.openFile("mineria/config.db");
         configuracion conf = new configuracion();
@@ -154,6 +162,7 @@ public class configuracion {
         return this;
     }
 
+    //muestra la configuracion inicial del proceso
     public void verConfiguracion() {
         //System.out.println("\n**Configuracion de minado**");
         System.out.println("\n*Region promotora: " + this.RegionPromotora);
@@ -177,6 +186,7 @@ public class configuracion {
         estadoactual();
     }
 
+    //muestra el estado actual del proceso .. dependiendo del los checklist que esten activos
     private void estadoactual() {
         System.out.print("\nEstado actual: ");
         if (!homologos) {
@@ -208,6 +218,7 @@ public class configuracion {
         }
     }
 
+    //dependiendo de los checklist que esten activos el proceso se reanudara desde un punto espesifico
     public void reanudar_proceso() {
         System.out.print("Preparando");
         recuperarConfiguracion();
@@ -249,18 +260,17 @@ public class configuracion {
         }
     }
 
+    //dependiendo del punto de reanudacion del proceso se ejecutaran el juego instrucciones necesarias 
+    //para que el proceso termine
     private void reanudar(int punto, objetosMineria objetosMineria) {
         minado_FT mfts = new minado_FT();
         lecturas_PM lpm = new lecturas_PM();
-        ArrayList<String> listaPMid;
         switch (punto) {
             case 1:
                 mfts.buscarHomologos(revisarObjH_E("homologos", objetosMineria), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
                 mfts.buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ActivatableArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                //BPM.generar_combinaciones(false, this);
-                //BPM.buscar_PubMed_Ids(cantidadPMID, this);
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
@@ -279,8 +289,6 @@ public class configuracion {
                 mfts.buscarObjetosExperto(revisarObjH_E("objetos_Experto.txt", objetosMineria), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-               //BPM.generar_combinaciones(false, this);
-                //BPM.buscar_PubMed_Ids(cantidadPMID, this);
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
@@ -300,8 +308,6 @@ public class configuracion {
                 ArrayList<lecturas_TFBIND> lecturas = actualizarListaTFBind(objetosMineria);
                 mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, lecturas, crearOntologiaGO, crearOntologiaMESH);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                //BPM.generar_combinaciones(false, this);
-                //BPM.buscar_PubMed_Ids(cantidadPMID, this);
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
@@ -318,8 +324,6 @@ public class configuracion {
             case 4:
                 ArrayList<String> ListaObj = reanudarIteracion(objetosMineria);
                 mfts.Iteraciones(true, ListaObj, cantComplejos, numIteraciones, objetosMineria, this, objetosMineria.getIteracion() + 1, crearOntologiaGO, crearOntologiaMESH);
-                //BPM.generar_combinaciones(false, this);
-                //BPM.buscar_PubMed_Ids(cantidadPMID, this);
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
@@ -335,8 +339,6 @@ public class configuracion {
                 break;
 
             case 5:
-                //BPM.generar_combinaciones(false, this);
-                //BPM.buscar_PubMed_Ids(cantidadPMID, this);
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
@@ -351,7 +353,6 @@ public class configuracion {
                 new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 6:
-                //BPM.buscar_PubMed_Ids(cantidadPMID, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
@@ -407,39 +408,42 @@ public class configuracion {
                 new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
             case 11:
                 objetos_patrones objetos_patrones = new objetos_patrones();
+                objetos_patrones.generar_archivo(this);
                 new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
             case 12:
                 new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
                 break;
-
         }
-
     }
-
+    
+    /*busca de todos las lecturas tfbind cuales ya fueron procesadas 
+    solo aquellas que no, se agregan a una lista y se continuara el proceso con estas 
+    */
     private ArrayList<lecturas_TFBIND> actualizarListaTFBind(objetosMineria objetosMineria) {
         ArrayList<lecturas_TFBIND> lista = new ArrayList<>();
         factorTranscripcion ft = new factorTranscripcion();
-        for (int i = 0; i < tfbind.size(); i++) {
-            if (!buscarObjeto(tfbind.get(i).getFactor(), ft)) {
+
+        tfbind.forEach((tfb) -> {
+            if (!buscarObjeto(tfb.getFactor(), ft)) {
                 buscarObjetos(objetosMineria, ft);
-                lista.add(tfbind.get(i));
+                lista.add(tfb);
             }
             System.out.print(".");
-        }
-
+        });
+       
         //System.out.println(lista.size());
         return lista;
     }
 
+    
     private void buscarObjetos(objetosMineria objetosMineria, factorTranscripcion ft) {
         objetosMineria.getObjetos_minados().add(ft.getID());
-
-        for (int i = 0; i < ft.getComplejoProteinico().size(); i++) {
-            for (int j = 0; j < ft.getComplejoProteinico().get(i).getHGNC().size(); j++) {
-                objetosMineria.agregarObjetosMinado(ft.getComplejoProteinico().get(i).getHGNC().get(j).getSimbolo());
-            }
-        }
+        
+        objetosMineria.getObjetos_minados().add(ft.getID());
+        ft.getComplejoProteinico().forEach((comp) -> {
+            comp.getHGNC().forEach(hgnc -> objetosMineria.agregarObjetosMinado(hgnc.getSimbolo()));
+        });
 
     }
 
@@ -461,29 +465,31 @@ public class configuracion {
         objMin.setNuevos_objetos(NuevosObj);
     }
 
+    //Recupera los nuevos objetos y objetos faltantes por minar en una iteracion dada
     private ArrayList<String> reanudarIteracion(objetosMineria objMin) {
         ArrayList<String> Lista = new ArrayList<>();
         ArrayList<String> NuevosObj = new ArrayList<>();
         factorTranscripcion ft = new factorTranscripcion();
 
-        for (int i = 0; i < objMin.getNuevos_objetos().size(); i++) {
-            if (buscarObjeto(objMin.getNuevos_objetos().get(i), ft)) {
-                objMin.getObjetos_minados().add(objMin.getNuevos_objetos().get(i));
+        objMin.getNuevos_objetos().forEach((obj) -> {
+            if (buscarObjeto(obj, ft)) {
+                objMin.getObjetos_minados().add(obj);
                 ft.NuevosObjetos(NuevosObj);
-            } else {
-                Lista.add(objMin.getNuevos_objetos().get(i));
+            }else {
+                Lista.add(obj);
             }
             System.out.print(".");
-        }
-
+        });
+     
         objMin.setNuevos_objetos(new ArrayList<String>());
-        for (int i = 0; i < NuevosObj.size(); i++) {
-            objMin.agregar_objeto(NuevosObj.get(i));
-        }
-
+        NuevosObj.forEach(obj -> objMin.agregar_objeto(obj));
+        
         return Lista;
     }
 
+    /*se consulta un objeto espesifico provenientes del proceso de iteracion 
+    si este se ecuentra retorna true de lo contrario retorna false
+    */
     private boolean buscarObjeto(String objeto, factorTranscripcion FT) {
         ObjectContainer db = Db4o.openFile("mineria/FT.db");
         factorTranscripcion ft = new factorTranscripcion();
@@ -507,24 +513,26 @@ public class configuracion {
         return encontrado;
     }
 
+    /*Este metodo revida la base de datos de objetos del experto y homologos a los que 
+    ya se hizo el proceso de busqueda y se compara con los archivos de homologos y objetos del experto
+    el proceso continuara para los objetos que se procesaron aun*/
     private ArrayList<String> revisarObjH_E(String archivo, objetosMineria objetosMineria) {
         ObjectContainer db = Db4o.openFile("mineria/ObjH_E.db");
         objetos_Experto Obj = new objetos_Experto();
         ArrayList<String> listaObjetos = listaObjetos_homologosExperto(archivo);
         try {
             ObjectSet result = db.queryByExample(Obj);
-            while (result.hasNext()) {
-                objetos_Experto objExp = (objetos_Experto) result.next();
-                for (int i = 0; i < listaObjetos.size(); i++) {
-                    if (objExp.getID().equals(listaObjetos.get(i))) {
-                        for (int j = 0; j < objExp.getHGNC().size(); j++) {
-                            objetosMineria.agregar_objeto(objExp.getHGNC().get(j));
-                        }
-                        listaObjetos.remove(i);
+
+            result.parallelStream().forEach((res) -> {
+                objetos_Experto objExp = (objetos_Experto) res;
+                listaObjetos.forEach((objEH) -> {
+                    if (objExp.getID().equals(objEH)) {
+                        objExp.getHGNC().forEach(t -> objetosMineria.agregar_objeto(t));
+                        listaObjetos.removeIf(x -> x.equals(objEH));
                     }
-                }
+                });
                 System.out.print(".");
-            }
+            });
 
         } catch (Exception e) {
 
@@ -535,6 +543,7 @@ public class configuracion {
         return listaObjetos;
     }
 
+    //Lee la informacion de un archivo ya sea homolos u objetos_Experto.txt
     private ArrayList<String> listaObjetos_homologosExperto(String ruta) {
         ArrayList<String> lista = new ArrayList<>();
         File archivo = null;
@@ -562,7 +571,6 @@ public class configuracion {
             while (result.hasNext()) {
                 obj = (objetosMineria) result.next();
                 System.out.print(".");
-//System.out.println("iteracion " + obj.getIteracion());
             }
         } catch (Exception e) {
         } finally {
@@ -623,7 +631,7 @@ public class configuracion {
         return can_objs;
     }
 
-    public int ingresar_numIteracioens() {
+    public int ingresar_numIteraciones() {
         int num_iter;
         Scanner lectura = new Scanner(System.in);
         while (true) {
@@ -1058,7 +1066,5 @@ public class configuracion {
     public void setObjetosPatrones(boolean objetosPatrones) {
         this.objetosPatrones = objetosPatrones;
     }
-    
-    
 
 }

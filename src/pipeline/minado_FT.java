@@ -36,7 +36,7 @@ import java.util.logging.Logger;
 
 public class minado_FT {
 
-    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos, boolean GO, boolean MESH, int cantPMID, String PMidExp, configuracion config) {
+    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos, boolean GO, boolean MESH, configuracion config) {
 
         //lleva un control de los objetos minados y los nuevos objetos encontrados en el proceso
         objetosMineria objetosMineria = new objetosMineria();
@@ -155,8 +155,8 @@ public class minado_FT {
 //  y el porsentaje de confiabnilidad, debuelve un listado con los factores de transcripcion 
 //  encontrados y algunas caracteristicas que ofrece TFBIND
     private ArrayList<lecturas_TFBIND> lecturasTFBID(String ruta, float confiabilidad) {
-
         lecturas_TFBIND lecturasTFBIND = new lecturas_TFBIND();
+
         return lecturasTFBIND.leer_de_archivo(ruta, confiabilidad);
 
     }

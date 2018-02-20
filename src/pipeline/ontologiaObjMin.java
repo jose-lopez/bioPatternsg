@@ -39,23 +39,16 @@ public class ontologiaObjMin {
                 //System.out.println(nombre);
                 db.store(this);
                 if (GO) {
-                    for (int i = 0; i < funcionMolecular.size(); i++) {
-                        //System.out.println("funcion mlecular:  "+ funcionMolecular.get(i));
-                        buscarOntologiaGO(funcionMolecular.get(i));
-                    }
-                    for (int i = 0; i < procesoBiologico.size(); i++) {
-                       // System.out.println("proceso biologico:  "+ procesoBiologico.get(i));
-                        buscarOntologiaGO(procesoBiologico.get(i));
-                    }
-                    for (int i = 0; i < componenteCelular.size(); i++) {
-                       // System.out.println("componente celular:  "+ componenteCelular.get(i));
-                        buscarOntologiaGO(componenteCelular.get(i));
-                    }
+                    
+                    funcionMolecular.forEach(fm -> buscarOntologiaGO(fm));
+                    
+                    procesoBiologico.forEach(pb -> buscarOntologiaGO(pb));
+                    
+                    componenteCelular.forEach(cc -> buscarOntologiaGO(cc));
+                                        
                 }
                 if (mesh) {
-                    for (int i = 0; i < Parent.size(); i++) {
-                        buscarOntologiaMESH(Parent.get(i));
-                    }
+                    Parent.forEach(parent -> buscarOntologiaMESH(parent));
                 }
             }
 
@@ -74,10 +67,8 @@ public class ontologiaObjMin {
         
         if (!buscarObjeto(ontologia) && !ontologia.getMESH().equals("1000048")) {
             guardar_Ontologia(ontologia);
-            for (int i = 0; i < ontologia.getParent().size(); i++) {
-                buscarOntologiaMESH(ontologia.getParent().get(i));
-            }
-           
+            ontologia.getParent().forEach(ont -> buscarOntologiaMESH(ont));
+                  
         }
 
     }
@@ -89,31 +80,23 @@ public class ontologiaObjMin {
         
         if (!buscarObjeto(ontologia)) {
             guardar_Ontologia(ontologia);
-            for (int i = 0; i < ontologia.getIs_a().size(); i++) {
-                buscarOntologiaGO(ontologia.getIs_a().get(i));
-            }
-            for (int i = 0; i < ontologia.getPart_of().size(); i++) {
-                buscarOntologiaGO(ontologia.getPart_of().get(i));
-            }
-            for (int i = 0; i < ontologia.getRegulates().size(); i++) {
-                buscarOntologiaGO(ontologia.getRegulates().get(i));
-            }
-            for (int i = 0; i < ontologia.getNegatively_regulates().size(); i++) {
-                buscarOntologiaGO(ontologia.getNegatively_regulates().get(i));
-            }
-            for (int i = 0; i < ontologia.getPositively_regulates().size(); i++) {
-                buscarOntologiaGO(ontologia.getPositively_regulates().get(i));
-            }
-            for (int i = 0; i < ontologia.getCapable_of().size(); i++) {
-                buscarOntologiaGO(ontologia.getCapable_of().get(i));
-            }
-            for (int i = 0; i < ontologia.getCapable_of_part_of().size(); i++) {
-                buscarOntologiaGO(ontologia.getCapable_of_part_of().get(i));
-            }
-            for (int i = 0; i < ontologia.getOccurs_in().size(); i++) {
-                buscarOntologiaGO(ontologia.getOccurs_in().get(i));
-            }
             
+            ontologia.getIs_a().forEach(ont -> buscarOntologiaGO(ont));
+            
+            ontologia.getPart_of().forEach(ont -> buscarOntologiaGO(ont));
+            
+            ontologia.getRegulates().forEach(ont -> buscarOntologiaGO(ont));
+            
+            ontologia.getNegatively_regulates().forEach(ont -> buscarOntologiaGO(ont));
+            
+            ontologia.getPositively_regulates().forEach(ont -> buscarOntologiaGO(ont));
+            
+            ontologia.getCapable_of().forEach(ont -> buscarOntologiaGO(ont));
+            
+            ontologia.getCapable_of_part_of().forEach(ont -> buscarOntologiaGO(ont));
+           
+            ontologia.getOccurs_in().forEach(ont -> buscarOntologiaGO(ont));
+                        
         }
 
     }

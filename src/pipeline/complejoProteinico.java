@@ -127,11 +127,11 @@ public class complejoProteinico {
         }
 
         String cadena = "[";
-        for (int i = 0; i < HGNC.size(); i++) {
+        for (HGNC hgnc : HGNC) {
             if (cadena.equals("[")) {
-                cadena += "\'" + HGNC.get(i).getSimbolo().replace("\'", "") + "\'";
+                cadena += "\'" + hgnc.getSimbolo().replace("\'", "") + "\'";
             } else {
-                cadena += ",\'" + HGNC.get(i).getSimbolo().replace("\'", "") + "\'";
+                cadena += ",\'" + hgnc.getSimbolo().replace("\'", "") + "\'";
             }
         }
         cadena += "]";
@@ -140,14 +140,14 @@ public class complejoProteinico {
         }
         
         
-        for (int i = 0; i < HGNC.size(); i++) {
-            cadena = "[\'"+HGNC.get(i).getSimbolo().replace("\'", "")+"\',";
-            cadena += "\'"+HGNC.get(i).getNombre().replace("\'", "")+"\'";
-            for (int j = 0; j < HGNC.get(i).getSinonimos().size(); j++) {
-                cadena+=",\'"+HGNC.get(i).getSinonimos().get(j).replace("\'", "")+"\'";
+        for (HGNC hgnc : HGNC) {
+            cadena = "[\'"+hgnc.getSimbolo().replace("\'", "")+"\',";
+            cadena += "\'"+hgnc.getNombre().replace("\'", "")+"\'";
+            for (String sinonimo : hgnc.getSinonimos()) {
+                cadena+=",\'"+sinonimo.replace("\'", "")+"\'";
             }
             cadena+="]";
-            new escribirBC("sinonimos(\'"+HGNC.get(i).getSimbolo().replace("\'", "")+"\',"+cadena+").", archivo);
+            new escribirBC("sinonimos(\'"+hgnc.getSimbolo().replace("\'", "")+"\',"+cadena+").", archivo);
         }
 
     }
@@ -170,23 +170,18 @@ public class complejoProteinico {
 
     public ArrayList<String> listaNombres() {
         ArrayList lista = new ArrayList();
-
-        for (int i = 0; i < HGNC.size(); i++) {
-            lista.addAll(HGNC.get(i).ListaNombres());
-        }
-
+        
+        HGNC.forEach(hgnc -> lista.addAll(hgnc.ListaNombres()));
+        
         return lista;
     }
     
     public void NuevosObjetos(ArrayList<String> Lista){
-        for (int i = 0; i < this.HGNC.size(); i++) {
-            if (!Lista.contains(HGNC.get(i).getSimbolo())) {
-                Lista.add(HGNC.get(i).getSimbolo());
-                //System.out.println("nuevo "+HGNC.get(i).getSimbolo());
+        HGNC.forEach((hgnc) -> {
+            if (!Lista.contains(hgnc.getSimbolo())) {
+                Lista.add(hgnc.getSimbolo());
             }
-            
-        }
-        
+        });
     }
 
 }
