@@ -1,7 +1,5 @@
 :-style_check(-discontiguous).
-:-[mineria/ontologiaMESH].
-:-[mineria/objetosMinados].
-:-[mineria/well_know_rules].
+:-[mineria/objetos_patrones].
 :-[baseC].
 
 %************************************************************************
@@ -12,14 +10,9 @@ buscar_receptores(L):-ligand(L),base(C),buscar_en_lista(event(L,E,R),C),receptor
 % Dado un complejo (o un grupo de ellos) ¿cuáles tienen rol inhibitorio o estimulatorio?.
 
 %**************************************************************************
+% ¿Dado un receptor (en su forma monomérica o dimérica), a cuáles proteínas adicionales puede éste enlazarse? (e.g. SHP se enlaza al complejo dimérico FXR-RXR).
 
-protein(X):-transcription_factor(X).
-protein(X):-wkr_proteins(X).
-transcription_factor(X):-wkr_transcription_factors(X);transcription_factors(X).
-adaptor_proteins(X):-wkr_adaptor_proteins(X).
-receptor(X):-wkr_receptors(X).
-enzyme(X):-wkr_enzymes(X).
-ligand(X):-(wkr_ligand(X);ligando(X)).
+buscar_prot_adi(R,L,A):-receptor(R),base(C),buscar_en_lista(event(L,E,R),C),ligand(L),buscar_en_lista(event(R,E,A),C),protein(A).
 
 %******************************************
 %Buscar objeto en una lista dada 
@@ -29,14 +22,4 @@ buscar_en_lista(L,[_|Ys]):-buscar_en_lista(L,Ys).
 
 %*************************************************************************
 
-listar_eventos(Obj1,Obj2):-base(C),buscar_en_lista(event(Obj1,E,Obj2),C).
 
-%ayuda con patrones
-
-inicio(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,['bind','activate']),ligand(A),receptor(B).
-
-final(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),transcription_factor(A).
-
-intermedios(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),protein(B).
-
-%buscar_en_lista(E,['bind','activate','regulate','phosphorylate'])
