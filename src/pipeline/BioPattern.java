@@ -9,6 +9,7 @@ import EDU.purdue.cs.bloat.decorate.Main;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.collections.ActivatableArrayList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -229,7 +230,7 @@ public class BioPattern {
 
             //String kb = "baseC.pl";
             //new Razonador().inferir_patrones(kb, config);
-            new patronesJPL().buscar_patrones(new ArrayList<String>(), config);
+            new patrones().inferir_patrones(new ArrayList<String>(), config);
 
         } else if (config.reiniciar()) {
             //reinia el proceso de mineria 
@@ -287,6 +288,12 @@ public class BioPattern {
     }
 
     public void pruebas() {
-      
+        
+        //se crea el archivo 'mineria/objetos_patrones.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
+        //new objetos_patrones().generar_archivo(new configuracion());
+
+        consultasJPL consulta = new consultasJPL();
+        
+        consulta.consultas();
     }
 }

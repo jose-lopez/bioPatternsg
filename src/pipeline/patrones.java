@@ -17,9 +17,9 @@ import org.jpl7.Query;
  *
  * @author yacson
  */
-public class patronesJPL {
+public class patrones {
 
-    public void buscar_patrones(ArrayList<String> objCierre, configuracion config) {
+    public void inferir_patrones(ArrayList<String> objCierre, configuracion config) {
 
         borrar_archivo("mineria/patrones.txt");
         borrar_archivo("mineria/patrones.db");
@@ -196,7 +196,7 @@ public class patronesJPL {
             
             listafin.stream().forEach((fin) -> {
                 String sep2[] = fin.split(",");
-                if (ultimo.equals(sep2[0])) {
+                if (ultimo.equals(sep2[0]) && Patron!=null) {
                     String patronF = Patron + ";" + fin;
                     ArrayList<String> list = listarObetosPatron(patronF);
                     
@@ -271,9 +271,10 @@ public class patronesJPL {
         ArrayList<String> lista = new ArrayList<>();
 
         String sep1[] = patron.split(";");
-                        
+           System.out.println("patron: "+patron);             
         for (int i = 0; i < sep1.length; i++) {
             String sep2[] = sep1[i].split(",");
+            System.out.println(sep1[i]);
             if (!lista.contains(sep2[0])) {
                 lista.add(sep2[0]);
             }
@@ -290,9 +291,8 @@ public class patronesJPL {
 
         String even = "";
 
-        cadena = cadena.replace("{", "");
-        cadena = cadena.replace("}", "");
-        cadena = cadena.replace(" ", "");
+        cadena = cadena.replace("{", "").replace("}", "").replace(" ", "");
+        
 
         String separa[] = cadena.split(",");
 

@@ -282,7 +282,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(new ArrayList<String>(), this);
                 break;
             case 2:
                 revisarObjH_E("homologos", objetosMineria);
@@ -300,7 +300,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(new ArrayList<String>(), this);
                 break;
             case 3:
                 revisarObjH_E("homologos", objetosMineria);
@@ -319,7 +319,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(new ArrayList<String>(), this);
                 break;
             case 4:
                 ArrayList<String> ListaObj = reanudarIteracion(objetosMineria);
@@ -335,7 +335,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(new ArrayList<String>(), this);
                 break;
 
             case 5:
@@ -350,7 +350,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(new ArrayList<String>(), this);
                 break;
             case 6:
                 new PubMed_IDs().buscar(cantidadPMID, this);
@@ -363,7 +363,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(new ArrayList<String>(), this);
                 break;
             case 7:
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
@@ -375,7 +375,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(new ArrayList<String>(), this);
                 break;
             case 8:
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
@@ -386,7 +386,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(new ArrayList<String>(), this);
                 break;
             case 9:
                 new Resumidor().resumidor(this);
@@ -396,7 +396,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(new ArrayList<String>(), this);
                 break;
             case 10:
                 try {
@@ -405,14 +405,14 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(new ArrayList<String>(), this);
             case 11:
                 objetos_patrones objetos_patrones = new objetos_patrones();
                 objetos_patrones.generar_archivo(this);
-                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(new ArrayList<String>(), this);
                 break;
             case 12:
-                new patronesJPL().buscar_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(new ArrayList<String>(), this);
                 break;
         }
     }

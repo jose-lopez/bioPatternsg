@@ -34,8 +34,9 @@ public class consultasJPL {
         q.hasSolution();
 
         //buscar_receptores();
-        buscar_complejos();
-
+        //buscar_complejos();
+        //buscar_proteinas_adicionales();
+        interaccion_proteina_proteina();
     }
 
     public void buscar_receptores() {
@@ -48,6 +49,70 @@ public class consultasJPL {
         }
     }
 
+    public void buscar_proteinas_adicionales() {
+
+        String R = "'EGFR'";
+
+        String consulta = "buscar_prot_adi(" + R + ",L,A).";
+
+        Query q2 = new Query(consulta);
+        ArrayList<String> lista = new ArrayList<>();
+
+        for (int i = 0; i < q2.allSolutions().length; i++) {
+            //System.out.println(q2.allSolutions()[i]);
+            String sep1[] = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").split(",");
+            String cadena = "";
+
+            String A = null, L = null;
+            for (int j = 0; j < sep1.length; j++) {
+
+                String sep2[] = sep1[j].replace(" ", "").split("=");
+
+                if (sep2[0].equals("A")) {
+                    A = sep2[1];
+                    // System.out.println("A " + A);
+                }
+
+                if (sep2[0].equals("L")) {
+                    L = sep2[1];
+                    //System.out.println("L " + L);
+                }
+
+            }
+
+            cadena = L + "-->" + R + "-->" + A;
+
+            if (!lista.contains(cadena) && !A.equals(L)) {
+                System.out.println(cadena);
+                lista.add(cadena);
+            }
+        }
+
+        // System.out.println(lista);
+    }
+
+    public void interaccion_proteina_proteina() {
+
+        ArrayList<pathway> pathways = new ArrayList<>();
+        pathways = cargarPatrones();
+        String ligando = "'EGF'";
+        String receptor = "'EGFR'";
+        //String gen = "'SST'";
+        
+        pathways.forEach((p) -> {
+            try {
+                if (ligando.equals(p.getObjetos().get(0)) && receptor.equals(p.getObjetos().get(1))) {
+                    System.out.println("\n\n"+p.getPatron());
+                    System.out.println("Tipo: "+tipo_Complejo(p.getPatron()));
+                }
+            } catch (Exception e) {
+            }
+            
+        });
+        
+       
+    }
+
     public void buscar_complejos() {
         ArrayList<pathway> pathway = new ArrayList<>();
         pathway = cargarPatrones();
@@ -55,6 +120,8 @@ public class consultasJPL {
         pathway.forEach((p) -> {
             ArrayList<String> objetos = p.getObjetos();
             ArrayList<Integer> pos_enzymas = new ArrayList<>();
+            
+                       
             for (int j = 0; j < objetos.size(); j++) {
                 String consulta = "enzyme(" + objetos.get(j) + ").";
                 Query q2 = new Query(consulta);
@@ -73,7 +140,7 @@ public class consultasJPL {
 
     }
 
-    public void separar_complejo(ArrayList<Integer> pos, ArrayList<String> ObjPat, String Patron) {
+    private void separar_complejo(ArrayList<Integer> pos, ArrayList<String> ObjPat, String Patron) {
 
         int posin = pos.get(0);
         int posfin = pos.get(pos.size() - 1) + 1;
@@ -97,7 +164,7 @@ public class consultasJPL {
 
     }
 
-    public String tipo_Complejo(String Patron) {
+    private String tipo_Complejo(String Patron) {
         String tipo = "";
 
         ArrayList<String> eventosUP = new ArrayList<>();
@@ -143,14 +210,14 @@ public class consultasJPL {
         return tipo;
     }
 
-    public ArrayList<pathway> cargarPatrones() {
+    private ArrayList<pathway> cargarPatrones() {
         ArrayList<pathway> pathways = new ArrayList<>();
 
         ObjectContainer db = Db4o.openFile("mineria/patrones.db");
         pathway pathway = new pathway();
         try {
             ObjectSet result = db.queryByExample(pathway);
-            result.parallelStream().forEach(p -> pathways.add((pathway) p));
+            pathways.addAll(result);
         } catch (Exception e) {
 
         } finally {
