@@ -19,7 +19,7 @@ public class PubMed_IDs {
 
     //busca los PubMed IDs de cada combinacion encontrada en el archivo mineria/combinaciones.db
     public void buscar(int cantIDs, configuracion config) {
-        
+
         System.out.print("\nBusqueda de PubMed Id.....");
 
         ObjectContainer db = Db4o.openFile("mineria/combinaciones.db");
@@ -31,18 +31,21 @@ public class PubMed_IDs {
         ArrayList<String> pubmedIDs = new ArrayList<>();
 
         combinacion.combinaciones.forEach((comb) -> {
-            
-            //consulta cada combinacion retorna una lista de pubmed IDs
-            ArrayList<String> lista = new lecturas_PM().busquedaPM_ID(comb, cantIDs);
-            
-            //se inserta la lista encontrada en cada combiancion en la lista general de IDs
-            insertar_en_lista(pubmedIDs, lista);
+            try {
+                //consulta cada combinacion retorna una lista de pubmed IDs
+                ArrayList<String> lista = new lecturas_PM().busquedaPM_ID(comb, cantIDs);
+
+                //se inserta la lista encontrada en cada combiancion en la lista general de IDs
+                insertar_en_lista(pubmedIDs, lista);
+            } catch (Exception e) {
+                //System.out.println("error en busqueda");
+            }
 
         });
-       
+
         //se guarda el listado de IDs en la base de datos
         guardar(pubmedIDs);
-        
+
         //se giarda el checklist que indica que el proceso de busqueda de PubMed Ids a terminado
         config.setPubmedids(true);
         config.guardar();
@@ -59,10 +62,10 @@ public class PubMed_IDs {
         });
 
     }
-    
+
     //se guarda la lista de IDs en 'mineria/pubmed_id.db'
-    private void guardar(ArrayList<String> pubmedIDS){
-        
+    private void guardar(ArrayList<String> pubmedIDS) {
+
         ObjectContainer db = Db4o.openFile("mineria/pubmed_id.db");
         PMIDS ids = new PMIDS();
         ids.pubmed_ids = pubmedIDS;
@@ -75,10 +78,10 @@ public class PubMed_IDs {
         } finally {
             db.close();
         }
-        
+
     }
-    
-     public void borrar_archivo() {
+
+    public void borrar_archivo() {
         try {
             File ficherod = new File("mineria/pubmed_id.db");
             ficherod.delete();

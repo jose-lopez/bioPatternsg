@@ -190,7 +190,7 @@ public class BioPattern {
             //boolean GO = config.buscarGO();
             //boolean MESH = config.buscarMESH();
             boolean MESH = true;
-            boolean GO = false;
+            boolean GO = true;
             String rutaPMidExp = config.PMidExperto();
             int cantPMID = config.ingresar_cantPubMedId(); //numero de pubmed IDs
         //fin de menu
@@ -295,5 +295,10 @@ public class BioPattern {
         consultasJPL consulta = new consultasJPL();
         
         consulta.consultas();
+       
+       //minado_FT mft = new minado_FT();
+       //mft.vaciar_bc_pl(false, true);
+       
+       
     }
 }

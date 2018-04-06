@@ -36,7 +36,114 @@ public class consultasJPL {
         //buscar_receptores();
         //buscar_complejos();
         //buscar_proteinas_adicionales();
-        interaccion_proteina_proteina();
+        //interaccion_proteina_proteina();
+        //buscar_motivos();
+        //buscar_otros_ligandos();
+        buscar_tipo_ligando();
+    }
+
+    public void buscar_tipo_ligando() {
+        ArrayList<pathway> pathway = new ArrayList<>();
+        pathway = cargarPatrones();
+        ArrayList<String[]> Lista = new ArrayList<>();
+
+        String receptor = "'EGFR'";
+
+        String consulta = "receptor(" + receptor + ").";
+
+        Query q2 = new Query(consulta);
+
+        if (q2.hasSolution()) {
+
+            pathway.forEach((p) -> {
+
+                if (p.getObjetos().get(1).equals(receptor)) {
+
+                    String res = tipo_Complejo(p.getPatron());
+                    if (res.equals("estimulatorio")) {
+                        agregar_ligando_list(p.getObjetos().get(0), "agonista", Lista);
+
+                    }
+
+                    if (res.equals("inhibitorio")) {
+                        agregar_ligando_list(p.getObjetos().get(0), "antagonista", Lista);
+
+                    }
+                }
+            });
+
+        }
+        
+        
+        System.out.println("Receptor: "+receptor);
+        Lista.forEach(t -> System.out.println("ligando: "+t[0] + "  funcion " + t[1]));
+
+    }
+
+    private void agregar_ligando_list(String lig, String tipo, ArrayList<String[]> lista) {
+        boolean existe = false;
+
+        for (int i = 0; i < lista.size(); i++) {
+
+            if (lista.get(i)[0].equals(lig)) {
+
+                if (!tipo.equals(lista.get(i)[1])) {
+                    lista.get(i)[1] = "mixta";
+                }
+
+                existe = true;
+            }
+
+        }
+
+        if (!existe) {
+            String[] aux = new String[2];
+            aux[0] = lig;
+            aux[1] = tipo;
+            lista.add(aux);
+        }
+
+    }
+
+    public void buscar_otros_ligandos() {
+        String receptor = "'EGFR'";
+        String consulta = "buscar_ligando_rec(" + receptor + ",L).";
+
+        Query q2 = new Query(consulta);
+        System.out.println("Receptor: " + receptor);
+        for (int i = 0; i < q2.allSolutions().length; i++) {
+            String result = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("L=", "");
+            System.out.println("ligando: " + result);
+        }
+
+    }
+
+    public void buscar_motivos() {
+
+        ArrayList<pathway> pathway = new ArrayList<>();
+        pathway = cargarPatrones();
+
+        String receptor = "'EGFR'";
+
+        String consulta = "receptor(" + receptor + ").";
+
+        Query q2 = new Query(consulta);
+
+        if (q2.hasSolution()) {
+
+            pathway.forEach((p) -> {
+
+                if (p.getObjetos().get(1).equals(receptor)) {
+                    System.out.println("receptor: " + receptor);
+                    System.out.println("motivo: " + p.getObjetos().get(p.getObjetos().size() - 1));
+
+                    System.out.println("pathway: " + p.getPatron() + "\n");
+                }
+
+            });
+
+        }
+
     }
 
     public void buscar_receptores() {
@@ -98,19 +205,18 @@ public class consultasJPL {
         String ligando = "'EGF'";
         String receptor = "'EGFR'";
         //String gen = "'SST'";
-        
+
         pathways.forEach((p) -> {
             try {
                 if (ligando.equals(p.getObjetos().get(0)) && receptor.equals(p.getObjetos().get(1))) {
-                    System.out.println("\n\n"+p.getPatron());
-                    System.out.println("Tipo: "+tipo_Complejo(p.getPatron()));
+                    System.out.println("\n\n" + p.getPatron());
+                    System.out.println("Tipo: " + tipo_Complejo(p.getPatron()));
                 }
             } catch (Exception e) {
             }
-            
+
         });
-        
-       
+
     }
 
     public void buscar_complejos() {
@@ -120,8 +226,7 @@ public class consultasJPL {
         pathway.forEach((p) -> {
             ArrayList<String> objetos = p.getObjetos();
             ArrayList<Integer> pos_enzymas = new ArrayList<>();
-            
-                       
+
             for (int j = 0; j < objetos.size(); j++) {
                 String consulta = "enzyme(" + objetos.get(j) + ").";
                 Query q2 = new Query(consulta);

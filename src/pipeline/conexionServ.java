@@ -78,7 +78,7 @@ public class conexionServ {
         }
         
         if(intentos>=10){
-            System.out.println("Fallo en conexion con: "+Url);
+            //System.out.println("Fallo en conexion con: "+Url);
         }       
         return doc;
     }

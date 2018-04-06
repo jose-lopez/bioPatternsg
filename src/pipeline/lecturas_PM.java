@@ -53,8 +53,8 @@ public class lecturas_PM {
 
     public ArrayList<String> busquedaPM_ID(String palabras_clave, int cantIDs) {
         ArrayList<String> listID = new ArrayList<>();
-        //System.out.println(palabras_clave);
         palabras_clave = palabras_clave.replace(" ", "+");
+        //System.out.println(palabras_clave);
         String Url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=" + palabras_clave + "&retmax=" + cantIDs + "&usehistory=y";
 
         try {
