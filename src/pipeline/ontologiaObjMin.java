@@ -246,17 +246,18 @@ public class ontologiaObjMin {
                 vaciarpl(obj);
                 if (GO) {
                     
-                    funcionMolecular.forEach(fm -> ontologiaGO.vaciar_pl(fm, null, null, ListaObj,"ontologiaGO.pl"));
+                    obj.funcionMolecular.forEach(fm -> ontologiaGO.vaciar_pl(fm, null, null, ListaObj,"ontologiaGO.pl"));
                     
-                    procesoBiologico.forEach(pb -> ontologiaGO.vaciar_pl(pb, null, null, ListaObj,"ontologiaGO.pl"));
+                    obj.procesoBiologico.forEach(pb -> ontologiaGO.vaciar_pl(pb, null, null, ListaObj,"ontologiaGO.pl"));
                     
-                    componenteCelular.forEach(cc -> ontologiaGO.vaciar_pl(cc, null, null, ListaObj,"ontologiaGO.pl"));
+                    obj.componenteCelular.forEach(cc -> ontologiaGO.vaciar_pl(cc, null, null, ListaObj,"ontologiaGO.pl"));
                     
                 }
                 
                 if (MESH) {
-                   Parent.forEach(p -> ontologiaMESH.vaciar_pl(p, null, ListaObj,"ontologiaMESH.pl"));
+                    obj.Parent.forEach(p -> ontologiaMESH.vaciar_pl(p, null, ListaObj,"ontologiaMESH.pl"));
                 }
+                              
             }
         } catch (Exception e) {
 

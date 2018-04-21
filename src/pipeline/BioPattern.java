@@ -43,7 +43,7 @@ public class BioPattern {
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
         biopattern.pipelineBioPattern();
-        //biopattern.pruebas();
+      // biopattern.pruebas();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -168,18 +168,17 @@ public class BioPattern {
         //autenticarProxy("150.187.65.3", "3128");
 
         minado_FT mfts = new minado_FT(); // clase que contiene los metodos donde se buscara la informacion de los objetos minados
-        
+
         configuracion config = new configuracion(); // clase donde se guarda la informacion de configuracion inicial del proceso de minado y los diferentes checklist que indican desde donde continuar la ejecucion
-        
+
         try {
             config.recuperarConfiguracion(); // recupera la configuracion actual y el checklist que indica desde que punto puede continuar la ejecucion
         } catch (Exception e) {
         }
-        
+
         if (config.getRegionPromotora() == null) {
-            
-        //* Las siguientes lineas muestran un menu donde el usuario puede ingresar los datos de configuracion para ejecutar el proceso de mineria
-            
+
+            //* Las siguientes lineas muestran un menu donde el usuario puede ingresar los datos de configuracion para ejecutar el proceso de mineria
             System.out.println("\n-------------------------\nNUEVO PROCESO DE MINERIA\n-------------------------");
             System.out.println("\nIngrese los datos de configuracion\n");
 
@@ -193,38 +192,38 @@ public class BioPattern {
             boolean GO = true;
             String rutaPMidExp = config.PMidExperto();
             int cantPMID = config.ingresar_cantPubMedId(); //numero de pubmed IDs
-        //fin de menu
-        //-------------------------------------------------------------------------------------------------------------
-        
+            //fin de menu
+            //-------------------------------------------------------------------------------------------------------------
+
             // crea una carpeta nueva 'mineria' donde se guardaran diferentes archivos generados durante el proceso .. si ya existe esta carpeta se eliminara con todos su contenido y se creara de nuevo vacia
-            mfts.crearCarpeta("mineria"); 
-            
+            mfts.crearCarpeta("mineria");
+
             //se guarda los datos de configuracion que se ingresaron el el menu anterior en mineria/config.db
             config.guardarConfiguracion(regProm, iteraciones, cantObjs, conf, GO, MESH, cantPMID, rutaPMidExp);
-            
+
             //este metodo ejecuta el proceso de busqueda de informacio desde objetos del experto, homologos y los objetos encontrados en los diferentes niveles de busqueda
             mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, config);
-                        
+
             //este metodo genera todas las combinaciones de objetos encontrados en el proceso anterior y guarda las ombinaciones en 'mineria/combinaciones.db'
             new combinaciones().generar_combinaciones(false, config);
-            
+
             //este metodo toma el archivo de combinaciones anterior y procede a buscar PubMed IDs que resulten de cada combinacion guarda los IDs en 'mineria/PubMedId.db'
             new PubMed_IDs().buscar(cantPMID, config);
-            
+
             //este metodo toma la el archivo de PubMed Ids y procede a hacer la busqueda abstracts 
             //y crear una coleccion de archivos con extencion html en el directorio 'abctracts'
             new lecturas_PM().BusquedaPM_Abstracts("abstracts", 500, config); // Número máximo de abstracts por archivo
-            
+
             //este metodo toma la imformacion minada tanto de los objetos minados como de las ontologias y la vacia en formato prolog
             //crea los archivos 'objetosMinados.pl' , ontologiaGO.pl, ontologiaMESH.pl , well_know_rules.pl
-            mfts.vaciar_bc_pl(GO, MESH);
-            
+            mfts.vaciar_bc_pl(GO, MESH, config);
+
             //este metodo llama al resumidor_bioinformante hace uso de la coleccion de abstracts 
             new Resumidor().resumidor(config);
-            
+
             // crea la bace de conocimiento con el listado de eventos encontrados por el resumidor
             String kb = new GeneradorBC().generadorBC("baseC.pl", config);
-            
+
             // se crea el archivo 'mineria/objetos_patrones.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
             new objetos_patrones().generar_archivo(config);
 
@@ -261,7 +260,7 @@ public class BioPattern {
     }
     private String usuario = "";
     private char[] clave;
-   // private char[] clave = {'', '', '', '', '', '', '', '', '', ''};
+    // private char[] clave = {'', '', '', '', '', '', '', '', '', ''};
 
     private void autenticarProxy(String proxy_IP, String proxy_Port) {
 
@@ -288,17 +287,19 @@ public class BioPattern {
     }
 
     public void pruebas() {
-        
+
         //se crea el archivo 'mineria/objetos_patrones.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
         //new objetos_patrones().generar_archivo(new configuracion());
-
-        consultasJPL consulta = new consultasJPL();
+        configuracion config = new configuracion();
+        config.recuperarConfiguracion();
+        int n = 0;
+        System.out.println(config.getResumenes());
+        System.out.println(config.isGenerarResumenes());
+       
+            
+        config.setGenerarResumenes(false);
+        config.guardar();
+            
         
-        consulta.consultas();
-       
-       //minado_FT mft = new minado_FT();
-       //mft.vaciar_bc_pl(false, true);
-       
-       
     }
 }

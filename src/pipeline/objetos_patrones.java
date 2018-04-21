@@ -31,6 +31,9 @@ public class objetos_patrones {
         clasificar_objetos(lista);
         
         q.close();
+        
+        config.setObjetosPatrones(true);
+        config.guardar();
     }
 
     private ArrayList<String> listaObjetos() {

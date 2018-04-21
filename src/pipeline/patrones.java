@@ -37,7 +37,7 @@ public class patrones {
             if (!objEnlace.contains(sep1[2])) {
                 objEnlace.add(sep1[2]);
             }
-            System.out.println("evento inicio:  " + obj);
+           // System.out.println("evento inicio:  " + obj);
         });
 
         ArrayList<String> listaFin = new ArrayList<>();
@@ -60,7 +60,7 @@ public class patrones {
                 objCierre.add(sep[2]);
             }
 
-            System.out.println("evento fin:  " + fin);
+            //System.out.println("evento fin:  " + fin);
             
         });
         
@@ -271,10 +271,10 @@ public class patrones {
         ArrayList<String> lista = new ArrayList<>();
 
         String sep1[] = patron.split(";");
-           System.out.println("patron: "+patron);             
+          // System.out.println("patron: "+patron);             
         for (int i = 0; i < sep1.length; i++) {
             String sep2[] = sep1[i].split(",");
-            System.out.println(sep1[i]);
+            //System.out.println(sep1[i]);
             if (!lista.contains(sep2[0])) {
                 lista.add(sep2[0]);
             }

@@ -109,7 +109,7 @@ public class configuracion {
                 configuracion config = (configuracion) result.next();
                 config = this;
                 db.store(config);
-                //verConfiguracion();
+                
                 break;
             }
         } catch (Exception e) {
@@ -151,7 +151,7 @@ public class configuracion {
                 this.GenerarBC = config.GenerarBC;
                 this.objetosPatrones = config.objetosPatrones;
                 this.InferirPatrones = config.InferirPatrones;
-
+                                
             }
         } catch (Exception e) {
             System.out.println("No fue posible guardar la configuracion");
@@ -182,7 +182,7 @@ public class configuracion {
         } else {
             System.out.println("No");
         }
-
+              
         estadoactual();
     }
 
@@ -274,7 +274,7 @@ public class configuracion {
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -292,7 +292,7 @@ public class configuracion {
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -311,7 +311,7 @@ public class configuracion {
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -327,7 +327,7 @@ public class configuracion {
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -342,7 +342,7 @@ public class configuracion {
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -355,7 +355,7 @@ public class configuracion {
             case 6:
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -367,7 +367,7 @@ public class configuracion {
                 break;
             case 7:
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -378,7 +378,7 @@ public class configuracion {
                 new patrones().inferir_patrones(new ArrayList<String>(), this);
                 break;
             case 8:
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -1066,5 +1066,7 @@ public class configuracion {
     public void setObjetosPatrones(boolean objetosPatrones) {
         this.objetosPatrones = objetosPatrones;
     }
+    
+    
 
 }

@@ -61,7 +61,6 @@ public class ontologiaMESH {
     }
 
     public void vaciar_pl(String MESH, String obj, ArrayList<String> listObj, String archivo) {
-
         ontologiaMESH objeto = new ontologiaMESH();
         objeto.setMESH(MESH);
         objeto = consultarBD(objeto);

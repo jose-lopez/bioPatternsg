@@ -71,7 +71,7 @@ public class Resumidor {
 
         while (buscarAbstractHtml(n)) {
             //metodo que llama al consultResumidor
-            salida = "salida_" + n + ".html";
+            /*salida = "salida_" + n + ".html";
             entrada = "abstracts_" + n + ".html";
             System.out.println("Resumiendo abstracts_" + n + "................");
 
@@ -83,9 +83,9 @@ public class Resumidor {
                 generarResumenTXT(n, salida);
             } catch (Exception e) {
             }
-            config.setResumenes(n);
-            config.guardar();
+           */
             n++;
+                           
         }
         config.setGenerarResumenes(true);
         config.guardar();
