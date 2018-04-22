@@ -42,8 +42,8 @@ public class BioPattern {
         BioPattern biopattern = new BioPattern();
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
-        biopattern.pipelineBioPattern();
-      // biopattern.pruebas();
+       biopattern.pipelineBioPattern();
+       //biopattern.pruebas();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -290,15 +290,10 @@ public class BioPattern {
 
         //se crea el archivo 'mineria/objetos_patrones.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
         //new objetos_patrones().generar_archivo(new configuracion());
-        configuracion config = new configuracion();
-        config.recuperarConfiguracion();
-        int n = 0;
-        System.out.println(config.getResumenes());
-        System.out.println(config.isGenerarResumenes());
-       
-            
-        config.setGenerarResumenes(false);
-        config.guardar();
+        
+        consultasJPL consultas = new consultasJPL();
+        
+        consultas.consultas();
             
         
     }

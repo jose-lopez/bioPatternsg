@@ -16,6 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jpl7.Query;
@@ -39,7 +40,98 @@ public class consultasJPL {
         //interaccion_proteina_proteina();
         //buscar_motivos();
         //buscar_otros_ligandos();
-        buscar_tipo_ligando();
+        //buscar_tipo_ligando();
+        buscar_tejido();
+
+    }
+
+    public void buscar_tejido() {
+        ArrayList<pathway> pathway = new ArrayList<>();
+        pathway = cargarPatrones();
+
+        String receptor = "'EGFR'";
+
+        String consulta = "receptor(" + receptor + ").";
+
+        Query q2 = new Query(consulta);
+
+        ArrayList<objetos_Experto> minados = buscarOBJ();
+
+        if (q2.hasSolution()) {
+
+            pathway.forEach((pathway p) -> {
+
+                if (p.getObjetos().get(1).equals(receptor)) {
+                    ArrayList<String> consultaEsp = new ArrayList<>();
+                    for (int i = 0; i < p.getObjetos().size(); i++) {
+                        consultaEsp.add(construirConsulta(minados, p.getObjetos().get(i).toString().replace("'", "")));
+                    }
+
+                    System.out.println("Patron:  " + p.getPatron());
+                    System.out.println(p.getObjetos());
+                    System.out.println("\nTejitos:\n");
+
+                    ArrayList<ArrayList<String>> tejidos = new ArrayList<>();
+                    consultaEsp.forEach((t) -> {
+                        Query q3 = new Query(t);
+                        ArrayList<String> listaT = new ArrayList<>();
+
+                        for (int i = 0; i < q3.allSolutions().length; i++) {
+                            String Tejido = q3.allSolutions()[i].toString().replace("{T=", "").replace("}", "").replace("'", "");
+                            if (!listaT.contains(Tejido) && !Tejido.equals("cellular_component")) {
+                                listaT.add(Tejido);
+                            }
+                        }
+                        tejidos.add(listaT);
+
+                    });
+                    cruzarTejidos(tejidos).forEach((cc) -> {
+                        System.out.println(cc);
+                    });
+                    System.out.println();
+
+                }
+            });
+
+        }
+    }
+
+    private ArrayList<String> cruzarTejidos(ArrayList<ArrayList<String>> tejidos) {
+        ArrayList<String> tejido = new ArrayList<>();
+
+        for (String cc : tejidos.get(0)) {
+            boolean coincidencia = true;
+            for (int i = 1; i < tejidos.size(); i++) {
+                if (!tejidos.get(i).contains(cc)) {
+                    coincidencia = false;
+                }
+            }
+
+            if (coincidencia) {
+                tejido.add(cc);
+            }
+        }
+
+        return tejido;
+    }
+
+    private String construirConsulta(ArrayList<objetos_Experto> minados, String obj) {
+        String consulta = "";
+
+        for (objetos_Experto minado : minados) {
+            if (minado.getID().equals(obj)) {
+                consulta += "(componente_celular('" + minado.getID() + "',T)";
+
+                for (HGNC hgnc : minado.getHGNC()) {
+                    if (!hgnc.getSimbolo().equals(obj)) {
+                        consulta += ";componente_celular('" + hgnc.getSimbolo() + "',T)";
+                    }
+                }
+                consulta += ")";
+            }
+        }
+
+        return consulta;
     }
 
     public void buscar_tipo_ligando() {
@@ -73,10 +165,9 @@ public class consultasJPL {
             });
 
         }
-        
-        
-        System.out.println("Receptor: "+receptor);
-        Lista.forEach(t -> System.out.println("ligando: "+t[0] + "  funcion " + t[1]));
+
+        System.out.println("Receptor: " + receptor);
+        Lista.forEach(t -> System.out.println("ligando: " + t[0] + "  funcion " + t[1]));
 
     }
 
@@ -330,6 +421,45 @@ public class consultasJPL {
         }
 
         return pathways;
+    }
+
+    public ArrayList<objetos_Experto> buscarOBJ() {
+
+        ArrayList<objetos_Experto> minados = new ArrayList<>();
+        objetos_Experto objExp = new objetos_Experto();
+        ObjectContainer db = Db4o.openFile("mineria/ObjH_E.db");
+
+        try {
+            ObjectSet result = db.queryByExample(objExp);
+            minados.addAll(result);
+        } catch (Exception e) {
+
+        } finally {
+            db.close();
+        }
+
+        factorTranscripcion FT = new factorTranscripcion();
+        ArrayList<factorTranscripcion> FTs = new ArrayList<>();
+        ObjectContainer db2 = Db4o.openFile("mineria/FT.db");
+        try {
+            ObjectSet result = db2.queryByExample(FT);
+            FTs.addAll(result);
+        } catch (Exception e) {
+
+        } finally {
+            db2.close();
+        }
+
+        FTs.forEach((t) -> {
+            objetos_Experto obj = new objetos_Experto();
+            obj.setID(t.getID());
+            obj.setHGNC(t.getHGNC());
+            minados.add(obj);
+
+        });
+
+        return minados;
+
     }
 
 }

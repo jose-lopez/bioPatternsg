@@ -109,7 +109,7 @@ public class configuracion {
                 configuracion config = (configuracion) result.next();
                 config = this;
                 db.store(config);
-                
+
                 break;
             }
         } catch (Exception e) {
@@ -151,7 +151,7 @@ public class configuracion {
                 this.GenerarBC = config.GenerarBC;
                 this.objetosPatrones = config.objetosPatrones;
                 this.InferirPatrones = config.InferirPatrones;
-                                
+
             }
         } catch (Exception e) {
             System.out.println("No fue posible guardar la configuracion");
@@ -182,7 +182,7 @@ public class configuracion {
         } else {
             System.out.println("No");
         }
-              
+
         estadoactual();
     }
 
@@ -274,7 +274,7 @@ public class configuracion {
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -292,7 +292,7 @@ public class configuracion {
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -311,7 +311,7 @@ public class configuracion {
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -327,7 +327,7 @@ public class configuracion {
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -342,7 +342,7 @@ public class configuracion {
                 new combinaciones().generar_combinaciones(false, this);
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -355,7 +355,7 @@ public class configuracion {
             case 6:
                 new PubMed_IDs().buscar(cantidadPMID, this);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -367,7 +367,7 @@ public class configuracion {
                 break;
             case 7:
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -378,7 +378,7 @@ public class configuracion {
                 new patrones().inferir_patrones(new ArrayList<String>(), this);
                 break;
             case 8:
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH,this);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
                 new Resumidor().resumidor(this);
                 try {
                     String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
@@ -416,10 +416,10 @@ public class configuracion {
                 break;
         }
     }
-    
+
     /*busca de todos las lecturas tfbind cuales ya fueron procesadas 
     solo aquellas que no, se agregan a una lista y se continuara el proceso con estas 
-    */
+     */
     private ArrayList<lecturas_TFBIND> actualizarListaTFBind(objetosMineria objetosMineria) {
         ArrayList<lecturas_TFBIND> lista = new ArrayList<>();
         factorTranscripcion ft = new factorTranscripcion();
@@ -431,15 +431,14 @@ public class configuracion {
             }
             System.out.print(".");
         });
-       
+
         //System.out.println(lista.size());
         return lista;
     }
 
-    
     private void buscarObjetos(objetosMineria objetosMineria, factorTranscripcion ft) {
         objetosMineria.getObjetos_minados().add(ft.getID());
-        
+
         objetosMineria.getObjetos_minados().add(ft.getID());
         ft.getComplejoProteinico().forEach((comp) -> {
             comp.getHGNC().forEach(hgnc -> objetosMineria.agregarObjetosMinado(hgnc.getSimbolo()));
@@ -475,21 +474,21 @@ public class configuracion {
             if (buscarObjeto(obj, ft)) {
                 objMin.getObjetos_minados().add(obj);
                 ft.NuevosObjetos(NuevosObj);
-            }else {
+            } else {
                 Lista.add(obj);
             }
             System.out.print(".");
         });
-     
+
         objMin.setNuevos_objetos(new ArrayList<String>());
         NuevosObj.forEach(obj -> objMin.agregar_objeto(obj));
-        
+
         return Lista;
     }
 
     /*se consulta un objeto espesifico provenientes del proceso de iteracion 
     si este se ecuentra retorna true de lo contrario retorna false
-    */
+     */
     private boolean buscarObjeto(String objeto, factorTranscripcion FT) {
         ObjectContainer db = Db4o.openFile("mineria/FT.db");
         factorTranscripcion ft = new factorTranscripcion();
@@ -668,20 +667,25 @@ public class configuracion {
         System.out.println("Existe un proceso de mineria de configuracion: ");
         verConfiguracion();
         System.out.println();
-        while (true) {
-            System.out.print("*Desea continuar con el proceso  ..S/N: ");
-            String resp = lectura.nextLine();
-            if (resp.equalsIgnoreCase("S")) {
-                reiniciar = false;
-                break;
-            } else if (resp.equalsIgnoreCase("N")) {
-                reiniciar = true;
-                break;
-            } else {
-                System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
-            }
+        if (isInferirPatrones()) {
+            return false;
+        } else {
+            while (true) {
+                System.out.print("*Desea continuar con el proceso  ..S/N: ");
+                String resp = lectura.nextLine();
+                if (resp.equalsIgnoreCase("S")) {
+                    reiniciar = false;
+                    break;
+                } else if (resp.equalsIgnoreCase("N")) {
+                    reiniciar = true;
+                    break;
+                } else {
+                    System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                }
 
+            }
         }
+
         return reiniciar;
     }
 
@@ -1066,7 +1070,5 @@ public class configuracion {
     public void setObjetosPatrones(boolean objetosPatrones) {
         this.objetosPatrones = objetosPatrones;
     }
-    
-    
 
 }
