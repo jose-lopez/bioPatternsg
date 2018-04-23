@@ -6,7 +6,7 @@
 
 %************************************************************************
 % Dado un ligando, ¿Cuál (les) receptores lo reconocen y se le enlazan?.
-buscar_receptores(L):-ligand(L),base(C),buscar_en_lista(event(L,E,R),C),receptor(R),write(L),write(" "),write(E),write(" "),write(R),nl,fail.
+buscar_receptores(L,R,E):-ligand(L),base(C),buscar_en_lista(event(L,E,R),C),receptor(R).
 
 %---------------------------------
 % Dado un complejo (o un grupo de ellos) ¿cuáles tienen rol inhibitorio o estimulatorio?.
@@ -18,7 +18,7 @@ buscar_prot_adi(R,L,A):-receptor(R),base(C),buscar_en_lista(event(L,E,R),C),liga
 %---------------------------------
 %**************************************************************************
 %Buscar ligandos a un receptor
-buscar_ligando_rec(R,L):-receptor(R),ligandos(R,LL),buscar_en_lista(L,LL).
+buscar_ligando_rec(R,L):-receptor(R),(ligandos(R,LL),buscar_en_lista(L,LL));(base(C),buscar_en_lista(event(L,_,R),C),ligand(L)).
 
 %******************************************
 %buscar tejidos a un receptor y coponentes asociados
