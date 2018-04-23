@@ -43,7 +43,7 @@ public class BioPattern {
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
        biopattern.pipelineBioPattern();
-       //biopattern.pruebas();
+      // biopattern.pruebas();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -201,6 +201,7 @@ public class BioPattern {
             //se guarda los datos de configuracion que se ingresaron el el menu anterior en mineria/config.db
             config.guardarConfiguracion(regProm, iteraciones, cantObjs, conf, GO, MESH, cantPMID, rutaPMidExp);
 
+        
             //este metodo ejecuta el proceso de busqueda de informacio desde objetos del experto, homologos y los objetos encontrados en los diferentes niveles de busqueda
             mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, config);
 

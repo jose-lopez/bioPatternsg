@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jpl7.Query;
@@ -45,55 +46,139 @@ public class consultasJPL {
 
     }
 
-    public void buscar_tejido() {
-        ArrayList<pathway> pathway = new ArrayList<>();
-        pathway = cargarPatrones();
+    public void menu() {
+        String archivo = "[consultas].";
+        Query q = new Query(archivo);
+        q.hasSolution();
 
-        String receptor = "'EGFR'";
+        limpiarPantalla();
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        while (r) {
+            System.out.println("Consultas para el analisis de una RRG.\n");
+            System.out.println("1.- Busqueda de receptores.");
+            System.out.println("2.- Busqueda de complejos.");
+            System.out.println("3.- Busqueda de proteinas adicionales.");
+            System.out.println("4.- Interecciones proteina-proteina.");
+            System.out.println("5.- Busqueda de motivos.");
+            System.out.println("6.- Busqueda de ligandos.");
+            System.out.println("7.- Clasificar tipo de ligando");
+            System.out.println("8.- Busqueda de tejidos");
+            System.out.println("0.- Volver.");
 
-        String consulta = "receptor(" + receptor + ").";
+            String resp = lectura.nextLine();
 
-        Query q2 = new Query(consulta);
+            switch (resp) {
 
-        ArrayList<objetos_Experto> minados = buscarOBJ();
+                case "1":
+                    buscar_receptores();
+                    break;
+                case "2":
+                    buscar_complejos();
+                    break;
+                case "3":
+                    buscar_proteinas_adicionales();
+                    break;
+                case "4":
+                    interaccion_proteina_proteina();
+                    break;
+                case "5":
+                    buscar_motivos();
+                    break;
+                case "6":
+                    buscar_otros_ligandos();
+                    break;
+                case "7":
+                    buscar_tipo_ligando();
+                    break;
+                case "8":
+                    buscar_tejido();
+                    break;
+                case "0":
+                    r = false;
+                    break;
 
-        if (q2.hasSolution()) {
-
-            pathway.forEach((pathway p) -> {
-
-                if (p.getObjetos().get(1).equals(receptor)) {
-                    ArrayList<String> consultaEsp = new ArrayList<>();
-                    for (int i = 0; i < p.getObjetos().size(); i++) {
-                        consultaEsp.add(construirConsulta(minados, p.getObjetos().get(i).toString().replace("'", "")));
-                    }
-
-                    System.out.println("Patron:  " + p.getPatron());
-                    System.out.println(p.getObjetos());
-                    System.out.println("\nTejitos:\n");
-
-                    ArrayList<ArrayList<String>> tejidos = new ArrayList<>();
-                    consultaEsp.forEach((t) -> {
-                        Query q3 = new Query(t);
-                        ArrayList<String> listaT = new ArrayList<>();
-
-                        for (int i = 0; i < q3.allSolutions().length; i++) {
-                            String Tejido = q3.allSolutions()[i].toString().replace("{T=", "").replace("}", "").replace("'", "");
-                            if (!listaT.contains(Tejido) && !Tejido.equals("cellular_component")) {
-                                listaT.add(Tejido);
-                            }
-                        }
-                        tejidos.add(listaT);
-
-                    });
-                    cruzarTejidos(tejidos).forEach((cc) -> {
-                        System.out.println(cc);
-                    });
-                    System.out.println();
-
-                }
-            });
+            }
 
         }
+    }
+
+    public void buscar_tejido() {
+
+        limpiarPantalla();
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        while (r) {
+            System.out.println("Dado un receptor y su(s) complejo(s) asociado(s), ¿en cuáles tejidos se podría esperar que este (estos) conlleven a una regulación transcripcional positiva ( o negativa)?.");
+            System.out.println("Seleccione una opcion.");
+            System.out.println("1.- Igresar receptor.");
+            System.out.println("0.- Volver al menu anterior.");
+
+            String resp = lectura.nextLine();
+
+            switch (resp) {
+
+                case "1":
+                    limpiarPantalla();
+                    System.out.print("Ingrese el simbolo del receptor. ");
+                    String text = lectura.nextLine();
+                    String receptor = "'" + text + "'";
+
+                    ArrayList<pathway> pathway = new ArrayList<>();
+                    pathway = cargarPatrones();
+                   
+                    String consulta = "receptor(" + receptor + ").";
+
+                    Query q2 = new Query(consulta);
+
+                    ArrayList<objetos_Experto> minados = buscarOBJ();
+
+                    if (q2.hasSolution()) {
+
+                        pathway.forEach((pathway p) -> {
+
+                            if (p.getObjetos().get(1).equals(receptor)) {
+                                ArrayList<String> consultaEsp = new ArrayList<>();
+                                for (int i = 0; i < p.getObjetos().size(); i++) {
+                                    consultaEsp.add(construirConsulta(minados, p.getObjetos().get(i).toString().replace("'", "")));
+                                }
+
+                                System.out.println("Patron:  " + p.getPatron());
+                                System.out.println(p.getObjetos());
+                                System.out.println("\nTejitos:\n");
+
+                                ArrayList<ArrayList<String>> tejidos = new ArrayList<>();
+                                consultaEsp.forEach((t) -> {
+                                    Query q3 = new Query(t);
+                                    ArrayList<String> listaT = new ArrayList<>();
+
+                                    for (int i = 0; i < q3.allSolutions().length; i++) {
+                                        String Tejido = q3.allSolutions()[i].toString().replace("{T=", "").replace("}", "").replace("'", "");
+                                        if (!listaT.contains(Tejido) && !Tejido.equals("cellular_component")) {
+                                            listaT.add(Tejido);
+                                        }
+                                    }
+                                    tejidos.add(listaT);
+
+                                });
+                                cruzarTejidos(tejidos).forEach((cc) -> {
+                                    System.out.println(cc);
+                                });
+                                System.out.println();
+
+                            }
+                        });
+
+                    }
+                    System.out.println("\n");
+                    break;
+
+                case "0":
+                    r = false;
+                    break;
+            }
+        }
+
     }
 
     private ArrayList<String> cruzarTejidos(ArrayList<ArrayList<String>> tejidos) {
@@ -135,39 +220,66 @@ public class consultasJPL {
     }
 
     public void buscar_tipo_ligando() {
-        ArrayList<pathway> pathway = new ArrayList<>();
-        pathway = cargarPatrones();
-        ArrayList<String[]> Lista = new ArrayList<>();
 
-        String receptor = "'EGFR'";
+        limpiarPantalla();
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        while (r) {
+            System.out.println("Dado un receptor, ¿cuáles de sus ligandos enlazantes pueden ser considerados agonistas, antagonistas o de función mixta?");
+            System.out.println("Seleccione una opcion.");
+            System.out.println("1.- Igresar receptor.");
+            System.out.println("0.- Volver al menu anterior.");
 
-        String consulta = "receptor(" + receptor + ").";
+            String resp = lectura.nextLine();
 
-        Query q2 = new Query(consulta);
+            switch (resp) {
 
-        if (q2.hasSolution()) {
+                case "1":
+                    limpiarPantalla();
+                    System.out.print("Ingrese el simbolo del receptor. ");
+                    String text = lectura.nextLine();
+                    String receptor = "'" + text + "'";
 
-            pathway.forEach((p) -> {
+                    ArrayList<pathway> pathway = new ArrayList<>();
+                    pathway = cargarPatrones();
+                    ArrayList<String[]> Lista = new ArrayList<>();
 
-                if (p.getObjetos().get(1).equals(receptor)) {
+                    String consulta = "receptor(" + receptor + ").";
 
-                    String res = tipo_Complejo(p.getPatron());
-                    if (res.equals("estimulatorio")) {
-                        agregar_ligando_list(p.getObjetos().get(0), "agonista", Lista);
+                    Query q2 = new Query(consulta);
+
+                    if (q2.hasSolution()) {
+
+                        pathway.forEach((p) -> {
+
+                            if (p.getObjetos().get(1).equals(receptor)) {
+
+                                String res = tipo_Complejo(p.getPatron());
+                                if (res.equals("estimulatorio")) {
+                                    agregar_ligando_list(p.getObjetos().get(0), "agonista", Lista);
+
+                                }
+
+                                if (res.equals("inhibitorio")) {
+                                    agregar_ligando_list(p.getObjetos().get(0), "antagonista", Lista);
+
+                                }
+                            }
+                        });
 
                     }
 
-                    if (res.equals("inhibitorio")) {
-                        agregar_ligando_list(p.getObjetos().get(0), "antagonista", Lista);
+                    System.out.println("Receptor: " + receptor);
+                    Lista.forEach(t -> System.out.println("ligando: " + t[0] + "  funcion " + t[1]));
+                    System.out.println("\n");
 
-                    }
-                }
-            });
+                    break;
 
+                case "0":
+                    r = false;
+                    break;
+            }
         }
-
-        System.out.println("Receptor: " + receptor);
-        Lista.forEach(t -> System.out.println("ligando: " + t[0] + "  funcion " + t[1]));
 
     }
 
@@ -197,92 +309,224 @@ public class consultasJPL {
     }
 
     public void buscar_otros_ligandos() {
-        String receptor = "'EGFR'";
-        String consulta = "buscar_ligando_rec(" + receptor + ",L).";
 
-        Query q2 = new Query(consulta);
-        System.out.println("Receptor: " + receptor);
-        for (int i = 0; i < q2.allSolutions().length; i++) {
-            String result = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("L=", "");
-            System.out.println("ligando: " + result);
+        limpiarPantalla();
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        while (r) {
+            System.out.println("Dado un receptor ¿Cuales ligandos lo reconocen?");
+            System.out.println("Seleccione una opcion.");
+            System.out.println("1.- Igresar receptor.");
+            System.out.println("0.- Volver al menu anterior.");
+
+            String resp = lectura.nextLine();
+
+            switch (resp) {
+
+                case "1":
+
+                    ArrayList<pathway> pathway = new ArrayList<>();
+                    pathway = cargarPatrones();
+
+                    System.out.print("Ingrese el simbolo del receptor. ");
+                    String text = lectura.nextLine();
+                    String receptor = "'" + text + "'";
+
+                    String consulta = "buscar_ligando_rec(" + receptor + ",L).";
+
+                    Query q2 = new Query(consulta);
+                    System.out.println("Receptor: " + receptor);
+                    ArrayList<String> lig = new ArrayList<>();
+                    for (int i = 0; i < q2.allSolutions().length; i++) {
+                        String result = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("L=", "");
+                        if (!lig.contains(result)) {
+                            lig.add(result);
+                            System.out.println("ligando: " + result);
+                        }
+
+                    }
+                    System.out.println("\n");
+
+                    break;
+                case "0":
+                    r = false;
+                    break;
+            }
         }
 
     }
 
     public void buscar_motivos() {
 
-        ArrayList<pathway> pathway = new ArrayList<>();
-        pathway = cargarPatrones();
+        limpiarPantalla();
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        while (r) {
+            System.out.println("¿Cuáles motivos de DNA son reconocidos y enlazados por un receptor específico en su forma funcional monomérica o dimérica?");
+            System.out.println("Seleccione una opcion.");
+            System.out.println("1.- Igresar receptor.");
+            System.out.println("0.- Volver al menu anterior.");
 
-        String receptor = "'EGFR'";
+            String resp = lectura.nextLine();
 
-        String consulta = "receptor(" + receptor + ").";
+            switch (resp) {
 
-        Query q2 = new Query(consulta);
+                case "1":
 
-        if (q2.hasSolution()) {
+                    ArrayList<pathway> pathway = new ArrayList<>();
+                    pathway = cargarPatrones();
 
-            pathway.forEach((p) -> {
+                    System.out.print("Ingrese el simbolo del receptor. ");
+                    String text = lectura.nextLine();
+                    String receptor = "'" + text + "'";
 
-                if (p.getObjetos().get(1).equals(receptor)) {
-                    System.out.println("receptor: " + receptor);
-                    System.out.println("motivo: " + p.getObjetos().get(p.getObjetos().size() - 1));
+                    String consulta = "receptor(" + receptor + ").";
 
-                    System.out.println("pathway: " + p.getPatron() + "\n");
-                }
+                    Query q2 = new Query(consulta);
+                    limpiarPantalla();
 
-            });
+                    if (q2.hasSolution()) {
+                        System.out.println();
+                        pathway.forEach((p) -> {
 
+                            if (p.getObjetos().get(1).equals(receptor)) {
+                                System.out.println("receptor: " + receptor);
+                                System.out.println("motivo: " + p.getObjetos().get(p.getObjetos().size() - 1));
+
+                                System.out.println("pathway: " + p.getPatron() + "\n");
+                            }
+
+                        });
+
+                    }
+
+                    break;
+
+                case "0":
+                    r = false;
+                    break;
+            }
         }
-
     }
 
     public void buscar_receptores() {
-        String consulta = "buscar_receptores('EGF').";
+        limpiarPantalla();
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        while (r) {
+            System.out.println("Dado un ligando, ¿Cuál (les) receptores lo reconocen y se le enlazan?.\n");
+            System.out.println("Seleccione una opcion.");
+            System.out.println("1.- Igresar ligando.");
+            System.out.println("0.- Volver al menu anterior.");
 
-        Query q2 = new Query(consulta);
+            String resp = lectura.nextLine();
 
-        for (int i = 0; i < q2.allSolutions().length; i++) {
-            System.out.println(q2.allSolutions()[i]);
+            switch (resp) {
+
+                case "1":
+                    System.out.println("Ingrese el simbolo del ligando. ");
+                    String lig = lectura.nextLine();
+
+                    String consulta = "buscar_receptores('" + lig + "',R,E).";
+
+                    Query q2 = new Query(consulta);
+                    ArrayList<String> eventos = new ArrayList<>();
+                    ArrayList<String> receptor = new ArrayList<>();
+                    //{R='EGFR', E=induce}
+                    for (int i = 0; i < q2.allSolutions().length; i++) {
+                        String sep1[] = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").split(",");
+                        String R = sep1[0].split("=")[1];
+                        String E = sep1[1].split("=")[1];
+
+                        eventos.add(lig + " " + E + " " + R);
+                        if (!receptor.contains(R)) {
+                            receptor.add(R);
+                        }
+                    }
+
+                    limpiarPantalla();
+                    System.out.println("para el ligando " + lig + " se encontraron los siguientes receptores ");
+                    receptor.forEach(t -> System.out.println("receptor:  " + t));
+
+                    System.out.print("\n Para ver el listado de eventos donde se vincula el ligando con los receptores precione 'S':  ");
+                    String resp2 = lectura.nextLine();
+                    System.out.println();
+                    if (resp2.equalsIgnoreCase("S")) {
+                        eventos.forEach(even -> System.out.println(even));
+                    }
+                    System.out.println("\n");
+                    break;
+
+                case "0":
+                    r = false;
+                    break;
+            }
+
         }
     }
 
     public void buscar_proteinas_adicionales() {
+        limpiarPantalla();
 
-        String R = "'EGFR'";
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        while (r) {
+            System.out.println("¿Dado un receptor (en su forma monomérica o dimérica), a cuáles proteínas adicionales puede éste enlazarse? ");
+            System.out.println("Seleccione una opcion.");
+            System.out.println("1.- Igresar receptor.");
+            System.out.println("0.- Volver al menu anterior.");
 
-        String consulta = "buscar_prot_adi(" + R + ",L,A).";
+            String resp = lectura.nextLine();
 
-        Query q2 = new Query(consulta);
-        ArrayList<String> lista = new ArrayList<>();
+            switch (resp) {
 
-        for (int i = 0; i < q2.allSolutions().length; i++) {
-            //System.out.println(q2.allSolutions()[i]);
-            String sep1[] = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").split(",");
-            String cadena = "";
+                case "1":
+                    System.out.println("Ingrese el simbolo del receptor. ");
+                    String receptor = lectura.nextLine();
+                    String consulta = "buscar_prot_adi('" + receptor + "',L,A).";
 
-            String A = null, L = null;
-            for (int j = 0; j < sep1.length; j++) {
+                    Query q2 = new Query(consulta);
+                    ArrayList<String> lista = new ArrayList<>();
 
-                String sep2[] = sep1[j].replace(" ", "").split("=");
+                    for (int i = 0; i < q2.allSolutions().length; i++) {
+                        //System.out.println(q2.allSolutions()[i]);
+                        String sep1[] = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").split(",");
+                        String cadena = "";
 
-                if (sep2[0].equals("A")) {
-                    A = sep2[1];
-                    // System.out.println("A " + A);
-                }
+                        String A = null, L = null;
+                        for (int j = 0; j < sep1.length; j++) {
 
-                if (sep2[0].equals("L")) {
-                    L = sep2[1];
-                    //System.out.println("L " + L);
-                }
+                            String sep2[] = sep1[j].replace(" ", "").split("=");
 
-            }
+                            if (sep2[0].equals("A")) {
+                                A = sep2[1];
+                                // System.out.println("A " + A);
+                            }
 
-            cadena = L + "-->" + R + "-->" + A;
+                            if (sep2[0].equals("L")) {
+                                L = sep2[1];
+                                //System.out.println("L " + L);
+                            }
 
-            if (!lista.contains(cadena) && !A.equals(L)) {
-                System.out.println(cadena);
-                lista.add(cadena);
+                        }
+
+                        cadena = L + "-->" + receptor + "-->" + A;
+
+                        if (!lista.contains(cadena) && !A.equals(L)) {
+                            lista.add(cadena);
+                        }
+                    }
+                    limpiarPantalla();
+                    System.out.println("para el receptor " + receptor + " se tiene el siguiente resultado");
+                    System.out.println("los resultados se dan en formato 'ligando-->receptor-->proteina'\n");
+
+                    lista.forEach(t -> System.out.println(t));
+                    System.out.println("\n");
+                    break;
+                case "0":
+                    r = false;
+                    break;
+
             }
         }
 
@@ -291,48 +535,95 @@ public class consultasJPL {
 
     public void interaccion_proteina_proteina() {
 
-        ArrayList<pathway> pathways = new ArrayList<>();
-        pathways = cargarPatrones();
-        String ligando = "'EGF'";
-        String receptor = "'EGFR'";
-        //String gen = "'SST'";
+        limpiarPantalla();
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        while (r) {
+            System.out.println("Dado un ligando, ¿qué tipo de interacciones proteína - proteína resultan cuando este se enlaza a un receptor conocido, y cuáles de ellas conducen a una elevación (disminución) en la respuesta transcripcional de algún gen?. (Definición de patrones de regulación)");
+            System.out.println("Seleccione una opcion.");
+            System.out.println("1.- Igresar datos.");
+            System.out.println("0.- Volver al menu anterior.");
 
-        pathways.forEach((p) -> {
-            try {
-                if (ligando.equals(p.getObjetos().get(0)) && receptor.equals(p.getObjetos().get(1))) {
-                    System.out.println("\n\n" + p.getPatron());
-                    System.out.println("Tipo: " + tipo_Complejo(p.getPatron()));
-                }
-            } catch (Exception e) {
+            String resp = lectura.nextLine();
+
+            switch (resp) {
+                case "1":
+                    System.out.print("Ingrese simbolo del ligando: ");
+                    String text = lectura.nextLine();
+                    String ligando = "'" + text + "'";
+                    System.out.print("Ingrese simbolo del receptor: ");
+                    text = lectura.nextLine();
+                    String receptor = "'" + text + "'";
+
+                    ArrayList<pathway> pathways = new ArrayList<>();
+                    pathways = cargarPatrones();
+                    pathways.forEach((p) -> {
+                        try {
+                            if (ligando.equals(p.getObjetos().get(0)) && receptor.equals(p.getObjetos().get(1))) {
+                                System.out.println("\n\n" + p.getPatron());
+                                System.out.println("Tipo: " + tipo_Complejo(p.getPatron()));
+                            }
+                        } catch (Exception e) {
+                        }
+
+                    });
+                    System.out.println("\n");
+
+                    break;
+                case "0":
+                    r = false;
+                    break;
             }
 
-        });
+        }
 
     }
 
     public void buscar_complejos() {
-        ArrayList<pathway> pathway = new ArrayList<>();
-        pathway = cargarPatrones();
+        limpiarPantalla();
 
-        pathway.forEach((p) -> {
-            ArrayList<String> objetos = p.getObjetos();
-            ArrayList<Integer> pos_enzymas = new ArrayList<>();
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        while (r) {
 
-            for (int j = 0; j < objetos.size(); j++) {
-                String consulta = "enzyme(" + objetos.get(j) + ").";
-                Query q2 = new Query(consulta);
-                if (q2.hasSolution()) {
-                    System.out.println("enzyne: " + objetos.get(j));
-                    pos_enzymas.add(j);
-                }
+            System.out.println("Busqueda de complejos proteinicos y rol que cumplen en los pathways encontrados.");
+            System.out.println("\n Seleccione una opcion.");
+            System.out.println("1.- Ejecutar el proceso.");
+            System.out.println("0.- Volver al menu anterior.");
+            String resp = lectura.nextLine();
+
+            switch (resp) {
+                case "1":
+                    limpiarPantalla();
+                    ArrayList<pathway> pathway = new ArrayList<>();
+                    pathway = cargarPatrones();
+
+                    pathway.forEach((p) -> {
+                        ArrayList<String> objetos = p.getObjetos();
+                        ArrayList<Integer> pos_enzymas = new ArrayList<>();
+
+                        for (int j = 0; j < objetos.size() - 1; j++) {
+                            String consulta = "enzyme(" + objetos.get(j) + ").";
+                            Query q2 = new Query(consulta);
+                            if (q2.hasSolution()) {
+                                // System.out.println("enzyne: " + objetos.get(j));
+                                pos_enzymas.add(j);
+                            }
+                        }
+
+                        System.out.println("Pathway:");
+                        System.out.println(p.getPatron());
+                        separar_complejo(pos_enzymas, objetos, p.getPatron());
+                        System.out.println("\n");
+                    });
+
+                    break;
+                case "0":
+                    r = false;
+                    break;
             }
 
-            System.out.println("Pathway:");
-            System.out.println(p.getPatron());
-            //complejos por enzimas
-            separar_complejo(pos_enzymas, objetos, p.getPatron());
-
-        });
+        }
 
     }
 
@@ -341,22 +632,32 @@ public class consultasJPL {
         int posin = pos.get(0);
         int posfin = pos.get(pos.size() - 1) + 1;
 
-        ArrayList<String> primerComplejo = new ArrayList<>();
-
+        ArrayList<String> Complejo = new ArrayList<>();
+        String primero = "";
         for (int i = 0; i <= posin; i++) {
-            primerComplejo.add(ObjPat.get(i));
+            primero += ObjPat.get(i);
+            if (i < posin) {
+                primero += "--";
+            }
+            // Complejo.add(ObjPat.get(i));
         }
 
-        ArrayList<String> segundoComplejo = new ArrayList<>();
+        if (primero != "") {
+            Complejo.add(primero);
+        }
+        String segundo = "";
         for (int i = posfin - 1; i < ObjPat.size() - 1; i++) {
-            segundoComplejo.add(ObjPat.get(i));
+            segundo += ObjPat.get(i);
+            if (i < ObjPat.size() - 2) {
+                segundo += "--";
+            }
+        }
+        if (segundo != "") {
+            Complejo.add(segundo);
         }
 
         String tipo = tipo_Complejo(Patron);
-
-        System.out.println("complejo: " + primerComplejo + "  " + tipo);
-        System.out.println("complejo: " + segundoComplejo + "  " + tipo);
-        System.out.println("\n\n");
+        Complejo.forEach(c -> System.out.println("complejo: " + c + "  rol: " + tipo));
 
     }
 
@@ -460,6 +761,11 @@ public class consultasJPL {
 
         return minados;
 
+    }
+
+    private void limpiarPantalla() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
 }

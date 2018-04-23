@@ -67,6 +67,7 @@ public class configuracion {
         this.crearOntologiaMESH = MESH;
         this.cantidadPMID = cantPMID;
         this.rutaPMID_experto = PMidExp;
+
         ObjectContainer db = Db4o.openFile("mineria/config.db");
         try {
             db.store(this);
@@ -256,12 +257,45 @@ public class configuracion {
             reanudar(12, objMin);
         } else {
             //proceso terminado
-            ver_detalles();
+            menuFinal();
         }
     }
 
+    private void menuFinal() {
+
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+
+        while (r) {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.println("El proceso de mineria y generacion de patrones de regulacion a terminado.");
+            System.out.println("Seleccione una opcion.");
+            System.out.println("1.- Crear un nuevo proceso.");
+            System.out.println("2.- Ir al menu analisis de RRG.");
+            System.out.println("0.- Salir.");
+
+            String resp = lectura.nextLine();
+
+            switch (resp) {
+
+                case "1":
+                    break;
+                case "2":
+                    consultasJPL RRG = new consultasJPL();
+                    RRG.menu();
+                    break;
+                case "0":
+                    r = false;
+                    break;
+
+            }
+
+        }
+    }
     //dependiendo del punto de reanudacion del proceso se ejecutaran el juego instrucciones necesarias 
     //para que el proceso termine
+
     private void reanudar(int punto, objetosMineria objetosMineria) {
         minado_FT mfts = new minado_FT();
         lecturas_PM lpm = new lecturas_PM();
