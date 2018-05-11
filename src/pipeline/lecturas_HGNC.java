@@ -47,56 +47,58 @@ public class lecturas_HGNC {
     public boolean busqueda_genenames(String contenido, boolean criterio, int opcion, ArrayList<HGNC> HGNC, boolean GO, boolean MESH) {
 
         ArrayList<String> factor = new ArrayList<>();
-        if (criterio) {
-            String cri = obtener_factor(contenido);
-            try {
-                cri = cri.replace(" ", "+");
+        if (!contenido.equals("") && !contenido.equals(null)) {
+            if (criterio) {
+                String cri = obtener_factor(contenido);
+                try {
+                    cri = cri.replace(" ", "+");
 
-                String Url = "http://rest.genenames.org/search/" + cri;
-                Document doc = new conexionServ().conecta(Url);
-                factor = busqueda_lista_xml(doc, opcion, cri);
-            } catch (Exception e) {
+                    String Url = "http://rest.genenames.org/search/" + cri;
+                    Document doc = new conexionServ().conecta(Url);
+                    factor = busqueda_lista_xml(doc, opcion, cri);
+                } catch (Exception e) {
+                    try {
+                        contenido = contenido.replace(" ", "+");
+                        String Url = "http://rest.genenames.org/search/" + contenido;
+                        Document doc = new conexionServ().conecta(Url);
+                        factor = busqueda_lista_xml(doc, opcion, cri);
+
+                    } catch (Exception ee) {
+                    }
+
+                }
+            } else {
+
                 try {
                     contenido = contenido.replace(" ", "+");
                     String Url = "http://rest.genenames.org/search/" + contenido;
                     Document doc = new conexionServ().conecta(Url);
-                    factor = busqueda_lista_xml(doc, opcion, cri);
-
+                    factor = busqueda_lista_xml(doc, opcion, contenido);
                 } catch (Exception ee) {
+                    HGNC hgnc = new HGNC();
+                    hgnc.setSimbolo(contenido);
+                    hgnc.setNombre(contenido);
+                    HGNC.add(hgnc);
                 }
-
             }
-        } else {
 
-            try {
-                contenido = contenido.replace(" ", "+");
-                String Url = "http://rest.genenames.org/search/" + contenido;
-                Document doc = new conexionServ().conecta(Url);
-                factor = busqueda_lista_xml(doc, opcion, contenido);
-            } catch (Exception ee) {
-                HGNC hgnc = new HGNC();
-                hgnc.setSimbolo(contenido);
-                hgnc.setNombre(contenido);
-                HGNC.add(hgnc);
-            }
-        }
+            //System.out.println("etiqueta: "+ID);
+            //System.out.println("Factor: "+factor);
+            // System.out.println("cantidad Objetos HUGO: " + factor.size());
+            for (int i = 0; i < factor.size(); i++) {
 
-        //System.out.println("etiqueta: "+ID);
-        //System.out.println("Factor: "+factor);
-        // System.out.println("cantidad Objetos HUGO: " + factor.size());
-        for (int i = 0; i < factor.size(); i++) {
+                try {
+                    // String nombre = busque String  Url = "http://rest.genenames.org/search/" + contenido;
 
-            try {
-                // String nombre = busque String  Url = "http://rest.genenames.org/search/" + contenido;
+                    //System.out.println("Simbolo HUGO: " + factor.get(i));
+                    String Url = "http://rest.genenames.org/fetch/symbol/" + factor.get(i);
+                    Document doc = new conexionServ().conecta(Url);
+                    HGNC.add(busqueda_datos_xml(doc, GO, MESH));
 
-                //System.out.println("Simbolo HUGO: " + factor.get(i));
-                String Url = "http://rest.genenames.org/fetch/symbol/" + factor.get(i);
-                Document doc = new conexionServ().conecta(Url);
-                HGNC.add(busqueda_datos_xml(doc, GO, MESH));
+                } catch (Exception e) {
+                    // System.out.println("no se encuentra "+contenido+" en HUGO");
 
-            } catch (Exception e) {
-                // System.out.println("no se encuentra "+contenido+" en HUGO");
-
+                }
             }
         }
 
@@ -242,14 +244,14 @@ public class lecturas_HGNC {
 
                             }
                         }
-                        
+
                         for (String sinonimo : letUP.getSinonimos()) {
-                            if(!hgnc.getSinonimos().contains(sinonimo)){
+                            if (!hgnc.getSinonimos().contains(sinonimo)) {
                                 hgnc.getSinonimos().add(sinonimo);
                                 //System.out.println(letUP.getSinonimos().get(j));
                             }
                         }
- 
+
                     }
                     //ontologia MESH--------------------------------------------
                     if (MESH && !ont) {
@@ -258,7 +260,7 @@ public class lecturas_HGNC {
                             //System.out.println(hgnc.getSimbolo() + "  " + hgnc.getNombre());
                             String idmesh = letMesh.busquedaTerm(hgnc.getNombre().replace(" ", "+"), 2);
                             if (idmesh == null) {
-                                idmesh = letMesh.busquedaTerm(hgnc.getSimbolo(),2);
+                                idmesh = letMesh.busquedaTerm(hgnc.getSimbolo(), 2);
                             }
                             ontologia.getParent().add(idmesh);
                             ont = true;
@@ -445,7 +447,7 @@ class HGNC {
         Lista.add(Simbolo);
         Lista.add(Nombre);
         Lista.addAll(sinonimos);
-        
+
         return Lista;
     }
 
