@@ -707,7 +707,7 @@ public class consultasJPL {
         return tipo;
     }
 
-    private ArrayList<pathway> cargarPatrones() {
+    public ArrayList<pathway> cargarPatrones() {
         ArrayList<pathway> pathways = new ArrayList<>();
 
         ObjectContainer db = Db4o.openFile("mineria/patrones.db");

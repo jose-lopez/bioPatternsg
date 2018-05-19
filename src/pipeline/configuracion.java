@@ -255,24 +255,27 @@ public class configuracion {
             reanudar(11, objMin);
         } else if (!InferirPatrones) {
             reanudar(12, objMin);
-        } else {
-            //proceso terminado
-            menuFinal();
         }
+        //proceso terminado
+        menuFinal();
+
     }
 
     private void menuFinal() {
 
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
-
+        consultasJPL RRG = new consultasJPL();
+        ArrayList<pathway> patrones = RRG.cargarPatrones();
         while (r) {
             System.out.print("\033[H\033[2J");
             System.out.flush();
             System.out.println("El proceso de mineria y generacion de patrones de regulacion a terminado.");
+            System.out.println(patrones.size() + " Patrones encontrados\n");
             System.out.println("Seleccione una opcion.");
             System.out.println("1.- Crear un nuevo proceso.");
             System.out.println("2.- Ir al menu analisis de RRG.");
+            System.out.println("3.- Inferir patrones nuevamente.");
             System.out.println("0.- Salir.");
 
             String resp = lectura.nextLine();
@@ -280,10 +283,25 @@ public class configuracion {
             switch (resp) {
 
                 case "1":
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    minado_FT mft = new minado_FT();
+                    mft.crearCarpeta("mineria");
+                    configuracion config = new configuracion();
+                    BioPattern bp = new BioPattern();
+                     {
+                        try {
+                            bp.pipelineBioPattern();
+                        } catch (Exception e) {
+
+                        }
+                    }
                     break;
                 case "2":
-                    consultasJPL RRG = new consultasJPL();
                     RRG.menu();
+                    break;
+                case "3":
+                    new patrones().inferir_patrones(new ArrayList<String>(), this);
                     break;
                 case "0":
                     r = false;
@@ -293,9 +311,9 @@ public class configuracion {
 
         }
     }
+
     //dependiendo del punto de reanudacion del proceso se ejecutaran el juego instrucciones necesarias 
     //para que el proceso termine
-
     private void reanudar(int punto, objetosMineria objetosMineria) {
         minado_FT mfts = new minado_FT();
         lecturas_PM lpm = new lecturas_PM();
