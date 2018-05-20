@@ -283,25 +283,40 @@ public class configuracion {
             switch (resp) {
 
                 case "1":
-                    System.out.print("\033[H\033[2J");
-                    System.out.flush();
-                    minado_FT mft = new minado_FT();
-                    mft.crearCarpeta("mineria");
-                    configuracion config = new configuracion();
-                    BioPattern bp = new BioPattern();
-                     {
-                        try {
-                            bp.pipelineBioPattern();
-                        } catch (Exception e) {
 
+                    while (true) {
+                        System.out.print("*Se perderan todos los datos del proceso actual ¿desea continuar?  ..S/N: ");
+                        String resp2 = lectura.nextLine();
+                        if (resp2.equalsIgnoreCase("s")) {
+                            System.out.print("\033[H\033[2J");
+                            System.out.flush();
+                            minado_FT mft = new minado_FT();
+                            mft.crearCarpeta("mineria");
+                            configuracion config = new configuracion();
+                            BioPattern bp = new BioPattern();
+                            {
+                                try {
+                                    bp.pipelineBioPattern();
+                                } catch (Exception e) {
+
+                                }
+                            }
+
+                            break;
+                        } else if (resp.equalsIgnoreCase("n")) {
+
+                            break;
+                        } else {
+                            System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
                         }
                     }
+
                     break;
                 case "2":
                     RRG.menu();
                     break;
                 case "3":
-                    new patrones().inferir_patrones(new ArrayList<String>(), this);
+                    new patrones().inferir_patrones(this);
                     break;
                 case "0":
                     r = false;
@@ -334,7 +349,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(this);
                 break;
             case 2:
                 revisarObjH_E("homologos", objetosMineria);
@@ -352,7 +367,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(this);
                 break;
             case 3:
                 revisarObjH_E("homologos", objetosMineria);
@@ -371,7 +386,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(this);
                 break;
             case 4:
                 ArrayList<String> ListaObj = reanudarIteracion(objetosMineria);
@@ -387,7 +402,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(this);
                 break;
 
             case 5:
@@ -402,7 +417,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(this);
                 break;
             case 6:
                 new PubMed_IDs().buscar(cantidadPMID, this);
@@ -415,7 +430,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(this);
                 break;
             case 7:
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this);
@@ -427,7 +442,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(this);
                 break;
             case 8:
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
@@ -438,7 +453,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(this);
                 break;
             case 9:
                 new Resumidor().resumidor(this);
@@ -448,7 +463,7 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(this);
                 break;
             case 10:
                 try {
@@ -457,14 +472,14 @@ public class configuracion {
                     objetos_patrones.generar_archivo(this);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(this);
             case 11:
                 objetos_patrones objetos_patrones = new objetos_patrones();
                 objetos_patrones.generar_archivo(this);
-                new patrones().inferir_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(this);
                 break;
             case 12:
-                new patrones().inferir_patrones(new ArrayList<String>(), this);
+                new patrones().inferir_patrones(this);
                 break;
         }
     }

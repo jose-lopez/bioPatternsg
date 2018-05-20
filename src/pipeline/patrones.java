@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 import org.jpl7.Query;
 
 /**
@@ -19,7 +20,9 @@ import org.jpl7.Query;
  */
 public class patrones {
 
-    public void inferir_patrones(ArrayList<String> objCierre, configuracion config) {
+    public void inferir_patrones(configuracion config) {
+
+        ArrayList<String> objCierre = menuMotivos();
 
         borrar_archivo("mineria/patrones.txt");
         borrar_archivo("mineria/patrones.db");
@@ -37,38 +40,93 @@ public class patrones {
             if (!objEnlace.contains(sep1[2])) {
                 objEnlace.add(sep1[2]);
             }
-           // System.out.println("evento inicio:  " + obj);
+            // System.out.println("evento inicio:  " + obj);
         });
 
         ArrayList<String> listaFin = new ArrayList<>();
 
         objCierre.forEach(obj -> listaFin.addAll(fin(obj)));
-      
+
         if (objCierre.size() == 0) {
             listaFin.addAll(fin(""));
         }
 
         ArrayList<String> FT = new ArrayList<>();
-        
+
         listaFin.forEach((String fin) -> {
             String sep[] = fin.split(",");
             if (!FT.contains(sep[0])) {
                 FT.add(sep[0]);
             }
-            
+
             if (!objCierre.contains(sep[2])) {
                 objCierre.add(sep[2]);
             }
 
             //System.out.println("evento fin:  " + fin);
-            
         });
-        
-       objEnlace.forEach(enlace -> intermedios(new ArrayList<String>(), enlace, FT, "", 0, listaInicio, listaFin, objCierre));
-      
-       config.setInferirPatrones(true);
-       config.guardar();
 
+        objEnlace.forEach(enlace -> intermedios(new ArrayList<String>(), enlace, FT, "", 0, listaInicio, listaFin, objCierre));
+
+        config.setInferirPatrones(true);
+        config.guardar();
+
+    }
+
+    private ArrayList<String> menuMotivos() {
+        ArrayList<String> motivos = new ArrayList<>();
+        Scanner lectura = new Scanner(System.in);
+        boolean r = false;
+
+        while (true) {
+            System.out.print("*Desea agregar un motivo como objeto final en los pathway  ..S/N: ");
+            String resp = lectura.nextLine();
+            if (resp.equalsIgnoreCase("s")) {
+                r = true;
+                break;
+            } else if (resp.equalsIgnoreCase("n")) {
+                r = false;
+                break;
+            } else {
+                System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+            }
+        }
+
+        if (r) {
+            while (true) {
+                System.out.print("*Ingrese en nombre del motivo: ");
+                String motivo = lectura.nextLine();
+                if (!motivo.equals("")) {
+                    motivo = motivo.replace("'", "");
+                    motivo = "'" + motivo + "'";
+                    motivos.add(motivo);
+
+                    boolean r2 = false;
+                    while (true) {
+                        System.out.print("*Desea agregar otro motivo?  ..S/N: ");
+                        String resp = lectura.nextLine();
+                        if (resp.equalsIgnoreCase("s")) {
+                            r2 = true;
+                            break;
+                        } else if (resp.equalsIgnoreCase("n")) {
+                            r2 = false;
+                            break;
+                        } else {
+                            System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                        }
+                    }
+
+                    if (!r2) {
+                        break;
+                    }
+
+                } else {
+                    System.out.println("Debe ingresar un nombre valido");
+                }
+            }
+        }
+
+        return motivos;
     }
 
     private ArrayList<String> inicio() {
@@ -143,7 +201,7 @@ public class patrones {
             cierre.removeIf(x -> x.equals(separa[2]));
 
             boolean pat = false;
-            
+
             for (String factorT : FT) {
                 if (separa[2].equals(factorT) && !lista.contains(separa[2]) && cierre.size() > 0) {
                     ArrayList<String> listaAux = new ArrayList<>();
@@ -191,15 +249,15 @@ public class patrones {
                 }
             }
         });
-        
+
         patrones.stream().forEach((Patron) -> {
-            
+
             listafin.stream().forEach((fin) -> {
                 String sep2[] = fin.split(",");
-                if (ultimo.equals(sep2[0]) && Patron!=null) {
+                if (ultimo.equals(sep2[0]) && Patron != null) {
                     String patronF = Patron + ";" + fin;
                     ArrayList<String> list = listarObetosPatron(patronF);
-                    
+
                     Objcierre.stream().forEach((cierre) -> {
                         if (cierre.equals(list.get(list.size() - 1))) {
                             System.out.println("\n\n" + patronF);
@@ -207,13 +265,12 @@ public class patrones {
                             escribirArchivo(patronF, list.toString(), "patrones.txt");
                             guardar_Patron(patronF, list);
                         }
-                        
+
                     });
                 }
             });
-            
+
         });
-      
 
     }
 
@@ -271,7 +328,7 @@ public class patrones {
         ArrayList<String> lista = new ArrayList<>();
 
         String sep1[] = patron.split(";");
-          // System.out.println("patron: "+patron);             
+        // System.out.println("patron: "+patron);             
         for (int i = 0; i < sep1.length; i++) {
             String sep2[] = sep1[i].split(",");
             //System.out.println(sep1[i]);
@@ -292,7 +349,6 @@ public class patrones {
         String even = "";
 
         cadena = cadena.replace("{", "").replace("}", "").replace(" ", "");
-        
 
         String separa[] = cadena.split(",");
 
