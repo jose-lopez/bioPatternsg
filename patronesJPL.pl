@@ -12,9 +12,6 @@ intermedios(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),protein(B),buscar_en
 buscar_en_lista(L,[L|_]).
 buscar_en_lista(L,[_|Ys]):-buscar_en_lista(L,Ys).
 
-ligand('').
-receptor('').
-transcription_factor('').
-protein('').
+objeto(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),transcription_factor(A).
 
 %[trimerize,require,heterodimerize,interact,associate,phosphorylate,recruit,dimerize,recognize,participate,activate,inhibit]
