@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import org.jpl7.Query;
+import org.jpl7.Term;
 
 /**
  *
@@ -25,8 +26,11 @@ public class patrones {
 
     public void inferir_patrones(configuracion config) {
 
+        ArrayList<String> objRestricion = menuRestricionObjetos();
+        
         ArrayList<String> objCierre = menuMotivos();
 
+       
         borrar_archivo("mineria/patrones.txt");
         borrar_archivo("mineria/patrones.db");
 
@@ -34,7 +38,7 @@ public class patrones {
         Query q = new Query(archivo);
         q.hasSolution();
 
-        ArrayList<String> listaInicio = inicio();
+        ArrayList<String> listaInicio = inicio(objRestricion);
 
         ArrayList<String> objEnlace = new ArrayList<>();
 
@@ -43,15 +47,15 @@ public class patrones {
             if (!objEnlace.contains(sep1[2])) {
                 objEnlace.add(sep1[2]);
             }
-            // System.out.println("evento inicio:  " + obj);
+           // System.out.println("evento inicio:  " + obj);
         });
 
         ArrayList<String> listaFin = new ArrayList<>();
 
-        objCierre.forEach(obj -> listaFin.addAll(fin(obj)));
+        objCierre.forEach(obj -> listaFin.addAll(fin(obj,objRestricion)));
 
         if (objCierre.size() == 0) {
-            listaFin.addAll(fin(""));
+            listaFin.addAll(fin("",objRestricion));
         }
 
         ArrayList<String> FT = new ArrayList<>();
@@ -66,24 +70,77 @@ public class patrones {
                 objCierre.add(sep[2]);
             }
 
-            //System.out.println("evento fin:  " + fin);
+           // System.out.println("evento fin:  " + fin);
         });
 
         //patrones de 2 eventos
         patron_2_eventos(objCierre, listaInicio, objEnlace);
 
-        objEnlace.forEach(enlace -> intermedios(new ArrayList<String>(), enlace, FT, "", 0, listaInicio, listaFin, objCierre));
+        objEnlace.forEach(enlace -> intermedios(new ArrayList<String>(), enlace, FT, "", 0, listaInicio, listaFin, objCierre,objRestricion));
 
         //Esta rutina se habilita solo si buscan patrones con parallelStream()
-      /*  System.out.println("Generando archivos...");
-        patrones.forEach((p) -> {
-            guardar_Patron(p.getPatron(), p.getObjetos());
-            escribirArchivo(p.getPatron(), p.getObjetos().toString(), "patrones.txt");
-        });
-*/
+        System.out.println("Generando archivos...");
+        guardar_Patron();
+               
         config.setInferirPatrones(true);
         config.guardar();
 
+    }
+
+    private ArrayList<String> menuRestricionObjetos() {
+        ArrayList<String> objetos = new ArrayList<>();
+        Scanner lectura = new Scanner(System.in);
+        boolean r = false;
+
+        while (true) {
+            System.out.print("*Desea restringir los pathway a un listado de objetos espesificos ..S/N: ");
+            String resp = lectura.nextLine();
+            if (resp.equalsIgnoreCase("s")) {
+                r = true;
+                break;
+            } else if (resp.equalsIgnoreCase("n")) {
+                r = false;
+                break;
+            } else {
+                System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+            }
+        }
+
+        if (r) {
+            while (true) {
+                System.out.print("*Ingrese en nombre del objeto: ");
+                String objeto = lectura.nextLine();
+                if (!objeto.equals("")) {
+                    objeto = objeto.replace("'", "");
+                    objeto = "'" + objeto + "'";
+                    objetos.add(objeto);
+
+                    boolean r2 = false;
+                    while (true) {
+                        System.out.print("*Desea agregar otro objeto?  ..S/N: ");
+                        String resp = lectura.nextLine();
+                        if (resp.equalsIgnoreCase("s")) {
+                            r2 = true;
+                            break;
+                        } else if (resp.equalsIgnoreCase("n")) {
+                            r2 = false;
+                            break;
+                        } else {
+                            System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                        }
+                    }
+
+                    if (!r2) {
+                        break;
+                    }
+
+                } else {
+                    System.out.println("Debe ingresar un nombre valido");
+                }
+            }
+        }
+
+        return objetos;
     }
 
     private ArrayList<String> menuMotivos() {
@@ -142,15 +199,18 @@ public class patrones {
         return motivos;
     }
 
-    private ArrayList<String> inicio() {
+    private ArrayList<String> inicio(ArrayList<String> objRest) {
         ArrayList<String> lista = new ArrayList<>();
-
-        String consulta = "inicio(A,E,B).";
+        String consulta;
+        if (objRest.size() > 0) {
+            consulta = "inicio_rest(A,E,B," + objRest.toString() + ").";
+        } else {
+            consulta = "inicio(A,E,B).";
+        }
 
         Query q2 = new Query(consulta);
 
         for (int i = 0; i < q2.allSolutions().length; i++) {
-
             String even = separa_cadena(q2.allSolutions()[i].toString());
 
             if (!lista.contains(even)) {
@@ -162,15 +222,26 @@ public class patrones {
         return lista;
     }
 
-    private ArrayList<String> fin(String Objf) {
+    private ArrayList<String> fin(String Objf,ArrayList<String> objRest) {
         ArrayList<String> lista = new ArrayList<>();
         String consulta;
-        if (!Objf.equals("")) {
+        
+        if (objRest.size() > 0) {
+            if (!Objf.equals("")) {
+            consulta = "final_rest(A,E," + Objf + ","+objRest+").";
+        } else {
+            consulta = "final_rest(A,E,B,"+objRest+").";
+
+        }
+        } else {
+            if (!Objf.equals("")) {
             consulta = "final(A,E," + Objf + ").";
         } else {
             consulta = "final(A,E,B).";
 
         }
+        }
+       
 
         Query q2 = new Query(consulta);
 
@@ -191,17 +262,20 @@ public class patrones {
 
     }
 
-    private void intermedios(ArrayList<String> enlista, String objini, ArrayList<String> FT, String patron, int max, ArrayList<String> listain, ArrayList<String> listafin, ArrayList<String> objCierre) {
+    private void intermedios(ArrayList<String> enlista, String objini, ArrayList<String> FT, String patron, int max, ArrayList<String> listain, ArrayList<String> listafin, ArrayList<String> objCierre,ArrayList<String>objRest) {
 
         ArrayList<String> lista = new ArrayList<>();
         ArrayList<String> cierre = new ArrayList<>();
         lista.addAll(enlista);
         lista.add(objini);
-
+        String consulta;
         cierre.addAll(objCierre);
-
-        String consulta = "intermedios(" + objini + ",E,B).";
-
+        if(objRest.size()>0){
+        consulta = "intermedios_rest(" + objini + ",E,B,"+objRest+").";
+        }else{
+         consulta = "intermedios(" + objini + ",E,B).";       
+        }
+        
         Query q2 = new Query(consulta);
         ArrayList<String> resp = new ArrayList<>();
 
@@ -240,7 +314,7 @@ public class patrones {
                 if (cont < 10) {
                     cont++;
                     if (!detener) {
-                        intermedios(lista, separa[2], FT, patronaux, cont, listain, listafin, cierre);
+                        intermedios(lista, separa[2], FT, patronaux, cont, listain, listafin, cierre,objRest);
                     }
                 }
             }
@@ -282,7 +356,8 @@ public class patrones {
                 ArrayList<String> list = listarObetosPatron(patron);
                 System.out.println("\n\n" + patron);
                 System.out.println(list);
-                guardar_Patron(patron, list);
+                agregar_a_lista(patron, list);
+                //guardar_Patron(patron, list);
                 escribirArchivo(patron, list.toString(), "patrones.txt");
             }
         });
@@ -327,9 +402,9 @@ public class patrones {
                             /*los metodos escribirArchivo y guardar_Patron deben deshabilitarse si
                             *se buscan patrones con parallelStream y se debe habilitar el metodo agregar_a_lista
                              */
-                          //  agregar_a_lista(patronF, list);
+                            agregar_a_lista(patronF, list);
                             escribirArchivo(patronF, list.toString(), "patrones.txt");
-                            guardar_Patron(patronF, list);
+                            //guardar_Patron(patronF, list);
                         }
 
                     });
@@ -346,10 +421,10 @@ public class patrones {
         pathway.setPatron(patron);
         pathway.setObjetos(objetos);
         patrones.add(pathway);
-        
-        if (patrones.size()>1000) {
+
+        /*if (patrones.size() > 100) {
             detener = true;
-        }
+        }*/
     }
 
     private void escribirArchivo(String cadena, String Lista, String archivo) {
@@ -376,15 +451,15 @@ public class patrones {
 
     }
 
-    private void guardar_Patron(String patron, ArrayList<String> objetos) {
+    private void guardar_Patron() {
 
         ObjectContainer db = Db4o.openFile("mineria/patrones.db");
-        pathway pathway = new pathway();
-        pathway.setPatron(patron);
-        pathway.setObjetos(objetos);
+       // pathway pathway = new pathway();
+        //pathway.setPatron(patron);
+        //pathway.setObjetos(objetos);
 
         try {
-            db.store(pathway);
+            db.store(patrones);
         } catch (Exception e) {
             System.out.println("Error al guardar patrones.db...");
         } finally {
