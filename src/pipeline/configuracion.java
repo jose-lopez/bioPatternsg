@@ -266,8 +266,8 @@ public class configuracion {
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         consultasJPL RRG = new consultasJPL();
-        ArrayList<pathway> patrones = RRG.cargarPatrones();
         while (r) {
+            ArrayList<pathway> patrones = RRG.cargarPatrones();
             System.out.print("\033[H\033[2J");
             System.out.flush();
             System.out.println("El proceso de mineria y generacion de patrones de regulacion a terminado.");

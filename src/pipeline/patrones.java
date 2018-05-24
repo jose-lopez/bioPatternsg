@@ -20,6 +20,8 @@ import org.jpl7.Query;
  */
 public class patrones {
 
+    ArrayList<pathway> patrones = new ArrayList<>();
+
     public void inferir_patrones(configuracion config) {
 
         ArrayList<String> objCierre = menuMotivos();
@@ -66,8 +68,19 @@ public class patrones {
             //System.out.println("evento fin:  " + fin);
         });
 
-        objEnlace.forEach(enlace -> intermedios(new ArrayList<String>(), enlace, FT, "", 0, listaInicio, listaFin, objCierre));
+        //patrones de 2 eventos
+        patron_2_eventos(objCierre, listaInicio, objEnlace);
 
+        objEnlace.forEach(enlace -> intermedios(new ArrayList<String>(), enlace, FT, "", 0, listaInicio, listaFin, objCierre));
+        
+
+        //Esta rutina se habilita solo si buscan patrones con parallelStream()
+        /*  patrones.forEach((p) -> {
+            guardar_Patron(p.getPatron(), p.getObjetos());
+            escribirArchivo(p.getPatron(), p.getObjetos().toString(), "patrones.txt");
+        });
+         */
+        
         config.setInferirPatrones(true);
         config.guardar();
 
@@ -190,16 +203,22 @@ public class patrones {
         String consulta = "intermedios(" + objini + ",E,B).";
 
         Query q2 = new Query(consulta);
+        ArrayList<String> resp = new ArrayList<>();
 
         for (int i = 0; i < q2.allSolutions().length; i++) {
+            resp.add(q2.allSolutions()[i].toString());
+        }
+
+        // buscar patrones 
+        //resp.parallelStream().forEach((sol) -> {
+        resp.forEach((sol) -> {
+
             int cont = 0;
             cont += max;
-            String even = separa_cadena(q2.allSolutions()[i].toString());
+            String even = separa_cadena(sol);
             even = objini + even;
             String separa[] = even.split(",");
-
             cierre.removeIf(x -> x.equals(separa[2]));
-
             boolean pat = false;
 
             for (String factorT : FT) {
@@ -224,7 +243,47 @@ public class patrones {
                 }
             }
 
-        }
+        });
+
+    }
+
+    private void patron_2_eventos(ArrayList<String> finales, ArrayList<String> inicio, ArrayList<String> Objenlace) {
+        ArrayList<String> lista = new ArrayList<>();
+
+        Objenlace.forEach((E) -> {
+            finales.forEach((F) -> {
+                String consulta = "eventoEspecial(" + E + ",E," + F + ").";
+                Query q2 = new Query(consulta);
+                for (int i = 0; i < q2.allSolutions().length; i++) {
+                    String evento = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
+                    System.out.println(E + " " + evento + " " + F);
+                    String fin = E + "," + evento + "," + F;
+                    encadenarPatron2eventos(inicio, fin, E);
+                }
+
+            });
+
+        });
+
+    }
+
+    private void encadenarPatron2eventos(ArrayList<String> inicio, String fin, String enlace) {
+
+        ArrayList<String> patrones = new ArrayList<>();
+        String sep[] = fin.split(",");
+        
+        inicio.forEach((i) -> {
+            String sep1[] = i.split(",");
+            if (enlace.equals(sep1[2]) && !sep[2].equals(sep1[0])) {
+                         
+                String patron = i + ";" + fin;
+                ArrayList<String> list = listarObetosPatron(patron);
+                System.out.println("\n\n" + patron);
+                System.out.println(list);
+                guardar_Patron(patron, list);
+                escribirArchivo(patron, list.toString(), "patrones.txt");
+            }
+        });
 
     }
 
@@ -262,6 +321,11 @@ public class patrones {
                         if (cierre.equals(list.get(list.size() - 1))) {
                             System.out.println("\n\n" + patronF);
                             System.out.println(list);
+
+                            /*los metodos escribirArchivo y guardar_Patron deben deshabilitarse si
+                            *se buscan patrones con parallelStream y se debe habilitar el metodo agregar_a_lista
+                             */
+                            //agregar_a_lista(patronF, list);
                             escribirArchivo(patronF, list.toString(), "patrones.txt");
                             guardar_Patron(patronF, list);
                         }
@@ -272,6 +336,14 @@ public class patrones {
 
         });
 
+    }
+
+    private void agregar_a_lista(String patron, ArrayList<String> objetos) {
+        // System.out.println(patron);
+        pathway pathway = new pathway();
+        pathway.setPatron(patron);
+        pathway.setObjetos(objetos);
+        patrones.add(pathway);
     }
 
     private void escribirArchivo(String cadena, String Lista, String archivo) {
