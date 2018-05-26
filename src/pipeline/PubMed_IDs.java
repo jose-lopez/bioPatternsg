@@ -17,9 +17,12 @@ import java.util.ArrayList;
  */
 public class PubMed_IDs {
 
+    private int combinaciones;
+    private int probadas = 0;
+
     //busca los PubMed IDs de cada combinacion encontrada en el archivo mineria/combinaciones.db
     public void buscar(int cantIDs, configuracion config) {
-
+        limpiarPantalla();
         System.out.print("\nBusqueda de PubMed Id.....");
 
         ObjectContainer db = Db4o.openFile("mineria/combinaciones.db");
@@ -28,10 +31,17 @@ public class PubMed_IDs {
         combinacion combinacion = (combinacion) result.get(0);
         db.close();
 
+        combinaciones = combinacion.combinaciones.size();
+
         ArrayList<String> pubmedIDs = new ArrayList<>();
 
         combinacion.combinaciones.forEach((comb) -> {
             try {
+                probadas++;
+                limpiarPantalla();
+                System.out.println("");
+                System.out.print("\nBusqueda de PubMed Id...");
+                System.out.println("probando combinaciones " + probadas + " de " + combinaciones);
                 //consulta cada combinacion retorna una lista de pubmed IDs
                 ArrayList<String> lista = new lecturas_PM().busquedaPM_ID(comb, cantIDs);
 
@@ -88,6 +98,11 @@ public class PubMed_IDs {
         } catch (Exception e) {
 
         }
+    }
+
+    private void limpiarPantalla() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
 }

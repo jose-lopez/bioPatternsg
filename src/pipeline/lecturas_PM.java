@@ -66,7 +66,7 @@ public class lecturas_PM {
         return listID;
     }
 
-    public void BusquedaPM_Abstracts(String fileAbstID, int cant_por_archivo,configuracion config){
+    public void BusquedaPM_Abstracts(String fileAbstID, int cant_por_archivo, configuracion config) {
 
         crearCarpeta(fileAbstID);
         String cabecera = "<!DOCTYPE html>\r"
@@ -79,25 +79,31 @@ public class lecturas_PM {
 
         String pie = "</body>\r"
                 + "</html>";
-        
+
         ArrayList<String> listaIDs = new ArrayList<>();
         ObjectContainer db = Db4o.openFile("mineria/pubmed_id.db");
         PMIDS pm = new PMIDS();
+        int IDS = 0;
+        int descarga = 0;
         try {
-          
+
             ObjectSet result = db.queryByExample(pm);
             PMIDS aux = (PMIDS) result.get(0);
             listaIDs.addAll(aux.pubmed_ids);
-                      
+            IDS = listaIDs.size();
         } catch (Exception e) {
         } finally {
             db.close();
-        }    
+        }
 
         System.out.print("\n\n Generando coleccion de  abstracts .....");
         int cont1 = 0, cont2 = 1;
         ArrayList<String> lista = new ArrayList<>();
         for (int i = 0; i < listaIDs.size(); i++) {
+            limpiarPantalla();
+            System.out.print("\n\n Generando coleccion de  abstracts .....");
+            System.out.println("Descargando "+i +" de "+IDS);
+            
             String ruta = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + listaIDs.get(i) + "&retmode=xml&rettype=abstract";
             try {
 
@@ -111,8 +117,8 @@ public class lecturas_PM {
                     lista = revisa_xml(doc, "AbstractText");
                     guardar_en_archivo(ruta_archivo, lista, listaIDs.get(i));
                     cont1++;
-                    
-                    if (i == (listaIDs.size()-1)) {
+
+                    if (i == (listaIDs.size() - 1)) {
                         guardar_en_archivo(ruta_archivo, pie);
                     }
 
@@ -129,7 +135,11 @@ public class lecturas_PM {
         config.guardar();
         System.out.println("ok");
 
-                
+    }
+
+    private void limpiarPantalla() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     private void crearCarpeta(String nombre) {
@@ -183,8 +193,8 @@ public class lecturas_PM {
             fichero = new FileWriter(ruta, true);
             pw = new PrintWriter(fichero);
             //pw.println("PMID:"+ ID);
-           // String linea = "";
-                                  
+            // String linea = "";
+
             for (String linea : Abstract) {
                 linea = linea.replaceAll("&", "&amp;");
                 linea = linea.replaceAll("<", "&lt;");
@@ -227,5 +237,5 @@ public class lecturas_PM {
         }
 
     }
-   
+
 }

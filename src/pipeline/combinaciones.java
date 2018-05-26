@@ -20,14 +20,18 @@ import java.util.List;
  */
 public class combinaciones {
 
+    private int cont = 0;
+    private String carga = "";
+
     public void generar_combinaciones(boolean criterio, configuracion config) {
-        System.out.print("\nGenerando conbinaciones de objetos .....");
+        limpiarPantalla();
+        System.out.print("\nGenerando conbinaciones de objetos .");
 
         //Si ya existe un archivo mineria/combinaciones.db es eliminado y comienza el proceso de nuevo
         borrar_archivo();
-        
+
         // Lista en la que se guardaran todas las combinaciones generadas
-        ArrayList<String> combinacion = new ArrayList<>(); 
+        ArrayList<String> combinacion = new ArrayList<>();
 
         objetos_Experto HE = new objetos_Experto();
 
@@ -45,15 +49,23 @@ public class combinaciones {
         //el siguiente juego de instrucciones genera combinaciones de los objetos encontrados en las diferentes Iteraciones
         factorTranscripcion FT = new factorTranscripcion();
         ObjectContainer db = Db4o.openFile("mineria/FT.db");
-        ObjectSet result = db.queryByExample(FT);
-
-        result.parallelStream().forEach((ft) -> {
+        ArrayList<factorTranscripcion> LFT = new ArrayList<>();
+        try {
+            ObjectSet result = db.queryByExample(FT);
+            LFT.addAll(result);
+        } catch (Exception e) {
+           
+        } finally {
+            db.close();
+        }
+        
+        LFT.parallelStream().forEach((ft) -> {
 
             factorTranscripcion factorT = (factorTranscripcion) ft;
-            
+
             // combina un objeto con los ligandos encontrados a partir de este
             factor_ligando(combinacion, factorT);
-            
+
             //combina un objeto con los nuevos objetos encontrados a partir de este
             factor_nuevoObjeto(combinacion, factorT);
 
@@ -66,12 +78,11 @@ public class combinaciones {
 
         });
 
-        db.close();
-
         //generadas todas las combinaciones de guardan en mineria/combinaciones.db
         guardar_combinaciones(combinacion);
 
         //se guarda el checklist que indica que el proceso de generar combinaciones a terminado
+       
         config.setCombinaciones(true);
         config.guardar();
 
@@ -98,18 +109,18 @@ public class combinaciones {
             while (s.hasNext()) {
                 try {
                     List<String> listares = (List<String>) s.next();
-                    
+
                     //obtenida el par de IDs de una combinacion 
                     //se procede a generar las cominaciones entre simbolos y sinonimos de los mismos
                     final objetos_Experto obj1 = objExp(listares.get(0));
                     final objetos_Experto obj2 = objExp(listares.get(1));
-                   
+
                     obj1.listaNombres().parallelStream().forEach((nombre1) -> {
                         obj2.listaNombres().parallelStream().forEach((nombre2) -> {
                             insertar_combinacion(combinacion, nombre1, nombre2);
                         });
                     });
-                   
+
                 } catch (Exception e) {
                 }
 
@@ -149,7 +160,7 @@ public class combinaciones {
         });
 
     }
-    
+
     //genera combinaciones entre un objeto minado y nuevos ojetos encontrados a partir de este
     private void factor_nuevoObjeto(ArrayList<String> combinaciones, factorTranscripcion FT) {
 
@@ -179,7 +190,12 @@ public class combinaciones {
     public void insertar_combinacion(ArrayList<String> combinaciones, String palabra1, String palabra2) {
         if (!combinaciones.contains(palabra1 + "+" + palabra2) && !combinaciones.contains(palabra2 + "+" + palabra1) && !palabra1.equals(palabra2)) {
             combinaciones.add(palabra1 + "+" + palabra2);
-            //System.out.println(palabra1 + "+" + palabra2);
+            cont++;
+            if (cont % 1000 == 0) {
+                carga += ".";
+                System.out.print(carga);
+            }
+
         }
 
     }
@@ -209,8 +225,14 @@ public class combinaciones {
         }
     }
 
+    private void limpiarPantalla() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
 }
 
 class combinacion {
+
     public ArrayList<String> combinaciones = new ArrayList<>();
 }

@@ -25,6 +25,7 @@ import javax.print.DocFlavor;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import org.jpl7.Query;
 
 /**
  *
@@ -42,8 +43,8 @@ public class BioPattern {
         BioPattern biopattern = new BioPattern();
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
-       biopattern.pipelineBioPattern();
-      // biopattern.pruebas();
+        biopattern.pipelineBioPattern();
+        //biopattern.pruebas();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -201,7 +202,6 @@ public class BioPattern {
             //se guarda los datos de configuracion que se ingresaron el el menu anterior en mineria/config.db
             config.guardarConfiguracion(regProm, iteraciones, cantObjs, conf, GO, MESH, cantPMID, rutaPMidExp);
 
-        
             //este metodo ejecuta el proceso de busqueda de informacio desde objetos del experto, homologos y los objetos encontrados en los diferentes niveles de busqueda
             mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, config);
 
@@ -230,7 +230,7 @@ public class BioPattern {
 
             //String kb = "baseC.pl";
             //new Razonador().inferir_patrones(kb, config);
-            new patrones().inferir_patrones(new ArrayList<String>(), config);
+            new patrones().inferir_patrones(config);
 
         } else if (config.reiniciar()) {
             //reinia el proceso de mineria 
@@ -289,13 +289,15 @@ public class BioPattern {
 
     public void pruebas() {
 
-        //se crea el archivo 'mineria/objetos_patrones.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
-        //new objetos_patrones().generar_archivo(new configuracion());
-        
-        consultasJPL consultas = new consultasJPL();
-        
-        consultas.consultas();
-            
-        
+        minado_FT mfts = new minado_FT(); // clase que contiene los metodos donde se buscara la informacion de los objetos minados
+        configuracion config = new configuracion();
+        try {
+            config.recuperarConfiguracion(); // recupera la configuracion actual y el checklist que indica desde que punto puede continuar la ejecucion
+        } catch (Exception e) {
+        }
+
+        new lecturas_PM().BusquedaPM_Abstracts("abstracts", 500, config);
+
     }
+
 }
