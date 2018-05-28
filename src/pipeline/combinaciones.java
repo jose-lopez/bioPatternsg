@@ -25,7 +25,7 @@ public class combinaciones {
 
     public void generar_combinaciones(boolean criterio, configuracion config) {
         limpiarPantalla();
-        System.out.print("\nGenerando conbinaciones de objetos .");
+        System.out.print("\nGenerando combinaciones de objetos .");
 
         //Si ya existe un archivo mineria/combinaciones.db es eliminado y comienza el proceso de nuevo
         borrar_archivo();

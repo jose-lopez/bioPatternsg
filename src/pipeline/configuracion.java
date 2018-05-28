@@ -170,19 +170,7 @@ public class configuracion {
         System.out.println("*Cantidad de complejos: " + this.cantComplejos);
         System.out.println("*Numero de niveles: " + this.numIteraciones);
         System.out.println("*Confiabilidad TFBind: " + (int) (this.confiabilidad_tfbind * 100));
-        System.out.print("*Creacion de ontologias GeneOntology: ");
-
-        if (crearOntologiaGO) {
-            System.out.println("Si");
-        } else {
-            System.out.println("No");
-        }
-        System.out.print("*Creacion de ontologias MESH: ");
-        if (crearOntologiaMESH) {
-            System.out.println("Si");
-        } else {
-            System.out.println("No");
-        }
+        System.out.println("*Cantidad maxima de pubmed IDs por busqueda: " + this.cantidadPMID);
 
         estadoactual();
     }
@@ -270,12 +258,19 @@ public class configuracion {
             ArrayList<pathway> patrones = RRG.cargarPatrones();
             System.out.print("\033[H\033[2J");
             System.out.flush();
+
+            System.out.println("\n*Region promotora: " + this.RegionPromotora);
+            System.out.println("*Cantidad de complejos: " + this.cantComplejos);
+            System.out.println("*Numero de niveles: " + this.numIteraciones);
+            System.out.println("*Confiabilidad TFBind: " + (int) (this.confiabilidad_tfbind * 100));
+            System.out.println("*Cantidad maxima de pubmed IDs: " + this.cantidadPMID);
+
             System.out.println("El proceso de mineria y generacion de patrones de regulacion a terminado.");
             System.out.println(patrones.size() + " Patrones encontrados\n");
             System.out.println("Seleccione una opcion.");
             System.out.println("1.- Crear un nuevo proceso.");
             System.out.println("2.- Ir al menu analisis de RRG.");
-            System.out.println("3.- Inferir patrones nuevamente.");
+            System.out.println("3.- Inferir patrones.");
             System.out.println("0.- Salir.");
 
             String resp = lectura.nextLine();
@@ -731,12 +726,12 @@ public class configuracion {
         boolean reiniciar;
         Scanner lectura = new Scanner(System.in);
 
-        System.out.println("Existe un proceso de mineria de configuracion: ");
-        verConfiguracion();
-        System.out.println();
         if (isInferirPatrones()) {
             return false;
         } else {
+            System.out.println("Existe un proceso de mineria de configuracion: ");
+            verConfiguracion();
+            System.out.println();
             while (true) {
                 System.out.print("*Desea continuar con el proceso  ..S/N: ");
                 String resp = lectura.nextLine();

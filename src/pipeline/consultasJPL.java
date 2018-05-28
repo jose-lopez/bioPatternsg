@@ -42,7 +42,7 @@ public class consultasJPL {
         //buscar_motivos();
         //buscar_otros_ligandos();
         //buscar_tipo_ligando();
-        buscar_tejido();
+        //buscar_tejido();
 
     }
 
@@ -111,7 +111,7 @@ public class consultasJPL {
         while (r) {
             System.out.println("Dado un receptor y su(s) complejo(s) asociado(s), ¿en cuáles tejidos se podría esperar que este (estos) conlleven a una regulación transcripcional positiva ( o negativa)?.");
             System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Igresar receptor.");
+            System.out.println("1.- Ingresar receptor.");
             System.out.println("0.- Volver al menu anterior.");
 
             String resp = lectura.nextLine();
@@ -227,7 +227,7 @@ public class consultasJPL {
         while (r) {
             System.out.println("Dado un receptor, ¿cuáles de sus ligandos enlazantes pueden ser considerados agonistas, antagonistas o de función mixta?");
             System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Igresar receptor.");
+            System.out.println("1.- Ingresar receptor.");
             System.out.println("0.- Volver al menu anterior.");
 
             String resp = lectura.nextLine();
@@ -316,7 +316,7 @@ public class consultasJPL {
         while (r) {
             System.out.println("Dado un receptor ¿Cuales ligandos lo reconocen?");
             System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Igresar receptor.");
+            System.out.println("1.- Ingresar receptor.");
             System.out.println("0.- Volver al menu anterior.");
 
             String resp = lectura.nextLine();
@@ -364,7 +364,7 @@ public class consultasJPL {
         while (r) {
             System.out.println("¿Cuáles motivos de DNA son reconocidos y enlazados por un receptor específico en su forma funcional monomérica o dimérica?");
             System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Igresar receptor.");
+            System.out.println("1.- Ingresar receptor.");
             System.out.println("0.- Volver al menu anterior.");
 
             String resp = lectura.nextLine();
@@ -416,7 +416,7 @@ public class consultasJPL {
         while (r) {
             System.out.println("Dado un ligando, ¿Cuál (les) receptores lo reconocen y se le enlazan?.\n");
             System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Igresar ligando.");
+            System.out.println("1.- Ingresar ligando.");
             System.out.println("0.- Volver al menu anterior.");
 
             String resp = lectura.nextLine();
@@ -473,7 +473,7 @@ public class consultasJPL {
         while (r) {
             System.out.println("¿Dado un receptor (en su forma monomérica o dimérica), a cuáles proteínas adicionales puede éste enlazarse? ");
             System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Igresar receptor.");
+            System.out.println("1.- Ingresar receptor.");
             System.out.println("0.- Volver al menu anterior.");
 
             String resp = lectura.nextLine();
@@ -541,7 +541,7 @@ public class consultasJPL {
         while (r) {
             System.out.println("Dado un ligando, ¿qué tipo de interacciones proteína - proteína resultan cuando este se enlaza a un receptor conocido, y cuáles de ellas conducen a una elevación (disminución) en la respuesta transcripcional de algún gen?. (Definición de patrones de regulación)");
             System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Igresar datos.");
+            System.out.println("1.- Ingresar datos.");
             System.out.println("0.- Volver al menu anterior.");
 
             String resp = lectura.nextLine();

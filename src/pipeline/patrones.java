@@ -90,7 +90,7 @@ public class patrones {
         boolean r = false;
 
         while (true) {
-            System.out.print("*Desea restringir los pathway a un listado de objetos espesificos ..S/N: ");
+            System.out.print("*Desea restringir los pathway a un listado de objetos específicos ..S/N: ");
             String resp = lectura.nextLine();
             if (resp.equalsIgnoreCase("s")) {
                 r = true;
@@ -146,7 +146,7 @@ public class patrones {
         boolean r = false;
 
         while (true) {
-            System.out.print("*Desea agregar un motivo como objeto final en los pathway  ..S/N: ");
+            System.out.print("*Desea agregar objeto de cierre a los pathway  ..S/N: ");
             String resp = lectura.nextLine();
             if (resp.equalsIgnoreCase("s")) {
                 r = true;
@@ -161,7 +161,7 @@ public class patrones {
 
         if (r) {
             while (true) {
-                System.out.print("*Ingrese en nombre del motivo: ");
+                System.out.print("*Ingrese en nombre del objeto: ");
                 String motivo = lectura.nextLine();
                 if (!motivo.equals("")) {
                     motivo = motivo.replace("'", "");
@@ -170,7 +170,7 @@ public class patrones {
 
                     boolean r2 = false;
                     while (true) {
-                        System.out.print("*Desea agregar otro motivo?  ..S/N: ");
+                        System.out.print("*Desea agregar otro objeto de cierre?  ..S/N: ");
                         String resp = lectura.nextLine();
                         if (resp.equalsIgnoreCase("s")) {
                             r2 = true;
