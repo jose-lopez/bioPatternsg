@@ -58,7 +58,7 @@ public class lecturas_PM {
         String Url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=" + palabras_clave + "&retmax=" + cantIDs + "&usehistory=y";
 
         try {
-            Document doc = new conexionServ().conecta(Url);
+            Document doc = new conexionServ().conexionSimple(Url);
             listID = revisa_xml(doc, "Id");
         } catch (Exception e) {
 

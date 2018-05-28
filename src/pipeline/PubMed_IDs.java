@@ -35,13 +35,9 @@ public class PubMed_IDs {
 
         ArrayList<String> pubmedIDs = new ArrayList<>();
 
-        combinacion.combinaciones.forEach((comb) -> {
+        combinacion.combinaciones.parallelStream().forEach((comb) -> {
             try {
-                probadas++;
-                limpiarPantalla();
-                System.out.println("");
-                System.out.print("\nBusqueda de PubMed Id...");
-                System.out.println("probando combinaciones " + probadas + " de " + combinaciones);
+
                 //consulta cada combinacion retorna una lista de pubmed IDs
                 ArrayList<String> lista = new lecturas_PM().busquedaPM_ID(comb, cantIDs);
 
@@ -65,12 +61,17 @@ public class PubMed_IDs {
     //agrega la lista de IDs encontrada en cada busqueda y la agrega a una lista general
     //cada ID es filtrado de manera que no existan IDs repetidos
     private void insertar_en_lista(ArrayList<String> pubmedIDS, ArrayList<String> lista) {
+
         lista.parallelStream().forEach((id) -> {
             if (!pubmedIDS.contains(id)) {
                 pubmedIDS.add(id);
             }
         });
-
+        probadas++;
+        limpiarPantalla();
+        System.out.println("");
+        System.out.print("\nBusqueda de PubMed Id...");
+        System.out.println("probando combinaciones " + probadas + " de " + combinaciones);
     }
 
     //se guarda la lista de IDs en 'mineria/pubmed_id.db'

@@ -40,7 +40,7 @@ import org.w3c.dom.Document;
 public class conexionServ {
 
     public Document conecta(String Url) {
-       // System.out.println("url: " + Url);
+        // System.out.println("url: " + Url);
         Document doc = null;
         int cont = 0;
         hiloConexion conex = new hiloConexion(Url);
@@ -49,37 +49,51 @@ public class conexionServ {
         int tmax = 0;
         int intentos = 0;
         while (intentos < 10) {
-                    
-            if(conex.doc != null){
+
+            if (conex.doc != null) {
                 doc = conex.doc;
                 conex.stop();
                 break;
             }
-            
-            if(tmax > 500){
+
+            if (tmax > 500) {
                 tmax = 0;
                 conex.stop();
-               // System.out.println("Falla de conexion con: "+Url);
+                // System.out.println("Falla de conexion con: "+Url);
                 conex = new hiloConexion(Url);
                 conex.start();
                 intentos++;
-                                
+
             }
-            
-                  
+
             tmax++;
             try {
 
                 Thread.sleep(250);
-                
+
             } catch (InterruptedException ex1) {
                 //Logger.getLogger(lecturas_rcsb.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
-        
-        if(intentos>=10){
+
+        if (intentos >= 10) {
             //System.out.println("Fallo en conexion con: "+Url);
-        }       
+        }
+        return doc;
+    }
+
+    public Document conexionSimple(String Url) {
+        Document doc = null;
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            URL url = new URL(Url);
+            doc = db.parse(url.openStream());
+            doc.getDocumentElement().normalize();
+        } catch (Exception e) {
+
+        }
+
         return doc;
     }
 

@@ -296,7 +296,7 @@ public class BioPattern {
         } catch (Exception e) {
         }
 
-        new lecturas_PM().BusquedaPM_Abstracts("abstracts", 500, config);
+        new PubMed_IDs().buscar(10, config);
 
     }
 
