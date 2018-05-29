@@ -105,34 +105,19 @@ public class patrones {
 
         if (r) {
             while (true) {
-                System.out.print("*Ingrese en nombre del objeto: ");
+                System.out.print("*Ingrese un listado de objetos separados por \",\": Ejemplo: EGF,EGFR,Ras,CREB,SST \n");
                 String objeto = lectura.nextLine();
                 if (!objeto.equals("")) {
-                    objeto = objeto.replace("'", "");
-                    objeto = "'" + objeto + "'";
-                    objetos.add(objeto);
-
-                    boolean r2 = false;
-                    while (true) {
-                        System.out.print("*Desea agregar otro objeto?  ..S/N: ");
-                        String resp = lectura.nextLine();
-                        if (resp.equalsIgnoreCase("s")) {
-                            r2 = true;
-                            break;
-                        } else if (resp.equalsIgnoreCase("n")) {
-                            r2 = false;
-                            break;
-                        } else {
-                            System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
-                        }
+                    String sep[] = objeto.split(",");
+                    for (int i = 0; i < sep.length; i++) {
+                        String obj = sep[i].replace("'", "");
+                        obj = "'" + obj + "'";
+                        objetos.add(obj);
                     }
-
-                    if (!r2) {
-                        break;
-                    }
-
-                } else {
-                    System.out.println("Debe ingresar un nombre valido");
+                    break;
+                   
+               } else {
+                    System.out.println("Debe ingresar un listado valido");
                 }
             }
         }

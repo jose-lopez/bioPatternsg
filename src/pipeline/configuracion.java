@@ -254,19 +254,29 @@ public class configuracion {
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         consultasJPL RRG = new consultasJPL();
+        int minados = listar_ligandos().size() + listar_nuevos_objetos().size() + listar_objetos_minados().size();
+
         while (r) {
             ArrayList<pathway> patrones = RRG.cargarPatrones();
             System.out.print("\033[H\033[2J");
             System.out.flush();
+            System.out.println("Configuracion inicial\n");
+            System.out.println("*Region promotora:               " + this.RegionPromotora);
+            System.out.println("*Cantidad de complejos:          " + this.cantComplejos);
+            System.out.println("*Numero de niveles:              " + this.numIteraciones);
+            System.out.println("*Confiabilidad TFBind:           " + (int) (this.confiabilidad_tfbind * 100));
+            System.out.println("*Cantidad maxima de pubmed IDs:  " + this.cantidadPMID);
+            if (!rutaPMID_experto.equals("")) {
+                System.out.println("*Archivo de objetos del Experto: " + rutaPMID_experto);
+            }
 
-            System.out.println("\n*Region promotora: " + this.RegionPromotora);
-            System.out.println("*Cantidad de complejos: " + this.cantComplejos);
-            System.out.println("*Numero de niveles: " + this.numIteraciones);
-            System.out.println("*Confiabilidad TFBind: " + (int) (this.confiabilidad_tfbind * 100));
-            System.out.println("*Cantidad maxima de pubmed IDs: " + this.cantidadPMID);
+            System.out.println("\nResultados\n");
+            System.out.println("Objetos minados:            " + minados);
+            System.out.println("Combinaciones realizadas:   " + num_combinaciones());
+            System.out.println("Pubmed Id encontrados:      " + num_pubmedIds());
+            System.out.println("Eventos encontrados:        " + num_eventos());
+            System.out.println("Patrones encontrados:       " + patrones.size() + "\n");
 
-            System.out.println("El proceso de mineria y generacion de patrones de regulacion a terminado.");
-            System.out.println(patrones.size() + " Patrones encontrados\n");
             System.out.println("Seleccione una opcion.");
             System.out.println("1.- Crear un nuevo proceso.");
             System.out.println("2.- Ir al menu analisis de RRG.");
@@ -880,6 +890,7 @@ public class configuracion {
 
         try {
             ObjectSet result = db.queryByExample(obj);
+
             while (result.hasNext()) {
 
                 obj = (objetosMineria) result.next();
@@ -891,6 +902,27 @@ public class configuracion {
         }
 
         return obj.getObjetos_minados();
+    }
+
+    public ArrayList<String> listar_nuevos_objetos() {
+
+        objetosMineria obj = new objetosMineria();
+        ObjectContainer db = Db4o.openFile("mineria/objetosMineria.db");
+
+        try {
+            ObjectSet result = db.queryByExample(obj);
+
+            while (result.hasNext()) {
+
+                obj = (objetosMineria) result.next();
+
+            }
+        } catch (Exception e) {
+        } finally {
+            db.close();
+        }
+
+        return obj.getNuevos_objetos();
     }
 
     public void detalle_objeto() {
@@ -933,7 +965,7 @@ public class configuracion {
         return false;
     }
 
-    private ArrayList<String> listar_ligandos() {
+    public ArrayList<String> listar_ligandos() {
         ArrayList<String> listaLigandos = new ArrayList<>();
         factorTranscripcion obj = new factorTranscripcion();
         ObjectContainer db = Db4o.openFile("mineria/FT.db");
@@ -955,6 +987,54 @@ public class configuracion {
             db.close();
         }
         return listaLigandos;
+    }
+
+    private int num_combinaciones() {
+        int num = 0;
+        ObjectContainer db = Db4o.openFile("mineria/combinaciones.db");
+        combinacion com = new combinacion();
+        ObjectSet result = db.queryByExample(com);
+        combinacion combinacion = (combinacion) result.get(0);
+        db.close();
+
+        num = combinacion.combinaciones.size();
+
+        return num;
+    }
+
+    private int num_pubmedIds() {
+        int num = 0;
+        ObjectContainer db = Db4o.openFile("mineria/pubmed_id.db");
+        PMIDS ids = new PMIDS();
+        ObjectSet result = db.queryByExample(ids);
+        PMIDS pmids = (PMIDS) result.get(0);
+        db.close();
+
+        num = pmids.pubmed_ids.size();
+
+        return num;
+    }
+
+    private int num_eventos() {
+        int num = 0;
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+            archivo = new File("baseC.pl");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String linea;
+            while ((linea = br.readLine()) != null) {
+
+                num++;
+            }
+        } catch (Exception e) {
+        }
+
+        num = num - 2;
+        return num;
     }
 
     public int getNumIteraciones() {
