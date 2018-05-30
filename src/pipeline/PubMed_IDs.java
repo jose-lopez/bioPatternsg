@@ -8,7 +8,9 @@ package pipeline;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 /**
@@ -34,6 +36,12 @@ public class PubMed_IDs {
         combinaciones = combinacion.combinaciones.size();
 
         ArrayList<String> pubmedIDs = new ArrayList<>();
+        if (!config.getRutaPMID_experto().equals("")) {
+            try {
+                pubmedIDs.addAll(pubmedIDExperto(config.getRutaPMID_experto()));
+            } catch (Exception e) {
+            }
+        }
 
         combinacion.combinaciones.parallelStream().forEach((comb) -> {
             try {
@@ -56,6 +64,27 @@ public class PubMed_IDs {
         config.setPubmedids(true);
         config.guardar();
         System.out.println("ok");
+    }
+
+    public ArrayList<String> pubmedIDExperto(String ruta) {
+        ArrayList<String> lista = new ArrayList<>();
+
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+            archivo = new File(ruta);
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                lista.add(linea);
+            }
+        } catch (Exception e) {
+        }
+
+        return lista;
     }
 
     //agrega la lista de IDs encontrada en cada busqueda y la agrega a una lista general

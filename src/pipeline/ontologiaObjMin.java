@@ -53,7 +53,7 @@ public class ontologiaObjMin {
             }
 
         } catch (Exception e) {
-            System.out.println("Error al guardar en ontologiaObjMin.db");
+           // System.out.println("Error al guardar en ontologiaObjMin.db");
         } finally {
             db.close();
         }
@@ -108,7 +108,7 @@ public class ontologiaObjMin {
             db.store(ontologia);
             //System.out.println("Guardando: "+ontologia.getNombre());
         } catch (Exception e) {
-            System.out.println("Error al guardar en OntologiaGO.db...");
+            //System.out.println("Error al guardar en OntologiaGO.db...");
         } finally {
             db.close();
         }

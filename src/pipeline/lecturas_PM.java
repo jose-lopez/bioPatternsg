@@ -66,7 +66,7 @@ public class lecturas_PM {
         return listID;
     }
 
-    public void BusquedaPM_Abstracts(String fileAbstID, int cant_por_archivo, configuracion config) {
+    public void BusquedaPM_AbstractsS(String fileAbstID, int cant_por_archivo, configuracion config) {
 
         crearCarpeta(fileAbstID);
         String cabecera = "<!DOCTYPE html>\r"
@@ -102,8 +102,8 @@ public class lecturas_PM {
         for (int i = 0; i < listaIDs.size(); i++) {
             limpiarPantalla();
             System.out.print("\n\n Generando coleccion de  abstracts .....");
-            System.out.println("Descargando "+i +" de "+IDS);
-            
+            System.out.println("Descargando " + i + " de " + IDS);
+
             String ruta = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + listaIDs.get(i) + "&retmode=xml&rettype=abstract";
             try {
 
@@ -135,6 +135,83 @@ public class lecturas_PM {
         config.guardar();
         System.out.println("ok");
 
+    }
+
+    public void BusquedaPM_Abstracts(String fileAbstID, int cant_por_archivo, configuracion config) {
+        crearCarpeta(fileAbstID);
+        String cabecera = "<!DOCTYPE html>\r"
+                + "<html>\r"
+                + "<head>\r"
+                + "	<meta charset=\"utf-8\">\r"
+                + "	<title>generación de archivo html</title>\r"
+                + "</head>\r"
+                + "<body>\r";
+
+        String pie = "</body>\r"
+                + "</html>";
+        
+        ArrayList<String> listaIDs = new ArrayList<>();
+        ArrayList<listPM> listasPM = new ArrayList<>();
+
+        ObjectContainer db = Db4o.openFile("mineria/pubmed_id.db");
+        PMIDS pm = new PMIDS();
+        try {
+
+            ObjectSet result = db.queryByExample(pm);
+            PMIDS aux = (PMIDS) result.get(0);
+            listaIDs.addAll(aux.pubmed_ids);
+
+        } catch (Exception e) {
+        } finally {
+            db.close();
+        }
+        final int IDS = listaIDs.size();
+        int cont = 0, contuax = 1;
+        ArrayList<String> aux = new ArrayList<>();
+        for (String pmid : listaIDs) {
+            aux.add(pmid);
+            cont++;
+            if (cont > cant_por_archivo) {
+                listPM laux = new listPM();
+                laux.ID = aux;
+                laux.num = contuax;
+                listasPM.add(laux);
+                contuax++;
+                aux = new ArrayList<>();
+                cont = 0;
+            }
+        }
+
+        listasPM.parallelStream().forEach((lpm) -> {
+            
+            String ruta_archivo = fileAbstID + "/" + fileAbstID + "_" + lpm.num + ".html";
+            descarga(lpm.ID, IDS,cabecera,pie,ruta_archivo);
+        });
+        
+        config.setAbstracts(true);
+        config.guardar();
+        System.out.println("ok");
+
+    }
+    int cont1 = 0;
+    private void descarga(ArrayList<String> listaPMID, int IDS, String cabecera,String pie, String ruta_archivo) {
+        
+        guardar_en_archivo(ruta_archivo, cabecera);
+        listaPMID.parallelStream().forEach((pm) -> {
+
+            cont1++;
+            limpiarPantalla();
+            System.out.print("\n\n Generando coleccion de  abstracts .....");
+            System.out.println("Descargando " + cont1 + " de " + IDS);
+            String ruta = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + pm + "&retmode=xml&rettype=abstract";
+            
+            Document doc = new conexionServ().conecta(ruta);
+            ArrayList<String> lista = revisa_xml(doc, "AbstractText");
+            guardar_en_archivo(ruta_archivo, lista, pm);
+           
+        
+        });
+        guardar_en_archivo(ruta_archivo, pie);
     }
 
     private void limpiarPantalla() {
@@ -238,4 +315,11 @@ public class lecturas_PM {
 
     }
 
+}
+
+class listPM{
+    
+    int num;
+    ArrayList<String> ID = new ArrayList<String>();
+        
 }
