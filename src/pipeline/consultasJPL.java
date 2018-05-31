@@ -43,7 +43,7 @@ public class consultasJPL {
         //buscar_otros_ligandos();
         //buscar_tipo_ligando();
         //buscar_tejido();
-
+        buscar_cadenas_pathways();
     }
 
     public void menu() {
@@ -64,6 +64,7 @@ public class consultasJPL {
             System.out.println("6.- Busqueda de ligandos.");
             System.out.println("7.- Clasificar tipo de ligando");
             System.out.println("8.- Busqueda de tejidos");
+            System.out.println("9.- Buscar cadenas de Pathways");
             System.out.println("0.- Volver.");
 
             String resp = lectura.nextLine();
@@ -94,6 +95,9 @@ public class consultasJPL {
                 case "8":
                     buscar_tejido();
                     break;
+                case "9":
+                    buscar_cadenas_pathways();
+                    break;
                 case "0":
                     r = false;
                     break;
@@ -101,6 +105,132 @@ public class consultasJPL {
             }
 
         }
+    }
+
+    public void buscar_cadenas_pathways() {
+
+        limpiarPantalla();
+
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        while (r) {
+
+            System.out.println("Busqueda de cadenas de Pathways y eventos que los relacionan.");
+            System.out.println("\n Seleccione una opcion.");
+            System.out.println("1.- Ejecutar el proceso.");
+            System.out.println("0.- Volver al menu anterior.");
+            String resp = lectura.nextLine();
+
+            switch (resp) {
+                case "1":
+                    limpiarPantalla();
+                    ArrayList<pathway> pathways = new ArrayList<>();
+                    pathways = cargarPatrones();
+
+                    for (int i = 0; i < pathways.size(); i++) {
+                        ArrayList<cadenas_pathway> cadena = new ArrayList<>();
+                        cadenaPat(pathways, pathways.get(i), cadena);
+                    }
+
+                    break;
+                case "0":
+                    r = false;
+                    break;
+            }
+
+        }
+
+    }
+
+    private void cadenaPat(ArrayList<pathway> pathways, pathway pat, ArrayList<cadenas_pathway> cadena) {
+        ArrayList<pathway> listP2 = new ArrayList<>();
+        listP2.addAll(pathways);
+        listP2.removeIf(p -> p.getObjetos() == pat.getObjetos());
+        String objin = pat.getObjetos().get(pat.getObjetos().size() - 1);
+
+        listP2.forEach((p) -> {
+
+            String consulta = "buscar_evento(" + objin + ",E," + p.getObjetos().get(0) + ").";
+            Query q2 = new Query(consulta);
+            String resp = "";
+            for (int i = 0; i < q2.allSolutions().length; i++) {
+                String even = q2.allSolutions()[i].toString();
+                even = even.replace("E", "").replace("=", "").replace("{", "").replace("}", "");
+                resp += objin + "," + even + "," + p.getObjetos().get(0) + "; ";
+            }
+            cadenas_pathway cad = new cadenas_pathway();
+            if (!resp.equals("")) {
+                cad.setPathway_inicial(pat.getPatron());
+                cad.setPathway_final(p.getPatron());
+                cad.setEventos(resp);
+                cadena.add(cad);
+
+                cadenaPat(listP2, p, cadena);
+
+            } else if (objin.equals(p.getObjetos().get(0))) {
+                String sep[] = p.getPatron().split(";");
+                cad.setPathway_inicial(pat.getPatron());
+                cad.setPathway_final(p.getPatron());
+                cad.setEventos(sep[0]);
+                cadena.add(cad);
+
+                cadenaPat(listP2, p, cadena);
+            }
+
+        });
+        if (cadena.size() > 0) {
+            System.out.println("-----------------------------------------------------------");
+            for (int i = 0; i < cadena.size(); i++) {
+                if (i == 0) {
+                    System.out.println(cadena.get(i).getPathway_inicial());
+                    System.out.println("Eventos de enlace: " + cadena.get(i).getEventos());
+                    System.out.println(cadena.get(i).getPathway_final());
+                } else {
+                    System.out.println("Eventos de enlace: " + cadena.get(i).getEventos());
+                    System.out.println(cadena.get(i).getPathway_final());
+                }
+            }
+            escribirArchivo(cadena, "cadenas_Pathways.txt");
+            System.out.println("\n");
+            cadena.clear();
+        }
+
+    }
+    
+    private void escribirArchivo(ArrayList<cadenas_pathway> cadena, String archivo) {
+
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try {
+            fichero = new FileWriter("mineria/" + archivo, true);
+            pw = new PrintWriter(fichero);
+            
+            pw.println("-----------------------------------------------------------");
+            for (int i = 0; i < cadena.size(); i++) {
+                if (i == 0) {
+                    pw.println(cadena.get(i).getPathway_inicial());
+                    pw.println("Eventos de enlace: " + cadena.get(i).getEventos());
+                    pw.println(cadena.get(i).getPathway_final());
+                                        
+                } else {
+                    pw.println("Eventos de enlace: " + cadena.get(i).getEventos());
+                    pw.println(cadena.get(i).getPathway_final());
+                }
+            }
+            pw.println("\n");
+                        
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != fichero) {
+                    fichero.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+
     }
 
     public void buscar_tejido() {
@@ -126,7 +256,7 @@ public class consultasJPL {
 
                     ArrayList<pathway> pathway = new ArrayList<>();
                     pathway = cargarPatrones();
-                   
+
                     String consulta = "receptor(" + receptor + ").";
 
                     Query q2 = new Query(consulta);

@@ -46,7 +46,7 @@ public class patrones {
             if (!objEnlace.contains(sep1[2])) {
                 objEnlace.add(sep1[2]);
             }
-            // System.out.println("evento inicio:  " + obj);
+            //System.out.println("evento inicio:  " + obj);
         });
 
         ArrayList<String> listaFin = new ArrayList<>();
@@ -69,7 +69,7 @@ public class patrones {
                 objCierre.add(sep[2]);
             }
 
-            // System.out.println("evento fin:  " + fin);
+            //System.out.println("evento fin:  " + fin);
         });
 
         //patrones de 2 eventos
@@ -328,7 +328,7 @@ public class patrones {
                 Query q2 = new Query(consulta);
                 for (int i = 0; i < q2.allSolutions().length; i++) {
                     String evento = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
-                    System.out.println(E + " " + evento + " " + F);
+                   // System.out.println(E + " " + evento + " " + F);
                     String fin = E + "," + evento + "," + F;
                     encadenarPatron2eventos(inicio, fin, E);
                 }
@@ -489,9 +489,9 @@ public class patrones {
     private String separa_cadena(String cadena) {
 
         String even = "";
-
-        cadena = cadena.replace("{", "").replace("}", "").replace(" ", "");
-
+               
+        cadena = cadena.replace("{", "").replace("}", "").replace(", ", ",");
+        
         String separa[] = cadena.split(",");
 
         String obj1, eve, obj2;
@@ -513,6 +513,7 @@ public class patrones {
         }
 
         even = obj1 + "," + eve + "," + obj2;
+        
         return even;
     }
 
