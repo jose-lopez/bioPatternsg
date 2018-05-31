@@ -33,6 +33,10 @@ componente_celular(O,T):- (cc(O,LCC),buscar_en_lista(T,LCC));
 camino_is_a(X,Y):-is_a(X,Y).
 camino_is_a(X,Y):-is_a(X,Z),camino_is_a(Z,Y).
 
+%************************
+buscar_evento(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C).
+
+
 %******************************************
 %Buscar objeto en una lista dada 
 
