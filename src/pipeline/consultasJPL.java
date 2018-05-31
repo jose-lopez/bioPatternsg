@@ -43,7 +43,7 @@ public class consultasJPL {
         //buscar_otros_ligandos();
         //buscar_tipo_ligando();
         //buscar_tejido();
-        buscar_cadenas_pathways();
+        //buscar_cadenas_pathways();
     }
 
     public void menu() {
@@ -124,13 +124,11 @@ public class consultasJPL {
             switch (resp) {
                 case "1":
                     limpiarPantalla();
-                    ArrayList<pathway> pathways = new ArrayList<>();
-                    pathways = cargarPatrones();
+                    final ArrayList<pathway> pathways = cargarPatrones();
 
-                    for (int i = 0; i < pathways.size(); i++) {
-                        ArrayList<cadenas_pathway> cadena = new ArrayList<>();
-                        cadenaPat(pathways, pathways.get(i), cadena);
-                    }
+                    pathways.stream().forEach((pathway p) -> {
+                        cadenaPat(pathways, p, new ArrayList<cadenas_pathway>());
+                    });
 
                     break;
                 case "0":
@@ -148,7 +146,7 @@ public class consultasJPL {
         listP2.removeIf(p -> p.getObjetos() == pat.getObjetos());
         String objin = pat.getObjetos().get(pat.getObjetos().size() - 1);
 
-        listP2.forEach((p) -> {
+        listP2.stream().forEach((p) -> {
 
             String consulta = "buscar_evento(" + objin + ",E," + p.getObjetos().get(0) + ").";
             Query q2 = new Query(consulta);
@@ -196,7 +194,7 @@ public class consultasJPL {
         }
 
     }
-    
+
     private void escribirArchivo(ArrayList<cadenas_pathway> cadena, String archivo) {
 
         FileWriter fichero = null;
@@ -204,21 +202,21 @@ public class consultasJPL {
         try {
             fichero = new FileWriter("mineria/" + archivo, true);
             pw = new PrintWriter(fichero);
-            
+
             pw.println("-----------------------------------------------------------");
             for (int i = 0; i < cadena.size(); i++) {
                 if (i == 0) {
                     pw.println(cadena.get(i).getPathway_inicial());
                     pw.println("Eventos de enlace: " + cadena.get(i).getEventos());
                     pw.println(cadena.get(i).getPathway_final());
-                                        
+
                 } else {
                     pw.println("Eventos de enlace: " + cadena.get(i).getEventos());
                     pw.println(cadena.get(i).getPathway_final());
                 }
             }
             pw.println("\n");
-                        
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

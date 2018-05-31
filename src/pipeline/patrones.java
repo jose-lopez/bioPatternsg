@@ -71,7 +71,6 @@ public class patrones {
 
             //System.out.println("evento fin:  " + fin);
         });
-
         //patrones de 2 eventos
         patron_2_eventos(objCierre, listaInicio, objEnlace);
 
