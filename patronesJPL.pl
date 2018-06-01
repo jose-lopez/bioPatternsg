@@ -9,7 +9,7 @@ final(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),transcription_factor(A),bu
 
 intermedios(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),protein(B),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate,activate]).
 
-eventoEspecial(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate,activate]).
+eventoEspecial(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate,activate,express]).
 
 %Patrones con restricciones de objetos
 
@@ -19,7 +19,7 @@ final_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en
 
 intermedios_rest(A,E,B,L):-buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),protein(B),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate,activate]).
 
-eventoEspecial_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate,activate]).
+eventoEspecial_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate,activate,express]).
 
 buscar_en_lista(L,[L|_]).
 buscar_en_lista(L,[_|Ys]):-buscar_en_lista(L,Ys).
