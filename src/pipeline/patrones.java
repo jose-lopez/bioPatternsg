@@ -114,8 +114,8 @@ public class patrones {
                         objetos.add(obj);
                     }
                     break;
-                   
-               } else {
+
+                } else {
                     System.out.println("Debe ingresar un listado valido");
                 }
             }
@@ -263,8 +263,7 @@ public class patrones {
             //    System.out.println(q2.allSolutions()[i].toString());
             resp.add(q2.allSolutions()[i].toString());
         }
-        
-        
+
         //busqueda simple
         if (objRest.size() > 0) {
             resp.forEach((sol) -> {
@@ -272,7 +271,7 @@ public class patrones {
 
             });
 
-        //busquedas en con multiples hilos
+            //busquedas con multiples hilos
         } else {
             resp.parallelStream().forEach((sol) -> {
                 busqueda_nodo(max, sol, objini, cierre, FT, lista, listain, listafin, patron, objRest);
@@ -280,7 +279,7 @@ public class patrones {
             });
 
         }
-       
+
     }
 
     private void busqueda_nodo(int max, String sol, String objini, ArrayList<String> cierre, ArrayList<String> FT, ArrayList<String> lista, ArrayList<String> listain, ArrayList<String> listafin, String patron, ArrayList<String> objRest) {
@@ -290,7 +289,11 @@ public class patrones {
         String even = separa_cadena(sol);
         even = objini + even;
         String separa[] = even.split(",");
-        cierre.removeIf(x -> x.equals(separa[2]));
+        try {
+            cierre.removeIf(x -> x.equals(separa[2]));
+        } catch (Exception e) {
+
+        }
         boolean pat = false;
 
         for (String factorT : FT) {
@@ -299,7 +302,10 @@ public class patrones {
                 listaAux.addAll(lista);
                 listaAux.add(separa[2]);
                 //listaAux.remove(0);
-                encadenarPatron(patron + ";" + even, listain, listafin, cierre, listaAux);
+                try {
+                    encadenarPatron(patron + ";" + even, listain, listafin, cierre, listaAux);
+                } catch (Exception e) {
+                }
                 //pat = true;
             }
 
@@ -327,7 +333,7 @@ public class patrones {
                 Query q2 = new Query(consulta);
                 for (int i = 0; i < q2.allSolutions().length; i++) {
                     String evento = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
-                   // System.out.println(E + " " + evento + " " + F);
+                    // System.out.println(E + " " + evento + " " + F);
                     String fin = E + "," + evento + "," + F;
                     encadenarPatron2eventos(inicio, fin, E);
                 }
@@ -408,10 +414,14 @@ public class patrones {
 
     private void agregar_a_lista(String patron, ArrayList<String> objetos) {
         // System.out.println(patron);
-        pathway pathway = new pathway();
-        pathway.setPatron(patron);
-        pathway.setObjetos(objetos);
-        patrones.add(pathway);
+        try {
+            pathway pathway = new pathway();
+            pathway.setPatron(patron);
+            pathway.setObjetos(objetos);
+            patrones.add(pathway);
+        } catch (Exception e) {
+            System.out.println("error");
+        }
 
     }
 
@@ -488,9 +498,9 @@ public class patrones {
     private String separa_cadena(String cadena) {
 
         String even = "";
-               
+
         cadena = cadena.replace("{", "").replace("}", "").replace(", ", ",");
-        
+
         String separa[] = cadena.split(",");
 
         String obj1, eve, obj2;
@@ -512,7 +522,7 @@ public class patrones {
         }
 
         even = obj1 + "," + eve + "," + obj2;
-        
+
         return even;
     }
 

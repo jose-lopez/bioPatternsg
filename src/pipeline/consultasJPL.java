@@ -124,6 +124,7 @@ public class consultasJPL {
             switch (resp) {
                 case "1":
                     limpiarPantalla();
+                    borrar_archivo("mineria/cadenas_Pathways.txt");
                     final ArrayList<pathway> pathways = cargarPatrones();
 
                     pathways.stream().forEach((pathway p) -> {
@@ -143,59 +144,60 @@ public class consultasJPL {
     private void cadenaPat(ArrayList<pathway> pathways, pathway pat, ArrayList<cadenas_pathway> cadena) {
         ArrayList<pathway> listP2 = new ArrayList<>();
         listP2.addAll(pathways);
-        listP2.removeIf(p -> p.getObjetos() == pat.getObjetos());
+        listP2.removeIf(p -> p.getObjetos().toString().equals(pat.getObjetos().toString()));
+
         String objin = pat.getObjetos().get(pat.getObjetos().size() - 1);
 
         listP2.stream().forEach((p) -> {
+            if (!pat.getObjetos().get(0).equals(p.getObjetos().get(0))) {
+                String consulta = "buscar_evento(" + objin + ",E," + p.getObjetos().get(0) + ").";
+                Query q2 = new Query(consulta);
+                String resp = "";
+                for (int i = 0; i < q2.allSolutions().length; i++) {
+                    String even = q2.allSolutions()[i].toString();
+                    even = even.replace("E", "").replace("=", "").replace("{", "").replace("}", "");
+                    resp += objin + "," + even + "," + p.getObjetos().get(0) + "; ";
+                }
+                cadenas_pathway cad = new cadenas_pathway();
+                if (!resp.equals("")) {
+                    cad.setPathway_inicial(pat.getPatron());
+                    cad.setPathway_final(p.getPatron());
+                    cad.setEventos(resp);
+                    cadena.add(cad);
 
-            String consulta = "buscar_evento(" + objin + ",E," + p.getObjetos().get(0) + ").";
-            Query q2 = new Query(consulta);
-            String resp = "";
-            for (int i = 0; i < q2.allSolutions().length; i++) {
-                String even = q2.allSolutions()[i].toString();
-                even = even.replace("E", "").replace("=", "").replace("{", "").replace("}", "");
-                resp += objin + "," + even + "," + p.getObjetos().get(0) + "; ";
-            }
-            cadenas_pathway cad = new cadenas_pathway();
-            if (!resp.equals("")) {
-                cad.setPathway_inicial(pat.getPatron());
-                cad.setPathway_final(p.getPatron());
-                cad.setEventos(resp);
-                cadena.add(cad);
+                    cadenaPat(listP2, p, cadena);
 
-                cadenaPat(listP2, p, cadena);
+                } else if (objin.equals(p.getObjetos().get(0))) {
+                    String sep[] = p.getPatron().split(";");
+                    cad.setPathway_inicial(pat.getPatron());
+                    cad.setPathway_final(p.getPatron());
+                    cad.setEventos(sep[0]);
+                    cadena.add(cad);
 
-            } else if (objin.equals(p.getObjetos().get(0))) {
-                String sep[] = p.getPatron().split(";");
-                cad.setPathway_inicial(pat.getPatron());
-                cad.setPathway_final(p.getPatron());
-                cad.setEventos(sep[0]);
-                cadena.add(cad);
-
-                cadenaPat(listP2, p, cadena);
-            }
-
-        });
-        if (cadena.size() > 0) {
-            System.out.println("-----------------------------------------------------------");
-            for (int i = 0; i < cadena.size(); i++) {
-                if (i == 0) {
-                    System.out.println(cadena.get(i).getPathway_inicial());
-                    System.out.println("Eventos de enlace: " + cadena.get(i).getEventos());
-                    System.out.println(cadena.get(i).getPathway_final());
-                } else {
-                    System.out.println("Eventos de enlace: " + cadena.get(i).getEventos());
-                    System.out.println(cadena.get(i).getPathway_final());
+                    cadenaPat(listP2, p, cadena);
                 }
             }
-            escribirArchivo(cadena, "cadenas_Pathways.txt");
-            System.out.println("\n");
+        });
+        if (cadena.size() > 0) {
+            String cad = "-----------------------------------------------------------\n";
+            for (int i = 0; i < cadena.size(); i++) {
+                if (i == 0) {
+                    cad += cadena.get(i).getPathway_inicial() + "\n";
+                    cad += "Eventos de enlace: " + cadena.get(i).getEventos() + "\n";
+                    cad += cadena.get(i).getPathway_final() + "\n";
+                } else {
+                    cad += "Eventos de enlace: " + cadena.get(i).getEventos() + "\n";
+                    cad += cadena.get(i).getPathway_final() + "\n";
+                }
+            }
+            escribirArchivo(cad, "cadenas_Pathways.txt");
+            System.out.println(cad);
             cadena.clear();
         }
 
     }
 
-    private void escribirArchivo(ArrayList<cadenas_pathway> cadena, String archivo) {
+    private void escribirArchivo(String cadena, String archivo) {
 
         FileWriter fichero = null;
         PrintWriter pw = null;
@@ -203,19 +205,7 @@ public class consultasJPL {
             fichero = new FileWriter("mineria/" + archivo, true);
             pw = new PrintWriter(fichero);
 
-            pw.println("-----------------------------------------------------------");
-            for (int i = 0; i < cadena.size(); i++) {
-                if (i == 0) {
-                    pw.println(cadena.get(i).getPathway_inicial());
-                    pw.println("Eventos de enlace: " + cadena.get(i).getEventos());
-                    pw.println(cadena.get(i).getPathway_final());
-
-                } else {
-                    pw.println("Eventos de enlace: " + cadena.get(i).getEventos());
-                    pw.println(cadena.get(i).getPathway_final());
-                }
-            }
-            pw.println("\n");
+            pw.println(cadena);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -894,6 +884,15 @@ public class consultasJPL {
     private void limpiarPantalla() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    private void borrar_archivo(String nombre) {
+        try {
+            File ficherod = new File(nombre);
+            ficherod.delete();
+        } catch (Exception e) {
+
+        }
     }
 
 }

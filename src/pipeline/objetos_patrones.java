@@ -27,11 +27,11 @@ public class objetos_patrones {
 
         ArrayList<String> lista = listaObjetos();
         System.out.println(lista);
-                
+
         clasificar_objetos(lista);
-        
+
         q.close();
-        
+
         config.setObjetosPatrones(true);
         config.guardar();
     }
@@ -49,81 +49,85 @@ public class objetos_patrones {
             String separa1[] = separa[0].split("=");
 
             String objeto = separa1[1].replace("'", "");
-            
-            if(!lista.contains(objeto)){
+
+            if (!lista.contains(objeto)) {
                 lista.add(objeto);
             }
-            
+
             String separa2[] = separa[1].split("=");
 
             objeto = separa2[1].replace("'", "");
             objeto = objeto.replace("}", "");
-            
-            if(!lista.contains(objeto)){
+
+            if (!lista.contains(objeto)) {
                 lista.add(objeto);
             }
-                        
+
         }
-        
+
         q2.close();
 
         return lista;
     }
-    
-    private void clasificar_objetos(ArrayList<String> lista){
-        
+
+    private void clasificar_objetos(ArrayList<String> lista) {
+
         crear_archivo();
         String ruta = "objetos_patrones.pl";
-        new escribirBC("%//"+lista.toString(), ruta);
-        
-        
-        for (String obj:lista) {
-                                   
-            String consulta = "p_ligand('"+obj+"').";
+        new escribirBC("%//" + lista.toString(), ruta);
+
+        for (String obj : lista) {
+
+            String consulta = "p_ligand('" + obj + "').";
             Query q1 = new Query(consulta);
-            
+
             if (q1.hasSolution()) {
-                new escribirBC("ligand('"+obj+"').", ruta);
+                new escribirBC("ligand('" + obj + "').", ruta);
             }
-            
-            consulta = "p_receptor('"+obj+"').";
+
+            consulta = "p_receptor('" + obj + "').";
             Query q2 = new Query(consulta);
-            
+
             if (q2.hasSolution()) {
-                new escribirBC("receptor('"+obj+"').", ruta);
+                new escribirBC("receptor('" + obj + "').", ruta);
             }
-            
-            consulta = "p_transcription_factor('"+obj+"').";
+
+            consulta = "p_transcription_factor('" + obj + "').";
             Query q3 = new Query(consulta);
-            
+
             if (q3.hasSolution()) {
-                new escribirBC("transcription_factor('"+obj+"').", ruta);
+                new escribirBC("transcription_factor('" + obj + "').", ruta);
             }
-            
-            consulta = "p_protein('"+obj+"').";
+
+            consulta = "p_protein('" + obj + "').";
             Query q4 = new Query(consulta);
-            
+
             if (q4.hasSolution()) {
-                new escribirBC("protein('"+obj+"').", ruta);
+                new escribirBC("protein('" + obj + "').", ruta);
             }
-            
-            consulta = "p_enzyme('"+obj+"').";
+
+            consulta = "p_enzyme('" + obj + "').";
             Query q5 = new Query(consulta);
-            
+
             if (q5.hasSolution()) {
-                new escribirBC("enzyme('"+obj+"').", ruta);
+                new escribirBC("enzyme('" + obj + "').", ruta);
             }
-            
+
             q1.close();
             q2.close();
             q3.close();
             q4.close();
-                 
+
         }
-                      
-        
+        new escribirBC("\n%las siguientes lineas son para evitar errores en el proceso no deben ser modificadas", ruta);
+        new escribirBC("enzyme('').", ruta);
+        new escribirBC("protein('').", ruta);
+        new escribirBC("transcription_factor('').", ruta);
+        new escribirBC("receptor('').", ruta);
+        new escribirBC("ligand('').", ruta);
+
     }
-    
+
     private void crear_archivo() {
         FileWriter fichero = null;
         PrintWriter pw = null;
@@ -134,5 +138,5 @@ public class objetos_patrones {
         }
         pw = new PrintWriter(fichero);
     }
-    
+
 }
