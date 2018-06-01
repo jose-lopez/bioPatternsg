@@ -182,12 +182,12 @@ public class consultasJPL {
             String cad = "-----------------------------------------------------------\n";
             for (int i = 0; i < cadena.size(); i++) {
                 if (i == 0) {
-                    cad += cadena.get(i).getPathway_inicial() + "\n";
-                    cad += "Eventos de enlace: " + cadena.get(i).getEventos() + "\n";
-                    cad += cadena.get(i).getPathway_final() + "\n";
+                    cad +="Pathway=> "+ cadena.get(i).getPathway_inicial() + "\n";
+                    cad += "\nEventos de enlace: " + cadena.get(i).getEventos() + "\n\n";
+                    cad +="Pathway=> "+ cadena.get(i).getPathway_final() + "\n";
                 } else {
-                    cad += "Eventos de enlace: " + cadena.get(i).getEventos() + "\n";
-                    cad += cadena.get(i).getPathway_final() + "\n";
+                    cad += "\nEventos de enlace: " + cadena.get(i).getEventos() + "\n\n";
+                    cad +="Pathway=> "+ cadena.get(i).getPathway_final() + "\n";
                 }
             }
             escribirArchivo(cad, "cadenas_Pathways.txt");
