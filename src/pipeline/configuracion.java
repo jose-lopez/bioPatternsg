@@ -168,7 +168,7 @@ public class configuracion {
         //System.out.println("\n**Configuracion de minado**");
         System.out.println("\n*Region promotora: " + this.RegionPromotora);
         System.out.println("*Cantidad de complejos: " + this.cantComplejos);
-        System.out.println("*Numero de niveles: " + this.numIteraciones);
+        System.out.println("*Niveles de Busqueda: " + this.numIteraciones);
         System.out.println("*Confiabilidad TFBind: " + (int) (this.confiabilidad_tfbind * 100));
         System.out.println("*Cantidad maxima de pubmed IDs por busqueda: " + this.cantidadPMID);
 
