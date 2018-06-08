@@ -120,7 +120,7 @@ public class complejoProteinico {
     }
 
     public void vaciar_pl(String archivo) {
-
+        System.out.print(".");
         new escribirBC("complejo(\'" + ID.replace("\'", "") + "\').",archivo);
         for (int i = 0; i < ligandos.size(); i++) {
             ligandos.get(i).vaciar_pl(archivo);

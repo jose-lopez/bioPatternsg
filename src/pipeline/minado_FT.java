@@ -392,7 +392,7 @@ public class minado_FT {
                 //System.out.println(hgnc.getSimbolo() + "  " + hgnc.getNombre());
                 String idmesh = letMesh.busquedaTerm(obj.replace(" ", "+"), 1);
                 if (idmesh == null) {
-                    idmesh = letMesh.busquedaTerm(obj, 2);
+                    idmesh = letMesh.busquedaTerm(obj.replace(" ", "+"), 2);
                 }
                 ontologia.getParent().add(idmesh);
             } catch (Exception e) {
@@ -438,7 +438,8 @@ public class minado_FT {
     }
 
     public void vaciar_bc_pl(boolean GO, boolean MESH, configuracion config) {
-        System.out.println("Vaciando ontologias y objetos minados a formato .pl");
+        limpiarPantalla();
+        System.out.print("Vaciando ontologias y objetos minados a formato .pl");
         new escribirBC("ligando(\'\').", "objetosMinados.pl");
         new escribirBC("transcription_factors(\'\').", "objetosMinados.pl");
         //-------------------------------------------------------
@@ -450,6 +451,7 @@ public class minado_FT {
                 try {
                     objetos_Experto obj = (objetos_Experto) result.next();
                     obj.vaciar_pl("objetosMinados.pl");
+                    System.out.print(".");
                 } catch (Exception e) {
                 }
             }
@@ -459,6 +461,7 @@ public class minado_FT {
             dbHE.close();
         }
 
+        
         //----------------------------------
         ObjectContainer db = Db4o.openFile("mineria/FT.db");
         factorTranscripcion FT = new factorTranscripcion();
@@ -478,12 +481,16 @@ public class minado_FT {
 
         ontologiaObjMin ontologias = new ontologiaObjMin();
         ontologias.vaciarOntologia_pl(GO, MESH);
-        
+
         config.setVaciado_pl(true);
         config.guardar();
     }
-    
-   
+
+    private void limpiarPantalla() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
 }
 
 //-------------------------------------------------------------------------------------------------//

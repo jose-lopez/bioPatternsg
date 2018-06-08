@@ -49,8 +49,7 @@ public class objetosMinados {
                     agregar_a_lista(listaObj, sinonimo);
                 }
 
-                escribir_en_archivo(construirCadena(listaObj));
-
+//                escribir_en_archivo(construirCadena(listaObj));
             } else {
                 escribir_en_archivo(FT.getID());
 
@@ -63,7 +62,7 @@ public class objetosMinados {
                         for (String sinonimo : hgnc.getSinonimos()) {
                             agregar_a_lista(listaObj, sinonimo);
                         }
-                        escribir_en_archivo(construirCadena(listaObj));
+                        //        escribir_en_archivo(construirCadena(listaObj));
                     }
                 }
             }
@@ -75,7 +74,7 @@ public class objetosMinados {
                 for (ligando ligando : complejo.getLigandos()) {
                     if (!revisar_en_archivo(ligando.getId())) {
                         String Cadena = ligando.getId() + ";" + ligando.getNombre();
-                        escribir_en_archivo(Cadena);
+                        //          escribir_en_archivo(Cadena);
                     }
                 }
             }
@@ -91,8 +90,7 @@ public class objetosMinados {
 
             HGNC.getSinonimos().forEach(obj -> agregar_a_lista(listaObj, obj));
 
-            escribir_en_archivo(construirCadena(listaObj));
-
+            //escribir_en_archivo(construirCadena(listaObj));
         }
     }
 
@@ -108,22 +106,20 @@ public class objetosMinados {
 
                 objExp.getHGNC().get(0).getSinonimos().forEach(sinonimo -> agregar_a_lista(listaObj, sinonimo));
 
-                escribir_en_archivo(construirCadena(listaObj));
-
+                // escribir_en_archivo(construirCadena(listaObj));
             } else {
                 //si el objeto del experto no es igual que los objetos de HGNC se guardan todos por separado
-                escribir_en_archivo(objExp.getID());
+                //escribir_en_archivo(objExp.getID());
 
                 objExp.getHGNC().forEach((obj) -> {
-                    if (!revisar_en_archivo(obj.getSimbolo())) {
-                        ArrayList<String> listaObj = new ArrayList<>();
-                        agregar_a_lista(listaObj, obj.getSimbolo());
-                        agregar_a_lista(listaObj, obj.getNombre());
 
-                        obj.getSinonimos().forEach(obj2 -> agregar_a_lista(listaObj, obj2));
+                    ArrayList<String> listaObj = new ArrayList<>();
+                    agregar_a_lista(listaObj, obj.getSimbolo());
+                    agregar_a_lista(listaObj, obj.getNombre());
 
-                        escribir_en_archivo(construirCadena(listaObj));
-                    }
+                    obj.getSinonimos().forEach(obj2 -> agregar_a_lista(listaObj, obj2));
+
+                    //      escribir_en_archivo(construirCadena(listaObj));
                 });
 
             }
@@ -131,53 +127,60 @@ public class objetosMinados {
         }
 
     }
+    
+    public String procesarNombre(String nombre) {
+        String cadena = nombre;
+        cadena = cadena.replace(",", " ','");
+        cadena = cadena.replace(" ", ", ");
+        return cadena;
+    }
 
     private boolean revisar_en_archivo(String objeto) {
 
-        File archivo = null;
-        FileReader fr = null;
-        BufferedReader br = null;
-
-        try {
-            archivo = new File("mineria/objetosMinados.txt");
-            fr = new FileReader(archivo);
-            br = new BufferedReader(fr);
-            String linea;
-
-            while ((linea = br.readLine()) != null) {
-
-                String[] separa = linea.split(";");
-                if (separa[0].equals(objeto)) {
-                    return true;
-                }
-            }
-        } catch (Exception e) {
-        }
+//        File archivo = null;
+//        FileReader fr = null;
+//        BufferedReader br = null;
+//
+//        try {
+//            archivo = new File("mineria/objetosMinados.txt");
+//            fr = new FileReader(archivo);
+//            br = new BufferedReader(fr);
+//            String linea;
+//
+//            while ((linea = br.readLine()) != null) {
+//
+//                String[] separa = linea.split(";");
+//                if (separa[0].equals(objeto)) {
+//                    return true;
+//                }
+//            }
+//        } catch (Exception e) {
+//        }
         return false;
     }
 
     private void escribir_en_archivo(String cadena) {
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        if (!cadena.equals("null")) {
-            try {
-                fichero = new FileWriter("mineria/objetosMinados.txt", true);
-                pw = new PrintWriter(fichero);
-
-                pw.println(cadena);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (null != fichero) {
-                        fichero.close();
-                    }
-                } catch (Exception e2) {
-                    e2.printStackTrace();
-                }
-            }
-        }
+//        FileWriter fichero = null;
+//        PrintWriter pw = null;
+//        if (!cadena.equals("null")) {
+//            try {
+//                fichero = new FileWriter("mineria/objetosMinados.txt", true);
+//                pw = new PrintWriter(fichero);
+//
+//                pw.println(cadena);
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            } finally {
+//                try {
+//                    if (null != fichero) {
+//                        fichero.close();
+//                    }
+//                } catch (Exception e2) {
+//                    e2.printStackTrace();
+//                }
+//            }
+//        }
     }
 
     private String construirCadena(ArrayList<String> listaObj) {

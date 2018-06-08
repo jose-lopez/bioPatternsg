@@ -8,6 +8,7 @@ package pipeline;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.collections.ActivatableArrayList;
 import java.util.ArrayList;
 
 /**
@@ -36,8 +37,7 @@ public class ontologiaObjMin {
 
             ObjectSet result = db.queryByExample(this);
             if (!result.hasNext()) {
-                //System.out.println(nombre);
-                db.store(this);
+                              
                 if (GO) {
                     
                     funcionMolecular.forEach(fm -> buscarOntologiaGO(fm));
@@ -50,6 +50,8 @@ public class ontologiaObjMin {
                 if (mesh) {
                     Parent.forEach(parent -> buscarOntologiaMESH(parent));
                 }
+                
+                db.store(this);
             }
 
         } catch (Exception e) {
@@ -63,11 +65,15 @@ public class ontologiaObjMin {
     public void buscarOntologiaMESH(String MESH) {
         ontologiaMESH ontologia = new ontologiaMESH();
         lecturas_MESH letMESH = new lecturas_MESH();
-        ontologia = letMESH.obtenerOntologia(MESH);
-        
+        ontologia.setMESH(MESH);
+                
         if (!buscarObjeto(ontologia) && !ontologia.getMESH().equals("1000048")) {
-            guardar_Ontologia(ontologia);
+            
+            ontologia = letMESH.obtenerOntologia(MESH);
+             
             ontologia.getParent().forEach(ont -> buscarOntologiaMESH(ont));
+            
+            guardar_Ontologia(ontologia);
                   
         }
 
@@ -76,11 +82,10 @@ public class ontologiaObjMin {
     public void buscarOntologiaGO(String GO) {
         ontologiaGO ontologia = new ontologiaGO();
         lecturas_QuickGO letQGO = new lecturas_QuickGO();
-        ontologia = letQGO.obtenerOntologia(GO);
-        
+        ontologia.setGO(GO);
         if (!buscarObjeto(ontologia)) {
-            guardar_Ontologia(ontologia);
-            
+            ontologia = letQGO.obtenerOntologia(GO);
+           
             ontologia.getIs_a().forEach(ont -> buscarOntologiaGO(ont));
             
             ontologia.getPart_of().forEach(ont -> buscarOntologiaGO(ont));
@@ -96,7 +101,8 @@ public class ontologiaObjMin {
             ontologia.getCapable_of_part_of().forEach(ont -> buscarOntologiaGO(ont));
            
             ontologia.getOccurs_in().forEach(ont -> buscarOntologiaGO(ont));
-                        
+              
+            guardar_Ontologia(ontologia);
         }
 
     }
@@ -106,7 +112,7 @@ public class ontologiaObjMin {
         ObjectContainer db = Db4o.openFile("mineria/OntologiaGO.db");
         try {
             db.store(ontologia);
-            //System.out.println("Guardando: "+ontologia.getNombre());
+            //System.out.println("Guardando: "+ontologia.getNombre()+" "+ontologia.getGO());
         } catch (Exception e) {
             //System.out.println("Error al guardar en OntologiaGO.db...");
         } finally {
@@ -121,7 +127,7 @@ public class ontologiaObjMin {
             db.store(ontologia);
             //System.out.println("Guardando: "+ontologia.getNombre()+" "+ontologia.getMESH());
         } catch (Exception e) {
-            System.out.println("Error al guardar en OntologiaMESH.db...");
+           // System.out.println("Error al guardar en OntologiaMESH.db...");
         } finally {
             db.close();
         }
@@ -246,11 +252,13 @@ public class ontologiaObjMin {
                 vaciarpl(obj);
                 if (GO) {
                     
-                    obj.funcionMolecular.forEach(fm -> ontologiaGO.vaciar_pl(fm, null, null, ListaObj,"ontologiaGO.pl"));
+                    final ArrayList<ontologiaGO> ontGO = ontologiaGO.getOntGO();
+                   
+                    obj.funcionMolecular.forEach(fm -> ontologiaGO.vaciar_pl(ontGO,fm, null, null, ListaObj,"ontologiaGO.pl"));
                     
-                    obj.procesoBiologico.forEach(pb -> ontologiaGO.vaciar_pl(pb, null, null, ListaObj,"ontologiaGO.pl"));
+                    obj.procesoBiologico.forEach(pb -> ontologiaGO.vaciar_pl(ontGO,pb, null, null, ListaObj,"ontologiaGO.pl"));
                     
-                    obj.componenteCelular.forEach(cc -> ontologiaGO.vaciar_pl(cc, null, null, ListaObj,"ontologiaGO.pl"));
+                    obj.componenteCelular.forEach(cc -> ontologiaGO.vaciar_pl(ontGO,cc, null, null, ListaObj,"ontologiaGO.pl"));
                     
                 }
                 

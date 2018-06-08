@@ -56,6 +56,15 @@ public class ligando {
         new escribirBC(cadena,archivo);
         cadena = "sinonimos(\'"+id.replace("\'", "")+"\',[\'"+id.replace("\'", "")+"\',\'"+nombre.replace("\'", "")+"\']).";
         new escribirBC(cadena, archivo);
+        String cadena_txt = id+";"+new objetosMinados().procesarNombre(nombre);
+        new escribirBC(cadena_txt, "objetosMinados.txt");
+    }
+    
+    private String procesarNombre(String nombre) {
+        String cadena = nombre;
+        cadena = cadena.replace(",", " ','");
+        cadena = cadena.replace(" ", ", ");
+        return cadena;
     }
        
     public String getId() {

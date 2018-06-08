@@ -8,6 +8,7 @@ package pipeline;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.collections.ActivatableArrayList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -126,39 +127,57 @@ public class ontologiaGO {
 
     }
 
-    public void vaciar_pl(String GO, String obj, String relacion, ArrayList<String> listObj,String archivo) {
+    public void vaciar_pl(ArrayList<ontologiaGO> ontGO,String GO, String obj, String relacion, ArrayList<String> listObj,String archivo) {
 
         ontologiaGO objeto = new ontologiaGO();
-        objeto.setGO(GO);
-        objeto = consultarBD(objeto);
-
+        objeto = buscarOBJ(GO, ontGO);
+        
         if (obj != null) {
             String cadena = relacion + "(\'" + obj.replace("\'", "") + "\',\'" + objeto.getNombre().replace("\'", "") + "\').";
-            new escribirBC(cadena,archivo);
+            new escribirBC(cadena, archivo);
+            System.out.print(".");
         }
+        
         if (!listObj.contains(GO)) {
+            //System.out.println(objeto.getNombre());
             listObj.add(GO);
             final String obj_nombre = objeto.getNombre();
             
 
-            objeto.is_a.forEach(t -> vaciar_pl(t, obj_nombre, "is_a", listObj,archivo));
+            objeto.is_a.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "is_a", listObj,archivo));
             
-            objeto.capable_of.forEach(t -> vaciar_pl(t, obj_nombre, "capable_of", listObj,archivo));
+            objeto.capable_of.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "capable_of", listObj,archivo));
             
-            objeto.capable_of_part_of.forEach(t -> vaciar_pl(t, obj_nombre, "capable_of_part_of", listObj,archivo));
+            objeto.capable_of_part_of.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "capable_of_part_of", listObj,archivo));
 
-            objeto.negatively_regulates.forEach(t -> vaciar_pl(t, obj_nombre, "negatively_regulates", listObj,archivo));
+            objeto.negatively_regulates.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "negatively_regulates", listObj,archivo));
                         
-            objeto.positively_regulates.forEach(t -> vaciar_pl(t, obj_nombre, "positively_regulates", listObj,archivo));
+            objeto.positively_regulates.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "positively_regulates", listObj,archivo));
             
-            objeto.part_of.forEach(t -> vaciar_pl(t, obj_nombre, "part_of", listObj,archivo));
+            objeto.part_of.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "part_of", listObj,archivo));
             
-            objeto.regulates.forEach(t -> vaciar_pl(t, obj_nombre, "regulates", listObj,archivo));
+            objeto.regulates.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "regulates", listObj,archivo));
                        
-            objeto.occurs_in.forEach(t -> vaciar_pl(t, obj_nombre, "occurs_in", listObj,archivo));
+            objeto.occurs_in.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "occurs_in", listObj,archivo));
                       
         }
 
+    }
+    
+    public ontologiaGO buscarOBJ(String GO,ArrayList<ontologiaGO> ontGO){
+        ontologiaGO ont = new ontologiaGO();
+        
+        for (ontologiaGO gO : ontGO) {
+            
+            if(gO.getGO().equals(GO)){
+                ont = gO;
+                break;
+            }
+        }
+        
+        
+              
+        return ont;
     }
 
     private ontologiaGO consultarBD(ontologiaGO obj) {
@@ -177,6 +196,25 @@ public class ontologiaGO {
         }
 
         return objeto;
+    }
+    
+    public ArrayList<ontologiaGO> getOntGO(){
+        ArrayList<ontologiaGO> ontGO = new ActivatableArrayList<>();
+        
+        ontologiaGO obj = new ontologiaGO();
+        ObjectContainer db = Db4o.openFile("mineria/OntologiaGO.db");
+        try {
+
+            ObjectSet result = db.queryByExample(obj);
+            ontGO.addAll(result);
+        } catch (Exception e) {
+            System.out.println("Error al acceder a OntologiaGO.db");
+        } finally {
+            db.close();
+        }
+        
+        
+        return ontGO;
     }
 
     private void imprimir(ontologiaGO objeto) {
@@ -351,5 +389,7 @@ public class ontologiaGO {
     public void setCapable_of_part_of(ArrayList<String> capable_of_part_of) {
         this.capable_of_part_of = capable_of_part_of;
     }
+
+   
 
 }

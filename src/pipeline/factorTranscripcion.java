@@ -149,7 +149,7 @@ public class factorTranscripcion {
         this.complejoProteinico = new ArrayList<>();
 
         ArrayList<String> IDCP = Buscar_ID_complejosProteinicos(ID, NumeroObjetos);
-        
+
         IDCP.forEach((idcp) -> {
             complejoProteinico cp = new complejoProteinico();
             cp = new lecturas_PDB().Busqueda_PDB(idcp, GO, MESH);
@@ -157,7 +157,6 @@ public class factorTranscripcion {
             complejoProteinico.add(cp);
         });
 
-        
     }
 
     public void NuevosObjetos(ArrayList<String> Lista) {
@@ -185,8 +184,9 @@ public class factorTranscripcion {
     public void vaciar_pl(String archivo) {
         ArrayList<String> AuxLig = new ArrayList<>();
         String ligandos = "[";
-             
+
         for (complejoProteinico comp : complejoProteinico) {
+            System.out.print(".");
             comp.vaciar_pl(archivo);
             for (ligando ligando : comp.getLigandos()) {
                 if (!AuxLig.contains(ligando.getId())) {
@@ -203,29 +203,37 @@ public class factorTranscripcion {
         if (!ligandos.equals("[]")) {
             new escribirBC("ligandos(\'" + ID.replace("\'", "") + "\'," + ligandos + ").", archivo);
         }
-       
+                
+        boolean encontrado = false;
+        objetosMinados objMIn = new objetosMinados();
+        
         for (HGNC hgnc : HGNC) {
+            System.out.print(".");
+            String cadena_txt = "";
             String cadena = "[";
-            if (hgnc.getSimbolo().equals(ID)) {
-                cadena += "\'" + hgnc.getSimbolo().replace("\'", "") + "\',";
-                cadena += "\'" + hgnc.getNombre().replace("\'", "") + "\'";
-                for (String sinonimo : hgnc.getSinonimos()) {
-                    cadena += ",\'" + sinonimo.replace("\'", "") + "\'";
-                }
-                cadena += "]";
-               // System.out.println("iteracion: "+cadena);
-                new escribirBC("sinonimos(\'" + ID + "\'," + cadena + ").", archivo);
-
-            } else {
-                cadena += "\'" + hgnc.getSimbolo().replace("\'", "") + "\',";
-                cadena += "\'" + hgnc.getNombre().replace("\'", "") + "\'";
-                for (String sinonimo : hgnc.getSinonimos()) {
-                    cadena += ",\'" + sinonimo.replace("\'", "") + "\'";
-                }
-                cadena += "]";
-                //System.out.println("iteracion: "+cadena);
-                new escribirBC("sinonimos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadena + ").", archivo);
+            cadena += "\'" + hgnc.getSimbolo().replace("\'", "") + "\',";
+            cadena_txt += objMIn.procesarNombre(hgnc.getSimbolo()) + ";";
+            cadena += "\'" + hgnc.getNombre().replace("\'", "") + "\'";
+            cadena_txt += objMIn.procesarNombre(hgnc.getNombre());
+            for (String sinonimo : hgnc.getSinonimos()) {
+                cadena += ",\'" + sinonimo.replace("\'", "") + "\'";
+                cadena_txt += ";" + objMIn.procesarNombre(sinonimo);
             }
+
+            cadena += "]";
+            //System.out.println("Experto: "+cadena);
+            new escribirBC("sinonimos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadena + ").", archivo);
+            new escribirBC(cadena_txt, "objetosMinados.txt");
+            ArrayList<String> lista = hgnc.ListaNombres();
+            if (lista.contains(ID)) {
+                encontrado = true;
+            }
+        }
+
+        if (!encontrado) {
+            new escribirBC("sinonimos(\'" + ID + "\',[\'" + ID + "\']).", archivo);
+            String cadena_txt = ID + ";" + objMIn.procesarNombre(ID);
+            new escribirBC(cadena_txt, "objetosMinados.txt");
         }
 
         if (N_Iteracion == 0) {
@@ -234,6 +242,7 @@ public class factorTranscripcion {
 
     }
 
+   
     private lecturas_HGNC lecturasHGNC(String ID, boolean GO, boolean MESH) {
         lecturas_HGNC HGNC = new lecturas_HGNC();
         this.HGNC = HGNC.busquedaInfGen(ID, GO, MESH);
@@ -243,8 +252,8 @@ public class factorTranscripcion {
     public ArrayList<String> listaNombres() {
         ArrayList<String> lista = new ArrayList<>();
         lista.add(ID);
-        HGNC.parallelStream().forEach(hgnc ->lista.addAll(hgnc.ListaNombres()) );
-                
+        HGNC.parallelStream().forEach(hgnc -> lista.addAll(hgnc.ListaNombres()));
+
         return lista;
     }
 

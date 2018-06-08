@@ -121,6 +121,7 @@ public class lecturas_QuickGO {
     public void buscarNombre(String GO, ontologiaGO ontologia) throws MalformedURLException, IOException {
 
         String requestURL = "https://www.ebi.ac.uk/QuickGO/services/ontology/go/search?query=" + GO.replace(":", "%3A");
+        
         String output = conectar(requestURL);
 
         JsonParser parser = new JsonParser();

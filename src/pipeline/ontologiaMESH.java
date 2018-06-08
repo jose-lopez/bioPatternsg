@@ -65,7 +65,7 @@ public class ontologiaMESH {
         objeto.setMESH(MESH);
         objeto = consultarBD(objeto);
         String ruta_wnr = "well_know_rules.pl";
-
+        System.out.print(".");
         if (obj != null && objeto.getNombre() != null) {
             String cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'" + objeto.getNombre().replace("\'", "") + "\').";
             new escribirBC(cadena, archivo);
@@ -205,6 +205,7 @@ public class ontologiaMESH {
         aux = aux.replace("'", "");
         aux = aux.replace("+", "");
         aux = aux.replace("__", "_");
+        aux = aux.replace(".", "_");
         aux = "wkr_" + aux;
         return aux;
     }

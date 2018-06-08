@@ -166,7 +166,7 @@ public class BioPattern {
 
     public void pipelineBioPattern() throws StringIndexOutOfBoundsException, Exception {
         //Autenticación de proxy        
-        //autenticarProxy("150.187.65.3", "3128");
+        autenticarProxy("150.187.65.3", "3128");
 
         minado_FT mfts = new minado_FT(); // clase que contiene los metodos donde se buscara la informacion de los objetos minados
 
@@ -259,9 +259,9 @@ public class BioPattern {
     public String getSecuenciaProblema() {
         return secuenciaProblema;
     }
-    private String usuario = "";
-    private char[] clave;
-    // private char[] clave = {'', '', '', '', '', '', '', '', '', ''};
+    private String usuario = "yacson.ramirez";
+    //private char[] clave;
+    private char[] clave = {'Y', 'a', 'c', 's', 'o', 'N', '3', '2', '8', '7'};
 
     private void autenticarProxy(String proxy_IP, String proxy_Port) {
 
@@ -295,8 +295,14 @@ public class BioPattern {
             config.recuperarConfiguracion(); // recupera la configuracion actual y el checklist que indica desde que punto puede continuar la ejecucion
         } catch (Exception e) {
         }
+       
+        
+         new PubMed_IDs().buscar(10, config);
+       
+        
 
-        new PubMed_IDs().buscar(10, config);
+        
+   
 
     }
 
