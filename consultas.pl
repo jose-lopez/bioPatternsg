@@ -36,6 +36,13 @@ camino_is_a(X,Y):-is_a(X,Z),camino_is_a(Z,Y).
 %************************
 buscar_evento(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C).
 
+%************************************************
+%buscar informacion de objeto
+
+buscar_objeto(A,B,S):-sinonimos(B,L),buscar_en_lista(A,L),buscar_en_lista(S,L).
+
+
+
 
 %******************************************
 %Buscar objeto en una lista dada 
