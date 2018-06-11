@@ -834,55 +834,6 @@ public class configuracion {
         return ruta;
     }
 
-    public void ver_detalles() {
-        Scanner lectura = new Scanner(System.in);
-        boolean r = true;
-        while (r) {
-            System.out.println("***Ver Detalles de objetos Minados***");
-            System.out.println("1.- Listar Objetos minados");
-            System.out.println("2.- Ver Detalle de Objeto");
-            System.out.println("3.-Listar Ligandos");
-            System.out.println("4.- Ontologias");
-            System.out.println("0.-Salir");
-
-            String resp = lectura.nextLine();
-
-            switch (resp) {
-
-                case "1":
-                    ArrayList<String> lista = listar_objetos_minados();
-                    System.out.println("Lista de objetos minados:\n");
-                    for (int i = 0; i < lista.size(); i++) {
-                        System.out.println(lista.get(i));
-                    }
-                    System.out.println();
-                    break;
-
-                case "2":
-                    detalle_objeto();
-                    System.out.println();
-                    break;
-
-                case "3":
-                    System.out.println("\n Lista de ligandos encontrados");
-                    ArrayList<String> ligandos = listar_ligandos();
-                    for (int i = 0; i < ligandos.size(); i++) {
-                        System.out.println(ligandos.get(i));
-                    }
-                    System.out.println();
-                    break;
-                case "4":
-                    ontologiaObjMin objont = new ontologiaObjMin();
-                    objont.imprimirTodo();
-                    break;
-                case "0":
-                    r = false;
-                    break;
-            }
-        }
-
-    }
-
     public ArrayList<String> listar_objetos_minados() {
 
         objetosMineria obj = new objetosMineria();
@@ -924,47 +875,7 @@ public class configuracion {
 
         return obj.getNuevos_objetos();
     }
-
-    public void detalle_objeto() {
-        Scanner lectura = new Scanner(System.in);
-        System.out.print("Ingrese el simbolo del objeto que desea consultar: ");
-        String simbolo = lectura.nextLine();
-
-        ArrayList<String> listaOM = listar_objetos_minados();
-        if (listaOM.contains(simbolo)) {
-            factorTranscripcion FT = new factorTranscripcion();
-            buscar_Objeto(simbolo, FT);
-            ontologiaObjMin objont = new ontologiaObjMin();
-
-            ontologiaObjMin ontologias = new ontologiaObjMin();
-            ontologias.buscarObjeto(simbolo);
-
-        } else {
-            System.out.println("no encontrado");
-        }
-    }
-
-    private boolean buscar_Objeto(String objeto, factorTranscripcion FT) {
-        objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile("mineria/FT.db");
-        factorTranscripcion ft = new factorTranscripcion();
-        ft.setID(objeto);
-        try {
-            ObjectSet result = db.queryByExample(ft);
-            while (result.hasNext()) {
-                FT = (factorTranscripcion) result.next();
-                FT.imprimir();
-                return true;
-            }
-        } catch (Exception e) {
-
-        } finally {
-            db.close();
-        }
-
-        return false;
-    }
-
+   
     public ArrayList<String> listar_ligandos() {
         ArrayList<String> listaLigandos = new ArrayList<>();
         factorTranscripcion obj = new factorTranscripcion();

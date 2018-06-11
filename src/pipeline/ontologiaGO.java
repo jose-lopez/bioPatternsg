@@ -87,7 +87,7 @@ public class ontologiaGO {
         for (int i = 0; i < nivel; i++) {
             System.out.print("      ");
         }
-        System.out.println(relacion + objeto.getNombre() + " " + objeto.getGO());
+        System.out.println(relacion + objeto.getNombre());
 
         nivel++;
         if (restriccion == null || restriccion.equals("is a")) {

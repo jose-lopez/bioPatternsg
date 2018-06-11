@@ -65,6 +65,8 @@ public class consultasJPL {
             System.out.println("7.- Clasificar tipo de ligando");
             System.out.println("8.- Busqueda de tejidos");
             System.out.println("9.- Buscar cadenas de Pathways");
+            System.out.println("10.- Consultar un objeto");
+
             System.out.println("0.- Volver.");
 
             String resp = lectura.nextLine();
@@ -98,6 +100,9 @@ public class consultasJPL {
                 case "9":
                     buscar_cadenas_pathways();
                     break;
+                case "10":
+                    consultar_objeto();
+                    break;
                 case "0":
                     r = false;
                     break;
@@ -105,6 +110,107 @@ public class consultasJPL {
             }
 
         }
+    }
+
+    public void consultar_objeto() {
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        while (r) {
+            limpiarPantalla();
+            System.out.print("Ingrese nombre del objeto ");
+            String text = lectura.nextLine();
+            String objeto = "'" + text.replace("'", "") + "'";
+
+            String simbolo = buscar_sinonimos(objeto);
+
+            if (!simbolo.equals("")) {
+                ver_ontologias(simbolo);
+            }
+
+            while (true) {
+                System.out.println("Consultar otro objeto? ... S/N");
+                String resp = lectura.nextLine();
+                if (resp.equalsIgnoreCase("s")) {
+                    r = true;
+                    break;
+                } else if (resp.equalsIgnoreCase("n")) {
+                    r = false;
+                    break;
+                } else {
+                    System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                }
+
+            }
+
+        }
+
+    }
+
+    public void ver_ontologias(String obj) {
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        while (r) {
+
+            System.out.println("\n Seleccione una opcion.");
+            System.out.println("1.- Arbol de Identidad.");
+            System.out.println("2.- Gene Ontology.");
+            System.out.println("0.- Volver");
+            String resp = lectura.nextLine();
+
+            switch (resp) {
+                case "1":
+                    new ontologiaObjMin().buscarObjeto(obj.replace("'", ""), false, true);
+                    break;
+
+                case "2":
+                    new ontologiaObjMin().buscarObjeto(obj.replace("'", ""), true, false);
+                    break;
+
+                case "0":
+                    r = false;
+                    break;
+            }
+
+        }
+    }
+
+    public String buscar_sinonimos(String objeto) {
+        String simbolo = "";
+        String consulta = "buscar_objeto(" + objeto + ",B,S).";
+        ArrayList<String> sinonimos = new ArrayList<>();
+
+        Query q2 = new Query(consulta);
+        for (int i = 0; i < q2.allSolutions().length; i++) {
+            String aux = q2.allSolutions()[i].toString();
+            aux = aux.replace("{", "").replace("}", "").replace("B=", "").replace("S=", "").replace(" ", "");
+            String sep[] = aux.split(",");
+
+            simbolo = sep[0];
+            sinonimos.add(sep[1]);
+
+        }
+
+        System.out.println("Simbolo: " + simbolo);
+        System.out.print("Sinonimos: ");
+        sinonimos.forEach(s -> System.out.print(s + ", "));
+        System.out.println("\n");
+
+        //---------------------------------------------------
+        String consulta1 = "transcription_factors(" + simbolo + ").";
+        Query q3 = new Query(consulta1);
+
+        if (q3.hasSolution()) {
+            System.out.println("- factor de transcripcion TFBind");
+        }
+
+        String consulta2 = "ligando(" + simbolo + ").";
+        Query q4 = new Query(consulta2);
+
+        if (q4.hasSolution()) {
+            System.out.println("- ligando PDB");
+        }
+
+        return simbolo;
     }
 
     public void buscar_cadenas_pathways() {
@@ -182,12 +288,12 @@ public class consultasJPL {
             String cad = "-----------------------------------------------------------\n";
             for (int i = 0; i < cadena.size(); i++) {
                 if (i == 0) {
-                    cad +="Pathway=> "+ cadena.get(i).getPathway_inicial() + "\n";
+                    cad += "Pathway=> " + cadena.get(i).getPathway_inicial() + "\n";
                     cad += "\nEventos de enlace: " + cadena.get(i).getEventos() + "\n\n";
-                    cad +="Pathway=> "+ cadena.get(i).getPathway_final() + "\n";
+                    cad += "Pathway=> " + cadena.get(i).getPathway_final() + "\n";
                 } else {
                     cad += "\nEventos de enlace: " + cadena.get(i).getEventos() + "\n\n";
-                    cad +="Pathway=> "+ cadena.get(i).getPathway_final() + "\n";
+                    cad += "Pathway=> " + cadena.get(i).getPathway_final() + "\n";
                 }
             }
             escribirArchivo(cad, "cadenas_Pathways.txt");
