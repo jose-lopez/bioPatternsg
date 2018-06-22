@@ -266,21 +266,24 @@ public class consultasJPL {
                 }
                 cadenas_pathway cad = new cadenas_pathway();
                 if (!resp.equals("")) {
-                    cad.setPathway_inicial(pat.getPatron());
-                    cad.setPathway_final(p.getPatron());
-                    cad.setEventos(resp);
-                    cadena.add(cad);
+                    if (validar_cadena(pat, p)) {
+                        cad.setPathway_inicial(pat.getPatron());
+                        cad.setPathway_final(p.getPatron());
+                        cad.setEventos(resp);
+                        cadena.add(cad);
 
-                    cadenaPat(listP2, p, cadena);
-
+                        cadenaPat(listP2, p, cadena);
+                    }
                 } else if (objin.equals(p.getObjetos().get(0))) {
-                    String sep[] = p.getPatron().split(";");
-                    cad.setPathway_inicial(pat.getPatron());
-                    cad.setPathway_final(p.getPatron());
-                    cad.setEventos(sep[0]);
-                    cadena.add(cad);
+                    if (validar_cadena(pat, p)) {
+                        String sep[] = p.getPatron().split(";");
+                        cad.setPathway_inicial(pat.getPatron());
+                        cad.setPathway_final(p.getPatron());
+                        cad.setEventos(sep[0]);
+                        cadena.add(cad);
 
-                    cadenaPat(listP2, p, cadena);
+                        cadenaPat(listP2, p, cadena);
+                    }
                 }
             }
         });
@@ -301,6 +304,30 @@ public class consultasJPL {
             cadena.clear();
         }
 
+    }
+
+    private boolean validar_cadena(pathway in, pathway fin) {
+        String obj_in = in.getObjetos().get(in.getObjetos().size() - 1);
+        String obj_fin = fin.getObjetos().get(fin.getObjetos().size() - 1);
+
+        if (!obj_in.equals(obj_fin)) {
+            return true;
+        }
+
+        String sep1[] = in.getPatron().split(";");
+        String eve_in = sep1[sep1.length - 1];
+        String tip1 = tipo_Complejo(eve_in);
+
+        String sep2[] = fin.getPatron().split(";");
+        String eve_fin = sep2[sep2.length - 1];
+        String tip2 = tipo_Complejo(eve_fin);
+
+       // System.out.println(sep1[sep1.length - 1] + " " + tip1 + " --> " + sep2[sep2.length - 1] + "  " + tip2);
+        if (!tip1.equals(tip2)) {
+            return true;
+        }
+
+        return false;
     }
 
     private void escribirArchivo(String cadena, String archivo) {
@@ -903,6 +930,7 @@ public class consultasJPL {
         eventosUP.add("reactivate");
         eventosUP.add("promote");
         eventosUP.add("synthesize");
+        eventosUP.add("bind");
 
         ArrayList<String> eventosDOWN = new ArrayList<>();
         eventosDOWN.add("inhibit");
