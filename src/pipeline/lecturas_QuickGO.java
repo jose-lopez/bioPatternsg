@@ -121,7 +121,7 @@ public class lecturas_QuickGO {
     public void buscarNombre(String GO, ontologiaGO ontologia) throws MalformedURLException, IOException {
 
         String requestURL = "https://www.ebi.ac.uk/QuickGO/services/ontology/go/search?query=" + GO.replace(":", "%3A");
-        
+
         String output = conectar(requestURL);
 
         JsonParser parser = new JsonParser();
@@ -169,24 +169,25 @@ public class lecturas_QuickGO {
                     String parent = gsonObj2.get("parent").getAsString();
 
                     String relationship = gsonObj2.get("relationship").getAsString();
-                    // System.out.println(child + " " + parent + " " + relationship);
-
-                    if (relationship.equals("is_a") && !ontologia.getIs_a().contains(parent)) {
-                        ontologia.getIs_a().add(parent);
-                    } else if (relationship.equals("part_of") && !ontologia.getPart_of().contains(parent)) {
-                        ontologia.getPart_of().add(parent);
-                    } else if (relationship.equals("regulates") && !ontologia.getRegulates().contains(parent)) {
-                        ontologia.getRegulates().add(parent);
-                    } else if (relationship.equals("positively_regulates") && !ontologia.getPositively_regulates().contains(parent)) {
-                        ontologia.getPositively_regulates().add(parent);
-                    } else if (relationship.equals("negatively_regulates") && !ontologia.getNegatively_regulates().contains(parent)) {
-                        ontologia.getNegatively_regulates().add(parent);
-                    } else if (relationship.equals("occurs_in") && !ontologia.getOccurs_in().contains(parent)) {
-                        ontologia.getOccurs_in().add(parent);
-                    } else if (relationship.equals("capable_of") && !ontologia.getCapable_of().contains(parent)) {
-                        ontologia.getCapable_of().add(parent);
-                    } else if (relationship.equals("capable_of_part_of") && !ontologia.getCapable_of_part_of().contains(parent)) {
-                        ontologia.getCapable_of_part_of().add(parent);
+                    //System.out.println(child + " " + parent + " " + relationship);
+                    if (child.equals(GO)) {
+                        if (relationship.equals("is_a") && !ontologia.getIs_a().contains(parent)) {
+                            ontologia.getIs_a().add(parent);
+                        } else if (relationship.equals("part_of") && !ontologia.getPart_of().contains(parent)) {
+                            ontologia.getPart_of().add(parent);
+                        } else if (relationship.equals("regulates") && !ontologia.getRegulates().contains(parent)) {
+                            ontologia.getRegulates().add(parent);
+                        } else if (relationship.equals("positively_regulates") && !ontologia.getPositively_regulates().contains(parent)) {
+                            ontologia.getPositively_regulates().add(parent);
+                        } else if (relationship.equals("negatively_regulates") && !ontologia.getNegatively_regulates().contains(parent)) {
+                            ontologia.getNegatively_regulates().add(parent);
+                        } else if (relationship.equals("occurs_in") && !ontologia.getOccurs_in().contains(parent)) {
+                            ontologia.getOccurs_in().add(parent);
+                        } else if (relationship.equals("capable_of") && !ontologia.getCapable_of().contains(parent)) {
+                            ontologia.getCapable_of().add(parent);
+                        } else if (relationship.equals("capable_of_part_of") && !ontologia.getCapable_of_part_of().contains(parent)) {
+                            ontologia.getCapable_of_part_of().add(parent);
+                        }
                     }
 
                 });
