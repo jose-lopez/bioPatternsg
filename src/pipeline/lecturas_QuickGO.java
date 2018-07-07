@@ -53,76 +53,11 @@ public class lecturas_QuickGO {
         return ontologia;
     }
 
-    private ontologiaGO revisa_xml(Document doc) {
-        ontologiaGO ontologia = new ontologiaGO();
-
-        NodeList nList = doc.getElementsByTagName("term");
-
-        for (int i = 0; i < nList.getLength(); i++) {
-
-            Node nNode = nList.item(i);
-            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-                Element Element = (Element) nNode;
-                ontologia.setGO(Element.getElementsByTagName("id").item(0).getTextContent());
-                ontologia.setNombre(Element.getElementsByTagName("name").item(0).getTextContent());
-
-                NodeList nList2 = Element.getElementsByTagName("synonym_text");
-                for (int j = 0; j < nList2.getLength(); j++) {
-                    //System.out.println(nList2.item(j).getTextContent());
-                    ontologia.getSinonimos().add(nList2.item(j).getTextContent().trim());
-                }
-
-                NodeList nList3 = Element.getElementsByTagName("is_a");
-                //System.out.println(nList3.getLength());
-                for (int j = 0; j < nList3.getLength(); j++) {
-                    String cadena = nList3.item(j).getTextContent().replaceAll("\\s*$", "");
-                    cadena = cadena.replaceAll("^\\s*", "");
-                    //System.out.println(cadena);
-                    ontologia.getIs_a().add(cadena);
-                }
-
-                NodeList nList4 = Element.getElementsByTagName("relationship");
-                for (int j = 0; j < nList4.getLength(); j++) {
-                    Element element = (Element) nList4.item(j);
-                    String type = element.getElementsByTagName("type").item(0).getTextContent();
-                    String to = element.getElementsByTagName("to").item(0).getTextContent();
-                    type = type.replaceAll("\\s*$", "");
-                    type = type.replaceAll("^\\s*", "");
-                    to = to.replaceAll("\\s*$", "");
-                    to = to.replaceAll("^\\s*", "");
-                    //System.out.println(typ);
-                    if (type.equals("part_of")) {
-                        ontologia.getPart_of().add(to);
-                    } else if (type.equals("regulates")) {
-                        ontologia.getRegulates().add(to);
-                    } else if (type.equals("positively_regulates")) {
-                        ontologia.getPositively_regulates().add(to);
-                    } else if (type.equals("negatively_regulates")) {
-                        ontologia.getNegatively_regulates().add(to);
-                    } else if (type.equals("occurs_in")) {
-                        ontologia.getOccurs_in().add(to);
-                    } else if (type.equals("capable_of")) {
-                        ontologia.getCapable_of().add(to);
-                    } else if (type.equals("capable_of_part_of")) {
-                        ontologia.getCapable_of_part_of().add(to);
-                    }
-
-                    //System.out.println("type: "+type+"  to: "+to);
-                }
-
-            }
-
-        }
-
-        return ontologia;
-    }
-
     public void buscarNombre(String GO, ontologiaGO ontologia) throws MalformedURLException, IOException {
 
         String requestURL = "https://www.ebi.ac.uk/QuickGO/services/ontology/go/search?query=" + GO.replace(":", "%3A");
-
-        String output = conectar(requestURL);
+        System.out.println("Url: " + requestURL);
+        String output = conectar2(requestURL);
 
         JsonParser parser = new JsonParser();
 
@@ -196,6 +131,51 @@ public class lecturas_QuickGO {
 
         }
 
+    }
+
+    public String conectar2(String requestURL) {
+        String output = "";
+        try{
+        //String requestURL = "https://www.ebi.ac.uk/QuickGO/services/ontology/go/search?query=GO%3A0005179";
+        URL url = new URL(requestURL);
+
+        URLConnection connection = url.openConnection();
+        HttpURLConnection httpConnection = (HttpURLConnection) connection;
+
+        httpConnection.setRequestProperty("Accept", "application/json");
+
+        InputStream response = connection.getInputStream();
+        int responseCode = httpConnection.getResponseCode();
+
+        if (responseCode != 200) {
+            throw new RuntimeException("Response code was not 200. Detected response was " + responseCode);
+        }
+
+        Reader reader = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(response, "UTF-8"));
+            StringBuilder builder = new StringBuilder();
+            char[] buffer = new char[8192];
+            int read;
+            while ((read = reader.read(buffer, 0, buffer.length)) > 0) {
+                builder.append(buffer, 0, read);
+            }
+            output = builder.toString();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException logOrIgnore) {
+                    logOrIgnore.printStackTrace();
+                }
+            }
+        }
+
+       // System.out.println(output);
+        }catch(Exception e ){
+            
+        }
+        return output;
     }
 
     private String conectar(String requestURL) {

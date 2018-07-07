@@ -29,6 +29,8 @@ public class patrones {
         ArrayList<String> objRestricion = menuRestricionObjetos();
 
         ArrayList<String> objCierre = menuMotivos();
+        
+       // System.out.println(objRestricion);
 
         borrar_archivo("mineria/patrones.txt");
         borrar_archivo("mineria/patrones.db");
@@ -46,7 +48,7 @@ public class patrones {
             if (!objEnlace.contains(sep1[2])) {
                 objEnlace.add(sep1[2]);
             }
-            //System.out.println("evento inicio:  " + obj);
+            System.out.println("evento inicio:  " + obj);
         });
 
         ArrayList<String> listaFin = new ArrayList<>();
@@ -69,7 +71,7 @@ public class patrones {
                 objCierre.add(sep[2]);
             }
 
-            //System.out.println("evento fin:  " + fin);
+            System.out.println("evento fin:  " + fin);
         });
         //patrones de 2 eventos
         patron_2_eventos(objCierre, listaInicio, objEnlace);
@@ -260,25 +262,30 @@ public class patrones {
         ArrayList<String> resp = new ArrayList<>();
 
         for (int i = 0; i < q2.allSolutions().length; i++) {
-            //    System.out.println(q2.allSolutions()[i].toString());
+            //System.out.println(q2.allSolutions()[i].toString());
             resp.add(q2.allSolutions()[i].toString());
         }
 
         //busqueda simple
-        if (objRest.size() > 0) {
-            resp.forEach((sol) -> {
+//        if (objRest.size() > 0) {
+//            resp.forEach((sol) -> {
+//                busqueda_nodo(max, sol, objini, cierre, FT, lista, listain, listafin, patron, objRest);
+//
+//            });
+//
+//            //busquedas con multiples hilos
+//        } else {
+//            resp.parallelStream().forEach((sol) -> {
+//                busqueda_nodo(max, sol, objini, cierre, FT, lista, listain, listafin, patron, objRest);
+//
+//            });
+//
+//        }
+
+resp.parallelStream().forEach((sol) -> {
                 busqueda_nodo(max, sol, objini, cierre, FT, lista, listain, listafin, patron, objRest);
 
             });
-
-            //busquedas con multiples hilos
-        } else {
-            resp.parallelStream().forEach((sol) -> {
-                busqueda_nodo(max, sol, objini, cierre, FT, lista, listain, listafin, patron, objRest);
-
-            });
-
-        }
 
     }
 
@@ -333,7 +340,7 @@ public class patrones {
                 Query q2 = new Query(consulta);
                 for (int i = 0; i < q2.allSolutions().length; i++) {
                     String evento = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
-                    // System.out.println(E + " " + evento + " " + F);
+                    //System.out.println(E + " " + evento + " " + F);
                     String fin = E + "," + evento + "," + F;
                     encadenarPatron2eventos(inicio, fin, E);
                 }

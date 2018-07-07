@@ -32,7 +32,7 @@ public class lecturas_Uniprot {
         componenteCelular = new ArrayList<>();
         sinonimos = new ArrayList<>();
         
-        String url = "http://www.uniprot.org/uniprot/" + codigo + ".xml";
+        String url = "https://www.uniprot.org/uniprot/" + codigo + ".xml";
         
         try {
             doc = new conexionServ().conecta(url);

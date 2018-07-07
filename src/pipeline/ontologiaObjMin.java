@@ -112,9 +112,9 @@ public class ontologiaObjMin {
         ObjectContainer db = Db4o.openFile("mineria/OntologiaGO.db");
         try {
             db.store(ontologia);
-            //System.out.println("Guardando: "+ontologia.getNombre()+" "+ontologia.getGO());
+            System.out.println("Guardando: "+ontologia.getNombre()+" "+ontologia.getGO());
         } catch (Exception e) {
-            //System.out.println("Error al guardar en OntologiaGO.db...");
+            System.out.println("Error al guardar en OntologiaGO.db...");
         } finally {
             db.close();
         }
