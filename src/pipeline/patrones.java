@@ -29,9 +29,8 @@ public class patrones {
         ArrayList<String> objRestricion = menuRestricionObjetos();
 
         ArrayList<String> objCierre = menuMotivos();
-        
-       // System.out.println(objRestricion);
 
+        // System.out.println(objRestricion);
         borrar_archivo("mineria/patrones.txt");
         borrar_archivo("mineria/patrones.db");
 
@@ -190,7 +189,7 @@ public class patrones {
         } else {
             consulta = "inicio(A,E,B).";
         }
-
+        System.out.println(consulta);
         Query q2 = new Query(consulta);
 
         for (int i = 0; i < q2.allSolutions().length; i++) {
@@ -258,11 +257,12 @@ public class patrones {
             consulta = "intermedios(" + objini + ",E,B).";
         }
 
+        //System.out.println(consulta);
         Query q2 = new Query(consulta);
         ArrayList<String> resp = new ArrayList<>();
 
         for (int i = 0; i < q2.allSolutions().length; i++) {
-            //System.out.println(q2.allSolutions()[i].toString());
+            //  System.out.println(q2.allSolutions()[i].toString());
             resp.add(q2.allSolutions()[i].toString());
         }
 
@@ -281,11 +281,12 @@ public class patrones {
 //            });
 //
 //        }
-
-resp.parallelStream().forEach((sol) -> {
-                busqueda_nodo(max, sol, objini, cierre, FT, lista, listain, listafin, patron, objRest);
-
-            });
+        for (String sol : resp) {
+            busqueda_nodo(max, sol, objini, cierre, FT, lista, listain, listafin, patron, objRest);
+        }
+//        resp.parallelStream().forEach((sol) -> {
+//            busqueda_nodo(max, sol, objini, cierre, FT, lista, listain, listafin, patron, objRest);
+//        });
 
     }
 
@@ -296,20 +297,26 @@ resp.parallelStream().forEach((sol) -> {
         String even = separa_cadena(sol);
         even = objini + even;
         String separa[] = even.split(",");
+
         try {
             cierre.removeIf(x -> x.equals(separa[2]));
         } catch (Exception e) {
 
         }
+
         boolean pat = false;
 
         for (String factorT : FT) {
+            //System.out.println(separa[2]+"  "+factorT);
+            //
             if (separa[2].equals(factorT) && !lista.contains(separa[2]) && cierre.size() > 0) {
+
                 ArrayList<String> listaAux = new ArrayList<>();
                 listaAux.addAll(lista);
                 listaAux.add(separa[2]);
                 //listaAux.remove(0);
                 try {
+
                     encadenarPatron(patron + ";" + even, listain, listafin, cierre, listaAux);
                 } catch (Exception e) {
                 }
@@ -319,8 +326,8 @@ resp.parallelStream().forEach((sol) -> {
         }
 
         if (!lista.contains(separa[2]) && !pat && cierre.size() > 0) {
-            //System.out.println(lista);
-            //System.out.println(even);
+            // System.out.println(lista);
+            // System.out.println(even);
             String patronaux = patron + ";" + even;
             if (cont < 10) {
                 cont++;
@@ -340,9 +347,9 @@ resp.parallelStream().forEach((sol) -> {
                 Query q2 = new Query(consulta);
                 for (int i = 0; i < q2.allSolutions().length; i++) {
                     String evento = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
-                    //System.out.println(E + " " + evento + " " + F);
                     String fin = E + "," + evento + "," + F;
-                    encadenarPatron2eventos(inicio, fin, E);
+
+                    encadenarPatron2eventos(inicio, fin, E, finales);
                 }
 
             });
@@ -351,13 +358,14 @@ resp.parallelStream().forEach((sol) -> {
 
     }
 
-    private void encadenarPatron2eventos(ArrayList<String> inicio, String fin, String enlace) {
+    private void encadenarPatron2eventos(ArrayList<String> inicio, String fin, String enlace, ArrayList<String> finales) {
 
         ArrayList<String> patrones = new ArrayList<>();
         String sep[] = fin.split(",");
 
         inicio.forEach((i) -> {
             String sep1[] = i.split(",");
+
             if (enlace.equals(sep1[2]) && !sep[2].equals(sep1[0])) {
 
                 String patron = i + ";" + fin;
@@ -368,6 +376,34 @@ resp.parallelStream().forEach((sol) -> {
                 //guardar_Patron(patron, list);
                 escribirArchivo(patron, list.toString(), "patrones.txt");
             }
+        });
+
+        inicio.forEach((in) -> {
+            String sep1[] = in.split(",");
+
+            finales.forEach((f) -> {
+
+                String consulta = "finalEspecial(" + sep1[0] + ",E," + f + ").";
+                Query q2 = new Query(consulta);
+                for (int i = 0; i < q2.allSolutions().length; i++) {
+                    String evento = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
+                    String Efin = sep1[0] + "," + evento + "," + f;
+                    if (enlace.equals(sep1[2]) && sep[2].equals(f)) {
+
+                        String patron = in + ";" + fin;
+                        ArrayList<String> list = listarObetosPatron(patron);
+                        patron += ";"+Efin;
+                        list.addAll(listarObetosPatron(Efin));
+                        System.out.println("\n\n" + patron);
+                        System.out.println(list);
+                        agregar_a_lista(patron, list);
+                        //guardar_Patron(patron, list);
+                        escribirArchivo(patron, list.toString(), "patrones.txt");
+                    }
+                }
+
+            });
+
         });
 
     }
@@ -381,28 +417,39 @@ resp.parallelStream().forEach((sol) -> {
 
         ArrayList<String> patrones = new ArrayList<>();
 
-        listain.parallelStream().forEach((objin) -> {
+        listain.forEach((objin) -> {
             String sep1[] = objin.split(",");
             if (primero.equals(sep1[2])) {
                 if (!enlista.contains(sep1[0])) {
                     String pataux = objin + patron;
                     if (!patrones.contains(pataux)) {
                         patrones.add(pataux);
-                        //System.out.println(pataux);
+
                     }
                 }
             }
         });
 
-        patrones.stream().forEach((Patron) -> {
+        ArrayList<String> ObjC = new ArrayList<>();
+        listafin.forEach((finales) -> {
+            String sep2[] = finales.split(",");
+            if (!ObjC.contains(sep2[2])) {
+                ObjC.add(sep2[2]);
+            }
+        });
 
-            listafin.stream().forEach((fin) -> {
+        patrones.forEach((Patron) -> {
+
+            listafin.forEach((fin) -> {
+
                 String sep2[] = fin.split(",");
+
                 if (ultimo.equals(sep2[0]) && Patron != null) {
+
                     String patronF = Patron + ";" + fin;
                     ArrayList<String> list = listarObetosPatron(patronF);
+                    ObjC.forEach((cierre) -> {
 
-                    Objcierre.stream().forEach((cierre) -> {
                         if (cierre.equals(list.get(list.size() - 1))) {
                             System.out.println("\n\n" + patronF);
                             System.out.println(list);

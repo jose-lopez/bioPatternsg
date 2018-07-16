@@ -247,6 +247,8 @@ public class consultasJPL {
 
     }
 
+    
+
     private void cadenaPat(ArrayList<pathway> pathways, pathway pat, ArrayList<cadenas_pathway> cadena) {
         ArrayList<pathway> listP2 = new ArrayList<>();
         listP2.addAll(pathways);
@@ -254,27 +256,26 @@ public class consultasJPL {
 
         String objin = pat.getObjetos().get(pat.getObjetos().size() - 1);
 
+        
+        
         listP2.stream().forEach((p) -> {
+            //System.out.println("--"+p.getPatron());
             if (!pat.getObjetos().get(0).equals(p.getObjetos().get(0))) {
                 String consulta = "buscar_evento(" + objin + ",E," + p.getObjetos().get(0) + ").";
                 Query q2 = new Query(consulta);
                 String resp = "";
-                for (int i = 0; i < q2.allSolutions().length; i++) {
-                    String even = q2.allSolutions()[i].toString();
-                    even = even.replace("E", "").replace("=", "").replace("{", "").replace("}", "");
-                    resp += objin + "," + even + "," + p.getObjetos().get(0) + "; ";
+                if (!objin.equals(p.getObjetos().get(0))) {
+                    for (int i = 0; i < q2.allSolutions().length; i++) {
+                        String even = q2.allSolutions()[i].toString();
+                        even = even.replace("E", "").replace("=", "").replace("{", "").replace("}", "");
+                        resp += objin + "," + even + "," + p.getObjetos().get(0) + "; ";
+                    }
                 }
                 cadenas_pathway cad = new cadenas_pathway();
-                if (!resp.equals("")) {
-                    if (validar_cadena(pat, p)) {
-                        cad.setPathway_inicial(pat.getPatron());
-                        cad.setPathway_final(p.getPatron());
-                        cad.setEventos(resp);
-                        cadena.add(cad);
 
-                        cadenaPat(listP2, p, cadena);
-                    }
-                } else if (objin.equals(p.getObjetos().get(0))) {
+                
+                if (objin.equals(p.getObjetos().get(0))) {
+                    
                     if (validar_cadena(pat, p)) {
                         String sep[] = p.getPatron().split(";");
                         cad.setPathway_inicial(pat.getPatron());
@@ -285,6 +286,18 @@ public class consultasJPL {
                         cadenaPat(listP2, p, cadena);
                     }
                 }
+                
+                if (!resp.equals("")) {
+                    if (validar_cadena(pat, p)) {
+                        cad.setPathway_inicial(pat.getPatron());
+                        cad.setPathway_final(p.getPatron());
+                        cad.setEventos(resp);
+                        cadena.add(cad);
+
+                        cadenaPat(listP2, p, cadena);
+                    }
+                }
+                
             }
         });
         if (cadena.size() > 0) {
@@ -307,10 +320,12 @@ public class consultasJPL {
     }
 
     private boolean validar_cadena(pathway in, pathway fin) {
+        
         String obj_in = in.getObjetos().get(in.getObjetos().size() - 1);
         String obj_fin = fin.getObjetos().get(fin.getObjetos().size() - 1);
 
         if (!obj_in.equals(obj_fin)) {
+            
             return true;
         }
 
@@ -322,7 +337,7 @@ public class consultasJPL {
         String eve_fin = sep2[sep2.length - 1];
         String tip2 = tipo_Complejo(eve_fin);
 
-       // System.out.println(sep1[sep1.length - 1] + " " + tip1 + " --> " + sep2[sep2.length - 1] + "  " + tip2);
+        //System.out.println(sep1[sep1.length - 1] + " " + tip1 + " --> " + sep2[sep2.length - 1] + "  " + tip2);
         if (!tip1.equals(tip2)) {
             return true;
         }
@@ -857,7 +872,7 @@ public class consultasJPL {
                             String consulta = "enzyme(" + objetos.get(j) + ").";
                             Query q2 = new Query(consulta);
                             if (q2.hasSolution()) {
-                                // System.out.println("enzyne: " + objetos.get(j));
+                                System.out.println("enzyne: " + objetos.get(j));
                                 pos_enzymas.add(j);
                             }
                         }
@@ -966,6 +981,7 @@ public class consultasJPL {
         pathway pathway = new pathway();
         try {
             ObjectSet result = db.queryByExample(pathway);
+            System.out.println(result.size());
             pathways.addAll(result);
         } catch (Exception e) {
 
