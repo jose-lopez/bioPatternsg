@@ -9,6 +9,10 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.sun.javafx.geom.Vec2d;
+import estructura.HGNC;
+import estructura.factorTranscripcion;
+import estructura.objetos_Experto;
+import estructura.ontologiaObjMin;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -43,7 +47,7 @@ public class consultasJPL {
         //buscar_otros_ligandos();
         //buscar_tipo_ligando();
         //buscar_tejido();
-        //buscar_cadenas_pathways();
+        buscar_cadenas_pathways();
     }
 
     public void menu() {
@@ -247,18 +251,15 @@ public class consultasJPL {
 
     }
 
-    
-
     private void cadenaPat(ArrayList<pathway> pathways, pathway pat, ArrayList<cadenas_pathway> cadena) {
         ArrayList<pathway> listP2 = new ArrayList<>();
         listP2.addAll(pathways);
         listP2.removeIf(p -> p.getObjetos().toString().equals(pat.getObjetos().toString()));
-
         String objin = pat.getObjetos().get(pat.getObjetos().size() - 1);
 
-        
-        
         listP2.stream().forEach((p) -> {
+            ArrayList<cadenas_pathway> cadenaAux = new ArrayList<>();
+            cadenaAux.addAll(cadena);
             //System.out.println("--"+p.getPatron());
             if (!pat.getObjetos().get(0).equals(p.getObjetos().get(0))) {
                 String consulta = "buscar_evento(" + objin + ",E," + p.getObjetos().get(0) + ").";
@@ -273,31 +274,30 @@ public class consultasJPL {
                 }
                 cadenas_pathway cad = new cadenas_pathway();
 
-                
                 if (objin.equals(p.getObjetos().get(0))) {
-                    
+
                     if (validar_cadena(pat, p)) {
                         String sep[] = p.getPatron().split(";");
                         cad.setPathway_inicial(pat.getPatron());
                         cad.setPathway_final(p.getPatron());
                         cad.setEventos(sep[0]);
-                        cadena.add(cad);
+                        cadenaAux.add(cad);
 
-                        cadenaPat(listP2, p, cadena);
+                        cadenaPat(listP2, p, cadenaAux);
                     }
                 }
-                
+
                 if (!resp.equals("")) {
                     if (validar_cadena(pat, p)) {
                         cad.setPathway_inicial(pat.getPatron());
                         cad.setPathway_final(p.getPatron());
                         cad.setEventos(resp);
-                        cadena.add(cad);
+                        cadenaAux.add(cad);
 
-                        cadenaPat(listP2, p, cadena);
+                        cadenaPat(listP2, p, cadenaAux);
                     }
                 }
-                
+
             }
         });
         if (cadena.size() > 0) {
@@ -320,12 +320,12 @@ public class consultasJPL {
     }
 
     private boolean validar_cadena(pathway in, pathway fin) {
-        
+
         String obj_in = in.getObjetos().get(in.getObjetos().size() - 1);
         String obj_fin = fin.getObjetos().get(fin.getObjetos().size() - 1);
 
         if (!obj_in.equals(obj_fin)) {
-            
+
             return true;
         }
 
