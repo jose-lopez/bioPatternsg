@@ -8,10 +8,14 @@ package pipeline;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import configuracion.PMIDS;
+import configuracion.combinacion;
+import configuracion.configuracion;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import servicios.lecturas_PM;
 
 /**
  *
@@ -42,8 +46,9 @@ public class PubMed_IDs {
             } catch (Exception e) {
             }
         }
-
+        
         combinacion.combinaciones.parallelStream().forEach((comb) -> {
+            if(probadas<500){
             try {
 
                 //consulta cada combinacion retorna una lista de pubmed IDs
@@ -54,8 +59,10 @@ public class PubMed_IDs {
             } catch (Exception e) {
                 //System.out.println("error en busqueda");
             }
+            }
 
         });
+        
 
         //se guarda el listado de IDs en la base de datos
         guardar(pubmedIDs);
@@ -108,7 +115,7 @@ public class PubMed_IDs {
 
         ObjectContainer db = Db4o.openFile("mineria/pubmed_id.db");
         PMIDS ids = new PMIDS();
-        ids.pubmed_ids = pubmedIDS;
+        ids.pubmed_ids.addAll(pubmedIDS);
 
         try {
             db.store(ids);
@@ -137,7 +144,6 @@ public class PubMed_IDs {
 
 }
 
-class PMIDS {
 
-    ArrayList<String> pubmed_ids = new ArrayList<>();
-}
+
+

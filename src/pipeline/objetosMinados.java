@@ -6,6 +6,11 @@
 package pipeline;
 
 import com.db4o.collections.ActivatableArrayList;
+import estructura.HGNC;
+import estructura.complejoProteinico;
+import estructura.factorTranscripcion;
+import estructura.objetos_Experto;
+import estructura.ligando;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

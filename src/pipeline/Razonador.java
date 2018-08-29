@@ -26,6 +26,8 @@
  */
 package pipeline;
 
+import configuracion.configuracion;
+import estructura.factorTranscripcion;
 import java.util.ArrayList;
 import java.util.ArrayDeque;
 //import Libreria.Utilities;

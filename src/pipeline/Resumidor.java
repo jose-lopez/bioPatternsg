@@ -26,6 +26,7 @@
  */
 package pipeline;
 
+import configuracion.configuracion;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

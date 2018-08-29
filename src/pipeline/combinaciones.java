@@ -9,6 +9,10 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.collections.ActivatableArrayList;
+import configuracion.combinacion;
+import configuracion.configuracion;
+import estructura.factorTranscripcion;
+import estructura.objetos_Experto;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -247,9 +251,4 @@ public class combinaciones {
         System.out.flush();
     }
 
-}
-
-class combinacion {
-
-    public ArrayList<String> combinaciones = new ArrayList<>();
 }

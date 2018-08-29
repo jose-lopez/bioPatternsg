@@ -30,6 +30,7 @@ package pipeline;
  *
  * @author Jose Lopez.
  */
+import configuracion.configuracion;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

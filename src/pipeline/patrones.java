@@ -7,6 +7,7 @@ package pipeline;
 
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
+import configuracion.configuracion;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import org.jpl7.Query;
 import org.jpl7.Term;
+
 
 /**
  *

@@ -26,6 +26,7 @@
  */
 package pipeline;
 
+import estructura.factorTranscripcion;
 import java.util.ArrayList;
 
 /**
