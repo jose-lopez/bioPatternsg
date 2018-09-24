@@ -35,6 +35,7 @@ import org.jpl7.Variable;
 public class consultasJPL {
 
     public void consultas() {
+
         String archivo = "[consultas].";
         Query q = new Query(archivo);
         q.hasSolution();
@@ -47,10 +48,32 @@ public class consultasJPL {
         //buscar_otros_ligandos();
         //buscar_tipo_ligando();
         //buscar_tejido();
-        buscar_cadenas_pathways();
+        //buscar_cadenas_pathways();
+        ///home/yacson/swi-prolog/lib/swipl-7.6.3/lib/x86_64-linux
     }
 
-    public void menu() {
+    public void menu(String ruta) {
+
+        String v = "style_check(-discontiguous).";
+        Query q0 = new Query(v);
+        q0.hasSolution();
+
+        String objPatr = "[" + ruta + "/objetos_patrones].";
+        Query q1 = new Query(objPatr);
+        q1.hasSolution();
+
+        String bc = "[" + ruta + "/baseC].";
+        Query q2 = new Query(bc);
+        q2.hasSolution();
+
+        String objMin = "[" + ruta + "/objetosMinados].";
+        Query q3 = new Query(objMin);
+        q3.hasSolution();
+
+        String objGO = "[" + ruta + "/ontologiaGO].";
+        Query q4 = new Query(objGO);
+        q4.hasSolution();
+
         String archivo = "[consultas].";
         Query q = new Query(archivo);
         q.hasSolution();
@@ -81,31 +104,32 @@ public class consultasJPL {
                     buscar_receptores();
                     break;
                 case "2":
-                    buscar_complejos();
+                    buscar_complejos(ruta);
                     break;
                 case "3":
                     buscar_proteinas_adicionales();
                     break;
                 case "4":
-                    interaccion_proteina_proteina();
+                    interaccion_proteina_proteina(ruta);
                     break;
                 case "5":
-                    buscar_motivos();
+                    buscar_motivos(ruta);
                     break;
                 case "6":
-                    buscar_otros_ligandos();
+                    buscar_otros_ligandos(ruta);
                     break;
                 case "7":
-                    buscar_tipo_ligando();
+                    buscar_tipo_ligando(ruta);
                     break;
                 case "8":
-                    buscar_tejido();
+                    buscar_tejido(ruta);
                     break;
                 case "9":
-                    buscar_cadenas_pathways();
+                    //buscar_cadenas_pathways(ruta);
+                    buscar_cadenas_pathwaysRest(ruta);
                     break;
                 case "10":
-                    consultar_objeto();
+                    consultar_objeto(ruta);
                     break;
                 case "0":
                     r = false;
@@ -116,7 +140,7 @@ public class consultasJPL {
         }
     }
 
-    public void consultar_objeto() {
+    public void consultar_objeto(String ruta) {
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         while (r) {
@@ -128,7 +152,7 @@ public class consultasJPL {
             String simbolo = buscar_sinonimos(objeto);
 
             if (!simbolo.equals("")) {
-                ver_ontologias(simbolo);
+                ver_ontologias(simbolo, ruta);
             }
 
             while (true) {
@@ -150,7 +174,7 @@ public class consultasJPL {
 
     }
 
-    public void ver_ontologias(String obj) {
+    public void ver_ontologias(String obj, String ruta) {
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         while (r) {
@@ -163,11 +187,11 @@ public class consultasJPL {
 
             switch (resp) {
                 case "1":
-                    new ontologiaObjMin().buscarObjeto(obj.replace("'", ""), false, true);
+                    new ontologiaObjMin().buscarObjeto(obj.replace("'", ""), false, true, ruta);
                     break;
 
                 case "2":
-                    new ontologiaObjMin().buscarObjeto(obj.replace("'", ""), true, false);
+                    new ontologiaObjMin().buscarObjeto(obj.replace("'", ""), true, false, ruta);
                     break;
 
                 case "0":
@@ -217,7 +241,35 @@ public class consultasJPL {
         return simbolo;
     }
 
-    public void buscar_cadenas_pathways() {
+    public void buscar_cadenas_pathwaysRest(String ruta) {
+        borrar_archivo(ruta + "/cadenas_Pathways.txt");
+        String Objrest = "'NR0B2'";
+        String Objresti = "'bile acid'";
+        ArrayList<pathway> pathways = cargarPatrones(ruta);
+        int max = 3;
+
+        ArrayList<pathway> pathWaysin = new ArrayList<>();
+        pathWaysin.addAll(pathways);
+
+        pathWaysin.removeIf(p -> !p.getObjetos().get(p.getObjetos().size() - 1).equals(Objrest));
+        pathWaysin.removeIf(p -> !p.getObjetos().get(0).equals(Objresti));
+//        pathWaysin.forEach(t -> System.out.println(t.getPatron()));
+//        System.out.println("\n\n");
+        for (pathway pat : pathWaysin) {
+            //System.out.println("***" + pat.getPatron() + "\n\n");
+            int tp = pat.getPatron().split(";").length;
+            if (tp <= max) {
+                cadenaPat(pathways, pat, new ArrayList<cadenas_pathway>(), ruta, Objrest, max);
+            }
+        }
+
+    }
+
+    public void cadenaPatRest(ArrayList<pathway> pathways, pathway pat, ArrayList<cadenas_pathway> cadena, String ruta, String objRest) {
+
+    }
+
+    public void buscar_cadenas_pathways(String ruta) {
 
         limpiarPantalla();
 
@@ -234,11 +286,12 @@ public class consultasJPL {
             switch (resp) {
                 case "1":
                     limpiarPantalla();
-                    borrar_archivo("mineria/cadenas_Pathways.txt");
-                    final ArrayList<pathway> pathways = cargarPatrones();
-
+                    borrar_archivo(ruta + "/cadenas_Pathways.txt");
+                    final ArrayList<pathway> pathways = cargarPatrones(ruta);
+                    String Objrest = "'CYP7A1'";
                     pathways.stream().forEach((pathway p) -> {
-                        cadenaPat(pathways, p, new ArrayList<cadenas_pathway>());
+
+                        //cadenaPat(pathways, p, new ArrayList<cadenas_pathway>(), ruta, Objrest, 3);
                     });
 
                     break;
@@ -251,72 +304,113 @@ public class consultasJPL {
 
     }
 
-    private void cadenaPat(ArrayList<pathway> pathways, pathway pat, ArrayList<cadenas_pathway> cadena) {
+    private void cadenaPat(ArrayList<pathway> pathways, pathway pat, ArrayList<cadenas_pathway> cadena, String ruta, String objRest, int max) {
         ArrayList<pathway> listP2 = new ArrayList<>();
         listP2.addAll(pathways);
         listP2.removeIf(p -> p.getObjetos().toString().equals(pat.getObjetos().toString()));
         String objin = pat.getObjetos().get(pat.getObjetos().size() - 1);
 
         listP2.stream().forEach((p) -> {
-            ArrayList<cadenas_pathway> cadenaAux = new ArrayList<>();
-            cadenaAux.addAll(cadena);
-            //System.out.println("--"+p.getPatron());
-            if (!pat.getObjetos().get(0).equals(p.getObjetos().get(0))) {
-                String consulta = "buscar_evento(" + objin + ",E," + p.getObjetos().get(0) + ").";
-                Query q2 = new Query(consulta);
-                String resp = "";
-                if (!objin.equals(p.getObjetos().get(0))) {
-                    for (int i = 0; i < q2.allSolutions().length; i++) {
-                        String even = q2.allSolutions()[i].toString();
-                        even = even.replace("E", "").replace("=", "").replace("{", "").replace("}", "");
-                        resp += objin + "," + even + "," + p.getObjetos().get(0) + "; ";
+
+            int pt = p.getPatron().split(";").length;
+            if (pt <= max) {
+                ArrayList<cadenas_pathway> cadenaAux = new ArrayList<>();
+                cadenaAux.addAll(cadena);
+                //System.out.println("--" + p.getPatron());
+                if (!pat.getObjetos().get(0).equals(p.getObjetos().get(0)) && validar_pathway(cadenaAux, p)) {
+                    String consulta = "buscar_evento(" + objin + ",E," + p.getObjetos().get(0) + ").";
+                    Query q2 = new Query(consulta);
+                    String resp = "";
+                    if (!objin.equals(p.getObjetos().get(0))) {
+                        for (int i = 0; i < q2.allSolutions().length; i++) {
+                            String even = q2.allSolutions()[i].toString();
+                            even = even.replace("E", "").replace("=", "").replace("{", "").replace("}", "");
+                            resp += objin + "," + even + "," + p.getObjetos().get(0) + "; ";
+                        }
                     }
-                }
-                cadenas_pathway cad = new cadenas_pathway();
+                    cadenas_pathway cad = new cadenas_pathway();
 
-                if (objin.equals(p.getObjetos().get(0))) {
+                    if (objin.equals(p.getObjetos().get(0))) {
 
-                    if (validar_cadena(pat, p)) {
-                        String sep[] = p.getPatron().split(";");
-                        cad.setPathway_inicial(pat.getPatron());
-                        cad.setPathway_final(p.getPatron());
-                        cad.setEventos(sep[0]);
-                        cadenaAux.add(cad);
+                        if (validar_cadena(pat, p)) {
+                            String sep[] = p.getPatron().split(";");
+                            cad.setPathway_inicial(pat.getPatron());
+                            cad.setPathway_final(p.getPatron());
+                            cad.setEventos(sep[0]);
+                            cadenaAux.add(cad);
+                            //if (!p.getObjetos().get(p.getObjetos().size() - 1).equals(objRest) && !p.getObjetos().get(p.getObjetos().size() - 1).equals(pat.getObjetos().get(pat.getObjetos().size() - 1))) {
+                            if (validarCamino(cadenaAux)) {
+                                cadenaPat(listP2, p, cadenaAux, ruta, objRest, max);
+                            } else {
+                                imprimirCadena(cadenaAux, ruta, objRest);
+                            }
+                        }
+                    } else if (!resp.equals("")) {
+                        if (validar_cadena(pat, p)) {
+                            cad.setPathway_inicial(pat.getPatron());
+                            cad.setPathway_final(p.getPatron());
+                            cad.setEventos(resp);
+                            cadenaAux.add(cad);
 
-                        cadenaPat(listP2, p, cadenaAux);
+                            //if (!p.getObjetos().get(p.getObjetos().size() - 1).equals(objRest) && !p.getObjetos().get(p.getObjetos().size() - 1).equals(pat.getObjetos().get(pat.getObjetos().size() - 1))) {
+                            if (validarCamino(cadenaAux)) {
+                                cadenaPat(listP2, p, cadenaAux, ruta, objRest, max);
+                            } else {
+                                imprimirCadena(cadenaAux, ruta, objRest);
+                            }
+                        }
                     }
+                   
+
                 }
-
-                if (!resp.equals("")) {
-                    if (validar_cadena(pat, p)) {
-                        cad.setPathway_inicial(pat.getPatron());
-                        cad.setPathway_final(p.getPatron());
-                        cad.setEventos(resp);
-                        cadenaAux.add(cad);
-
-                        cadenaPat(listP2, p, cadenaAux);
-                    }
-                }
-
             }
         });
+
+        imprimirCadena(cadena, ruta, objRest);
+
+    }
+
+    private void imprimirCadena(ArrayList<cadenas_pathway> cadena, String ruta, String objRest) {
         if (cadena.size() > 0) {
-            String cad = "-----------------------------------------------------------\n";
-            for (int i = 0; i < cadena.size(); i++) {
-                if (i == 0) {
-                    cad += "Pathway=> " + cadena.get(i).getPathway_inicial() + "\n";
-                    cad += "\nEventos de enlace: " + cadena.get(i).getEventos() + "\n\n";
-                    cad += "Pathway=> " + cadena.get(i).getPathway_final() + "\n";
-                } else {
-                    cad += "\nEventos de enlace: " + cadena.get(i).getEventos() + "\n\n";
-                    cad += "Pathway=> " + cadena.get(i).getPathway_final() + "\n";
+            String pin = cadena.get(0).getPathway_inicial();
+            String pfin = cadena.get(cadena.size() - 1).getPathway_final();
+            if (validar_cadena(pin, pfin, objRest)) {
+                String cad = "-----------------------------------------------------------\n";
+                for (int i = 0; i < cadena.size(); i++) {
+                   // System.out.println(cadena.get(i).getPathway_inicial() + "  " + cadena.get(i).getPathway_final());
+
+                    if (i == 0) {
+                        cad += "Pathway=> " + cadena.get(i).getPathway_inicial() + "\n";
+                        cad += "\nEventos de enlace: " + cadena.get(i).getEventos() + "\n\n";
+                        cad += "Pathway=> " + cadena.get(i).getPathway_final() + "\n";
+                    } else {
+                        cad += "\nEventos de enlace: " + cadena.get(i).getEventos() + "\n\n";
+                        cad += "Pathway=> " + cadena.get(i).getPathway_final() + "\n";
+                    }
                 }
+                //System.out.println("********************************");
+                escribirArchivo(cad, ruta + "/cadenas_Pathways.txt");
+                System.out.println(cad);
+                cadena.clear();
             }
-            escribirArchivo(cad, "cadenas_Pathways.txt");
-            System.out.println(cad);
-            cadena.clear();
+        }
+    }
+
+    private boolean validar_pathway(ArrayList<cadenas_pathway> cadena, pathway pat) {
+        boolean val = true;
+
+        String objin = pat.getObjetos().get(0);
+
+        for (cadenas_pathway object : cadena) {
+            String sep[] = object.getPathway_inicial().split(";");
+            String sep2[] = sep[0].split(",");
+            if (sep2[0].equals(objin)) {
+                val = false;
+                break;
+            }
         }
 
+        return val;
     }
 
     private boolean validar_cadena(pathway in, pathway fin) {
@@ -345,12 +439,77 @@ public class consultasJPL {
         return false;
     }
 
+    private boolean validar_cadena(String in, String fin, String objRest) {
+
+        String sep[] = in.split(";");
+        String eve_in = sep[sep.length - 1];
+        sep = fin.split(";");
+        String eve_fin = sep[sep.length - 1];
+
+        sep = eve_in.split(",");
+        String Obji = sep[2];
+        sep = eve_fin.split(",");
+        String Objf = sep[2];
+
+        if (!objRest.equals("") && !objRest.equals(Objf)) {
+            return false;
+        }
+
+        if (!Obji.equals(Objf)) {
+            return true;
+        }
+
+        String tip1 = tipo_Complejo(eve_in);
+        String tip2 = tipo_Complejo(eve_fin);
+        //System.out.println(eve_in + "  " + tip1 + "   " + eve_fin + "  " + tip2);
+        if (!tip1.equals(tip2)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean validarCamino(ArrayList<cadenas_pathway> cadena) {
+        boolean seguir = true;
+
+        ArrayList<String> lista = new ArrayList<>();
+        for (int i = 0; i < cadena.size(); i++) {
+
+            if (i == 0) {
+                String sep[] = cadena.get(i).getPathway_inicial().split(";");
+                String sep2[] = sep[sep.length - 1].split(",");
+                lista.add(sep2[2]);
+
+                String sep3[] = cadena.get(i).getPathway_final().split(";");
+                String sep4[] = sep3[sep3.length - 1].split(",");
+                if (lista.contains(sep4[2])) {
+                    return false;
+                } else {
+                    lista.add(sep4[2]);
+                }
+
+            } else {
+                String sep3[] = cadena.get(i).getPathway_final().split(";");
+                String sep4[] = sep3[sep3.length - 1].split(",");
+                if (lista.contains(sep4[2])) {
+                    return false;
+                } else {
+                    lista.add(sep4[2]);
+                }
+            }
+
+        }
+
+        return seguir;
+
+    }
+
     private void escribirArchivo(String cadena, String archivo) {
 
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("mineria/" + archivo, true);
+            fichero = new FileWriter(archivo, true);
             pw = new PrintWriter(fichero);
 
             pw.println(cadena);
@@ -369,7 +528,7 @@ public class consultasJPL {
 
     }
 
-    public void buscar_tejido() {
+    public void buscar_tejido(String ruta) {
 
         limpiarPantalla();
         Scanner lectura = new Scanner(System.in);
@@ -391,13 +550,13 @@ public class consultasJPL {
                     String receptor = "'" + text + "'";
 
                     ArrayList<pathway> pathway = new ArrayList<>();
-                    pathway = cargarPatrones();
+                    pathway = cargarPatrones(ruta);
 
                     String consulta = "receptor(" + receptor + ").";
 
                     Query q2 = new Query(consulta);
 
-                    ArrayList<objetos_Experto> minados = buscarOBJ();
+                    ArrayList<objetos_Experto> minados = buscarOBJ(ruta);
 
                     if (q2.hasSolution()) {
 
@@ -409,24 +568,28 @@ public class consultasJPL {
                                     consultaEsp.add(construirConsulta(minados, p.getObjetos().get(i).toString().replace("'", "")));
                                 }
 
-                                System.out.println("Patron:  " + p.getPatron());
-                                System.out.println(p.getObjetos());
-                                System.out.println("\nTejitos:\n");
-
                                 ArrayList<ArrayList<String>> tejidos = new ArrayList<>();
                                 consultaEsp.forEach((t) -> {
                                     Query q3 = new Query(t);
                                     ArrayList<String> listaT = new ArrayList<>();
-
-                                    for (int i = 0; i < q3.allSolutions().length; i++) {
-                                        String Tejido = q3.allSolutions()[i].toString().replace("{T=", "").replace("}", "").replace("'", "");
-                                        if (!listaT.contains(Tejido) && !Tejido.equals("cellular_component")) {
-                                            listaT.add(Tejido);
+                                    try {
+                                        for (int i = 0; i < q3.allSolutions().length; i++) {
+                                            String Tejido = q3.allSolutions()[i].toString().replace("{T=", "").replace("}", "").replace("'", "");
+                                            if (!listaT.contains(Tejido) && !Tejido.equals("cellular_component")) {
+                                                listaT.add(Tejido);
+                                            }
                                         }
+                                        tejidos.add(listaT);
+                                    } catch (Exception e) {
+
                                     }
-                                    tejidos.add(listaT);
 
                                 });
+
+                                System.out.println("Patron:  " + p.getPatron());
+                                System.out.println(p.getObjetos());
+                                System.out.println("\nTejitos:\n");
+
                                 cruzarTejidos(tejidos).forEach((cc) -> {
                                     System.out.println(cc);
                                 });
@@ -449,18 +612,21 @@ public class consultasJPL {
 
     private ArrayList<String> cruzarTejidos(ArrayList<ArrayList<String>> tejidos) {
         ArrayList<String> tejido = new ArrayList<>();
+        try {
+            for (String cc : tejidos.get(0)) {
+                boolean coincidencia = true;
+                for (int i = 1; i < tejidos.size(); i++) {
+                    if (!tejidos.get(i).contains(cc)) {
+                        coincidencia = false;
+                    }
+                }
 
-        for (String cc : tejidos.get(0)) {
-            boolean coincidencia = true;
-            for (int i = 1; i < tejidos.size(); i++) {
-                if (!tejidos.get(i).contains(cc)) {
-                    coincidencia = false;
+                if (coincidencia) {
+                    tejido.add(cc);
                 }
             }
+        } catch (Exception e) {
 
-            if (coincidencia) {
-                tejido.add(cc);
-            }
         }
 
         return tejido;
@@ -481,11 +647,12 @@ public class consultasJPL {
                 consulta += ")";
             }
         }
+        System.out.println(consulta);
 
         return consulta;
     }
 
-    public void buscar_tipo_ligando() {
+    public void buscar_tipo_ligando(String ruta) {
 
         limpiarPantalla();
         Scanner lectura = new Scanner(System.in);
@@ -507,7 +674,7 @@ public class consultasJPL {
                     String receptor = "'" + text + "'";
 
                     ArrayList<pathway> pathway = new ArrayList<>();
-                    pathway = cargarPatrones();
+                    pathway = cargarPatrones(ruta);
                     ArrayList<String[]> Lista = new ArrayList<>();
 
                     String consulta = "receptor(" + receptor + ").";
@@ -574,7 +741,7 @@ public class consultasJPL {
 
     }
 
-    public void buscar_otros_ligandos() {
+    public void buscar_otros_ligandos(String ruta) {
 
         limpiarPantalla();
         Scanner lectura = new Scanner(System.in);
@@ -592,7 +759,7 @@ public class consultasJPL {
                 case "1":
 
                     ArrayList<pathway> pathway = new ArrayList<>();
-                    pathway = cargarPatrones();
+                    pathway = cargarPatrones(ruta);
 
                     System.out.print("Ingrese el simbolo del receptor. ");
                     String text = lectura.nextLine();
@@ -622,7 +789,7 @@ public class consultasJPL {
 
     }
 
-    public void buscar_motivos() {
+    public void buscar_motivos(String ruta) {
 
         limpiarPantalla();
         Scanner lectura = new Scanner(System.in);
@@ -640,7 +807,7 @@ public class consultasJPL {
                 case "1":
 
                     ArrayList<pathway> pathway = new ArrayList<>();
-                    pathway = cargarPatrones();
+                    pathway = cargarPatrones(ruta);
 
                     System.out.print("Ingrese el simbolo del receptor. ");
                     String text = lectura.nextLine();
@@ -799,7 +966,7 @@ public class consultasJPL {
         // System.out.println(lista);
     }
 
-    public void interaccion_proteina_proteina() {
+    public void interaccion_proteina_proteina(String ruta) {
 
         limpiarPantalla();
         Scanner lectura = new Scanner(System.in);
@@ -822,7 +989,7 @@ public class consultasJPL {
                     String receptor = "'" + text + "'";
 
                     ArrayList<pathway> pathways = new ArrayList<>();
-                    pathways = cargarPatrones();
+                    pathways = cargarPatrones(ruta);
                     pathways.forEach((p) -> {
                         try {
                             if (ligando.equals(p.getObjetos().get(0)) && receptor.equals(p.getObjetos().get(1))) {
@@ -845,7 +1012,7 @@ public class consultasJPL {
 
     }
 
-    public void buscar_complejos() {
+    public void buscar_complejos(String ruta) {
         limpiarPantalla();
 
         Scanner lectura = new Scanner(System.in);
@@ -862,7 +1029,7 @@ public class consultasJPL {
                 case "1":
                     limpiarPantalla();
                     ArrayList<pathway> pathway = new ArrayList<>();
-                    pathway = cargarPatrones();
+                    pathway = cargarPatrones(ruta);
 
                     pathway.forEach((p) -> {
                         ArrayList<String> objetos = p.getObjetos();
@@ -877,10 +1044,17 @@ public class consultasJPL {
                             }
                         }
 
-                        System.out.println("Pathway:");
-                        System.out.println(p.getPatron());
-                        separar_complejo(pos_enzymas, objetos, p.getPatron());
-                        System.out.println("\n");
+                        if (pos_enzymas.size() > 0) {
+                            System.out.println("Pathway:");
+                            System.out.println(p.getPatron());
+                            try {
+
+                                separar_complejo(pos_enzymas, objetos, p.getPatron());
+                            } catch (Exception e) {
+
+                            }
+                            System.out.println("\n");
+                        }
                     });
 
                     break;
@@ -946,6 +1120,7 @@ public class consultasJPL {
         eventosUP.add("promote");
         eventosUP.add("synthesize");
         eventosUP.add("bind");
+        eventosUP.add("stimulate");
 
         ArrayList<String> eventosDOWN = new ArrayList<>();
         eventosDOWN.add("inhibit");
@@ -954,6 +1129,7 @@ public class consultasJPL {
         eventosDOWN.add("prevent");
         eventosDOWN.add("suppress");
         eventosDOWN.add("retain");
+        eventosDOWN.add("inactivate");
 
         String separa[] = Patron.split(";");
 
@@ -974,14 +1150,13 @@ public class consultasJPL {
         return tipo;
     }
 
-    public ArrayList<pathway> cargarPatrones() {
+    public ArrayList<pathway> cargarPatrones(String ruta) {
         ArrayList<pathway> pathways = new ArrayList<>();
 
-        ObjectContainer db = Db4o.openFile("mineria/patrones.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/patrones.db");
         pathway pathway = new pathway();
         try {
             ObjectSet result = db.queryByExample(pathway);
-            System.out.println(result.size());
             pathways.addAll(result);
         } catch (Exception e) {
 
@@ -992,11 +1167,11 @@ public class consultasJPL {
         return pathways;
     }
 
-    public ArrayList<objetos_Experto> buscarOBJ() {
+    public ArrayList<objetos_Experto> buscarOBJ(String ruta) {
 
         ArrayList<objetos_Experto> minados = new ArrayList<>();
         objetos_Experto objExp = new objetos_Experto();
-        ObjectContainer db = Db4o.openFile("mineria/ObjH_E.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/ObjH_E.db");
 
         try {
             ObjectSet result = db.queryByExample(objExp);

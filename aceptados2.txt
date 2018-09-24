@@ -4,6 +4,7 @@ interact,interacts,interacted,interacting
 associate,associates,associated,associating
 bind,binds,bound,binding
 activate,activates,activated,activating
+inactivate,inactivates,inactivated,inactivating
 phosphorylate,phosphorylates,phosphorylated,phosphorylating
 recruit,recruits,recruited,recruiting
 dimerize,dimerizes,dimerized,dimerizing

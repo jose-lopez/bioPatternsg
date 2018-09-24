@@ -20,8 +20,26 @@ import org.jpl7.Query;
  */
 public class objetos_patrones {
 
-    public void generar_archivo(configuracion config) {
-
+    public void generar_archivo(configuracion config,String ruta) {
+        String v = "style_check(-discontiguous).";
+        Query q0 = new Query(v);
+        q0.hasSolution();
+        
+        String MESH = "["+ruta+"/ontologiaMESH].";
+        String objMin = "["+ruta+"/objetosMinados].";
+        String wkr = "["+ruta+"/well_know_rules].";
+        String bc = "["+ruta+"/baseC].";
+        
+        Query q1 = new Query(MESH);
+        q1.hasSolution();
+        Query q2 = new Query(objMin);
+        q2.hasSolution();
+        Query q3 = new Query(wkr);
+        q3.hasSolution();
+        Query q4 = new Query(bc);
+        q4.hasSolution();
+        
+        
         String archivo = "[generaObjetosPatrones].";
         Query q = new Query(archivo);
         q.hasSolution();
@@ -29,12 +47,12 @@ public class objetos_patrones {
         ArrayList<String> lista = listaObjetos();
         System.out.println(lista);
 
-        clasificar_objetos(lista);
+        clasificar_objetos(lista,ruta);
 
         q.close();
 
         config.setObjetosPatrones(true);
-        config.guardar();
+        config.guardar(ruta);
     }
 
     private ArrayList<String> listaObjetos() {
@@ -71,11 +89,11 @@ public class objetos_patrones {
         return lista;
     }
 
-    private void clasificar_objetos(ArrayList<String> lista) {
+    private void clasificar_objetos(ArrayList<String> lista,String ruta) {
 
-        crear_archivo();
-        String ruta = "objetos_patrones.pl";
-        new escribirBC("%//" + lista.toString(), ruta);
+        crear_archivo(ruta);
+        String ruta2 = ruta+"/objetos_patrones.pl";
+        new escribirBC("%//" + lista.toString(), ruta2);
 
         for (String obj : lista) {
 
@@ -83,35 +101,35 @@ public class objetos_patrones {
             Query q1 = new Query(consulta);
 
             if (q1.hasSolution()) {
-                new escribirBC("ligand('" + obj + "').", ruta);
+                new escribirBC("ligand('" + obj + "').", ruta2);
             }
 
             consulta = "p_receptor('" + obj + "').";
             Query q2 = new Query(consulta);
 
             if (q2.hasSolution()) {
-                new escribirBC("receptor('" + obj + "').", ruta);
+                new escribirBC("receptor('" + obj + "').", ruta2);
             }
 
             consulta = "p_transcription_factor('" + obj + "').";
             Query q3 = new Query(consulta);
 
             if (q3.hasSolution()) {
-                new escribirBC("transcription_factor('" + obj + "').", ruta);
+                new escribirBC("transcription_factor('" + obj + "').", ruta2);
             }
 
             consulta = "p_protein('" + obj + "').";
             Query q4 = new Query(consulta);
 
             if (q4.hasSolution()) {
-                new escribirBC("protein('" + obj + "').", ruta);
+                new escribirBC("protein('" + obj + "').", ruta2);
             }
 
             consulta = "p_enzyme('" + obj + "').";
             Query q5 = new Query(consulta);
 
             if (q5.hasSolution()) {
-                new escribirBC("enzyme('" + obj + "').", ruta);
+                new escribirBC("enzyme('" + obj + "').", ruta2);
             }
 
             q1.close();
@@ -120,20 +138,20 @@ public class objetos_patrones {
             q4.close();
 
         }
-        new escribirBC("\n%las siguientes lineas son para evitar errores en el proceso no deben ser modificadas", ruta);
-        new escribirBC("enzyme('').", ruta);
-        new escribirBC("protein('').", ruta);
-        new escribirBC("transcription_factor('').", ruta);
-        new escribirBC("receptor('').", ruta);
-        new escribirBC("ligand('').", ruta);
+        new escribirBC("\n%las siguientes lineas son para evitar errores en el proceso no deben ser modificadas", ruta2);
+        new escribirBC("enzyme('').", ruta2);
+        new escribirBC("protein('').", ruta2);
+        new escribirBC("transcription_factor('').", ruta2);
+        new escribirBC("receptor('').", ruta2);
+        new escribirBC("ligand('').", ruta2);
 
     }
 
-    private void crear_archivo() {
+    private void crear_archivo(String ruta) {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("mineria/objetos_patrones.pl");
+            fichero = new FileWriter(ruta+"/objetos_patrones.pl");
         } catch (IOException ex) {
             Logger.getLogger(minado_FT.class.getName()).log(Level.SEVERE, null, ex);
         }

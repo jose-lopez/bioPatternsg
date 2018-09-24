@@ -1,0 +1,1007 @@
+Archivo abstracts/resumen_1.txt
+evento: event('NR1H4',decrease,'NR1H4'); Linea: 113
+evento: event('cholesterol',involve,'bile acid'); Linea: 136
+evento: event('cholesterol',involve,'cholesterol'); Linea: 136
+evento: event('NR0B2',mediate,'NR0B2'); Linea: 191
+evento: event('NR0B2',bind,'NR0B2'); Linea: 192
+evento: event('NR0B2',repress,'bile acid'); Linea: 208
+evento: event('NR0B2',repress,'NR0B2'); Linea: 208
+evento: event('NR0B2',regulate,'NR0B2'); Linea: 209
+evento: event('CYP7A1',regulate,'NR0B2'); Linea: 211
+evento: event('cholesterol',regulate,'NR0B2'); Linea: 211
+evento: event('NR5A2',increase,'NR0B2'); Linea: 215
+evento: event('NR5A2',increase,'NR0B2'); Linea: 215
+evento: event('NR0B2',inhibit,'CYP7A1'); Linea: 223
+evento: event('NR0B2',induce,'NR0B2'); Linea: 254
+evento: event('NR0B2',prevent,'NR0B2'); Linea: 296
+evento: event('bile acid',activate,'NR1H4'); Linea: 314
+evento: event('NR0B2',involve,'NR0B2'); Linea: 331
+evento: event('bile acid',induce,'bile acid'); Linea: 360
+evento: event('bile acid',enhance,'bile acid'); Linea: 364
+evento: event('NR1H4',induce,'NR0B2'); Linea: 375
+evento: event('NR1H4',bind,'NR0B2'); Linea: 377
+evento: event('NR1H4',involve,'bile acid'); Linea: 378
+evento: event('NR0B2',involve,'bile acid'); Linea: 378
+evento: event('bile acid',increase,'bile acid'); Linea: 415
+evento: event('NR0B2',promote,'NR1H2'); Linea: 518
+evento: event('BAAT',increase,'NRBF2'); Linea: 1009
+evento: event('bile acid',increase,'NRBF2'); Linea: 1009
+evento: event('BAAT',enhance,'NRBF2'); Linea: 1014
+evento: event('bile acid',involve,'NR1H4'); Linea: 1064
+evento: event('BAAT',increase,'bile acid'); Linea: 1100
+evento: event('cholesterol',increase,'bile acid'); Linea: 1100
+evento: event('bile acid',regulate,'NR1H4'); Linea: 1130
+evento: event('cholesterol',regulate,'bile acid'); Linea: 1448
+evento: event('cholesterol',enhance,'bile acid'); Linea: 1512
+evento: event('NR5A2',express,'NR5A2'); Linea: 1559
+evento: event('NR5A2',express,'NR5A2'); Linea: 1559
+evento: event('NR5A2',express,'NR5A2'); Linea: 1559
+evento: event('NR5A2',express,'NR5A2'); Linea: 1559
+evento: event('NR5A2',regulate,'NR5A2'); Linea: 1622
+evento: event('CYP7A1',regulate,'bile acid'); Linea: 1692
+evento: event('CYP7A1',regulate,'cholesterol'); Linea: 1692
+evento: event('cholesterol',regulate,'cholesterol'); Linea: 1692
+evento: event('CYP7A1',activate,'CYP7A1'); Linea: 1695
+evento: event('CYP7A1',regulate,'CYP7A1'); Linea: 1698
+evento: event('NR5A2',target,'NR5A2'); Linea: 1884
+evento: event('NR5A2',target,'NR5A2'); Linea: 1884
+evento: event('NR5A2',target,'NR5A2'); Linea: 1884
+evento: event('NR5A2',target,'NR5A2'); Linea: 1884
+evento: event('NR5A2',bind,'NR5A2'); Linea: 1937
+evento: event('NR5A2',bind,'NR5A2'); Linea: 1937
+evento: event('NR5A2',bind,'NR5A2'); Linea: 1937
+evento: event('NR5A2',bind,'NR5A2'); Linea: 1937
+evento: event('CYP7A1',activate,'bile acid'); Linea: 2052
+evento: event('CYP7A1',activate,'cholesterol'); Linea: 2052
+evento: event('NR5A2',activate,'CYP7A1'); Linea: 2052
+evento: event('NR5A2',activate,'bile acid'); Linea: 2052
+evento: event('NR5A2',activate,'cholesterol'); Linea: 2052
+evento: event('NR5A2',promote,'NR5A2'); Linea: 2118
+eventos provenientes de abstracts/resumen_1.txt :58
+Archivo abstracts/resumen_2.txt
+evento: event('NPC2',involve,'cholesterol'); Linea: 2436
+evento: event('NPC2',bind,'cholesterol'); Linea: 2461
+evento: event('cholesterol',bind,'cholesterol'); Linea: 2461
+evento: event('NPC2',regulate,'cholesterol'); Linea: 2467
+evento: event('NPC2',induce,'NPC2'); Linea: 2475
+evento: event('NPC2',increase,'cholesterol'); Linea: 2493
+evento: event('NPC2',decrease,'cholesterol'); Linea: 2494
+evento: event('LCAT',decrease,'LCAT'); Linea: 2557
+evento: event('cholesterol',increase,'cholesterol'); Linea: 2566
+evento: event('LCAT',bind,'LCAT'); Linea: 2581
+evento: event('NCEH1',involve,'cholesterol'); Linea: 2625
+evento: event('NCEH1',stimulate,'cholesterol'); Linea: 2652
+evento: event('cholesterol',modulate,'cholesterol'); Linea: 2653
+evento: event('cholesterol',induce,'cholesterol'); Linea: 2685
+evento: event('cholesterol',inhibit,'cholesterol'); Linea: 2686
+evento: event('NR1H4',target,'NR0B2'); Linea: 2828
+evento: event('NR1H2',regulate,'cholesterol'); Linea: 2943
+evento: event('oxysterols',bind,'bile acid'); Linea: 3061
+evento: event('oxysterols',bind,'cholesterol'); Linea: 3061
+evento: event('NRBF2',enhance,'bile acid'); Linea: 3064
+evento: event('NR1H4',enhance,'bile acid'); Linea: 3064
+evento: event('cholesterol',enhance,'cholesterol'); Linea: 3065
+evento: event('NR1H2',enhance,'cholesterol'); Linea: 3065
+evento: event('NRBF2',enhance,'cholesterol'); Linea: 3065
+evento: event('bile acid',lead,'bile acid'); Linea: 3085
+evento: event('NR5A2',mediate,'NR5A2'); Linea: 3114
+evento: event('NR5A2',mediate,'NR5A2'); Linea: 3114
+evento: event('NR5A2',mediate,'NR5A2'); Linea: 3114
+evento: event('NR5A2',mediate,'NR5A2'); Linea: 3114
+evento: event('NR5A2',interact,'NR5A2'); Linea: 3118
+evento: event('NR5A2',interact,'NR5A2'); Linea: 3118
+evento: event('NR5A2',interact,'NR5A2'); Linea: 3118
+evento: event('NR5A2',interact,'NR5A2'); Linea: 3118
+evento: event('NR5A2',mediate,'cholesterol'); Linea: 3119
+evento: event('NR5A2',mediate,'cholesterol'); Linea: 3119
+evento: event('NR5A2',involve,'NR5A2'); Linea: 3120
+evento: event('NR5A2',involve,'NR5A2'); Linea: 3120
+evento: event('NR5A2',involve,'NR5A2'); Linea: 3120
+evento: event('NR5A2',involve,'NR5A2'); Linea: 3120
+evento: event('bile acid',decrease,'cholesterol'); Linea: 3130
+evento: event('NR5A2',involve,'bile acid'); Linea: 3148
+evento: event('NR5A2',involve,'NR0B2'); Linea: 3148
+evento: event('NR5A2',recognize,'NR5A2'); Linea: 3164
+evento: event('NR5A2',translate,'NR5A2'); Linea: 3165
+evento: event('NR5A2',activate,'NR5A2'); Linea: 3166
+evento: event('bile acid',repress,'CYP7A1'); Linea: 3171
+evento: event('bile acid',repress,'bile acid'); Linea: 3171
+evento: event('bile acid',repress,'cholesterol'); Linea: 3171
+evento: event('NR1H4',repress,'CYP7A1'); Linea: 3172
+evento: event('NR1H4',require,'CYP7A1'); Linea: 3173
+evento: event('NR1H4',require,'bile acid'); Linea: 3173
+evento: event('NR1H4',require,'NR1H4'); Linea: 3173
+evento: event('NR1H4',repress,'NR5A2'); Linea: 3175
+evento: event('NR1H4',repress,'NR0B2'); Linea: 3175
+evento: event('NR5A2',repress,'CYP7A1'); Linea: 3177
+evento: event('NR5A2',repress,'NR0B2'); Linea: 3177
+evento: event('NR1H4',stimulate,'NR5A2'); Linea: 3178
+evento: event('NR1H4',stimulate,'NR0B2'); Linea: 3178
+evento: event('NR5A2',induce,'CYP7A1'); Linea: 3179
+evento: event('NR5A2',induce,'NR1H4'); Linea: 3179
+evento: event('NR5A2',induce,'NR0B2'); Linea: 3179
+evento: event('NR0B2',involve,'NR1H4'); Linea: 3187
+evento: event('bile acid',decrease,'NR0B2'); Linea: 3191
+evento: event('NR5A2',stimulate,'NR5A2'); Linea: 3192
+evento: event('NR0B2',inhibit,'NR5A2'); Linea: 3193
+evento: event('bile acid',activate,'NR5A2'); Linea: 3194
+evento: event('CYP7A1',decrease,'cholesterol'); Linea: 3205
+evento: event('cholesterol',decrease,'cholesterol'); Linea: 3205
+evento: event('CYP7A1',bind,'NR5A2'); Linea: 3206
+evento: event('CYP7A1',bind,'NR1H3'); Linea: 3206
+evento: event('CYP7A1',bind,'NR1H2'); Linea: 3206
+evento: event('CYP7A1',bind,'NR0B2'); Linea: 3206
+evento: event('NR5A2',enhance,'NR0B2'); Linea: 3210
+evento: event('NR0B2',enhance,'NR0B2'); Linea: 3210
+evento: event('CYP7A1',increase,'NR1H3'); Linea: 3211
+evento: event('CYP7A1',increase,'NR1H2'); Linea: 3211
+evento: event('CYP7A1',increase,'NR0B2'); Linea: 3211
+evento: event('cholesterol',increase,'NR1H3'); Linea: 3211
+evento: event('cholesterol',increase,'NR1H2'); Linea: 3211
+evento: event('cholesterol',increase,'NR0B2'); Linea: 3211
+evento: event('cholesterol',express,'NR5A2'); Linea: 3215
+evento: event('CYP7A1',increase,'NR5A2'); Linea: 3216
+evento: event('NR5A2',activate,'NR0B2'); Linea: 3218
+evento: event('NR5A2',increase,'cholesterol'); Linea: 3220
+evento: event('NR0B2',interact,'NR0B2'); Linea: 3232
+evento: event('CYP7A1',repress,'NR0B2'); Linea: 3233
+evento: event('NR5A2',repress,'NR0B2'); Linea: 3233
+evento: event('NR0B2',recruit,'NR5A2'); Linea: 3234
+evento: event('NR0B2',recruit,'NR5A2'); Linea: 3234
+evento: event('NR5A2',regulate,'NR5A2'); Linea: 3245
+evento: event('NR5A2',regulate,'NR5A2'); Linea: 3245
+evento: event('NR5A2',regulate,'NR5A2'); Linea: 3245
+evento: event('NR5A2',promote,'NR5A2'); Linea: 3246
+evento: event('NR5A2',promote,'NR5A2'); Linea: 3246
+evento: event('NR5A2',promote,'NR5A2'); Linea: 3246
+evento: event('NR1H4',activate,'NRBF2'); Linea: 3284
+evento: event('NRBF2',target,'NR0B2'); Linea: 3286
+evento: event('NR5A2',increase,'NRBF2'); Linea: 3289
+evento: event('NR5A2',increase,'NR1H4'); Linea: 3289
+evento: event('NR5A2',increase,'NRBF2'); Linea: 3289
+evento: event('NR5A2',increase,'NR1H4'); Linea: 3289
+evento: event('NR1H4',mediate,'NR5A2'); Linea: 3290
+evento: event('NR1H4',mediate,'NR5A2'); Linea: 3290
+evento: event('NR0B2',mediate,'NR5A2'); Linea: 3290
+evento: event('NR0B2',mediate,'NR5A2'); Linea: 3290
+evento: event('NR0B2',involve,'CYP7A1'); Linea: 3300
+evento: event('NR0B2',involve,'cholesterol'); Linea: 3300
+evento: event('NR0B2',bind,'bile acid'); Linea: 3307
+evento: event('NR5A2',promote,'NR0B2'); Linea: 3308
+evento: event('NR5A2',promote,'NR0B2'); Linea: 3308
+evento: event('CH25H',inhibit,'CH25H'); Linea: 3321
+evento: event('CH25H',target,'CH25H'); Linea: 3325
+evento: event('cholesterol',target,'cholesterol'); Linea: 3333
+evento: event('cholesterol',suppress,'cholesterol'); Linea: 3337
+evento: event('CH25H',enhance,'CH25H'); Linea: 3349
+evento: event('oxysterols',induce,'CH25H'); Linea: 3382
+evento: event('NR1H2',induce,'CH25H'); Linea: 3382
+evento: event('NR1H2',activate,'CH25H'); Linea: 3384
+evento: event('NR1H2',activate,'NR1H2'); Linea: 3384
+evento: event('oxysterols',regulate,'CYP7A1'); Linea: 3411
+evento: event('oxysterols',regulate,'CH25H'); Linea: 3411
+evento: event('CH25H',induce,'cholesterol'); Linea: 3427
+evento: event('cholesterol',increase,'LCAT'); Linea: 3584
+evento: event('LCAT',require,'LCAT'); Linea: 3619
+evento: event('bile acid',prevent,'bile acid'); Linea: 3661
+evento: event('NRBF2',repress,'CYP7A1'); Linea: 3662
+evento: event('NRBF2',repress,'bile acid'); Linea: 3662
+evento: event('NRBF2',repress,'NR5A2'); Linea: 3662
+evento: event('NRBF2',repress,'NR5A2'); Linea: 3662
+evento: event('NRBF2',repress,'NR1H2'); Linea: 3662
+evento: event('NRBF2',repress,'NRBF2'); Linea: 3662
+evento: event('NRBF2',repress,'NR0B2'); Linea: 3662
+evento: event('NR1H4',repress,'bile acid'); Linea: 3662
+evento: event('NR1H4',repress,'NR5A2'); Linea: 3662
+evento: event('NR1H4',repress,'NR1H2'); Linea: 3662
+evento: event('NR1H4',repress,'NRBF2'); Linea: 3662
+evento: event('bile acid',regulate,'bile acid'); Linea: 3667
+evento: event('NR1H2',regulate,'NR1H2'); Linea: 3674
+evento: event('NRBF2',regulate,'NR1H2'); Linea: 3674
+evento: event('cholesterol',bind,'bile acid'); Linea: 3689
+evento: event('bile acid',mediate,'bile acid'); Linea: 3710
+evento: event('NR5A2',activate,'NR5A2'); Linea: 3713
+evento: event('NPC1',involve,'cholesterol'); Linea: 3758
+evento: event('NPC1L1',involve,'cholesterol'); Linea: 3758
+evento: event('cholesterol',prevent,'cholesterol'); Linea: 3763
+evento: event('NPC1',express,'cholesterol'); Linea: 3772
+evento: event('NPC1L1',express,'cholesterol'); Linea: 3772
+evento: event('cholesterol',express,'cholesterol'); Linea: 3772
+evento: event('NPC1',recognize,'cholesterol'); Linea: 3779
+evento: event('NPC1L1',recognize,'cholesterol'); Linea: 3779
+evento: event('NPC1',mediate,'cholesterol'); Linea: 3780
+evento: event('NPC1L1',mediate,'cholesterol'); Linea: 3780
+evento: event('cholesterol',associate,'cholesterol'); Linea: 3840
+evento: event('NPC2',enhance,'cholesterol'); Linea: 3843
+evento: event('NPC2',decrease,'NPC2'); Linea: 3846
+evento: event('NPC2',induce,'cholesterol'); Linea: 3848
+evento: event('NPC2',mediate,'cholesterol'); Linea: 3849
+evento: event('NPC1',require,'cholesterol'); Linea: 3891
+evento: event('cholesterol',require,'cholesterol'); Linea: 3891
+evento: event('NPC1',increase,'NPC1'); Linea: 3909
+evento: event('cholesterol',target,'NPC2'); Linea: 3920
+evento: event('cholesterol',require,'NPC1'); Linea: 3921
+evento: event('cholesterol',require,'NPC2'); Linea: 3921
+evento: event('NPC2',bind,'NPC1'); Linea: 3923
+evento: event('NPC1',bind,'NPC2'); Linea: 3925
+evento: event('cholesterol',increase,'NPC2'); Linea: 3930
+evento: event('NPC2',bind,'NPC2'); Linea: 3958
+evento: event('NPC1',associate,'NPC1'); Linea: 4279
+evento: event('NPC1',express,'NPC1'); Linea: 4291
+evento: event('NPC1',express,'NPC1L1'); Linea: 4291
+evento: event('NPC1',express,'NPC2'); Linea: 4291
+evento: event('NPC1L1',express,'NPC1'); Linea: 4291
+evento: event('NPC1L1',express,'NPC1L1'); Linea: 4291
+evento: event('NPC1L1',express,'NPC2'); Linea: 4291
+evento: event('NPC2',express,'NPC1'); Linea: 4291
+evento: event('NPC2',express,'NPC1L1'); Linea: 4291
+evento: event('NPC2',express,'NPC2'); Linea: 4291
+evento: event('cholesterol',lead,'cholesterol'); Linea: 4331
+evento: event('NPC1',increase,'cholesterol'); Linea: 4371
+evento: event('cholesterol',associate,'NPC1'); Linea: 4393
+evento: event('cholesterol',mediate,'cholesterol'); Linea: 4429
+evento: event('cholesterol',lead,'oxysterols'); Linea: 4457
+evento: event('NPC1',lead,'cholesterol'); Linea: 4465
+evento: event('NPC1L1',lead,'cholesterol'); Linea: 4465
+evento: event('NPC1',associate,'cholesterol'); Linea: 4471
+evento: event('NPC1L1',associate,'cholesterol'); Linea: 4471
+evento: event('NPC1',decrease,'NR1H2'); Linea: 4482
+evento: event('NPC1L1',decrease,'NR1H2'); Linea: 4482
+evento: event('NPC1',bind,'CYP7A1'); Linea: 4495
+evento: event('NPC1',bind,'cholesterol'); Linea: 4495
+evento: event('NPC1',bind,'NR1H2'); Linea: 4495
+evento: event('NPC1L1',bind,'CYP7A1'); Linea: 4495
+evento: event('NPC1L1',bind,'cholesterol'); Linea: 4495
+evento: event('NPC1L1',bind,'NR1H2'); Linea: 4495
+evento: event('cholesterol',bind,'CYP7A1'); Linea: 4495
+evento: event('cholesterol',bind,'NR1H2'); Linea: 4495
+evento: event('cholesterol',bind,'NPC1'); Linea: 4527
+evento: event('cholesterol',express,'NPC1'); Linea: 4528
+evento: event('NPC1',target,'cholesterol'); Linea: 4608
+evento: event('NPC2',target,'cholesterol'); Linea: 4608
+evento: event('NPC1',involve,'NPC2'); Linea: 4660
+evento: event('cholesterol',repress,'NR5A2'); Linea: 4704
+evento: event('cholesterol',repress,'NR5A2'); Linea: 4704
+evento: event('cholesterol',repress,'NR0B2'); Linea: 4704
+evento: event('NR5A2',increase,'NR5A2'); Linea: 4721
+evento: event('NR5A2',increase,'NR5A2'); Linea: 4721
+evento: event('NR5A2',increase,'NR5A2'); Linea: 4721
+evento: event('NR5A2',increase,'NR5A2'); Linea: 4721
+evento: event('NR0B2',inhibit,'NR5A2'); Linea: 4753
+evento: event('cholesterol',retain,'NPC1'); Linea: 4867
+eventos provenientes de abstracts/resumen_2.txt :210
+Archivo abstracts/resumen_3.txt
+evento: event('FAF1',bind,'FAF1'); Linea: 4922
+evento: event('FAF1',modulate,'FAF1'); Linea: 4931
+evento: event('RABGAP1L',decrease,'RABGAP1L'); Linea: 5213
+evento: event('NR1H4',activate,'CYP7A1'); Linea: 5303
+evento: event('NR1H4',activate,'NR1H3'); Linea: 5303
+evento: event('NR1H4',activate,'NR1H2'); Linea: 5303
+evento: event('NR5A2',bind,'NR1H2'); Linea: 5305
+evento: event('NR1H3',bind,'NR1H2'); Linea: 5305
+evento: event('NR1H2',bind,'NR1H2'); Linea: 5305
+evento: event('NR0B2',enhance,'NR5A2'); Linea: 5306
+evento: event('NR5A2',bind,'CYP7A1'); Linea: 5307
+evento: event('NR1H3',bind,'CYP7A1'); Linea: 5307
+evento: event('NR1H2',bind,'CYP7A1'); Linea: 5307
+evento: event('NR0B2',bind,'CYP7A1'); Linea: 5307
+evento: event('NR5A2',bind,'NR1H3'); Linea: 5308
+evento: event('NR1H2',bind,'NR1H3'); Linea: 5308
+evento: event('NR0B2',bind,'NR1H3'); Linea: 5308
+evento: event('NR0B2',bind,'NR1H2'); Linea: 5308
+evento: event('CYP7A1',increase,'CYP7A1'); Linea: 5309
+evento: event('NR1H3',increase,'CYP7A1'); Linea: 5309
+evento: event('NR1H3',increase,'NR5A2'); Linea: 5309
+evento: event('NR1H3',increase,'NR1H3'); Linea: 5309
+evento: event('NR1H3',increase,'NR1H2'); Linea: 5309
+evento: event('NR1H3',increase,'NR0B2'); Linea: 5309
+evento: event('NR1H2',increase,'CYP7A1'); Linea: 5309
+evento: event('NR1H2',increase,'NR5A2'); Linea: 5309
+evento: event('NR1H2',increase,'NR1H3'); Linea: 5309
+evento: event('NR1H2',increase,'NR1H2'); Linea: 5309
+evento: event('NR1H2',increase,'NR0B2'); Linea: 5309
+evento: event('NR1H4',increase,'CYP7A1'); Linea: 5309
+evento: event('NR1H4',increase,'NR5A2'); Linea: 5309
+evento: event('NR1H4',increase,'NR1H3'); Linea: 5309
+evento: event('NR1H4',increase,'NR1H2'); Linea: 5309
+evento: event('NR1H4',increase,'NR0B2'); Linea: 5309
+evento: event('NR0B2',increase,'CYP7A1'); Linea: 5309
+evento: event('NR0B2',increase,'NR5A2'); Linea: 5309
+evento: event('NR0B2',increase,'NR1H3'); Linea: 5309
+evento: event('NR0B2',increase,'NR1H2'); Linea: 5309
+evento: event('NR0B2',increase,'NR0B2'); Linea: 5309
+evento: event('NR5A2',mediate,'bile acid'); Linea: 5318
+evento: event('cholesterol',decrease,'bile acid'); Linea: 5331
+evento: event('NR0B2',interact,'NR5A2'); Linea: 5334
+evento: event('NR0B2',interact,'NR5A2'); Linea: 5334
+evento: event('bile acid',regulate,'CYP7A1'); Linea: 5386
+evento: event('NR0B2',decrease,'NR0B2'); Linea: 5544
+evento: event('NR1H3',target,'NR1H4'); Linea: 5548
+evento: event('NR1H3',target,'NR0B2'); Linea: 5548
+evento: event('NR1H2',target,'NR1H4'); Linea: 5548
+evento: event('NR1H2',target,'NR0B2'); Linea: 5548
+evento: event('bile acid',inhibit,'cholesterol'); Linea: 5557
+evento: event('bile acid',inhibit,'oxysterols'); Linea: 5557
+evento: event('bile acid',inhibit,'NR1H3'); Linea: 5557
+evento: event('bile acid',inhibit,'NR1H2'); Linea: 5557
+evento: event('bile acid',inhibit,'NR0B2'); Linea: 5557
+evento: event('NR1H2',regulate,'NR1H4'); Linea: 5561
+evento: event('NR1H4',regulate,'NR1H4'); Linea: 5561
+evento: event('NR1H2',regulate,'NR0B2'); Linea: 5572
+evento: event('NR1H4',induce,'RUNX1'); Linea: 5592
+evento: event('cholesterol',increase,'NR1H2'); Linea: 5613
+evento: event('cholesterol',increase,'NR1H4'); Linea: 5613
+evento: event('NR0B2',interact,'NR1H2'); Linea: 5625
+evento: event('NR0B2',interact,'NR1H3'); Linea: 5625
+evento: event('NR0B2',interact,'NR1H2'); Linea: 5625
+evento: event('NR0B2',inhibit,'NR1H2'); Linea: 5626
+evento: event('bile acid',enhance,'CYP7A1'); Linea: 5633
+evento: event('NR0B2',target,'NR1H3'); Linea: 5637
+evento: event('NR0B2',target,'NR1H2'); Linea: 5637
+evento: event('NR0B2',target,'NR1H4'); Linea: 5637
+evento: event('CYP7A1',increase,'bile acid'); Linea: 5638
+evento: event('NR1H4',activate,'bile acid'); Linea: 5640
+evento: event('oxysterols',increase,'NR1H3'); Linea: 5641
+evento: event('oxysterols',increase,'NR1H2'); Linea: 5641
+evento: event('bile acid',increase,'NR0B2'); Linea: 5642
+evento: event('bile acid',activate,'CYP7A1'); Linea: 5644
+evento: event('bile acid',activate,'NR1H3'); Linea: 5644
+evento: event('bile acid',activate,'NR1H2'); Linea: 5644
+evento: event('CYP7A1',stimulate,'cholesterol'); Linea: 5645
+evento: event('CYP7A1',stimulate,'NR1H3'); Linea: 5645
+evento: event('CYP7A1',stimulate,'NR1H2'); Linea: 5645
+evento: event('bile acid',stimulate,'cholesterol'); Linea: 5645
+evento: event('bile acid',stimulate,'NR1H3'); Linea: 5645
+evento: event('bile acid',stimulate,'NR1H2'); Linea: 5645
+evento: event('cholesterol',stimulate,'cholesterol'); Linea: 5645
+evento: event('cholesterol',stimulate,'NR1H3'); Linea: 5645
+evento: event('cholesterol',stimulate,'NR1H2'); Linea: 5645
+evento: event('NR0B2',regulate,'bile acid'); Linea: 5649
+evento: event('NR0B2',regulate,'NR1H3'); Linea: 5649
+evento: event('NR0B2',regulate,'NR1H2'); Linea: 5649
+evento: event('NR1H2',induce,'CYP7A1'); Linea: 5661
+evento: event('NR1H2',bind,'NR0B2'); Linea: 5668
+evento: event('NR1H4',regulate,'NR1H2'); Linea: 5675
+evento: event('cholesterol',stimulate,'CYP7A1'); Linea: 5723
+evento: event('cholesterol',stimulate,'bile acid'); Linea: 5723
+evento: event('cholesterol',stimulate,'NR1H4'); Linea: 5723
+evento: event('cholesterol',stimulate,'NR0B2'); Linea: 5723
+evento: event('NR1H2',regulate,'CYP7A1'); Linea: 5724
+evento: event('NR1H4',regulate,'CYP7A1'); Linea: 5724
+evento: event('NR1H4',regulate,'NR0B2'); Linea: 5724
+evento: event('NRBF2',regulate,'NR1H4'); Linea: 5743
+evento: event('RIT1',inhibit,'RIT1'); Linea: 5779
+evento: event('NUDC',bind,'NUDC'); Linea: 5997
+evento: event('NUDC',increase,'NUDC'); Linea: 5998
+evento: event('NUDC',suppress,'NUDC'); Linea: 6019
+evento: event('NUDC',express,'NUDC'); Linea: 6053
+evento: event('NUDC',lead,'NUDC'); Linea: 6057
+evento: event('NUDC',dimerize,'NUDC'); Linea: 6083
+evento: event('NUDC',promote,'NUDC'); Linea: 6218
+evento: event('NR1H2',stimulate,'NR1H4'); Linea: 6249
+evento: event('NR0B2',decrease,'NR1H3'); Linea: 6267
+evento: event('NR0B2',decrease,'NR1H2'); Linea: 6267
+evento: event('NR0B2',decrease,'NRBF2'); Linea: 6267
+evento: event('NR1H3',involve,'NR0B2'); Linea: 6268
+evento: event('NR1H2',involve,'NR0B2'); Linea: 6268
+evento: event('NR1H2',activate,'cholesterol'); Linea: 6319
+evento: event('NR1H2',promote,'cholesterol'); Linea: 6323
+evento: event('NR1H2',require,'CYP7A1'); Linea: 6335
+evento: event('NR1H3',require,'CYP7A1'); Linea: 6335
+evento: event('NR1H2',require,'CYP7A1'); Linea: 6335
+evento: event('NR5A2',regulate,'bile acid'); Linea: 6452
+evento: event('NR5A2',regulate,'bile acid'); Linea: 6452
+evento: event('NR0B2',bind,'NR5A2'); Linea: 6465
+evento: event('NR0B2',bind,'NR5A2'); Linea: 6465
+evento: event('NR5A2',induce,'CYP7A1'); Linea: 6469
+evento: event('cholesterol',promote,'cholesterol'); Linea: 6536
+evento: event('bile acid',activate,'bile acid'); Linea: 6537
+evento: event('bile acid',activate,'cholesterol'); Linea: 6542
+evento: event('NR1H4',induce,'bile acid'); Linea: 6543
+evento: event('NR1H4',inhibit,'CYP7A1'); Linea: 6544
+evento: event('NR1H4',suppress,'NR1H4'); Linea: 6550
+evento: event('NR5A2',require,'CYP7A1'); Linea: 6551
+evento: event('NR5A2',require,'CYP7A1'); Linea: 6551
+evento: event('NR5A2',require,'NR1H4'); Linea: 6554
+evento: event('NR5A2',require,'NR1H4'); Linea: 6554
+evento: event('NR5A2',activate,'NR1H4'); Linea: 6557
+evento: event('NR5A2',activate,'NR1H4'); Linea: 6557
+evento: event('NR5A2',express,'bile acid'); Linea: 6575
+evento: event('NR5A2',express,'cholesterol'); Linea: 6575
+evento: event('NR5A2',express,'bile acid'); Linea: 6575
+evento: event('NR5A2',express,'cholesterol'); Linea: 6575
+evento: event('bile acid',suppress,'NR5A2'); Linea: 6595
+evento: event('bile acid',suppress,'NR5A2'); Linea: 6595
+evento: event('bile acid',suppress,'NR0B2'); Linea: 6595
+evento: event('NR5A2',stimulate,'cholesterol'); Linea: 6604
+evento: event('NR5A2',stimulate,'NR5A2'); Linea: 6604
+evento: event('NR5A2',stimulate,'cholesterol'); Linea: 6604
+evento: event('NR5A2',stimulate,'NR5A2'); Linea: 6604
+evento: event('NR5A2',stimulate,'NR5A2'); Linea: 6604
+evento: event('NR5A2',target,'bile acid'); Linea: 6607
+evento: event('NR5A2',target,'cholesterol'); Linea: 6607
+evento: event('NR5A2',target,'bile acid'); Linea: 6607
+evento: event('NR5A2',target,'cholesterol'); Linea: 6607
+evento: event('FAF1',regulate,'FAF1'); Linea: 6895
+evento: event('FAF1',prevent,'FAF1'); Linea: 6952
+evento: event('bile acid',mediate,'NR5A2'); Linea: 6974
+evento: event('bile acid',mediate,'NR5A2'); Linea: 6974
+evento: event('bile acid',mediate,'NR1H4'); Linea: 6974
+evento: event('bile acid',mediate,'NR0B2'); Linea: 6974
+evento: event('cholesterol',mediate,'bile acid'); Linea: 6974
+evento: event('cholesterol',mediate,'NR5A2'); Linea: 6974
+evento: event('cholesterol',mediate,'NR5A2'); Linea: 6974
+evento: event('cholesterol',mediate,'NR1H4'); Linea: 6974
+evento: event('cholesterol',mediate,'NR0B2'); Linea: 6974
+evento: event('NR1H4',suppress,'CYP7A1'); Linea: 6975
+evento: event('NR1H4',suppress,'cholesterol'); Linea: 6975
+evento: event('NR1H4',suppress,'NR5A2'); Linea: 6975
+evento: event('NR1H4',suppress,'NR5A2'); Linea: 6975
+evento: event('NR0B2',suppress,'CYP7A1'); Linea: 6975
+evento: event('NR0B2',suppress,'cholesterol'); Linea: 6975
+evento: event('NR0B2',suppress,'NR5A2'); Linea: 6975
+evento: event('NR0B2',suppress,'NR5A2'); Linea: 6975
+evento: event('NR1H4',regulate,'bile acid'); Linea: 6980
+evento: event('NR0B2',repress,'CYP7A1'); Linea: 6990
+evento: event('NR0B2',repress,'NR5A2'); Linea: 6990
+evento: event('NR0B2',repress,'NR5A2'); Linea: 6990
+evento: event('bile acid',regulate,'cholesterol'); Linea: 6992
+evento: event('bile acid',regulate,'oxysterols'); Linea: 6992
+evento: event('cholesterol',regulate,'CYP7A1'); Linea: 6992
+evento: event('cholesterol',regulate,'oxysterols'); Linea: 6992
+evento: event('CYP7A1',bind,'bile acid'); Linea: 6995
+evento: event('CYP7A1',bind,'NR1H4'); Linea: 6995
+evento: event('NR0B2',inactivate,'CYP7A1'); Linea: 6996
+evento: event('NR0B2',inactivate,'NR5A2'); Linea: 6996
+evento: event('NR0B2',inactivate,'NR5A2'); Linea: 6996
+evento: event('NR0B2',inactivate,'NR0B2'); Linea: 6996
+evento: event('NR5A2',target,'CYP7A1'); Linea: 7020
+evento: event('NR5A2',target,'CYP7A1'); Linea: 7020
+evento: event('NR5A2',involve,'cholesterol'); Linea: 7023
+evento: event('NR5A2',involve,'bile acid'); Linea: 7023
+evento: event('NR5A2',involve,'cholesterol'); Linea: 7023
+evento: event('NR1H4',bind,'NR5A2'); Linea: 7025
+evento: event('NR1H4',bind,'NR5A2'); Linea: 7025
+evento: event('NR1H4',bind,'NR1H4'); Linea: 7025
+evento: event('NR5A2',bind,'NR1H4'); Linea: 7026
+evento: event('NR5A2',bind,'NR1H4'); Linea: 7026
+evento: event('NR5A2',recruit,'NR1H4'); Linea: 7029
+evento: event('NR5A2',recruit,'NR1H4'); Linea: 7029
+evento: event('NR0B2',increase,'NR5A2'); Linea: 7035
+evento: event('NR1H2',induce,'NR1H2'); Linea: 7037
+evento: event('NR1H2',induce,'NR1H4'); Linea: 7037
+evento: event('NR1H4',express,'NR1H2'); Linea: 7044
+evento: event('NR1H4',bind,'NRBF2'); Linea: 7045
+evento: event('NR5A2',regulate,'NR0B2'); Linea: 7064
+evento: event('NR5A2',regulate,'NR0B2'); Linea: 7064
+evento: event('NR1H2',enhance,'NR1H2'); Linea: 7087
+evento: event('NR1H2',induce,'cholesterol'); Linea: 7092
+evento: event('NR1H2',bind,'bile acid'); Linea: 7093
+evento: event('NR1H2',bind,'cholesterol'); Linea: 7093
+evento: event('cholesterol',inhibit,'NR1H2'); Linea: 7112
+evento: event('NR1H2',increase,'cholesterol'); Linea: 7114
+evento: event('NR1H2',suppress,'cholesterol'); Linea: 7124
+evento: event('NR1H2',modulate,'NR1H2'); Linea: 7163
+evento: event('oxysterols',modulate,'oxysterols'); Linea: 7532
+evento: event('cholesterol',enhance,'oxysterols'); Linea: 7557
+evento: event('cholesterol',enhance,'NR1H2'); Linea: 7557
+evento: event('bile acid',stimulate,'bile acid'); Linea: 7592
+evento: event('bile acid',associate,'bile acid'); Linea: 7593
+eventos provenientes de abstracts/resumen_3.txt :216
+Archivo abstracts/resumen_4.txt
+evento: event('bile acid',target,'NR1H4'); Linea: 7616
+evento: event('NR1H4',target,'NR1H4'); Linea: 7616
+evento: event('cholesterol',lead,'NR1H2'); Linea: 7695
+evento: event('cholesterol',regulate,'NR1H2'); Linea: 7701
+evento: event('NPC1',require,'NR1H2'); Linea: 7705
+evento: event('NPC1L1',require,'NR1H2'); Linea: 7705
+evento: event('NR1H2',decrease,'NPC1'); Linea: 7721
+evento: event('NR1H2',decrease,'NR1H2'); Linea: 7803
+evento: event('NR1H3',decrease,'NR1H2'); Linea: 7819
+evento: event('NR1H2',inhibit,'NR1H2'); Linea: 7829
+evento: event('NR1H2',increase,'NPC1'); Linea: 7852
+evento: event('NR1H2',increase,'NPC2'); Linea: 7852
+evento: event('cholesterol',induce,'NPC1'); Linea: 7853
+evento: event('cholesterol',induce,'NPC2'); Linea: 7853
+evento: event('cholesterol',induce,'NR1H2'); Linea: 7853
+evento: event('NR1H2',lead,'cholesterol'); Linea: 7854
+evento: event('NR1H2',modulate,'cholesterol'); Linea: 7874
+evento: event('NPC1',promote,'cholesterol'); Linea: 7875
+evento: event('NR1H2',target,'NR1H2'); Linea: 7879
+evento: event('cholesterol',decrease,'NPC1'); Linea: 7887
+evento: event('cholesterol',decrease,'NPC1L1'); Linea: 7887
+evento: event('NPC1',prevent,'NR1H2'); Linea: 7913
+evento: event('NPC1L1',prevent,'NR1H2'); Linea: 7913
+evento: event('cholesterol',prevent,'NR1H2'); Linea: 7913
+evento: event('cholesterol',associate,'NR1H4'); Linea: 7942
+evento: event('NR1H2',recognize,'cholesterol'); Linea: 7974
+evento: event('NPC1',inhibit,'cholesterol'); Linea: 8101
+evento: event('NPC1L1',inhibit,'cholesterol'); Linea: 8101
+evento: event('NR1H3',associate,'cholesterol'); Linea: 8107
+evento: event('NR1H2',associate,'cholesterol'); Linea: 8107
+evento: event('NPC1',modulate,'NPC1'); Linea: 8115
+evento: event('NPC1',modulate,'NPC1L1'); Linea: 8115
+evento: event('NPC1',modulate,'cholesterol'); Linea: 8115
+evento: event('NPC1L1',modulate,'NPC1'); Linea: 8115
+evento: event('NPC1L1',modulate,'NPC1L1'); Linea: 8115
+evento: event('NPC1L1',modulate,'cholesterol'); Linea: 8115
+evento: event('cholesterol',modulate,'NPC1'); Linea: 8115
+evento: event('cholesterol',modulate,'NPC1L1'); Linea: 8115
+evento: event('CYP7A1',decrease,'NPC1'); Linea: 8124
+evento: event('CYP7A1',decrease,'NPC1L1'); Linea: 8124
+evento: event('NPC1',associate,'CYP7A1'); Linea: 8126
+evento: event('NPC1L1',associate,'CYP7A1'); Linea: 8126
+evento: event('NPC1',target,'NR1H2'); Linea: 8132
+evento: event('NPC1L1',target,'cholesterol'); Linea: 8132
+evento: event('NPC1L1',target,'NR1H2'); Linea: 8132
+evento: event('NR1H2',target,'cholesterol'); Linea: 8132
+evento: event('NPC1',bind,'NPC1'); Linea: 8135
+evento: event('NPC1',bind,'NPC1L1'); Linea: 8135
+evento: event('NPC1L1',bind,'NPC1'); Linea: 8135
+evento: event('NPC1L1',bind,'NPC1L1'); Linea: 8135
+evento: event('cholesterol',involve,'NR1H3'); Linea: 8153
+evento: event('cholesterol',involve,'NR1H2'); Linea: 8153
+evento: event('NPC2',lead,'cholesterol'); Linea: 8158
+evento: event('NPC1',require,'oxysterols'); Linea: 8159
+evento: event('NPC2',require,'cholesterol'); Linea: 8159
+evento: event('NPC2',require,'oxysterols'); Linea: 8159
+evento: event('cholesterol',require,'oxysterols'); Linea: 8159
+evento: event('LCAT',increase,'cholesterol'); Linea: 8198
+evento: event('NR1H3',involve,'cholesterol'); Linea: 8206
+evento: event('NPC1',regulate,'cholesterol'); Linea: 8241
+evento: event('cholesterol',increase,'NPC1'); Linea: 8242
+evento: event('NPC1L1',increase,'cholesterol'); Linea: 8252
+evento: event('NR1H2',promote,'NPC1'); Linea: 8259
+evento: event('cholesterol',increase,'NRBF2'); Linea: 8449
+evento: event('NRBF2',target,'NRBF2'); Linea: 8456
+evento: event('NR1H2',decrease,'NPC1L1'); Linea: 8497
+evento: event('NRBF2',decrease,'NPC1'); Linea: 8497
+evento: event('NRBF2',decrease,'NPC1L1'); Linea: 8497
+evento: event('LCAT',bind,'NR1H3'); Linea: 8506
+evento: event('LCAT',bind,'NR1H2'); Linea: 8506
+evento: event('cholesterol',mediate,'oxysterols'); Linea: 8515
+evento: event('NPC1',lead,'NR1H2'); Linea: 8588
+evento: event('NRBF2',target,'cholesterol'); Linea: 8603
+evento: event('cholesterol',associate,'NR1H2'); Linea: 8610
+evento: event('cholesterol',activate,'NR1H2'); Linea: 8687
+evento: event('oxysterols',activate,'NR1H2'); Linea: 8687
+evento: event('cholesterol',suppress,'NR1H2'); Linea: 8709
+evento: event('cholesterol',suppress,'CAP'); Linea: 8709
+evento: event('NRBF2',target,'NRBF2'); Linea: 8893
+evento: event('CYP7A1',bind,'NPC1'); Linea: 8952
+evento: event('CYP7A1',bind,'NPC1L1'); Linea: 8952
+evento: event('cholesterol',associate,'NPC1L1'); Linea: 8958
+evento: event('NRBF2',regulate,'NRBF2'); Linea: 9036
+evento: event('cholesterol',inhibit,'bile acid'); Linea: 9059
+evento: event('NR0B2',express,'NR0B2'); Linea: 9095
+evento: event('bile acid',interact,'bile acid'); Linea: 9129
+evento: event('NR0B2',decrease,'CYP7A1'); Linea: 9193
+evento: event('NR0B2',decrease,'cholesterol'); Linea: 9193
+evento: event('NR0B2',inhibit,'NR0B2'); Linea: 9201
+evento: event('FOXA2',target,'FOXA2'); Linea: 9267
+evento: event('FOXA2',bind,'FOXA2'); Linea: 9270
+evento: event('NR1H2',regulate,'bile acid'); Linea: 9300
+evento: event('CYP7A1',involve,'cholesterol'); Linea: 9311
+evento: event('NR1H2',involve,'cholesterol'); Linea: 9311
+evento: event('NR1H4',involve,'cholesterol'); Linea: 9311
+evento: event('NR1H2',promote,'NR1H2'); Linea: 9316
+evento: event('NR1H3',bind,'NRBF2'); Linea: 9376
+evento: event('cholesterol',enhance,'NR1H3'); Linea: 9388
+evento: event('NRBF2',regulate,'bile acid'); Linea: 9423
+evento: event('NRBF2',regulate,'cholesterol'); Linea: 9423
+evento: event('NR1H4',regulate,'cholesterol'); Linea: 9423
+evento: event('NRBF2',bind,'NR1H4'); Linea: 9434
+evento: event('NR1H4',heterodimerize,'cholesterol'); Linea: 9437
+evento: event('NR1H4',heterodimerize,'NRBF2'); Linea: 9437
+evento: event('NRBF2',inhibit,'NR1H4'); Linea: 9462
+evento: event('NR1H4',inhibit,'NR1H4'); Linea: 9462
+evento: event('CYP7A1',repress,'NRBF2'); Linea: 9481
+evento: event('CYP7A1',repress,'NR1H4'); Linea: 9481
+evento: event('NRBF2',increase,'CYP7A1'); Linea: 9483
+evento: event('NRBF2',increase,'NRBF2'); Linea: 9483
+evento: event('NRBF2',increase,'NR1H4'); Linea: 9483
+evento: event('NR1H4',increase,'NRBF2'); Linea: 9483
+evento: event('NR1H4',increase,'NR1H4'); Linea: 9483
+evento: event('NR1H4',express,'bile acid'); Linea: 9499
+evento: event('NR1H4',express,'NR1H4'); Linea: 9499
+evento: event('NR1H4',activate,'NR1H4'); Linea: 9501
+evento: event('NR1H4',involve,'NR1H4'); Linea: 9503
+evento: event('NR0B2',bind,'NRBF2'); Linea: 9529
+evento: event('NR0B2',inhibit,'NRBF2'); Linea: 9538
+evento: event('NRBF2',suppress,'NRBF2'); Linea: 9581
+evento: event('NRBF2',bind,'NRBF2'); Linea: 9600
+evento: event('NR1H4',target,'bile acid'); Linea: 9623
+evento: event('BAAT',mediate,'NRBF2'); Linea: 9627
+evento: event('BAAT',mediate,'NR1H4'); Linea: 9627
+evento: event('NR1H4',increase,'BAAT'); Linea: 9628
+evento: event('BAAT',mediate,'BAAT'); Linea: 9661
+evento: event('BAAT',bind,'BAAT'); Linea: 9678
+evento: event('BAAT',enhance,'BAAT'); Linea: 9834
+evento: event('NRBF2',bind,'BAAT'); Linea: 9842
+evento: event('RIT1',enhance,'RIT1'); Linea: 9896
+evento: event('RIT1',regulate,'RIT1'); Linea: 9897
+evento: event('cholesterol',mediate,'NR1H3'); Linea: 10254
+evento: event('cholesterol',mediate,'NR1H2'); Linea: 10254
+evento: event('cholesterol',activate,'cholesterol'); Linea: 10258
+evento: event('oxysterols',involve,'NR1H2'); Linea: 10284
+evento: event('NR1H2',bind,'oxysterols'); Linea: 10305
+evento: event('NR1H2',activate,'bile acid'); Linea: 10345
+evento: event('NR1H2',activate,'oxysterols'); Linea: 10345
+evento: event('NR1H2',target,'CYP7A1'); Linea: 10383
+evento: event('bile acid',lead,'cholesterol'); Linea: 10404
+evento: event('NR1H2',lead,'bile acid'); Linea: 10408
+evento: event('NR1H2',target,'bile acid'); Linea: 10435
+eventos provenientes de abstracts/resumen_4.txt :142
+Archivo abstracts/resumen_5.txt
+evento: event('FAF1',suppress,'FAF1'); Linea: 10476
+evento: event('FAF1',interact,'FAF1'); Linea: 10477
+evento: event('NRBF2',prevent,'NRBF2'); Linea: 10712
+evento: event('NR1H2',lead,'NR1H2'); Linea: 10799
+evento: event('NR1H2',stimulate,'cholesterol'); Linea: 10835
+evento: event('NR1H2',stimulate,'NR1H2'); Linea: 10836
+evento: event('bile acid',increase,'NR1H4'); Linea: 10874
+evento: event('NR1H4',enhance,'NR1H4'); Linea: 10893
+evento: event('NR1H4',enhance,'FOXA2'); Linea: 10893
+evento: event('NR1H4',regulate,'FOXA2'); Linea: 10896
+evento: event('cholesterol',regulate,'NR1H3'); Linea: 10909
+evento: event('cholesterol',regulate,'NR1H4'); Linea: 10909
+evento: event('bile acid',target,'NR0B2'); Linea: 10910
+evento: event('cholesterol',target,'NR1H4'); Linea: 10910
+evento: event('cholesterol',target,'NR0B2'); Linea: 10910
+evento: event('NR1H3',target,'oxysterols'); Linea: 10911
+evento: event('NR1H2',target,'oxysterols'); Linea: 10911
+evento: event('cholesterol',activate,'oxysterols'); Linea: 10916
+evento: event('NR1H3',activate,'oxysterols'); Linea: 10916
+evento: event('NR1H4',activate,'oxysterols'); Linea: 10916
+evento: event('cholesterol',activate,'CYP7A1'); Linea: 10917
+evento: event('cholesterol',activate,'NR1H3'); Linea: 10917
+evento: event('cholesterol',activate,'NR1H4'); Linea: 10917
+evento: event('NR1H3',activate,'CYP7A1'); Linea: 10918
+evento: event('NR1H3',activate,'NR1H3'); Linea: 10918
+evento: event('NR1H3',activate,'NR1H2'); Linea: 10918
+evento: event('NR1H3',activate,'NR1H4'); Linea: 10918
+evento: event('NR1H2',activate,'CYP7A1'); Linea: 10918
+evento: event('NR1H2',activate,'NR1H3'); Linea: 10918
+evento: event('NR1H2',activate,'NR1H4'); Linea: 10918
+evento: event('NR0B2',inhibit,'cholesterol'); Linea: 10925
+evento: event('NR0B2',increase,'NR1H4'); Linea: 10935
+evento: event('cholesterol',induce,'NR1H4'); Linea: 10956
+evento: event('NR1H4',induce,'NR1H4'); Linea: 10956
+evento: event('NR1H4',inhibit,'NR0B2'); Linea: 10958
+evento: event('NR0B2',induce,'CYP7A1'); Linea: 11041
+evento: event('NR0B2',induce,'NR1H4'); Linea: 11041
+evento: event('NR0B2',express,'NR1H4'); Linea: 11048
+evento: event('NR1H4',mediate,'NRBF2'); Linea: 11052
+evento: event('NR1H4',mediate,'NR0B2'); Linea: 11052
+evento: event('NRBF2',regulate,'NR0B2'); Linea: 11057
+evento: event('NR0B2',regulate,'NR5A2'); Linea: 11070
+evento: event('NR0B2',regulate,'NR5A2'); Linea: 11070
+evento: event('NR0B2',regulate,'NR1H4'); Linea: 11070
+evento: event('NR1H4',induce,'BAAT'); Linea: 11108
+evento: event('CYP7A1',involve,'bile acid'); Linea: 11130
+evento: event('NR0B2',associate,'NR0B2'); Linea: 11144
+evento: event('bile acid',involve,'bile acid'); Linea: 11166
+evento: event('BAAT',target,'BAAT'); Linea: 11243
+evento: event('BAAT',activate,'BAAT'); Linea: 11244
+evento: event('bile acid',target,'BAAT'); Linea: 11248
+evento: event('NRBF2',enhance,'NR1H2'); Linea: 11480
+evento: event('NRBF2',enhance,'NRBF2'); Linea: 11480
+evento: event('NR1H2',involve,'NR1H2'); Linea: 11481
+evento: event('NR1H2',involve,'NRBF2'); Linea: 11481
+evento: event('NR1H2',induce,'NRBF2'); Linea: 11516
+evento: event('NR1H2',heterodimerize,'NR1H2'); Linea: 11526
+evento: event('NR1H2',heterodimerize,'NRBF2'); Linea: 11526
+evento: event('NR1H4',activate,'NR0B2'); Linea: 11599
+evento: event('NR1H4',increase,'cholesterol'); Linea: 11697
+evento: event('NR1H4',inhibit,'bile acid'); Linea: 11700
+evento: event('NR1H4',inhibit,'cholesterol'); Linea: 11700
+evento: event('NR1H4',modulate,'NR0B2'); Linea: 11716
+evento: event('NR1H4',prevent,'NR0B2'); Linea: 11720
+evento: event('NR0B2',recruit,'bile acid'); Linea: 11752
+evento: event('NR0B2',recruit,'NR0B2'); Linea: 11752
+evento: event('bile acid',bind,'bile acid'); Linea: 11841
+evento: event('NR1H4',bind,'bile acid'); Linea: 11841
+evento: event('NR1H2',prevent,'cholesterol'); Linea: 11896
+evento: event('NR1H3',prevent,'cholesterol'); Linea: 11896
+evento: event('NR1H2',prevent,'cholesterol'); Linea: 11896
+evento: event('NR1H3',involve,'NR1H2'); Linea: 11962
+evento: event('NR1H3',involve,'NR1H2'); Linea: 11962
+evento: event('NR1H2',involve,'NR1H2'); Linea: 11962
+evento: event('NR1H3',express,'NR1H2'); Linea: 11964
+evento: event('NR1H3',express,'NR1H2'); Linea: 11964
+evento: event('NR1H2',express,'NR1H2'); Linea: 11964
+evento: event('NR1H2',express,'NR1H2'); Linea: 11964
+evento: event('NR1H2',interact,'cholesterol'); Linea: 12025
+evento: event('NR1H2',interact,'NR1H2'); Linea: 12025
+evento: event('NR1H3',express,'NR1H3'); Linea: 12061
+evento: event('NR1H2',express,'NR1H3'); Linea: 12061
+evento: event('cholesterol',decrease,'NR1H2'); Linea: 12096
+evento: event('NRBF2',activate,'NR1H2'); Linea: 12126
+evento: event('NR1H2',mediate,'NR1H2'); Linea: 12140
+evento: event('NR1H2',mediate,'NRBF2'); Linea: 12140
+evento: event('NRBF2',mediate,'NRBF2'); Linea: 12211
+evento: event('NRBF2',express,'bile acid'); Linea: 12228
+evento: event('NRBF2',express,'cholesterol'); Linea: 12228
+evento: event('NR1H3',require,'NR1H3'); Linea: 12251
+evento: event('NR1H3',require,'NR1H2'); Linea: 12251
+evento: event('NR1H2',require,'NR1H3'); Linea: 12251
+evento: event('NR1H2',require,'NR1H2'); Linea: 12251
+evento: event('NR1H2',target,'NRBF2'); Linea: 12275
+evento: event('NRBF2',target,'NR1H2'); Linea: 12275
+evento: event('NRBF2',bind,'NR1H2'); Linea: 12282
+evento: event('NR1H2',decrease,'cholesterol'); Linea: 12287
+evento: event('NR1H3',suppress,'oxysterols'); Linea: 12308
+evento: event('NR1H3',suppress,'NR1H3'); Linea: 12308
+evento: event('NR1H3',suppress,'NR1H2'); Linea: 12308
+evento: event('NR1H2',suppress,'oxysterols'); Linea: 12308
+evento: event('NR1H2',suppress,'NR1H3'); Linea: 12308
+evento: event('NR1H2',suppress,'NR1H2'); Linea: 12308
+evento: event('NR1H2',regulate,'NRBF2'); Linea: 12325
+evento: event('NR1H3',regulate,'NRBF2'); Linea: 12325
+evento: event('NR1H2',regulate,'NRBF2'); Linea: 12325
+evento: event('NR1H2',inhibit,'cholesterol'); Linea: 12329
+evento: event('NR1H2',bind,'cholesterol'); Linea: 12334
+evento: event('NRBF2',bind,'cholesterol'); Linea: 12334
+evento: event('cholesterol',bind,'NR1H2'); Linea: 12335
+evento: event('cholesterol',bind,'NRBF2'); Linea: 12335
+evento: event('oxysterols',bind,'NR1H2'); Linea: 12335
+evento: event('oxysterols',bind,'NR1H2'); Linea: 12335
+evento: event('oxysterols',bind,'NRBF2'); Linea: 12335
+evento: event('NRBF2',interact,'cholesterol'); Linea: 12339
+evento: event('NR1H2',associate,'NR1H2'); Linea: 12348
+evento: event('NRBF2',associate,'NR1H2'); Linea: 12348
+evento: event('oxysterols',target,'cholesterol'); Linea: 12377
+evento: event('oxysterols',target,'NR1H2'); Linea: 12377
+evento: event('oxysterols',target,'NRBF2'); Linea: 12377
+evento: event('NR1H3',regulate,'cholesterol'); Linea: 12383
+evento: event('NR1H3',regulate,'oxysterols'); Linea: 12383
+evento: event('NR1H2',regulate,'oxysterols'); Linea: 12383
+evento: event('NR1H2',prevent,'NR1H2'); Linea: 12428
+evento: event('cholesterol',mediate,'NR1H2'); Linea: 12462
+evento: event('NR1H2',repress,'NR1H2'); Linea: 12519
+evento: event('NRBF2',decrease,'NR1H2'); Linea: 12737
+evento: event('NR1H2',target,'NPC1'); Linea: 12755
+evento: event('NRBF2',enhance,'NRBF2'); Linea: 12791
+evento: event('cholesterol',increase,'CAP'); Linea: 12857
+evento: event('NR1H2',participate,'NR1H2'); Linea: 13275
+evento: event('NR1H2',inhibit,'bile acid'); Linea: 13352
+eventos provenientes de abstracts/resumen_5.txt :132
+Archivo abstracts/resumen_6.txt
+evento: event('bile acid',induce,'NR1H4'); Linea: 13407
+evento: event('RUNX1',regulate,'RUNX1'); Linea: 13466
+evento: event('bile acid',regulate,'NR1H2'); Linea: 13499
+evento: event('NR1H2',regulate,'cholesterol'); Linea: 13500
+evento: event('NR1H2',dimerize,'cholesterol'); Linea: 13518
+evento: event('NR1H4',dimerize,'cholesterol'); Linea: 13518
+evento: event('NR1H2',prevent,'bile acid'); Linea: 13519
+evento: event('NR1H2',prevent,'NR1H4'); Linea: 13519
+evento: event('oxysterols',regulate,'cholesterol'); Linea: 13528
+evento: event('bile acid',decrease,'CYP7A1'); Linea: 13555
+evento: event('cholesterol',decrease,'CYP7A1'); Linea: 13555
+evento: event('NR1H2',activate,'NR1H4'); Linea: 13563
+evento: event('FOXA2',decrease,'FOXA2'); Linea: 13593
+evento: event('FOXA2',inhibit,'oxysterols'); Linea: 13625
+evento: event('FOXA2',inhibit,'NR1H2'); Linea: 13625
+evento: event('FOXA2',inhibit,'NRBF2'); Linea: 13625
+evento: event('oxysterols',involve,'bile acid'); Linea: 13704
+evento: event('oxysterols',involve,'cholesterol'); Linea: 13704
+evento: event('NR1H2',involve,'cholesterol'); Linea: 13732
+evento: event('bile acid',increase,'cholesterol'); Linea: 13735
+evento: event('bile acid',synthesize,'cholesterol'); Linea: 13738
+evento: event('bile acid',synthesize,'NR1H3'); Linea: 13738
+evento: event('bile acid',synthesize,'NR1H2'); Linea: 13738
+evento: event('cholesterol',promote,'bile acid'); Linea: 13742
+evento: event('cholesterol',promote,'NR1H2'); Linea: 13742
+evento: event('oxysterols',modulate,'cholesterol'); Linea: 13755
+evento: event('FOXA2',mediate,'FOXA2'); Linea: 13788
+evento: event('FOXA2',enhance,'FOXA2'); Linea: 13789
+evento: event('bile acid',associate,'NR1H4'); Linea: 13998
+evento: event('bile acid',associate,'NR0B2'); Linea: 13998
+evento: event('FOXA2',associate,'FOXA2'); Linea: 14321
+evento: event('FOXA2',express,'FOXA2'); Linea: 14338
+evento: event('NR0B2',suppress,'NR0B2'); Linea: 14384
+evento: event('FOXA2',increase,'FOXA2'); Linea: 14474
+evento: event('bile acid',activate,'NR1H2'); Linea: 14800
+evento: event('NR1H3',regulate,'NR1H4'); Linea: 14812
+evento: event('NRBF2',regulate,'NRBF2'); Linea: 14812
+evento: event('cholesterol',associate,'bile acid'); Linea: 14868
+evento: event('NR1H4',activate,'cholesterol'); Linea: 14882
+evento: event('cholesterol',synthesize,'cholesterol'); Linea: 14891
+evento: event('cholesterol',increase,'CYP7A1'); Linea: 14908
+evento: event('cholesterol',mediate,'CYP7A1'); Linea: 14925
+evento: event('cholesterol',associate,'CYP7A1'); Linea: 14957
+evento: event('cholesterol',enhance,'CYP7A1'); Linea: 14989
+evento: event('NR1H4',induce,'cholesterol'); Linea: 15032
+evento: event('NR1H4',repress,'NR1H4'); Linea: 15090
+evento: event('CYP7A1',associate,'cholesterol'); Linea: 15118
+evento: event('cholesterol',induce,'CYP7A1'); Linea: 15119
+evento: event('cholesterol',suppress,'CYP7A1'); Linea: 15122
+evento: event('cholesterol',bind,'NR1H3'); Linea: 15125
+evento: event('CYP7A1',induce,'NR1H2'); Linea: 15150
+evento: event('NR1H2',inhibit,'CYP7A1'); Linea: 15151
+evento: event('CYP7A1',promote,'CYP7A1'); Linea: 15213
+evento: event('CYP7A1',promote,'NR1H2'); Linea: 15213
+evento: event('NR1H4',express,'cholesterol'); Linea: 15246
+evento: event('NR1H2',trigger,'NR1H2'); Linea: 15315
+evento: event('NR1H2',trigger,'NR1H2'); Linea: 15315
+evento: event('NR1H4',associate,'bile acid'); Linea: 15381
+evento: event('NR1H4',stimulate,'NR1H4'); Linea: 15387
+evento: event('NR1H2',bind,'NRBF2'); Linea: 15394
+evento: event('cholesterol',bind,'NR1H4'); Linea: 15572
+evento: event('NR1H2',bind,'NR1H4'); Linea: 15572
+evento: event('bile acid',involve,'cholesterol'); Linea: 15588
+evento: event('NR1H4',suppress,'NR1H3'); Linea: 15623
+evento: event('NR1H4',suppress,'NR1H2'); Linea: 15623
+evento: event('NR1H4',bind,'NR1H3'); Linea: 15625
+evento: event('NR1H4',bind,'NR1H2'); Linea: 15625
+evento: event('NR1H4',associate,'NR1H4'); Linea: 15670
+evento: event('NR1H4',target,'CYP7A1'); Linea: 15746
+evento: event('NR1H4',target,'cholesterol'); Linea: 15746
+evento: event('NPC1',bind,'NR1H4'); Linea: 15835
+evento: event('NPC1L1',bind,'NR1H4'); Linea: 15835
+evento: event('NR1H4',mediate,'NR1H4'); Linea: 15839
+evento: event('cholesterol',mediate,'NPC1'); Linea: 15866
+evento: event('cholesterol',mediate,'NPC1L1'); Linea: 15866
+evento: event('bile acid',induce,'cholesterol'); Linea: 15867
+evento: event('cholesterol',induce,'bile acid'); Linea: 15867
+evento: event('NR1H4',suppress,'NPC1'); Linea: 15868
+evento: event('NR1H4',suppress,'NPC1L1'); Linea: 15868
+evento: event('cholesterol',inhibit,'NPC1'); Linea: 15914
+evento: event('cholesterol',inhibit,'NPC1L1'); Linea: 15914
+eventos provenientes de abstracts/resumen_6.txt :81
+Archivo abstracts/resumen_7.txt
+evento: event('CYP7A1',stimulate,'CYP7A1'); Linea: 16186
+evento: event('NR1H4',stimulate,'CYP7A1'); Linea: 16186
+evento: event('cholesterol',interact,'cholesterol'); Linea: 16572
+evento: event('LCAT',associate,'cholesterol'); Linea: 16781
+evento: event('LCAT',involve,'cholesterol'); Linea: 17012
+evento: event('cholesterol',associate,'LCAT'); Linea: 17014
+evento: event('LCAT',stimulate,'cholesterol'); Linea: 17018
+evento: event('LCAT',promote,'cholesterol'); Linea: 17043
+evento: event('cholesterol',induce,'LCAT'); Linea: 17098
+evento: event('cholesterol',decrease,'LCAT'); Linea: 17105
+evento: event('NR1H4',lead,'NR1H4'); Linea: 17613
+evento: event('NR1H4',modulate,'bile acid'); Linea: 17668
+evento: event('bile acid',decrease,'NR1H4'); Linea: 17686
+evento: event('NR0B2',inhibit,'bile acid'); Linea: 17719
+evento: event('NR1H4',recruit,'CYP7A1'); Linea: 17738
+evento: event('NR1H4',recruit,'NR0B2'); Linea: 17738
+evento: event('NR1H4',induce,'CYP7A1'); Linea: 17749
+evento: event('NR0B2',increase,'cholesterol'); Linea: 17758
+evento: event('CYP7A1',inhibit,'NR0B2'); Linea: 17774
+evento: event('bile acid',repress,'NR1H4'); Linea: 17831
+evento: event('NR0B2',repress,'cholesterol'); Linea: 17831
+evento: event('NR0B2',repress,'NR1H4'); Linea: 17831
+evento: event('NR1H4',increase,'bile acid'); Linea: 17843
+evento: event('CYP7A1',activate,'NR1H4'); Linea: 17854
+evento: event('CYP7A1',activate,'NR0B2'); Linea: 17854
+evento: event('FOXA2',recognize,'FOXA2'); Linea: 17946
+evento: event('NR1H3',regulate,'CYP7A1'); Linea: 17964
+evento: event('NR1H3',decrease,'CYP7A1'); Linea: 17965
+evento: event('NR1H3',decrease,'cholesterol'); Linea: 17965
+evento: event('NR1H2',decrease,'CYP7A1'); Linea: 17965
+evento: event('cholesterol',inhibit,'CYP7A1'); Linea: 17968
+evento: event('cholesterol',inhibit,'NR1H3'); Linea: 17968
+evento: event('CYP7A1',bind,'cholesterol'); Linea: 17969
+evento: event('NR1H2',enhance,'FOXA2'); Linea: 18090
+eventos provenientes de abstracts/resumen_7.txt :34
+Archivo abstracts/resumen_8.txt
+evento: event('SRY',regulate,'SRY'); Linea: 18708
+evento: event('SRY',bind,'SRY'); Linea: 18822
+evento: event('SRY',associate,'SRY'); Linea: 18844
+evento: event('SRY',express,'SRY'); Linea: 18847
+evento: event('NR5A2',enhance,'NR5A2'); Linea: 18889
+evento: event('NR5A2',regulate,'cholesterol'); Linea: 19070
+evento: event('NR5A2',regulate,'cholesterol'); Linea: 19077
+evento: event('NPC1',regulate,'NR5A2'); Linea: 19078
+evento: event('NPC1',regulate,'NR5A2'); Linea: 19078
+evento: event('NPC1L1',regulate,'NR5A2'); Linea: 19078
+evento: event('NPC1L1',regulate,'NR5A2'); Linea: 19078
+evento: event('SRY',lead,'SRY'); Linea: 19306
+evento: event('NR5A2',associate,'NR5A2'); Linea: 19712
+evento: event('NR5A2',associate,'NR5A2'); Linea: 19712
+evento: event('NR5A2',associate,'NR5A2'); Linea: 19712
+evento: event('NR5A2',associate,'NR5A2'); Linea: 19712
+evento: event('NRBF2',activate,'CYP7A1'); Linea: 19952
+evento: event('NRBF2',activate,'oxysterols'); Linea: 19952
+evento: event('CYP7A1',stimulate,'NRBF2'); Linea: 19953
+evento: event('cholesterol',repress,'bile acid'); Linea: 19961
+evento: event('bile acid',mediate,'CYP7A1'); Linea: 19962
+evento: event('bile acid',mediate,'cholesterol'); Linea: 19962
+evento: event('NR1H2',mediate,'CYP7A1'); Linea: 19962
+evento: event('NR1H2',mediate,'bile acid'); Linea: 19962
+evento: event('NR1H2',mediate,'cholesterol'); Linea: 19962
+evento: event('NRBF2',mediate,'CYP7A1'); Linea: 19962
+evento: event('NRBF2',mediate,'bile acid'); Linea: 19962
+evento: event('NRBF2',mediate,'cholesterol'); Linea: 19962
+evento: event('NR1H4',mediate,'CYP7A1'); Linea: 19962
+evento: event('NR1H4',mediate,'bile acid'); Linea: 19962
+evento: event('NR1H4',mediate,'cholesterol'); Linea: 19962
+evento: event('bile acid',regulate,'NR1H3'); Linea: 19967
+evento: event('NRBF2',stimulate,'CYP7A1'); Linea: 19983
+evento: event('CYP7A1',bind,'CYP7A1'); Linea: 20001
+evento: event('bile acid',enhance,'cholesterol'); Linea: 20007
+evento: event('CYP7A1',associate,'NR1H2'); Linea: 20036
+evento: event('CYP7A1',associate,'NR1H4'); Linea: 20036
+evento: event('bile acid',associate,'cholesterol'); Linea: 20075
+evento: event('NR1H4',modulate,'CYP7A1'); Linea: 20092
+evento: event('NR1H4',modulate,'NR1H4'); Linea: 20092
+evento: event('bile acid',promote,'bile acid'); Linea: 20173
+evento: event('bile acid',promote,'NR1H4'); Linea: 20173
+evento: event('NR5A2',involve,'NR0B2'); Linea: 20244
+evento: event('NR5A2',stimulate,'NR0B2'); Linea: 20251
+evento: event('NR5A2',stimulate,'NR0B2'); Linea: 20251
+evento: event('NR5A2',bind,'NR0B2'); Linea: 20257
+evento: event('NR5A2',bind,'NR0B2'); Linea: 20257
+evento: event('NR0B2',interact,'cholesterol'); Linea: 20260
+evento: event('NR0B2',enhance,'NR5A2'); Linea: 20312
+evento: event('SRY',decrease,'cholesterol'); Linea: 20463
+evento: event('SRY',suppress,'cholesterol'); Linea: 20475
+evento: event('oxysterols',increase,'cholesterol'); Linea: 20557
+evento: event('oxysterols',modulate,'NR1H2'); Linea: 20624
+evento: event('oxysterols',bind,'NR1H3'); Linea: 20628
+evento: event('NR1H3',bind,'NR1H3'); Linea: 20634
+evento: event('NR1H2',involve,'bile acid'); Linea: 20636
+evento: event('bile acid',involve,'CYP7A1'); Linea: 21241
+evento: event('CYP7A1',repress,'bile acid'); Linea: 21265
+evento: event('NR0B2',associate,'CYP7A1'); Linea: 21269
+evento: event('NR0B2',associate,'bile acid'); Linea: 21269
+evento: event('CYP7A1',target,'bile acid'); Linea: 21272
+evento: event('CYP7A1',target,'cholesterol'); Linea: 21272
+eventos provenientes de abstracts/resumen_8.txt :62
+Archivo abstracts/resumen_9.txt
+evento: event('cholesterol',promote,'NPC1'); Linea: 21436
+evento: event('cholesterol',promote,'NPC1L1'); Linea: 21436
+evento: event('cholesterol',bind,'NPC1L1'); Linea: 21447
+evento: event('cholesterol',target,'bile acid'); Linea: 21454
+evento: event('cholesterol',enhance,'NPC1'); Linea: 21509
+evento: event('NPC2',increase,'bile acid'); Linea: 21525
+evento: event('NPC2',increase,'NPC1'); Linea: 21525
+evento: event('cholesterol',suppress,'NPC1'); Linea: 21540
+evento: event('cholesterol',suppress,'NPC1L1'); Linea: 21540
+evento: event('NPC1',associate,'NPC1L1'); Linea: 21572
+evento: event('NPC1L1',associate,'NPC1'); Linea: 21572
+evento: event('NPC1L1',associate,'NPC1L1'); Linea: 21572
+evento: event('cholesterol',decrease,'BAAT'); Linea: 21579
+evento: event('BAAT',increase,'BAAT'); Linea: 21610
+evento: event('BAAT',prevent,'BAAT'); Linea: 21656
+evento: event('NPC1L1',regulate,'cholesterol'); Linea: 22146
+evento: event('LCAT',express,'BAAT'); Linea: 22152
+evento: event('bile acid',express,'bile acid'); Linea: 22284
+evento: event('cholesterol',activate,'LCAT'); Linea: 22862
+evento: event('LCAT',increase,'bile acid'); Linea: 22880
+evento: event('NCEH1',increase,'cholesterol'); Linea: 22958
+evento: event('BAAT',induce,'BAAT'); Linea: 23156
+eventos provenientes de abstracts/resumen_9.txt :22
+Archivo abstracts/resumen_10.txt
+evento: event('NR0B2',target,'NR0B2'); Linea: 24174
+evento: event('NR0B2',associate,'NPC2'); Linea: 24294
+evento: event('NCEH1',express,'cholesterol'); Linea: 24323
+evento: event('BAAT',associate,'BAAT'); Linea: 24559
+evento: event('BAAT',involve,'BAAT'); Linea: 24560
+evento: event('NPC1',enhance,'NPC1'); Linea: 24679
+evento: event('NPC1',enhance,'NPC2'); Linea: 24679
+evento: event('NPC1',enhance,'cholesterol'); Linea: 24679
+evento: event('NPC1',induce,'NPC1'); Linea: 24682
+evento: event('bile acid',synthesize,'CYP7A1'); Linea: 24753
+evento: event('bile acid',synthesize,'NR0B2'); Linea: 24753
+evento: event('NPC1',mediate,'NPC1'); Linea: 24826
+evento: event('NPC1',bind,'oxysterols'); Linea: 24829
+evento: event('NPC1',activate,'cholesterol'); Linea: 24836
+evento: event('NPC1',decrease,'cholesterol'); Linea: 24838
+evento: event('NPC1L1',decrease,'cholesterol'); Linea: 24838
+evento: event('NPC1',stimulate,'cholesterol'); Linea: 24839
+evento: event('NPC1L1',stimulate,'cholesterol'); Linea: 24839
+evento: event('cholesterol',increase,'NPC1L1'); Linea: 24846
+evento: event('NPC2',bind,'oxysterols'); Linea: 24878
+evento: event('cholesterol',bind,'NPC2'); Linea: 24879
+evento: event('cholesterol',increase,'oxysterols'); Linea: 24970
+evento: event('CH25H',trigger,'CH25H'); Linea: 25003
+evento: event('CH25H',induce,'CH25H'); Linea: 25004
+evento: event('oxysterols',synthesize,'CH25H'); Linea: 25009
+evento: event('cholesterol',bind,'CH25H'); Linea: 25119
+evento: event('NR1H2',decrease,'cholesterol'); Linea: 25642
+evento: event('NR1H2',enhance,'NR1H2'); Linea: 25682
+evento: event('cholesterol',associate,'NR1H2'); Linea: 25698
+eventos provenientes de abstracts/resumen_10.txt :29
+Total de eventos: 986

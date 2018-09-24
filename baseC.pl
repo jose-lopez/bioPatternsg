@@ -1,12 +1,12 @@
 base([
-event('Oxysterols',bind,'LXR'),
-event('LXR',activate,'CYP7A1'),
-event('CYP7A1',activate,'bile acids'),
-event('bile acids',bind,'FXR'),
-event('FXR',activate,'SHP'),
-event('SHP',bind,'LRH'),
-event('LRH',bind,'CYP7A1'),
-event('SHP',inhibit,'CYP7A1'),
-event('LRH',bind,'SHP'),
-event('SHP',inhibit,'SHP')
+event('EGF',bind,'EGFR'),
+event('EGF',activate,'Ras'),
+event('EGF',activate,'MAPK'),
+event('EGFR',activate,'Ras'),
+event('EGFR',activate,'MAPK'),
+event('MEK',prevent,'Ras'),
+event('Ras',activate,'CREB'),
+event('CREB',inhibit,'Ras'),
+event('CREB',bind,'SST'),
+event('SST',phosphorylate,'CREB')
 ]).

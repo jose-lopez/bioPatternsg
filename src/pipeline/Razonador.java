@@ -48,7 +48,7 @@ public class Razonador {
     private static final String prologConsult = "";
     private static final String regexCleaner = "[^\\d\\w ]";
 
-    public boolean inferir_patrones(String bc,configuracion config) {
+    public boolean inferir_patrones(String bc,configuracion config,String ruta) {
 
         String consultPredictor = "[patron7].";
         Query query = new Query(consultPredictor);
@@ -61,7 +61,7 @@ public class Razonador {
         System.out.println(inferirPatrones + " " + (query.hasSolution() ? "succeeded" : "failed"));
         
         config.setInferirPatrones(true);
-        config.guardar();
+        config.guardar(ruta);
         
         return query.hasSolution();
         

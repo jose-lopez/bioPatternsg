@@ -17,6 +17,7 @@ import pipeline.escribirBC;
  * @author yacson
  */
 public class ontologiaGO {
+
     private String GO;
     private String nombre;
     private ArrayList<String> sinonimos;
@@ -41,9 +42,9 @@ public class ontologiaGO {
         capable_of_part_of = new ArrayList<>();
     }
 
-    public void imprimirTodo() {
+    public void imprimirTodo(String ruta) {
         ontologiaGO objeto = new ontologiaGO();
-        ObjectContainer db = Db4o.openFile("mineria/OntologiaGO.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/OntologiaGO.db");
         try {
             ObjectSet result = db.queryByExample(objeto);
             while (result.hasNext()) {
@@ -60,24 +61,31 @@ public class ontologiaGO {
     //GO:0008123
     private int max = 0;
 
-    public String buscar(String GO) {
+    public String buscar(String GO, String ruta) {
         ontologiaGO objeto = new ontologiaGO();
         objeto.setGO(GO);
-        objeto = consultarBD(objeto);
+        objeto = consultarBD(objeto, ruta);
         return objeto.getNombre();
     }
+    
+     public ontologiaGO buscarO(String GO, String ruta) {
+        ontologiaGO objeto = new ontologiaGO();
+        objeto.setGO(GO);
+        objeto = consultarBD(objeto, ruta);
+        return objeto;
+    }
 
-    public void buscar(String GO, String restriccion) {
+    public void buscar(String GO, String restriccion, String ruta) {
 
-        buscarObjeto(GO, 0, "", restriccion);
+        buscarObjeto(GO, 0, "", restriccion, ruta);
 
     }
 
-    private void buscarObjeto(String GO, int nivel, String relacion, String restriccion) {
+    private void buscarObjeto(String GO, int nivel, String relacion, String restriccion, String ruta) {
 
         ontologiaGO objeto = new ontologiaGO();
         objeto.setGO(GO);
-        objeto = consultarBD(objeto);
+        objeto = consultarBD(objeto, ruta);
 
         for (int i = 0; i < nivel; i++) {
             System.out.print("      ");
@@ -88,96 +96,93 @@ public class ontologiaGO {
         if (restriccion == null || restriccion.equals("is a")) {
 
             for (int i = 0; i < objeto.is_a.size(); i++) {
-                buscarObjeto(objeto.is_a.get(i), nivel, "is a--> ", restriccion);
+                buscarObjeto(objeto.is_a.get(i), nivel, "is a--> ", restriccion, ruta);
             }
         } else if (restriccion == null || restriccion.equals("part of")) {
             for (int i = 0; i < objeto.part_of.size(); i++) {
-                buscarObjeto(objeto.part_of.get(i), nivel, "part of--> ", restriccion);
+                buscarObjeto(objeto.part_of.get(i), nivel, "part of--> ", restriccion, ruta);
             }
         } else if (restriccion == null || restriccion.equals("regulate")) {
             for (int i = 0; i < objeto.regulates.size(); i++) {
-                buscarObjeto(objeto.regulates.get(i), nivel, "regulate--> ", restriccion);
+                buscarObjeto(objeto.regulates.get(i), nivel, "regulate--> ", restriccion, ruta);
             }
         } else if (restriccion == null || restriccion.equals("negatively regulate")) {
             for (int i = 0; i < objeto.negatively_regulates.size(); i++) {
-                buscarObjeto(objeto.negatively_regulates.get(i), nivel, "negatively regulate--> ", restriccion);
+                buscarObjeto(objeto.negatively_regulates.get(i), nivel, "negatively regulate--> ", restriccion, ruta);
             }
         } else if (restriccion == null || restriccion.equals("positively regulate")) {
             for (int i = 0; i < objeto.positively_regulates.size(); i++) {
-                buscarObjeto(objeto.positively_regulates.get(i), nivel, "positively regulate--> ", restriccion);
+                buscarObjeto(objeto.positively_regulates.get(i), nivel, "positively regulate--> ", restriccion, ruta);
             }
         } else if (restriccion == null || restriccion.equals("occurs in")) {
             for (int i = 0; i < objeto.occurs_in.size(); i++) {
-                buscarObjeto(objeto.occurs_in.get(i), nivel, "occurs in--> ", restriccion);
+                buscarObjeto(objeto.occurs_in.get(i), nivel, "occurs in--> ", restriccion, ruta);
             }
         } else if (restriccion == null || restriccion.equals("capable of")) {
             for (int i = 0; i < objeto.capable_of.size(); i++) {
-                buscarObjeto(objeto.capable_of.get(i), nivel, "capable of--> ", restriccion);
+                buscarObjeto(objeto.capable_of.get(i), nivel, "capable of--> ", restriccion, ruta);
             }
         } else if (restriccion == null || restriccion.equals("capable of part of")) {
             for (int i = 0; i < objeto.capable_of_part_of.size(); i++) {
-                buscarObjeto(objeto.capable_of_part_of.get(i), nivel, "capable of part of--> ", restriccion);
+                buscarObjeto(objeto.capable_of_part_of.get(i), nivel, "capable of part of--> ", restriccion, ruta);
             }
         }
 
     }
 
-    public void vaciar_pl(ArrayList<ontologiaGO> ontGO,String GO, String obj, String relacion, ArrayList<String> listObj,String archivo) {
+    public void vaciar_pl(ArrayList<ontologiaGO> ontGO, String GO, String obj, String relacion, ArrayList<String> listObj, String archivo) {
 
         ontologiaGO objeto = new ontologiaGO();
         objeto = buscarOBJ(GO, ontGO);
-        
+
         if (obj != null) {
             String cadena = relacion + "(\'" + obj.replace("\'", "") + "\',\'" + objeto.getNombre().replace("\'", "") + "\').";
             new escribirBC(cadena, archivo);
             System.out.print(".");
         }
-        
+
         if (!listObj.contains(GO)) {
             //System.out.println(objeto.getNombre());
             listObj.add(GO);
             final String obj_nombre = objeto.getNombre();
-            
 
-            objeto.is_a.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "is_a", listObj,archivo));
-            
-            objeto.capable_of.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "capable_of", listObj,archivo));
-            
-            objeto.capable_of_part_of.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "capable_of_part_of", listObj,archivo));
+            objeto.is_a.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "is_a", listObj, archivo));
 
-            objeto.negatively_regulates.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "negatively_regulates", listObj,archivo));
-                        
-            objeto.positively_regulates.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "positively_regulates", listObj,archivo));
-            
-            objeto.part_of.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "part_of", listObj,archivo));
-            
-            objeto.regulates.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "regulates", listObj,archivo));
-                       
-            objeto.occurs_in.parallelStream().forEach(t -> vaciar_pl(ontGO,t, obj_nombre, "occurs_in", listObj,archivo));
-                      
+            objeto.capable_of.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "capable_of", listObj, archivo));
+
+            objeto.capable_of_part_of.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "capable_of_part_of", listObj, archivo));
+
+            objeto.negatively_regulates.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "negatively_regulates", listObj, archivo));
+
+            objeto.positively_regulates.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "positively_regulates", listObj, archivo));
+
+            objeto.part_of.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "part_of", listObj, archivo));
+
+            objeto.regulates.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "regulates", listObj, archivo));
+
+            objeto.occurs_in.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "occurs_in", listObj, archivo));
+
         }
 
     }
-    
-    public ontologiaGO buscarOBJ(String GO,ArrayList<ontologiaGO> ontGO){
+
+    public ontologiaGO buscarOBJ(String GO, ArrayList<ontologiaGO> ontGO) {
         ontologiaGO ont = new ontologiaGO();
-        
+
         for (ontologiaGO gO : ontGO) {
-            
-            if(gO.getGO().equals(GO)){
+
+            if (gO.getGO().equals(GO)) {
                 ont = gO;
                 break;
             }
         }
-        
-        
-              
+
         return ont;
     }
 
-    private ontologiaGO consultarBD(ontologiaGO obj) {
+    private ontologiaGO consultarBD(ontologiaGO obj, String ruta) {
         ontologiaGO objeto = new ontologiaGO();
-        ObjectContainer db = Db4o.openFile("mineria/OntologiaGO.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/OntologiaGO.db");
         try {
 
             ObjectSet result = db.queryByExample(obj);
@@ -192,12 +197,12 @@ public class ontologiaGO {
 
         return objeto;
     }
-    
-    public ArrayList<ontologiaGO> getOntGO(){
+
+    public ArrayList<ontologiaGO> getOntGO(String ruta) {
         ArrayList<ontologiaGO> ontGO = new ActivatableArrayList<>();
-        
+
         ontologiaGO obj = new ontologiaGO();
-        ObjectContainer db = Db4o.openFile("mineria/OntologiaGO.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/OntologiaGO.db");
         try {
 
             ObjectSet result = db.queryByExample(obj);
@@ -207,8 +212,7 @@ public class ontologiaGO {
         } finally {
             db.close();
         }
-        
-        
+
         return ontGO;
     }
 

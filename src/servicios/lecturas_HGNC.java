@@ -23,13 +23,13 @@ public class lecturas_HGNC extends conexionServ{
 
     }
 
-    public ArrayList<HGNC> busquedaInfGen(String etiqueta, boolean GO, boolean MESH) {
+    public ArrayList<HGNC> busquedaInfGen(String etiqueta, boolean GO, boolean MESH,String ruta) {
         ArrayList<HGNC> HGNC = new ArrayList<>();
         //System.out.println("Etiqueta:  "+contenido);
-        if (busqueda_genenames(etiqueta, false, 0, HGNC, GO, MESH)) {
+        if (busqueda_genenames(etiqueta, false, 0, HGNC, GO, MESH,ruta)) {
 
             return HGNC;
-        } else if (busqueda_genenames(etiqueta, true, 0, HGNC, GO, MESH)) {
+        } else if (busqueda_genenames(etiqueta, true, 0, HGNC, GO, MESH,ruta)) {
             return HGNC;
         } else {
             return HGNC;
@@ -38,7 +38,7 @@ public class lecturas_HGNC extends conexionServ{
 
     }
 
-    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion, ArrayList<HGNC> HGNC, boolean GO, boolean MESH) {
+    public boolean busqueda_genenames(String contenido, boolean criterio, int opcion, ArrayList<HGNC> HGNC, boolean GO, boolean MESH,String ruta) {
 
         ArrayList<String> factor = new ArrayList<>();
         if (!contenido.equals("") && !contenido.equals(null)) {
@@ -87,7 +87,7 @@ public class lecturas_HGNC extends conexionServ{
                     //System.out.println("Simbolo HUGO: " + factor.get(i));
                     String Url = "http://rest.genenames.org/fetch/symbol/" + factor.get(i);
                     Document doc = conecta(Url);
-                    HGNC.add(busqueda_datos_xml(doc, GO, MESH));
+                    HGNC.add(busqueda_datos_xml(doc, GO, MESH,ruta));
 
                 } catch (Exception e) {
                     // System.out.println("no se encuentra "+contenido+" en HUGO");
@@ -144,7 +144,7 @@ public class lecturas_HGNC extends conexionServ{
         return nombres;
     }
 
-    private HGNC busqueda_datos_xml(Document doc, boolean GO, boolean MESH) {
+    private HGNC busqueda_datos_xml(Document doc, boolean GO, boolean MESH,String ruta) {
 
         HGNC hgnc = new HGNC();
         NodeList nList = doc.getElementsByTagName("doc");
@@ -270,7 +270,7 @@ public class lecturas_HGNC extends conexionServ{
 
             //----------------------------------------------------------
             if (GO || MESH) {
-                ontologia.guardarObjeto(ontologia, GO, MESH);
+                ontologia.guardarObjeto(ontologia, GO, MESH,ruta);
             }
 
         }

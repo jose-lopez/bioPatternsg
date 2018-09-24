@@ -1,4 +1,4 @@
- /*
+/*
  GeneradorBC.java
 
 
@@ -20,7 +20,7 @@
 
  */
 
-/*
+ /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -54,12 +54,11 @@ public class GeneradorBC {
         //baseC.generador("ENSG00000157005SST1-gen-comparable-1-salida.txt");
         //baseC.generador("abstracts-experimento-SRIF-26112015-Part-I-II-salida.txt");
         configuracion config = new configuracion();
-        generador.generadorBC("baseC.pl", config);
-
+        generador.generadorBC("baseC.pl", config, "");
 
     }
 
-    public String generadorBC(String baseC, configuracion config) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
+    public String generadorBC(String baseC, configuracion config, String ruta) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
 
         String oracionesSVC;
 
@@ -69,19 +68,19 @@ public class GeneradorBC {
 
         String baseCtemp = "baseCTemp";
 
-        FileWriter fichero = new FileWriter(baseCtemp); // BC temporal. Se procesa para generer baseC.pl
-        FileWriter fichero1 = new FileWriter("baseCdoc"); // BC documentada. Permite saber archivo y linea de un evento.
+        FileWriter fichero = new FileWriter(ruta + "/" + baseCtemp); // BC temporal. Se procesa para generer baseC.pl
+        FileWriter fichero1 = new FileWriter(ruta + "/baseCdoc"); // BC documentada. Permite saber archivo y linea de un evento.
 
         try (PrintWriter archivoBC = new PrintWriter(fichero)) {
 
             PrintWriter archivoBCdoc = new PrintWriter(fichero1);
             archivoBC.println("base([");
 
-            while (oracionesSVC(n)) {
+            while (oracionesSVC(n, ruta)) {
 
-                oracionesSVC = "abstracts/resumen_" + n + ".txt";
+                oracionesSVC = ruta + "/abstracts/resumen_" + n + ".txt";
 
-                generador(oracionesSVC, archivoBCdoc, eventos);
+                generador(oracionesSVC, archivoBCdoc, eventos, ruta);
 
                 n++;
 
@@ -98,8 +97,8 @@ public class GeneradorBC {
             archivoBCdoc.println("Total de eventos: " + cont_eventos);
             archivoBCdoc.close();
 
-            try (BufferedReader baseKB = new BufferedReader(new FileReader(new File(baseCtemp)))) {
-                PrintWriter kb = new PrintWriter(new FileWriter(baseC));
+            try (BufferedReader baseKB = new BufferedReader(new FileReader(new File(ruta + "/" + baseCtemp)))) {
+                PrintWriter kb = new PrintWriter(new FileWriter(ruta + "/" + baseC));
                 String lineaActual, lineaAnt;
 
                 lineaAnt = baseKB.readLine();
@@ -123,17 +122,17 @@ public class GeneradorBC {
         }
 
         config.setGenerarBC(true);
-        config.guardar();
+        config.guardar(ruta);
 
         return baseC;
 
     }
 
-    private boolean oracionesSVC(int n) {
+    private boolean oracionesSVC(int n, String ruta) {
 
         boolean existe = false;
 
-        File archivo_fuente = new File("abstracts/resumen_" + n + ".txt");
+        File archivo_fuente = new File(ruta + "/abstracts/resumen_" + n + ".txt");
 
         existe = archivo_fuente.exists();
 
@@ -141,29 +140,24 @@ public class GeneradorBC {
 
     }
 
-    public String generador(String oracionesSVC, PrintWriter baseC, Vector eventos) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
+    public String generador(String oracionesSVC, PrintWriter baseC, Vector eventos, String ruta) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
 
         /* descomenta aqui para correr ejemplo sencillo
          File f = new File("salida_resumidor.txt");
          File f1 = new File("diccionario.txt");
          File f2 = new File("objetos_CREB.txt");
          //*/
-
         //* descomenta aqui para correr ejemplo full.
         //proceso oracionesSVC para recorte.
         //File f = new File(generar_txt(oracionesSVC));
         File f = new File(oracionesSVC);
         File f1 = new File("aceptados2.txt");
         //File f2 = new File("objetos_CREB.txt");
-        File f2 = new File("mineria/objetosMinados.txt");
+        File f2 = new File(ruta + "/objetosMinados.txt");
         //File f2 = new File("objetosBAXSMinadosBC.txt");
 
         //System.out.println("Esto");
-
-
-
         //FileWriter html = new FileWriter(salidaprueba);
-
         BufferedReader resumidor, diccionario, objetos, resumidor1, diccionario1, objetos1;
         String[] vec;
 
@@ -229,9 +223,6 @@ public class GeneradorBC {
             //System.out.println(linea);
         }
 
-
-
-
 //------------------------------------------------------------------------
 //------------------------Se procesan las oraciones del Resumidor---------
         int cant_objetos_minados = vec_objetos.length;
@@ -240,7 +231,6 @@ public class GeneradorBC {
         Vector objetos_complemento = new Vector(1000, 1000);
         Vector relaciones = new Vector(100, 100);
         //Vector eventos = new Vector(100, 100);
-
 
         //System.out.print("base([");
         int cont_lineas = 1;
@@ -254,7 +244,6 @@ public class GeneradorBC {
         try {
 
             //salidaresumidor="[html]\n";//inicio de cabecera html para 
-
             baseC.println("Archivo " + oracionesSVC);
 
             while (resumidor.ready()) {
@@ -281,12 +270,10 @@ public class GeneradorBC {
 
                     }
 
-
                 }
 
                 // Se determinan los verbos presentes en la oracion y se guardan en el Vector verbos.
                 int pos_parent_abierto, pos_parent_cerrado;
-
 
                 while (pos_verbo != -1) {
                     pos_parent_abierto = linea.indexOf("[", pos_verbo);
@@ -316,9 +303,7 @@ public class GeneradorBC {
                     }
                 }
 
-
                 // Se determinan los objetos moleculares presentes en el complemento de la oracion en proceso.
-
                 int pos_complemento = linea.indexOf("complemento(");
                 int pos_cierre_complemento = linea.indexOf("]", pos_complemento);
                 String contenido_complemento = linea.substring(pos_complemento, pos_cierre_complemento);
@@ -337,13 +322,9 @@ public class GeneradorBC {
 
                     }
 
-
                 }
 
                 //--------------------- Armando eventos para la oracion en proceso--------------
-
-
-
                 int cant_suj = sujetos.size();
                 int cant_rels = relaciones.size();
                 int cant_suj_comp = objetos_complemento.size();
@@ -374,7 +355,6 @@ public class GeneradorBC {
                 }
 
                 // Se limpian vectores para procesar siguiente oracion.
-
                 sujetos.clear();
                 verbos.clear();
                 objetos_complemento.clear();
@@ -384,21 +364,16 @@ public class GeneradorBC {
 
             }
 
-
-
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Error en:!!!!!!!!" + cont_lineas);
             //e.printStackTrace();
         }
 
         //*System.out.print("]).");
-
-
         System.out.println("eventos provenientes de " + oracionesSVC + " :" + contEventosArchivoActual);
         baseC.println("eventos provenientes de " + oracionesSVC + " :" + contEventosArchivoActual);
 
         return "Base.pl";
-
 
     }
 
@@ -421,7 +396,6 @@ public class GeneradorBC {
         }
 
         //eventos.clear();
-
         return cant_eventos;
     }
 
@@ -449,4 +423,157 @@ public class GeneradorBC {
 
         return cant_eventos;
     }
+
+    public String generadorBCIntg(String red, boolean baseEventos) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
+
+        File dir = new File("mineria/redes/" + red);
+
+        File listDir[] = dir.listFiles();
+
+        FileReader objetoEnProceso, objetoEnProcesoTemp;
+        Vector eventosIntegrados = new Vector(100, 100);
+        Vector eventosEnProceso = new Vector(100, 100);
+        BufferedReader baseConocEnProceso, baseConocEnProcesoTemp;
+        int lineas = 0, numDirectorios = 0, numDirectorios2 = 0, totalDirectorios = listDir.length;
+        String eventoFinal = "", evento = "";
+
+        for (File nextValue : listDir) {
+
+            //System.out.println("The next value with the for Loop is: " + nextValue.getName());
+            String base = "", path;
+
+            if (baseEventos) {
+                base = "baseC.pl";
+            } else {
+                base = "baseCdoc";
+            }
+
+            path = "mineria/redes/" + red + "/" + nextValue.getName() + "/" + base;
+
+            if (new File(path).exists()) {
+
+                objetoEnProceso = new FileReader(path);
+
+                baseConocEnProceso = new BufferedReader(objetoEnProceso);
+
+                objetoEnProcesoTemp = new FileReader(path);
+
+                baseConocEnProcesoTemp = new BufferedReader(objetoEnProcesoTemp);
+
+                while (baseConocEnProcesoTemp.ready()) {
+                    evento = baseConocEnProcesoTemp.readLine();
+                    if (!baseEventos) {
+                        evento = evento + " :" + nextValue.getName();
+                    }
+                    eventosEnProceso.add(evento);
+                    lineas++;
+                }
+
+                if (baseEventos) {
+                    String lastEvento, firstEvento;
+                    eventosEnProceso.remove(0);
+                    eventosEnProceso.removeElementAt(eventosEnProceso.size() - 1);
+                    if (numDirectorios != (totalDirectorios - 1)) {
+                        lastEvento = (String) eventosEnProceso.lastElement() + ",";
+                        eventosEnProceso.remove(eventosEnProceso.size() - 1);
+                        eventosEnProceso.add(lastEvento);
+                        numDirectorios++;
+                    }
+                }
+
+                //numDirectorios = 0;
+                int numEventos = 0;
+
+                for (Object event : eventosEnProceso) {
+
+                    String eventInt = (String) event;
+                    if (!eventosIntegrados.contains(event)) {
+
+                        if (!baseEventos) {
+                            eventosIntegrados.add(event);
+                        } else {
+
+                            if (numDirectorios2 != (totalDirectorios - 1)) {
+                                eventosIntegrados.add(event);
+                            } else {
+
+                                if (numEventos != (eventosEnProceso.size() - 1)) {
+                                    eventosIntegrados.add(event);
+                                    numEventos++;
+                                } else {
+                                    eventoFinal = event + ",";
+                                    if (!eventosIntegrados.contains(eventoFinal)) {
+                                        eventosIntegrados.add(event);
+                                    } else {
+                                        eventoFinal = (String) eventosIntegrados.lastElement();
+                                        String eventof = eventoFinal.replace("),", ")");
+                                        eventosIntegrados.remove(eventosIntegrados.size() - 1);
+                                        eventosIntegrados.add(eventof);
+                                    }
+
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+
+                eventosEnProceso.removeAllElements();
+                numDirectorios2++;
+            }
+        }
+
+        evento = (String) eventosIntegrados.lastElement();
+        evento = evento.split("\\)")[0];
+        evento = evento.concat(")");
+        eventosIntegrados.removeElementAt(eventosIntegrados.size() - 1);
+        eventosIntegrados.add(evento);
+
+        String PATH = "mineria/integracion/";
+        String directoryName = PATH.concat(red);
+        String fileName = "baseC.pl";
+        if (!baseEventos) {
+            fileName = "baseCdoc";
+        }
+        File directorio = new File(directoryName);
+        if (!directorio.exists()) {
+            directorio.mkdir();
+        }
+        File baseCIntg = new File(directorio + "/" + fileName);
+        FileWriter writer = new FileWriter(baseCIntg);
+        writer.flush();
+        PrintWriter archivoBC = new PrintWriter(writer);
+
+        printBCIntgrd(archivoBC, eventosIntegrados, baseEventos);
+
+        return red;
+    }
+
+    private int printBCIntgrd(PrintWriter baseC, Vector eventos, boolean baseEventos) throws IOException {
+
+        String event;
+
+        if (baseEventos) {
+            baseC.println("base([");
+        }
+
+        for (Object evento : eventos) {
+
+            event = (String) evento;
+
+            baseC.println(event);
+            // System.out.println(evento);
+        }
+
+        if (baseEventos) {
+            baseC.println("]).");
+        }
+
+        baseC.close();
+
+        //eventos.clear();
+        return eventos.size();
+    }
+
 }

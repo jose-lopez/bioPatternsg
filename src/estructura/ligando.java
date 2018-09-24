@@ -25,13 +25,13 @@ public class ligando {
                 
     }
     
-    public void vaciar_pl(String archivo){
+    public void vaciar_pl(String ruta){
         String cadena = "ligando(\'"+id.replace("\'", "")+"\').";
-        new escribirBC(cadena,archivo);
+        new escribirBC(cadena,ruta+"/objetosMinados.pl");
         cadena = "sinonimos(\'"+id.replace("\'", "")+"\',[\'"+id.replace("\'", "")+"\',\'"+nombre.replace("\'", "")+"\']).";
-        new escribirBC(cadena, archivo);
+        new escribirBC(cadena, ruta+"/objetosMinados.pl");
         String cadena_txt = id+";"+new objetosMinados().procesarNombre(nombre);
-        new escribirBC(cadena_txt, "objetosMinados.txt");
+        new escribirBC(cadena_txt, ruta+"/objetosMinados.txt");
     }
     
     private String procesarNombre(String nombre) {

@@ -30,7 +30,7 @@ public class escribirBC {
         BufferedReader br = null;
 
         try {
-            archivo = new File("mineria/"+ruta);
+            archivo = new File(ruta);
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             String linea;
@@ -51,7 +51,7 @@ public class escribirBC {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("mineria/"+archivo, true);
+            fichero = new FileWriter(archivo, true);
             pw = new PrintWriter(fichero);
             //System.out.println(cadena);
             pw.println(cadena);

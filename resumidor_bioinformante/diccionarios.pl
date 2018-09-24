@@ -1545,6 +1545,10 @@ verb(verbo([activate])) --> [activate].
 verb(verbo([activates])) --> [activates].
 verb(verbo([activated])) --> [activated].
 verb(verbo([activating])) --> [activating].
+verb(verbo([inactivate])) --> [inactivate].
+verb(verbo([inactivates])) --> [inactivates].
+verb(verbo([inactivated])) --> [inactivated].
+verb(verbo([inactivating])) --> [inactivating].
 % agregado 2015-08-25
 verb(verbo([phosphorylate])) --> [phosphorylate].
 verb(verbo([phosphorylates])) --> [phosphorylates].
@@ -1602,6 +1606,10 @@ verb(verbo([confer])) --> [confer].
 verb(verbo([confers])) --> [confers].
 verb(verbo([conferred])) --> [conferred].
 verb(verbo([conferring])) --> [conferring].
+verb(verbo([repress])) --> [repress].
+verb(verbo([represses])) --> [represses].
+verb(verbo([repressed])) --> [repressed].
+verb(verbo([repressing])) --> [repressing].
 verb(verbo([decrease])) --> [decrease].
 verb(verbo([decreases])) --> [decreases].
 verb(verbo([decreased])) --> [decreased].
@@ -1646,6 +1654,10 @@ verb(verbo([stimulate])) --> [stimulate].
 verb(verbo([stimulates])) --> [stimulates].
 verb(verbo([stimulated])) --> [stimulated].
 verb(verbo([stimulating])) --> [stimulating].
+verb(verbo([synthesize])) --> [synthesize].
+verb(verbo([synthesizes])) --> [synthesizes].
+verb(verbo([synthesized])) --> [synthesized].
+verb(verbo([synthesizing])) --> [synthesizing].
 %verb(verbo([bring])) --> [bring]. 
 %verb(verbo([brings])) --> [brings].
 %verb(verbo([brought])) --> [brought].
@@ -2107,6 +2119,5 @@ adjetivo_posesivo_antsustantivo(her).
 adjetivo_posesivo_antsustantivo(its).
 adjetivo_posesivo_antsustantivo(our).
 adjetivo_posesivo_antsustantivo(their).
-
 
 

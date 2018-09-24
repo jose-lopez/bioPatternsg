@@ -40,79 +40,79 @@ public class lecturas_PM extends conexionServ{
         return listID;
     }
 
-    public void BusquedaPM_AbstractsS(String fileAbstID, int cant_por_archivo, configuracion config) {
+//    public void BusquedaPM_AbstractsS(String fileAbstID, int cant_por_archivo, configuracion config) {
+//
+//        crearCarpeta(fileAbstID);
+//        String cabecera = "<!DOCTYPE html>\r"
+//                + "<html>\r"
+//                + "<head>\r"
+//                + "	<meta charset=\"utf-8\">\r"
+//                + "	<title>generación de archivo html</title>\r"
+//                + "</head>\r"
+//                + "<body>\r";
+//
+//        String pie = "</body>\r"
+//                + "</html>";
+//
+//        ArrayList<String> listaIDs = new ArrayList<>();
+//        ObjectContainer db = Db4o.openFile("mineria/pubmed_id.db");
+//        PMIDS pm = new PMIDS();
+//        int IDS = 0;
+//        int descarga = 0;
+//        try {
+//
+//            ObjectSet result = db.queryByExample(pm);
+//            PMIDS aux = (PMIDS) result.get(0);
+//            listaIDs.addAll(aux.pubmed_ids);
+//            IDS = listaIDs.size();
+//        } catch (Exception e) {
+//        } finally {
+//            db.close();
+//        }
+//
+//        System.out.print("\n\n Generando coleccion de  abstracts .....");
+//        int cont1 = 0, cont2 = 1;
+//        ArrayList<String> lista = new ArrayList<>();
+//        for (int i = 0; i < listaIDs.size(); i++) {
+//            limpiarPantalla();
+//            System.out.print("\n\n Generando coleccion de  abstracts .....");
+//            System.out.println("Descargando " + i + " de " + IDS);
+//
+//            String ruta = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + listaIDs.get(i) + "&retmode=xml&rettype=abstract";
+//            try {
+//
+//                String ruta_archivo = fileAbstID + "/" + fileAbstID + "_" + cont2 + ".html";
+//
+//                if (cont1 < cant_por_archivo) {
+//                    if (cont1 == 0) {
+//                        guardar_en_archivo(ruta_archivo, cabecera);
+//                    }
+//                    Document doc = conecta(ruta);
+//                    lista = revisa_xml(doc, "AbstractText");
+//                    guardar_en_archivo(ruta_archivo, lista, listaIDs.get(i));
+//                    cont1++;
+//
+//                    if (i == (listaIDs.size() - 1)) {
+//                        guardar_en_archivo(ruta_archivo, pie);
+//                    }
+//
+//                } else {
+//                    guardar_en_archivo(ruta_archivo, pie);
+//                    cont1 = 0;
+//                    cont2++;
+//                }
+//            } catch (Exception e) {
+//
+//            }
+//        }
+//        config.setAbstracts(true);
+//        config.guardar();
+//        System.out.println("ok");
+//
+//    }
 
-        crearCarpeta(fileAbstID);
-        String cabecera = "<!DOCTYPE html>\r"
-                + "<html>\r"
-                + "<head>\r"
-                + "	<meta charset=\"utf-8\">\r"
-                + "	<title>generación de archivo html</title>\r"
-                + "</head>\r"
-                + "<body>\r";
-
-        String pie = "</body>\r"
-                + "</html>";
-
-        ArrayList<String> listaIDs = new ArrayList<>();
-        ObjectContainer db = Db4o.openFile("mineria/pubmed_id.db");
-        PMIDS pm = new PMIDS();
-        int IDS = 0;
-        int descarga = 0;
-        try {
-
-            ObjectSet result = db.queryByExample(pm);
-            PMIDS aux = (PMIDS) result.get(0);
-            listaIDs.addAll(aux.pubmed_ids);
-            IDS = listaIDs.size();
-        } catch (Exception e) {
-        } finally {
-            db.close();
-        }
-
-        System.out.print("\n\n Generando coleccion de  abstracts .....");
-        int cont1 = 0, cont2 = 1;
-        ArrayList<String> lista = new ArrayList<>();
-        for (int i = 0; i < listaIDs.size(); i++) {
-            limpiarPantalla();
-            System.out.print("\n\n Generando coleccion de  abstracts .....");
-            System.out.println("Descargando " + i + " de " + IDS);
-
-            String ruta = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + listaIDs.get(i) + "&retmode=xml&rettype=abstract";
-            try {
-
-                String ruta_archivo = fileAbstID + "/" + fileAbstID + "_" + cont2 + ".html";
-
-                if (cont1 < cant_por_archivo) {
-                    if (cont1 == 0) {
-                        guardar_en_archivo(ruta_archivo, cabecera);
-                    }
-                    Document doc = conecta(ruta);
-                    lista = revisa_xml(doc, "AbstractText");
-                    guardar_en_archivo(ruta_archivo, lista, listaIDs.get(i));
-                    cont1++;
-
-                    if (i == (listaIDs.size() - 1)) {
-                        guardar_en_archivo(ruta_archivo, pie);
-                    }
-
-                } else {
-                    guardar_en_archivo(ruta_archivo, pie);
-                    cont1 = 0;
-                    cont2++;
-                }
-            } catch (Exception e) {
-
-            }
-        }
-        config.setAbstracts(true);
-        config.guardar();
-        System.out.println("ok");
-
-    }
-
-    public void BusquedaPM_Abstracts(String fileAbstID, int cant_por_archivo, configuracion config) {
-        crearCarpeta(fileAbstID);
+    public void BusquedaPM_Abstracts(String fileAbstID, int cant_por_archivo, configuracion config,String ruta) {
+        crearCarpeta(ruta+"/"+fileAbstID);
         String cabecera = "<!DOCTYPE html>\r"
                 + "<html>\r"
                 + "<head>\r"
@@ -127,14 +127,14 @@ public class lecturas_PM extends conexionServ{
         ArrayList<String> listaIDs = new ArrayList<>();
         ArrayList<listPM> listasPM = new ArrayList<>();
 
-        ObjectContainer db = Db4o.openFile("mineria/pubmed_id.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/pubmed_id.db");
         PMIDS pm = new PMIDS();
         try {
 
             ObjectSet result = db.queryByExample(pm);
             PMIDS aux = (PMIDS) result.get(0);
             listaIDs.addAll(aux.pubmed_ids);
-            System.out.println(listaIDs);
+            //System.out.println(listaIDs);
         } catch (Exception e) {
         } finally {
             db.close();
@@ -143,7 +143,7 @@ public class lecturas_PM extends conexionServ{
         int cont = 0, contuax = 1;
         ArrayList<String> aux = new ArrayList<>();
         for (String pmid : listaIDs) {
-            System.out.println(pmid);
+            //System.out.println(pmid);
             aux.add(pmid);
             cont++;
             if (cont > cant_por_archivo) {
@@ -165,12 +165,12 @@ public class lecturas_PM extends conexionServ{
         System.out.println(listasPM.size());
         listasPM.parallelStream().forEach((lpm) -> {
             
-            String ruta_archivo = fileAbstID + "/" + fileAbstID + "_" + lpm.num + ".html";
+            String ruta_archivo = ruta+"/"+fileAbstID + "/" + fileAbstID + "_" + lpm.num + ".html";
             descarga(lpm.ID, IDS,cabecera,pie,ruta_archivo);
         });
         
         config.setAbstracts(true);
-        config.guardar();
+        config.guardar(ruta);
         System.out.println("ok");
 
     }
@@ -178,7 +178,7 @@ public class lecturas_PM extends conexionServ{
     private void descarga(ArrayList<String> listaPMID, int IDS, String cabecera,String pie, String ruta_archivo) {
         
         guardar_en_archivo(ruta_archivo, cabecera);
-        listaPMID.parallelStream().forEach((pm) -> {
+        listaPMID.forEach((pm) -> {
 
             cont1++;
             limpiarPantalla();

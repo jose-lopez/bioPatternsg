@@ -16,6 +16,7 @@ import pipeline.escribirBC;
  * @author yacson
  */
 public class ontologiaMESH {
+
     private String MESH;
     private String Nombre;
     private ArrayList<String> parent;
@@ -48,27 +49,27 @@ public class ontologiaMESH {
         this.parent = parent;
     }
 
-    public String buscarNombre(String MESH) {
+    public String buscarNombre(String MESH,String ruta) {
         ontologiaMESH objeto = new ontologiaMESH();
         objeto.setMESH(MESH);
-        objeto = consultarBD(objeto);
+        objeto = consultarBD(objeto,ruta);
         return objeto.Nombre;
     }
 
-    public void vaciar_pl(String MESH, String obj, ArrayList<String> listObj, String archivo) {
+    public void vaciar_pl(String MESH, String obj, ArrayList<String> listObj, String ruta) {
         ontologiaMESH objeto = new ontologiaMESH();
         objeto.setMESH(MESH);
-        objeto = consultarBD(objeto);
-        String ruta_wnr = "well_know_rules.pl";
+        objeto = consultarBD(objeto,ruta);
+        String ruta_wnr = ruta + "/well_know_rules.pl";
         System.out.print(".");
         if (obj != null && objeto.getNombre() != null) {
             String cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'" + objeto.getNombre().replace("\'", "") + "\').";
-            new escribirBC(cadena, archivo);
+            new escribirBC(cadena, ruta + "/ontologiaMESH.pl");
             String[] separa = obj.split(",");
-            crear_rama_artificial(obj, ruta_wnr, archivo);
+            crear_rama_artificial(obj, ruta_wnr, ruta + "/ontologiaMESH.pl");
             if (separa[0].equals("Receptors")) {
                 cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'Receptors\').";
-                new escribirBC(cadena, archivo);
+                new escribirBC(cadena, ruta + "/ontologiaMESH.pl");
                 String obj1 = procesarTexto("Receptors");
                 String obj2 = procesarTexto(obj);
                 String rule = obj1 + "(X):-" + obj2 + "(X).";
@@ -88,7 +89,7 @@ public class ontologiaMESH {
             listObj.add(MESH);
 
             for (String mesh : objeto.getParent()) {
-                vaciar_pl(mesh, objeto.getNombre(), listObj, archivo);
+                vaciar_pl(mesh, objeto.getNombre(), listObj, ruta);
             }
         }
 
@@ -118,7 +119,7 @@ public class ontologiaMESH {
             String rule = obj1 + "(X):-" + obj2 + "(X).";
             new escribirBC(rule, ruta_wnr);
         }
-       /* else if (obj.equals("Circadian Rhythm Signaling Peptides and Proteins")) {
+        /* else if (obj.equals("Circadian Rhythm Signaling Peptides and Proteins")) {
             String obj1 = procesarTexto("ligand");
             String obj2 = procesarTexto(obj);
             String rule = obj1 + "(X):-" + obj2 + "(X).";
@@ -147,9 +148,9 @@ public class ontologiaMESH {
 
     }
 
-    private ontologiaMESH consultarBD(ontologiaMESH obj) {
+    private ontologiaMESH consultarBD(ontologiaMESH obj,String ruta) {
         ontologiaMESH objeto = new ontologiaMESH();
-        ObjectContainer db = Db4o.openFile("mineria/OntologiaMESH.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/OntologiaMESH.db");
         try {
 
             ObjectSet result = db.queryByExample(obj);
@@ -164,16 +165,23 @@ public class ontologiaMESH {
         return objeto;
     }
 
-    public void buscar(String MESH) {
+    public void buscar(String MESH,String ruta) {
 
-        buscarObjeto(MESH, 0, "");
+        buscarObjeto(MESH, 0, "",ruta);
 
     }
+    
+    public ontologiaMESH buscarO(String MESH,String ruta){
+        ontologiaMESH ont = new ontologiaMESH();
+        ont.setMESH(MESH);
+        ont = consultarBD(ont, ruta);
+        return ont;
+    }
 
-    private void buscarObjeto(String MESH, int nivel, String relacion) {
+    private void buscarObjeto(String MESH, int nivel, String relacion,String ruta) {
         ontologiaMESH objeto = new ontologiaMESH();
         objeto.setMESH(MESH);
-        objeto = consultarBD(objeto);
+        objeto = consultarBD(objeto,ruta);
 
         for (int i = 0; i < nivel; i++) {
             System.out.print("      ");
@@ -184,7 +192,7 @@ public class ontologiaMESH {
 
         for (String obj : objeto.getParent()) {
             if (!obj.equals("1000048")) {
-                buscarObjeto(obj, nivel, "is a->  ");
+                buscarObjeto(obj, nivel, "is a->  ",ruta);
             }
 
         }
@@ -203,5 +211,5 @@ public class ontologiaMESH {
         aux = aux.replace(".", "_");
         aux = "wkr_" + aux;
         return aux;
-    }   
+    }
 }

@@ -27,11 +27,11 @@ public class PubMed_IDs {
     private int probadas = 0;
 
     //busca los PubMed IDs de cada combinacion encontrada en el archivo mineria/combinaciones.db
-    public void buscar(int cantIDs, configuracion config) {
+    public void buscar(int cantIDs, configuracion config, String ruta) {
         limpiarPantalla();
         System.out.print("\nBusqueda de PubMed Id.....");
 
-        ObjectContainer db = Db4o.openFile("mineria/combinaciones.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/combinaciones.db");
         combinacion com = new combinacion();
         ObjectSet result = db.queryByExample(com);
         combinacion combinacion = (combinacion) result.get(0);
@@ -46,9 +46,9 @@ public class PubMed_IDs {
             } catch (Exception e) {
             }
         }
-        
+
         combinacion.combinaciones.parallelStream().forEach((comb) -> {
-            if(probadas<500){
+            //if (probadas < 500) {
             try {
 
                 //consulta cada combinacion retorna una lista de pubmed IDs
@@ -59,17 +59,16 @@ public class PubMed_IDs {
             } catch (Exception e) {
                 //System.out.println("error en busqueda");
             }
-            }
+            //}
 
         });
-        
 
         //se guarda el listado de IDs en la base de datos
-        guardar(pubmedIDs);
+        guardar(pubmedIDs, ruta);
 
         //se giarda el checklist que indica que el proceso de busqueda de PubMed Ids a terminado
         config.setPubmedids(true);
-        config.guardar();
+        config.guardar(ruta);
         System.out.println("ok");
     }
 
@@ -111,9 +110,9 @@ public class PubMed_IDs {
     }
 
     //se guarda la lista de IDs en 'mineria/pubmed_id.db'
-    private void guardar(ArrayList<String> pubmedIDS) {
+    private void guardar(ArrayList<String> pubmedIDS, String ruta) {
 
-        ObjectContainer db = Db4o.openFile("mineria/pubmed_id.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/pubmed_id.db");
         PMIDS ids = new PMIDS();
         ids.pubmed_ids.addAll(pubmedIDS);
 
@@ -128,9 +127,9 @@ public class PubMed_IDs {
 
     }
 
-    public void borrar_archivo() {
+    public void borrar_archivo(String ruta) {
         try {
-            File ficherod = new File("mineria/pubmed_id.db");
+            File ficherod = new File(ruta + "/pubmed_id.db");
             ficherod.delete();
         } catch (Exception e) {
 
@@ -143,7 +142,3 @@ public class PubMed_IDs {
     }
 
 }
-
-
-
-

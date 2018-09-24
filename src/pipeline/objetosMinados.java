@@ -28,11 +28,11 @@ import java.util.logging.Logger;
  */
 public class objetosMinados {
 
-    public void crear_archivo() {
+    public void crear_archivo(String ruta) {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("mineria/objetosMinados.txt");
+            fichero = new FileWriter(ruta+"/objetosMinados.txt");
         } catch (IOException ex) {
             Logger.getLogger(minado_FT.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -8,14 +8,15 @@ package pipeline;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import configuracion.configuracion;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import org.jpl7.Query;
 import org.jpl7.Term;
-
 
 /**
  *
@@ -26,15 +27,27 @@ public class patrones {
     ArrayList<pathway> patrones = new ArrayList<>();
     boolean detener = false;
 
-    public void inferir_patrones(configuracion config) {
+    public void inferir_patrones(configuracion config, String ruta) {
 
         ArrayList<String> objRestricion = menuRestricionObjetos();
 
         ArrayList<String> objCierre = menuMotivos();
 
+        resumirBaseC(ruta);
+
         // System.out.println(objRestricion);
-        borrar_archivo("mineria/patrones.txt");
-        borrar_archivo("mineria/patrones.db");
+        borrar_archivo(ruta + "/patrones.txt");
+        borrar_archivo(ruta + "/patrones.db");
+
+        String v = "style_check(-discontiguous).";
+        Query q0 = new Query(v);
+        q0.hasSolution();
+
+        String objPatr = "[" + ruta + "/objetos_patrones].";
+        Query q1 = new Query(objPatr);
+        q1.hasSolution();
+
+        cargarBaseC(ruta);
 
         String archivo = "[patronesJPL].";
         Query q = new Query(archivo);
@@ -75,15 +88,39 @@ public class patrones {
             System.out.println("evento fin:  " + fin);
         });
         //patrones de 2 eventos
-        patron_2_eventos(objCierre, listaInicio, objEnlace);
+        patron_2_eventos(objCierre, listaInicio, objEnlace, ruta);
 
-        objEnlace.forEach(enlace -> intermedios(new ArrayList<String>(), enlace, FT, "", 0, listaInicio, listaFin, objCierre, objRestricion));
+        objEnlace.forEach(enlace -> intermedios(new ArrayList<String>(), enlace, FT, "", 0, listaInicio, listaFin, objCierre, objRestricion, ruta));
 
-        guardar_Patron();
+        guardar_Patron(ruta);
 
         config.setInferirPatrones(true);
-        config.guardar();
+        config.guardar(ruta);
 
+    }
+
+    private void cargarBaseC(String ruta) {
+        Scanner lectura = new Scanner(System.in);
+
+        while (true) {
+            System.out.print("*Desea usar una base de conocimiento reducida ..S/N: ");
+            String resp = lectura.nextLine();
+            if (resp.equalsIgnoreCase("s")) {
+                String bc = "[" + ruta + "/baseCR].";
+                Query q2 = new Query(bc);
+                q2.hasSolution();
+
+                break;
+            } else if (resp.equalsIgnoreCase("n")) {
+                String bc = "[" + ruta + "/baseC].";
+                Query q2 = new Query(bc);
+                q2.hasSolution();
+
+                break;
+            } else {
+                System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+            }
+        }
     }
 
     private ArrayList<String> menuRestricionObjetos() {
@@ -191,7 +228,7 @@ public class patrones {
         } else {
             consulta = "inicio(A,E,B).";
         }
-        System.out.println(consulta);
+
         Query q2 = new Query(consulta);
 
         for (int i = 0; i < q2.allSolutions().length; i++) {
@@ -245,7 +282,7 @@ public class patrones {
 
     }
 
-    private void intermedios(ArrayList<String> enlista, String objini, ArrayList<String> FT, String patron, int max, ArrayList<String> listain, ArrayList<String> listafin, ArrayList<String> objCierre, ArrayList<String> objRest) {
+    private void intermedios(ArrayList<String> enlista, String objini, ArrayList<String> FT, String patron, int max, ArrayList<String> listain, ArrayList<String> listafin, ArrayList<String> objCierre, ArrayList<String> objRest, String ruta) {
 
         ArrayList<String> lista = new ArrayList<>();
         ArrayList<String> cierre = new ArrayList<>();
@@ -268,31 +305,13 @@ public class patrones {
             resp.add(q2.allSolutions()[i].toString());
         }
 
-        //busqueda simple
-//        if (objRest.size() > 0) {
-//            resp.forEach((sol) -> {
-//                busqueda_nodo(max, sol, objini, cierre, FT, lista, listain, listafin, patron, objRest);
-//
-//            });
-//
-//            //busquedas con multiples hilos
-//        } else {
-//            resp.parallelStream().forEach((sol) -> {
-//                busqueda_nodo(max, sol, objini, cierre, FT, lista, listain, listafin, patron, objRest);
-//
-//            });
-//
-//        }
         for (String sol : resp) {
-            busqueda_nodo(max, sol, objini, cierre, FT, lista, listain, listafin, patron, objRest);
+            busqueda_nodo(max, sol, objini, cierre, FT, lista, listain, listafin, patron, objRest, ruta);
         }
-//        resp.parallelStream().forEach((sol) -> {
-//            busqueda_nodo(max, sol, objini, cierre, FT, lista, listain, listafin, patron, objRest);
-//        });
 
     }
 
-    private void busqueda_nodo(int max, String sol, String objini, ArrayList<String> cierre, ArrayList<String> FT, ArrayList<String> lista, ArrayList<String> listain, ArrayList<String> listafin, String patron, ArrayList<String> objRest) {
+    private void busqueda_nodo(int max, String sol, String objini, ArrayList<String> cierre, ArrayList<String> FT, ArrayList<String> lista, ArrayList<String> listain, ArrayList<String> listafin, String patron, ArrayList<String> objRest, String ruta) {
 
         int cont = 0;
         cont += max;
@@ -319,7 +338,7 @@ public class patrones {
                 //listaAux.remove(0);
                 try {
 
-                    encadenarPatron(patron + ";" + even, listain, listafin, cierre, listaAux);
+                    encadenarPatron(patron + ";" + even, listain, listafin, cierre, listaAux, ruta);
                 } catch (Exception e) {
                 }
                 //pat = true;
@@ -333,25 +352,26 @@ public class patrones {
             String patronaux = patron + ";" + even;
             if (cont < 10) {
                 cont++;
-                intermedios(lista, separa[2], FT, patronaux, cont, listain, listafin, cierre, objRest);
+                intermedios(lista, separa[2], FT, patronaux, cont, listain, listafin, cierre, objRest, ruta);
 
             }
         }
 
     }
 
-    private void patron_2_eventos(ArrayList<String> finales, ArrayList<String> inicio, ArrayList<String> Objenlace) {
+    private void patron_2_eventos(ArrayList<String> finales, ArrayList<String> inicio, ArrayList<String> Objenlace, String ruta) {
         ArrayList<String> lista = new ArrayList<>();
 
         Objenlace.forEach((E) -> {
             finales.forEach((F) -> {
                 String consulta = "eventoEspecial(" + E + ",E," + F + ").";
+               
                 Query q2 = new Query(consulta);
                 for (int i = 0; i < q2.allSolutions().length; i++) {
                     String evento = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
                     String fin = E + "," + evento + "," + F;
-
-                    encadenarPatron2eventos(inicio, fin, E, finales);
+                    System.out.println(fin);
+                    encadenarPatron2eventos(inicio, fin, E, finales, ruta);
                 }
 
             });
@@ -360,58 +380,65 @@ public class patrones {
 
     }
 
-    private void encadenarPatron2eventos(ArrayList<String> inicio, String fin, String enlace, ArrayList<String> finales) {
+    private void encadenarPatron2eventos(ArrayList<String> inicio, String fin, String enlace, ArrayList<String> finales, String ruta) {
 
         ArrayList<String> patrones = new ArrayList<>();
         String sep[] = fin.split(",");
+//&& (clasificarevento(fin)).equals("regulate") || clasificarevento(fin).endsWith("inhibit")
 
-        inicio.forEach((i) -> {
-            String sep1[] = i.split(",");
+       
+        if (clasificarevento(sep[1]).equals("regulate") || clasificarevento(sep[1]).equals("inhibit")) {
+        //System.out.println("---" + fin);
+            inicio.forEach((i) -> {
+                String sep1[] = i.split(",");
 
-            if (enlace.equals(sep1[2]) && !sep[2].equals(sep1[0])) {
+                if (enlace.equals(sep1[2])) {
 
-                String patron = i + ";" + fin;
-                ArrayList<String> list = listarObetosPatron(patron);
-                System.out.println("\n\n" + patron);
-                System.out.println(list);
-                agregar_a_lista(patron, list);
-                //guardar_Patron(patron, list);
-                escribirArchivo(patron, list.toString(), "patrones.txt");
-            }
-        });
-
-        inicio.forEach((in) -> {
-            String sep1[] = in.split(",");
-
-            finales.forEach((f) -> {
-
-                String consulta = "finalEspecial(" + sep1[0] + ",E," + f + ").";
-                Query q2 = new Query(consulta);
-                for (int i = 0; i < q2.allSolutions().length; i++) {
-                    String evento = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
-                    String Efin = sep1[0] + "," + evento + "," + f;
-                    if (enlace.equals(sep1[2]) && sep[2].equals(f)) {
-
-                        String patron = in + ";" + fin;
-                        ArrayList<String> list = listarObetosPatron(patron);
-                        patron += ";"+Efin;
-                        list.addAll(listarObetosPatron(Efin));
-                        System.out.println("\n\n" + patron);
-                        System.out.println(list);
-                        agregar_a_lista(patron, list);
-                        //guardar_Patron(patron, list);
-                        escribirArchivo(patron, list.toString(), "patrones.txt");
-                    }
+                    String patron = i + ";" + fin;
+                    ArrayList<String> list = listarObetosPatron(patron);
+                    System.out.println("\n\n" + patron);
+                    System.out.println(list);
+                    agregar_a_lista(patron, list);
+                    //guardar_Patron(patron, list);
+                    escribirArchivo(patron, list.toString(), "patrones.txt", ruta);
                 }
+            });
+        }
+
+        if (!clasificarevento(fin).equals("bind") || !clasificarevento(fin).equals("associate")) {
+            inicio.forEach((in) -> {
+                String sep1[] = in.split(",");
+
+                finales.forEach((f) -> {
+
+                    String consulta = "finalEspecial(" + sep1[0] + ",E," + f + ").";
+                    Query q2 = new Query(consulta);
+                    for (int i = 0; i < q2.allSolutions().length; i++) {
+                        String evento = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
+                        String Efin = sep1[0] + "," + evento + "," + f;
+                        if (enlace.equals(sep1[2]) && sep[2].equals(f) && (clasificarevento(Efin).equals("regulate") || clasificarevento(Efin).equals("inhibit"))) {
+
+                            String patron = in + ";" + fin;
+                            ArrayList<String> list = listarObetosPatron(patron);
+                            patron += ";" + Efin;
+                            list.addAll(listarObetosPatron(Efin));
+                            System.out.println("\n\n" + patron);
+                            System.out.println(list);
+                            agregar_a_lista(patron, list);
+                            //guardar_Patron(patron, list);
+                            escribirArchivo(patron, list.toString(), "patrones.txt", ruta);
+                        }
+                    }
+
+                });
 
             });
-
-        });
+        }
 
     }
 
     //;'EGFR',regulate,'MAPK';'MAPK',regulate,'MEK';'MEK',phosphorylate,'Raf';'Raf',activate,'Ras';'Ras',activate,'CREB'
-    private void encadenarPatron(String patron, ArrayList<String> listain, ArrayList<String> listafin, ArrayList<String> Objcierre, ArrayList<String> enlista) {
+    private void encadenarPatron(String patron, ArrayList<String> listain, ArrayList<String> listafin, ArrayList<String> Objcierre, ArrayList<String> enlista, String ruta) {
 
         String sep[] = patron.split(",");
         String primero = sep[0].replace(";", "");
@@ -456,7 +483,7 @@ public class patrones {
                             System.out.println("\n\n" + patronF);
                             System.out.println(list);
                             agregar_a_lista(patronF, list);
-                            escribirArchivo(patronF, list.toString(), "patrones.txt");
+                            escribirArchivo(patronF, list.toString(), "patrones.txt", ruta);
                             //guardar_Patron(patronF, list);
                         }
 
@@ -481,12 +508,12 @@ public class patrones {
 
     }
 
-    private void escribirArchivo(String cadena, String Lista, String archivo) {
+    private void escribirArchivo(String cadena, String Lista, String archivo, String ruta) {
 
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter("mineria/" + archivo, true);
+            fichero = new FileWriter(ruta + "/" + archivo, true);
             pw = new PrintWriter(fichero);
             //System.out.println(cadena);
             pw.println("\n\n" + cadena);
@@ -505,9 +532,9 @@ public class patrones {
 
     }
 
-    private void guardar_Patron() {
+    private void guardar_Patron(String ruta) {
 
-        ObjectContainer db = Db4o.openFile("mineria/patrones.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/patrones.db");
         // pathway pathway = new pathway();
         //pathway.setPatron(patron);
         //pathway.setObjetos(objetos);
@@ -567,10 +594,10 @@ public class patrones {
             String sep[] = separa[i].split("=");
 
             if (sep[0].equals("A")) {
-                obj1 = sep[1];
+                obj1 = "'" + sep[1].replace("'", "") + "'";
             }
             if (sep[0].equals("B")) {
-                obj2 = sep[1];
+                obj2 = "'" + sep[1].replace("'", "") + "'";
             }
             if (sep[0].equals("E")) {
                 eve = sep[1];
@@ -582,4 +609,119 @@ public class patrones {
         return even;
     }
 
+    public void resumirBaseC(String ruta) {
+        borrar_archivo(ruta + "//baseCR.pl");
+        ArrayList<String> eventos = leerBaseC(ruta);
+        ArrayList<String> resumenEven = new ArrayList<>();
+        eventos.stream().forEach((e) -> {
+            String sep[] = e.split(",");
+            String obj1 = sep[0];
+            String obj2 = sep[2];
+            String eve = sep[1];
+            eve = clasificarevento(eve);
+
+            String eventoR = "event(" + obj1 + "," + eve + "," + obj2 + ")";
+
+            if (!resumenEven.contains(eventoR)) {
+                resumenEven.add(eventoR);
+            }
+
+        });
+
+        new escribirBC("base([", ruta + "/baseCR.pl");
+
+        for (int i = 0; i < resumenEven.size() - 1; i++) {
+            new escribirBC(resumenEven.get(i) + ",", ruta + "/baseCR.pl");
+        }
+        new escribirBC(resumenEven.get(resumenEven.size() - 1), ruta + "/baseCR.pl");
+
+        new escribirBC("]).", ruta + "/baseCR.pl");
+
+    }
+
+    public ArrayList<String> leerBaseC(String ruta) {
+        ArrayList<String> eventos = new ArrayList<>();
+
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+
+            archivo = new File(ruta + "/baseC.pl");
+
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String texto = linea.replace("base([", "").replace("]).", "").replace("event(", "").replace(")", "");
+                if (!texto.equals("")) {
+                    eventos.add(texto);
+                }
+            }
+
+        } catch (Exception e) {
+
+            // e.printStackTrace();
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+
+        return eventos;
+    }
+
+    public String clasificarevento(String rel) {
+        String sinonimo = rel;
+
+        ArrayList<String> eventosUP = new ArrayList<>();
+        eventosUP.add("activate");
+        eventosUP.add("increase");
+        eventosUP.add("regulate");
+        eventosUP.add("transcriptional-activate");
+        eventosUP.add("up-regulate");
+        eventosUP.add("enhance");
+        eventosUP.add("induce");
+        eventosUP.add("lead");
+        eventosUP.add("trigger");
+        eventosUP.add("translate");
+        eventosUP.add("transcribe");
+        eventosUP.add("reactivate");
+        eventosUP.add("promote");
+        eventosUP.add("synthesize");
+        eventosUP.add("stimulate");
+
+        ArrayList<String> eventosDOWN = new ArrayList<>();
+        eventosDOWN.add("inhibit");
+        eventosDOWN.add("down-regulate");
+        eventosDOWN.add("repress");
+        eventosDOWN.add("prevent");
+        eventosDOWN.add("suppress");
+        eventosDOWN.add("retain");
+        eventosDOWN.add("decrease");
+        eventosDOWN.add("inactivate");
+
+        ArrayList<String> eventosMiddle = new ArrayList<>();
+        eventosMiddle.add("require");
+        eventosMiddle.add("interact");
+        eventosMiddle.add("associate");
+        eventosMiddle.add("phosphorylate");
+        eventosMiddle.add("recruit");
+        eventosMiddle.add("recognize");
+        eventosMiddle.add("participate");
+
+        if (eventosUP.contains(sinonimo)) {
+            sinonimo = "regulate";
+        } else if (eventosDOWN.contains(sinonimo)) {
+            sinonimo = "inhibit";
+        } else if (eventosMiddle.contains(sinonimo)) {
+            sinonimo = "associate";
+        }
+
+        return sinonimo;
+    }
 }

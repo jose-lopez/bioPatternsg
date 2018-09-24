@@ -1,9 +1,3 @@
 EGF
 EGFR
-GRB2
-SOS
 Ras
-Raf
-MEK
-MAPK
-MNK

@@ -1,8 +1,8 @@
 :-style_check(-discontiguous).
-:-[mineria/ontologiaMESH].
-:-[mineria/objetosMinados].
-:-[mineria/well_know_rules].
-:-[baseC].
+%:-[mineria/ontologiaMESH].
+%:-[mineria/objetosMinados].
+%:-[mineria/well_know_rules].
+%:-[baseC].
 
 p_protein(X):-p_transcription_factor(X).
 p_protein(X):-wkr_proteins(X).

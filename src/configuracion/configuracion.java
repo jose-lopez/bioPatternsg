@@ -73,7 +73,7 @@ public class configuracion {
     }
 
     //guarda la configuracion inicial del proceso
-    public void guardarConfiguracion(String regionProm, int numIter, int cantCompl, float conf, boolean GO, boolean MESH, int cantPMID, String PMidExp) {
+    public void guardarConfiguracion(String regionProm, int numIter, int cantCompl, float conf, boolean GO, boolean MESH, int cantPMID, String PMidExp, String ruta) {
         this.RegionPromotora = regionProm;
         this.cantComplejos = cantCompl;
         this.numIteraciones = numIter;
@@ -82,8 +82,8 @@ public class configuracion {
         this.crearOntologiaMESH = MESH;
         this.cantidadPMID = cantPMID;
         this.rutaPMID_experto = PMidExp;
-
-        ObjectContainer db = Db4o.openFile("mineria/config.db");
+        System.out.println(ruta);
+        ObjectContainer db = Db4o.openFile(ruta + "/config.db");
         try {
             db.store(this);
             System.out.println("Configuracion guardada...");
@@ -95,8 +95,8 @@ public class configuracion {
     }
 
     //guarda las lecturas obtenidas en tfbind. Necesario si el proceso se reanuda deste este punto
-    public void guardar_lecturasTFBIND(ArrayList<lecturas_TFBIND> lecturas) {
-        ObjectContainer db = Db4o.openFile("mineria/config.db");
+    public void guardar_lecturasTFBIND(ArrayList<lecturas_TFBIND> lecturas, String ruta) {
+        ObjectContainer db = Db4o.openFile(ruta + "/config.db");
         configuracion conf = new configuracion();
         try {
             ObjectSet result = db.queryByExample(conf);
@@ -115,8 +115,8 @@ public class configuracion {
     }
 
     //este metodo sera llamado cada vez que culmine una tarea el proceso y se agregue un checklist
-    public void guardar() {
-        ObjectContainer db = Db4o.openFile("mineria/config.db");
+    public void guardar(String ruta) {
+        ObjectContainer db = Db4o.openFile(ruta + "/config.db");
         configuracion conf = new configuracion();
         conf.RegionPromotora = this.RegionPromotora;
         try {
@@ -136,8 +136,8 @@ public class configuracion {
     }
 
     //recupera la informacion guardada.. para poder continuar un proceso desde el ultimo checklist guardado
-    public configuracion recuperarConfiguracion() {
-        ObjectContainer db = Db4o.openFile("mineria/config.db");
+    public configuracion recuperarConfiguracion(String ruta) {
+        ObjectContainer db = Db4o.openFile(ruta + "/config.db");
         configuracion conf = new configuracion();
         try {
             ObjectSet result = db.queryByExample(conf);
@@ -179,7 +179,7 @@ public class configuracion {
     }
 
     //muestra la configuracion inicial del proceso
-    public void verConfiguracion() {
+    public void verConfiguracion(String ruta) {
         //System.out.println("\n**Configuracion de minado**");
         System.out.println("\n*Region promotora: " + this.RegionPromotora);
         System.out.println("*Cantidad de complejos: " + this.cantComplejos);
@@ -187,11 +187,11 @@ public class configuracion {
         System.out.println("*Confiabilidad TFBind: " + (int) (this.confiabilidad_tfbind * 100));
         System.out.println("*Cantidad maxima de pubmed IDs por busqueda: " + this.cantidadPMID);
 
-        estadoactual();
+        estadoactual(ruta);
     }
 
     //muestra el estado actual del proceso .. dependiendo del los checklist que esten activos
-    private void estadoactual() {
+    private void estadoactual(String ruta) {
         System.out.print("\nEstado actual: ");
         if (!homologos) {
             System.out.println("Busqueda de homologos");
@@ -201,7 +201,7 @@ public class configuracion {
             System.out.println("Lecturas desde Tfbind");
         } else if (!procesoIteraciones) {
             objetosMineria objMin = new objetosMineria();
-            objMin = recuperarObjetosMin();
+            objMin = recuperarObjetosMin(ruta);
             System.out.println("Busqueda de objetos PDB nivel " + (objMin.getIteracion() + 1));
         } else if (!combinaciones) {
             System.out.println("Generando combinaciones de palabras clave");
@@ -223,56 +223,56 @@ public class configuracion {
     }
 
     //dependiendo de los checklist que esten activos el proceso se reanudara desde un punto espesifico
-    public void reanudar_proceso() {
+    public void reanudar_proceso(String ruta) {
         System.out.print("Preparando");
-        recuperarConfiguracion();
+        recuperarConfiguracion(ruta);
         //verConfiguracion();
         objetosMineria objMin = new objetosMineria();
-        objMin = recuperarObjetosMin();
+        objMin = recuperarObjetosMin(ruta);
         //System.out.println(objMin.getNuevos_objetos().size());
         System.out.println();
         if (!homologos) {
             //System.out.println("\nReanudar desde busqueda de homologos ...");
-            reanudar(1, objMin);
+            reanudar(1, objMin, ruta);
         } else if (!objetosExperto) {
             //System.out.println("\nReanudar desde busqueda de objetos Experto ...");
-            reanudar(2, objMin);
+            reanudar(2, objMin, ruta);
         } else if (!lecturas_tfbind) {
             //System.out.println("\nReanudando Iteracion: " + objMin.getIteracion());
-            reanudar(3, objMin);
+            reanudar(3, objMin, ruta);
         } else if (!procesoIteraciones) {
-            reanudar(4, objMin);
+            reanudar(4, objMin, ruta);
         } else if (!combinaciones) {
-            reanudar(5, objMin);
+            reanudar(5, objMin, ruta);
         } else if (!pubmedids) {
-            reanudar(6, objMin);
+            reanudar(6, objMin, ruta);
         } else if (!abstracts) {
-            reanudar(7, objMin);
+            reanudar(7, objMin, ruta);
         } else if (!vaciado_pl) {
-            reanudar(8, objMin);
+            reanudar(8, objMin, ruta);
         } else if (!generarResumenes) {
-            reanudar(9, objMin);
+            reanudar(9, objMin, ruta);
         } else if (!GenerarBC) {
-            reanudar(10, objMin);
+            reanudar(10, objMin, ruta);
         } else if (!objetosPatrones) {
-            reanudar(11, objMin);
+            reanudar(11, objMin, ruta);
         } else if (!InferirPatrones) {
-            reanudar(12, objMin);
+            reanudar(12, objMin, ruta);
         }
         //proceso terminado
-        menuFinal();
+        menuFinal(ruta);
 
     }
 
-    private void menuFinal() {
+    private void menuFinal(String ruta) {
 
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         consultasJPL RRG = new consultasJPL();
-        int minados = listar_ligandos().size() + listar_nuevos_objetos().size() + listar_objetos_minados().size();
+        int minados = listar_ligandos(ruta).size() + listar_nuevos_objetos(ruta).size() + listar_objetos_minados(ruta).size();
 
         while (r) {
-            ArrayList<pathway> patrones = RRG.cargarPatrones();
+            ArrayList<pathway> patrones = RRG.cargarPatrones(ruta);
             System.out.print("\033[H\033[2J");
             System.out.flush();
             System.out.println("Configuracion inicial\n");
@@ -287,9 +287,9 @@ public class configuracion {
 
             System.out.println("\nResultados\n");
             System.out.println("Objetos minados:            " + minados);
-            System.out.println("Combinaciones realizadas:   " + num_combinaciones());
-            System.out.println("Pubmed Id encontrados:      " + num_pubmedIds());
-            System.out.println("Eventos encontrados:        " + num_eventos());
+            System.out.println("Combinaciones realizadas:   " + num_combinaciones(ruta));
+            System.out.println("Pubmed Id encontrados:      " + num_pubmedIds(ruta));
+            System.out.println("Eventos encontrados:        " + num_eventos(ruta));
             System.out.println("Patrones encontrados:       " + patrones.size() + "\n");
 
             System.out.println("Seleccione una opcion.");
@@ -311,12 +311,12 @@ public class configuracion {
                             System.out.print("\033[H\033[2J");
                             System.out.flush();
                             minado_FT mft = new minado_FT();
-                            mft.crearCarpeta("mineria");
+                            mft.crearCarpeta(ruta);
                             configuracion config = new configuracion();
-                            BioPattern bp = new BioPattern();
+                            confGeneral confG = new confGeneral();
                             {
                                 try {
-                                    bp.pipelineBioPattern();
+                                    confG.pipeline(ruta);
                                 } catch (Exception e) {
 
                                 }
@@ -333,10 +333,10 @@ public class configuracion {
 
                     break;
                 case "2":
-                    RRG.menu();
+                    RRG.menu(ruta);
                     break;
                 case "3":
-                    new patrones().inferir_patrones(this);
+                    new patrones().inferir_patrones(this, ruta);
                     break;
                 case "0":
                     r = false;
@@ -349,157 +349,157 @@ public class configuracion {
 
     //dependiendo del punto de reanudacion del proceso se ejecutaran el juego instrucciones necesarias 
     //para que el proceso termine
-    private void reanudar(int punto, objetosMineria objetosMineria) {
+    private void reanudar(int punto, objetosMineria objetosMineria, String ruta) {
         minado_FT mfts = new minado_FT();
         lecturas_PM lpm = new lecturas_PM();
         switch (punto) {
             case 1:
-                mfts.buscarHomologos(revisarObjH_E("homologos", objetosMineria), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
-                mfts.buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
-                mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ActivatableArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH);
-                mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                new combinaciones().generar_combinaciones(false, this);
-                new PubMed_IDs().buscar(cantidadPMID, this);
-                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
-                new Resumidor().resumidor(this);
+                mfts.buscarHomologos(revisarObjH_E("homologos", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ActivatableArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
+                new combinaciones().generar_combinaciones(false, this, ruta);
+                new PubMed_IDs().buscar(cantidadPMID, this, ruta);
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
+                new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo(this);
+                    objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(this);
+                new patrones().inferir_patrones(this, ruta);
                 break;
             case 2:
-                revisarObjH_E("homologos", objetosMineria);
-                mfts.buscarObjetosExperto(revisarObjH_E("objetos_Experto.txt", objetosMineria), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH);
-                mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH);
-                mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                new combinaciones().generar_combinaciones(false, this);
-                new PubMed_IDs().buscar(cantidadPMID, this);
-                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
-                new Resumidor().resumidor(this);
+                revisarObjH_E("homologos", objetosMineria, ruta);
+                mfts.buscarObjetosExperto(revisarObjH_E("objetos_Experto.txt", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
+                new combinaciones().generar_combinaciones(false, this, ruta);
+                new PubMed_IDs().buscar(cantidadPMID, this, ruta);
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
+                new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo(this);
+                    objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(this);
+                new patrones().inferir_patrones(this, ruta);
                 break;
             case 3:
-                revisarObjH_E("homologos", objetosMineria);
-                revisarObjH_E("objetos_Experto.txt", objetosMineria);
-                ArrayList<lecturas_TFBIND> lecturas = actualizarListaTFBind(objetosMineria);
-                mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, lecturas, crearOntologiaGO, crearOntologiaMESH);
-                mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH);
-                new combinaciones().generar_combinaciones(false, this);
-                new PubMed_IDs().buscar(cantidadPMID, this);
-                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
-                new Resumidor().resumidor(this);
+                revisarObjH_E("homologos", objetosMineria, ruta);
+                revisarObjH_E("objetos_Experto.txt", objetosMineria, ruta);
+                ArrayList<lecturas_TFBIND> lecturas = actualizarListaTFBind(objetosMineria, ruta);
+                mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, lecturas, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
+                new combinaciones().generar_combinaciones(false, this, ruta);
+                new PubMed_IDs().buscar(cantidadPMID, this, ruta);
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
+                new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo(this);
+                    objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(this);
+                new patrones().inferir_patrones(this, ruta);
                 break;
             case 4:
-                ArrayList<String> ListaObj = reanudarIteracion(objetosMineria);
-                mfts.Iteraciones(true, ListaObj, cantComplejos, numIteraciones, objetosMineria, this, objetosMineria.getIteracion() + 1, crearOntologiaGO, crearOntologiaMESH);
-                new combinaciones().generar_combinaciones(false, this);
-                new PubMed_IDs().buscar(cantidadPMID, this);
-                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
-                new Resumidor().resumidor(this);
+                ArrayList<String> ListaObj = reanudarIteracion(objetosMineria, ruta);
+                mfts.Iteraciones(true, ListaObj, cantComplejos, numIteraciones, objetosMineria, this, objetosMineria.getIteracion() + 1, crearOntologiaGO, crearOntologiaMESH, ruta);
+                new combinaciones().generar_combinaciones(false, this, ruta);
+                new PubMed_IDs().buscar(cantidadPMID, this, ruta);
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
+                new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo(this);
+                    objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(this);
+                new patrones().inferir_patrones(this, ruta);
                 break;
 
             case 5:
-                new combinaciones().generar_combinaciones(false, this);
-                new PubMed_IDs().buscar(cantidadPMID, this);
-                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
-                new Resumidor().resumidor(this);
+                new combinaciones().generar_combinaciones(false, this, ruta);
+                new PubMed_IDs().buscar(cantidadPMID, this, ruta);
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
+                new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo(this);
+                    objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(this);
+                new patrones().inferir_patrones(this, ruta);
                 break;
             case 6:
-                new PubMed_IDs().buscar(cantidadPMID, this);
-                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
-                new Resumidor().resumidor(this);
+                new PubMed_IDs().buscar(cantidadPMID, this, ruta);
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
+                new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo(this);
+                    objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(this);
+                new patrones().inferir_patrones(this, ruta);
                 break;
             case 7:
-                lpm.BusquedaPM_Abstracts("abstracts", 500, this);
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
-                new Resumidor().resumidor(this);
+                lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
+                new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo(this);
+                    objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(this);
+                new patrones().inferir_patrones(this, ruta);
                 break;
             case 8:
-                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this);
-                new Resumidor().resumidor(this);
+                mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
+                new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo(this);
+                    objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(this);
+                new patrones().inferir_patrones(this, ruta);
                 break;
             case 9:
-                new Resumidor().resumidor(this);
+                new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo(this);
+                    objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(this);
+                new patrones().inferir_patrones(this, ruta);
                 break;
             case 10:
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this);
+                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
-                    objetos_patrones.generar_archivo(this);
+                    objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
                 }
-                new patrones().inferir_patrones(this);
+                new patrones().inferir_patrones(this, ruta);
             case 11:
                 objetos_patrones objetos_patrones = new objetos_patrones();
-                objetos_patrones.generar_archivo(this);
-                new patrones().inferir_patrones(this);
+                objetos_patrones.generar_archivo(this, ruta);
+                new patrones().inferir_patrones(this, ruta);
                 break;
             case 12:
-                new patrones().inferir_patrones(this);
+                new patrones().inferir_patrones(this, ruta);
                 break;
         }
     }
@@ -507,12 +507,12 @@ public class configuracion {
     /*busca de todos las lecturas tfbind cuales ya fueron procesadas 
     solo aquellas que no, se agregan a una lista y se continuara el proceso con estas 
      */
-    private ArrayList<lecturas_TFBIND> actualizarListaTFBind(objetosMineria objetosMineria) {
+    private ArrayList<lecturas_TFBIND> actualizarListaTFBind(objetosMineria objetosMineria, String ruta) {
         ArrayList<lecturas_TFBIND> lista = new ArrayList<>();
         factorTranscripcion ft = new factorTranscripcion();
 
         tfbind.forEach((tfb) -> {
-            if (!buscarObjeto(tfb.getFactor(), ft)) {
+            if (!buscarObjeto(tfb.getFactor(), ft, ruta)) {
                 buscarObjetos(objetosMineria, ft);
                 lista.add(tfb);
             }
@@ -533,13 +533,13 @@ public class configuracion {
 
     }
 
-    private void buscarobj(objetosMineria objMin) {
+    private void buscarobj(objetosMineria objMin, String ruta) {
         ArrayList<String> Lista = new ArrayList<>();
         ArrayList<String> NuevosObj = new ArrayList<>();
         factorTranscripcion ft = new factorTranscripcion();
 
         for (int i = 0; i < objMin.getNuevos_objetos().size(); i++) {
-            if (buscarObjeto(objMin.getNuevos_objetos().get(i), ft)) {
+            if (buscarObjeto(objMin.getNuevos_objetos().get(i), ft, ruta)) {
                 objMin.getObjetos_minados().add(objMin.getNuevos_objetos().get(i));
                 ft.NuevosObjetos(NuevosObj);
 
@@ -552,13 +552,13 @@ public class configuracion {
     }
 
     //Recupera los nuevos objetos y objetos faltantes por minar en una iteracion dada
-    private ArrayList<String> reanudarIteracion(objetosMineria objMin) {
+    private ArrayList<String> reanudarIteracion(objetosMineria objMin, String ruta) {
         ArrayList<String> Lista = new ArrayList<>();
         ArrayList<String> NuevosObj = new ArrayList<>();
         factorTranscripcion ft = new factorTranscripcion();
 
         objMin.getNuevos_objetos().forEach((obj) -> {
-            if (buscarObjeto(obj, ft)) {
+            if (buscarObjeto(obj, ft, ruta)) {
                 objMin.getObjetos_minados().add(obj);
                 ft.NuevosObjetos(NuevosObj);
             } else {
@@ -576,8 +576,8 @@ public class configuracion {
     /*se consulta un objeto espesifico provenientes del proceso de iteracion 
     si este se ecuentra retorna true de lo contrario retorna false
      */
-    private boolean buscarObjeto(String objeto, factorTranscripcion FT) {
-        ObjectContainer db = Db4o.openFile("mineria/FT.db");
+    private boolean buscarObjeto(String objeto, factorTranscripcion FT, String ruta) {
+        ObjectContainer db = Db4o.openFile(ruta + "/FT.db");
         factorTranscripcion ft = new factorTranscripcion();
         ft.setID(objeto);
         boolean encontrado = false;
@@ -602,8 +602,8 @@ public class configuracion {
     /*Este metodo revida la base de datos de objetos del experto y homologos a los que 
     ya se hizo el proceso de busqueda y se compara con los archivos de homologos y objetos del experto
     el proceso continuara para los objetos que se procesaron aun*/
-    private ArrayList<String> revisarObjH_E(String archivo, objetosMineria objetosMineria) {
-        ObjectContainer db = Db4o.openFile("mineria/ObjH_E.db");
+    private ArrayList<String> revisarObjH_E(String archivo, objetosMineria objetosMineria, String ruta) {
+        ObjectContainer db = Db4o.openFile(ruta + "/ObjH_E.db");
         objetos_Experto Obj = new objetos_Experto();
         ArrayList<String> listaObjetos = listaObjetos_homologosExperto(archivo);
         try {
@@ -648,9 +648,9 @@ public class configuracion {
         return lista;
     }
 
-    private objetosMineria recuperarObjetosMin() {
+    private objetosMineria recuperarObjetosMin(String ruta) {
         objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile("mineria/objetosMineria.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/objetosMineria.db");
 
         try {
             ObjectSet result = db.queryByExample(obj);
@@ -747,7 +747,7 @@ public class configuracion {
         return cant_pm_id;
     }
 
-    public boolean reiniciar() {
+    public boolean reiniciar(String ruta) {
         boolean reiniciar;
         Scanner lectura = new Scanner(System.in);
 
@@ -755,7 +755,7 @@ public class configuracion {
             return false;
         } else {
             System.out.println("Existe un proceso de mineria de configuracion: ");
-            verConfiguracion();
+            verConfiguracion(ruta);
             System.out.println();
             while (true) {
                 System.out.print("*Desea continuar con el proceso  ..S/N: ");
@@ -849,10 +849,10 @@ public class configuracion {
         return ruta;
     }
 
-    public ArrayList<String> listar_objetos_minados() {
+    public ArrayList<String> listar_objetos_minados(String ruta) {
 
         objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile("mineria/objetosMineria.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/objetosMineria.db");
 
         try {
             ObjectSet result = db.queryByExample(obj);
@@ -870,10 +870,10 @@ public class configuracion {
         return obj.getObjetos_minados();
     }
 
-    public ArrayList<String> listar_nuevos_objetos() {
+    public ArrayList<String> listar_nuevos_objetos(String ruta) {
 
         objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile("mineria/objetosMineria.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/objetosMineria.db");
 
         try {
             ObjectSet result = db.queryByExample(obj);
@@ -890,11 +890,11 @@ public class configuracion {
 
         return obj.getNuevos_objetos();
     }
-   
-    public ArrayList<String> listar_ligandos() {
+
+    public ArrayList<String> listar_ligandos(String ruta) {
         ArrayList<String> listaLigandos = new ArrayList<>();
         factorTranscripcion obj = new factorTranscripcion();
-        ObjectContainer db = Db4o.openFile("mineria/FT.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/FT.db");
         try {
             ObjectSet result = db.queryByExample(obj);
             while (result.hasNext()) {
@@ -915,9 +915,9 @@ public class configuracion {
         return listaLigandos;
     }
 
-    private int num_combinaciones() {
+    private int num_combinaciones(String ruta) {
         int num = 0;
-        ObjectContainer db = Db4o.openFile("mineria/combinaciones.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/combinaciones.db");
         combinacion com = new combinacion();
         ObjectSet result = db.queryByExample(com);
         combinacion combinacion = (combinacion) result.get(0);
@@ -928,9 +928,9 @@ public class configuracion {
         return num;
     }
 
-    private int num_pubmedIds() {
+    private int num_pubmedIds(String ruta) {
         int num = 0;
-        ObjectContainer db = Db4o.openFile("mineria/pubmed_id.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/pubmed_id.db");
         PMIDS ids = new PMIDS();
         ObjectSet result = db.queryByExample(ids);
         PMIDS pmids = (PMIDS) result.get(0);
@@ -941,14 +941,14 @@ public class configuracion {
         return num;
     }
 
-    private int num_eventos() {
+    private int num_eventos(String ruta) {
         int num = 0;
         File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
 
         try {
-            archivo = new File("baseC.pl");
+            archivo = new File(ruta+"/baseC.pl");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             String linea;

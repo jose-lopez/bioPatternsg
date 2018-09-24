@@ -54,7 +54,7 @@ import org.jpl7.Variable;
  */
 public class Resumidor {
 
-    public void resumidor(configuracion config) {
+    public void resumidor(configuracion config,String ruta) {
 
         String resumidorCodigo = "resumidorcompleto";// Comando para cargar el consultResumidor        
         
@@ -70,18 +70,18 @@ public class Resumidor {
         int n = config.getResumenes();
         String salida = "", entrada = "";
 
-        while (buscarAbstractHtml(n)) {
+        while (buscarAbstractHtml(n,ruta)) {
             //metodo que llama al consultResumidor
             salida = "salida_" + n + ".html";
             entrada = "abstracts_" + n + ".html";
             System.out.println("Resumiendo abstracts_" + n + "................");
 
-            resumir(entrada, n, salida);
+            resumir(entrada, n, salida,ruta);
             //recibe la ruta del resumen y genera un archivo txt
             //en la carpeta abstracts llamado resumen_(n).txt 
-            salida = "abstracts/salida_" + n + ".html";
+            salida = ruta+"/abstracts/salida_" + n + ".html";
             try {
-                generarResumenTXT(n, salida);
+                generarResumenTXT(n, salida,ruta);
             } catch (Exception e) {
             }
            
@@ -89,14 +89,14 @@ public class Resumidor {
                            
         }
         config.setGenerarResumenes(true);
-        config.guardar();
+        config.guardar(ruta);
     }
 
-    private boolean buscarAbstractHtml(int n) {
+    private boolean buscarAbstractHtml(int n,String ruta) {
         boolean encontrado = true;
         File archivo = null;
 
-        String nombre_archivo = "abstracts/abstracts_" + n + ".html";
+        String nombre_archivo = ruta+"/abstracts/abstracts_" + n + ".html";
 
         try {
             archivo = new File(nombre_archivo);
@@ -110,10 +110,10 @@ public class Resumidor {
         return encontrado;
     }
 
-    public void generarResumenTXT(int n, String ruta) throws Exception {
-        String nombre_archivo = "abstracts/resumen_" + n + ".txt";
+    public void generarResumenTXT(int n, String fuente,String ruta) throws Exception {
+        String nombre_archivo = ruta+"/abstracts/resumen_" + n + ".txt";
 
-        File archivo_fuente = new File(ruta);
+        File archivo_fuente = new File(fuente);
         File archivo_destino = new File(nombre_archivo);
 
         //archivo_destino.delete();
@@ -159,13 +159,13 @@ public class Resumidor {
         //archivo_fuente.delete();
     }
 
-    public void resumir(String abstracts, int n, String salida) { // El archivo de abstracts debe venir en formato HTML
+    public void resumir(String abstracts, int n, String salida,String ruta) { // El archivo de abstracts debe venir en formato HTML
 
         // Comandon para realizar el resumen
         String resumirComando = "tell('" + salida + "')" + ", resume('" + abstracts + "'), told.";
         //String resumirComando = "tell('salida_1_p.html'), resume('abstracts_1.html'), told.";
-
-        Query q = new Query("cd(abstracts).");
+        //System.out.println("cd(\""+ruta+"/abstracts\").");
+        Query q = new Query("cd(\""+ruta+"/abstracts\").");
         System.out.println("cambio a directorio abstracts:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
         try {
@@ -178,9 +178,10 @@ public class Resumidor {
 
             //q = new Query("open('salida.html', write, Stream), flush_output(Stream), close(Stream).");
             //System.out.println("cambio a directorio resumidor_bioinformante:" + " " + (q.hasMoreElements() ? "succeeded" : "failed"));
+          //  System.out.println(resumirComando);
             generarResumen(resumirComando); // se realiza resumen del archivo de abstracts
 
-            q = new Query("cd(..)");
+            q = new Query("cd(../../../..).");
             System.out.println("regresando a directorio raiz:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
         } catch (Throwable t) {

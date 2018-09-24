@@ -43,18 +43,18 @@ public class factorTranscripcion {
     }
 
     //constructor para la primera Iteracion con lecturas obtenidas desde TFBIND
-    public factorTranscripcion(lecturas_TFBIND lecturasTFBIND, int NumeroObjetos, objetosMineria objetosMineria, boolean GO, boolean MESH) {
+    public factorTranscripcion(lecturas_TFBIND lecturasTFBIND, int NumeroObjetos, objetosMineria objetosMineria, boolean GO, boolean MESH,String ruta) {
         System.out.println("Buscando información para : " + lecturasTFBIND.getFactor() + " ...");
         this.lecturasTFBIND = lecturasTFBIND;
         this.ID = lecturasTFBIND.getFactor();
 
         ArrayList<HGNC> infgen = new ArrayList<>();
-        infgen = new lecturas_HGNC().busquedaInfGen(ID, GO, MESH);
+        infgen = new lecturas_HGNC().busquedaInfGen(ID, GO, MESH,ruta);
 
         if (infgen.size() == 0) {
             lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
             String simbolo = pc.obtenercodigoUP(ID);
-            infgen = new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH);
+            infgen = new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH,ruta);
         }
 
         this.HGNC = infgen;
@@ -66,7 +66,7 @@ public class factorTranscripcion {
 
         for (int i = 0; i < IDCP.size(); i++) {
             complejoProteinico cp = new complejoProteinico();
-            cp = new lecturas_PDB().Busqueda_PDB(IDCP.get(i), GO, MESH);
+            cp = new lecturas_PDB().Busqueda_PDB(IDCP.get(i), GO, MESH,ruta);
             cp.buscar_ligandos();
             complejoProteinico.add(cp);
         }
@@ -142,20 +142,20 @@ public class factorTranscripcion {
     }
 
     //constructor para la segunda Iteracion en adelante
-    public factorTranscripcion(String ID, int N_Iteracion, int NumeroObjetos, boolean GO, boolean MESH) {
+    public factorTranscripcion(String ID, int N_Iteracion, int NumeroObjetos, boolean GO, boolean MESH,String ruta) {
 
         System.out.println("Buscando información para: " + ID + " ...");
         this.lecturasTFBIND = new lecturas_TFBIND();
         this.ID = ID;
         this.N_Iteracion = N_Iteracion;
-        this.HGNC = new lecturas_HGNC().busquedaInfGen(ID, GO, MESH);
+        this.HGNC = new lecturas_HGNC().busquedaInfGen(ID, GO, MESH,ruta);
         this.complejoProteinico = new ArrayList<>();
 
         ArrayList<String> IDCP = Buscar_ID_complejosProteinicos(ID, NumeroObjetos);
 
         IDCP.forEach((idcp) -> {
             complejoProteinico cp = new complejoProteinico();
-            cp = new lecturas_PDB().Busqueda_PDB(idcp, GO, MESH);
+            cp = new lecturas_PDB().Busqueda_PDB(idcp, GO, MESH,ruta);
             cp.buscar_ligandos();
             complejoProteinico.add(cp);
         });
@@ -184,13 +184,13 @@ public class factorTranscripcion {
 
     }
 
-    public void vaciar_pl(String archivo) {
+    public void vaciar_pl(String ruta) {
         ArrayList<String> AuxLig = new ArrayList<>();
         String ligandos = "[";
 
         for (complejoProteinico comp : complejoProteinico) {
             System.out.print(".");
-            comp.vaciar_pl(archivo);
+            comp.vaciar_pl(ruta);
             for (ligando ligando : comp.getLigandos()) {
                 if (!AuxLig.contains(ligando.getId())) {
                     if (ligandos.equals("[")) {
@@ -204,7 +204,7 @@ public class factorTranscripcion {
         }
         ligandos += "]";
         if (!ligandos.equals("[]")) {
-            new escribirBC("ligandos(\'" + ID.replace("\'", "") + "\'," + ligandos + ").", archivo);
+            new escribirBC("ligandos(\'" + ID.replace("\'", "") + "\'," + ligandos + ").", ruta+"/objetosMinados.pl");
         }
                 
         boolean encontrado = false;
@@ -225,8 +225,8 @@ public class factorTranscripcion {
 
             cadena += "]";
             //System.out.println("Experto: "+cadena);
-            new escribirBC("sinonimos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadena + ").", archivo);
-            new escribirBC(cadena_txt, "objetosMinados.txt");
+            new escribirBC("sinonimos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadena + ").", ruta+"/objetosMinados.pl");
+            new escribirBC(cadena_txt, ruta+"/objetosMinados.txt");
             ArrayList<String> lista = hgnc.ListaNombres();
             if (lista.contains(ID)) {
                 encontrado = true;
@@ -234,21 +234,21 @@ public class factorTranscripcion {
         }
 
         if (!encontrado) {
-            new escribirBC("sinonimos(\'" + ID + "\',[\'" + ID + "\']).", archivo);
+            new escribirBC("sinonimos(\'" + ID + "\',[\'" + ID + "\']).", ruta+"/objetosMinados.pl");
             String cadena_txt = ID + ";" + objMIn.procesarNombre(ID);
             new escribirBC(cadena_txt, "objetosMinados.txt");
         }
 
         if (N_Iteracion == 0) {
-            new escribirBC("transcription_factors(\'" + ID.replace("\'", "") + "\').", archivo);
+            new escribirBC("transcription_factors(\'" + ID.replace("\'", "") + "\').", ruta+"/objetosMinados.pl");
         }
 
     }
 
    
-    private lecturas_HGNC lecturasHGNC(String ID, boolean GO, boolean MESH) {
+    private lecturas_HGNC lecturasHGNC(String ID, boolean GO, boolean MESH,String ruta) {
         lecturas_HGNC HGNC = new lecturas_HGNC();
-        this.HGNC = HGNC.busquedaInfGen(ID, GO, MESH);
+        this.HGNC = HGNC.busquedaInfGen(ID, GO, MESH,ruta);
         return HGNC;
     }
 

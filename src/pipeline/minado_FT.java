@@ -46,27 +46,27 @@ import servicios.lecturas_pathwaycommons;
 
 public class minado_FT {
 
-    public void minado(String ruta, float confiabilidad, int Iteraciones, int numeroObjetos, boolean GO, boolean MESH, configuracion config) {
+    public void minado(String regProm, float confiabilidad, int Iteraciones, int numeroObjetos, boolean GO, boolean MESH, configuracion config,String ruta) {
 
         //lleva un control de los objetos minados y los nuevos objetos encontrados en el proceso
         objetosMineria objetosMineria = new objetosMineria();
         //crea el archivo objetosMinados.txt con la informacion de cada objeto minado en el proceso     
-        new objetosMinados().crear_archivo();
+        new objetosMinados().crear_archivo(ruta);
 
         //buca informacion en los diferentes servicios sobre cada homologo en la lista de homologos
-        buscarHomologos(listaObjetos_homologosExperto("homologos"), objetosMineria, config, GO, MESH);
+        buscarHomologos(listaObjetos_homologosExperto("homologos"), objetosMineria, config, GO, MESH,ruta);
 
         //buca informacion en los diferentes servicios sobre cada objetos agregado por el experto
-        buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria, config, GO, MESH);
+        buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria, config, GO, MESH,ruta);
 
         //primera Iteracion partiendo de TFBind
-        primeraIteracion(ruta, confiabilidad, numeroObjetos, objetosMineria, config, new ArrayList<lecturas_TFBIND>(), GO, MESH);
+        primeraIteracion(regProm, confiabilidad, numeroObjetos, objetosMineria, config, new ArrayList<lecturas_TFBIND>(), GO, MESH,ruta);
 
         //Segunda Iteracion en adelante partiendo de nuevos objetos encontrados en PDB
-        Iteraciones(false, new ArrayList<String>(), numeroObjetos, Iteraciones, objetosMineria, config, 1, GO, MESH);
+        Iteraciones(false, new ArrayList<String>(), numeroObjetos, Iteraciones, objetosMineria, config, 1, GO, MESH,ruta);
     }
 
-    public void primeraIteracion(String ruta, float confiabilidad, int numeroObjetos, objetosMineria objetosMineria, configuracion config, ArrayList<lecturas_TFBIND> lecturas, boolean GO, boolean MESH) {
+    public void primeraIteracion(String regProm, float confiabilidad, int numeroObjetos, objetosMineria objetosMineria, configuracion config, ArrayList<lecturas_TFBIND> lecturas, boolean GO, boolean MESH,String ruta) {
         //Primera Iteracion
         System.out.println("\n\n==== Nivel 0 ====\n");
         objetosMineria.setIteracion(0);
@@ -75,11 +75,11 @@ public class minado_FT {
         if (lecturas.size() == 0) {
             // se envia la ruta del archivo con la region promotora
             // y el procentaje de confiabilidad para obtener las lecturas de tfbind
-            lecturasTFB = lecturasTFBID(ruta, confiabilidad);
+            lecturasTFB = lecturasTFBID(regProm, confiabilidad);
             System.out.println("* " + lecturasTFB.size() + " Factores de transcripcion encontrados");
             //se guardan el lista de lecturas tfbind en caso de que se reinicie el proceso
             config.setTfbind(lecturasTFB);
-            config.guardar();
+            config.guardar(ruta);
         } else {
             //si el proceso se recupera desde este punto toma la lista de lecturas de tfbind y continua desde aqui
             lecturasTFB = lecturas;
@@ -87,7 +87,7 @@ public class minado_FT {
 
         for (lecturas_TFBIND lectura : lecturasTFB) {
             //se busca toda la informacion correspondiente al factor de transcripcion
-            factorTranscripcion FT = new factorTranscripcion(lectura, numeroObjetos, objetosMineria, GO, MESH);
+            factorTranscripcion FT = new factorTranscripcion(lectura, numeroObjetos, objetosMineria, GO, MESH,ruta);
 
             //se agregar el factor de transcripcion a los objetos minados
             objetosMineria.getObjetos_minados().add(FT.getID());
@@ -100,20 +100,20 @@ public class minado_FT {
             new objetosMinados().agregar_objetos(FT);
 
             //se guarda la informacion del objeto minado en 'mineria/FT.db'
-            guardar_Factor_transcripcion(FT);
+            guardar_Factor_transcripcion(FT,ruta);
             //System.out.println("...ok");
             FT = null;
         }
         //se guarda los objetos minados y los nuevos objetos de la iteracion en 'mineria/objetosMineria.db'
-        guardar_objetosIteracion(objetosMineria);
+        guardar_objetosIteracion(objetosMineria,ruta);
         //se guarda el cheklist que indica que ya se culmino con el proceso de la primera iteracion
         config.setLecturas_tfbind(true);
-        config.guardar();
+        config.guardar(ruta);
         //objetosMineria.imprimir();
 
     }
 
-    public void Iteraciones(boolean Reanudar, ArrayList<String> Lista, int numeroObjetos, int Iteraciones, objetosMineria objetosMineria, configuracion config, int iter, boolean GO, boolean MESH) {
+    public void Iteraciones(boolean Reanudar, ArrayList<String> Lista, int numeroObjetos, int Iteraciones, objetosMineria objetosMineria, configuracion config, int iter, boolean GO, boolean MESH,String ruta) {
         //Iteracion 2 en adelante
 
         //la variable 'iter' indica la iteracion en la que esta el proceso altualmente si este es reanudado
@@ -134,7 +134,7 @@ public class minado_FT {
             for (String objeto : Lista) {
                 // se busca toda la informacion correspondiente al objeto
                 // nombre, simbolo, sinonimos, complejos, nuevos objetos, ligandos
-                factorTranscripcion FT = new factorTranscripcion(objeto, i, numeroObjetos, GO, MESH);
+                factorTranscripcion FT = new factorTranscripcion(objeto, i, numeroObjetos, GO, MESH,ruta);
 
                 //se agrega el objeto a la lista de objetos minados
                 objetosMineria.getObjetos_minados().add(FT.getID());
@@ -147,18 +147,18 @@ public class minado_FT {
                 new objetosMinados().agregar_objetos(FT);
 
                 //se guarda la informacion del objeto minado en mineria/FT.db
-                guardar_Factor_transcripcion(FT);
+                guardar_Factor_transcripcion(FT,ruta);
                 //System.out.println("Listo....");
             }
 
             //se guarda la lista de objetos minados y nuevos objetos en la iteracion
             objetosMineria.setIteracion(i);
-            guardar_objetosIteracion(objetosMineria);
+            guardar_objetosIteracion(objetosMineria,ruta);
             //objetosMineria.imprimir();
         }
         //se guarda el checklist que indica que el proceso de iteraciones culmino
         config.setProcesoIteraciones(true);
-        config.guardar();
+        config.guardar(ruta);
     }
 
 //  se obtinen lecturas de TFBIND recibe la ruta del archivo bloquesconsenso 
@@ -171,9 +171,9 @@ public class minado_FT {
 
     }
 
-    private boolean buscarObjeto(String objeto, factorTranscripcion FT) {
+    private boolean buscarObjeto(String objeto, factorTranscripcion FT,String ruta) {
         objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile("mineria/FT.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/FT.db");
         factorTranscripcion ft = new factorTranscripcion();
         ft.setID(objeto);
         try {
@@ -191,9 +191,9 @@ public class minado_FT {
         return false;
     }
 
-    public objetosMineria recuperarObjetosMin() {
+    public objetosMineria recuperarObjetosMin(String ruta) {
         objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile("mineria/objetosMineria.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/objetosMineria.db");
 
         try {
             ObjectSet result = db.queryByExample(obj);
@@ -259,9 +259,9 @@ public class minado_FT {
         }
     }
 
-    private void guardar_Factor_transcripcion(factorTranscripcion FT) {
+    private void guardar_Factor_transcripcion(factorTranscripcion FT,String ruta) {
 
-        ObjectContainer db = Db4o.openFile("mineria/FT.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/FT.db");
         try {
             db.store(FT);
         } catch (Exception e) {
@@ -271,8 +271,8 @@ public class minado_FT {
         }
     }
 
-    public void guardar_objetosIteracion(objetosMineria objetosMin) {
-        ObjectContainer db = Db4o.openFile("mineria/objetosMineria.db");
+    public void guardar_objetosIteracion(objetosMineria objetosMin,String ruta) {
+        ObjectContainer db = Db4o.openFile(ruta+"/objetosMineria.db");
         try {
             db.store(objetosMin);
         } catch (Exception e) {
@@ -307,7 +307,7 @@ public class minado_FT {
 
     }
 
-    public void buscarHomologos(ArrayList<String> homologos, objetosMineria objetosMineria, configuracion config, boolean GO, boolean MESH) {
+    public void buscarHomologos(ArrayList<String> homologos, objetosMineria objetosMineria, configuracion config, boolean GO, boolean MESH,String ruta) {
         System.out.println("\n\n**Leyendo archivo de Homologos...");
 
         for (String homologo : homologos) {
@@ -318,14 +318,14 @@ public class minado_FT {
 
             //busca la informacion del objeto haciendo uso de HGNC
             ArrayList<HGNC> infgen = new ArrayList<>();
-            infgen = new lecturas_HGNC().busquedaInfGen(homologo, GO, MESH);
+            infgen = new lecturas_HGNC().busquedaInfGen(homologo, GO, MESH,ruta);
 
             //si no existe informacion en HGNC se hace uso de los servicios de pathwaycommons 
             //y con el nombre que se obtenga de intenta buscar de nuevo en HGNC
             if (infgen.size() == 0) {
                 lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
                 String simbolo = pc.obtenercodigoUP(homologo);
-                infgen = new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH);
+                infgen = new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH,ruta);
             }
 
             objExp.setHGNC(infgen);
@@ -336,17 +336,17 @@ public class minado_FT {
             //en estos casos se agrega cada objeto al listado de objetos minados
             objExp.getHGNC().forEach(objhgnc -> objetosMineria.agregar_objeto(objhgnc));
 
-            guardarObjetos_Homologos_Experto(objExp);
+            guardarObjetos_Homologos_Experto(objExp,ruta);
 
-            buscar_coincidencia(homologo, objExp.getHGNC());
+            buscar_coincidencia(homologo, objExp.getHGNC(),ruta);
 
         }
         //guarda el checklist que indica que culmino la busqueda de informacion sobre los homologos
         config.setHomologos(true);
-        config.guardar();
+        config.guardar(ruta);
     }
 
-    public void buscarObjetosExperto(ArrayList<String> lista, objetosMineria objetosMineria, configuracion config, boolean GO, boolean MESH) {
+    public void buscarObjetosExperto(ArrayList<String> lista, objetosMineria objetosMineria, configuracion config, boolean GO, boolean MESH,String ruta) {
         System.out.println("\n\n**Leyendo archivo de Objetos Experto...");
 
         for (String objeto : lista) {
@@ -357,14 +357,14 @@ public class minado_FT {
 
             //busca la informacion del objeto haciendo uso de HGNC
             ArrayList<HGNC> infgen = new ArrayList<>();
-            infgen = new lecturas_HGNC().busquedaInfGen(objeto, GO, MESH);
+            infgen = new lecturas_HGNC().busquedaInfGen(objeto, GO, MESH,ruta);
 
             //En ocaciones HGNC no da como respuesta un objeto unico si no que un listado de ellos
             //en estos casos se agrega cada objeto al listado de objetos minados
             if (infgen.size() == 0) {
                 lecturas_pathwaycommons pc = new lecturas_pathwaycommons();
                 String simbolo = pc.obtenercodigoUP(objeto);
-                infgen = new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH);
+                infgen = new lecturas_HGNC().busquedaInfGen(simbolo, GO, MESH,ruta);
             }
 
             objExp.setHGNC(infgen);
@@ -375,15 +375,15 @@ public class minado_FT {
             //en estos casos se agrega cada objeto al listado de objetos minados
             objExp.getHGNC().forEach(objhgnc -> objetosMineria.agregar_objeto(objhgnc));
 
-            guardarObjetos_Homologos_Experto(objExp);
-            buscar_coincidencia(objeto, objExp.getHGNC());
+            guardarObjetos_Homologos_Experto(objExp,ruta);
+            buscar_coincidencia(objeto, objExp.getHGNC(),ruta);
         }
         //guarda el checklist que indica que culmino la busqueda de informacion sobre los objetos del experto
         config.setObjetosExperto(true);
-        config.guardar();
+        config.guardar(ruta);
     }
 
-    private void buscar_coincidencia(String obj, ArrayList<HGNC> hgnc) {
+    private void buscar_coincidencia(String obj, ArrayList<HGNC> hgnc,String ruta) {
         boolean encontrado = false;
 
         for (HGNC h : hgnc) {
@@ -409,7 +409,7 @@ public class minado_FT {
 
             }
 
-            ontologia.guardarObjeto(ontologia, false, true);
+            ontologia.guardarObjeto(ontologia, false, true,ruta);
 
         }
 
@@ -433,9 +433,9 @@ public class minado_FT {
         return lista;
     }
 
-    private void guardarObjetos_Homologos_Experto(objetos_Experto objExp) {
+    private void guardarObjetos_Homologos_Experto(objetos_Experto objExp, String ruta) {
 
-        ObjectContainer db = Db4o.openFile("mineria/ObjH_E.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/ObjH_E.db");
         try {
             db.store(objExp);
         } catch (Exception e) {
@@ -447,20 +447,20 @@ public class minado_FT {
 
     }
 
-    public void vaciar_bc_pl(boolean GO, boolean MESH, configuracion config) {
+    public void vaciar_bc_pl(boolean GO, boolean MESH, configuracion config,String ruta) {
         limpiarPantalla();
         System.out.print("Vaciando ontologias y objetos minados a formato .pl");
-        new escribirBC("ligando(\'\').", "objetosMinados.pl");
-        new escribirBC("transcription_factors(\'\').", "objetosMinados.pl");
+        new escribirBC("ligando(\'\').", ruta+"/objetosMinados.pl");
+        new escribirBC("transcription_factors(\'\').", ruta+"/objetosMinados.pl");
         //-------------------------------------------------------
-        ObjectContainer dbHE = Db4o.openFile("mineria/ObjH_E.db");
+        ObjectContainer dbHE = Db4o.openFile(ruta+"/ObjH_E.db");
         objetos_Experto objEH = new objetos_Experto();
         try {
             ObjectSet result = dbHE.queryByExample(objEH);
             while (result.hasNext()) {
                 try {
                     objetos_Experto obj = (objetos_Experto) result.next();
-                    obj.vaciar_pl("objetosMinados.pl");
+                    obj.vaciar_pl(ruta);
                     System.out.print(".");
                 } catch (Exception e) {
                 }
@@ -473,14 +473,14 @@ public class minado_FT {
 
         
         //----------------------------------
-        ObjectContainer db = Db4o.openFile("mineria/FT.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/FT.db");
         factorTranscripcion FT = new factorTranscripcion();
         try {
 
             ObjectSet result = db.queryByExample(FT);
             result.forEach((f) -> {
                 factorTranscripcion ft = (factorTranscripcion) f;
-                ft.vaciar_pl("objetosMinados.pl");
+                ft.vaciar_pl(ruta);
             });
 
         } catch (Exception e) {
@@ -490,10 +490,10 @@ public class minado_FT {
         }
 
         ontologiaObjMin ontologias = new ontologiaObjMin();
-        ontologias.vaciarOntologia_pl(GO, MESH);
+        ontologias.vaciarOntologia_pl(GO, MESH,ruta);
 
         config.setVaciado_pl(true);
-        config.guardar();
+        config.guardar(ruta);
     }
 
     private void limpiarPantalla() {

@@ -1,28 +1,25 @@
 :-style_check(-discontiguous).
-:-[mineria/objetos_patrones].
-:-[baseC].
-%:-[baseGPR].
 
-inicio(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[activate,bind]),(ligand(A);receptor(A)),receptor(B).
+inicio(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[activate,bind]),(ligand(A);receptor(A)),receptor(B),not(A = B).
 
-final(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),transcription_factor(A),buscar_en_lista(E,[bind,activate,inhibit,regulate]).
+final(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),transcription_factor(A),buscar_en_lista(E,[activate,inactivate,repress,inhibit,regulate,stimulate]).
 
-intermedios(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),protein(B),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate,activate]).
+intermedios(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),protein(B),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate]).
 
-eventoEspecial(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate,activate,bind]).
+eventoEspecial(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),transcription_factor(A),buscar_en_lista(E,[bind,activate,inactivate,repress,inhibit,regulate,stimulate]).
 
-finalEspecial(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[inhibit]).
-
+finalEspecial(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[bind,activate,inactivate,repress,inhibit,regulate,stimulate]).
+%[bind,activate,inactivate,repress,inhibit,regulate,stimulate]
 
 %Patrones con restricciones de objetos
 
-inicio_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[activate,bind]),(ligand(A);receptor(A)),receptor(B).
+inicio_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[activate,bind]),(ligand(A);receptor(A)),receptor(B),not(A = B).
 
-final_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),transcription_factor(A),buscar_en_lista(E,[bind,activate,inhibit,regulate]).
+final_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),transcription_factor(A),buscar_en_lista(E,[activate,inactivate,repress,inhibit,regulate,stimulate]).
 
-intermedios_rest(A,E,B,L):-buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),protein(B),not(ligand(B)),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate,activate]).
+intermedios_rest(A,E,B,L):-buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),protein(B),not(ligand(B)),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate]).
 
-eventoEspecial_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate,activate]).
+eventoEspecial_rest(A,E,B,L):-transcription_factor(A),buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[bind,activate,inactivate,repress,inhibit,regulate,stimulate]).
 
 
 buscar_en_lista(L,[L|_]).

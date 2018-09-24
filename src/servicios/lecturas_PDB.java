@@ -20,13 +20,13 @@ import estructura.HGNC;
  */
 public class lecturas_PDB extends conexionServ{
 
-    public complejoProteinico Busqueda_PDB(String cp, boolean GO, boolean MESH) {
+    public complejoProteinico Busqueda_PDB(String cp, boolean GO, boolean MESH,String ruta) {
         complejoProteinico CP = new complejoProteinico();
         CP.setID(cp);
         String url = "http://www.rcsb.org/pdb/rest/describeMol?structureId=" + cp;
         try {
             //System.out.print("leyendo: " + cp + "  ");
-            revisa_xml_PDB(conecta(url), CP, GO, MESH);
+            revisa_xml_PDB(conecta(url), CP, GO, MESH,ruta);
             // System.out.println("   ....ok");
         } catch (Exception ex) {
 
@@ -35,7 +35,7 @@ public class lecturas_PDB extends conexionServ{
     }
 
     //busquedas PDB   
-    private void revisa_xml_PDB(Document doc, complejoProteinico cp, boolean GO, boolean MESH) {
+    private void revisa_xml_PDB(Document doc, complejoProteinico cp, boolean GO, boolean MESH,String ruta) {
 
         NodeList nList = doc.getElementsByTagName("polymer");
 
@@ -80,9 +80,9 @@ public class lecturas_PDB extends conexionServ{
                     ArrayList<HGNC> L_HGNC = new ArrayList<>();
                     if (idUP.length() == 6) {
                         lecturas_Uniprot UP = new lecturas_Uniprot(idUP);
-                        L_HGNC = new lecturas_HGNC().busquedaInfGen(UP.getSimbolo(), GO, MESH);
+                        L_HGNC = new lecturas_HGNC().busquedaInfGen(UP.getSimbolo(), GO, MESH,ruta);
                     } else {
-                        L_HGNC = new lecturas_HGNC().busquedaInfGen(nombre, GO, MESH);
+                        L_HGNC = new lecturas_HGNC().busquedaInfGen(nombre, GO, MESH,ruta);
                     }
                     //System.out.println(UP.getSimbolo());
 
