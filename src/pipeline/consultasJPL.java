@@ -53,28 +53,28 @@ public class consultasJPL {
     }
 
     public void menu(String ruta) {
-
         String v = "style_check(-discontiguous).";
         Query q0 = new Query(v);
         q0.hasSolution();
 
-        String objPatr = "[" + ruta + "/objetos_patrones].";
+        String objPatr = "['" + ruta + "/objetos_patrones'].";
+        System.out.println(objPatr);
         Query q1 = new Query(objPatr);
         q1.hasSolution();
 
-        String bc = "[" + ruta + "/baseC].";
+        String bc = "['" + ruta + "/baseC'].";
         Query q2 = new Query(bc);
         q2.hasSolution();
 
-        String objMin = "[" + ruta + "/objetosMinados].";
+        String objMin = "['" + ruta + "/objetosMinados'].";
         Query q3 = new Query(objMin);
         q3.hasSolution();
 
-        String objGO = "[" + ruta + "/ontologiaGO].";
+        String objGO = "['" + ruta + "/ontologiaGO'].";
         Query q4 = new Query(objGO);
         q4.hasSolution();
 
-        String archivo = "[consultas].";
+        String archivo = "['consultas'].";
         Query q = new Query(archivo);
         q.hasSolution();
 
@@ -814,18 +814,20 @@ public class consultasJPL {
                     String receptor = "'" + text + "'";
 
                     String consulta = "receptor(" + receptor + ").";
-
+                    
                     Query q2 = new Query(consulta);
                     limpiarPantalla();
 
                     if (q2.hasSolution()) {
                         System.out.println();
                         pathway.forEach((p) -> {
-
-                            if (p.getObjetos().get(1).equals(receptor)) {
+                            String ft = p.getObjetos().get(p.getObjetos().size() - 2);
+                            String consulta2 = "transcription_factor(" +ft+ ").";
+                            Query q3 = new Query(consulta2);
+                                                        
+                            if (p.getObjetos().get(1).equals(receptor) && q3.hasSolution()) {
                                 System.out.println("receptor: " + receptor);
-                                System.out.println("motivo: " + p.getObjetos().get(p.getObjetos().size() - 1));
-
+                                System.out.println("motivo: " + "'"+ft.replace("'", "")+"RE'");
                                 System.out.println("pathway: " + p.getPatron() + "\n");
                             }
 
