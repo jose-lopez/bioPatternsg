@@ -34,13 +34,16 @@ import servicios.lecturas_TFBIND;
 
 /**
  *
- * @author yacson
+ * @author yacson ramirez
  */
 public class confGeneral {
 
     private String red;
     private String proceso;
 
+    /**
+     * Este método muestra el listado de las redes que se han minado
+     */
     public void listarRedes() {
 
         final File carpeta = new File("mineria/redes");

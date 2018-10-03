@@ -163,7 +163,7 @@ public class lecturas_PM extends conexionServ{
             listasPM.add(laux);
         }
         System.out.println(listasPM.size());
-        listasPM.parallelStream().forEach((lpm) -> {
+        listasPM.forEach((lpm) -> {
             
             String ruta_archivo = ruta+"/"+fileAbstID + "/" + fileAbstID + "_" + lpm.num + ".html";
             descarga(lpm.ID, IDS,cabecera,pie,ruta_archivo);
