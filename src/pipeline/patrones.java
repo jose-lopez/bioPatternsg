@@ -43,7 +43,7 @@ public class patrones {
         Query q0 = new Query(v);
         q0.hasSolution();
 
-        String objPatr = "[" + ruta + "/objetos_patrones].";
+        String objPatr = "['" + ruta + "/objetos_patrones'].";
         Query q1 = new Query(objPatr);
         q1.hasSolution();
 
@@ -106,13 +106,13 @@ public class patrones {
             System.out.print("*Desea usar una base de conocimiento reducida ..S/N: ");
             String resp = lectura.nextLine();
             if (resp.equalsIgnoreCase("s")) {
-                String bc = "[" + ruta + "/baseCR].";
+                String bc = "['" + ruta + "/baseCR'].";
                 Query q2 = new Query(bc);
                 q2.hasSolution();
 
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
-                String bc = "[" + ruta + "/baseC].";
+                String bc = "['" + ruta + "/baseC'].";
                 Query q2 = new Query(bc);
                 q2.hasSolution();
 
