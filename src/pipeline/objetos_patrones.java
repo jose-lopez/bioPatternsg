@@ -25,10 +25,10 @@ public class objetos_patrones {
         Query q0 = new Query(v);
         q0.hasSolution();
         
-        String MESH = "["+ruta+"/ontologiaMESH].";
-        String objMin = "["+ruta+"/objetosMinados].";
-        String wkr = "["+ruta+"/well_know_rules].";
-        String bc = "["+ruta+"/baseC].";
+        String MESH = "['"+ruta+"/ontologiaMESH'].";
+        String objMin = "['"+ruta+"/objetosMinados'].";
+        String wkr = "['"+ruta+"/well_know_rules'].";
+        String bc = "['"+ruta+"/baseC'].";
         
         Query q1 = new Query(MESH);
         q1.hasSolution();

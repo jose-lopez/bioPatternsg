@@ -62,7 +62,7 @@ public class patrones {
             if (!objEnlace.contains(sep1[2])) {
                 objEnlace.add(sep1[2]);
             }
-            System.out.println("evento inicio:  " + obj);
+            //System.out.println("evento inicio:  " + obj);
         });
 
         ArrayList<String> listaFin = new ArrayList<>();
@@ -85,7 +85,7 @@ public class patrones {
                 objCierre.add(sep[2]);
             }
 
-            System.out.println("evento fin:  " + fin);
+            //System.out.println("evento fin:  " + fin);
         });
         //patrones de 2 eventos
         patron_2_eventos(objCierre, listaInicio, objEnlace, ruta);

@@ -19,13 +19,13 @@ import org.w3c.dom.NodeList;
 import configuracion.configuracion;
 import configuracion.listPM;
 
-
 /**
  *
  * @author yacson
  */
-public class lecturas_PM extends conexionServ{
-     public ArrayList<String> busquedaPM_ID(String palabras_clave, int cantIDs) {
+public class lecturas_PM extends conexionServ {
+
+    public ArrayList<String> busquedaPM_ID(String palabras_clave, int cantIDs) {
         ArrayList<String> listID = new ArrayList<>();
         palabras_clave = palabras_clave.replace(" ", "+");
         //System.out.println(palabras_clave);
@@ -110,9 +110,8 @@ public class lecturas_PM extends conexionServ{
 //        System.out.println("ok");
 //
 //    }
-
-    public void BusquedaPM_Abstracts(String fileAbstID, int cant_por_archivo, configuracion config,String ruta) {
-        crearCarpeta(ruta+"/"+fileAbstID);
+    public void BusquedaPM_Abstracts(String fileAbstID, int cant_por_archivo, configuracion config, String ruta) {
+        crearCarpeta(ruta + "/" + fileAbstID);
         String cabecera = "<!DOCTYPE html>\r"
                 + "<html>\r"
                 + "<head>\r"
@@ -123,11 +122,11 @@ public class lecturas_PM extends conexionServ{
 
         String pie = "</body>\r"
                 + "</html>";
-        
+
         ArrayList<String> listaIDs = new ArrayList<>();
         ArrayList<listPM> listasPM = new ArrayList<>();
 
-        ObjectContainer db = Db4o.openFile(ruta+"/pubmed_id.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/pubmed_id.db");
         PMIDS pm = new PMIDS();
         try {
 
@@ -156,7 +155,7 @@ public class lecturas_PM extends conexionServ{
                 cont = 0;
             }
         }
-        if(aux.size()>0){
+        if (aux.size() > 0) {
             listPM laux = new listPM();
             laux.ID = aux;
             laux.num = contuax;
@@ -164,19 +163,20 @@ public class lecturas_PM extends conexionServ{
         }
         System.out.println(listasPM.size());
         listasPM.forEach((lpm) -> {
-            
-            String ruta_archivo = ruta+"/"+fileAbstID + "/" + fileAbstID + "_" + lpm.num + ".html";
-            descarga(lpm.ID, IDS,cabecera,pie,ruta_archivo);
+
+            String ruta_archivo = ruta + "/" + fileAbstID + "/" + fileAbstID + "_" + lpm.num + ".html";
+            descarga(lpm.ID, IDS, cabecera, pie, ruta_archivo);
         });
-        
+
         config.setAbstracts(true);
         config.guardar(ruta);
         System.out.println("ok");
 
     }
     int cont1 = 0;
-    private void descarga(ArrayList<String> listaPMID, int IDS, String cabecera,String pie, String ruta_archivo) {
-        
+
+    private void descarga(ArrayList<String> listaPMID, int IDS, String cabecera, String pie, String ruta_archivo) {
+
         guardar_en_archivo(ruta_archivo, cabecera);
         listaPMID.forEach((pm) -> {
 
@@ -185,12 +185,15 @@ public class lecturas_PM extends conexionServ{
             System.out.print("\n\n Generando coleccion de  abstracts .....");
             System.out.println("Descargando " + cont1 + " de " + IDS);
             String ruta = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + pm + "&retmode=xml&rettype=abstract";
-            
-            Document doc = conecta(ruta);
-            ArrayList<String> lista = revisa_xml(doc, "AbstractText");
-            guardar_en_archivo(ruta_archivo, lista, pm);
-           
-        
+
+            try {
+                Document doc = conecta(ruta);
+                ArrayList<String> lista = revisa_xml(doc, "AbstractText");
+                guardar_en_archivo(ruta_archivo, lista, pm);
+            } catch (Exception e) {
+                
+            }
+
         });
         guardar_en_archivo(ruta_archivo, pie);
     }
@@ -297,8 +300,3 @@ public class lecturas_PM extends conexionServ{
     }
 
 }
-
-
-
-
-

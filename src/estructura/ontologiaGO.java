@@ -98,31 +98,32 @@ public class ontologiaGO {
             for (int i = 0; i < objeto.is_a.size(); i++) {
                 buscarObjeto(objeto.is_a.get(i), nivel, "is a--> ", restriccion, ruta);
             }
-        } else if (restriccion == null || restriccion.equals("part of")) {
+        } 
+        if (restriccion == null || restriccion.equals("part of")) {
             for (int i = 0; i < objeto.part_of.size(); i++) {
                 buscarObjeto(objeto.part_of.get(i), nivel, "part of--> ", restriccion, ruta);
             }
-        } else if (restriccion == null || restriccion.equals("regulate")) {
+        }if (restriccion == null || restriccion.equals("regulate")) {
             for (int i = 0; i < objeto.regulates.size(); i++) {
                 buscarObjeto(objeto.regulates.get(i), nivel, "regulate--> ", restriccion, ruta);
             }
-        } else if (restriccion == null || restriccion.equals("negatively regulate")) {
+        }if (restriccion == null || restriccion.equals("negatively regulate")) {
             for (int i = 0; i < objeto.negatively_regulates.size(); i++) {
                 buscarObjeto(objeto.negatively_regulates.get(i), nivel, "negatively regulate--> ", restriccion, ruta);
             }
-        } else if (restriccion == null || restriccion.equals("positively regulate")) {
+        }if (restriccion == null || restriccion.equals("positively regulate")) {
             for (int i = 0; i < objeto.positively_regulates.size(); i++) {
                 buscarObjeto(objeto.positively_regulates.get(i), nivel, "positively regulate--> ", restriccion, ruta);
             }
-        } else if (restriccion == null || restriccion.equals("occurs in")) {
+        }if (restriccion == null || restriccion.equals("occurs in")) {
             for (int i = 0; i < objeto.occurs_in.size(); i++) {
                 buscarObjeto(objeto.occurs_in.get(i), nivel, "occurs in--> ", restriccion, ruta);
             }
-        } else if (restriccion == null || restriccion.equals("capable of")) {
+        }if (restriccion == null || restriccion.equals("capable of")) {
             for (int i = 0; i < objeto.capable_of.size(); i++) {
                 buscarObjeto(objeto.capable_of.get(i), nivel, "capable of--> ", restriccion, ruta);
             }
-        } else if (restriccion == null || restriccion.equals("capable of part of")) {
+        }if (restriccion == null || restriccion.equals("capable of part of")) {
             for (int i = 0; i < objeto.capable_of_part_of.size(); i++) {
                 buscarObjeto(objeto.capable_of_part_of.get(i), nivel, "capable of part of--> ", restriccion, ruta);
             }

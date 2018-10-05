@@ -9,6 +9,8 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.collections.ActivatableArrayList;
+import estructura.factorTranscripcion;
+import estructura.objetos_Experto;
 import estructura.ontologiaGO;
 import estructura.ontologiaMESH;
 import estructura.ontologiaObjMin;
@@ -137,7 +139,6 @@ public class confGeneral {
         boolean r = true;
         String resp;
         consultasJPL RRG = new consultasJPL();
-       
 
         while (r) {
             ArrayList<pathway> patrones = RRG.cargarPatrones(ruta);
@@ -247,7 +248,7 @@ public class confGeneral {
         String rutaDest = "mineria/integracion/" + red;
 
         for (String directorio : procesos) {
-            System.out.print("Integrando: "+directorio);
+            System.out.print("Integrando: " + directorio);
             String rutaOri = "mineria/redes/" + red + "/" + directorio;
             integrarArchivos(rutaOri + "/objetosMinados.pl", rutaDest + "/objetosMinados.pl");
             integrarArchivos(rutaOri + "/objetos_patrones.pl", rutaDest + "/objetos_patrones.pl");
@@ -256,6 +257,10 @@ public class confGeneral {
             integrarArchivos(rutaOri + "/well_know_rules.pl", rutaDest + "/well_know_rules.pl");
 
             integrarOntologias(rutaOri, rutaDest);
+           
+            integrarObjExp(rutaOri, rutaDest);
+            integrarFT(rutaOri, rutaDest);
+
             System.out.println(" ...ok");
         }
         try {
@@ -266,6 +271,65 @@ public class confGeneral {
             Logger.getLogger(confGeneral.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(confGeneral.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void integrarObjExp(String ori, String dest) {
+        objetos_Experto objExt = new objetos_Experto();
+        ObjectContainer db = Db4o.openFile(ori + "/ObjH_E.db");
+        ArrayList<objetos_Experto> listObjs = new ActivatableArrayList<>();
+        try {
+            ObjectSet result = db.queryByExample(objExt);
+            listObjs.addAll(result);
+        } catch (Exception e) {
+
+        } finally {
+            db.close();
+        }
+
+        for (objetos_Experto obj : listObjs) {
+
+            if (!obj.buscar(obj, dest)) {
+                ObjectContainer db2 = Db4o.openFile(dest + "/ObjH_E.db");
+                try {
+                    db2.store(obj);
+                } catch (Exception e) {
+
+                } finally {
+                    db2.close();
+                }
+            }
+
+        }
+
+    }
+
+    private void integrarFT(String ori, String dest) {
+        factorTranscripcion ft = new factorTranscripcion();
+        ObjectContainer db = Db4o.openFile(ori + "/FT.db");
+        ArrayList<factorTranscripcion> listObjs = new ActivatableArrayList<>();
+        try {
+            ObjectSet result = db.queryByExample(ft);
+            listObjs.addAll(result);
+        } catch (Exception e) {
+
+        } finally {
+            db.close();
+        }
+
+        for (factorTranscripcion obj : listObjs) {
+            if (!obj.buscar(obj, dest)) {
+                ObjectContainer db2 = Db4o.openFile(dest + "/FT.db");
+                try {
+                    db2.store(obj);
+                } catch (Exception e) {
+
+                } finally {
+                    db2.close();
+                }
+            }
+
         }
 
     }
@@ -284,9 +348,8 @@ public class confGeneral {
             db.close();
         }
 
-        
         for (ontologiaObjMin obj : listObjs) {
-            if (!obj.buscarObjeto(obj, red)) {
+            if (!obj.buscarObjeto(obj, dest)) {
 
                 obj.getFuncionMolecular().forEach(f -> integrarGO(f, ori, dest));
                 obj.getProcesoBiologico().forEach(p -> integrarGO(p, ori, dest));

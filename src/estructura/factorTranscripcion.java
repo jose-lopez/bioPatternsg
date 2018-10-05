@@ -5,6 +5,9 @@
  */
 package estructura;
 
+import com.db4o.Db4o;
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -243,6 +246,27 @@ public class factorTranscripcion {
             new escribirBC("transcription_factors(\'" + ID.replace("\'", "") + "\').", ruta+"/objetosMinados.pl");
         }
 
+    }
+    
+    public boolean buscar(factorTranscripcion objeto, String ruta){
+        boolean encontrado = false;
+        try {
+            ObjectContainer db = Db4o.openFile(ruta + "/FT.db");
+            try {
+
+                ObjectSet result = db.queryByExample(objeto);
+                if (result.hasNext()) {
+                    encontrado = true;
+                }
+            } catch (Exception e) {
+                System.out.println("Error al acceder a OntologiaObjMin.db");
+            } finally {
+                db.close();
+            }
+        } catch (Exception e) {
+
+        }
+        return encontrado;
     }
 
    

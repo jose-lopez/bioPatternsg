@@ -97,7 +97,6 @@ public class Resumidor {
         File archivo = null;
 
         String nombre_archivo = ruta+"/abstracts/abstracts_" + n + ".html";
-
         try {
             archivo = new File(nombre_archivo);
 
@@ -106,7 +105,6 @@ public class Resumidor {
         } catch (Exception e) {
             encontrado = false;
         }
-
         return encontrado;
     }
 
@@ -181,7 +179,7 @@ public class Resumidor {
           //  System.out.println(resumirComando);
             generarResumen(resumirComando); // se realiza resumen del archivo de abstracts
 
-            q = new Query("cd(../../../..).");
+            q = new Query("cd(../../../../..).");
             System.out.println("regresando a directorio raiz:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
         } catch (Throwable t) {

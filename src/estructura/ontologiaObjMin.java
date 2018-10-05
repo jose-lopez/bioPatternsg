@@ -361,20 +361,20 @@ public class ontologiaObjMin {
             System.out.println("Funcion Molecular:");
             for (int i = 0; i < obj.funcionMolecular.size(); i++) {
                 ontologiaGO objeto = new ontologiaGO();
-                objeto.buscar(obj.funcionMolecular.get(i), restriccion);
+                objeto.buscar(obj.funcionMolecular.get(i), restriccion,ruta);
 
             }
             System.out.println("\n_______________________________________________________________");
             System.out.println("Proceso biologico:");
             for (int i = 0; i < obj.procesoBiologico.size(); i++) {
                 ontologiaGO objeto = new ontologiaGO();
-                objeto.buscar(obj.procesoBiologico.get(i), restriccion);
+                objeto.buscar(obj.procesoBiologico.get(i),restriccion, ruta);
             }
             System.out.println("\n________________________________________________________________");
             System.out.println("Componente celular:");
             for (int i = 0; i < obj.componenteCelular.size(); i++) {
                 ontologiaGO objeto = new ontologiaGO();
-                objeto.buscar(obj.componenteCelular.get(i), restriccion);
+                objeto.buscar(obj.componenteCelular.get(i),restriccion,ruta);
             }
         }
 

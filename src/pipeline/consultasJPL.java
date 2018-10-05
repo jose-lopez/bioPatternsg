@@ -674,8 +674,7 @@ public class consultasJPL {
                 consulta += ")";
             }
         }
-        System.out.println(consulta);
-
+       
         return consulta;
     }
 
@@ -1197,7 +1196,7 @@ public class consultasJPL {
     }
 
     public ArrayList<objetos_Experto> buscarOBJ(String ruta) {
-
+        
         ArrayList<objetos_Experto> minados = new ArrayList<>();
         objetos_Experto objExp = new objetos_Experto();
         ObjectContainer db = Db4o.openFile(ruta + "/ObjH_E.db");
@@ -1205,6 +1204,7 @@ public class consultasJPL {
         try {
             ObjectSet result = db.queryByExample(objExp);
             minados.addAll(result);
+            
         } catch (Exception e) {
 
         } finally {
@@ -1213,7 +1213,7 @@ public class consultasJPL {
 
         factorTranscripcion FT = new factorTranscripcion();
         ArrayList<factorTranscripcion> FTs = new ArrayList<>();
-        ObjectContainer db2 = Db4o.openFile("mineria/FT.db");
+        ObjectContainer db2 = Db4o.openFile(ruta+"/FT.db");
         try {
             ObjectSet result = db2.queryByExample(FT);
             FTs.addAll(result);
