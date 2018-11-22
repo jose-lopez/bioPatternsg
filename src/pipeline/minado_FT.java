@@ -46,7 +46,7 @@ import servicios.lecturas_pathwaycommons;
 
 public class minado_FT {
 
-    public void minado(String regProm, float confiabilidad, int Iteraciones, int numeroObjetos, boolean GO, boolean MESH, configuracion config,String ruta) {
+    public void minado(String regProm, float confiabilidad, int Iteraciones, int numeroObjetos, boolean GO, boolean MESH, configuracion config,String ruta, String rutaD) {
 
         //lleva un control de los objetos minados y los nuevos objetos encontrados en el proceso
         objetosMineria objetosMineria = new objetosMineria();
@@ -54,13 +54,13 @@ public class minado_FT {
         new objetosMinados().crear_archivo(ruta);
 
         //buca informacion en los diferentes servicios sobre cada homologo en la lista de homologos
-        buscarHomologos(listaObjetos_homologosExperto("homologos"), objetosMineria, config, GO, MESH,ruta);
+        buscarHomologos(listaObjetos_homologosExperto(rutaD+"/homologos"), objetosMineria, config, GO, MESH,ruta);
 
         //buca informacion en los diferentes servicios sobre cada objetos agregado por el experto
-        buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria, config, GO, MESH,ruta);
+        buscarObjetosExperto(listaObjetos_homologosExperto(rutaD+"/objetos_Experto.txt"), objetosMineria, config, GO, MESH,ruta);
 
         //primera Iteracion partiendo de TFBind
-        primeraIteracion(regProm, confiabilidad, numeroObjetos, objetosMineria, config, new ArrayList<lecturas_TFBIND>(), GO, MESH,ruta);
+        primeraIteracion(rutaD+"/"+regProm, confiabilidad, numeroObjetos, objetosMineria, config, new ArrayList<lecturas_TFBIND>(), GO, MESH,ruta);
 
         //Segunda Iteracion en adelante partiendo de nuevos objetos encontrados en PDB
         Iteraciones(false, new ArrayList<String>(), numeroObjetos, Iteraciones, objetosMineria, config, 1, GO, MESH,ruta);

@@ -82,7 +82,8 @@ public class lecturas_QuickGO {
     public void busqueda_de_padres(String GO, ontologiaGO ontologia) throws MalformedURLException, IOException {
 
         String requestURL = "https://www.ebi.ac.uk/QuickGO/services/ontology/go/terms/" + GO.replace(":", "%3A") + "/paths/GO%3A0008150%2CGO%3A0003674%2CGO%3A0005575";
-
+        //System.out.println(requestURL);
+        
         String output = conectar(requestURL);
 
         JsonParser parser = new JsonParser();
@@ -138,6 +139,7 @@ public class lecturas_QuickGO {
         String output = "";
         try{
         //String requestURL = "https://www.ebi.ac.uk/QuickGO/services/ontology/go/search?query=GO%3A0005179";
+        //System.out.println(requestURL);
         URL url = new URL(requestURL);
 
         URLConnection connection = url.openConnection();
@@ -183,7 +185,7 @@ public class lecturas_QuickGO {
         String output = "";
 
         try {
-
+           // System.out.println(requestURL);
             URL url = new URL(requestURL);
 
             URLConnection connection = url.openConnection();

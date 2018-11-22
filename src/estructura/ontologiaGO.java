@@ -67,8 +67,8 @@ public class ontologiaGO {
         objeto = consultarBD(objeto, ruta);
         return objeto.getNombre();
     }
-    
-     public ontologiaGO buscarO(String GO, String ruta) {
+
+    public ontologiaGO buscarO(String GO, String ruta) {
         ontologiaGO objeto = new ontologiaGO();
         objeto.setGO(GO);
         objeto = consultarBD(objeto, ruta);
@@ -98,32 +98,38 @@ public class ontologiaGO {
             for (int i = 0; i < objeto.is_a.size(); i++) {
                 buscarObjeto(objeto.is_a.get(i), nivel, "is a--> ", restriccion, ruta);
             }
-        } 
+        }
         if (restriccion == null || restriccion.equals("part of")) {
             for (int i = 0; i < objeto.part_of.size(); i++) {
                 buscarObjeto(objeto.part_of.get(i), nivel, "part of--> ", restriccion, ruta);
             }
-        }if (restriccion == null || restriccion.equals("regulate")) {
+        }
+        if (restriccion == null || restriccion.equals("regulate")) {
             for (int i = 0; i < objeto.regulates.size(); i++) {
                 buscarObjeto(objeto.regulates.get(i), nivel, "regulate--> ", restriccion, ruta);
             }
-        }if (restriccion == null || restriccion.equals("negatively regulate")) {
+        }
+        if (restriccion == null || restriccion.equals("negatively regulate")) {
             for (int i = 0; i < objeto.negatively_regulates.size(); i++) {
                 buscarObjeto(objeto.negatively_regulates.get(i), nivel, "negatively regulate--> ", restriccion, ruta);
             }
-        }if (restriccion == null || restriccion.equals("positively regulate")) {
+        }
+        if (restriccion == null || restriccion.equals("positively regulate")) {
             for (int i = 0; i < objeto.positively_regulates.size(); i++) {
                 buscarObjeto(objeto.positively_regulates.get(i), nivel, "positively regulate--> ", restriccion, ruta);
             }
-        }if (restriccion == null || restriccion.equals("occurs in")) {
+        }
+        if (restriccion == null || restriccion.equals("occurs in")) {
             for (int i = 0; i < objeto.occurs_in.size(); i++) {
                 buscarObjeto(objeto.occurs_in.get(i), nivel, "occurs in--> ", restriccion, ruta);
             }
-        }if (restriccion == null || restriccion.equals("capable of")) {
+        }
+        if (restriccion == null || restriccion.equals("capable of")) {
             for (int i = 0; i < objeto.capable_of.size(); i++) {
                 buscarObjeto(objeto.capable_of.get(i), nivel, "capable of--> ", restriccion, ruta);
             }
-        }if (restriccion == null || restriccion.equals("capable of part of")) {
+        }
+        if (restriccion == null || restriccion.equals("capable of part of")) {
             for (int i = 0; i < objeto.capable_of_part_of.size(); i++) {
                 buscarObjeto(objeto.capable_of_part_of.get(i), nivel, "capable of part of--> ", restriccion, ruta);
             }
@@ -132,37 +138,41 @@ public class ontologiaGO {
     }
 
     public void vaciar_pl(ArrayList<ontologiaGO> ontGO, String GO, String obj, String relacion, ArrayList<String> listObj, String archivo) {
+        try {
 
-        ontologiaGO objeto = new ontologiaGO();
-        objeto = buscarOBJ(GO, ontGO);
+            ontologiaGO objeto = new ontologiaGO();
+            objeto = buscarOBJ(GO, ontGO);
 
-        if (obj != null) {
-            String cadena = relacion + "(\'" + obj.replace("\'", "") + "\',\'" + objeto.getNombre().replace("\'", "") + "\').";
-            new escribirBC(cadena, archivo);
-            System.out.print(".");
-        }
+            if (obj != null) {
+                String cadena = relacion + "(\'" + obj.replace("\'", "") + "\',\'" + objeto.getNombre().replace("\'", "") + "\').";
+                new escribirBC(cadena, archivo);
+                System.out.print(".");
+            }
 
-        if (!listObj.contains(GO)) {
-            //System.out.println(objeto.getNombre());
-            listObj.add(GO);
-            final String obj_nombre = objeto.getNombre();
+            if (!listObj.contains(GO)) {
+                //System.out.println(objeto.getNombre());
+                listObj.add(GO);
+                final String obj_nombre = objeto.getNombre();
 
-            objeto.is_a.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "is_a", listObj, archivo));
+                objeto.is_a.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "is_a", listObj, archivo));
 
-            objeto.capable_of.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "capable_of", listObj, archivo));
+                objeto.capable_of.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "capable_of", listObj, archivo));
 
-            objeto.capable_of_part_of.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "capable_of_part_of", listObj, archivo));
+                objeto.capable_of_part_of.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "capable_of_part_of", listObj, archivo));
 
-            objeto.negatively_regulates.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "negatively_regulates", listObj, archivo));
+                objeto.negatively_regulates.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "negatively_regulates", listObj, archivo));
 
-            objeto.positively_regulates.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "positively_regulates", listObj, archivo));
+                objeto.positively_regulates.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "positively_regulates", listObj, archivo));
 
-            objeto.part_of.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "part_of", listObj, archivo));
+                objeto.part_of.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "part_of", listObj, archivo));
 
-            objeto.regulates.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "regulates", listObj, archivo));
+                objeto.regulates.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "regulates", listObj, archivo));
 
-            objeto.occurs_in.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "occurs_in", listObj, archivo));
+                objeto.occurs_in.parallelStream().forEach(t -> vaciar_pl(ontGO, t, obj_nombre, "occurs_in", listObj, archivo));
 
+            }
+
+        } catch (Exception e) {
         }
 
     }

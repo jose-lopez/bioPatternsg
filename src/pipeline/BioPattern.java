@@ -52,7 +52,7 @@ public class BioPattern {
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
         biopattern.pipelineBioPattern();
-      //biopattern.pruebas();
+     // biopattern.pruebas();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -109,7 +109,7 @@ public class BioPattern {
         minado_FT mfts = new minado_FT();
         //ruta de archivo, confiabilidad, N Iteraciones, N de objetos
     //    mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH, new configuracion());
-        mfts.minado(regionPromotora, conf, num_iteraciones,cant_compl_p , buscarOntologiaGO, buscarOntologiaMESH, new configuracion(), "");
+        mfts.minado(regionPromotora, conf, num_iteraciones,cant_compl_p , buscarOntologiaGO, buscarOntologiaMESH, new configuracion(), "","");
         mfts.obtenerFT();
 
         Region region_promotora = new Region(this.regionPromotora);
@@ -227,11 +227,18 @@ public class BioPattern {
 
     public void pruebas() {
 
+//        confGeneral confG = new confGeneral();
+//        confG.listarRedes();
+    
+        
+        
+        
+        
         try {
 
-            //confGeneral confG = new confGeneral();
+            confGeneral confG = new confGeneral();
             //confG.listarRedes();
-            String ruta = "mineria/redes/Nueva/CYP7A1";
+            String ruta = "mineria/redes/red1/prot1";
 
             minado_FT mfts = new minado_FT(); // clase que contiene los metodos donde se buscara la informacion de los objetos minados
             configuracion config = new configuracion();
@@ -240,16 +247,7 @@ public class BioPattern {
             } catch (Exception e) {
             }
             
-          ontologiaObjMin ont = new ontologiaObjMin();
-          ont.imprimirTodo(ruta);
-////            new Resumidor().resumidor(config,ruta);
-////            mfts.vaciar_bc_pl(true, true, config, ruta);
-////            ontologiaObjMin ontologias = new ontologiaObjMin();
-////            ontologias.imprimirTodo(ruta);
-////            String kb = new GeneradorBC().generadorBC("baseC.pl", config,ruta);
-//                
-//             new patrones().inferir_patrones(config, ruta);
-//
+       mfts.vaciar_bc_pl(true, true, config, ruta);
         } catch (StringIndexOutOfBoundsException ex) {
             Logger.getLogger(BioPattern.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {

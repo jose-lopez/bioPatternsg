@@ -52,7 +52,9 @@ public class confGeneral {
         final File carpeta2 = new File("mineria/integracion");
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
-
+        
+        listar_datos();
+        
         while (r) {
             ArrayList<String> redes = new ArrayList<>();
             redes = listarCarpetas(carpeta);
@@ -73,7 +75,7 @@ public class confGeneral {
                 System.out.println("\nI.-Ir a redes integradas");
             }
 
-            System.out.println("N.-Crear una nueva Red");
+            //System.out.println("N.-Crear una nueva Red");
             System.out.println("0.-Salir");
             String resp = lectura.nextLine();
 
@@ -85,10 +87,10 @@ public class confGeneral {
                 }
             }
 
-            if (resp.equalsIgnoreCase("N")) {
-                red = nuevaRed();
-                listarProcesos(red);
-            }
+//            if (resp.equalsIgnoreCase("N")) {
+//                red = nuevaRed();
+//                listarProcesos(red);
+//            }
 
             if (resp.equalsIgnoreCase("I") && redesInte.size() > 0) {
                 listarRedesInt(redesInte);
@@ -99,6 +101,34 @@ public class confGeneral {
             }
         }
 
+    }
+
+    public void listar_datos() {
+        
+        final File carpeta = new File("datos");
+
+        ArrayList<String> redes = new ArrayList<>();
+
+        redes = listarCarpetas(carpeta);
+
+        for (String red : redes) {
+            File dir_red = new File("mineria/redes/" + red);
+
+            if (!dir_red.exists()) {
+                dir_red.mkdir();
+            }
+
+            ArrayList<String> proteinas = new ArrayList<>();
+            final File carpeta2 = new File("datos/"+red);
+            proteinas = listarCarpetas(carpeta2);
+            
+            for (String proteina : proteinas) {
+                File dir_prot = new File("mineria/redes/"+red+"/"+proteina);
+                if(!dir_prot.exists()){
+                     dir_prot.mkdir();
+                }
+            }
+        }
     }
 
     private void listarRedesInt(ArrayList<String> redesInt) {
@@ -208,7 +238,7 @@ public class confGeneral {
             if (procesos.size() > 1) {
                 System.out.println("\nI.-Hacer integracion de la red");
             }
-            System.out.println("\nN.-Crear un nuevo proceso");
+           // System.out.println("\nN.-Crear un nuevo proceso");
             System.out.println("0.-Volver");
             String resp = lectura.nextLine();
 
@@ -218,16 +248,17 @@ public class confGeneral {
                     proceso = procesos.get(i);
                     System.out.println("seleccion = " + i + " " + procesos.get(i));
                     String ruta = "mineria/redes/" + red + "/" + proceso;
-                    pipeline(ruta);
+                    String rutaD ="datos/"+ red+"/"+proceso;
+                    pipeline(ruta,rutaD);
 
                 }
             }
 
-            if (resp.equalsIgnoreCase("N")) {
-                proceso = nuevoProceso();
-                String ruta = "mineria/redes/" + red + "/" + proceso;
-                pipeline(ruta);
-            }
+//            if (resp.equalsIgnoreCase("N")) {
+//                proceso = nuevoProceso();
+//                String ruta = "mineria/redes/" + red + "/" + proceso;
+//                pipeline(ruta);
+//            }
 
             if (resp.equalsIgnoreCase("I")) {
                 integrarRed(red, procesos);
@@ -257,7 +288,7 @@ public class confGeneral {
             integrarArchivos(rutaOri + "/well_know_rules.pl", rutaDest + "/well_know_rules.pl");
 
             integrarOntologias(rutaOri, rutaDest);
-           
+
             integrarObjExp(rutaOri, rutaDest);
             integrarFT(rutaOri, rutaDest);
 
@@ -472,7 +503,7 @@ public class confGeneral {
         return proc;
     }
 
-    public void pipeline(String ruta) throws StringIndexOutOfBoundsException {
+    public void pipeline(String ruta,String rutaD) throws StringIndexOutOfBoundsException {
 
         minado_FT mfts = new minado_FT(); // clase que contiene los metodos donde se buscara la informacion de los objetos minados
         //String ruta = "mineria/redes/" + r + "/" + p;
@@ -498,7 +529,7 @@ public class confGeneral {
                 //boolean MESH = config.buscarMESH();
                 boolean MESH = true;
                 boolean GO = true;
-                String rutaPMidExp = config.PMidExperto();
+                String rutaPMidExp = rutaD+"/"+config.PMidExperto();
                 int cantPMID = config.ingresar_cantPubMedId(); //numero de pubmed IDs
                 //fin de menu
                 //-------------------------------------------------------------------------------------------------------------
@@ -509,7 +540,7 @@ public class confGeneral {
                 config.guardarConfiguracion(regProm, iteraciones, cantObjs, conf, GO, MESH, cantPMID, rutaPMidExp, ruta);
 
                 //este metodo ejecuta el proceso de busqueda de informacio desde objetos del experto, homologos y los objetos encontrados en los diferentes niveles de busqueda
-                mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, config, ruta);
+                mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, config, ruta, rutaD);
 
                 //este metodo genera todas las combinaciones de objetos encontrados en el proceso anterior y guarda las ombinaciones en 'mineria/combinaciones.db'
                 new combinaciones().generar_combinaciones(false, config, ruta);
@@ -545,10 +576,10 @@ public class confGeneral {
             //reinia el proceso de mineria 
             mfts.crearCarpeta(ruta);
             config = new configuracion();
-            pipeline(ruta);
+            pipeline(ruta,rutaD);
         } else {
             //se reanuda desde el punto donde se marco el ultimo checklist
-            config.reanudar_proceso(ruta);
+            config.reanudar_proceso(ruta,rutaD);
         }
 
     }

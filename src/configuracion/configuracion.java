@@ -223,7 +223,7 @@ public class configuracion {
     }
 
     //dependiendo de los checklist que esten activos el proceso se reanudara desde un punto espesifico
-    public void reanudar_proceso(String ruta) {
+    public void reanudar_proceso(String ruta,String ruta2) {
         System.out.print("Preparando");
         recuperarConfiguracion(ruta);
         //verConfiguracion();
@@ -233,38 +233,38 @@ public class configuracion {
         System.out.println();
         if (!homologos) {
             //System.out.println("\nReanudar desde busqueda de homologos ...");
-            reanudar(1, objMin, ruta);
+            reanudar(1, objMin, ruta,ruta2);
         } else if (!objetosExperto) {
             //System.out.println("\nReanudar desde busqueda de objetos Experto ...");
-            reanudar(2, objMin, ruta);
+            reanudar(2, objMin, ruta,ruta2);
         } else if (!lecturas_tfbind) {
             //System.out.println("\nReanudando Iteracion: " + objMin.getIteracion());
-            reanudar(3, objMin, ruta);
+            reanudar(3, objMin, ruta,ruta2);
         } else if (!procesoIteraciones) {
-            reanudar(4, objMin, ruta);
+            reanudar(4, objMin, ruta,ruta2);
         } else if (!combinaciones) {
-            reanudar(5, objMin, ruta);
+            reanudar(5, objMin, ruta,ruta2);
         } else if (!pubmedids) {
-            reanudar(6, objMin, ruta);
+            reanudar(6, objMin, ruta,ruta2);
         } else if (!abstracts) {
-            reanudar(7, objMin, ruta);
+            reanudar(7, objMin, ruta,ruta2);
         } else if (!vaciado_pl) {
-            reanudar(8, objMin, ruta);
+            reanudar(8, objMin, ruta,ruta2);
         } else if (!generarResumenes) {
-            reanudar(9, objMin, ruta);
+            reanudar(9, objMin, ruta,ruta2);
         } else if (!GenerarBC) {
-            reanudar(10, objMin, ruta);
+            reanudar(10, objMin, ruta,ruta2);
         } else if (!objetosPatrones) {
-            reanudar(11, objMin, ruta);
+            reanudar(11, objMin, ruta,ruta2);
         } else if (!InferirPatrones) {
-            reanudar(12, objMin, ruta);
+            reanudar(12, objMin, ruta,ruta2);
         }
         //proceso terminado
-        menuFinal(ruta);
+        menuFinal(ruta,ruta2);
 
     }
 
-    private void menuFinal(String ruta) {
+    private void menuFinal(String ruta,String rutaD) {
 
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
@@ -316,7 +316,7 @@ public class configuracion {
                             confGeneral confG = new confGeneral();
                             {
                                 try {
-                                    confG.pipeline(ruta);
+                                    confG.pipeline(ruta,rutaD);
                                 } catch (Exception e) {
 
                                 }
@@ -349,14 +349,14 @@ public class configuracion {
 
     //dependiendo del punto de reanudacion del proceso se ejecutaran el juego instrucciones necesarias 
     //para que el proceso termine
-    private void reanudar(int punto, objetosMineria objetosMineria, String ruta) {
+    private void reanudar(int punto, objetosMineria objetosMineria, String ruta, String rutaD) {
         minado_FT mfts = new minado_FT();
         lecturas_PM lpm = new lecturas_PM();
         switch (punto) {
             case 1:
-                mfts.buscarHomologos(revisarObjH_E("homologos", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
-                mfts.buscarObjetosExperto(listaObjetos_homologosExperto("objetos_Experto.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
-                mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ActivatableArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.buscarHomologos(revisarObjH_E(rutaD+"/homologos", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.buscarObjetosExperto(listaObjetos_homologosExperto(rutaD+"/objetos_Experto.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.primeraIteracion(rutaD+"/"+RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ActivatableArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
                 new combinaciones().generar_combinaciones(false, this, ruta);
                 new PubMed_IDs().buscar(cantidadPMID, this, ruta);
@@ -372,9 +372,9 @@ public class configuracion {
                 new patrones().inferir_patrones(this, ruta);
                 break;
             case 2:
-                revisarObjH_E("homologos", objetosMineria, ruta);
-                mfts.buscarObjetosExperto(revisarObjH_E("objetos_Experto.txt", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
-                mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
+                revisarObjH_E(rutaD+"/homologos", objetosMineria, ruta);
+                mfts.buscarObjetosExperto(revisarObjH_E(rutaD+"/objetos_Experto.txt", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.primeraIteracion(rutaD+"/"+RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
                 new combinaciones().generar_combinaciones(false, this, ruta);
                 new PubMed_IDs().buscar(cantidadPMID, this, ruta);
@@ -390,10 +390,10 @@ public class configuracion {
                 new patrones().inferir_patrones(this, ruta);
                 break;
             case 3:
-                revisarObjH_E("homologos", objetosMineria, ruta);
-                revisarObjH_E("objetos_Experto.txt", objetosMineria, ruta);
+                revisarObjH_E(rutaD+"/homologos", objetosMineria, ruta);
+                revisarObjH_E(rutaD+"/objetos_Experto.txt", objetosMineria, ruta);
                 ArrayList<lecturas_TFBIND> lecturas = actualizarListaTFBind(objetosMineria, ruta);
-                mfts.primeraIteracion(RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, lecturas, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.primeraIteracion(rutaD+"/"+RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, lecturas, crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
                 new combinaciones().generar_combinaciones(false, this, ruta);
                 new PubMed_IDs().buscar(cantidadPMID, this, ruta);

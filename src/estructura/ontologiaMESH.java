@@ -49,17 +49,17 @@ public class ontologiaMESH {
         this.parent = parent;
     }
 
-    public String buscarNombre(String MESH,String ruta) {
+    public String buscarNombre(String MESH, String ruta) {
         ontologiaMESH objeto = new ontologiaMESH();
         objeto.setMESH(MESH);
-        objeto = consultarBD(objeto,ruta);
+        objeto = consultarBD(objeto, ruta);
         return objeto.Nombre;
     }
 
     public void vaciar_pl(String MESH, String obj, ArrayList<String> listObj, String ruta) {
         ontologiaMESH objeto = new ontologiaMESH();
         objeto.setMESH(MESH);
-        objeto = consultarBD(objeto,ruta);
+        objeto = consultarBD(objeto, ruta);
         String ruta_wnr = ruta + "/well_know_rules.pl";
         System.out.print(".");
         if (obj != null && objeto.getNombre() != null) {
@@ -89,7 +89,11 @@ public class ontologiaMESH {
             listObj.add(MESH);
 
             for (String mesh : objeto.getParent()) {
-                vaciar_pl(mesh, objeto.getNombre(), listObj, ruta);
+                try {
+                    vaciar_pl(mesh, objeto.getNombre(), listObj, ruta);
+                } catch (Exception e) {
+                }
+
             }
         }
 
@@ -148,9 +152,9 @@ public class ontologiaMESH {
 
     }
 
-    private ontologiaMESH consultarBD(ontologiaMESH obj,String ruta) {
+    private ontologiaMESH consultarBD(ontologiaMESH obj, String ruta) {
         ontologiaMESH objeto = new ontologiaMESH();
-        ObjectContainer db = Db4o.openFile(ruta+"/OntologiaMESH.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/OntologiaMESH.db");
         try {
 
             ObjectSet result = db.queryByExample(obj);
@@ -165,23 +169,23 @@ public class ontologiaMESH {
         return objeto;
     }
 
-    public void buscar(String MESH,String ruta) {
+    public void buscar(String MESH, String ruta) {
 
-        buscarObjeto(MESH, 0, "",ruta);
+        buscarObjeto(MESH, 0, "", ruta);
 
     }
-    
-    public ontologiaMESH buscarO(String MESH,String ruta){
+
+    public ontologiaMESH buscarO(String MESH, String ruta) {
         ontologiaMESH ont = new ontologiaMESH();
         ont.setMESH(MESH);
         ont = consultarBD(ont, ruta);
         return ont;
     }
 
-    private void buscarObjeto(String MESH, int nivel, String relacion,String ruta) {
+    private void buscarObjeto(String MESH, int nivel, String relacion, String ruta) {
         ontologiaMESH objeto = new ontologiaMESH();
         objeto.setMESH(MESH);
-        objeto = consultarBD(objeto,ruta);
+        objeto = consultarBD(objeto, ruta);
 
         for (int i = 0; i < nivel; i++) {
             System.out.print("      ");
@@ -192,7 +196,7 @@ public class ontologiaMESH {
 
         for (String obj : objeto.getParent()) {
             if (!obj.equals("1000048")) {
-                buscarObjeto(obj, nivel, "is a->  ",ruta);
+                buscarObjeto(obj, nivel, "is a->  ", ruta);
             }
 
         }
