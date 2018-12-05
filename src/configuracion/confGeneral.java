@@ -246,7 +246,7 @@ public class confGeneral {
                 String r2 = (i + 1) + "";
                 if (resp.equals(r2)) {
                     proceso = procesos.get(i);
-                    System.out.println("seleccion = " + i + " " + procesos.get(i));
+                   // System.out.println("seleccion = " + i + " " + procesos.get(i));
                     String ruta = "mineria/redes/" + red + "/" + proceso;
                     String rutaD ="datos/"+ red+"/"+proceso;
                     pipeline(ruta,rutaD);

@@ -44,6 +44,7 @@ public class patrones {
         q0.hasSolution();
 
         String objPatr = "['" + ruta + "/objetos_patrones'].";
+        //System.out.println(objPatr);
         Query q1 = new Query(objPatr);
         q1.hasSolution();
 
@@ -62,7 +63,7 @@ public class patrones {
             if (!objEnlace.contains(sep1[2])) {
                 objEnlace.add(sep1[2]);
             }
-            //System.out.println("evento inicio:  " + obj);
+          //  System.out.println("evento inicio:  " + obj);
         });
 
         ArrayList<String> listaFin = new ArrayList<>();
@@ -85,7 +86,7 @@ public class patrones {
                 objCierre.add(sep[2]);
             }
 
-            //System.out.println("evento fin:  " + fin);
+           //System.out.println("evento fin:  " + fin);
         });
         //patrones de 2 eventos
         patron_2_eventos(objCierre, listaInicio, objEnlace, ruta);
@@ -113,6 +114,7 @@ public class patrones {
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
                 String bc = "['" + ruta + "/baseC'].";
+                //System.out.println(bc);
                 Query q2 = new Query(bc);
                 q2.hasSolution();
 
@@ -301,7 +303,7 @@ public class patrones {
         ArrayList<String> resp = new ArrayList<>();
 
         for (int i = 0; i < q2.allSolutions().length; i++) {
-            //  System.out.println(q2.allSolutions()[i].toString());
+          //   System.out.println(q2.allSolutions()[i].toString());
             resp.add(q2.allSolutions()[i].toString());
         }
 
