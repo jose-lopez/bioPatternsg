@@ -1,0 +1,2400 @@
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',recruit,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',recruit,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',interact,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',associate,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'GATA1';'GATA1',recruit,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CRTC2', 'CRTC1', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',recruit,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'CREBBP', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',require,'CREBBP';'CREBBP',phosphorylate,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'CREBBP', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',interact,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',associate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',recruit,'CRTC2';'CRTC2',interact,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CRTC2', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',recruit,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',interact,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',associate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',require,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'Ras',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['Ras', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',phosphorylate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',require,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',interact,'CREBZF';'CREBZF',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBZF', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',recruit,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',associate,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',require,'CRTC2';'CRTC2',associate,'CREB';'CREB',interact,'CREBBP';'CREBBP',require,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'CRTC2', 'CREB', 'CREBBP', 'Ras', 'CAP', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',recruit,'CRTC2';'CRTC2',phosphorylate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',recruit,'CRTC2';'CRTC2',require,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',regulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',recruit,'CRTC2';'CRTC2',associate,'CREB';'CREB',activate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CRTC2', 'CREB', 'SST']
+
+
+'EGF',activate,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CAP', 'SST']
+
+
+'EGF',bind,'EGFR';'EGFR',associate,'GATA1';'GATA1',require,'CRTC1';'CRTC1',phosphorylate,'Ras';'Ras',associate,'CAP';'CAP',stimulate,'SST'
+['EGF', 'EGFR', 'GATA1', 'CRTC1', 'Ras', 'CAP', 'SST']

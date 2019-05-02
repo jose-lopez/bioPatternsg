@@ -52,7 +52,7 @@ public class BioPattern {
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
         biopattern.pipelineBioPattern();
-     // biopattern.pruebas();
+        //biopattern.pruebas();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -108,8 +108,8 @@ public class BioPattern {
         // Recibe una lista de Bloques Consenso y genera lista de factores de transcripcion con sus complejos proteinicos caracteristicas y ligandos correspondientes.
         minado_FT mfts = new minado_FT();
         //ruta de archivo, confiabilidad, N Iteraciones, N de objetos
-    //    mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH, new configuracion());
-        mfts.minado(regionPromotora, conf, num_iteraciones,cant_compl_p , buscarOntologiaGO, buscarOntologiaMESH, new configuracion(), "","");
+        //    mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH, new configuracion());
+        mfts.minado(regionPromotora, conf, num_iteraciones, cant_compl_p, buscarOntologiaGO, buscarOntologiaMESH, new configuracion(), "", "");
         mfts.obtenerFT();
 
         Region region_promotora = new Region(this.regionPromotora);
@@ -176,7 +176,7 @@ public class BioPattern {
     public void pipelineBioPattern() throws StringIndexOutOfBoundsException, Exception {
         //Autenticación de proxy        
         //autenticarProxy("150.187.65.3", "3128");
-        
+
         confGeneral confG = new confGeneral();
         confG.listarRedes();
 
@@ -229,25 +229,26 @@ public class BioPattern {
 
 //        confGeneral confG = new confGeneral();
 //        confG.listarRedes();
-    
-        
-        
-        
-        
         try {
 
             confGeneral confG = new confGeneral();
             //confG.listarRedes();
-            String ruta = "mineria/redes/red1/prot1";
+            String ruta = "mineria/redes/Mapk-Erk/SST";
 
-            minado_FT mfts = new minado_FT(); // clase que contiene los metodos donde se buscara la informacion de los objetos minados
+            //minado_FT mfts = new minado_FT(); // clase que contiene los metodos donde se buscara la informacion de los objetos minados
             configuracion config = new configuracion();
             try {
                 config.recuperarConfiguracion(ruta); // recupera la configuracion actual y el checklist que indica desde que punto puede continuar la ejecucion
             } catch (Exception e) {
             }
-            
-       mfts.vaciar_bc_pl(true, true, config, ruta);
+
+            //este metodo llama al resumidor_bioinformante hace uso de la coleccion de abstracts
+            new Resumidor().resumidor(config, ruta);
+
+            // crea la bace de conocimiento con el listado de eventos encontrados por el resumidor
+            String kb = new GeneradorBC().generadorBC("kBase.pl", config, ruta);
+
+            //mfts.vaciar_bc_pl(true, true, config, ruta);
         } catch (StringIndexOutOfBoundsException ex) {
             Logger.getLogger(BioPattern.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {

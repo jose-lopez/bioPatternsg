@@ -1,0 +1,59 @@
+SST;somatostatin;SMST;Somatostatin;Growth, hormone, release-inhibiting, factor;Somatostatin-28;Somatostatin-14
+EGF;epidermal, growth, factor;epidermal, growth, factor, (beta-urogastrone);Pro-epidermal, growth, factor;Epidermal, growth, factor;Urogastrone
+EGFR;epidermal, growth, factor, receptor;ERBB;epidermal, growth, factor, receptor, (avian, erythroblastic, leukemia, viral, (v-erb-b), oncogene, homolog);ERBB1;Epidermal, growth, factor, receptor;Proto-oncogene, c-ErbB-1;Receptor, tyrosine-protein, kinase, erbB-1
+GRB2;growth, factor, receptor, bound, protein, 2;growth, factor, receptor-bound, protein, 2;NCKAP2;Growth, factor, receptor-bound, protein, 2;Adapter, protein, GRB2;Protein, Ash;SH2/SH3, adapter, GRB2
+SOS1;SOS, Ras/Rac, guanine, nucleotide, exchange, factor, 1;GINGF;gingival, fibromatosis, ',', hereditary, ',', 1;son, of, sevenless, homolog, 1, (Drosophila);HGF;GF1;Son, of, sevenless, homolog, 1
+SOS2;SOS, Ras/Rho, guanine, nucleotide, exchange, factor, 2;son, of, sevenless, (Drosophilia), homolog, 2;son, of, sevenless, homolog, 2, (Drosophila);Son, of, sevenless, homolog, 2
+SOS;SOS
+NRAS;NRAS, proto-oncogene, ',', GTPase;neuroblastoma, RAS, viral, (v-ras), oncogene, homolog;neuroblastoma, RAS, viral, oncogene, homolog;N-ras;GTPase, NRas;Transforming, protein, N-Ras
+RAB42P1;RAB42, ',', member, RAS, oncogene, family, ',', pseudogene, 1;RAB42;RAB42P;RAB42, ',', member, RAS, homolog, family;RAB42, ',', member, RAS, homolog, family, ',', pseudogene;RAB42, ',', member, RAS, oncogene, family, ',', pseudogene
+RHOT1P1;ras, homolog, family, member, T1, pseudogene, 1;RHOT3;RHOT1P;ras, homolog, gene, family, ',', member, T3;ras, homolog, gene, family, ',', member, T1, pseudogene;ras, homolog, gene, family, ',', member, T1, pseudogene, 1
+Ras;Ras
+ARAF;A-Raf, proto-oncogene, ',', serine/threonine, kinase;ARAF1;v-raf, murine, sarcoma, 3611, viral, oncogene, homolog, 1;Serine/threonine-protein, kinase, A-Raf;Proto-oncogene, A-Raf;Proto-oncogene, A-Raf-1;Proto-oncogene, Pks
+BRAF;B-Raf, proto-oncogene, ',', serine/threonine, kinase;v-raf, murine, sarcoma, viral, oncogene, homolog, B;BRAF1;Serine/threonine-protein, kinase, B-raf;Proto-oncogene, B-Raf;p94;v-Raf, murine, sarcoma, viral, oncogene, homolog, B1
+RAF1;Raf-1, proto-oncogene, ',', serine/threonine, kinase;v-raf-1, murine, leukemia, viral, oncogene, homolog, 1;Raf-1;c-Raf;CRAF;RAF, proto-oncogene, serine/threonine-protein, kinase;Proto-oncogene, c-RAF
+Raf;Raf
+LAMTOR3;late, endosomal/lysosomal, adaptor, ',', MAPK, and, MTOR, activator, 3;MAP2K1IP1;MAPKSP1;mitogen-activated, protein, kinase, kinase, 1, interacting, protein, 1;MAPK, scaffold, protein, 1;MP1;MAPBP;Ragulator3;Ragulator, complex, protein, LAMTOR3;Late, endosomal/lysosomal, adaptor, and, MAPK, and, MTOR, activator, 3;MEK-binding, partner, 1;Mitogen-activated, protein, kinase, kinase, 1-interacting, protein, 1;Mitogen-activated, protein, kinase, scaffold, protein, 1
+MEK;MEK
+LAMTOR1;late, endosomal/lysosomal, adaptor, ',', MAPK, and, MTOR, activator, 1;C11orf59;chromosome, 11, open, reading, frame, 59;FLJ20625;p18;p27RF-Rho;Pdro;Ragulator1;Ragulator, complex, protein, LAMTOR1;Late, endosomal/lysosomal, adaptor, and, MAPK, and, MTOR, activator, 1;Lipid, raft, adaptor, protein, p18;Protein, associated, with, DRMs, and, endosomes;p27Kip1-releasing, factor, from, RhoA
+LAMTOR2;late, endosomal/lysosomal, adaptor, ',', MAPK, and, MTOR, activator, 2;ROBLD3;roadblock, domain, containing, 3;MAPBPIP;MAPKSP1AP;p14;ENDAP;Ragulator2;Ragulator, complex, protein, LAMTOR2;Endosomal, adaptor, protein, p14;Late, endosomal/lysosomal, Mp1-interacting, protein;Late, endosomal/lysosomal, adaptor, and, MAPK, and, MTOR, activator, 2;Mitogen-activated, protein-binding, protein-interacting, protein;Roadblock, domain-containing, protein, 3
+LAMTOR3P1;late, endosomal/lysosomal, adaptor, ',', MAPK, and, MTOR, activator, 3, pseudogene, 1
+LAMTOR3P2;late, endosomal/lysosomal, adaptor, ',', MAPK, and, MTOR, activator, 3, pseudogene, 2
+LAMTOR4;late, endosomal/lysosomal, adaptor, ',', MAPK, and, MTOR, activator, 4;C7orf59;chromosome, 7, open, reading, frame, 59;Ragulator, complex, protein, LAMTOR4;Late, endosomal/lysosomal, adaptor, and, MAPK, and, MTOR, activator, 4;Ragulator, complex, protein, LAMTOR4, ',', N-terminally, processed
+LAMTOR5;late, endosomal/lysosomal, adaptor, ',', MAPK, and, MTOR, activator, 5;HBXIP;hepatitis, B, virus, x, interacting, protein;XIP;MGC71071;Ragulator, complex, protein, LAMTOR5;Hepatitis, B, virus, X-interacting, protein;Late, endosomal/lysosomal, adaptor, and, MAPK, and, MTOR, activator, 5
+LAMTOR5P1;late, endosomal/lysosomal, adaptor, ',', MAPK, and, MTOR, activator, 5, pseudogene, 1;HBXIPP1;hepatitis, B, virus, x, interacting, protein, pseudogene, 1;HBXIPL
+MCRIP1;MAPK, regulated, corepressor, interacting, protein, 1;FAM195B;family, with, sequence, similarity, 195, ',', member, B;family, with, sequence, similarity, 195, member, B;GRAN2;MCRIP;Mapk-regulated, corepressor-interacting, protein, 1;Granulin-2;Protein, FAM195B
+MCRIP2;MAPK, regulated, corepressor, interacting, protein, 2;C16orf14;FAM195A;chromosome, 16, open, reading, frame, 14;family, with, sequence, similarity, 195, ',', member, A;family, with, sequence, similarity, 195, member, A;MGC15416;MAPK, regulated, corepressor, interacting, protein, 2;Protein, FAM195A
+MCRIP2P1;MAPK, regulated, corepressor, interacting, protein, 2, pseudogene, 1;FAM195CP;family, with, sequence, similarity, 195, ',', member, C, ',', pseudogene
+MCRIP2P2;MAPK, regulated, corepressor, interacting, protein, 2, pseudogene, 2;FAM195DP;MCRIP2P1;family, with, sequence, similarity, 195, ',', member, D, ',', pseudogene;MAPK, regulated, co-repressor, interacting, protein, 2, pseudogene, 2
+MAPK;MAPK
+ATP7A;ATPase, copper, transporting, alpha;MNK;Menkes, syndrome;ATPase, ',', Cu++, transporting, ',', alpha, polypeptide;Copper-transporting, ATPase, 1;Copper, pump, 1;Menkes, disease-associated, protein
+SSTR5;somatostatin, receptor, 5;Somatostatin, receptor, type, 5
+7MG;7N-METHYL-8-HYDROGUANOSINE-5'-MONOPHOSPHATE
+GDP;GUANOSINE-5'-DIPHOSPHATE
+CLIP1;CAP-Gly, domain, containing, linker, protein, 1;RSN;restin, (Reed-Steinberg, cell-expressed, intermediate, filament-associated, protein);CAP-GLY, domain, containing, linker, protein, 1;CYLN1;CLIP170;CLIP;CLIP-170;CAP-Gly, domain-containing, linker, protein, 1;Cytoplasmic, linker, protein, 1;Cytoplasmic, linker, protein, 170, alpha-2;Reed-Sternberg, intermediate, filament-associated, protein;Restin
+CLIP2;CAP-Gly, domain, containing, linker, protein, 2;WBSCR4;CYLN2;WBSCR3;cytoplasmic, linker, 2;Williams-Beuren, syndrome, chromosome, region, 3;CAP-GLY, domain, containing, linker, protein, 2;CLIP-115;KIAA0291;WSCR4;CLIP;WSCR3;CAP-Gly, domain-containing, linker, protein, 2;Cytoplasmic, linker, protein, 115;Cytoplasmic, linker, protein, 2;Williams-Beuren, syndrome, chromosomal, region, 3, protein;Williams-Beuren, syndrome, chromosomal, region, 4, protein
+CLIP3;CAP-Gly, domain, containing, linker, protein, 3;CAP-GLY, domain, containing, linker, protein, 3;CLIPR-59;RSNL1;CAP-Gly, domain-containing, linker, protein, 3;Cytoplasmic, linker, protein, 170-related, 59, kDa, protein
+CLIP4;CAP-Gly, domain, containing, linker, protein, family, member, 4;RSNL2;restin-like, 2;CAP-GLY, domain, containing, linker, protein, family, ',', member, 4;FLJ21069;CAP-Gly, domain-containing, linker, protein, 4;Restin-like, protein, 2
+CMTR1;cap, methyltransferase, 1;KIAA0082;FTSJD2;KIAA0082;FtsJ, methyltransferase, domain, containing, 2;MTr1;ISG95;Cap-specific, mRNA, (nucleoside-2'-O-)-methyltransferase, 1;Cap, methyltransferase, 1;Cap1, 2'O-ribose, methyltransferase, 1;FtsJ, methyltransferase, domain-containing, protein, 2;Interferon-stimulated, gene, 95, kDa, protein
+CMTR2;cap, methyltransferase, 2;FTSJD1;FtsJ, methyltransferase, domain, containing, 1;FLJ11171;AFT;MTr2;Cap-specific, mRNA, (nucleoside-2'-O-)-methyltransferase, 2;Cap, methyltransferase, 2;Cap2, 2'O-ribose, methyltransferase, 2;FtsJ, methyltransferase, domain-containing, protein, 1;Protein, adrift, homolog
+CTIF;cap, binding, complex, dependent, translation, initiation, factor;KIAA0427;KIAA0427;CBP80/20-dependent, translation, initiation, factor
+NCBP1;nuclear, cap, binding, protein, subunit, 1;NCBP;nuclear, cap, binding, protein, subunit, 1, ',', 80kD;nuclear, cap, binding, protein, subunit, 1, ',', 80kDa;CBP80;Sto1;Nuclear, cap-binding, protein, subunit, 1;80, kDa, nuclear, cap-binding, protein
+NCBP2;nuclear, cap, binding, protein, subunit, 2;nuclear, cap, binding, protein, subunit, 2, ',', 20kD;nuclear, cap, binding, protein, subunit, 2, ',', 20kDa;NIP1;CBP20;Cbc2;Nuclear, cap-binding, protein, subunit, 2;20, kDa, nuclear, cap-binding, protein;Cell, proliferation-inducing, gene, 55, protein;NCBP, 20, kDa, subunit;NCBP-interacting, protein, 1
+NCBP2L;nuclear, cap, binding, protein, subunit, 2, like;Nuclear, cap-binding, protein, subunit, 2-like
+NCBP3;nuclear, cap, binding, subunit, 3;C17orf85;chromosome, 17, open, reading, frame, 85;HSA277841;ELG;Nuclear, cap-binding, protein, subunit, 3;Protein, ELG
+RAMMET;RNMT, activating, mRNA, cap, methyltransferase, subunit;FAM103A1;family, with, sequence, similarity, 103, ',', member, A1;family, with, sequence, similarity, 103, member, A1;HsT19360;C15orf18;MGC2560;RAM;RNMT-activating, mini, protein;Protein, FAM103A1
+RAMMETL;RNMT, activating, mRNA, cap, methyltransferase, subunit, like, (pseudogene);C6orf119;FAM103A2P;chromosome, 6, open, reading, frame, 119;family, with, sequence, similarity, 103, ',', member, A2, pseudogene;dJ427A4.2
+TCAP;titin-cap;LGMD2G;limb, girdle, muscular, dystrophy, 2G, (autosomal, recessive);titin-cap, (telethonin);T-cap;TELE;telethonin;CMD1N;Telethonin;Titin, cap, protein
+CAP;CAP
+ZN;ZINC, ION
+GATA1;GATA, binding, protein, 1;GF1;GATA-binding, protein, 1, (globin, transcription, factor, 1);globin, transcription, factor, 1;ERYF1;NFE1;GATA-1;NF-E1;Erythroid, transcription, factor;Eryf1;GATA-binding, factor, 1;NF-E1, DNA-binding, protein
+CDX1;caudal, type, homeobox, 1;caudal, type, homeo, box, transcription, factor, 1;Homeobox, protein, CDX-1;Caudal-type, homeobox, protein, 1
+CDXA;CDXA
+CREBBP;CREB, binding, protein;RSTS;Rubinstein-Taybi, syndrome;RTS;CBP;KAT3A;CREB-binding, protein
+CREBZF;CREB/ATF, bZIP, transcription, factor;ZF;CREB/ATF, bZIP, transcription, factor;Host, cell, factor-binding, transcription, factor, Zhangfei
+CRTC1;CREB, regulated, transcription, coactivator, 1;MECT1;mucoepidermoid, carcinoma, translocated, 1;KIAA0616;FLJ14027;TORC1;CREB-regulated, transcription, coactivator, 1;Mucoepidermoid, carcinoma, translocated, protein, 1;Transducer, of, regulated, cAMP, response, element-binding, protein, 1
+CRTC2;CREB, regulated, transcription, coactivator, 2;TORC2;CREB-regulated, transcription, coactivator, 2;Transducer, of, regulated, cAMP, response, element-binding, protein, 2
+CRTC3;CREB, regulated, transcription, coactivator, 3;FLJ21868;CREB-regulated, transcription, coactivator, 3;Transducer, of, regulated, cAMP, response, element-binding, protein, 3
+CREB;CREB
+CREBP1CJUN;CREBP1CJUN

@@ -1,0 +1,54 @@
+event('EGF',bind,'EGFR')
+Since UPR activation occurs in <2 minutes, it is an initial cell response when EGF binds EGFR, PMID: 26551735, VP.
+
+event(EGFR,activate,'Ras')
+Aberrant activation of the EGF receptor (EGFR) contributes to many human cancers by activating the 'Ras'-'MAPK' pathway and other pathways, PMID: 26551075, VP.
+
+event('Ras',activate,'CREB')
+ Furthermore, M-Ras brought about ERK pathway-mediated activating phosphorylation of CREB and the CREB-mediated transcription, PMID: 16923128, VP.
+
+event('CREB',bind,'SRIF')
+In contrast, Tax did not form a similar complex on the CREB binding site in the somatostatin promoter, PMID: 8950264, VP.
+
+event('EGFR',activate,'MAPK')
+Aberrant activation of the EGF receptor (EGFR) contributes to many human cancers by activating the 'Ras'-'MAPK' pathway and other pathways, PMID: 26551075, VP.
+
+event('MAPK',activate,'MEK')
+Specific docking interactions between MAPKs and their activating MAPK kinases (MKKs or MEKs) are crucial for efficient and accurate signal transmission, PMID: 12788955 ,FP.
+
+event('MEK',activate,'Ras')
+Using the Snapshot assay, mutation statuses were detected for EGFR, Kirsten rate sarcoma viral oncogene homolog (KRAS), phosphoinositide-3-kinase catalytic alpha polypeptide (PIK3CA), v-Raf murine sarcoma viral oncogene homolog B1 (BRAF), v-ras neuroblastoma viral oncogene homolog (NRAS), dual specificity mitogen activated protein kinase kinase 1 (MEK1), phosphatase and tensin homolog (PTEN), and human epidermal growth factor receptor 2 (HER2) in patient specimens and cell line DNA, PMID: 24823994, FP.
+
+event('MEK',activate,'Raf')
+Using the Snapshot assay, mutation statuses were detected for EGFR, Kirsten rate sarcoma viral oncogene homolog (KRAS), phosphoinositide-3-kinase catalytic alpha polypeptide (PIK3CA), v-Raf murine sarcoma viral oncogene homolog B1 (BRAF), v-ras neuroblastoma viral oncogene homolog (NRAS), dual specificity mitogen activated protein kinase kinase 1 (MEK1), phosphatase and tensin homolog (PTEN), and human epidermal growth factor receptor 2 (HER2) in patient specimens and cell line DNA, FP.
+
+event('Raf',activate,'Ras')
+During signal transduction, Ras is transiently activated by GTP binding and interacts with effector proteins such as Raf kinase, PMID: 25033801, FP.
+
+event('MAPK',phosphorylate,'MEK')
+Raf (MAPKK kinase, MAPKKK) relays the extracellular signal from the receptor/Ras complex to a cascade of cytosolic kinases by phosphorylating and activating MAPK/ERK kinase (MEK; MAPK kinase, MAPKK) that phosphorylates and activates extracellular signal regulated kinase (ERK; mitogen-activated protein kinase, MAPK), which phosphorylates various cytoplasmic and nuclear proteins, PMID: 12639709, VP.
+
+event('MAPK',interact,'MEK')
+CST5 is essential for mating and still coordinates the mitogen-activated protein (MAP) kinase (MAPK) cascade elements in the absence of the vWA domain; Cst5p interacts with the MEK kinase (MEKK) C, PMID: 21249169, FP.
+
+event('MAPK',associate,SOS)
+Accordingly, this study carried out mutation analysis of nine genes including PTPN11, SOS1, GRB2, KRAS, HRAS, NRAS, BRAF, MEK1, and MEK2 associated with the Ras-MAPK pathway in 14 Korean patients with NS, PMID: 17661820, FP.
+
+event('SOS',activate,'Ras')
+Son of sevenless (SOS) is a guanine nucleotide exchange factor that activates Ras in response to growth factor stimulation
+
+event('SOS',activate,'MEK')
+Two families of Ras guanine nucleotide exchange factors (RasGEFs), SOS and RasGRP, activate Ras and the downstream RAF-MEK-ERK pathway, PMID: 23589333, VP. (salto importante!!)
+
+event('MAPK',associate,'Ras')
+Accordingly, this study carried out mutation analysis of nine genes including PTPN11, SOS1, GRB2, KRAS, HRAS, NRAS, BRAF, MEK1, and MEK2 associated with the Ras-MAPK pathway in 14 Korean patients with NS, PMID: 17661820, FP.
+
+event('MAPK',associate,'MEK')
+Accordingly, this study carried out mutation analysis of nine genes including PTPN11, SOS1, GRB2, KRAS, HRAS, NRAS, BRAF, MEK1, and MEK2 associated with the Ras-MAPK pathway in 14 Korean patients with NS
+
+event('MAPK',activate,'Ras')
+Resistance mechanisms are identified in 9/11 progressing tumours and MAPK reactivation occurred in 9/10 tumours, commonly via BRAF amplification and mutations activating NRAS and MEK2. Our data confirming that MEK2(C125S), but not the synonymous MEK1(C121S) protein, confers resistance to combination therapy highlight the functional differences between these kinases and the preponderance of MEK2 mutations in combination therapy-resistant melanomas
+
+
+
+

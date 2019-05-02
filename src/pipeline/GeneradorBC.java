@@ -66,10 +66,10 @@ public class GeneradorBC {
 
         int n = 1;
 
-        String baseCtemp = "baseCTemp";
+        String baseCtemp = "KBaseTemp";
 
         FileWriter fichero = new FileWriter(ruta + "/" + baseCtemp); // BC temporal. Se procesa para generer baseC.pl
-        FileWriter fichero1 = new FileWriter(ruta + "/baseCdoc"); // BC documentada. Permite saber archivo y linea de un evento.
+        FileWriter fichero1 = new FileWriter(ruta + "/kBaseDoc"); // BC documentada. Permite saber archivo y linea de un evento.
 
         try (PrintWriter archivoBC = new PrintWriter(fichero)) {
 
@@ -78,7 +78,7 @@ public class GeneradorBC {
 
             while (oracionesSVC(n, ruta)) {
 
-                oracionesSVC = ruta + "/abstracts/resumen_" + n + ".txt";
+                oracionesSVC = ruta + "/abstracts/summary_" + n + ".txt";
 
                 generador(oracionesSVC, archivoBCdoc, eventos, ruta);
 
@@ -88,13 +88,13 @@ public class GeneradorBC {
 
             int cont_eventos;
             cont_eventos = printBC(archivoBC, eventos);
-            System.out.println("cantidad de eventos: " + cont_eventos);
+            System.out.println("Amount of events found: " + cont_eventos);
 
             archivoBC.println("]).");
 
             archivoBC.close();
 
-            archivoBCdoc.println("Total de eventos: " + cont_eventos);
+            archivoBCdoc.println("Total of events: " + cont_eventos);
             archivoBCdoc.close();
 
             try (BufferedReader baseKB = new BufferedReader(new FileReader(new File(ruta + "/" + baseCtemp)))) {
@@ -132,7 +132,7 @@ public class GeneradorBC {
 
         boolean existe = false;
 
-        File archivo_fuente = new File(ruta + "/abstracts/resumen_" + n + ".txt");
+        File archivo_fuente = new File(ruta + "/abstracts/summary_" + n + ".txt");
 
         existe = archivo_fuente.exists();
 
@@ -151,9 +151,9 @@ public class GeneradorBC {
         //proceso oracionesSVC para recorte.
         //File f = new File(generar_txt(oracionesSVC));
         File f = new File(oracionesSVC);
-        File f1 = new File("aceptados2.txt");
+        File f1 = new File("relations.txt");
         //File f2 = new File("objetos_CREB.txt");
-        File f2 = new File(ruta + "/objetosMinados.txt");
+        File f2 = new File(ruta + "/minedObjects.txt");
         //File f2 = new File("objetosBAXSMinadosBC.txt");
 
         //System.out.println("Esto");
@@ -244,7 +244,7 @@ public class GeneradorBC {
         try {
 
             //salidaresumidor="[html]\n";//inicio de cabecera html para 
-            baseC.println("Archivo " + oracionesSVC);
+            baseC.println("Processing file: " + oracionesSVC);
 
             while (resumidor.ready()) {
 
@@ -342,8 +342,8 @@ public class GeneradorBC {
                                     String event = "event(" + "'" + suj + "'" + "," + rel + "," + "'" + comple + "'" + ")";
                                     if (!eventos.contains(event)) {
                                         eventos.add(event);
-                                        System.out.println("evento: " + event + "; Linea: " + cont_lineas);
-                                        baseC.println("evento: " + event + "; Linea: " + cont_lineas);
+                                        //System.out.println("event: " + event + "; Line: " + cont_lineas);
+                                        baseC.println("event: " + event + "; line: " + cont_lineas);
                                         contEventosArchivoActual++;
                                     }
                                 }
@@ -365,15 +365,15 @@ public class GeneradorBC {
             }
 
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Error en:!!!!!!!!" + cont_lineas);
+            System.out.println("Error on line " + cont_lineas + ", file: " + oracionesSVC);
             //e.printStackTrace();
         }
 
         //*System.out.print("]).");
-        System.out.println("eventos provenientes de " + oracionesSVC + " :" + contEventosArchivoActual);
-        baseC.println("eventos provenientes de " + oracionesSVC + " :" + contEventosArchivoActual);
+        //System.out.println("eventos provenientes de " + oracionesSVC + " :" + contEventosArchivoActual);
+        baseC.println("Total of events from " + oracionesSVC + " :" + contEventosArchivoActual + "\n");
 
-        return "Base.pl";
+        return "kBase.pl";
 
     }
 

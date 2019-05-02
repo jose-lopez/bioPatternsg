@@ -1,0 +1,8 @@
+[event(EGF,bind,EGFR),event(EGFR,activate,Ras),event(Ras,activate,Raf),event(Raf,require,MAPK),event(MAPK,activate,CREB),event(CREB,bind,SRIF)]
+[EGF,EGFR,Ras,Raf,MAPK,CREB,SRIF]
+[event(EGF,bind,EGFR),event(EGFR,activate,Ras),event(Ras,activate,Raf),event(Raf,require,MAPK),event(MAPK,phosphorylate,CREB),event(CREB,bind,SRIF)]
+[EGF,EGFR,Ras,Raf,MAPK,CREB,SRIF]
+[event(EGF,bind,EGFR),event(EGFR,activate,Ras),event(Ras,activate,Raf),event(Raf,require,MAPK),event(MAPK,activate,MEK),event(MEK,activate,CREB),event(CREB,bind,SRIF)]
+[EGF,EGFR,Ras,Raf,MAPK,MEK,CREB,SRIF]
+[event(EGF,bind,EGFR),event(EGFR,activate,Ras),event(Ras,activate,Raf),event(Raf,require,MAPK),event(MAPK,recruit,SOS),event(SOS,activate,MEK),event(MEK,activate,CREB),event(CREB,bind,SRIF)]
+[EGF,EGFR,Ras,Raf,MAPK,SOS,MEK,CREB,SRIF]

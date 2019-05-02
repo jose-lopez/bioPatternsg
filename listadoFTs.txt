@@ -1,7 +1,0 @@
-cadena	Consenso	Coordenada Ini.	Coord Fin.	Factor SimbololoFactor Nombre
-WWTWMTR		CATAATT		68		74		CDXA		CDXA
-NNCANCTGNY		TCCACCTGTC		358		367		MDFI		MyoD family inhibitor
-AAACWAM		AAACAAA		502		508		SRY		sex determining region Y
-AAACWAM		AAACAAA		2748		2754		SRY		sex determining region Y
-NNNTRTTTRYTY		AATTGTTTGCTT		1919		1930		FOXA2		forkhead box A2
-TGTGGT		ACCACA		2071		2076		RUNX1		runt related transcription factor 1

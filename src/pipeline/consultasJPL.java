@@ -8,7 +8,7 @@ package pipeline;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
-import com.sun.javafx.geom.Vec2d;
+//import com.sun.javafx.geom.Vec2d;
 import estructura.HGNC;
 import estructura.factorTranscripcion;
 import estructura.objetos_Experto;

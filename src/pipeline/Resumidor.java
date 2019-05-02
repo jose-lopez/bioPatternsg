@@ -72,14 +72,14 @@ public class Resumidor {
 
         while (buscarAbstractHtml(n,ruta)) {
             //metodo que llama al consultResumidor
-            salida = "salida_" + n + ".html";
+            salida = "abstracts_summary_" + n + ".html";
             entrada = "abstracts_" + n + ".html";
-            System.out.println("Resumiendo abstracts_" + n + "................");
+            System.out.println("Summarizing abstracts_" + n + "................");
 
             resumir(entrada, n, salida,ruta);
             //recibe la ruta del resumen y genera un archivo txt
             //en la carpeta abstracts llamado resumen_(n).txt 
-            salida = ruta+"/abstracts/salida_" + n + ".html";
+            salida = ruta + "/abstracts/" + salida;
             try {
                 generarResumenTXT(n, salida,ruta);
             } catch (Exception e) {
@@ -109,7 +109,7 @@ public class Resumidor {
     }
 
     public void generarResumenTXT(int n, String fuente,String ruta) throws Exception {
-        String nombre_archivo = ruta+"/abstracts/resumen_" + n + ".txt";
+        String nombre_archivo = ruta+"/abstracts/summary_" + n + ".txt";
 
         File archivo_fuente = new File(fuente);
         File archivo_destino = new File(nombre_archivo);
@@ -147,10 +147,10 @@ public class Resumidor {
 
             escribir.close();
 
-            System.out.println("..ok");
+            //System.out.println("..ok");
         } else {
 
-            System.out.println("archivo no localizado");
+            System.out.println("File not found: " + fuente);
 
         }
 
@@ -164,7 +164,7 @@ public class Resumidor {
         //String resumirComando = "tell('salida_1_p.html'), resume('abstracts_1.html'), told.";
         //System.out.println("cd(\""+ruta+"/abstracts\").");
         Query q = new Query("cd(\""+ruta+"/abstracts\").");
-        System.out.println("cambio a directorio abstracts:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+        System.out.println("moving to abstracts directory: " + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
         try {
             File ficherod = new File(salida);
@@ -180,7 +180,7 @@ public class Resumidor {
             generarResumen(resumirComando); // se realiza resumen del archivo de abstracts
 
             q = new Query("cd(../../../../..).");
-            System.out.println("regresando a directorio raiz:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+            System.out.println("moving to project's root directory: " + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -202,7 +202,7 @@ public class Resumidor {
 
         Query q = new Query(resumirComando);
         hasSolution = q.hasSolution();
-        System.out.println("Resumir: " + (hasSolution ? "succeeded" : "failed"));
+        System.out.println("Summarizing....: " + (hasSolution ? "succeeded" : "failed"));
 
         //q = new Query("cd(..)");
         //System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
@@ -219,14 +219,14 @@ public class Resumidor {
     public void init(String codigoResumidorPNL) {
         //Abriendo el archivo
         Query q = new Query("cd(resumidor_bioinformante).");
-        System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+        System.out.println("moving to directory:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
         String consultResumidor = "[" + codigoResumidorPNL + "].";
         Query query = new Query(consultResumidor);
-        System.out.println(consultResumidor + " " + (query.hasSolution() ? "succeeded" : "failed"));
+        System.out.println("loading summarizing code: " + consultResumidor + " -> " + (query.hasSolution() ? "succeeded" : "failed"));
 
         q = new Query("cd(..).");
-        System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+        System.out.println("moving to directory:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
     }
 }
