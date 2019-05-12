@@ -1,0 +1,15 @@
+wkr_ligand('').
+wkr_proteins('').
+wkr_transcription_factors('').
+wkr_adaptor_proteins('').
+wkr_receptors('').
+wkr_enzymes('').
+wkr_receptors_cytoplasmic_and_nuclear(X):-wkr_nuclear_receptor_subfamily_0_group_b_member_2(X).
+wkr_carrier_proteins(X):-wkr_nudcl_protein_rat(X).
+wkr_ras_proteins(X):-wkr_rit1_protein_human(X).
+wkr_eukaryotic_initiation_factor_4g(X):-wkr_eif4g3_protein_mouse(X).
+wkr_amidohydrolases(X):-wkr_pm20d1_protein_mouse(X).
+wkr_death_domain_receptor_signaling_adaptor_proteins(X):-wkr_tnf_receptor_associated_death_domain_protein(X).
+wkr_apoptosis_regulatory_proteins(X):-wkr_death_domain_receptor_signaling_adaptor_proteins(X).
+wkr_tumor_necrosis_factor_receptor_associated_peptides_and_proteins(X):-wkr_tnf_receptor_associated_death_domain_protein(X).
+wkr_proto_oncogenes(X):-wkr_genes_myb(X).

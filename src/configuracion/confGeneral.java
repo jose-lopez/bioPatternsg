@@ -560,7 +560,7 @@ public class confGeneral {
                 new Resumidor().resumidor(config, ruta);
 
                 // crea la bace de conocimiento con el listado de eventos encontrados por el resumidor
-                String kb = new GeneradorBC().generadorBC("kBase.pl", config, ruta);
+                String kb = new GeneradorBC().generadorBC("baseC.pl", config, ruta);
 
                 // se crea el archivo 'mineria/objetos_patrones.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
                 new objetos_patrones().generar_archivo(config, ruta);

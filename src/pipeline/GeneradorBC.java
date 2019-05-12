@@ -54,7 +54,7 @@ public class GeneradorBC {
         //baseC.generador("ENSG00000157005SST1-gen-comparable-1-salida.txt");
         //baseC.generador("abstracts-experimento-SRIF-26112015-Part-I-II-salida.txt");
         configuracion config = new configuracion();
-        generador.generadorBC("baseC.pl", config, "");
+        generador.generadorBC("kBase.pl", config, "");
 
     }
 
