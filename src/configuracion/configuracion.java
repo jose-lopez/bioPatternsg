@@ -64,6 +64,7 @@ public class configuracion {
     private boolean GenerarBC;//Lista de eventos encontrados en los resumenes
     private boolean objetosPatrones; //genera archivo con clasificacion espesifica de los objetos en la BC a partir de las ontologias
     private boolean InferirPatrones; //crea los pathway usando los eventos, y la informacin de las ontologias
+    private boolean nombreCorto;//nombre cortos para combinaciones de palabras clave
     //----------------------------------------------------------------------------
 
     public configuracion() {
@@ -73,7 +74,7 @@ public class configuracion {
     }
 
     //guarda la configuracion inicial del proceso
-    public void guardarConfiguracion(String regionProm, int numIter, int cantCompl, float conf, boolean GO, boolean MESH, int cantPMID, String PMidExp, String ruta) {
+    public void guardarConfiguracion(String regionProm, int numIter, int cantCompl, float conf, boolean GO, boolean MESH,boolean nombreCorto, int cantPMID, String PMidExp, String ruta) {
         this.RegionPromotora = regionProm;
         this.cantComplejos = cantCompl;
         this.numIteraciones = numIter;
@@ -82,13 +83,14 @@ public class configuracion {
         this.crearOntologiaMESH = MESH;
         this.cantidadPMID = cantPMID;
         this.rutaPMID_experto = PMidExp;
-        System.out.println(ruta);
+        this.nombreCorto=nombreCorto;
+        
         ObjectContainer db = Db4o.openFile(ruta + "/config.db");
         try {
             db.store(this);
-            System.out.println("Configuracion guardada...");
+            System.out.println(language.text.get(16));
         } catch (Exception e) {
-            System.out.println("No fue posible guardar la configuracion");
+            System.out.println(language.text.get(17));
         } finally {
             db.close();
         }
@@ -108,7 +110,7 @@ public class configuracion {
                 //System.out.println("guardado");
             }
         } catch (Exception e) {
-            System.out.println("No fue posible guardar la configuracion");
+            System.out.println(language.text.get(17));
         } finally {
             db.close();
         }
@@ -129,7 +131,7 @@ public class configuracion {
                 break;
             }
         } catch (Exception e) {
-            System.out.println("No fue posible guardar la configuracion");
+            System.out.println(language.text.get(17));
         } finally {
             db.close();
         }
@@ -150,6 +152,7 @@ public class configuracion {
                 this.confiabilidad_tfbind = config.confiabilidad_tfbind;
                 this.cantidadPMID = config.cantidadPMID;
                 this.rutaPMID_experto = config.rutaPMID_experto;
+                this.nombreCorto = config.nombreCorto;
                 //------------------------------------------------------//
                 this.tfbind = config.tfbind;
                 this.homologos = config.homologos;
@@ -170,7 +173,7 @@ public class configuracion {
 
             }
         } catch (Exception e) {
-            System.out.println("No fue posible guardar la configuracion");
+            System.out.println(language.text.get(17));
         } finally {
             db.close();
         }
@@ -181,50 +184,50 @@ public class configuracion {
     //muestra la configuracion inicial del proceso
     public void verConfiguracion(String ruta) {
         //System.out.println("\n**Configuracion de minado**");
-        System.out.println("\n*Region promotora: " + this.RegionPromotora);
-        System.out.println("*Cantidad de complejos: " + this.cantComplejos);
-        System.out.println("*Niveles de busqueda: " + this.numIteraciones);
-        System.out.println("*Confiabilidad TFBind: " + (int) (this.confiabilidad_tfbind * 100));
-        System.out.println("*Cantidad maxima de pubmed IDs por busqueda: " + this.cantidadPMID);
+        System.out.println("\n"+language.text.get(18)+" "+ this.RegionPromotora);
+        System.out.println(language.text.get(19)+" "+ this.cantComplejos);
+        System.out.println(language.text.get(20)+" "+ this.numIteraciones);
+        System.out.println(language.text.get(21)+" "+ (int) (this.confiabilidad_tfbind * 100));
+        System.out.println(language.text.get(22)+" "+ this.cantidadPMID);
 
         estadoactual(ruta);
     }
 
     //muestra el estado actual del proceso .. dependiendo del los checklist que esten activos
     private void estadoactual(String ruta) {
-        System.out.print("\nEstado actual: ");
+        System.out.print("\n"+language.text.get(23));
         if (!homologos) {
-            System.out.println("Busqueda de homologos");
+            System.out.println(language.text.get(24));
         } else if (!objetosExperto) {
-            System.out.println("Busqueda objetos del Experto");
+            System.out.println(language.text.get(25));
         } else if (!lecturas_tfbind) {
-            System.out.println("Lecturas desde Tfbind");
+            System.out.println(language.text.get(26));
         } else if (!procesoIteraciones) {
             objetosMineria objMin = new objetosMineria();
             objMin = recuperarObjetosMin(ruta);
-            System.out.println("Busqueda de objetos PDB nivel " + (objMin.getIteracion() + 1));
+            System.out.println(language.text.get(27)+" " + (objMin.getIteracion() + 1));
         } else if (!combinaciones) {
-            System.out.println("Generando combinaciones de palabras clave");
+            System.out.println(language.text.get(28));
         } else if (!pubmedids) {
-            System.out.println("Busqueda de PubMed IDs");
+            System.out.println(language.text.get(29));
         } else if (!abstracts) {
-            System.out.println("Busquedas en PubMed ");
+            System.out.println(language.text.get(30));
         } else if (!vaciado_pl) {
-            System.out.println("Vaciado de Objetos minados a formato prolog (.pl)");
+            System.out.println(language.text.get(31));
         } else if (!generarResumenes) {
-            System.out.println("Generando resumenes actual: " + resumenes);
+            System.out.println(language.text.get(32)+" " + resumenes);
         } else if (!GenerarBC) {
-            System.out.println("Generar base de conocimiento");
+            System.out.println(language.text.get(33));
         } else if (!objetosPatrones) {
-            System.out.println("Generar archivo objetospatrones.pl");
+            System.out.println(language.text.get(34));
         } else if (!InferirPatrones) {
-            System.out.println("Inferir patrones");
+            System.out.println(language.text.get(35));
         }
     }
 
     //dependiendo de los checklist que esten activos el proceso se reanudara desde un punto espesifico
     public void reanudar_proceso(String ruta,String ruta2) {
-        System.out.print("Preparando");
+        System.out.print(language.text.get(139));
         recuperarConfiguracion(ruta);
         //verConfiguracion();
         objetosMineria objMin = new objetosMineria();
@@ -275,28 +278,28 @@ public class configuracion {
             ArrayList<pathway> patrones = RRG.cargarPatrones(ruta);
             System.out.print("\033[H\033[2J");
             System.out.flush();
-            System.out.println("Configuracion inicial\n");
-            System.out.println("*Region promotora:               " + this.RegionPromotora);
-            System.out.println("*Cantidad de complejos:          " + this.cantComplejos);
-            System.out.println("*Numero de niveles:              " + this.numIteraciones);
-            System.out.println("*Confiabilidad TFBind:           " + (int) (this.confiabilidad_tfbind * 100));
-            System.out.println("*Cantidad maxima de pubmed IDs:  " + this.cantidadPMID);
+            System.out.println(language.text.get(36)+"\n");
+            System.out.println(language.text.get(37)+"               " + this.RegionPromotora);
+            System.out.println(language.text.get(38)+"          " + this.cantComplejos);
+            System.out.println(language.text.get(39)+"              " + this.numIteraciones);
+            System.out.println(language.text.get(40)+"           " + (int) (this.confiabilidad_tfbind * 100));
+            System.out.println(language.text.get(41)+"  " + this.cantidadPMID);
             if (!rutaPMID_experto.equals("")) {
-                System.out.println("*Archivo de objetos del Experto: " + rutaPMID_experto);
+                System.out.println(language.text.get(42)+" " + rutaPMID_experto);
             }
 
-            System.out.println("\nResultados\n");
-            System.out.println("Objetos minados:            " + minados);
-            System.out.println("Combinaciones realizadas:   " + num_combinaciones(ruta));
-            System.out.println("Pubmed Id encontrados:      " + num_pubmedIds(ruta));
-            System.out.println("Eventos encontrados:        " + num_eventos(ruta));
-            System.out.println("Patrones encontrados:       " + patrones.size() + "\n");
+            System.out.println("\n"+language.text.get(43)+"\n");
+            System.out.println(language.text.get(44)+"            " + minados);
+            System.out.println(language.text.get(45)+"   " + num_combinaciones(ruta));
+            System.out.println(language.text.get(46)+"      " + num_pubmedIds(ruta));
+            System.out.println(language.text.get(47)+"        " + num_eventos(ruta));
+            System.out.println(language.text.get(48)+"       " + patrones.size() + "\n");
 
-            System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Crear un nuevo proceso.");
-            System.out.println("2.- Ir al menu analisis de RRG.");
-            System.out.println("3.- Inferir patrones.");
-            System.out.println("0.- Salir.");
+            System.out.println(language.text.get(0));
+            System.out.println(language.text.get(49));
+            System.out.println(language.text.get(50));
+            System.out.println(language.text.get(51));
+            System.out.println(language.text.get(4));
 
             String resp = lectura.nextLine();
 
@@ -305,9 +308,9 @@ public class configuracion {
                 case "1":
 
                     while (true) {
-                        System.out.print("*Se perderan todos los datos del proceso actual ¿desea continuar?  ..S/N: ");
+                        System.out.print(language.text.get(52));
                         String resp2 = lectura.nextLine();
-                        if (resp2.equalsIgnoreCase("s")) {
+                        if (resp2.equalsIgnoreCase("s")||resp2.equalsIgnoreCase("y")) {
                             System.out.print("\033[H\033[2J");
                             System.out.flush();
                             minado_FT mft = new minado_FT();
@@ -327,7 +330,7 @@ public class configuracion {
 
                             break;
                         } else {
-                            System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                            System.out.println(language.text.get(53));
                         }
                     }
 
@@ -358,7 +361,7 @@ public class configuracion {
                 mfts.buscarObjetosExperto(listaObjetos_homologosExperto(rutaD+"/objetos_Experto.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.primeraIteracion(rutaD+"/"+RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ActivatableArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
-                new combinaciones().generar_combinaciones(false, this, ruta);
+                new combinaciones().generar_combinaciones(false, this, ruta,nombreCorto);
                 new PubMed_IDs().buscar(cantidadPMID, this, ruta);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
@@ -376,7 +379,7 @@ public class configuracion {
                 mfts.buscarObjetosExperto(revisarObjH_E(rutaD+"/objetos_Experto.txt", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.primeraIteracion(rutaD+"/"+RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
-                new combinaciones().generar_combinaciones(false, this, ruta);
+                new combinaciones().generar_combinaciones(false, this, ruta, nombreCorto);
                 new PubMed_IDs().buscar(cantidadPMID, this, ruta);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
@@ -395,7 +398,7 @@ public class configuracion {
                 ArrayList<lecturas_TFBIND> lecturas = actualizarListaTFBind(objetosMineria, ruta);
                 mfts.primeraIteracion(rutaD+"/"+RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, lecturas, crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
-                new combinaciones().generar_combinaciones(false, this, ruta);
+                new combinaciones().generar_combinaciones(false, this, ruta,nombreCorto);
                 new PubMed_IDs().buscar(cantidadPMID, this, ruta);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
@@ -411,7 +414,7 @@ public class configuracion {
             case 4:
                 ArrayList<String> ListaObj = reanudarIteracion(objetosMineria, ruta);
                 mfts.Iteraciones(true, ListaObj, cantComplejos, numIteraciones, objetosMineria, this, objetosMineria.getIteracion() + 1, crearOntologiaGO, crearOntologiaMESH, ruta);
-                new combinaciones().generar_combinaciones(false, this, ruta);
+                new combinaciones().generar_combinaciones(false, this, ruta,nombreCorto);
                 new PubMed_IDs().buscar(cantidadPMID, this, ruta);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
@@ -426,7 +429,7 @@ public class configuracion {
                 break;
 
             case 5:
-                new combinaciones().generar_combinaciones(false, this, ruta);
+                new combinaciones().generar_combinaciones(false, this, ruta,nombreCorto);
                 new PubMed_IDs().buscar(cantidadPMID, this, ruta);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
@@ -670,12 +673,12 @@ public class configuracion {
         Scanner lectura = new Scanner(System.in);
         String regionPromotora;
         while (true) {
-            System.out.print("*Nombre de archivo region promotora: ");
+            System.out.print(language.text.get(54));
             regionPromotora = lectura.nextLine();
             if (!regionPromotora.equals("")) {
                 break;
             } else {
-                System.out.println("Debe ingresar un nombre de archivo");
+                System.out.println(language.text.get(55));
             }
         }
         return regionPromotora;
@@ -686,17 +689,17 @@ public class configuracion {
         float conf;
         while (true) {
             try {
-                System.out.print("*Indice de confiabilidad en TFbind (0-100): ");
+                System.out.print(language.text.get(56));
                 String confi = lectura.nextLine();
                 conf = Float.parseFloat(confi) / 100;
 
                 if (conf > 1) {
-                    System.out.println("El dato ingresado debe ser numerico entre 0 y 100");
+                    System.out.println(language.text.get(57));
                 } else {
                     break;
                 }
             } catch (Exception e) {
-                System.out.println("El dato ingresado debe ser numerico entre 0 y 100");
+                System.out.println(language.text.get(57));
             }
         }
         return conf;
@@ -707,11 +710,11 @@ public class configuracion {
         Scanner lectura = new Scanner(System.in);
         while (true) {
             try {
-                System.out.print("*Numero maximo de objetos PDB : ");
+                System.out.print(language.text.get(58));
                 can_objs = Integer.parseInt(lectura.nextLine());
                 break;
             } catch (Exception e) {
-                System.out.println("El dato ingresado debe ser numerico");
+                System.out.println(language.text.get(59));
             }
         }
         return can_objs;
@@ -722,11 +725,11 @@ public class configuracion {
         Scanner lectura = new Scanner(System.in);
         while (true) {
             try {
-                System.out.print("*Numero de niveles de busqueda: ");
+                System.out.print(language.text.get(60));
                 num_iter = Integer.parseInt(lectura.nextLine());
                 break;
             } catch (Exception e) {
-                System.out.println("El dato ingresado debe ser numerico");
+                System.out.println(language.text.get(59));
             }
         }
         return num_iter;
@@ -737,11 +740,11 @@ public class configuracion {
         Scanner lectura = new Scanner(System.in);
         while (true) {
             try {
-                System.out.print("*Cantidad maxima de PubMed Ids para cada busqueda: ");
+                System.out.print(language.text.get(61));
                 cant_pm_id = Integer.parseInt(lectura.nextLine());
                 break;
             } catch (Exception e) {
-                System.out.println("El dato ingresado debe ser numerico");
+                System.out.println(language.text.get(59));
             }
         }
         return cant_pm_id;
@@ -754,20 +757,20 @@ public class configuracion {
         if (isInferirPatrones()) {
             return false;
         } else {
-            System.out.println("Existe un proceso de mineria de configuracion: ");
+            System.out.println(language.text.get(62));
             verConfiguracion(ruta);
             System.out.println();
             while (true) {
-                System.out.print("*Desea continuar con el proceso  ..S/N: ");
+                System.out.print(language.text.get(63));
                 String resp = lectura.nextLine();
-                if (resp.equalsIgnoreCase("S")) {
+                if (resp.equalsIgnoreCase("S") || resp.equalsIgnoreCase("Y")) {
                     reiniciar = false;
                     break;
                 } else if (resp.equalsIgnoreCase("N")) {
                     reiniciar = true;
                     break;
                 } else {
-                    System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                    System.out.println(language.text.get(53));
                 }
 
             }
@@ -780,36 +783,56 @@ public class configuracion {
         boolean GO = false;
         Scanner lectura = new Scanner(System.in);
         while (true) {
-            System.out.print("*Buscar ontologia en GeneOntology  ..S/N: ");
+            System.out.print(language.text.get(64));
             String resp = lectura.nextLine();
-            if (resp.equalsIgnoreCase("s")) {
+            if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
                 GO = true;
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
                 GO = false;
                 break;
             } else {
-                System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                System.out.println(language.text.get(53));
             }
 
         }
         return GO;
+    }
+    
+     public boolean nombresCortos() {
+        boolean nombreCorto = false;
+        Scanner lectura = new Scanner(System.in);
+        while (true) {
+            System.out.print(language.text.get(136));
+            String resp = lectura.nextLine();
+            if (resp.equalsIgnoreCase("s") || resp.equalsIgnoreCase("y")) {
+                nombreCorto = true;
+                break;
+            } else if (resp.equalsIgnoreCase("n")) {
+                nombreCorto = false;
+                break;
+            } else {
+                System.out.println(language.text.get(53));
+            }
+
+        }
+        return nombreCorto;
     }
 
     public boolean buscarMESH() {
         boolean MESH = false;
         Scanner lectura = new Scanner(System.in);
         while (true) {
-            System.out.print("*Buscar ontologia en MESH  ..S/N: ");
+            System.out.print(language.text.get(66));
             String resp = lectura.nextLine();
-            if (resp.equalsIgnoreCase("s")) {
+            if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
                 MESH = true;
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
                 MESH = false;
                 break;
             } else {
-                System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                System.out.println(language.text.get(53));
             }
         }
         return MESH;
@@ -821,27 +844,27 @@ public class configuracion {
         boolean r;
 
         while (true) {
-            System.out.print("*Desea agregar PubMed ID de Experto?  ..S/N: ");
+            System.out.print(language.text.get(67));
             String resp = lectura.nextLine();
-            if (resp.equalsIgnoreCase("s")) {
+            if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
                 r = true;
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
                 r = false;
                 break;
             } else {
-                System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                System.out.println(language.text.get(53));
             }
 
         }
         if (r) {
             while (true) {
-                System.out.print("*Indique el nombre del archivo donde estan los PubMed Ids: ");
+                System.out.print(language.text.get(68));
                 ruta = lectura.nextLine();
                 if (!ruta.equals("")) {
                     break;
                 } else {
-                    System.out.println("Debe ingresar un nombre de archivo");
+                    System.out.println(language.text.get(69));
                 }
             }
         }

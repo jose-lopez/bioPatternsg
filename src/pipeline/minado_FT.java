@@ -68,7 +68,7 @@ public class minado_FT {
 
     public void primeraIteracion(String regProm, float confiabilidad, int numeroObjetos, objetosMineria objetosMineria, configuracion config, ArrayList<lecturas_TFBIND> lecturas, boolean GO, boolean MESH,String ruta) {
         //Primera Iteracion
-        System.out.println("\n\n==== Nivel 0 ====\n");
+        System.out.println("\n\n"+language.text.get(70)+"\n");
         objetosMineria.setIteracion(0);
         ArrayList<lecturas_TFBIND> lecturasTFB;
         // si la lista 'lecturas' esta vacia indica que aun no se a consultado a tfbinb y se procede a hacerlo
@@ -76,7 +76,7 @@ public class minado_FT {
             // se envia la ruta del archivo con la region promotora
             // y el procentaje de confiabilidad para obtener las lecturas de tfbind
             lecturasTFB = lecturasTFBID(regProm, confiabilidad);
-            System.out.println("* " + lecturasTFB.size() + " Factores de transcripcion encontrados");
+            System.out.println("* " + lecturasTFB.size() + " "+language.text.get(71));
             //se guardan el lista de lecturas tfbind en caso de que se reinicie el proceso
             config.setTfbind(lecturasTFB);
             config.guardar(ruta);
@@ -119,7 +119,7 @@ public class minado_FT {
         //la variable 'iter' indica la iteracion en la que esta el proceso altualmente si este es reanudado
         //La variable Iteraciones indica el numero total de iteraciones que tendra el proceso
         for (int i = iter; i < Iteraciones; i++) {
-            System.out.println("\n\n==== Nivel " + (i) + " ====\n");
+            System.out.println("\n\n===="+language.text.get(72) + " " + (i) + " ====\n");
 
             //si Reanudar = true se toman los objetos que llegan por los parametros
             //Lista = en este llegan los objetos que faltan por minar en la iteracion
@@ -265,7 +265,7 @@ public class minado_FT {
         try {
             db.store(FT);
         } catch (Exception e) {
-            System.out.println("Error al guardar FT.db...");
+            System.out.println(language.text.get(73));
         } finally {
             db.close();
         }
@@ -276,7 +276,7 @@ public class minado_FT {
         try {
             db.store(objetosMin);
         } catch (Exception e) {
-            System.out.println("Error al guardar en objetosMineria.db...");
+            System.out.println(language.text.get(74));
         } finally {
             db.close();
         }
@@ -300,7 +300,7 @@ public class minado_FT {
                 }
             }
         } catch (Exception e) {
-            System.out.println("error");
+            System.out.println(language.text.get(75));
         } finally {
             db.close();
         }
@@ -308,11 +308,11 @@ public class minado_FT {
     }
 
     public void buscarHomologos(ArrayList<String> homologos, objetosMineria objetosMineria, configuracion config, boolean GO, boolean MESH,String ruta) {
-        System.out.println("\n\n**Leyendo archivo de Homologos...");
+        System.out.println("\n\n**"+language.text.get(76));
 
         for (String homologo : homologos) {
 
-            System.out.println("busqueda.." + homologo);
+            System.out.println(language.text.get(78)+" " + homologo);
             objetos_Experto objExp = new objetos_Experto();// la clase objeto_Experto tiene los aributos necesarios para guardar la informacion de cada objeto
             objExp.setID(homologo);
 
@@ -347,11 +347,11 @@ public class minado_FT {
     }
 
     public void buscarObjetosExperto(ArrayList<String> lista, objetosMineria objetosMineria, configuracion config, boolean GO, boolean MESH,String ruta) {
-        System.out.println("\n\n**Leyendo archivo de Objetos Experto...");
+        System.out.println("\n\n**"+language.text.get(77));
 
         for (String objeto : lista) {
 
-            System.out.println("busqueda.." + objeto);
+            System.out.println(language.text.get(78)+" " + objeto);
             objetos_Experto objExp = new objetos_Experto();// la clase objeto_Experto tiene los aributos necesarios para guardar la informacion de cada objeto
             objExp.setID(objeto);
 
@@ -439,7 +439,7 @@ public class minado_FT {
         try {
             db.store(objExp);
         } catch (Exception e) {
-            System.out.println("Error al guardar en la base de datos ObjH_E.db");
+            System.out.println(language.text.get(79));
         } finally {
 
             db.close();
@@ -449,7 +449,7 @@ public class minado_FT {
 
     public void vaciar_bc_pl(boolean GO, boolean MESH, configuracion config,String ruta) {
         limpiarPantalla();
-        System.out.print("Vaciando ontologias y objetos minados a formato .pl");
+        System.out.print(language.text.get(80));
         new escribirBC("ligando(\'\').", ruta+"/objetosMinados.pl");
         new escribirBC("transcription_factors(\'\').", ruta+"/objetosMinados.pl");
         //-------------------------------------------------------

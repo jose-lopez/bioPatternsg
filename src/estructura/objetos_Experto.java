@@ -52,6 +52,18 @@ public class objetos_Experto {
             //System.out.println("Experto: "+cadena);
             new escribirBC("sinonimos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadena + ").", ruta + "/objetosMinados.pl");
             new escribirBC(cadena_txt, ruta + "/objetosMinados.txt");
+            
+            if (hgnc.getTejidos().size() > 0) {
+                String cadTej ="[\'"+hgnc.getTejidos().get(0)+"\'";
+                for (int i = 1; i < hgnc.getTejidos().size(); i++) {
+                    cadTej+=",\'"+hgnc.getTejidos().get(0)+"\'";
+                }
+                    cadTej+="]";
+                new escribirBC("tejidos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadTej + ").", ruta + "/objetosMinados.pl");    
+            }
+            
+            
+
             ArrayList<String> lista = hgnc.ListaNombres();
             if (lista.contains(ID)) {
                 encontrado = true;

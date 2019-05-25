@@ -40,7 +40,7 @@ public class objetos_patrones {
         q4.hasSolution();
         
         
-        String archivo = "[generaObjetosPatrones].";
+        String archivo = "[scripts/generaObjetosPatrones].";
         Query q = new Query(archivo);
         q.hasSolution();
 

@@ -17,6 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import configuracion.configuracion;
+import configuracion.language;
 import configuracion.listPM;
 
 /**
@@ -161,7 +162,7 @@ public class lecturas_PM extends conexionServ {
             laux.num = contuax;
             listasPM.add(laux);
         }
-        System.out.println(listasPM.size());
+        
         listasPM.forEach((lpm) -> {
 
             String ruta_archivo = ruta + "/" + fileAbstID + "/" + fileAbstID + "_" + lpm.num + ".html";
@@ -182,8 +183,8 @@ public class lecturas_PM extends conexionServ {
 
             cont1++;
             limpiarPantalla();
-            System.out.print("\n\n Generando coleccion de  abstracts .....");
-            System.out.println("Descargando " + cont1 + " de " + IDS);
+            System.out.print("\n\n "+language.text.get(143));
+            System.out.println(language.text.get(144)+" " + cont1 + " / " + IDS);
             String ruta = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + pm + "&retmode=xml&rettype=abstract";
 
             try {

@@ -8,6 +8,7 @@ package pipeline;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import configuracion.configuracion;
+import configuracion.language;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -50,7 +51,7 @@ public class patrones {
 
         cargarBaseC(ruta);
 
-        String archivo = "[patronesJPL].";
+        String archivo = "[scripts/patronesJPL].";
         Query q = new Query(archivo);
         q.hasSolution();
 
@@ -104,9 +105,9 @@ public class patrones {
         Scanner lectura = new Scanner(System.in);
 
         while (true) {
-            System.out.print("*Desea usar una base de conocimiento reducida ..S/N: ");
+            System.out.print(language.text.get(85));
             String resp = lectura.nextLine();
-            if (resp.equalsIgnoreCase("s")) {
+            if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
                 String bc = "['" + ruta + "/baseCR'].";
                 Query q2 = new Query(bc);
                 q2.hasSolution();
@@ -120,7 +121,7 @@ public class patrones {
 
                 break;
             } else {
-                System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                System.out.println(language.text.get(53));
             }
         }
     }
@@ -131,22 +132,22 @@ public class patrones {
         boolean r = false;
 
         while (true) {
-            System.out.print("*Desea restringir los pathway a un listado de objetos específicos ..S/N: ");
+            System.out.print(language.text.get(86));
             String resp = lectura.nextLine();
-            if (resp.equalsIgnoreCase("s")) {
+            if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
                 r = true;
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
                 r = false;
                 break;
             } else {
-                System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                System.out.println(language.text.get(53));
             }
         }
 
         if (r) {
             while (true) {
-                System.out.print("*Ingrese un listado de objetos separados por \",\": Ejemplo: EGF,EGFR,Ras,CREB,SST \n");
+                System.out.print(language.text.get(87)+"\n");
                 String objeto = lectura.nextLine();
                 if (!objeto.equals("")) {
                     String sep[] = objeto.split(",");
@@ -158,7 +159,7 @@ public class patrones {
                     break;
 
                 } else {
-                    System.out.println("Debe ingresar un listado valido");
+                    System.out.println(language.text.get(88));
                 }
             }
         }
@@ -172,22 +173,22 @@ public class patrones {
         boolean r = false;
 
         while (true) {
-            System.out.print("*Desea agregar objeto de cierre a los pathway  ..S/N: ");
+            System.out.print(language.text.get(89));
             String resp = lectura.nextLine();
-            if (resp.equalsIgnoreCase("s")) {
+            if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
                 r = true;
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
                 r = false;
                 break;
             } else {
-                System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                System.out.println(language.text.get(53));
             }
         }
 
         if (r) {
             while (true) {
-                System.out.print("*Ingrese en nombre del objeto: ");
+                System.out.print(language.text.get(90));
                 String motivo = lectura.nextLine();
                 if (!motivo.equals("")) {
                     motivo = motivo.replace("'", "");
@@ -196,16 +197,16 @@ public class patrones {
 
                     boolean r2 = false;
                     while (true) {
-                        System.out.print("*Desea agregar otro objeto de cierre?  ..S/N: ");
+                        System.out.print(language.text.get(91));
                         String resp = lectura.nextLine();
-                        if (resp.equalsIgnoreCase("s")) {
+                        if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
                             r2 = true;
                             break;
                         } else if (resp.equalsIgnoreCase("n")) {
                             r2 = false;
                             break;
                         } else {
-                            System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                            System.out.println(language.text.get(53));
                         }
                     }
 
@@ -214,7 +215,7 @@ public class patrones {
                     }
 
                 } else {
-                    System.out.println("Debe ingresar un nombre valido");
+                    System.out.println(language.text.get(92));
                 }
             }
         }
@@ -544,7 +545,7 @@ public class patrones {
         try {
             db.store(patrones);
         } catch (Exception e) {
-            System.out.println("Error al guardar patrones.db...");
+            System.out.println(language.text.get(93));
         } finally {
             db.close();
         }

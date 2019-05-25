@@ -42,27 +42,28 @@ public class confGeneral {
 
     private String red;
     private String proceso;
-
+    
     /**
      * Este método muestra el listado de las redes que se han minado
      */
     public void listarRedes() {
-
-        final File carpeta = new File("mineria/redes");
-        final File carpeta2 = new File("mineria/integracion");
+                    
+        final File carpeta = new File("minery/networks");
+        final File carpeta2 = new File("minery/integration");
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         
         listar_datos();
         
+              
         while (r) {
             ArrayList<String> redes = new ArrayList<>();
             redes = listarCarpetas(carpeta);
             limpiarPantalla();
 
-            System.out.println("Seleccione una opcion");
+            System.out.println(language.text.get(0));
             if (redes.size() > 0) {
-                System.out.println("==== Redes existentes ====");
+                System.out.println(language.text.get(1));
                 for (int i = 0; i < redes.size(); i++) {
                     System.out.println((i + 1) + ".- " + redes.get(i));
                 }
@@ -72,11 +73,11 @@ public class confGeneral {
             redesInte = listarCarpetas(carpeta2);
 
             if (redesInte.size() > 0) {
-                System.out.println("\nI.-Ir a redes integradas");
+                System.out.println("\n"+language.text.get(2));
             }
 
             //System.out.println("N.-Crear una nueva Red");
-            System.out.println("0.-Salir");
+            System.out.println(language.text.get(3));
             String resp = lectura.nextLine();
 
             for (int i = 0; i < redes.size(); i++) {
@@ -105,25 +106,25 @@ public class confGeneral {
 
     public void listar_datos() {
         
-        final File carpeta = new File("datos");
+        final File carpeta = new File("data");
 
         ArrayList<String> redes = new ArrayList<>();
 
         redes = listarCarpetas(carpeta);
 
         for (String red : redes) {
-            File dir_red = new File("mineria/redes/" + red);
+            File dir_red = new File("minery/networks/" + red);
 
             if (!dir_red.exists()) {
                 dir_red.mkdir();
             }
 
             ArrayList<String> proteinas = new ArrayList<>();
-            final File carpeta2 = new File("datos/"+red);
+            final File carpeta2 = new File("data/"+red);
             proteinas = listarCarpetas(carpeta2);
             
             for (String proteina : proteinas) {
-                File dir_prot = new File("mineria/redes/"+red+"/"+proteina);
+                File dir_prot = new File("minery/networks/"+red+"/"+proteina);
                 if(!dir_prot.exists()){
                      dir_prot.mkdir();
                 }
@@ -138,13 +139,13 @@ public class confGeneral {
 
         while (r) {
             limpiarPantalla();
-            System.out.println("Seleccione una opcion");
-            System.out.println("==== Redes existentes ====");
+            System.out.println(language.text.get(0));
+            System.out.println(language.text.get(1));
             for (int i = 0; i < redesInt.size(); i++) {
                 System.out.println((i + 1) + ".- " + redesInt.get(i));
             }
 
-            System.out.println("\n0.-Volver");
+            System.out.println("\n"+language.text.get(4));
             String resp = lectura.nextLine();
 
             for (int i = 0; i < redesInt.size(); i++) {
@@ -164,7 +165,7 @@ public class confGeneral {
     }
 
     private void redIntegrada(String red) {
-        String ruta = "mineria/integracion/" + red;
+        String ruta = "minery/integration/" + red;
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         String resp;
@@ -173,12 +174,12 @@ public class confGeneral {
         while (r) {
             ArrayList<pathway> patrones = RRG.cargarPatrones(ruta);
             limpiarPantalla();
-            System.out.println("Red " + red + " integrada");
-            System.out.println("Patrones encontrados:       " + patrones.size() + "\n");
-            System.out.println("Seleccione una opcion");
-            System.out.println("1.- Inferir patrones");
-            System.out.println("2.- Analisis de la red");
-            System.out.println("\n0.- Volver");
+            System.out.println(language.text.get(5)+" "+red);
+            System.out.println(language.text.get(6)+"       " + patrones.size() + "\n");
+            System.out.println(language.text.get(0));
+            System.out.println(language.text.get(7));
+            System.out.println(language.text.get(8));
+            System.out.println("\n"+language.text.get(4));
 
             resp = lectura.nextLine();
             switch (resp) {
@@ -211,14 +212,14 @@ public class confGeneral {
                 System.out.println("Debe ingresar un nombre valido");
             }
         }
-        File file = new File("mineria/redes/" + nombreRed);
+        File file = new File("minery/networks/" + nombreRed);
         file.mkdir();
         return nombreRed;
     }
 
     private void listarProcesos(String red) {
 
-        final File carpeta = new File("mineria/redes/" + red);
+        final File carpeta = new File("minery/networks/" + red);
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
 
@@ -226,20 +227,20 @@ public class confGeneral {
             ArrayList<String> procesos = new ArrayList<>();
             procesos = listarCarpetas(carpeta);
             limpiarPantalla();
-            System.out.println("Red : " + red);
-            System.out.println("Seleccione una opcion");
+            System.out.println(language.text.get(9)+" " + red);
+            System.out.println(language.text.get(0));
             if (procesos.size() > 0) {
-                System.out.println("==== Procesos existentes ====");
+                System.out.println(language.text.get(10));
 
                 for (int i = 0; i < procesos.size(); i++) {
                     System.out.println((i + 1) + ".- " + procesos.get(i));
                 }
             }
             if (procesos.size() > 1) {
-                System.out.println("\nI.-Hacer integracion de la red");
+                System.out.println("\n"+language.text.get(11));
             }
            // System.out.println("\nN.-Crear un nuevo proceso");
-            System.out.println("0.-Volver");
+            System.out.println(language.text.get(4));
             String resp = lectura.nextLine();
 
             for (int i = 0; i < procesos.size(); i++) {
@@ -247,8 +248,8 @@ public class confGeneral {
                 if (resp.equals(r2)) {
                     proceso = procesos.get(i);
                    // System.out.println("seleccion = " + i + " " + procesos.get(i));
-                    String ruta = "mineria/redes/" + red + "/" + proceso;
-                    String rutaD ="datos/"+ red+"/"+proceso;
+                    String ruta = "minery/networks/" + red + "/" + proceso;
+                    String rutaD ="data/"+ red+"/"+proceso;
                     pipeline(ruta,rutaD);
 
                 }
@@ -273,14 +274,14 @@ public class confGeneral {
 
     private void integrarRed(String red, ArrayList<String> procesos) {
 
-        File file = new File("mineria/integracion/" + red);
+        File file = new File("minery/integration/" + red);
         file.mkdir();
 
-        String rutaDest = "mineria/integracion/" + red;
+        String rutaDest = "minery/integration/" + red;
 
         for (String directorio : procesos) {
-            System.out.print("Integrando: " + directorio);
-            String rutaOri = "mineria/redes/" + red + "/" + directorio;
+            System.out.print(language.text.get(12)+" " + directorio);
+            String rutaOri = "minery/networks/" + red + "/" + directorio;
             integrarArchivos(rutaOri + "/objetosMinados.pl", rutaDest + "/objetosMinados.pl");
             integrarArchivos(rutaOri + "/objetos_patrones.pl", rutaDest + "/objetos_patrones.pl");
             integrarArchivos(rutaOri + "/ontologiaGO.pl", rutaDest + "/ontologiaGO.pl");
@@ -295,7 +296,7 @@ public class confGeneral {
             System.out.println(" ...ok");
         }
         try {
-            System.out.print("integrando BaseC.pl");
+            System.out.print(language.text.get(13));
             new GeneradorBC().generadorBCIntg(red, true);
             System.out.println(" ...ok");
         } catch (StringIndexOutOfBoundsException ex) {
@@ -518,8 +519,8 @@ public class confGeneral {
 
             try {
                 //* Las siguientes lineas muestran un menu donde el usuario puede ingresar los datos de configuracion para ejecutar el proceso de mineria
-                System.out.println("\n-------------------------\nNUEVO PROCESO DE MINERIA\n-------------------------");
-                System.out.println("\nIngrese los datos de configuracion\n");
+                System.out.println("\n-------------------------\n"+language.text.get(14)+"\n-------------------------");
+                System.out.println("\n"+language.text.get(15)+"\n");
 
                 String regProm = config.IngresarRegionPromotora();
                 float conf = config.IngresarConfiabilidad();
@@ -531,19 +532,20 @@ public class confGeneral {
                 boolean GO = true;
                 String rutaPMidExp = rutaD+"/"+config.PMidExperto();
                 int cantPMID = config.ingresar_cantPubMedId(); //numero de pubmed IDs
+                boolean nombreCorto = config.nombresCortos();
                 //fin de menu
                 //-------------------------------------------------------------------------------------------------------------
 
                 // crea una carpeta nueva 'mineria' donde se guardaran diferentes archivos generados durante el proceso .. si ya existe esta carpeta se eliminara con todos su contenido y se creara de nuevo vacia
                 //mfts.crearCarpeta("mineria");
                 //se guarda los datos de configuracion que se ingresaron el el menu anterior en mineria/config.db
-                config.guardarConfiguracion(regProm, iteraciones, cantObjs, conf, GO, MESH, cantPMID, rutaPMidExp, ruta);
+                config.guardarConfiguracion(regProm, iteraciones, cantObjs, conf, GO, MESH,nombreCorto, cantPMID, rutaPMidExp, ruta);
 
                 //este metodo ejecuta el proceso de busqueda de informacio desde objetos del experto, homologos y los objetos encontrados en los diferentes niveles de busqueda
                 mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, config, ruta, rutaD);
 
                 //este metodo genera todas las combinaciones de objetos encontrados en el proceso anterior y guarda las ombinaciones en 'mineria/combinaciones.db'
-                new combinaciones().generar_combinaciones(false, config, ruta);
+                new combinaciones().generar_combinaciones(false, config, ruta,nombreCorto);
 
                 //este metodo toma el archivo de combinaciones anterior y procede a buscar PubMed IDs que resulten de cada combinacion guarda los IDs en 'mineria/PubMedId.db'
                 new PubMed_IDs().buscar(cantPMID, config, ruta);

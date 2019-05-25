@@ -9,6 +9,7 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.sun.javafx.geom.Vec2d;
+import configuracion.language;
 import estructura.HGNC;
 import estructura.factorTranscripcion;
 import estructura.objetos_Experto;
@@ -58,23 +59,31 @@ public class consultasJPL {
         q0.hasSolution();
 
         String objPatr = "['" + ruta + "/objetos_patrones'].";
-        System.out.println(objPatr);
+        //System.out.println(objPatr);
         Query q1 = new Query(objPatr);
         q1.hasSolution();
 
         String bc = "['" + ruta + "/baseC'].";
+        //System.out.println(bc);
         Query q2 = new Query(bc);
         q2.hasSolution();
 
         String objMin = "['" + ruta + "/objetosMinados'].";
+        //System.out.println(objMin);
         Query q3 = new Query(objMin);
         q3.hasSolution();
 
         String objGO = "['" + ruta + "/ontologiaGO'].";
+        //System.out.println(objGO);
         Query q4 = new Query(objGO);
         q4.hasSolution();
 
-        String archivo = "['consultas'].";
+        String objMESH = "['" + ruta + "/ontologiaMESH'].";
+        //System.out.println(objMESH);
+        Query q5 = new Query(objMESH);
+        q5.hasSolution();
+
+        String archivo = "['scripts/consultas'].";
         Query q = new Query(archivo);
         q.hasSolution();
 
@@ -82,19 +91,18 @@ public class consultasJPL {
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         while (r) {
-            System.out.println("Consultas para el analisis de una RRG.\n");
-            System.out.println("1.- Busqueda de receptores.");
-            System.out.println("2.- Busqueda de complejos.");
-            System.out.println("3.- Busqueda de proteinas adicionales.");
-            System.out.println("4.- Interecciones proteina-proteina.");
-            System.out.println("5.- Busqueda de motivos.");
-            System.out.println("6.- Busqueda de ligandos.");
-            System.out.println("7.- Clasificar tipo de ligando");
-            System.out.println("8.- Busqueda de tejidos");
-            System.out.println("9.- Buscar cadenas de Pathways");
-            System.out.println("10.- Consultar un objeto");
-
-            System.out.println("0.- Volver.");
+            System.out.println(language.text.get(94) + "\n");
+            System.out.println(language.text.get(95));
+            System.out.println(language.text.get(96));
+            System.out.println(language.text.get(97));
+            System.out.println(language.text.get(98));
+            System.out.println(language.text.get(99));
+            System.out.println(language.text.get(100));
+            System.out.println(language.text.get(101));
+            System.out.println(language.text.get(102));
+            System.out.println(language.text.get(103));
+            //System.out.println("10.- Busqueda de tejidos");
+            System.out.println(language.text.get(4));
 
             String resp = lectura.nextLine();
 
@@ -122,15 +130,15 @@ public class consultasJPL {
                     buscar_tipo_ligando(ruta);
                     break;
                 case "8":
-                    buscar_tejido(ruta);
-                    break;
-                case "9":
                     buscar_cadenas_pathways(ruta);
                     //buscar_cadenas_pathwaysRest(ruta);
                     break;
-                case "10":
+                case "9":
                     consultar_objeto(ruta);
                     break;
+                /*case "10":
+                    //buscar_tejido(ruta);
+                    break;*/
                 case "0":
                     r = false;
                     break;
@@ -145,7 +153,7 @@ public class consultasJPL {
         boolean r = true;
         while (r) {
             limpiarPantalla();
-            System.out.print("Ingrese nombre del objeto ");
+            System.out.print(language.text.get(104));
             String text = lectura.nextLine();
             String objeto = "'" + text.replace("'", "") + "'";
 
@@ -156,16 +164,16 @@ public class consultasJPL {
             }
 
             while (true) {
-                System.out.println("Consultar otro objeto? ... S/N");
+                System.out.println(language.text.get(105));
                 String resp = lectura.nextLine();
-                if (resp.equalsIgnoreCase("s")) {
+                if (resp.equalsIgnoreCase("s") || resp.equalsIgnoreCase("y")) {
                     r = true;
                     break;
                 } else if (resp.equalsIgnoreCase("n")) {
                     r = false;
                     break;
                 } else {
-                    System.out.println("Debe presionar las teclas (S) o (N) para seleccionar una opcion..");
+                    System.out.println(language.text.get(53));
                 }
 
             }
@@ -179,19 +187,20 @@ public class consultasJPL {
         boolean r = true;
         while (r) {
 
-            System.out.println("\n Seleccione una opcion.");
-            System.out.println("1.- Arbol de Identidad.");
-            System.out.println("2.- Gene Ontology.");
-            System.out.println("0.- Volver");
+            System.out.println("\n " + language.text.get(0));
+            System.out.println(language.text.get(106));
+            System.out.println(language.text.get(107));
+            System.out.println(language.text.get(4));
             String resp = lectura.nextLine();
 
             switch (resp) {
                 case "1":
-                    new ontologiaObjMin().buscarObjeto(obj.replace("'", ""), false, true, ruta);
+                    arbol_identidad(obj, 0);
+                    //new ontologiaObjMin().buscarObjeto(obj.replace("'", ""), false, true, ruta);
                     break;
 
                 case "2":
-                    new ontologiaObjMin().buscarObjeto(obj.replace("'", ""), true, false, ruta);
+                    //new ontologiaObjMin().buscarObjeto(obj.replace("'", ""), true, false, ruta);
                     break;
 
                 case "0":
@@ -199,6 +208,20 @@ public class consultasJPL {
                     break;
             }
 
+        }
+    }
+
+    public void arbol_identidad(String Obj, int tabulador) {
+        String consulta = "arbol_identidad(" + Obj + ",Y).";
+        Query q2 = new Query(consulta);
+        for (int i = 0; i < q2.allSolutions().length; i++) {
+            String aux = q2.allSolutions()[i].toString();
+            aux = aux.replace("{", "").replace("}", "").replace("Y=", "");
+            for (int j = 0; j < tabulador; j++) {
+                System.out.print(" ");
+            }
+            System.out.println(aux.replace("'", ""));
+            arbol_identidad(aux, tabulador + 8);
         }
     }
 
@@ -218,8 +241,8 @@ public class consultasJPL {
 
         }
 
-        System.out.println("Simbolo: " + simbolo);
-        System.out.print("Sinonimos: ");
+        System.out.println(language.text.get(108) + " " + simbolo);
+        System.out.print(language.text.get(137));
         sinonimos.forEach(s -> System.out.print(s + ", "));
         System.out.println("\n");
 
@@ -228,14 +251,31 @@ public class consultasJPL {
         Query q3 = new Query(consulta1);
 
         if (q3.hasSolution()) {
-            System.out.println("- factor de transcripcion TFBind");
+            System.out.println(language.text.get(109));
         }
 
         String consulta2 = "ligando(" + simbolo + ").";
         Query q4 = new Query(consulta2);
 
         if (q4.hasSolution()) {
-            System.out.println("- ligando PDB");
+            System.out.println(language.text.get(110));
+        }
+
+        String consulta3 = "buscar_tejidos(" + objeto + ",T).";
+        Query q5 = new Query(consulta3);
+        ArrayList<String> tejidos = new ArrayList<>();
+        for (int i = 0; i < q5.allSolutions().length; i++) {
+            String aux = q5.allSolutions()[i].toString();
+            aux = aux.replace("{", "").replace("}", "").replace("T=", "").replace(" ", "");
+
+            if (!tejidos.contains(aux)) {
+                tejidos.add(aux);
+            }
+        }
+
+        if (tejidos.size() > 0) {
+            System.out.print("Tejidos: ");
+            System.out.println(tejidos.toString().replace("[", "").replace("]", ""));
         }
 
         return simbolo;
@@ -277,10 +317,10 @@ public class consultasJPL {
         boolean r = true;
         while (r) {
 
-            System.out.println("Busqueda de cadenas de Pathways y eventos que los relacionan.");
-            System.out.println("\n Seleccione una opcion.");
-            System.out.println("1.- Ejecutar el proceso.");
-            System.out.println("0.- Volver al menu anterior.");
+            System.out.println(language.text.get(111));
+            System.out.println("\n" + language.text.get(0));
+            System.out.println(language.text.get(112));
+            System.out.println(language.text.get(4));
             String resp = lectura.nextLine();
 
             switch (resp) {
@@ -290,25 +330,25 @@ public class consultasJPL {
                     final ArrayList<pathway> pathways = cargarPatrones(ruta);
                     String Objrest;
                     while (true) {
-                        System.out.print("Ingrese el objeto de cierre de los patrones:  ");
+                        System.out.print(language.text.get(113));
                         String text = lectura.nextLine();
                         Objrest = "'" + text + "'";
                         if (!Objrest.equals("")) {
                             break;
                         } else {
-                            System.out.println("El dato no es valido");
+                            System.out.println(language.text.get(114));
                         }
                     }
                     int max;
-                    
+
                     while (true) {
-                        System.out.print("Ingrese cantidad maxima de objetos en los patrones:  ");
+                        System.out.print(language.text.get(115));
                         String text2 = lectura.nextLine();
                         try {
                             max = Integer.parseInt(text2);
                             break;
                         } catch (Exception e) {
-                            System.out.println("El dato no es valido");
+                            System.out.println(language.text.get(114));
                         }
                     }
                     ArrayList<pathway> pathWaysin = new ArrayList<>();
@@ -408,10 +448,10 @@ public class consultasJPL {
 
                     if (i == 0) {
                         cad += "Pathway=> " + cadena.get(i).getPathway_inicial() + "\n";
-                        cad += "\nEventos de enlace: " + cadena.get(i).getEventos() + "\n\n";
+                        cad += "\n" + language.text.get(116) + " " + cadena.get(i).getEventos() + "\n\n";
                         cad += "Pathway=> " + cadena.get(i).getPathway_final() + "\n";
                     } else {
-                        cad += "\nEventos de enlace: " + cadena.get(i).getEventos() + "\n\n";
+                        cad += "\n" + language.text.get(116) + " " + cadena.get(i).getEventos() + "\n\n";
                         cad += "Pathway=> " + cadena.get(i).getPathway_final() + "\n";
                     }
                 }
@@ -555,7 +595,7 @@ public class consultasJPL {
 
     }
 
-    public void buscar_tejido(String ruta) {
+    /*public void buscar_tejido(String ruta) {
 
         limpiarPantalla();
         Scanner lectura = new Scanner(System.in);
@@ -635,9 +675,9 @@ public class consultasJPL {
             }
         }
 
-    }
+    }*/
 
-    private ArrayList<String> cruzarTejidos(ArrayList<ArrayList<String>> tejidos) {
+ /*private ArrayList<String> cruzarTejidos(ArrayList<ArrayList<String>> tejidos) {
         ArrayList<String> tejido = new ArrayList<>();
         try {
             for (String cc : tejidos.get(0)) {
@@ -657,9 +697,9 @@ public class consultasJPL {
         }
 
         return tejido;
-    }
+    }*/
 
-    private String construirConsulta(ArrayList<objetos_Experto> minados, String obj) {
+ /*private String construirConsulta(ArrayList<objetos_Experto> minados, String obj) {
         String consulta = "";
 
         for (objetos_Experto minado : minados) {
@@ -676,18 +716,17 @@ public class consultasJPL {
         }
        
         return consulta;
-    }
-
+    }*/
     public void buscar_tipo_ligando(String ruta) {
 
         limpiarPantalla();
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         while (r) {
-            System.out.println("Dado un receptor, ¿cuáles de sus ligandos enlazantes pueden ser considerados agonistas, antagonistas o de función mixta?");
-            System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Ingresar receptor.");
-            System.out.println("0.- Volver al menu anterior.");
+            System.out.println(language.text.get(117));
+            System.out.println(language.text.get(0));
+            System.out.println(language.text.get(118));
+            System.out.println(language.text.get(4));
 
             String resp = lectura.nextLine();
 
@@ -695,7 +734,7 @@ public class consultasJPL {
 
                 case "1":
                     limpiarPantalla();
-                    System.out.print("Ingrese el simbolo del receptor. ");
+                    System.out.print(language.text.get(119));
                     String text = lectura.nextLine();
                     String receptor = "'" + text + "'";
 
@@ -773,10 +812,10 @@ public class consultasJPL {
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         while (r) {
-            System.out.println("Dado un receptor ¿Cuales ligandos lo reconocen?");
-            System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Ingresar receptor.");
-            System.out.println("0.- Volver al menu anterior.");
+            System.out.println(language.text.get(120));
+            System.out.println(language.text.get(0));
+            System.out.println(language.text.get(118));
+            System.out.println(language.text.get(4));
 
             String resp = lectura.nextLine();
 
@@ -787,7 +826,7 @@ public class consultasJPL {
                     ArrayList<pathway> pathway = new ArrayList<>();
                     pathway = cargarPatrones(ruta);
 
-                    System.out.print("Ingrese el simbolo del receptor. ");
+                    System.out.print(language.text.get(119));
                     String text = lectura.nextLine();
                     String receptor = "'" + text + "'";
 
@@ -821,10 +860,10 @@ public class consultasJPL {
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         while (r) {
-            System.out.println("¿Cuáles motivos de DNA son reconocidos y enlazados por un receptor específico en su forma funcional monomérica o dimérica?");
-            System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Ingresar receptor.");
-            System.out.println("0.- Volver al menu anterior.");
+            System.out.println(language.text.get(121));
+            System.out.println(language.text.get(0));
+            System.out.println(language.text.get(118));
+            System.out.println(language.text.get(4));
 
             String resp = lectura.nextLine();
 
@@ -835,7 +874,7 @@ public class consultasJPL {
                     ArrayList<pathway> pathway = new ArrayList<>();
                     pathway = cargarPatrones(ruta);
 
-                    System.out.print("Ingrese el simbolo del receptor. ");
+                    System.out.print(language.text.get(119));
                     String text = lectura.nextLine();
                     String receptor = "'" + text + "'";
 
@@ -852,8 +891,8 @@ public class consultasJPL {
                             Query q3 = new Query(consulta2);
 
                             if (p.getObjetos().get(1).equals(receptor) && q3.hasSolution()) {
-                                System.out.println("receptor: " + receptor);
-                                System.out.println("motivo: " + "'" + ft.replace("'", "") + "RE'");
+                                System.out.println(language.text.get(122) + " " + receptor);
+                                System.out.println(language.text.get(123) + " " + "'" + ft.replace("'", "") + "RE'");
                                 System.out.println("pathway: " + p.getPatron() + "\n");
                             }
 
@@ -875,17 +914,17 @@ public class consultasJPL {
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         while (r) {
-            System.out.println("Dado un ligando, ¿Cuál (les) receptores lo reconocen y se le enlazan?.\n");
-            System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Ingresar ligando.");
-            System.out.println("0.- Volver al menu anterior.");
+            System.out.println(language.text.get(124) + "\n");
+            System.out.println(language.text.get(0));
+            System.out.println(language.text.get(125));
+            System.out.println(language.text.get(4));
 
             String resp = lectura.nextLine();
 
             switch (resp) {
 
                 case "1":
-                    System.out.println("Ingrese el simbolo del ligando. ");
+                    System.out.println(language.text.get(138));
                     String lig = lectura.nextLine();
 
                     String consulta = "buscar_receptores('" + lig + "',R,E).";
@@ -906,13 +945,13 @@ public class consultasJPL {
                     }
 
                     limpiarPantalla();
-                    System.out.println("para el ligando " + lig + " se encontraron los siguientes receptores ");
+                    System.out.println(language.text.get(126) + " " + lig);
                     receptor.forEach(t -> System.out.println("receptor:  " + t));
 
-                    System.out.print("\n Para ver el listado de eventos donde se vincula el ligando con los receptores precione 'S':  ");
+                    System.out.print("\n " + language.text.get(127));
                     String resp2 = lectura.nextLine();
                     System.out.println();
-                    if (resp2.equalsIgnoreCase("S")) {
+                    if (resp2.equalsIgnoreCase("S") || resp2.equalsIgnoreCase("Y")) {
                         eventos.forEach(even -> System.out.println(even));
                     }
                     System.out.println("\n");
@@ -932,17 +971,17 @@ public class consultasJPL {
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         while (r) {
-            System.out.println("¿Dado un receptor (en su forma monomérica o dimérica), a cuáles proteínas adicionales puede éste enlazarse? ");
-            System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Ingresar receptor.");
-            System.out.println("0.- Volver al menu anterior.");
+            System.out.println(language.text.get(128));
+            System.out.println(language.text.get(0));
+            System.out.println(language.text.get(118));
+            System.out.println(language.text.get(4));
 
             String resp = lectura.nextLine();
 
             switch (resp) {
 
                 case "1":
-                    System.out.println("Ingrese el simbolo del receptor. ");
+                    System.out.println(language.text.get(119));
                     String receptor = lectura.nextLine();
                     String consulta = "buscar_prot_adi('" + receptor + "',L,A).";
 
@@ -978,8 +1017,8 @@ public class consultasJPL {
                         }
                     }
                     limpiarPantalla();
-                    System.out.println("para el receptor " + receptor + " se tiene el siguiente resultado");
-                    System.out.println("los resultados se dan en formato 'ligando-->receptor-->proteina'\n");
+                    System.out.println(language.text.get(129) + " " + receptor);
+                    System.out.println(language.text.get(130) + "'\n");
 
                     lista.forEach(t -> System.out.println(t));
                     System.out.println("\n");
@@ -1000,19 +1039,19 @@ public class consultasJPL {
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
         while (r) {
-            System.out.println("Dado un ligando, ¿qué tipo de interacciones proteína - proteína resultan cuando este se enlaza a un receptor conocido, y cuáles de ellas conducen a una elevación (disminución) en la respuesta transcripcional de algún gen?. (Definición de patrones de regulación)");
-            System.out.println("Seleccione una opcion.");
-            System.out.println("1.- Ingresar datos.");
-            System.out.println("0.- Volver al menu anterior.");
+            System.out.println(language.text.get(131));
+            System.out.println(language.text.get(0));
+            System.out.println(language.text.get(132));
+            System.out.println(language.text.get(4));
 
             String resp = lectura.nextLine();
 
             switch (resp) {
                 case "1":
-                    System.out.print("Ingrese simbolo del ligando: ");
+                    System.out.print(language.text.get(133));
                     String text = lectura.nextLine();
                     String ligando = "'" + text + "'";
-                    System.out.print("Ingrese simbolo del receptor: ");
+                    System.out.print(language.text.get(119));
                     text = lectura.nextLine();
                     String receptor = "'" + text + "'";
 
@@ -1022,7 +1061,7 @@ public class consultasJPL {
                         try {
                             if (ligando.equals(p.getObjetos().get(0)) && receptor.equals(p.getObjetos().get(1))) {
                                 System.out.println("\n\n" + p.getPatron());
-                                System.out.println("Tipo: " + tipo_Complejo(p.getPatron()));
+                                System.out.println(language.text.get(134) + " " + tipo_Complejo(p.getPatron()));
                             }
                         } catch (Exception e) {
                         }
@@ -1047,10 +1086,10 @@ public class consultasJPL {
         boolean r = true;
         while (r) {
 
-            System.out.println("Busqueda de complejos proteinicos y rol que cumplen en los pathways encontrados.");
-            System.out.println("\n Seleccione una opcion.");
-            System.out.println("1.- Ejecutar el proceso.");
-            System.out.println("0.- Volver al menu anterior.");
+            System.out.println(language.text.get(135));
+            System.out.println("\n" + language.text.get(0));
+            System.out.println(language.text.get(112));
+            System.out.println(language.text.get(4));
             String resp = lectura.nextLine();
 
             switch (resp) {
@@ -1196,7 +1235,7 @@ public class consultasJPL {
     }
 
     public ArrayList<objetos_Experto> buscarOBJ(String ruta) {
-        
+
         ArrayList<objetos_Experto> minados = new ArrayList<>();
         objetos_Experto objExp = new objetos_Experto();
         ObjectContainer db = Db4o.openFile(ruta + "/ObjH_E.db");
@@ -1204,7 +1243,7 @@ public class consultasJPL {
         try {
             ObjectSet result = db.queryByExample(objExp);
             minados.addAll(result);
-            
+
         } catch (Exception e) {
 
         } finally {
@@ -1213,7 +1252,7 @@ public class consultasJPL {
 
         factorTranscripcion FT = new factorTranscripcion();
         ArrayList<factorTranscripcion> FTs = new ArrayList<>();
-        ObjectContainer db2 = Db4o.openFile(ruta+"/FT.db");
+        ObjectContainer db2 = Db4o.openFile(ruta + "/FT.db");
         try {
             ObjectSet result = db2.queryByExample(FT);
             FTs.addAll(result);

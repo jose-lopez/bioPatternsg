@@ -8,6 +8,7 @@ package estructura;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import configuracion.language;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,7 +48,7 @@ public class factorTranscripcion {
 
     //constructor para la primera Iteracion con lecturas obtenidas desde TFBIND
     public factorTranscripcion(lecturas_TFBIND lecturasTFBIND, int NumeroObjetos, objetosMineria objetosMineria, boolean GO, boolean MESH,String ruta) {
-        System.out.println("Buscando información para : " + lecturasTFBIND.getFactor() + " ...");
+        System.out.println(language.text.get(142)+"" + lecturasTFBIND.getFactor() + " ...");
         this.lecturasTFBIND = lecturasTFBIND;
         this.ID = lecturasTFBIND.getFactor();
 

@@ -11,6 +11,7 @@ import com.db4o.ObjectSet;
 import com.db4o.collections.ActivatableArrayList;
 import configuracion.combinacion;
 import configuracion.configuracion;
+import configuracion.language;
 import estructura.factorTranscripcion;
 import estructura.objetos_Experto;
 import java.io.File;
@@ -28,13 +29,11 @@ public class combinaciones {
     private String carga = "";
     boolean error = true;
 
-    public void generar_combinaciones(boolean criterio, configuracion config,String ruta) {
-        //limpiarPantalla();
-        //System.out.print("\nGenerando combinaciones de objetos .");
+    public void generar_combinaciones(boolean criterio, configuracion config, String ruta,boolean nombreCorto) {
 
         while (error) {
             limpiarPantalla();
-            System.out.print("\nGenerando combinaciones de objetos .");
+            System.out.print("\n"+language.text.get(81));
             try {
                 error = false;
                 //Si ya existe un archivo mineria/combinaciones.db es eliminado y comienza el proceso de nuevo
@@ -46,19 +45,19 @@ public class combinaciones {
                 objetos_Experto HE = new objetos_Experto();
 
                 // se cargan la informacion de homologos y objetos del experto y se guardan temporalmente en una lista
-                ObjectContainer dbhe = Db4o.openFile(ruta+"/ObjH_E.db");
+                ObjectContainer dbhe = Db4o.openFile(ruta + "/ObjH_E.db");
                 ObjectSet resulthe = dbhe.queryByExample(HE);
                 ArrayList<objetos_Experto> homologos_experto = new ArrayList<>();
                 homologos_experto.addAll(resulthe);
                 dbhe.close();
                 //---------------------------------------------------------------
 
-                //se generan todas las combinaciones entre objetosdel experto y homologos entre si
-                Objs_homologos_Expertos(homologos_experto, combinacion,ruta);
+                //se generan todas las combinaciones entre objetos del experto y homologos entre si
+                Objs_homologos_Expertos(homologos_experto, combinacion, ruta, nombreCorto);
 
                 //el siguiente juego de instrucciones genera combinaciones de los objetos encontrados en las diferentes Iteraciones
                 factorTranscripcion FT = new factorTranscripcion();
-                ObjectContainer db = Db4o.openFile(ruta+"/FT.db");
+                ObjectContainer db = Db4o.openFile(ruta + "/FT.db");
                 ArrayList<factorTranscripcion> LFT = new ArrayList<>();
                 try {
                     ObjectSet result = db.queryByExample(FT);
@@ -74,24 +73,24 @@ public class combinaciones {
                     factorTranscripcion factorT = (factorTranscripcion) ft;
 
                     // combina un objeto con los ligandos encontrados a partir de este
-                    factor_ligando(combinacion, factorT);
+                    factor_ligando(combinacion, factorT, nombreCorto);
 
                     //combina un objeto con los nuevos objetos encontrados a partir de este
-                    factor_nuevoObjeto(combinacion, factorT);
+                    factor_nuevoObjeto(combinacion, factorT, nombreCorto);
 
                     //combina un objeto minado en las iteraciones con los objetos del experto y homologos
                     //si criterio = false; solo se ejecutara en la iteracion 0 objetos encontrados en tfbind
                     //si criterio = true; se ejecutara en todas las iteraciones
                     if (factorT.getN_Iteracion() == 0 || criterio) {
-                        factor_objetos_H_E(combinacion, factorT, homologos_experto);
+                        factor_objetos_H_E(combinacion, factorT, homologos_experto, nombreCorto);
                     }
 
                 });
 
-                guardar_combinaciones(combinacion,ruta);
+                guardar_combinaciones(combinacion, ruta);
             } catch (Exception e) {
                 error = true;
-                System.out.println("Error al generar combinaciones");
+                //System.out.println("Error al generar combinaciones");
             }
         }
 
@@ -105,7 +104,7 @@ public class combinaciones {
     }
 
     //Busca todas las permutaciones en un listado de objetos del experto mas homologos
-    private void Objs_homologos_Expertos(ArrayList<objetos_Experto> objetos, ArrayList<String> combinacion,String ruta) {
+    private void Objs_homologos_Expertos(ArrayList<objetos_Experto> objetos, ArrayList<String> combinacion, String ruta,boolean nombreCorto) {
 
         ArrayList<String> nombres = new ActivatableArrayList<>();
 
@@ -126,12 +125,12 @@ public class combinaciones {
 
                     //obtenida el par de IDs de una combinacion 
                     //se procede a generar las cominaciones entre simbolos y sinonimos de los mismos
-                    final objetos_Experto obj1 = objExp(listares.get(0),ruta);
-                    final objetos_Experto obj2 = objExp(listares.get(1),ruta);
+                    final objetos_Experto obj1 = objExp(listares.get(0), ruta);
+                    final objetos_Experto obj2 = objExp(listares.get(1), ruta);
 
                     obj1.listaNombres().parallelStream().forEach((nombre1) -> {
                         obj2.listaNombres().parallelStream().forEach((nombre2) -> {
-                            insertar_combinacion(combinacion, nombre1, nombre2);
+                            insertar_combinacion(combinacion, nombre1, nombre2,nombreCorto);
                         });
                     });
 
@@ -144,11 +143,11 @@ public class combinaciones {
 
     //consulta un objeto por su ID en la base de datos y retona todo la imformacion de este
     //solo para homologos y objetos del experto
-    private objetos_Experto objExp(String obj,String ruta) {
+    private objetos_Experto objExp(String obj, String ruta) {
         objetos_Experto objExp = new objetos_Experto();
         objExp.setID(obj);
 
-        ObjectContainer db = Db4o.openFile(ruta+"/ObjH_E.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/ObjH_E.db");
         try {
             ObjectSet result = db.queryByExample(objExp);
             objetos_Experto objs = (objetos_Experto) result.next();
@@ -162,26 +161,25 @@ public class combinaciones {
     }
 
     //genera combinaciones entre un objeto minado y ligandos encontrados a partir de este
-    private void factor_ligando(ArrayList<String> combinaciones, factorTranscripcion FT) {
+    private void factor_ligando(ArrayList<String> combinaciones, factorTranscripcion FT,boolean nombreCorto) {
 
         FT.listaNombres().parallelStream().forEach((nombre) -> {
             FT.getComplejoProteinico().parallelStream().forEach((comp) -> {
                 comp.getLigandos().parallelStream().forEach((ligando) -> {
-                    insertar_combinacion(combinaciones, nombre, ligando.getId());
-                    insertar_combinacion(combinaciones, nombre, ligando.getNombre());
+                    insertar_combinacion(combinaciones, nombre, ligando.getId(),nombreCorto);
+                    insertar_combinacion(combinaciones, nombre, ligando.getNombre(),nombreCorto);
                 });
             });
         });
-
     }
 
     //genera combinaciones entre un objeto minado y nuevos ojetos encontrados a partir de este
-    private void factor_nuevoObjeto(ArrayList<String> combinaciones, factorTranscripcion FT) {
+    private void factor_nuevoObjeto(ArrayList<String> combinaciones, factorTranscripcion FT, boolean nombreCorto) {
 
         FT.listaNombres().parallelStream().forEach((nombre1) -> {
             FT.getComplejoProteinico().parallelStream().forEach((comp) -> {
                 comp.listaNombres().parallelStream().forEach((nombre2) -> {
-                    insertar_combinacion(combinaciones, nombre1, nombre2);
+                    insertar_combinacion(combinaciones, nombre1, nombre2,nombreCorto);
                 });
             });
         });
@@ -189,29 +187,31 @@ public class combinaciones {
     }
 
     //genera combinaciones entre un objeto minado y los objetos del experto y homologos
-    private void factor_objetos_H_E(ArrayList<String> combinaciones, factorTranscripcion FT, ArrayList<objetos_Experto> listaHE) {
+    private void factor_objetos_H_E(ArrayList<String> combinaciones, factorTranscripcion FT, ArrayList<objetos_Experto> listaHE,boolean nombreCorto) {
 
         listaHE.parallelStream().forEach((objExp) -> {
             FT.listaNombres().parallelStream().forEach((nombre1) -> {
                 objExp.listaNombres().parallelStream().forEach((nombre2) -> {
-                    insertar_combinacion(combinaciones, nombre1, nombre2);
+                    insertar_combinacion(combinaciones, nombre1, nombre2,nombreCorto);
                 });
             });
         });
     }
 
     //iserta una combinacion de palabras a la lista de combinaciones
-    public void insertar_combinacion(ArrayList<String> combinaciones, String palabra1, String palabra2) {
+    public void insertar_combinacion(ArrayList<String> combinaciones, String palabra1, String palabra2, boolean nombreCorto) {
         try {
+            if (!nombreCorto || (palabra1.split(" ").length == 1 && palabra2.split(" ").length == 1)) {
+                if (!combinaciones.contains(palabra1 + "+" + palabra2) && !combinaciones.contains(palabra2 + "+" + palabra1) && !palabra1.equals(palabra2)) {
+                    combinaciones.add(palabra1 + "+" + palabra2);
+                    cont++;
+                    if (cont % 1000 == 0) {
+                        carga += ".";
+                        System.out.print(carga);
+                    }
 
-            if (!combinaciones.contains(palabra1 + "+" + palabra2) && !combinaciones.contains(palabra2 + "+" + palabra1) && !palabra1.equals(palabra2)) {
-                combinaciones.add(palabra1 + "+" + palabra2);
-                cont++;
-                if (cont % 1000 == 0) {
-                    carga += ".";
-                    System.out.print(carga);
                 }
-
+               
             }
         } catch (Exception e) {
             error = true;
@@ -220,8 +220,8 @@ public class combinaciones {
 
     }
 
-    public void guardar_combinaciones(ArrayList<String> combinacion,String ruta) {
-        ObjectContainer db = Db4o.openFile(ruta+"/combinaciones.db");
+    public void guardar_combinaciones(ArrayList<String> combinacion, String ruta) {
+        ObjectContainer db = Db4o.openFile(ruta + "/combinaciones.db");
         combinacion comb = new combinacion();
         comb.combinaciones = combinacion;
 
@@ -239,7 +239,7 @@ public class combinaciones {
 
     public void borrar_archivo(String ruta) {
         try {
-            File ficherod = new File(ruta+"/combinaciones.db");
+            File ficherod = new File(ruta + "/combinaciones.db");
             ficherod.delete();
         } catch (Exception e) {
 

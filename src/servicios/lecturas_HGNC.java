@@ -238,7 +238,12 @@ public class lecturas_HGNC extends conexionServ{
 
                             }
                         }
-
+                            
+                        letUP.buscar_tejido();
+                        if(!hgnc.getTejidos().contains(letUP.getTejidos())){
+                            hgnc.setTejidos(letUP.getTejidos());
+                        }
+                        
                         for (String sinonimo : letUP.getSinonimos()) {
                             if (!hgnc.getSinonimos().contains(sinonimo)) {
                                 hgnc.getSinonimos().add(sinonimo);

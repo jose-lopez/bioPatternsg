@@ -18,6 +18,7 @@ public class HGNC {
     private String ensembl_gene_id;
     private ArrayList<String> sinonimos;
     private ArrayList<String> gene_family;
+    private ArrayList<String> tejidos;
 
     public HGNC() {
         sinonimos = new ArrayList<>();
@@ -67,6 +68,14 @@ public class HGNC {
         this.ensembl_gene_id = ensembl_gene_id;
     }
 
+    public ArrayList<String> getTejidos() {
+        return tejidos;
+    }
+
+    public void setTejidos(ArrayList<String> tejidos) {
+        this.tejidos = tejidos;
+    }
+
     public ArrayList<String> getSinonimos() {
         return sinonimos;
     }
@@ -82,6 +91,8 @@ public class HGNC {
     public void setGene_family(ArrayList<String> gene_family) {
         this.gene_family = gene_family;
     }
+    
+    
 
     public ArrayList<String> ListaNombres() {
         ArrayList<String> Lista = new ArrayList<>();

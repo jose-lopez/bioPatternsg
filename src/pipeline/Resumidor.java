@@ -27,6 +27,7 @@
 package pipeline;
 
 import configuracion.configuracion;
+import configuracion.language;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -74,7 +75,7 @@ public class Resumidor {
             //metodo que llama al consultResumidor
             salida = "salida_" + n + ".html";
             entrada = "abstracts_" + n + ".html";
-            System.out.println("Resumiendo abstracts_" + n + "................");
+            System.out.print(language.text.get(145)+"" + n + "................");
 
             resumir(entrada, n, salida,ruta);
             //recibe la ruta del resumen y genera un archivo txt
@@ -147,10 +148,10 @@ public class Resumidor {
 
             escribir.close();
 
-            System.out.println("..ok");
+            System.out.println(" ok");
         } else {
 
-            System.out.println("archivo no localizado");
+            System.out.println(language.text.get(146));
 
         }
 
@@ -158,13 +159,16 @@ public class Resumidor {
     }
 
     public void resumir(String abstracts, int n, String salida,String ruta) { // El archivo de abstracts debe venir en formato HTML
-
+        String v = "style_check(-discontiguous).";
+        Query q0 = new Query(v);
+        q0.hasSolution();
         // Comandon para realizar el resumen
         String resumirComando = "tell('" + salida + "')" + ", resume('" + abstracts + "'), told.";
         //String resumirComando = "tell('salida_1_p.html'), resume('abstracts_1.html'), told.";
         //System.out.println("cd(\""+ruta+"/abstracts\").");
         Query q = new Query("cd(\""+ruta+"/abstracts\").");
-        System.out.println("cambio a directorio abstracts:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+        q.hasSolution();
+        //System.out.println("cambio a directorio abstracts:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
         try {
             File ficherod = new File(salida);
@@ -180,7 +184,8 @@ public class Resumidor {
             generarResumen(resumirComando); // se realiza resumen del archivo de abstracts
 
             q = new Query("cd(../../../../..).");
-            System.out.println("regresando a directorio raiz:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+            q.hasSolution();
+            //System.out.println("regresando a directorio raiz:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
         } catch (Throwable t) {
             t.printStackTrace();
@@ -192,7 +197,8 @@ public class Resumidor {
 
         String consultResumidor = "[" + codigoResumidorPNL + "].";
         Query query = new Query(consultResumidor);
-        System.out.println(consultResumidor + " " + (query.hasSolution() ? "succeeded" : "failed"));
+        query.hasSolution();
+        //System.out.println(consultResumidor + " " + (query.hasSolution() ? "succeeded" : "failed"));
     }
 
 //---------------------------------------
@@ -202,7 +208,8 @@ public class Resumidor {
 
         Query q = new Query(resumirComando);
         hasSolution = q.hasSolution();
-        System.out.println("Resumir: " + (hasSolution ? "succeeded" : "failed"));
+        //hasSolution;
+       // System.out.println("Resumir: " + (hasSolution ? "succeeded" : "failed"));
 
         //q = new Query("cd(..)");
         //System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
@@ -219,14 +226,17 @@ public class Resumidor {
     public void init(String codigoResumidorPNL) {
         //Abriendo el archivo
         Query q = new Query("cd(resumidor_bioinformante).");
-        System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+        q.hasSolution();
+        //System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
         String consultResumidor = "[" + codigoResumidorPNL + "].";
         Query query = new Query(consultResumidor);
-        System.out.println(consultResumidor + " " + (query.hasSolution() ? "succeeded" : "failed"));
+        query.hasSolution();
+        //System.out.println(consultResumidor + " " + (query.hasSolution() ? "succeeded" : "failed"));
 
         q = new Query("cd(..).");
-        System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
+        q.hasSolution();
+        //System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
     }
 }

@@ -22,6 +22,7 @@ public class lecturas_Uniprot extends conexionServ{
     private String Simbolo;
     private String Nombre;
     private ArrayList<String> sinonimos;
+    private ArrayList<String> tejidos;
     private ArrayList<String> funcionMolecular;
     private ArrayList<String> procesoBiologico;
     private ArrayList<String> componenteCelular;
@@ -32,6 +33,7 @@ public class lecturas_Uniprot extends conexionServ{
         procesoBiologico = new ArrayList<>();
         componenteCelular = new ArrayList<>();
         sinonimos = new ArrayList<>();
+        tejidos = new ArrayList<>();
         
         String url = "https://www.uniprot.org/uniprot/" + codigo + ".xml";
         
@@ -107,7 +109,19 @@ public class lecturas_Uniprot extends conexionServ{
 
         } catch (Exception e) {
         }
+         
 
+    }
+    
+    public void buscar_tejido(){
+         NodeList listat = doc.getElementsByTagName("tissue");
+        for (int i = 0; i < listat.getLength(); i++) {
+            
+            String tejido = listat.item(i).getTextContent();
+            if(!tejidos.contains(tejido)){
+                tejidos.add(tejido);
+            }
+        }
     }
 
     public String getSimbolo() {
@@ -164,6 +178,14 @@ public class lecturas_Uniprot extends conexionServ{
 
     public void setSinonimos(ArrayList<String> sinonimos) {
         this.sinonimos = sinonimos;
+    }
+
+    public ArrayList<String> getTejidos() {
+        return tejidos;
+    }
+
+    public void setTejidos(ArrayList<String> tejidos) {
+        this.tejidos = tejidos;
     }
     
     

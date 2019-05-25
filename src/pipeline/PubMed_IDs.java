@@ -11,6 +11,7 @@ import com.db4o.ObjectSet;
 import configuracion.PMIDS;
 import configuracion.combinacion;
 import configuracion.configuracion;
+import configuracion.language;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -29,7 +30,7 @@ public class PubMed_IDs {
     //busca los PubMed IDs de cada combinacion encontrada en el archivo mineria/combinaciones.db
     public void buscar(int cantIDs, configuracion config, String ruta) {
         limpiarPantalla();
-        System.out.print("\nBusqueda de PubMed Id.....");
+        System.out.print("\n"+language.text.get(82));
 
         ObjectContainer db = Db4o.openFile(ruta + "/combinaciones.db");
         combinacion com = new combinacion();
@@ -105,8 +106,8 @@ public class PubMed_IDs {
         probadas++;
         limpiarPantalla();
         System.out.println("");
-        System.out.print("\nBusqueda de PubMed Id...");
-        System.out.println("probando combinaciones " + probadas + " de " + combinaciones);
+        System.out.print("\n"+language.text.get(82));
+        System.out.println(language.text.get(83)+" " + probadas + " / " + combinaciones);
     }
 
     //se guarda la lista de IDs en 'mineria/pubmed_id.db'
@@ -120,7 +121,7 @@ public class PubMed_IDs {
             db.store(ids);
 
         } catch (Exception e) {
-            System.out.println("Error al guardar combinaciones.db...");
+            System.out.println(language.text.get(84));
         } finally {
             db.close();
         }
