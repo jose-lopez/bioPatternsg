@@ -1,3 +1,6 @@
 /build/
 /dist/
 /nbproject/private/
+/data/
+/minery/networks/
+/minery/integration/
