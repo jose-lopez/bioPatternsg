@@ -41,6 +41,7 @@ public class lecturas_QuickGO {
             buscarNombre(codigo, ontologia);
             busqueda_de_padres(codigo, ontologia);
         } catch (IOException ex) {
+           // System.out.println("error GO");
             //Logger.getLogger(lecturas_QuickGO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -71,9 +72,11 @@ public class lecturas_QuickGO {
 
             JsonObject gsonObj2 = (JsonObject) result.get(0);
             String nombre = gsonObj2.get("name").getAsString();
+            String arbol = gsonObj2.get("aspect").getAsString();
             ontologia.setNombre(nombre);
+            ontologia.setArbol(arbol);
             ontologia.setGO(GO);
-            //System.out.println(nombre + "  " + GO);
+            //System.out.println(nombre + "  " + arbol);
 
         }
 

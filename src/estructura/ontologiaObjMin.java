@@ -33,7 +33,7 @@ public class ontologiaObjMin {
     }
 
     public void guardarObjeto(ontologiaObjMin objeto, boolean GO, boolean mesh, String ruta) {
-
+        
         ObjectContainer db = Db4o.openFile(ruta + "/ontologiaObjMin.db");
         try {
 
@@ -82,6 +82,7 @@ public class ontologiaObjMin {
     }
 
     public void buscarOntologiaGO(String GO, String ruta) {
+       // System.out.println(GO);
         ontologiaGO ontologia = new ontologiaGO();
         lecturas_QuickGO letQGO = new lecturas_QuickGO();
         ontologia.setGO(GO);
@@ -309,9 +310,6 @@ public class ontologiaObjMin {
     }
 
     private void vaciarpl(ontologiaObjMin obj, String ruta) {
-        String FM = "[";
-        String CC = "[";
-        String PB = "[";
         String MESH = "";
         ontologiaGO GO = new ontologiaGO();
         ontologiaMESH mesh = new ontologiaMESH();
@@ -319,46 +317,24 @@ public class ontologiaObjMin {
         new escribirBC("objeto(\'" + obj.nombre.replace("\'", "") + "\').", ruta + "/ontologiaMESH.pl");
 
         for (String fm : obj.funcionMolecular) {
-            if (FM.equals("[")) {
-                FM += "\'" + GO.buscar(fm, ruta).replace("\'", "") + "\'";
-            } else {
-                FM += ",\'" + GO.buscar(fm, ruta).replace("\'", "") + "\'";
-            }
+            new escribirBC("go(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(fm, ruta).replace("\'", "") + "\').", ruta + "/ontologiaGO.pl");
+            new escribirBC("fm(\'" + GO.buscar(fm, ruta).replace("\'", "") + "\').", ruta + "/ontologiaGO.pl");
         }
-        FM += "]";
 
         for (String pb : obj.procesoBiologico) {
-            if (PB.equals("[")) {
-                PB += "\'" + GO.buscar(pb, ruta).replace("\'", "") + "\'";
-            } else {
-                PB += ",\'" + GO.buscar(pb, ruta).replace("\'", "") + "\'";
-            }
+            new escribirBC("go(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(pb, ruta).replace("\'", "") + "\').", ruta + "/ontologiaGO.pl");
+            new escribirBC("bp(\'" + GO.buscar(pb, ruta).replace("\'", "") + "\').", ruta + "/ontologiaGO.pl");
         }
-        PB += "]";
 
         for (String cc : obj.componenteCelular) {
-            if (CC.equals("[")) {
-                CC += "\'" + GO.buscar(cc, ruta).replace("\'", "") + "\'";
-            } else {
-                CC += ",\'" + GO.buscar(cc, ruta).replace("\'", "") + "\'";
-            }
+            new escribirBC("go(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(cc, ruta).replace("\'", "") + "\').", ruta + "/ontologiaGO.pl");
+            new escribirBC("cc(\'" + GO.buscar(cc, ruta).replace("\'", "") + "\').", ruta + "/ontologiaGO.pl");
         }
-        CC += "]";
 
         for (String m : obj.Parent) {
             MESH = mesh.buscarNombre(m, ruta).replace("\'", "");
-
         }
 
-        if (!FM.equals("[]")) {
-            new escribirBC("fm(\'" + obj.nombre.replace("\'", "") + "\'," + FM + ").", ruta + "/ontologiaGO.pl");
-        }
-        if (!PB.equals("[]")) {
-            new escribirBC("pb(\'" + obj.nombre.replace("\'", "") + "\'," + PB + ").", ruta + "/ontologiaGO.pl");
-        }
-        if (!CC.equals("[]")) {
-            new escribirBC("cc(\'" + obj.nombre.replace("\'", "") + "\'," + CC + ").", ruta + "/ontologiaGO.pl");
-        }
         if (!MESH.equals("")) {
             new escribirBC("is_a(\'" + obj.nombre.replace("\'", "") + "\',\'" + MESH + "\').", ruta + "/ontologiaMESH.pl");
             String aux = mesh.procesarTexto(MESH);

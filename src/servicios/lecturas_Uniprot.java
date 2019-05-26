@@ -114,7 +114,8 @@ public class lecturas_Uniprot extends conexionServ{
     }
     
     public void buscar_tejido(){
-         NodeList listat = doc.getElementsByTagName("tissue");
+        
+        NodeList listat = doc.getElementsByTagName("tissue");
         for (int i = 0; i < listat.getLength(); i++) {
             
             String tejido = listat.item(i).getTextContent();
@@ -122,6 +123,7 @@ public class lecturas_Uniprot extends conexionServ{
                 tejidos.add(tejido);
             }
         }
+       
     }
 
     public String getSimbolo() {

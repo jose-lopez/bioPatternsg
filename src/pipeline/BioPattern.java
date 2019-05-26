@@ -14,7 +14,9 @@ import configuracion.PMIDS;
 import configuracion.combinacion;
 import configuracion.confGeneral;
 import configuracion.configuracion;
+import configuracion.language;
 import configuracion.listPM;
+import estructura.ontologiaGO;
 import estructura.ontologiaObjMin;
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,6 +36,7 @@ import javax.swing.JTextField;
 import org.jpl7.Query;
 
 import servicios.lecturas_PM;
+import servicios.lecturas_QuickGO;
 
 /**
  *
@@ -52,7 +55,7 @@ public class BioPattern {
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
         biopattern.pipelineBioPattern();
-     // biopattern.pruebas();
+        //biopattern.pruebas();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -176,7 +179,9 @@ public class BioPattern {
     public void pipelineBioPattern() throws StringIndexOutOfBoundsException, Exception {
         //Autenticación de proxy        
         //autenticarProxy("150.187.65.3", "3128");
-        
+        //String rlanguage="language/es/language.xml";
+        String rlanguage="language/en/language.xml";
+        new language(rlanguage);
         confGeneral confG = new confGeneral();
         confG.listarRedes();
 
@@ -197,6 +202,7 @@ public class BioPattern {
     public String getSecuenciaProblema() {
         return secuenciaProblema;
     }
+    
     private String usuario = "";
     private char[] clave;
     //private char[] clave = {'', '', '', '', '', '', '', '', '', ''};
@@ -226,34 +232,21 @@ public class BioPattern {
     }
 
     public void pruebas() {
-
-//        confGeneral confG = new confGeneral();
-//        confG.listarRedes();
-    
         
-        
-        
-        
+        //confGeneral confG = new confGeneral();
+        //confG.listarRedes();
+        lecturas_QuickGO lgo = new lecturas_QuickGO();
+        ontologiaGO go = new ontologiaGO();
         try {
-
-            confGeneral confG = new confGeneral();
-            //confG.listarRedes();
-            String ruta = "mineria/redes/red1/prot1";
-
-            minado_FT mfts = new minado_FT(); // clase que contiene los metodos donde se buscara la informacion de los objetos minados
-            configuracion config = new configuracion();
-            try {
-                config.recuperarConfiguracion(ruta); // recupera la configuracion actual y el checklist que indica desde que punto puede continuar la ejecucion
-            } catch (Exception e) {
-            }
-            
-       mfts.vaciar_bc_pl(true, true, config, ruta);
-        } catch (StringIndexOutOfBoundsException ex) {
-            Logger.getLogger(BioPattern.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
+            lgo.buscarNombre("GO:0004994", go);
+        } catch (IOException ex) {
             Logger.getLogger(BioPattern.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        System.out.println(go.getArbol());
+    
     }
-
+    
+    
+    
 }

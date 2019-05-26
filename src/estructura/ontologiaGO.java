@@ -20,6 +20,7 @@ public class ontologiaGO {
 
     private String GO;
     private String nombre;
+    private String arbol;
     private ArrayList<String> sinonimos;
     private ArrayList<String> is_a;
     private ArrayList<String> part_of;
@@ -144,8 +145,17 @@ public class ontologiaGO {
             objeto = buscarOBJ(GO, ontGO);
 
             if (obj != null) {
-                String cadena = relacion + "(\'" + obj.replace("\'", "") + "\',\'" + objeto.getNombre().replace("\'", "") + "\').";
+                String cadena = "go(\'" + obj.replace("\'", "") + "\',"+relacion+",\'" + objeto.getNombre().replace("\'", "") + "\').";
                 new escribirBC(cadena, archivo);
+                
+                try{
+                    String cad = (objeto.arbol.equals("molecular_function"))?"mf":"";
+                    cad = (objeto.arbol.equals("biological_process"))?"bp":cad;
+                    cad = (objeto.arbol.equals("cellular_component"))?"cc":cad;
+                    cadena = cad+"("+objeto.getNombre().replace("\'", "") + "\').";
+                }catch(Exception e){
+                    
+                }    
                 System.out.print(".");
             }
 
@@ -399,4 +409,15 @@ public class ontologiaGO {
     public void setCapable_of_part_of(ArrayList<String> capable_of_part_of) {
         this.capable_of_part_of = capable_of_part_of;
     }
+
+    public String getArbol() {
+        return arbol;
+    }
+
+    public void setArbol(String arbol) {
+        this.arbol = arbol;
+    }
+    
+    
+    
 }

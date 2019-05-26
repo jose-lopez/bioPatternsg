@@ -180,7 +180,7 @@ public class lecturas_HGNC extends conexionServ{
                     //Busqueda de sinonimos
                     Element elm = (Element) nodo;
                     if (elm.getAttribute("name").equals("alias_symbol")) {
-
+                        
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
                             hgnc.getSinonimos().add(elm.getElementsByTagName("str").item(j).getTextContent());
@@ -189,7 +189,7 @@ public class lecturas_HGNC extends conexionServ{
                     }
 
                     if (elm.getAttribute("name").equals("prev_name")) {
-
+                        
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
                             hgnc.getSinonimos().add(elm.getElementsByTagName("str").item(j).getTextContent());
@@ -198,7 +198,7 @@ public class lecturas_HGNC extends conexionServ{
                     }
 
                     if (elm.getAttribute("name").equals("prev_symbol")) {
-
+                        System.out.println("prev_symbol");
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
                             hgnc.getSinonimos().add(elm.getElementsByTagName("str").item(j).getTextContent());
@@ -209,7 +209,7 @@ public class lecturas_HGNC extends conexionServ{
                     //----------------------------------------------------------
                     //gene_family
                     if (elm.getAttribute("name").equals("gene_family")) {
-
+                        
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
                             hgnc.getGene_family().add(elm.getElementsByTagName("str").item(j).getTextContent());
@@ -223,6 +223,7 @@ public class lecturas_HGNC extends conexionServ{
                     //Ontologia GO --------------------------------------------
                     lecturas_Uniprot letUP = null;
                     if (elm.getAttribute("name").equals("uniprot_ids")) {
+                        
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
                             try {
@@ -235,15 +236,13 @@ public class lecturas_HGNC extends conexionServ{
                                     ontologia.setProcesoBiologico(letUP.getProcesoBiologico());
                                 }
                             } catch (Exception e) {
-
+                               
                             }
                         }
-                            
+                           
                         letUP.buscar_tejido();
-                        if(!hgnc.getTejidos().contains(letUP.getTejidos())){
-                            hgnc.setTejidos(letUP.getTejidos());
-                        }
-                        
+                        hgnc.setTejidos(letUP.getTejidos());
+                                   
                         for (String sinonimo : letUP.getSinonimos()) {
                             if (!hgnc.getSinonimos().contains(sinonimo)) {
                                 hgnc.getSinonimos().add(sinonimo);
@@ -252,11 +251,12 @@ public class lecturas_HGNC extends conexionServ{
                         }
 
                     }
+                    
                     //ontologia MESH--------------------------------------------
                     if (MESH && !ont) {
                         try {
                             lecturas_MESH letMesh = new lecturas_MESH();
-                            //System.out.println(hgnc.getSimbolo() + "  " + hgnc.getNombre());
+                           // System.out.println(hgnc.getSimbolo() + "  " + hgnc.getNombre());
                             String idmesh = letMesh.busquedaTerm(hgnc.getNombre().replace(" ", "+"), 2);
                             if (idmesh == null) {
                                 idmesh = letMesh.busquedaTerm(hgnc.getSimbolo(), 2);
@@ -264,7 +264,7 @@ public class lecturas_HGNC extends conexionServ{
                             ontologia.getParent().add(idmesh);
                             ont = true;
                         } catch (Exception e) {
-
+                            //System.out.println("Error");
                         }
 
                     }
@@ -272,9 +272,10 @@ public class lecturas_HGNC extends conexionServ{
                 }
 
             }
-
+            
             //----------------------------------------------------------
             if (GO || MESH) {
+                
                 ontologia.guardarObjeto(ontologia, GO, MESH,ruta);
             }
 
