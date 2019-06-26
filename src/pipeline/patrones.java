@@ -37,21 +37,21 @@ public class patrones {
         resumirBaseC(ruta);
 
         // System.out.println(objRestricion);
-        borrar_archivo(ruta + "/patrones.txt");
-        borrar_archivo(ruta + "/patrones.db");
+        borrar_archivo(ruta + "/pathways.txt");
+        borrar_archivo(ruta + "/pathways.db");
 
         String v = "style_check(-discontiguous).";
         Query q0 = new Query(v);
         q0.hasSolution();
 
-        String objPatr = "['" + ruta + "/objetos_patrones'].";
+        String objPatr = "['" + ruta + "/pathwaysObjects'].";
         //System.out.println(objPatr);
         Query q1 = new Query(objPatr);
         q1.hasSolution();
 
         cargarBaseC(ruta);
 
-        String archivo = "[scripts/patronesJPL].";
+        String archivo = "[scripts/pathwaysJPL].";
         Query q = new Query(archivo);
         q.hasSolution();
 
@@ -108,13 +108,13 @@ public class patrones {
             System.out.print(language.text.get(85));
             String resp = lectura.nextLine();
             if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
-                String bc = "['" + ruta + "/baseCR'].";
+                String bc = "['" + ruta + "/KbaseR'].";
                 Query q2 = new Query(bc);
                 q2.hasSolution();
 
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
-                String bc = "['" + ruta + "/baseC'].";
+                String bc = "['" + ruta + "/Kbase'].";
                 //System.out.println(bc);
                 Query q2 = new Query(bc);
                 q2.hasSolution();
@@ -403,7 +403,7 @@ public class patrones {
                     System.out.println(list);
                     agregar_a_lista(patron, list);
                     //guardar_Patron(patron, list);
-                    escribirArchivo(patron, list.toString(), "patrones.txt", ruta);
+                    escribirArchivo(patron, list.toString(), "pathways.txt", ruta);
                 }
             });
         }
@@ -429,7 +429,7 @@ public class patrones {
                             System.out.println(list);
                             agregar_a_lista(patron, list);
                             //guardar_Patron(patron, list);
-                            escribirArchivo(patron, list.toString(), "patrones.txt", ruta);
+                            escribirArchivo(patron, list.toString(), "pathways.txt", ruta);
                         }
                     }
 
@@ -486,7 +486,7 @@ public class patrones {
                             System.out.println("\n\n" + patronF);
                             System.out.println(list);
                             agregar_a_lista(patronF, list);
-                            escribirArchivo(patronF, list.toString(), "patrones.txt", ruta);
+                            escribirArchivo(patronF, list.toString(), "pathways.txt", ruta);
                             //guardar_Patron(patronF, list);
                         }
 
@@ -537,7 +537,7 @@ public class patrones {
 
     private void guardar_Patron(String ruta) {
 
-        ObjectContainer db = Db4o.openFile(ruta + "/patrones.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/pathways.db");
         // pathway pathway = new pathway();
         //pathway.setPatron(patron);
         //pathway.setObjetos(objetos);
@@ -613,7 +613,7 @@ public class patrones {
     }
 
     public void resumirBaseC(String ruta) {
-        borrar_archivo(ruta + "//baseCR.pl");
+        borrar_archivo(ruta + "/kBaseR.pl");
         ArrayList<String> eventos = leerBaseC(ruta);
         ArrayList<String> resumenEven = new ArrayList<>();
         eventos.stream().forEach((e) -> {
@@ -631,14 +631,14 @@ public class patrones {
 
         });
 
-        new escribirBC("base([", ruta + "/baseCR.pl");
+        new escribirBC("base([", ruta + "/kBaseR.pl");
 
         for (int i = 0; i < resumenEven.size() - 1; i++) {
-            new escribirBC(resumenEven.get(i) + ",", ruta + "/baseCR.pl");
+            new escribirBC(resumenEven.get(i) + ",", ruta + "/kBaseR.pl");
         }
-        new escribirBC(resumenEven.get(resumenEven.size() - 1), ruta + "/baseCR.pl");
+        new escribirBC(resumenEven.get(resumenEven.size() - 1), ruta + "/kBaseR.pl");
 
-        new escribirBC("]).", ruta + "/baseCR.pl");
+        new escribirBC("]).", ruta + "/kBaseR.pl");
 
     }
 

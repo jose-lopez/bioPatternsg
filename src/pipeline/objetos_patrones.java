@@ -25,10 +25,10 @@ public class objetos_patrones {
         Query q0 = new Query(v);
         q0.hasSolution();
         
-        String MESH = "['"+ruta+"/ontologiaMESH'].";
-        String objMin = "['"+ruta+"/objetosMinados'].";
-        String wkr = "['"+ruta+"/well_know_rules'].";
-        String bc = "['"+ruta+"/baseC'].";
+        String MESH = "['"+ruta+"/ontologyMESH'].";
+        String objMin = "['"+ruta+"/minedObjects'].";
+        String wkr = "['"+ruta+"/wellKnownRules'].";
+        String bc = "['"+ruta+"/kBase'].";
         
         Query q1 = new Query(MESH);
         q1.hasSolution();
@@ -40,7 +40,7 @@ public class objetos_patrones {
         q4.hasSolution();
         
         
-        String archivo = "[scripts/generaObjetosPatrones].";
+        String archivo = "[scripts/generatorPathwaysObjects].";
         Query q = new Query(archivo);
         q.hasSolution();
 

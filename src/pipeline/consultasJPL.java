@@ -58,32 +58,32 @@ public class consultasJPL {
         Query q0 = new Query(v);
         q0.hasSolution();
 
-        String objPatr = "['" + ruta + "/objetos_patrones'].";
+        String objPatr = "['" + ruta + "/pathwaysObjects'].";
         //System.out.println(objPatr);
         Query q1 = new Query(objPatr);
         q1.hasSolution();
 
-        String bc = "['" + ruta + "/baseC'].";
+        String bc = "['" + ruta + "/Kbase'].";
         //System.out.println(bc);
         Query q2 = new Query(bc);
         q2.hasSolution();
 
-        String objMin = "['" + ruta + "/objetosMinados'].";
+        String objMin = "['" + ruta + "/minedObjects'].";
         //System.out.println(objMin);
         Query q3 = new Query(objMin);
         q3.hasSolution();
 
-        String objGO = "['" + ruta + "/ontologiaGO'].";
+        String objGO = "['" + ruta + "/ontologyGO'].";
         //System.out.println(objGO);
         Query q4 = new Query(objGO);
         q4.hasSolution();
 
-        String objMESH = "['" + ruta + "/ontologiaMESH'].";
+        String objMESH = "['" + ruta + "/ontologyMESH'].";
         //System.out.println(objMESH);
         Query q5 = new Query(objMESH);
         q5.hasSolution();
 
-        String archivo = "['scripts/consultas'].";
+        String archivo = "['scripts/consults'].";
         Query q = new Query(archivo);
         q.hasSolution();
 
@@ -282,7 +282,7 @@ public class consultasJPL {
     }
 
     public void buscar_cadenas_pathwaysRest(String ruta) {
-        borrar_archivo(ruta + "/cadenas_Pathways.txt");
+        borrar_archivo(ruta + "/chainsPathways.txt");
         String Objrest = "'NR0B2'";
         String Objresti = "'bile acid'";
         ArrayList<pathway> pathways = cargarPatrones(ruta);
@@ -326,7 +326,7 @@ public class consultasJPL {
             switch (resp) {
                 case "1":
                     limpiarPantalla();
-                    borrar_archivo(ruta + "/cadenas_Pathways.txt");
+                    borrar_archivo(ruta + "/chainsPathways.txt");
                     final ArrayList<pathway> pathways = cargarPatrones(ruta);
                     String Objrest;
                     while (true) {
@@ -456,7 +456,7 @@ public class consultasJPL {
                     }
                 }
                 //System.out.println("********************************");
-                escribirArchivo(cad, ruta + "/cadenas_Pathways.txt");
+                escribirArchivo(cad, ruta + "/chainsPathways.txt.txt");
                 System.out.println(cad);
                 cadena.clear();
             }
@@ -1220,7 +1220,7 @@ public class consultasJPL {
     public ArrayList<pathway> cargarPatrones(String ruta) {
         ArrayList<pathway> pathways = new ArrayList<>();
 
-        ObjectContainer db = Db4o.openFile(ruta + "/patrones.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/pathways.db");
         pathway pathway = new pathway();
         try {
             ObjectSet result = db.queryByExample(pathway);
