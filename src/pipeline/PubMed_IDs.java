@@ -27,12 +27,12 @@ public class PubMed_IDs {
     private int combinaciones;
     private int probadas = 0;
 
-    //busca los PubMed IDs de cada combinacion encontrada en el archivo mineria/combinaciones.db
+    //busca los PubMed IDs de cada combinacion encontrada en el archivo mineria/combinations.db
     public void buscar(int cantIDs, configuracion config, String ruta) {
         limpiarPantalla();
         System.out.print("\n"+language.text.get(82));
 
-        ObjectContainer db = Db4o.openFile(ruta + "/combinaciones.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/combinations.db");
         combinacion com = new combinacion();
         ObjectSet result = db.queryByExample(com);
         combinacion combinacion = (combinacion) result.get(0);
@@ -110,10 +110,10 @@ public class PubMed_IDs {
         System.out.println(language.text.get(83)+" " + probadas + " / " + combinaciones);
     }
 
-    //se guarda la lista de IDs en 'mineria/pubmed_id.db'
+    //se guarda la lista de IDs en 'mineria/pubmedIDs.db'
     private void guardar(ArrayList<String> pubmedIDS, String ruta) {
 
-        ObjectContainer db = Db4o.openFile(ruta + "/pubmed_id.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/pubmedIDs.db");
         PMIDS ids = new PMIDS();
         ids.pubmed_ids.addAll(pubmedIDS);
 
@@ -130,7 +130,7 @@ public class PubMed_IDs {
 
     public void borrar_archivo(String ruta) {
         try {
-            File ficherod = new File(ruta + "/pubmed_id.db");
+            File ficherod = new File(ruta + "/pubmedIDs.db");
             ficherod.delete();
         } catch (Exception e) {
 

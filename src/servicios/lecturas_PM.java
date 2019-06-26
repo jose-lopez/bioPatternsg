@@ -56,7 +56,7 @@ public class lecturas_PM extends conexionServ {
 //                + "</html>";
 //
 //        ArrayList<String> listaIDs = new ArrayList<>();
-//        ObjectContainer db = Db4o.openFile("mineria/pubmed_id.db");
+//        ObjectContainer db = Db4o.openFile("mineria/pubmedIDs.db");
 //        PMIDS pm = new PMIDS();
 //        int IDS = 0;
 //        int descarga = 0;
@@ -127,7 +127,7 @@ public class lecturas_PM extends conexionServ {
         ArrayList<String> listaIDs = new ArrayList<>();
         ArrayList<listPM> listasPM = new ArrayList<>();
 
-        ObjectContainer db = Db4o.openFile(ruta + "/pubmed_id.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/pubmedIDs.db");
         PMIDS pm = new PMIDS();
         try {
 

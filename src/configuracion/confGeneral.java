@@ -42,20 +42,21 @@ public class confGeneral {
 
     private String red;
     private String proceso;
-    
+
     /**
      * Este método muestra el listado de las redes que se han minado
      */
     public void listarRedes() {
-                    
+
+        seleccionarIdioma();
+        limpiarPantalla();
         final File carpeta = new File("minery/networks");
         final File carpeta2 = new File("minery/integration");
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
-        
+
         listar_datos();
-        
-              
+
         while (r) {
             ArrayList<String> redes = new ArrayList<>();
             redes = listarCarpetas(carpeta);
@@ -73,7 +74,7 @@ public class confGeneral {
             redesInte = listarCarpetas(carpeta2);
 
             if (redesInte.size() > 0) {
-                System.out.println("\n"+language.text.get(2));
+                System.out.println("\n" + language.text.get(2));
             }
 
             //System.out.println("N.-Crear una nueva Red");
@@ -92,7 +93,6 @@ public class confGeneral {
 //                red = nuevaRed();
 //                listarProcesos(red);
 //            }
-
             if (resp.equalsIgnoreCase("I") && redesInte.size() > 0) {
                 listarRedesInt(redesInte);
             }
@@ -105,7 +105,7 @@ public class confGeneral {
     }
 
     public void listar_datos() {
-        
+
         final File carpeta = new File("data");
 
         ArrayList<String> redes = new ArrayList<>();
@@ -120,13 +120,13 @@ public class confGeneral {
             }
 
             ArrayList<String> proteinas = new ArrayList<>();
-            final File carpeta2 = new File("data/"+red);
+            final File carpeta2 = new File("data/" + red);
             proteinas = listarCarpetas(carpeta2);
-            
+
             for (String proteina : proteinas) {
-                File dir_prot = new File("minery/networks/"+red+"/"+proteina);
-                if(!dir_prot.exists()){
-                     dir_prot.mkdir();
+                File dir_prot = new File("minery/networks/" + red + "/" + proteina);
+                if (!dir_prot.exists()) {
+                    dir_prot.mkdir();
                 }
             }
         }
@@ -145,7 +145,7 @@ public class confGeneral {
                 System.out.println((i + 1) + ".- " + redesInt.get(i));
             }
 
-            System.out.println("\n"+language.text.get(4));
+            System.out.println("\n" + language.text.get(4));
             String resp = lectura.nextLine();
 
             for (int i = 0; i < redesInt.size(); i++) {
@@ -174,12 +174,12 @@ public class confGeneral {
         while (r) {
             ArrayList<pathway> patrones = RRG.cargarPatrones(ruta);
             limpiarPantalla();
-            System.out.println(language.text.get(5)+" "+red);
-            System.out.println(language.text.get(6)+"       " + patrones.size() + "\n");
+            System.out.println(language.text.get(5) + " " + red);
+            System.out.println(language.text.get(6) + "       " + patrones.size() + "\n");
             System.out.println(language.text.get(0));
             System.out.println(language.text.get(7));
             System.out.println(language.text.get(8));
-            System.out.println("\n"+language.text.get(4));
+            System.out.println("\n" + language.text.get(4));
 
             resp = lectura.nextLine();
             switch (resp) {
@@ -227,7 +227,7 @@ public class confGeneral {
             ArrayList<String> procesos = new ArrayList<>();
             procesos = listarCarpetas(carpeta);
             limpiarPantalla();
-            System.out.println(language.text.get(9)+" " + red);
+            System.out.println(language.text.get(9) + " " + red);
             System.out.println(language.text.get(0));
             if (procesos.size() > 0) {
                 System.out.println(language.text.get(10));
@@ -237,9 +237,9 @@ public class confGeneral {
                 }
             }
             if (procesos.size() > 1) {
-                System.out.println("\n"+language.text.get(11));
+                System.out.println("\n" + language.text.get(11));
             }
-           // System.out.println("\nN.-Crear un nuevo proceso");
+            // System.out.println("\nN.-Crear un nuevo proceso");
             System.out.println(language.text.get(4));
             String resp = lectura.nextLine();
 
@@ -247,10 +247,10 @@ public class confGeneral {
                 String r2 = (i + 1) + "";
                 if (resp.equals(r2)) {
                     proceso = procesos.get(i);
-                   // System.out.println("seleccion = " + i + " " + procesos.get(i));
+                    // System.out.println("seleccion = " + i + " " + procesos.get(i));
                     String ruta = "minery/networks/" + red + "/" + proceso;
-                    String rutaD ="data/"+ red+"/"+proceso;
-                    pipeline(ruta,rutaD);
+                    String rutaD = "data/" + red + "/" + proceso;
+                    pipeline(ruta, rutaD);
 
                 }
             }
@@ -260,7 +260,6 @@ public class confGeneral {
 //                String ruta = "mineria/redes/" + red + "/" + proceso;
 //                pipeline(ruta);
 //            }
-
             if (resp.equalsIgnoreCase("I")) {
                 integrarRed(red, procesos);
             }
@@ -280,13 +279,13 @@ public class confGeneral {
         String rutaDest = "minery/integration/" + red;
 
         for (String directorio : procesos) {
-            System.out.print(language.text.get(12)+" " + directorio);
+            System.out.print(language.text.get(12) + " " + directorio);
             String rutaOri = "minery/networks/" + red + "/" + directorio;
-            integrarArchivos(rutaOri + "/objetosMinados.pl", rutaDest + "/objetosMinados.pl");
-            integrarArchivos(rutaOri + "/objetos_patrones.pl", rutaDest + "/objetos_patrones.pl");
-            integrarArchivos(rutaOri + "/ontologiaGO.pl", rutaDest + "/ontologiaGO.pl");
-            integrarArchivos(rutaOri + "/ontologiaMESH.pl", rutaDest + "/ontologiaMESH.pl");
-            integrarArchivos(rutaOri + "/well_know_rules.pl", rutaDest + "/well_know_rules.pl");
+            integrarArchivos(rutaOri + "/minedObjects.pl", rutaDest + "/minedObjects.pl");
+            integrarArchivos(rutaOri + "/pathwaysObjects.pl", rutaDest + "/pathwaysObjects.pl");
+            integrarArchivos(rutaOri + "/ontologyGO.pl", rutaDest + "/ontologyGO.pl");
+            integrarArchivos(rutaOri + "/ontologyMESH.pl", rutaDest + "/ontologyMESH.pl");
+            integrarArchivos(rutaOri + "/wellKnownRules.pl", rutaDest + "/wellKnownRules.pl");
 
             integrarOntologias(rutaOri, rutaDest);
 
@@ -309,7 +308,7 @@ public class confGeneral {
 
     private void integrarObjExp(String ori, String dest) {
         objetos_Experto objExt = new objetos_Experto();
-        ObjectContainer db = Db4o.openFile(ori + "/ObjH_E.db");
+        ObjectContainer db = Db4o.openFile(ori + "/homologousObjects.db");
         ArrayList<objetos_Experto> listObjs = new ActivatableArrayList<>();
         try {
             ObjectSet result = db.queryByExample(objExt);
@@ -323,7 +322,7 @@ public class confGeneral {
         for (objetos_Experto obj : listObjs) {
 
             if (!obj.buscar(obj, dest)) {
-                ObjectContainer db2 = Db4o.openFile(dest + "/ObjH_E.db");
+                ObjectContainer db2 = Db4o.openFile(dest + "/homologousObjects.db");
                 try {
                     db2.store(obj);
                 } catch (Exception e) {
@@ -339,7 +338,7 @@ public class confGeneral {
 
     private void integrarFT(String ori, String dest) {
         factorTranscripcion ft = new factorTranscripcion();
-        ObjectContainer db = Db4o.openFile(ori + "/FT.db");
+        ObjectContainer db = Db4o.openFile(ori + "/TF.db");
         ArrayList<factorTranscripcion> listObjs = new ActivatableArrayList<>();
         try {
             ObjectSet result = db.queryByExample(ft);
@@ -352,7 +351,7 @@ public class confGeneral {
 
         for (factorTranscripcion obj : listObjs) {
             if (!obj.buscar(obj, dest)) {
-                ObjectContainer db2 = Db4o.openFile(dest + "/FT.db");
+                ObjectContainer db2 = Db4o.openFile(dest + "/TF.db");
                 try {
                     db2.store(obj);
                 } catch (Exception e) {
@@ -369,7 +368,7 @@ public class confGeneral {
     private void integrarOntologias(String ori, String dest) {
         //System.out.println(ori + "  -- " + dest);
         ontologiaObjMin objeto = new ontologiaObjMin();
-        ObjectContainer db = Db4o.openFile(ori + "/ontologiaObjMin.db");
+        ObjectContainer db = Db4o.openFile(ori + "/minedObjectsOntology.db");
         ArrayList<ontologiaObjMin> listObjs = new ActivatableArrayList<>();
         try {
             ObjectSet result = db.queryByExample(objeto);
@@ -389,7 +388,7 @@ public class confGeneral {
 
                 obj.getParent().forEach(p -> integrarMESH(p, ori, dest));
 
-                ObjectContainer db2 = Db4o.openFile(dest + "/ontologiaObjMin.db");
+                ObjectContainer db2 = Db4o.openFile(dest + "/minedObjectsOntology.db");
 
                 try {
                     db2.store(obj);
@@ -411,12 +410,12 @@ public class confGeneral {
 
         if (!oom.buscarObjeto(ont, dest)) {
             ont.getParent().forEach(o -> integrarMESH(o, ori, dest));
-            ObjectContainer db = Db4o.openFile(dest + "/OntologiaMESH.db");
+            ObjectContainer db = Db4o.openFile(dest + "/ontologyMESH.db");
             try {
                 db.store(ont);
                 //System.out.println("Guardando: " + ont.getNombre() + " " + ont.getMESH());
             } catch (Exception e) {
-                //System.out.println("Error al guardar en OntologiaGO.db...");
+                //System.out.println("Error al guardar en ontologyGO.db...");
             } finally {
                 db.close();
             }
@@ -438,7 +437,7 @@ public class confGeneral {
             ont.getCapable_of_part_of().forEach(o -> integrarGO(o, ori, dest));
             ont.getOccurs_in().forEach(o -> integrarGO(o, ori, dest));
 
-            ObjectContainer db = Db4o.openFile(dest + "/OntologiaGO.db");
+            ObjectContainer db = Db4o.openFile(dest + "/ontologyGO.db");
             try {
                 db.store(ont);
                 //System.out.println("Guardando: " + ont.getNombre() + " " + ont.getGO());
@@ -504,7 +503,7 @@ public class confGeneral {
         return proc;
     }
 
-    public void pipeline(String ruta,String rutaD) throws StringIndexOutOfBoundsException {
+    public void pipeline(String ruta, String rutaD) throws StringIndexOutOfBoundsException {
 
         minado_FT mfts = new minado_FT(); // clase que contiene los metodos donde se buscara la informacion de los objetos minados
         //String ruta = "mineria/redes/" + r + "/" + p;
@@ -519,8 +518,8 @@ public class confGeneral {
 
             try {
                 //* Las siguientes lineas muestran un menu donde el usuario puede ingresar los datos de configuracion para ejecutar el proceso de mineria
-                System.out.println("\n-------------------------\n"+language.text.get(14)+"\n-------------------------");
-                System.out.println("\n"+language.text.get(15)+"\n");
+                System.out.println("\n-------------------------\n" + language.text.get(14) + "\n-------------------------");
+                System.out.println("\n" + language.text.get(15) + "\n");
 
                 String regProm = config.IngresarRegionPromotora();
                 float conf = config.IngresarConfiabilidad();
@@ -530,7 +529,7 @@ public class confGeneral {
                 //boolean MESH = config.buscarMESH();
                 boolean MESH = true;
                 boolean GO = true;
-                String rutaPMidExp = rutaD+"/"+config.PMidExperto();
+                String rutaPMidExp = rutaD + "/" + config.PMidExperto();
                 int cantPMID = config.ingresar_cantPubMedId(); //numero de pubmed IDs
                 boolean nombreCorto = config.nombresCortos();
                 //fin de menu
@@ -539,13 +538,13 @@ public class confGeneral {
                 // crea una carpeta nueva 'mineria' donde se guardaran diferentes archivos generados durante el proceso .. si ya existe esta carpeta se eliminara con todos su contenido y se creara de nuevo vacia
                 //mfts.crearCarpeta("mineria");
                 //se guarda los datos de configuracion que se ingresaron el el menu anterior en mineria/config.db
-                config.guardarConfiguracion(regProm, iteraciones, cantObjs, conf, GO, MESH,nombreCorto, cantPMID, rutaPMidExp, ruta);
+                config.guardarConfiguracion(regProm, iteraciones, cantObjs, conf, GO, MESH, nombreCorto, cantPMID, rutaPMidExp, ruta);
 
                 //este metodo ejecuta el proceso de busqueda de informacio desde objetos del experto, homologos y los objetos encontrados en los diferentes niveles de busqueda
                 mfts.minado(regProm, conf, iteraciones, cantObjs, GO, MESH, config, ruta, rutaD);
 
-                //este metodo genera todas las combinaciones de objetos encontrados en el proceso anterior y guarda las ombinaciones en 'mineria/combinaciones.db'
-                new combinaciones().generar_combinaciones(false, config, ruta,nombreCorto);
+                //este metodo genera todas las combinaciones de objetos encontrados en el proceso anterior y guarda las ombinaciones en 'mineria/combinations.db'
+                new combinaciones().generar_combinaciones(false, config, ruta, nombreCorto);
 
                 //este metodo toma el archivo de combinaciones anterior y procede a buscar PubMed IDs que resulten de cada combinacion guarda los IDs en 'mineria/PubMedId.db'
                 new PubMed_IDs().buscar(cantPMID, config, ruta);
@@ -555,19 +554,19 @@ public class confGeneral {
                 new lecturas_PM().BusquedaPM_Abstracts("abstracts", 500, config, ruta); // Número máximo de abstracts por archivo
 
                 //este metodo toma la imformacion minada tanto de los objetos minados como de las ontologias y la vacia en formato prolog
-                //crea los archivos 'objetosMinados.pl' , ontologiaGO.pl, ontologiaMESH.pl , well_know_rules.pl
+                //crea los archivos 'objetosMinados.pl' , ontologyGO.pl, ontologyMESH.pl , wellKnownRules.pl
                 mfts.vaciar_bc_pl(GO, MESH, config, ruta);
 
                 //este metodo llama al resumidor_bioinformante hace uso de la coleccion de abstracts
                 new Resumidor().resumidor(config, ruta);
 
                 // crea la bace de conocimiento con el listado de eventos encontrados por el resumidor
-                String kb = new GeneradorBC().generadorBC("baseC.pl", config, ruta);
+                String kb = new GeneradorBC().generadorBC("kBase.pl", config, ruta);
 
-                // se crea el archivo 'mineria/objetos_patrones.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
+                // se crea el archivo 'mineria/pathwaysObjects.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
                 new objetos_patrones().generar_archivo(config, ruta);
 
-                //String kb = "baseC.pl";
+                //String kb = "kBase.pl";
                 //new Razonador().inferir_patrones(kb, config);
                 new patrones().inferir_patrones(config, ruta);
             } catch (Exception ex) {
@@ -578,10 +577,10 @@ public class confGeneral {
             //reinia el proceso de mineria 
             mfts.crearCarpeta(ruta);
             config = new configuracion();
-            pipeline(ruta,rutaD);
+            pipeline(ruta, rutaD);
         } else {
             //se reanuda desde el punto donde se marco el ultimo checklist
-            config.reanudar_proceso(ruta,rutaD);
+            config.reanudar_proceso(ruta, rutaD);
         }
 
     }
@@ -595,6 +594,40 @@ public class confGeneral {
             }
         }
         return directorios;
+    }
+
+    public void seleccionarIdioma() {
+        
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+        File carpeta = new File("language");
+        
+        while (r) {
+            limpiarPantalla();
+            ArrayList<String> idiomas = new ArrayList<>();
+            idiomas = listarCarpetas(carpeta);
+          
+            if (idiomas.size() > 0) {
+                
+                for (int i = 0; i < idiomas.size(); i++) {
+                    System.out.println((i + 1) + ".- " + idiomas.get(i).toUpperCase());
+                }
+            }
+            
+            String resp = lectura.nextLine();
+
+            for (int i = 0; i < idiomas.size(); i++) {
+                String r2 = (i + 1) + "";
+                if (resp.equals(r2)) {
+                    String rlanguage="language/"+idiomas.get(i)+"/language.xml";
+                    new language(rlanguage);
+                    r=false;
+                }
+            }
+            
+            
+        }
+        
     }
 
     private void limpiarPantalla() {

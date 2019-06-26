@@ -92,7 +92,7 @@ public class objetos_patrones {
     private void clasificar_objetos(ArrayList<String> lista,String ruta) {
 
         crear_archivo(ruta);
-        String ruta2 = ruta+"/objetos_patrones.pl";
+        String ruta2 = ruta+"/pathwaysObjects.pl";
         new escribirBC("%//" + lista.toString(), ruta2);
 
         for (String obj : lista) {
@@ -151,7 +151,7 @@ public class objetos_patrones {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter(ruta+"/objetos_patrones.pl");
+            fichero = new FileWriter(ruta+"/pathwaysObjects.pl");
         } catch (IOException ex) {
             Logger.getLogger(minado_FT.class.getName()).log(Level.SEVERE, null, ex);
         }

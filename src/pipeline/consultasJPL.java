@@ -1238,7 +1238,7 @@ public class consultasJPL {
 
         ArrayList<objetos_Experto> minados = new ArrayList<>();
         objetos_Experto objExp = new objetos_Experto();
-        ObjectContainer db = Db4o.openFile(ruta + "/ObjH_E.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/homologousObjects.db");
 
         try {
             ObjectSet result = db.queryByExample(objExp);
@@ -1252,7 +1252,7 @@ public class consultasJPL {
 
         factorTranscripcion FT = new factorTranscripcion();
         ArrayList<factorTranscripcion> FTs = new ArrayList<>();
-        ObjectContainer db2 = Db4o.openFile(ruta + "/FT.db");
+        ObjectContainer db2 = Db4o.openFile(ruta + "/TF.db");
         try {
             ObjectSet result = db2.queryByExample(FT);
             FTs.addAll(result);

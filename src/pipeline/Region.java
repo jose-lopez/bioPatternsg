@@ -74,7 +74,7 @@ public class Region {
 
     public void constructPromotor() {
 
-        ObjectContainer db = Db4o.openFile("mineria/FT.db");
+        ObjectContainer db = Db4o.openFile("mineria/TF.db");
         factorTranscripcion FT = new factorTranscripcion();
         FT.setN_Iteracion(0);//factores de la Iteracion 1
 

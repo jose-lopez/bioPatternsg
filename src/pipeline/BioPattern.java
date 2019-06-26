@@ -164,10 +164,10 @@ public class BioPattern {
 
         new Resumidor().resumidor(config, "");
 
-        String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", config, "");
+        String base_conocimiento = new GeneradorBC().generadorBC("kBase.pl", config, "");
 
         //Se infieren los distintos patrones de regulacion para la secuencia problema.
-        new Razonador().inferir_patrones("baseC.pl", config, "");
+        new Razonador().inferir_patrones("kBase.pl", config, "");
 
         Region region_promotora = new Region(this.regionPromotora);
 
@@ -233,17 +233,11 @@ public class BioPattern {
 
     public void pruebas() {
         
-        //confGeneral confG = new confGeneral();
-        //confG.listarRedes();
-        lecturas_QuickGO lgo = new lecturas_QuickGO();
-        ontologiaGO go = new ontologiaGO();
-        try {
-            lgo.buscarNombre("GO:0004994", go);
-        } catch (IOException ex) {
-            Logger.getLogger(BioPattern.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        confGeneral confG = new confGeneral();
+        confG.seleccionarIdioma();
         
-        System.out.println(go.getArbol());
+        
+        
     
     }
     

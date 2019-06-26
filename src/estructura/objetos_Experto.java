@@ -50,8 +50,8 @@ public class objetos_Experto {
 
             cadena += "]";
             //System.out.println("Experto: "+cadena);
-            new escribirBC("sinonimos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadena + ").", ruta + "/objetosMinados.pl");
-            new escribirBC(cadena_txt, ruta + "/objetosMinados.txt");
+            new escribirBC("sinonimos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadena + ").", ruta + "/minedObjects.pl");
+            new escribirBC(cadena_txt, ruta + "/minedObjects.txt");
             
             if (hgnc.getTejidos().size() > 0) {
                 String cadTej ="[\'"+hgnc.getTejidos().get(0)+"\'";
@@ -59,7 +59,7 @@ public class objetos_Experto {
                     cadTej+=",\'"+hgnc.getTejidos().get(0)+"\'";
                 }
                     cadTej+="]";
-                new escribirBC("tejidos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadTej + ").", ruta + "/objetosMinados.pl");    
+                new escribirBC("tejidos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadTej + ").", ruta + "/minedObjects.pl");    
             }
             
             
@@ -71,9 +71,9 @@ public class objetos_Experto {
         }
 
         if (!encontrado) {
-            new escribirBC("sinonimos(\'" + ID + "\',[\'" + ID + "\']).", ruta + "/objetosMinados.pl");
+            new escribirBC("sinonimos(\'" + ID + "\',[\'" + ID + "\']).", ruta + "/minedObjects.pl");
             String cadena_txt = ID + ";" + objMin.procesarNombre(ID);
-            new escribirBC(cadena_txt, ruta + "/objetosMinados.txt");
+            new escribirBC(cadena_txt, ruta + "/minedObjects.txt");
         }
 
     }
@@ -82,7 +82,7 @@ public class objetos_Experto {
 
         boolean encontrado = false;
         try {
-            ObjectContainer db = Db4o.openFile(ruta + "/ObjH_E.db");
+            ObjectContainer db = Db4o.openFile(ruta + "/homologousObjects.db");
             try {
 
                 ObjectSet result = db.queryByExample(objeto);
@@ -90,7 +90,7 @@ public class objetos_Experto {
                     encontrado = true;
                 }
             } catch (Exception e) {
-                System.out.println("Error al acceder a OntologiaObjMin.db");
+                System.out.println("Error al acceder a minedObjectsOntology.db");
             } finally {
                 db.close();
             }

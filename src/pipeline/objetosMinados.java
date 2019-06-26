@@ -32,7 +32,7 @@ public class objetosMinados {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter(ruta+"/objetosMinados.txt");
+            fichero = new FileWriter(ruta+"/minedObjects.txt");
         } catch (IOException ex) {
             Logger.getLogger(minado_FT.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -100,7 +100,7 @@ public class objetosMinados {
     }
 
     public void agregar_objetos(objetos_Experto objExp) {
-        //revisa si el objetos ya extite en el archivo mineria/objetosMinados.txt
+        //revisa si el objetos ya extite en el archivo mineria/minedObjects.txt
         if (!revisar_en_archivo(objExp.getID())) {
             //si el primer objeto de HGNC es el mismo que el objeto de el experto se guarda como uno solo y se descartan los demas
             if (objExp.getHGNC().size() > 0 && objExp.getID().equals(objExp.getHGNC().get(0).getSimbolo())) {
@@ -147,7 +147,7 @@ public class objetosMinados {
 //        BufferedReader br = null;
 //
 //        try {
-//            archivo = new File("mineria/objetosMinados.txt");
+//            archivo = new File("mineria/minedObjects.txt");
 //            fr = new FileReader(archivo);
 //            br = new BufferedReader(fr);
 //            String linea;
@@ -169,7 +169,7 @@ public class objetosMinados {
 //        PrintWriter pw = null;
 //        if (!cadena.equals("null")) {
 //            try {
-//                fichero = new FileWriter("mineria/objetosMinados.txt", true);
+//                fichero = new FileWriter("mineria/minedObjects.txt", true);
 //                pw = new PrintWriter(fichero);
 //
 //                pw.println(cadena);

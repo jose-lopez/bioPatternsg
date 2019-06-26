@@ -208,7 +208,7 @@ public class factorTranscripcion {
         }
         ligandos += "]";
         if (!ligandos.equals("[]")) {
-            new escribirBC("ligandos(\'" + ID.replace("\'", "") + "\'," + ligandos + ").", ruta+"/objetosMinados.pl");
+            new escribirBC("ligandos(\'" + ID.replace("\'", "") + "\'," + ligandos + ").", ruta+"/minedObjects.pl");
         }
                 
         boolean encontrado = false;
@@ -229,8 +229,8 @@ public class factorTranscripcion {
 
             cadena += "]";
             //System.out.println("Experto: "+cadena);
-            new escribirBC("sinonimos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadena + ").", ruta+"/objetosMinados.pl");
-            new escribirBC(cadena_txt, ruta+"/objetosMinados.txt");
+            new escribirBC("sinonimos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadena + ").", ruta+"/minedObjects.pl");
+            new escribirBC(cadena_txt, ruta+"/minedObjects.txt");
             ArrayList<String> lista = hgnc.ListaNombres();
             if (lista.contains(ID)) {
                 encontrado = true;
@@ -238,13 +238,13 @@ public class factorTranscripcion {
         }
 
         if (!encontrado) {
-            new escribirBC("sinonimos(\'" + ID + "\',[\'" + ID + "\']).", ruta+"/objetosMinados.pl");
+            new escribirBC("sinonimos(\'" + ID + "\',[\'" + ID + "\']).", ruta+"/minedObjects.pl");
             String cadena_txt = ID + ";" + objMIn.procesarNombre(ID);
-            new escribirBC(cadena_txt, "objetosMinados.txt");
+            new escribirBC(cadena_txt, "minedObjects.txt");
         }
 
         if (N_Iteracion == 0) {
-            new escribirBC("transcription_factors(\'" + ID.replace("\'", "") + "\').", ruta+"/objetosMinados.pl");
+            new escribirBC("transcription_factors(\'" + ID.replace("\'", "") + "\').", ruta+"/minedObjects.pl");
         }
 
     }
@@ -252,7 +252,7 @@ public class factorTranscripcion {
     public boolean buscar(factorTranscripcion objeto, String ruta){
         boolean encontrado = false;
         try {
-            ObjectContainer db = Db4o.openFile(ruta + "/FT.db");
+            ObjectContainer db = Db4o.openFile(ruta + "/TF.db");
             try {
 
                 ObjectSet result = db.queryByExample(objeto);
@@ -260,7 +260,7 @@ public class factorTranscripcion {
                     encontrado = true;
                 }
             } catch (Exception e) {
-                System.out.println("Error al acceder a OntologiaObjMin.db");
+                System.out.println("Error al acceder a minedObjectsOntology.db");
             } finally {
                 db.close();
             }

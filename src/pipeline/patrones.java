@@ -650,7 +650,7 @@ public class patrones {
         BufferedReader br = null;
         try {
 
-            archivo = new File(ruta + "/baseC.pl");
+            archivo = new File(ruta + "/kBase.pl");
 
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);

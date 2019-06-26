@@ -34,7 +34,7 @@ public class ontologiaObjMin {
 
     public void guardarObjeto(ontologiaObjMin objeto, boolean GO, boolean mesh, String ruta) {
         
-        ObjectContainer db = Db4o.openFile(ruta + "/ontologiaObjMin.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/minedObjectsOntology.db");
         try {
 
             ObjectSet result = db.queryByExample(this);
@@ -57,7 +57,7 @@ public class ontologiaObjMin {
             }
 
         } catch (Exception e) {
-            // System.out.println("Error al guardar en ontologiaObjMin.db");
+            // System.out.println("Error al guardar en minedObjectsOntology.db");
         } finally {
             db.close();
         }
@@ -112,12 +112,12 @@ public class ontologiaObjMin {
 
     private void guardar_Ontologia(ontologiaGO ontologia, String ruta) {
 
-        ObjectContainer db = Db4o.openFile(ruta + "/OntologiaGO.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/ontologyGO.db");
         try {
             db.store(ontologia);
             //System.out.println("Guardando: " + ontologia.getNombre() + " " + ontologia.getGO());
         } catch (Exception e) {
-            //System.out.println("Error al guardar en OntologiaGO.db...");
+            //System.out.println("Error al guardar en ontologyGO.db...");
         } finally {
             db.close();
         }
@@ -125,12 +125,12 @@ public class ontologiaObjMin {
     }
 
     private void guardar_Ontologia(ontologiaMESH ontologia, String ruta) {
-        ObjectContainer db = Db4o.openFile(ruta + "/OntologiaMESH.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/ontologyMESH.db");
         try {
             db.store(ontologia);
             //System.out.println("Guardando: " + ontologia.getNombre() + " " + ontologia.getMESH());
         } catch (Exception e) {
-            // System.out.println("Error al guardar en OntologiaMESH.db...");
+            // System.out.println("Error al guardar en ontologyMESH.db...");
         } finally {
             db.close();
         }
@@ -140,7 +140,7 @@ public class ontologiaObjMin {
     public boolean buscarObjeto(ontologiaObjMin objeto, String ruta) {
         boolean encontrado = false;
         try {
-            ObjectContainer db = Db4o.openFile(ruta + "/ontologiaObjMin.db");
+            ObjectContainer db = Db4o.openFile(ruta + "/minedObjectsOntology.db");
             try {
 
                 ObjectSet result = db.queryByExample(objeto);
@@ -148,7 +148,7 @@ public class ontologiaObjMin {
                     encontrado = true;
                 }
             } catch (Exception e) {
-                System.out.println("Error al acceder a OntologiaObjMin.db");
+                System.out.println("Error al acceder a minedObjectsOntology.db");
             } finally {
                 db.close();
             }
@@ -161,7 +161,7 @@ public class ontologiaObjMin {
     public boolean buscarObjeto(ontologiaGO objeto, String ruta) {
         boolean encontrado = false;
 
-        ObjectContainer db = Db4o.openFile(ruta + "/OntologiaGO.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/ontologyGO.db");
         try {
 
             ObjectSet result = db.queryByExample(objeto);
@@ -169,7 +169,7 @@ public class ontologiaObjMin {
                 encontrado = true;
             }
         } catch (Exception e) {
-            System.out.println("Error al acceder a OntologiaGO.db");
+            System.out.println("Error al acceder a ontologyGO.db");
         } finally {
             db.close();
         }
@@ -179,7 +179,7 @@ public class ontologiaObjMin {
 
     public boolean buscarObjeto(ontologiaMESH objeto, String ruta) {
         boolean encontrado = false;
-        ObjectContainer db = Db4o.openFile(ruta + "/OntologiaMESH.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/ontologyMESH.db");
         try {
 
             ObjectSet result = db.queryByExample(objeto);
@@ -187,7 +187,7 @@ public class ontologiaObjMin {
                 encontrado = true;
             }
         } catch (Exception e) {
-            System.out.println("Error al acceder a OntologiaMESH.db");
+            System.out.println("Error al acceder a ontologyMESH.db");
         } finally {
             db.close();
         }
@@ -198,7 +198,7 @@ public class ontologiaObjMin {
     public void buscarGO(String nombre, String restriccion, String ruta) {
         ontologiaObjMin objetoGO = new ontologiaObjMin();
         objetoGO.setNombre(nombre);
-        ObjectContainer db = Db4o.openFile(ruta + "/ontologiaObjMin.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/minedObjectsOntology.db");
         try {
 
             ObjectSet result = db.queryByExample(objetoGO);
@@ -216,7 +216,7 @@ public class ontologiaObjMin {
 
     public void imprimirTodo(String ruta) {
         ontologiaObjMin objeto = new ontologiaObjMin();
-        ObjectContainer db = Db4o.openFile(ruta + "/ontologiaObjMin.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/minedObjectsOntology.db");
         try {
 
             ObjectSet result = db.queryByExample(objeto);
@@ -234,7 +234,7 @@ public class ontologiaObjMin {
     public void imprimirTodo(String tipo, String restriccion, String ruta) {
 
         ontologiaObjMin objeto = new ontologiaObjMin();
-        ObjectContainer db = Db4o.openFile(ruta + "/ontologiaObjMin.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/minedObjectsOntology.db");
         try {
 
             ObjectSet result = db.queryByExample(objeto);
@@ -254,7 +254,7 @@ public class ontologiaObjMin {
 
             }
         } catch (Exception e) {
-            System.out.println("Error al acceder a " + ruta + "/ontologiaObjMin.db");
+            System.out.println("Error al acceder a " + ruta + "/minedObjectsOntology.db");
         } finally {
             db.close();
         }
@@ -262,7 +262,7 @@ public class ontologiaObjMin {
 
     public void vaciarOntologia_pl(boolean GO, boolean MESH, String ruta) {
         ontologiaObjMin objeto = new ontologiaObjMin();
-        ObjectContainer db = Db4o.openFile(ruta + "/ontologiaObjMin.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/minedObjectsOntology.db");
         ontologiaGO ontologiaGO = new ontologiaGO();
         ontologiaMESH ontologiaMESH = new ontologiaMESH();
 
@@ -277,17 +277,17 @@ public class ontologiaObjMin {
 
                     final ArrayList<ontologiaGO> ontGO = ontologiaGO.getOntGO(ruta);
                     try {
-                        obj.funcionMolecular.forEach(fm -> ontologiaGO.vaciar_pl(ontGO, fm, null, null, ListaObj, ruta + "/ontologiaGO.pl"));
+                        obj.funcionMolecular.forEach(fm -> ontologiaGO.vaciar_pl(ontGO, fm, null, null, ListaObj, ruta + "/ontologyGO.pl"));
                     } catch (Exception e) {
                     }
 
                     try {
-                        obj.procesoBiologico.forEach(pb -> ontologiaGO.vaciar_pl(ontGO, pb, null, null, ListaObj, ruta + "/ontologiaGO.pl"));
+                        obj.procesoBiologico.forEach(pb -> ontologiaGO.vaciar_pl(ontGO, pb, null, null, ListaObj, ruta + "/ontologyGO.pl"));
                     } catch (Exception e) {
                     }
 
                     try {
-                        obj.componenteCelular.forEach(cc -> ontologiaGO.vaciar_pl(ontGO, cc, null, null, ListaObj, ruta + "/ontologiaGO.pl"));
+                        obj.componenteCelular.forEach(cc -> ontologiaGO.vaciar_pl(ontGO, cc, null, null, ListaObj, ruta + "/ontologyGO.pl"));
                     } catch (Exception e) {
                     }
 
@@ -314,21 +314,21 @@ public class ontologiaObjMin {
         ontologiaGO GO = new ontologiaGO();
         ontologiaMESH mesh = new ontologiaMESH();
 
-        new escribirBC("objeto(\'" + obj.nombre.replace("\'", "") + "\').", ruta + "/ontologiaMESH.pl");
+        new escribirBC("objeto(\'" + obj.nombre.replace("\'", "") + "\').", ruta + "/ontologyMESH.pl");
 
         for (String fm : obj.funcionMolecular) {
-            new escribirBC("go(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(fm, ruta).replace("\'", "") + "\').", ruta + "/ontologiaGO.pl");
-            new escribirBC("fm(\'" + GO.buscar(fm, ruta).replace("\'", "") + "\').", ruta + "/ontologiaGO.pl");
+            new escribirBC("go(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(fm, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
+            new escribirBC("fm(\'" + GO.buscar(fm, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
         }
 
         for (String pb : obj.procesoBiologico) {
-            new escribirBC("go(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(pb, ruta).replace("\'", "") + "\').", ruta + "/ontologiaGO.pl");
-            new escribirBC("bp(\'" + GO.buscar(pb, ruta).replace("\'", "") + "\').", ruta + "/ontologiaGO.pl");
+            new escribirBC("go(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(pb, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
+            new escribirBC("bp(\'" + GO.buscar(pb, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
         }
 
         for (String cc : obj.componenteCelular) {
-            new escribirBC("go(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(cc, ruta).replace("\'", "") + "\').", ruta + "/ontologiaGO.pl");
-            new escribirBC("cc(\'" + GO.buscar(cc, ruta).replace("\'", "") + "\').", ruta + "/ontologiaGO.pl");
+            new escribirBC("go(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(cc, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
+            new escribirBC("cc(\'" + GO.buscar(cc, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
         }
 
         for (String m : obj.Parent) {
@@ -336,9 +336,9 @@ public class ontologiaObjMin {
         }
 
         if (!MESH.equals("")) {
-            new escribirBC("is_a(\'" + obj.nombre.replace("\'", "") + "\',\'" + MESH + "\').", ruta + "/ontologiaMESH.pl");
+            new escribirBC("is_a(\'" + obj.nombre.replace("\'", "") + "\',\'" + MESH + "\').", ruta + "/ontologyMESH.pl");
             String aux = mesh.procesarTexto(MESH);
-            new escribirBC(aux + "(\'" + obj.nombre.replace("\'", "") + "\').", ruta + "/objetosMinados.pl");
+            new escribirBC(aux + "(\'" + obj.nombre.replace("\'", "") + "\').", ruta + "/minedObjects.pl");
         }
 
     }
@@ -376,7 +376,7 @@ public class ontologiaObjMin {
 
         ontologiaObjMin objeto = new ontologiaObjMin();
         objeto.setNombre(nombre);
-        ObjectContainer db = Db4o.openFile(ruta + "/ontologiaObjMin.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/minedObjectsOntology.db");
         try {
 
             ObjectSet result = db.queryByExample(objeto);

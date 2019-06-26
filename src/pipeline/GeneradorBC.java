@@ -54,7 +54,7 @@ public class GeneradorBC {
         //baseC.generador("ENSG00000157005SST1-gen-comparable-1-salida.txt");
         //baseC.generador("abstracts-experimento-SRIF-26112015-Part-I-II-salida.txt");
         configuracion config = new configuracion();
-        generador.generadorBC("baseC.pl", config, "");
+        generador.generadorBC("kBase.pl", config, "");
 
     }
 
@@ -68,8 +68,8 @@ public class GeneradorBC {
 
         String baseCtemp = "baseCTemp";
 
-        FileWriter fichero = new FileWriter(ruta + "/" + baseCtemp); // BC temporal. Se procesa para generer baseC.pl
-        FileWriter fichero1 = new FileWriter(ruta + "/baseCdoc"); // BC documentada. Permite saber archivo y linea de un evento.
+        FileWriter fichero = new FileWriter(ruta + "/" + baseCtemp); // BC temporal. Se procesa para generer kBase.pl
+        FileWriter fichero1 = new FileWriter(ruta + "/kBaseDoc"); // BC documentada. Permite saber archivo y linea de un evento.
 
         try (PrintWriter archivoBC = new PrintWriter(fichero)) {
 
@@ -153,7 +153,7 @@ public class GeneradorBC {
         File f = new File(oracionesSVC);
         File f1 = new File("aceptados2.txt");
         //File f2 = new File("objetos_CREB.txt");
-        File f2 = new File(ruta + "/objetosMinados.txt");
+        File f2 = new File(ruta + "/minedObjects.txt");
         //File f2 = new File("objetosBAXSMinadosBC.txt");
 
         //System.out.println("Esto");
@@ -443,9 +443,9 @@ public class GeneradorBC {
             String base = "", path;
 
             if (baseEventos) {
-                base = "baseC.pl";
+                base = "kBase.pl";
             } else {
-                base = "baseCdoc";
+                base = "kBaseDoc";
             }
 
             path = "mineria/redes/" + red + "/" + nextValue.getName() + "/" + base;
@@ -532,9 +532,9 @@ public class GeneradorBC {
 
         String PATH = "mineria/integracion/";
         String directoryName = PATH.concat(red);
-        String fileName = "baseC.pl";
+        String fileName = "kBase.pl";
         if (!baseEventos) {
-            fileName = "baseCdoc";
+            fileName = "kBaseDoc";
         }
         File directorio = new File(directoryName);
         if (!directorio.exists()) {

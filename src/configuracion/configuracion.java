@@ -367,7 +367,7 @@ public class configuracion {
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
                 new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
+                    String base_conocimiento = new GeneradorBC().generadorBC("kBase.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
                     objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
@@ -385,7 +385,7 @@ public class configuracion {
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
                 new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
+                    String base_conocimiento = new GeneradorBC().generadorBC("kBase.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
                     objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
@@ -404,7 +404,7 @@ public class configuracion {
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
                 new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
+                    String base_conocimiento = new GeneradorBC().generadorBC("kBase.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
                     objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
@@ -420,7 +420,7 @@ public class configuracion {
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
                 new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
+                    String base_conocimiento = new GeneradorBC().generadorBC("kBase.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
                     objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
@@ -435,7 +435,7 @@ public class configuracion {
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
                 new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
+                    String base_conocimiento = new GeneradorBC().generadorBC("kBase.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
                     objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
@@ -448,7 +448,7 @@ public class configuracion {
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
                 new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
+                    String base_conocimiento = new GeneradorBC().generadorBC("kBase.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
                     objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
@@ -460,7 +460,7 @@ public class configuracion {
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
                 new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
+                    String base_conocimiento = new GeneradorBC().generadorBC("kBase.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
                     objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
@@ -471,7 +471,7 @@ public class configuracion {
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
                 new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
+                    String base_conocimiento = new GeneradorBC().generadorBC("kBase.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
                     objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
@@ -481,7 +481,7 @@ public class configuracion {
             case 9:
                 new Resumidor().resumidor(this, ruta);
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
+                    String base_conocimiento = new GeneradorBC().generadorBC("kBase.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
                     objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
@@ -490,7 +490,7 @@ public class configuracion {
                 break;
             case 10:
                 try {
-                    String base_conocimiento = new GeneradorBC().generadorBC("baseC.pl", this, ruta);
+                    String base_conocimiento = new GeneradorBC().generadorBC("kBase.pl", this, ruta);
                     objetos_patrones objetos_patrones = new objetos_patrones();
                     objetos_patrones.generar_archivo(this, ruta);
                 } catch (Exception e) {
@@ -580,7 +580,7 @@ public class configuracion {
     si este se ecuentra retorna true de lo contrario retorna false
      */
     private boolean buscarObjeto(String objeto, factorTranscripcion FT, String ruta) {
-        ObjectContainer db = Db4o.openFile(ruta + "/FT.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/TF.db");
         factorTranscripcion ft = new factorTranscripcion();
         ft.setID(objeto);
         boolean encontrado = false;
@@ -606,7 +606,7 @@ public class configuracion {
     ya se hizo el proceso de busqueda y se compara con los archivos de homologos y objetos del experto
     el proceso continuara para los objetos que se procesaron aun*/
     private ArrayList<String> revisarObjH_E(String archivo, objetosMineria objetosMineria, String ruta) {
-        ObjectContainer db = Db4o.openFile(ruta + "/ObjH_E.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/homologousObjects.db");
         objetos_Experto Obj = new objetos_Experto();
         ArrayList<String> listaObjetos = listaObjetos_homologosExperto(archivo);
         try {
@@ -653,7 +653,7 @@ public class configuracion {
 
     private objetosMineria recuperarObjetosMin(String ruta) {
         objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile(ruta+"/objetosMineria.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/mineryObjects.db");
 
         try {
             ObjectSet result = db.queryByExample(obj);
@@ -875,7 +875,7 @@ public class configuracion {
     public ArrayList<String> listar_objetos_minados(String ruta) {
 
         objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile(ruta+"/objetosMineria.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/mineryObjects.db");
 
         try {
             ObjectSet result = db.queryByExample(obj);
@@ -896,7 +896,7 @@ public class configuracion {
     public ArrayList<String> listar_nuevos_objetos(String ruta) {
 
         objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile(ruta+"/objetosMineria.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/mineryObjects.db");
 
         try {
             ObjectSet result = db.queryByExample(obj);
@@ -917,7 +917,7 @@ public class configuracion {
     public ArrayList<String> listar_ligandos(String ruta) {
         ArrayList<String> listaLigandos = new ArrayList<>();
         factorTranscripcion obj = new factorTranscripcion();
-        ObjectContainer db = Db4o.openFile(ruta+"/FT.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/TF.db");
         try {
             ObjectSet result = db.queryByExample(obj);
             while (result.hasNext()) {
@@ -940,7 +940,7 @@ public class configuracion {
 
     private int num_combinaciones(String ruta) {
         int num = 0;
-        ObjectContainer db = Db4o.openFile(ruta+"/combinaciones.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/combinations.pl");
         combinacion com = new combinacion();
         ObjectSet result = db.queryByExample(com);
         combinacion combinacion = (combinacion) result.get(0);
@@ -953,7 +953,7 @@ public class configuracion {
 
     private int num_pubmedIds(String ruta) {
         int num = 0;
-        ObjectContainer db = Db4o.openFile(ruta+"/pubmed_id.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/pubmedIDs.db");
         PMIDS ids = new PMIDS();
         ObjectSet result = db.queryByExample(ids);
         PMIDS pmids = (PMIDS) result.get(0);
@@ -971,7 +971,7 @@ public class configuracion {
         BufferedReader br = null;
 
         try {
-            archivo = new File(ruta+"/baseC.pl");
+            archivo = new File(ruta+"/kBase.pl");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             String linea;

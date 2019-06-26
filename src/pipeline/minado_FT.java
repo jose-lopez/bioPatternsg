@@ -50,7 +50,7 @@ public class minado_FT {
 
         //lleva un control de los objetos minados y los nuevos objetos encontrados en el proceso
         objetosMineria objetosMineria = new objetosMineria();
-        //crea el archivo objetosMinados.txt con la informacion de cada objeto minado en el proceso     
+        //crea el archivo minedObjects.txt con la informacion de cada objeto minado en el proceso     
         new objetosMinados().crear_archivo(ruta);
 
         //buca informacion en los diferentes servicios sobre cada homologo en la lista de homologos
@@ -95,16 +95,16 @@ public class minado_FT {
             //se agregan los nuevos objetos encontrados a la lista de nuevos objetos
             objetosMineria.agregar_objeto(FT.getComplejoProteinico());
 
-            //se agrega la informacion al archivo mineria/objetosMinados.txt
+            //se agrega la informacion al archivo mineria/minedObjects.txt
             //objeto minado, ligandos, nuevos objetos
             new objetosMinados().agregar_objetos(FT);
 
-            //se guarda la informacion del objeto minado en 'mineria/FT.db'
+            //se guarda la informacion del objeto minado en 'mineria/TF.db'
             guardar_Factor_transcripcion(FT,ruta);
             //System.out.println("...ok");
             FT = null;
         }
-        //se guarda los objetos minados y los nuevos objetos de la iteracion en 'mineria/objetosMineria.db'
+        //se guarda los objetos minados y los nuevos objetos de la iteracion en 'mineria/mineryObjects.db'
         guardar_objetosIteracion(objetosMineria,ruta);
         //se guarda el cheklist que indica que ya se culmino con el proceso de la primera iteracion
         config.setLecturas_tfbind(true);
@@ -142,11 +142,11 @@ public class minado_FT {
                 //se agrega la informacion de nuevos objetos encontrados a la lista de nuevos objetos ausar en la siguente iteracion
                 objetosMineria.agregar_objeto(FT.getComplejoProteinico());
 
-                // se guarda la informacion obtenida sobre el objeto en el archivo objetosMinados.txt
+                // se guarda la informacion obtenida sobre el objeto en el archivo minedObjects.txt
                 //nombres, ligandos,
                 new objetosMinados().agregar_objetos(FT);
 
-                //se guarda la informacion del objeto minado en mineria/FT.db
+                //se guarda la informacion del objeto minado en mineria/TF.db
                 guardar_Factor_transcripcion(FT,ruta);
                 //System.out.println("Listo....");
             }
@@ -173,7 +173,7 @@ public class minado_FT {
 
     private boolean buscarObjeto(String objeto, factorTranscripcion FT,String ruta) {
         objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile(ruta+"/FT.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/TF.db");
         factorTranscripcion ft = new factorTranscripcion();
         ft.setID(objeto);
         try {
@@ -193,7 +193,7 @@ public class minado_FT {
 
     public objetosMineria recuperarObjetosMin(String ruta) {
         objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile(ruta+"/objetosMineria.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/mineryObjects.db");
 
         try {
             ObjectSet result = db.queryByExample(obj);
@@ -261,7 +261,7 @@ public class minado_FT {
 
     private void guardar_Factor_transcripcion(factorTranscripcion FT,String ruta) {
 
-        ObjectContainer db = Db4o.openFile(ruta+"/FT.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/TF.db");
         try {
             db.store(FT);
         } catch (Exception e) {
@@ -272,7 +272,7 @@ public class minado_FT {
     }
 
     public void guardar_objetosIteracion(objetosMineria objetosMin,String ruta) {
-        ObjectContainer db = Db4o.openFile(ruta+"/objetosMineria.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/mineryObjects.db");
         try {
             db.store(objetosMin);
         } catch (Exception e) {
@@ -284,7 +284,7 @@ public class minado_FT {
 
     public void obtenerFT() {
 
-        ObjectContainer db = Db4o.openFile("mineria/FT.db");
+        ObjectContainer db = Db4o.openFile("mineria/TF.db");
         factorTranscripcion FT = new factorTranscripcion();
 
         try {
@@ -435,7 +435,7 @@ public class minado_FT {
 
     private void guardarObjetos_Homologos_Experto(objetos_Experto objExp, String ruta) {
 
-        ObjectContainer db = Db4o.openFile(ruta+"/ObjH_E.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/homologousObjects.db");
         try {
             db.store(objExp);
         } catch (Exception e) {
@@ -450,10 +450,10 @@ public class minado_FT {
     public void vaciar_bc_pl(boolean GO, boolean MESH, configuracion config,String ruta) {
         limpiarPantalla();
         System.out.print(language.text.get(80));
-        new escribirBC("ligando(\'\').", ruta+"/objetosMinados.pl");
-        new escribirBC("transcription_factors(\'\').", ruta+"/objetosMinados.pl");
+        new escribirBC("ligando(\'\').", ruta+"/minedObjects.pl");
+        new escribirBC("transcription_factors(\'\').", ruta+"/minedObjects.pl");
         //-------------------------------------------------------
-        ObjectContainer dbHE = Db4o.openFile(ruta+"/ObjH_E.db");
+        ObjectContainer dbHE = Db4o.openFile(ruta+"/homologousObjects.db");
         objetos_Experto objEH = new objetos_Experto();
         try {
             ObjectSet result = dbHE.queryByExample(objEH);
@@ -473,7 +473,7 @@ public class minado_FT {
 
         
         //----------------------------------
-        ObjectContainer db = Db4o.openFile(ruta+"/FT.db");
+        ObjectContainer db = Db4o.openFile(ruta+"/TF.db");
         factorTranscripcion FT = new factorTranscripcion();
         try {
 

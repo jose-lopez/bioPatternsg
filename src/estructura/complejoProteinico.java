@@ -113,7 +113,7 @@ public class complejoProteinico {
 
     public void vaciar_pl(String ruta) {
         System.out.print(".");
-        new escribirBC("complejo(\'" + ID.replace("\'", "") + "\').",ruta+"/objetosMinados.pl");
+        new escribirBC("complejo(\'" + ID.replace("\'", "") + "\').",ruta+"/minedObjects.pl");
         for (int i = 0; i < ligandos.size(); i++) {
             ligandos.get(i).vaciar_pl(ruta);
         }
@@ -128,7 +128,7 @@ public class complejoProteinico {
         }
         cadena += "]";
         if (!cadena.equals("[]")) {
-            new escribirBC("componentes(\'" + ID.replace("\'", "") + "\'," + cadena + ").",ruta+"/objetosMinados.pl");
+            new escribirBC("componentes(\'" + ID.replace("\'", "") + "\'," + cadena + ").",ruta+"/minedObjects.pl");
         }
         
         
@@ -139,7 +139,7 @@ public class complejoProteinico {
                 cadena+=",\'"+sinonimo.replace("\'", "")+"\'";
             }
             cadena+="]";
-            new escribirBC("sinonimos(\'"+hgnc.getSimbolo().replace("\'", "")+"\',"+cadena+").", ruta+"/objetosMinados.pl");
+            new escribirBC("sinonimos(\'"+hgnc.getSimbolo().replace("\'", "")+"\',"+cadena+").", ruta+"/minedObjects.pl");
         }
 
     }

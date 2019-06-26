@@ -45,7 +45,7 @@ public class combinaciones {
                 objetos_Experto HE = new objetos_Experto();
 
                 // se cargan la informacion de homologos y objetos del experto y se guardan temporalmente en una lista
-                ObjectContainer dbhe = Db4o.openFile(ruta + "/ObjH_E.db");
+                ObjectContainer dbhe = Db4o.openFile(ruta + "/homologousObjects.db");
                 ObjectSet resulthe = dbhe.queryByExample(HE);
                 ArrayList<objetos_Experto> homologos_experto = new ArrayList<>();
                 homologos_experto.addAll(resulthe);
@@ -57,7 +57,7 @@ public class combinaciones {
 
                 //el siguiente juego de instrucciones genera combinaciones de los objetos encontrados en las diferentes Iteraciones
                 factorTranscripcion FT = new factorTranscripcion();
-                ObjectContainer db = Db4o.openFile(ruta + "/FT.db");
+                ObjectContainer db = Db4o.openFile(ruta + "/TF.db");
                 ArrayList<factorTranscripcion> LFT = new ArrayList<>();
                 try {
                     ObjectSet result = db.queryByExample(FT);
@@ -147,7 +147,7 @@ public class combinaciones {
         objetos_Experto objExp = new objetos_Experto();
         objExp.setID(obj);
 
-        ObjectContainer db = Db4o.openFile(ruta + "/ObjH_E.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/homologousObjects.db");
         try {
             ObjectSet result = db.queryByExample(objExp);
             objetos_Experto objs = (objetos_Experto) result.next();

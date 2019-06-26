@@ -45,7 +45,7 @@ public class ontologiaGO {
 
     public void imprimirTodo(String ruta) {
         ontologiaGO objeto = new ontologiaGO();
-        ObjectContainer db = Db4o.openFile(ruta + "/OntologiaGO.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/ontologyGO.db");
         try {
             ObjectSet result = db.queryByExample(objeto);
             while (result.hasNext()) {
@@ -53,7 +53,7 @@ public class ontologiaGO {
                 imprimir(obj);
             }
         } catch (Exception e) {
-            System.out.println("Error al acceder a OntologiaGO.db");
+            System.out.println("Error al acceder a ontologyGO.db");
         } finally {
             db.close();
         }
@@ -203,7 +203,7 @@ public class ontologiaGO {
 
     private ontologiaGO consultarBD(ontologiaGO obj, String ruta) {
         ontologiaGO objeto = new ontologiaGO();
-        ObjectContainer db = Db4o.openFile(ruta + "/OntologiaGO.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/ontologyGO.db");
         try {
 
             ObjectSet result = db.queryByExample(obj);
@@ -211,7 +211,7 @@ public class ontologiaGO {
                 objeto = (ontologiaGO) result.next();
             }
         } catch (Exception e) {
-            System.out.println("Error al acceder a OntologiaGO.db");
+            System.out.println("Error al acceder a ontologyGO.db");
         } finally {
             db.close();
         }
@@ -223,13 +223,13 @@ public class ontologiaGO {
         ArrayList<ontologiaGO> ontGO = new ActivatableArrayList<>();
 
         ontologiaGO obj = new ontologiaGO();
-        ObjectContainer db = Db4o.openFile(ruta + "/OntologiaGO.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/ontologyGO.db");
         try {
 
             ObjectSet result = db.queryByExample(obj);
             ontGO.addAll(result);
         } catch (Exception e) {
-            System.out.println("Error al acceder a OntologiaGO.db");
+            System.out.println("Error al acceder a ontologyGO.db");
         } finally {
             db.close();
         }

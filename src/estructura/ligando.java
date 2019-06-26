@@ -27,11 +27,11 @@ public class ligando {
     
     public void vaciar_pl(String ruta){
         String cadena = "ligando(\'"+id.replace("\'", "")+"\').";
-        new escribirBC(cadena,ruta+"/objetosMinados.pl");
+        new escribirBC(cadena,ruta+"/minedObjects.pl");
         cadena = "sinonimos(\'"+id.replace("\'", "")+"\',[\'"+id.replace("\'", "")+"\',\'"+nombre.replace("\'", "")+"\']).";
-        new escribirBC(cadena, ruta+"/objetosMinados.pl");
+        new escribirBC(cadena, ruta+"/minedObjects.pl");
         String cadena_txt = id+";"+new objetosMinados().procesarNombre(nombre);
-        new escribirBC(cadena_txt, ruta+"/objetosMinados.txt");
+        new escribirBC(cadena_txt, ruta+"/minedObjects.txt");
     }
     
     private String procesarNombre(String nombre) {

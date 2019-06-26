@@ -64,12 +64,12 @@ public class ontologiaMESH {
         System.out.print(".");
         if (obj != null && objeto.getNombre() != null) {
             String cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'" + objeto.getNombre().replace("\'", "") + "\').";
-            new escribirBC(cadena, ruta + "/ontologiaMESH.pl");
+            new escribirBC(cadena, ruta + "/ontologyMESH.pl");
             String[] separa = obj.split(",");
-            crear_rama_artificial(obj, ruta_wnr, ruta + "/ontologiaMESH.pl");
+            crear_rama_artificial(obj, ruta_wnr, ruta + "/ontologyMESH.pl");
             if (separa[0].equals("Receptors")) {
                 cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'Receptors\').";
-                new escribirBC(cadena, ruta + "/ontologiaMESH.pl");
+                new escribirBC(cadena, ruta + "/ontologyMESH.pl");
                 String obj1 = procesarTexto("Receptors");
                 String obj2 = procesarTexto(obj);
                 String rule = obj1 + "(X):-" + obj2 + "(X).";
@@ -154,7 +154,7 @@ public class ontologiaMESH {
 
     private ontologiaMESH consultarBD(ontologiaMESH obj, String ruta) {
         ontologiaMESH objeto = new ontologiaMESH();
-        ObjectContainer db = Db4o.openFile(ruta + "/OntologiaMESH.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/ontologyMESH.db");
         try {
 
             ObjectSet result = db.queryByExample(obj);
@@ -162,7 +162,7 @@ public class ontologiaMESH {
                 objeto = (ontologiaMESH) result.next();
             }
         } catch (Exception e) {
-            System.out.println("Error al acceder a OntologiaMESH.db");
+            System.out.println("Error al acceder a ontologyMESH.db");
         } finally {
             db.close();
         }
