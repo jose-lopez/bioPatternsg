@@ -198,7 +198,6 @@ public class lecturas_HGNC extends conexionServ{
                     }
 
                     if (elm.getAttribute("name").equals("prev_symbol")) {
-                        System.out.println("prev_symbol");
                         int ls = elm.getElementsByTagName("str").getLength();
                         for (int j = 0; j < ls; j++) {
                             hgnc.getSinonimos().add(elm.getElementsByTagName("str").item(j).getTextContent());

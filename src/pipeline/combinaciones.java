@@ -221,7 +221,7 @@ public class combinaciones {
     }
 
     public void guardar_combinaciones(ArrayList<String> combinacion, String ruta) {
-        ObjectContainer db = Db4o.openFile(ruta + "/combinaciones.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/combinations.db");
         combinacion comb = new combinacion();
         comb.combinaciones = combinacion;
 
