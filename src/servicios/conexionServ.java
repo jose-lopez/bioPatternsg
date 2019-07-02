@@ -47,7 +47,7 @@ public class conexionServ {
 
         int tmax = 0;
         int intentos = 0;
-        while (intentos < 1) {
+        while (intentos < 5) {
 
             if (conex.doc != null) {
                 doc = conex.doc;
@@ -55,7 +55,7 @@ public class conexionServ {
                 break;
             }
 
-            if (tmax > 500) {
+            if (tmax > 40) {
                 tmax = 0;
                 conex.stop();
                 // System.out.println("Falla de conexion con: "+Url);
@@ -68,14 +68,14 @@ public class conexionServ {
             tmax++;
             try {
 
-                Thread.sleep(250);
+                Thread.sleep(500);
 
             } catch (InterruptedException ex1) {
                 //Logger.getLogger(lecturas_rcsb.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
 
-        if (intentos >= 10) {
+        if (intentos >= 5) {
             //System.out.println("Fallo en conexion con: "+Url);
         }
         return doc;

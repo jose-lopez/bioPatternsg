@@ -8,6 +8,7 @@ package estructura;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import configuracion.utilidades;
 import java.util.ArrayList;
 import pipeline.escribirBC;
 
@@ -60,20 +61,20 @@ public class ontologiaMESH {
         ontologiaMESH objeto = new ontologiaMESH();
         objeto.setMESH(MESH);
         objeto = consultarBD(objeto, ruta);
-        String ruta_wnr = ruta + "/well_know_rules.pl";
-        System.out.print(".");
+        String ruta_wkr = ruta + "/wellKnownRules.pl";
+        new utilidades().carga();
         if (obj != null && objeto.getNombre() != null) {
             String cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'" + objeto.getNombre().replace("\'", "") + "\').";
             new escribirBC(cadena, ruta + "/ontologyMESH.pl");
             String[] separa = obj.split(",");
-            crear_rama_artificial(obj, ruta_wnr, ruta + "/ontologyMESH.pl");
+            crear_rama_artificial(obj, ruta_wkr, ruta + "/ontologyMESH.pl");
             if (separa[0].equals("Receptors")) {
                 cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'Receptors\').";
                 new escribirBC(cadena, ruta + "/ontologyMESH.pl");
                 String obj1 = procesarTexto("Receptors");
                 String obj2 = procesarTexto(obj);
                 String rule = obj1 + "(X):-" + obj2 + "(X).";
-                new escribirBC(rule, ruta_wnr);
+                new escribirBC(rule, ruta_wkr);
 
             }
             //procesando texto para crear las reglas en formato prolog
@@ -81,7 +82,7 @@ public class ontologiaMESH {
             String obj2 = procesarTexto(obj);
 
             String rule = obj1 + "(X):-" + obj2 + "(X).";
-            new escribirBC(rule, ruta_wnr);
+            new escribirBC(rule, ruta_wkr);
 
         }
 
@@ -99,7 +100,7 @@ public class ontologiaMESH {
 
     }
 
-    private void crear_rama_artificial(String obj, String ruta_wnr, String ruta_mesh) {
+    private void crear_rama_artificial(String obj, String ruta_wkr, String ruta_mesh) {
         String[] separa = obj.split(",");
         String cadena = null;
         if (separa[0].equals("Receptors")) {
@@ -108,20 +109,20 @@ public class ontologiaMESH {
             String obj1 = procesarTexto("Receptors");
             String obj2 = procesarTexto(obj);
             String rule = obj1 + "(X):-" + obj2 + "(X).";
-            new escribirBC(rule, ruta_wnr);
+            new escribirBC(rule, ruta_wkr);
         } else if (separa[0].equals("Adaptor Proteins")) {
             cadena = "is_a(\'" + obj.replace("\'", "") + "\',\'Adaptor Proteins\').";
             new escribirBC(cadena, ruta_mesh);
             String obj1 = procesarTexto("Adaptor Proteins");
             String obj2 = procesarTexto(obj);
             String rule = obj1 + "(X):-" + obj2 + "(X).";
-            new escribirBC(rule, ruta_wnr);
+            new escribirBC(rule, ruta_wkr);
 
         } else if (obj.equals("Intercellular Signaling Peptides and Proteins")) {
             String obj1 = procesarTexto("ligand");
             String obj2 = procesarTexto(obj);
             String rule = obj1 + "(X):-" + obj2 + "(X).";
-            new escribirBC(rule, ruta_wnr);
+            new escribirBC(rule, ruta_wkr);
         }
         /* else if (obj.equals("Circadian Rhythm Signaling Peptides and Proteins")) {
             String obj1 = procesarTexto("ligand");
@@ -136,19 +137,19 @@ public class ontologiaMESH {
         }*/
         //-----------------------------------------------------------
         String rule = procesarTexto("ligand");
-        new escribirBC(rule + "(\'\').", ruta_wnr);
+        new escribirBC(rule + "(\'\').", ruta_wkr);
         rule = procesarTexto("proteins");
-        new escribirBC(rule + "(\'\').", ruta_wnr);
+        new escribirBC(rule + "(\'\').", ruta_wkr);
         rule = procesarTexto("transcription factors");
-        new escribirBC(rule + "(\'\').", ruta_wnr);
+        new escribirBC(rule + "(\'\').", ruta_wkr);
         rule = procesarTexto("adaptor proteins");
-        new escribirBC(rule + "(\'\').", ruta_wnr);
+        new escribirBC(rule + "(\'\').", ruta_wkr);
         rule = procesarTexto("receptors");
-        new escribirBC(rule + "(\'\').", ruta_wnr);
+        new escribirBC(rule + "(\'\').", ruta_wkr);
         rule = procesarTexto("enzymes");
-        new escribirBC(rule + "(\'\').", ruta_wnr);
+        new escribirBC(rule + "(\'\').", ruta_wkr);
         rule = procesarTexto("transcription factors");
-        new escribirBC(rule + "(\'\').", ruta_wnr);
+        new escribirBC(rule + "(\'\').", ruta_wkr);
 
     }
 

@@ -9,6 +9,7 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.collections.ActivatableArrayList;
+import configuracion.utilidades;
 import java.util.ArrayList;
 import pipeline.escribirBC;
 
@@ -147,7 +148,7 @@ public class ontologiaGO {
             if (obj != null) {
                 String cadena = "go(\'" + obj.replace("\'", "") + "\',"+relacion+",\'" + objeto.getNombre().replace("\'", "") + "\').";
                 new escribirBC(cadena, archivo);
-                
+                new utilidades().carga();
                 try{
                     String cad = (objeto.arbol.equals("molecular_function"))?"mf":"";
                     cad = (objeto.arbol.equals("biological_process"))?"bp":cad;
@@ -156,7 +157,7 @@ public class ontologiaGO {
                 }catch(Exception e){
                     
                 }    
-                System.out.print(".");
+                
             }
 
             if (!listObj.contains(GO)) {

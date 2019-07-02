@@ -88,9 +88,9 @@ public class configuracion {
         ObjectContainer db = Db4o.openFile(ruta + "/config.db");
         try {
             db.store(this);
-            System.out.println(language.text.get(16));
+            System.out.println(utilidades.idioma.get(16));
         } catch (Exception e) {
-            System.out.println(language.text.get(17));
+            System.out.println(utilidades.idioma.get(17));
         } finally {
             db.close();
         }
@@ -110,7 +110,7 @@ public class configuracion {
                 //System.out.println("guardado");
             }
         } catch (Exception e) {
-            System.out.println(language.text.get(17));
+            System.out.println(utilidades.idioma.get(17));
         } finally {
             db.close();
         }
@@ -131,7 +131,7 @@ public class configuracion {
                 break;
             }
         } catch (Exception e) {
-            System.out.println(language.text.get(17));
+            System.out.println(utilidades.idioma.get(17));
         } finally {
             db.close();
         }
@@ -173,7 +173,7 @@ public class configuracion {
 
             }
         } catch (Exception e) {
-            System.out.println(language.text.get(17));
+            System.out.println(utilidades.idioma.get(17));
         } finally {
             db.close();
         }
@@ -184,56 +184,59 @@ public class configuracion {
     //muestra la configuracion inicial del proceso
     public void verConfiguracion(String ruta) {
         //System.out.println("\n**Configuracion de minado**");
-        System.out.println("\n"+language.text.get(18)+" "+ this.RegionPromotora);
-        System.out.println(language.text.get(19)+" "+ this.cantComplejos);
-        System.out.println(language.text.get(20)+" "+ this.numIteraciones);
-        System.out.println(language.text.get(21)+" "+ (int) (this.confiabilidad_tfbind * 100));
-        System.out.println(language.text.get(22)+" "+ this.cantidadPMID);
+        System.out.println("\n"+utilidades.idioma.get(18)+" "+ this.RegionPromotora);
+        System.out.println(utilidades.idioma.get(19)+" "+ this.cantComplejos);
+        System.out.println(utilidades.idioma.get(20)+" "+ this.numIteraciones);
+        System.out.println(utilidades.idioma.get(21)+" "+ (int) (this.confiabilidad_tfbind * 100));
+        System.out.println(utilidades.idioma.get(22)+" "+ this.cantidadPMID);
 
         estadoactual(ruta);
     }
 
     //muestra el estado actual del proceso .. dependiendo del los checklist que esten activos
     private void estadoactual(String ruta) {
-        System.out.print("\n"+language.text.get(23));
+        System.out.print("\n"+utilidades.idioma.get(23));
         if (!homologos) {
-            System.out.println(language.text.get(24));
+            System.out.println(utilidades.idioma.get(24));
         } else if (!objetosExperto) {
-            System.out.println(language.text.get(25));
+            System.out.println(utilidades.idioma.get(25));
         } else if (!lecturas_tfbind) {
-            System.out.println(language.text.get(26));
+            System.out.println(utilidades.idioma.get(26));
         } else if (!procesoIteraciones) {
             objetosMineria objMin = new objetosMineria();
             objMin = recuperarObjetosMin(ruta);
-            System.out.println(language.text.get(27)+" " + (objMin.getIteracion() + 1));
+            System.out.println(utilidades.idioma.get(27)+" " + (objMin.getIteracion() + 1));
         } else if (!combinaciones) {
-            System.out.println(language.text.get(28));
+            System.out.println(utilidades.idioma.get(28));
         } else if (!pubmedids) {
-            System.out.println(language.text.get(29));
+            System.out.println(utilidades.idioma.get(29));
         } else if (!abstracts) {
-            System.out.println(language.text.get(30));
+            System.out.println(utilidades.idioma.get(30));
         } else if (!vaciado_pl) {
-            System.out.println(language.text.get(31));
+            System.out.println(utilidades.idioma.get(31));
         } else if (!generarResumenes) {
-            System.out.println(language.text.get(32)+" " + resumenes);
+            System.out.println(utilidades.idioma.get(32)+" " + resumenes);
         } else if (!GenerarBC) {
-            System.out.println(language.text.get(33));
+            System.out.println(utilidades.idioma.get(33));
         } else if (!objetosPatrones) {
-            System.out.println(language.text.get(34));
+            System.out.println(utilidades.idioma.get(34));
         } else if (!InferirPatrones) {
-            System.out.println(language.text.get(35));
+            System.out.println(utilidades.idioma.get(35));
         }
     }
 
     //dependiendo de los checklist que esten activos el proceso se reanudara desde un punto espesifico
     public void reanudar_proceso(String ruta,String ruta2) {
-        System.out.print(language.text.get(139));
+        new utilidades().limpiarPantalla();
+        System.out.println(utilidades.colorTexto1+utilidades.titulo);
+        System.out.println(utilidades.colorReset);
+        System.out.print(utilidades.idioma.get(139));
         recuperarConfiguracion(ruta);
         //verConfiguracion();
         objetosMineria objMin = new objetosMineria();
         objMin = recuperarObjetosMin(ruta);
         //System.out.println(objMin.getNuevos_objetos().size());
-        System.out.println();
+       
         if (!homologos) {
             //System.out.println("\nReanudar desde busqueda de homologos ...");
             reanudar(1, objMin, ruta,ruta2);
@@ -268,6 +271,9 @@ public class configuracion {
     }
 
     private void menuFinal(String ruta,String rutaD) {
+        utilidades.texto_carga="";
+        utilidades.texto_etapa="";
+        utilidades.momento="";
 
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
@@ -275,31 +281,38 @@ public class configuracion {
         int minados = listar_ligandos(ruta).size() + listar_nuevos_objetos(ruta).size() + listar_objetos_minados(ruta).size();
 
         while (r) {
+            System.out.println();
+            new utilidades().limpiarPantalla();
+            System.out.println(utilidades.colorTexto1+utilidades.titulo);
+            System.out.println(utilidades.colorTexto1+utilidades.proceso);
+            System.out.println();
             ArrayList<pathway> patrones = RRG.cargarPatrones(ruta);
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
-            System.out.println(language.text.get(36)+"\n");
-            System.out.println(language.text.get(37)+"               " + this.RegionPromotora);
-            System.out.println(language.text.get(38)+"          " + this.cantComplejos);
-            System.out.println(language.text.get(39)+"              " + this.numIteraciones);
-            System.out.println(language.text.get(40)+"           " + (int) (this.confiabilidad_tfbind * 100));
-            System.out.println(language.text.get(41)+"  " + this.cantidadPMID);
+            //System.out.print(utilidades.colorTexto2);
+            System.out.println(utilidades.colorTexto2+utilidades.idioma.get(36)+"\n");
+            
+            System.out.println(utilidades.idioma.get(37)+"               " + this.RegionPromotora);
+            System.out.println(utilidades.idioma.get(38)+"          " + this.cantComplejos);
+            System.out.println(utilidades.idioma.get(39)+"              " + this.numIteraciones);
+            System.out.println(utilidades.idioma.get(40)+"           " + (int) (this.confiabilidad_tfbind * 100));
+            System.out.println(utilidades.idioma.get(41)+"  " + this.cantidadPMID);
             if (!rutaPMID_experto.equals("")) {
-                System.out.println(language.text.get(42)+" " + rutaPMID_experto);
+                System.out.println(utilidades.idioma.get(42)+" " + rutaPMID_experto);
             }
+            //System.out.print(utilidades.colorTexto2);
+            System.out.println("\n"+utilidades.colorTexto2+utilidades.idioma.get(43)+"\n");
+            
+            System.out.println(utilidades.idioma.get(44)+"            " + minados);
+            System.out.println(utilidades.idioma.get(45)+"   " + num_combinaciones(ruta));
+            System.out.println(utilidades.idioma.get(46)+"      " + num_pubmedIds(ruta));
+            System.out.println(utilidades.idioma.get(47)+"        " + num_eventos(ruta));
+            System.out.println(utilidades.idioma.get(48)+"       " + patrones.size() + "\n");
 
-            System.out.println("\n"+language.text.get(43)+"\n");
-            System.out.println(language.text.get(44)+"            " + minados);
-            System.out.println(language.text.get(45)+"   " + num_combinaciones(ruta));
-            System.out.println(language.text.get(46)+"      " + num_pubmedIds(ruta));
-            System.out.println(language.text.get(47)+"        " + num_eventos(ruta));
-            System.out.println(language.text.get(48)+"       " + patrones.size() + "\n");
-
-            System.out.println(language.text.get(0));
-            System.out.println(language.text.get(49));
-            System.out.println(language.text.get(50));
-            System.out.println(language.text.get(51));
-            System.out.println(language.text.get(4));
+            System.out.println(utilidades.colorReset);
+            System.out.println(utilidades.idioma.get(0));
+            System.out.println(utilidades.idioma.get(49));
+            System.out.println(utilidades.idioma.get(50));
+            System.out.println(utilidades.idioma.get(51));
+            System.out.println(utilidades.idioma.get(4));
 
             String resp = lectura.nextLine();
 
@@ -308,7 +321,7 @@ public class configuracion {
                 case "1":
 
                     while (true) {
-                        System.out.print(language.text.get(52));
+                        System.out.print(utilidades.idioma.get(52));
                         String resp2 = lectura.nextLine();
                         if (resp2.equalsIgnoreCase("s")||resp2.equalsIgnoreCase("y")) {
                             System.out.print("\033[H\033[2J");
@@ -330,7 +343,7 @@ public class configuracion {
 
                             break;
                         } else {
-                            System.out.println(language.text.get(53));
+                            System.out.println(utilidades.idioma.get(53));
                         }
                     }
 
@@ -673,12 +686,12 @@ public class configuracion {
         Scanner lectura = new Scanner(System.in);
         String regionPromotora;
         while (true) {
-            System.out.print(language.text.get(54));
+            System.out.print(utilidades.idioma.get(54));
             regionPromotora = lectura.nextLine();
             if (!regionPromotora.equals("")) {
                 break;
             } else {
-                System.out.println(language.text.get(55));
+                System.out.println(utilidades.idioma.get(55));
             }
         }
         return regionPromotora;
@@ -689,17 +702,17 @@ public class configuracion {
         float conf;
         while (true) {
             try {
-                System.out.print(language.text.get(56));
+                System.out.print(utilidades.idioma.get(56));
                 String confi = lectura.nextLine();
                 conf = Float.parseFloat(confi) / 100;
 
                 if (conf > 1) {
-                    System.out.println(language.text.get(57));
+                    System.out.println(utilidades.idioma.get(57));
                 } else {
                     break;
                 }
             } catch (Exception e) {
-                System.out.println(language.text.get(57));
+                System.out.println(utilidades.idioma.get(57));
             }
         }
         return conf;
@@ -710,11 +723,11 @@ public class configuracion {
         Scanner lectura = new Scanner(System.in);
         while (true) {
             try {
-                System.out.print(language.text.get(58));
+                System.out.print(utilidades.idioma.get(58));
                 can_objs = Integer.parseInt(lectura.nextLine());
                 break;
             } catch (Exception e) {
-                System.out.println(language.text.get(59));
+                System.out.println(utilidades.idioma.get(59));
             }
         }
         return can_objs;
@@ -725,11 +738,11 @@ public class configuracion {
         Scanner lectura = new Scanner(System.in);
         while (true) {
             try {
-                System.out.print(language.text.get(60));
+                System.out.print(utilidades.idioma.get(60));
                 num_iter = Integer.parseInt(lectura.nextLine());
                 break;
             } catch (Exception e) {
-                System.out.println(language.text.get(59));
+                System.out.println(utilidades.idioma.get(59));
             }
         }
         return num_iter;
@@ -740,28 +753,31 @@ public class configuracion {
         Scanner lectura = new Scanner(System.in);
         while (true) {
             try {
-                System.out.print(language.text.get(61));
+                System.out.print(utilidades.idioma.get(61));
                 cant_pm_id = Integer.parseInt(lectura.nextLine());
                 break;
             } catch (Exception e) {
-                System.out.println(language.text.get(59));
+                System.out.println(utilidades.idioma.get(59));
             }
         }
         return cant_pm_id;
     }
 
     public boolean reiniciar(String ruta) {
+        new utilidades().limpiarPantalla();
+        System.out.println(utilidades.colorTexto1+utilidades.titulo);
+        System.out.println(utilidades.colorReset);
         boolean reiniciar;
         Scanner lectura = new Scanner(System.in);
 
         if (isInferirPatrones()) {
             return false;
         } else {
-            System.out.println(language.text.get(62));
+            System.out.println(utilidades.idioma.get(62));
             verConfiguracion(ruta);
             System.out.println();
             while (true) {
-                System.out.print(language.text.get(63));
+                System.out.print(utilidades.idioma.get(63));
                 String resp = lectura.nextLine();
                 if (resp.equalsIgnoreCase("S") || resp.equalsIgnoreCase("Y")) {
                     reiniciar = false;
@@ -770,7 +786,7 @@ public class configuracion {
                     reiniciar = true;
                     break;
                 } else {
-                    System.out.println(language.text.get(53));
+                    System.out.println(utilidades.idioma.get(53));
                 }
 
             }
@@ -783,7 +799,7 @@ public class configuracion {
         boolean GO = false;
         Scanner lectura = new Scanner(System.in);
         while (true) {
-            System.out.print(language.text.get(64));
+            System.out.print(utilidades.idioma.get(64));
             String resp = lectura.nextLine();
             if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
                 GO = true;
@@ -792,7 +808,7 @@ public class configuracion {
                 GO = false;
                 break;
             } else {
-                System.out.println(language.text.get(53));
+                System.out.println(utilidades.idioma.get(53));
             }
 
         }
@@ -803,7 +819,7 @@ public class configuracion {
         boolean nombreCorto = false;
         Scanner lectura = new Scanner(System.in);
         while (true) {
-            System.out.print(language.text.get(136));
+            System.out.print(utilidades.idioma.get(136));
             String resp = lectura.nextLine();
             if (resp.equalsIgnoreCase("s") || resp.equalsIgnoreCase("y")) {
                 nombreCorto = true;
@@ -812,7 +828,7 @@ public class configuracion {
                 nombreCorto = false;
                 break;
             } else {
-                System.out.println(language.text.get(53));
+                System.out.println(utilidades.idioma.get(53));
             }
 
         }
@@ -823,7 +839,7 @@ public class configuracion {
         boolean MESH = false;
         Scanner lectura = new Scanner(System.in);
         while (true) {
-            System.out.print(language.text.get(66));
+            System.out.print(utilidades.idioma.get(66));
             String resp = lectura.nextLine();
             if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
                 MESH = true;
@@ -832,7 +848,7 @@ public class configuracion {
                 MESH = false;
                 break;
             } else {
-                System.out.println(language.text.get(53));
+                System.out.println(utilidades.idioma.get(53));
             }
         }
         return MESH;
@@ -844,7 +860,7 @@ public class configuracion {
         boolean r;
 
         while (true) {
-            System.out.print(language.text.get(67));
+            System.out.print(utilidades.idioma.get(67));
             String resp = lectura.nextLine();
             if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
                 r = true;
@@ -853,18 +869,18 @@ public class configuracion {
                 r = false;
                 break;
             } else {
-                System.out.println(language.text.get(53));
+                System.out.println(utilidades.idioma.get(53));
             }
 
         }
         if (r) {
             while (true) {
-                System.out.print(language.text.get(68));
+                System.out.print(utilidades.idioma.get(68));
                 ruta = lectura.nextLine();
                 if (!ruta.equals("")) {
                     break;
                 } else {
-                    System.out.println(language.text.get(69));
+                    System.out.println(utilidades.idioma.get(69));
                 }
             }
         }
@@ -940,7 +956,7 @@ public class configuracion {
 
     private int num_combinaciones(String ruta) {
         int num = 0;
-        ObjectContainer db = Db4o.openFile(ruta+"/combinations.pl");
+        ObjectContainer db = Db4o.openFile(ruta+"/combinations.db");
         combinacion com = new combinacion();
         ObjectSet result = db.queryByExample(com);
         combinacion combinacion = (combinacion) result.get(0);

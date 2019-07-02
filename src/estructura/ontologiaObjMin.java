@@ -8,6 +8,7 @@ package estructura;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import configuracion.utilidades;
 import java.util.ArrayList;
 import pipeline.escribirBC;
 import servicios.lecturas_QuickGO;
@@ -65,6 +66,7 @@ public class ontologiaObjMin {
     }
 
     public void buscarOntologiaMESH(String MESH, String ruta) {
+        new utilidades().carga();
         ontologiaMESH ontologia = new ontologiaMESH();
         lecturas_MESH letMESH = new lecturas_MESH();
         ontologia.setMESH(MESH);
@@ -82,7 +84,8 @@ public class ontologiaObjMin {
     }
 
     public void buscarOntologiaGO(String GO, String ruta) {
-       // System.out.println(GO);
+        new utilidades().carga();
+        // System.out.println(GO);
         ontologiaGO ontologia = new ontologiaGO();
         lecturas_QuickGO letQGO = new lecturas_QuickGO();
         ontologia.setGO(GO);
@@ -111,7 +114,7 @@ public class ontologiaObjMin {
     }
 
     private void guardar_Ontologia(ontologiaGO ontologia, String ruta) {
-
+       
         ObjectContainer db = Db4o.openFile(ruta + "/ontologyGO.db");
         try {
             db.store(ontologia);
@@ -125,6 +128,7 @@ public class ontologiaObjMin {
     }
 
     private void guardar_Ontologia(ontologiaMESH ontologia, String ruta) {
+       
         ObjectContainer db = Db4o.openFile(ruta + "/ontologyMESH.db");
         try {
             db.store(ontologia);
@@ -313,7 +317,7 @@ public class ontologiaObjMin {
         String MESH = "";
         ontologiaGO GO = new ontologiaGO();
         ontologiaMESH mesh = new ontologiaMESH();
-
+        new utilidades().carga();
         new escribirBC("objeto(\'" + obj.nombre.replace("\'", "") + "\').", ruta + "/ontologyMESH.pl");
 
         for (String fm : obj.funcionMolecular) {

@@ -5,6 +5,7 @@
  */
 package servicios;
 
+import configuracion.utilidades;
 import java.util.ArrayList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -139,6 +140,7 @@ public class lecturas_HGNC extends conexionServ{
                 }
 
             }
+            new utilidades().carga();
         }
 
         return nombres;
@@ -173,6 +175,7 @@ public class lecturas_HGNC extends conexionServ{
             //-------------------------------------
             list = elemento.getElementsByTagName("arr");
             for (int i = 0; i < list.getLength(); i++) {
+                new utilidades().carga();
                 Node nodo = list.item(i);
                 if (nodo.getNodeType() == nodo.ELEMENT_NODE) {
 

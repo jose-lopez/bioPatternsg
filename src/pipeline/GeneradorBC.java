@@ -31,6 +31,7 @@ package pipeline;
  * @author Jose Lopez.
  */
 import configuracion.configuracion;
+import configuracion.utilidades;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -59,7 +60,11 @@ public class GeneradorBC {
     }
 
     public String generadorBC(String baseC, configuracion config, String ruta) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
-
+        utilidades.texto_carga="";
+        utilidades.momento="";
+        utilidades.texto_etapa=utilidades.idioma.get(152);
+        new utilidades().carga();
+        
         String oracionesSVC;
 
         Vector eventos = new Vector(100, 100);
@@ -88,13 +93,13 @@ public class GeneradorBC {
 
             int cont_eventos;
             cont_eventos = printBC(archivoBC, eventos);
-            System.out.println("cantidad de eventos: " + cont_eventos);
+           // System.out.println(utilidades.idioma.get(150)+""+ cont_eventos);
 
             archivoBC.println("]).");
 
             archivoBC.close();
 
-            archivoBCdoc.println("Total de eventos: " + cont_eventos);
+            archivoBCdoc.println(utilidades.idioma.get(151)+""+ cont_eventos);
             archivoBCdoc.close();
 
             try (BufferedReader baseKB = new BufferedReader(new FileReader(new File(ruta + "/" + baseCtemp)))) {
@@ -339,10 +344,11 @@ public class GeneradorBC {
                             for (int c = 0; c < cant_suj_comp; c++) {
                                 comple = (String) objetos_complemento.elementAt(c);
                                 if (!suj.equals(comple)) {
+                                    new utilidades().carga();
                                     String event = "event(" + "'" + suj + "'" + "," + rel + "," + "'" + comple + "'" + ")";
                                     if (!eventos.contains(event)) {
                                         eventos.add(event);
-                                        System.out.println("evento: " + event + "; Linea: " + cont_lineas);
+                                        //System.out.println("evento: " + event + "; Linea: " + cont_lineas);
                                         baseC.println("evento: " + event + "; Linea: " + cont_lineas);
                                         contEventosArchivoActual++;
                                     }

@@ -68,15 +68,16 @@ public class minado_FT {
 
     public void primeraIteracion(String regProm, float confiabilidad, int numeroObjetos, objetosMineria objetosMineria, configuracion config, ArrayList<lecturas_TFBIND> lecturas, boolean GO, boolean MESH,String ruta) {
         //Primera Iteracion
-        System.out.println("\n\n"+language.text.get(70)+"\n");
+        System.out.println("\n\n"+utilidades.idioma.get(70)+"\n");
         objetosMineria.setIteracion(0);
         ArrayList<lecturas_TFBIND> lecturasTFB;
+        utilidades.texto_etapa=utilidades.idioma.get(70);
         // si la lista 'lecturas' esta vacia indica que aun no se a consultado a tfbinb y se procede a hacerlo
         if (lecturas.size() == 0) {
             // se envia la ruta del archivo con la region promotora
             // y el procentaje de confiabilidad para obtener las lecturas de tfbind
             lecturasTFB = lecturasTFBID(regProm, confiabilidad);
-            System.out.println("* " + lecturasTFB.size() + " "+language.text.get(71));
+            System.out.println("* " + lecturasTFB.size() + " "+utilidades.idioma.get(71));
             //se guardan el lista de lecturas tfbind en caso de que se reinicie el proceso
             config.setTfbind(lecturasTFB);
             config.guardar(ruta);
@@ -86,6 +87,8 @@ public class minado_FT {
         }
 
         for (lecturas_TFBIND lectura : lecturasTFB) {
+            utilidades.momento=utilidades.idioma.get(142)+"" + lectura.getFactor();
+            new utilidades().carga();
             //se busca toda la informacion correspondiente al factor de transcripcion
             factorTranscripcion FT = new factorTranscripcion(lectura, numeroObjetos, objetosMineria, GO, MESH,ruta);
 
@@ -119,7 +122,8 @@ public class minado_FT {
         //la variable 'iter' indica la iteracion en la que esta el proceso altualmente si este es reanudado
         //La variable Iteraciones indica el numero total de iteraciones que tendra el proceso
         for (int i = iter; i < Iteraciones; i++) {
-            System.out.println("\n\n===="+language.text.get(72) + " " + (i) + " ====\n");
+            
+            System.out.println("\n\n===="+utilidades.idioma.get(72) + " " + (i) + " ====\n");
 
             //si Reanudar = true se toman los objetos que llegan por los parametros
             //Lista = en este llegan los objetos que faltan por minar en la iteracion
@@ -134,6 +138,9 @@ public class minado_FT {
             for (String objeto : Lista) {
                 // se busca toda la informacion correspondiente al objeto
                 // nombre, simbolo, sinonimos, complejos, nuevos objetos, ligandos
+               
+                utilidades.momento=utilidades.idioma.get(142)+"" + objeto;
+                new utilidades().carga();
                 factorTranscripcion FT = new factorTranscripcion(objeto, i, numeroObjetos, GO, MESH,ruta);
 
                 //se agrega el objeto a la lista de objetos minados
@@ -265,7 +272,7 @@ public class minado_FT {
         try {
             db.store(FT);
         } catch (Exception e) {
-            System.out.println(language.text.get(73));
+            System.out.println(utilidades.idioma.get(73));
         } finally {
             db.close();
         }
@@ -276,7 +283,7 @@ public class minado_FT {
         try {
             db.store(objetosMin);
         } catch (Exception e) {
-            System.out.println(language.text.get(74));
+            System.out.println(utilidades.idioma.get(74));
         } finally {
             db.close();
         }
@@ -300,7 +307,7 @@ public class minado_FT {
                 }
             }
         } catch (Exception e) {
-            System.out.println(language.text.get(75));
+            System.out.println(utilidades.idioma.get(75));
         } finally {
             db.close();
         }
@@ -308,11 +315,14 @@ public class minado_FT {
     }
 
     public void buscarHomologos(ArrayList<String> homologos, objetosMineria objetosMineria, configuracion config, boolean GO, boolean MESH,String ruta) {
-        System.out.println("\n\n**"+language.text.get(76));
+        new utilidades().limpiarPantalla();
+        utilidades.texto_etapa=utilidades.idioma.get(147);
+        System.out.println("\n\n**"+utilidades.idioma.get(76));
 
         for (String homologo : homologos) {
-
-            System.out.println(language.text.get(78)+" " + homologo);
+            utilidades.texto_carga="";
+            utilidades.momento=utilidades.idioma.get(78)+" " + homologo;
+            //System.out.println(utilidades.idioma.get(78)+" " + homologo);
             objetos_Experto objExp = new objetos_Experto();// la clase objeto_Experto tiene los aributos necesarios para guardar la informacion de cada objeto
             objExp.setID(homologo);
 
@@ -347,11 +357,17 @@ public class minado_FT {
     }
 
     public void buscarObjetosExperto(ArrayList<String> lista, objetosMineria objetosMineria, configuracion config, boolean GO, boolean MESH,String ruta) {
-        System.out.println("\n\n**"+language.text.get(77));
-
+        
+        new utilidades().limpiarPantalla();
+        System.out.println("\n\n**"+utilidades.idioma.get(77));
+        utilidades.texto_etapa=utilidades.idioma.get(148);
+        utilidades.momento="";
+       
+        
         for (String objeto : lista) {
-
-            System.out.println(language.text.get(78)+" " + objeto);
+            utilidades.texto_carga="";
+            utilidades.momento=utilidades.idioma.get(78)+" " + objeto;
+           // System.out.println(utilidades.idioma.get(78)+" " + objeto);
             objetos_Experto objExp = new objetos_Experto();// la clase objeto_Experto tiene los aributos necesarios para guardar la informacion de cada objeto
             objExp.setID(objeto);
 
@@ -439,7 +455,7 @@ public class minado_FT {
         try {
             db.store(objExp);
         } catch (Exception e) {
-            System.out.println(language.text.get(79));
+            System.out.println(utilidades.idioma.get(79));
         } finally {
 
             db.close();
@@ -448,8 +464,11 @@ public class minado_FT {
     }
 
     public void vaciar_bc_pl(boolean GO, boolean MESH, configuracion config,String ruta) {
-        limpiarPantalla();
-        System.out.print(language.text.get(80));
+        new utilidades().limpiarPantalla();
+        utilidades.texto_etapa=utilidades.idioma.get(80);
+        utilidades.momento="";
+        utilidades.texto_carga="";
+        //System.out.print(utilidades.idioma.get(80));
         new escribirBC("ligando(\'\').", ruta+"/minedObjects.pl");
         new escribirBC("transcription_factors(\'\').", ruta+"/minedObjects.pl");
         //-------------------------------------------------------
@@ -461,7 +480,7 @@ public class minado_FT {
                 try {
                     objetos_Experto obj = (objetos_Experto) result.next();
                     obj.vaciar_pl(ruta);
-                    System.out.print(".");
+                    
                 } catch (Exception e) {
                 }
             }
@@ -496,10 +515,7 @@ public class minado_FT {
         config.guardar(ruta);
     }
 
-    private void limpiarPantalla() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+    
 
 }
 

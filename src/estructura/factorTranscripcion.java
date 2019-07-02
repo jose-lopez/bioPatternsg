@@ -8,7 +8,7 @@ package estructura;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
-import configuracion.language;
+import configuracion.utilidades;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,7 +48,8 @@ public class factorTranscripcion {
 
     //constructor para la primera Iteracion con lecturas obtenidas desde TFBIND
     public factorTranscripcion(lecturas_TFBIND lecturasTFBIND, int NumeroObjetos, objetosMineria objetosMineria, boolean GO, boolean MESH,String ruta) {
-        System.out.println(language.text.get(142)+"" + lecturasTFBIND.getFactor() + " ...");
+        //System.out.println(utilidades.idioma.get(142)+"" + lecturasTFBIND.getFactor() + " ...");
+               
         this.lecturasTFBIND = lecturasTFBIND;
         this.ID = lecturasTFBIND.getFactor();
 
@@ -147,8 +148,7 @@ public class factorTranscripcion {
 
     //constructor para la segunda Iteracion en adelante
     public factorTranscripcion(String ID, int N_Iteracion, int NumeroObjetos, boolean GO, boolean MESH,String ruta) {
-
-        System.out.println("Buscando información para: " + ID + " ...");
+        
         this.lecturasTFBIND = new lecturas_TFBIND();
         this.ID = ID;
         this.N_Iteracion = N_Iteracion;
@@ -193,7 +193,6 @@ public class factorTranscripcion {
         String ligandos = "[";
 
         for (complejoProteinico comp : complejoProteinico) {
-            System.out.print(".");
             comp.vaciar_pl(ruta);
             for (ligando ligando : comp.getLigandos()) {
                 if (!AuxLig.contains(ligando.getId())) {
@@ -208,6 +207,7 @@ public class factorTranscripcion {
         }
         ligandos += "]";
         if (!ligandos.equals("[]")) {
+            new utilidades().carga();
             new escribirBC("ligandos(\'" + ID.replace("\'", "") + "\'," + ligandos + ").", ruta+"/minedObjects.pl");
         }
                 
@@ -215,7 +215,6 @@ public class factorTranscripcion {
         objetosMinados objMIn = new objetosMinados();
         
         for (HGNC hgnc : HGNC) {
-            System.out.print(".");
             String cadena_txt = "";
             String cadena = "[";
             cadena += "\'" + hgnc.getSimbolo().replace("\'", "") + "\',";
@@ -228,7 +227,7 @@ public class factorTranscripcion {
             }
 
             cadena += "]";
-            //System.out.println("Experto: "+cadena);
+            new utilidades().carga();
             new escribirBC("sinonimos(\'" + hgnc.getSimbolo().replace("\'", "") + "\'," + cadena + ").", ruta+"/minedObjects.pl");
             new escribirBC(cadena_txt, ruta+"/minedObjects.txt");
             ArrayList<String> lista = hgnc.ListaNombres();
@@ -238,12 +237,14 @@ public class factorTranscripcion {
         }
 
         if (!encontrado) {
+            new utilidades().carga();
             new escribirBC("sinonimos(\'" + ID + "\',[\'" + ID + "\']).", ruta+"/minedObjects.pl");
             String cadena_txt = ID + ";" + objMIn.procesarNombre(ID);
             new escribirBC(cadena_txt, "minedObjects.txt");
         }
 
         if (N_Iteracion == 0) {
+            new utilidades().carga();
             new escribirBC("transcription_factors(\'" + ID.replace("\'", "") + "\').", ruta+"/minedObjects.pl");
         }
 

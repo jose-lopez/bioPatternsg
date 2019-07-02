@@ -27,7 +27,7 @@
 package pipeline;
 
 import configuracion.configuracion;
-import configuracion.language;
+import configuracion.utilidades;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -75,7 +75,10 @@ public class Resumidor {
             //metodo que llama al consultResumidor
             salida = "salida_" + n + ".html";
             entrada = "abstracts_" + n + ".html";
-            System.out.print(language.text.get(145)+"" + n + "................");
+            utilidades.texto_carga="";
+            utilidades.texto_etapa=utilidades.idioma.get(145);
+            utilidades.momento=utilidades.idioma.get(149)+": " + entrada;
+            new utilidades().carga();
 
             resumir(entrada, n, salida,ruta);
             //recibe la ruta del resumen y genera un archivo txt
@@ -148,10 +151,10 @@ public class Resumidor {
 
             escribir.close();
 
-            System.out.println(" ok");
+           
         } else {
 
-            System.out.println(language.text.get(146));
+            System.out.println(utilidades.idioma.get(146));
 
         }
 

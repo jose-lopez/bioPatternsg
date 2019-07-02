@@ -6,6 +6,7 @@
 package pipeline;
 
 import configuracion.configuracion;
+import configuracion.utilidades;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,7 +46,7 @@ public class objetos_patrones {
         q.hasSolution();
 
         ArrayList<String> lista = listaObjetos();
-        System.out.println(lista);
+        //System.out.println(lista);
 
         clasificar_objetos(lista,ruta);
 
@@ -90,11 +91,11 @@ public class objetos_patrones {
     }
 
     private void clasificar_objetos(ArrayList<String> lista,String ruta) {
-
+        
         crear_archivo(ruta);
         String ruta2 = ruta+"/pathwaysObjects.pl";
         new escribirBC("%//" + lista.toString(), ruta2);
-
+        new utilidades().carga();
         for (String obj : lista) {
 
             String consulta = "p_ligand('" + obj + "').";
@@ -102,6 +103,7 @@ public class objetos_patrones {
 
             if (q1.hasSolution()) {
                 new escribirBC("ligand('" + obj + "').", ruta2);
+                new utilidades().carga();
             }
 
             consulta = "p_receptor('" + obj + "').";
@@ -109,6 +111,7 @@ public class objetos_patrones {
 
             if (q2.hasSolution()) {
                 new escribirBC("receptor('" + obj + "').", ruta2);
+                new utilidades().carga();
             }
 
             consulta = "p_transcription_factor('" + obj + "').";
@@ -123,6 +126,7 @@ public class objetos_patrones {
 
             if (q4.hasSolution()) {
                 new escribirBC("protein('" + obj + "').", ruta2);
+                new utilidades().carga();
             }
 
             consulta = "p_enzyme('" + obj + "').";
@@ -130,6 +134,7 @@ public class objetos_patrones {
 
             if (q5.hasSolution()) {
                 new escribirBC("enzyme('" + obj + "').", ruta2);
+                new utilidades().carga();
             }
 
             q1.close();

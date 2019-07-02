@@ -14,7 +14,7 @@ import configuracion.PMIDS;
 import configuracion.combinacion;
 import configuracion.confGeneral;
 import configuracion.configuracion;
-import configuracion.language;
+import configuracion.utilidades;
 import configuracion.listPM;
 import estructura.ontologiaGO;
 import estructura.ontologiaObjMin;
@@ -55,7 +55,7 @@ public class BioPattern {
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
         biopattern.pipelineBioPattern();
-        //biopattern.pruebas();
+       // biopattern.pruebas();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -179,9 +179,7 @@ public class BioPattern {
     public void pipelineBioPattern() throws StringIndexOutOfBoundsException, Exception {
         //Autenticación de proxy        
         //autenticarProxy("150.187.65.3", "3128");
-        //String rlanguage="language/es/language.xml";
-        String rlanguage="language/en/language.xml";
-        new language(rlanguage);
+             
         confGeneral confG = new confGeneral();
         confG.listarRedes();
 
@@ -235,9 +233,15 @@ public class BioPattern {
         
         confGeneral confG = new confGeneral();
         confG.seleccionarIdioma();
+        new utilidades();
+        String ruta ="minery/networks/MEK/SST";
+        utilidades.proceso=ruta;
         
+        minado_FT ft = new minado_FT();
+        ft.vaciar_bc_pl(true, true, new configuracion(), ruta);
         
-        
+       Resumidor resu = new Resumidor();
+       resu.resumidor(new configuracion(), ruta);
     
     }
     

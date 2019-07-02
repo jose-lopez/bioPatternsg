@@ -147,7 +147,14 @@
         <m n="142">Searching information for: </m>
         <m n="143">Generating collection of abstracts ..... </m>
         <m n="144">Downloading</m>
-        <m n="145">Summing up abstracts_</m>
-        <m n="145">File not localized</m>
+        <m n="145">Summing up abstracts</m>
+        <m n="146">File not localized</m>
+        <m n="147">Busqueda de homologos</m>
+        <m n="148">Busqueda de objetos del experto</m>
+        <m n="149">Resumiendo</m>
+        <m n="150">cantidad de eventos: </m>
+        <m n="151">Total de eventos: </m>
+        <m n="152">Generando base de conocimiento</m>
+        <m n="153">Inferencia de patrones</m>
     </menu1>
 </root>

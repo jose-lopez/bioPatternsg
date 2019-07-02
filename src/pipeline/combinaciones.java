@@ -11,7 +11,7 @@ import com.db4o.ObjectSet;
 import com.db4o.collections.ActivatableArrayList;
 import configuracion.combinacion;
 import configuracion.configuracion;
-import configuracion.language;
+import configuracion.utilidades;
 import estructura.factorTranscripcion;
 import estructura.objetos_Experto;
 import java.io.File;
@@ -32,8 +32,12 @@ public class combinaciones {
     public void generar_combinaciones(boolean criterio, configuracion config, String ruta,boolean nombreCorto) {
 
         while (error) {
-            limpiarPantalla();
-            System.out.print("\n"+language.text.get(81));
+            utilidades.texto_carga="";
+            utilidades.momento="";
+            new utilidades().limpiarPantalla();
+            utilidades.texto_etapa="\n"+utilidades.idioma.get(81);
+            new utilidades().carga();
+            //System.out.print("\n"+utilidades.idioma.get(81));
             try {
                 error = false;
                 //Si ya existe un archivo mineria/combinaciones.db es eliminado y comienza el proceso de nuevo
@@ -200,15 +204,17 @@ public class combinaciones {
 
     //iserta una combinacion de palabras a la lista de combinaciones
     public void insertar_combinacion(ArrayList<String> combinaciones, String palabra1, String palabra2, boolean nombreCorto) {
+        
         try {
             if (!nombreCorto || (palabra1.split(" ").length == 1 && palabra2.split(" ").length == 1)) {
                 if (!combinaciones.contains(palabra1 + "+" + palabra2) && !combinaciones.contains(palabra2 + "+" + palabra1) && !palabra1.equals(palabra2)) {
                     combinaciones.add(palabra1 + "+" + palabra2);
-                    cont++;
-                    if (cont % 1000 == 0) {
-                        carga += ".";
-                        System.out.print(carga);
-                    }
+                    new utilidades().carga();
+                    //cont++;
+                    //if (cont % 1000 == 0) {
+                        
+                   // }
+                  
 
                 }
                
@@ -246,9 +252,6 @@ public class combinaciones {
         }
     }
 
-    private void limpiarPantalla() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+   
 
 }

@@ -47,9 +47,9 @@ public class confGeneral {
      * Este método muestra el listado de las redes que se han minado
      */
     public void listarRedes() {
-
+        new utilidades();
         seleccionarIdioma();
-        limpiarPantalla();
+        new utilidades().limpiarPantalla();
         final File carpeta = new File("minery/networks");
         final File carpeta2 = new File("minery/integration");
         Scanner lectura = new Scanner(System.in);
@@ -60,11 +60,12 @@ public class confGeneral {
         while (r) {
             ArrayList<String> redes = new ArrayList<>();
             redes = listarCarpetas(carpeta);
-            limpiarPantalla();
-
-            System.out.println(language.text.get(0));
+            new utilidades().limpiarPantalla();
+            System.out.println(utilidades.colorTexto1+utilidades.titulo);
+            System.out.println(utilidades.colorReset);
+            System.out.println(utilidades.idioma.get(0));
             if (redes.size() > 0) {
-                System.out.println(language.text.get(1));
+                System.out.println(utilidades.idioma.get(1));
                 for (int i = 0; i < redes.size(); i++) {
                     System.out.println((i + 1) + ".- " + redes.get(i));
                 }
@@ -74,11 +75,11 @@ public class confGeneral {
             redesInte = listarCarpetas(carpeta2);
 
             if (redesInte.size() > 0) {
-                System.out.println("\n" + language.text.get(2));
+                System.out.println("\n" + utilidades.idioma.get(2));
             }
 
             //System.out.println("N.-Crear una nueva Red");
-            System.out.println(language.text.get(3));
+            System.out.println(utilidades.idioma.get(3));
             String resp = lectura.nextLine();
 
             for (int i = 0; i < redes.size(); i++) {
@@ -138,14 +139,17 @@ public class confGeneral {
         boolean r = true;
 
         while (r) {
-            limpiarPantalla();
-            System.out.println(language.text.get(0));
-            System.out.println(language.text.get(1));
+            new utilidades().limpiarPantalla();
+            System.out.println(utilidades.colorTexto1+utilidades.titulo);
+            System.out.println(utilidades.colorReset);
+            
+            System.out.println(utilidades.idioma.get(0));
+            System.out.println(utilidades.idioma.get(1));
             for (int i = 0; i < redesInt.size(); i++) {
                 System.out.println((i + 1) + ".- " + redesInt.get(i));
             }
 
-            System.out.println("\n" + language.text.get(4));
+            System.out.println("\n" + utilidades.idioma.get(4));
             String resp = lectura.nextLine();
 
             for (int i = 0; i < redesInt.size(); i++) {
@@ -173,13 +177,16 @@ public class confGeneral {
 
         while (r) {
             ArrayList<pathway> patrones = RRG.cargarPatrones(ruta);
-            limpiarPantalla();
-            System.out.println(language.text.get(5) + " " + red);
-            System.out.println(language.text.get(6) + "       " + patrones.size() + "\n");
-            System.out.println(language.text.get(0));
-            System.out.println(language.text.get(7));
-            System.out.println(language.text.get(8));
-            System.out.println("\n" + language.text.get(4));
+           new utilidades().limpiarPantalla();
+            System.out.println(utilidades.colorTexto1+utilidades.titulo);
+            System.out.println(utilidades.colorReset);
+            
+            System.out.println(utilidades.idioma.get(5) + " " + red);
+            System.out.println(utilidades.idioma.get(6) + "       " + patrones.size() + "\n");
+            System.out.println(utilidades.idioma.get(0));
+            System.out.println(utilidades.idioma.get(7));
+            System.out.println(utilidades.idioma.get(8));
+            System.out.println("\n" + utilidades.idioma.get(4));
 
             resp = lectura.nextLine();
             switch (resp) {
@@ -226,21 +233,24 @@ public class confGeneral {
         while (r) {
             ArrayList<String> procesos = new ArrayList<>();
             procesos = listarCarpetas(carpeta);
-            limpiarPantalla();
-            System.out.println(language.text.get(9) + " " + red);
-            System.out.println(language.text.get(0));
+            new utilidades().limpiarPantalla();
+            System.out.println(utilidades.colorTexto1+utilidades.titulo);
+            System.out.println(utilidades.colorReset);
+            
+            System.out.println(utilidades.idioma.get(9) + " " + red);
+            System.out.println(utilidades.idioma.get(0));
             if (procesos.size() > 0) {
-                System.out.println(language.text.get(10));
+                System.out.println(utilidades.idioma.get(10));
 
                 for (int i = 0; i < procesos.size(); i++) {
                     System.out.println((i + 1) + ".- " + procesos.get(i));
                 }
             }
             if (procesos.size() > 1) {
-                System.out.println("\n" + language.text.get(11));
+                System.out.println("\n" + utilidades.idioma.get(11));
             }
             // System.out.println("\nN.-Crear un nuevo proceso");
-            System.out.println(language.text.get(4));
+            System.out.println(utilidades.idioma.get(4));
             String resp = lectura.nextLine();
 
             for (int i = 0; i < procesos.size(); i++) {
@@ -279,7 +289,7 @@ public class confGeneral {
         String rutaDest = "minery/integration/" + red;
 
         for (String directorio : procesos) {
-            System.out.print(language.text.get(12) + " " + directorio);
+            System.out.print(utilidades.idioma.get(12) + " " + directorio);
             String rutaOri = "minery/networks/" + red + "/" + directorio;
             integrarArchivos(rutaOri + "/minedObjects.pl", rutaDest + "/minedObjects.pl");
             integrarArchivos(rutaOri + "/pathwaysObjects.pl", rutaDest + "/pathwaysObjects.pl");
@@ -295,7 +305,7 @@ public class confGeneral {
             System.out.println(" ...ok");
         }
         try {
-            System.out.print(language.text.get(13));
+            System.out.print(utilidades.idioma.get(13));
             new GeneradorBC().generadorBCIntg(red, true);
             System.out.println(" ...ok");
         } catch (StringIndexOutOfBoundsException ex) {
@@ -504,7 +514,11 @@ public class confGeneral {
     }
 
     public void pipeline(String ruta, String rutaD) throws StringIndexOutOfBoundsException {
-
+        new utilidades().limpiarPantalla();
+        System.out.println(utilidades.colorTexto1+utilidades.titulo);
+        System.out.println(utilidades.colorReset);
+        
+        utilidades.proceso=ruta;
         minado_FT mfts = new minado_FT(); // clase que contiene los metodos donde se buscara la informacion de los objetos minados
         //String ruta = "mineria/redes/" + r + "/" + p;
         configuracion config = new configuracion(); // clase donde se guarda la informacion de configuracion inicial del proceso de minado y los diferentes checklist que indican desde donde continuar la ejecucion
@@ -518,8 +532,8 @@ public class confGeneral {
 
             try {
                 //* Las siguientes lineas muestran un menu donde el usuario puede ingresar los datos de configuracion para ejecutar el proceso de mineria
-                System.out.println("\n-------------------------\n" + language.text.get(14) + "\n-------------------------");
-                System.out.println("\n" + language.text.get(15) + "\n");
+                System.out.println("\n-------------------------\n" + utilidades.idioma.get(14) + "\n-------------------------");
+                System.out.println("\n" + utilidades.idioma.get(15) + "\n");
 
                 String regProm = config.IngresarRegionPromotora();
                 float conf = config.IngresarConfiabilidad();
@@ -603,10 +617,11 @@ public class confGeneral {
         File carpeta = new File("language");
         
         while (r) {
-            limpiarPantalla();
+            new utilidades().limpiarPantalla();
+            System.out.println(utilidades.colorTexto1+""+utilidades.titulo);
             ArrayList<String> idiomas = new ArrayList<>();
             idiomas = listarCarpetas(carpeta);
-          
+            System.out.println(utilidades.colorReset);
             if (idiomas.size() > 0) {
                 
                 for (int i = 0; i < idiomas.size(); i++) {
@@ -620,7 +635,7 @@ public class confGeneral {
                 String r2 = (i + 1) + "";
                 if (resp.equals(r2)) {
                     String rlanguage="language/"+idiomas.get(i)+"/language.xml";
-                    new language(rlanguage);
+                    new utilidades().lenguaje(rlanguage);
                     r=false;
                 }
             }
@@ -630,10 +645,7 @@ public class confGeneral {
         
     }
 
-    private void limpiarPantalla() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+    
 
     public String getRed() {
         return red;

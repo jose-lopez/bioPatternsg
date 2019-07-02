@@ -83,12 +83,12 @@
         <m n="78">busqueda..</m>
         <m n="79">Error al guardar en la base de datos ObjH_E.db</m>
         <m n="80">Vaciando ontologias y objetos minados a formato .pl</m>
-        <m n="81">Generando combinaciones de objetos...</m>
+        <m n="81">Generando combinaciones de objetos.</m>
         <m n="82">Busqueda de PubMed Id.....</m>
         <m n="83">Probando combinaciones</m>
         <m n="84">Error al guardar combinaciones.db...</m>
         <m n="85">*Desea usar una base de conocimiento reducida ..S/N:</m>
-        <m n="86">*Desea restringir los pathway a un listado de objetos específicos ..S/N:</m>
+        <m n="86">*Desea restringir los pathway a un listado de objetos específicos ..S/N: </m>
         <m n="87">*Ingrese un listado de objetos separados por \",\": Ejemplo: EGF,EGFR,Ras,CREB,SST</m>
         <m n="88">Debe ingresar un listado valido</m>
         <m n="89">*Desea agregar objeto de cierre a los pathway  ..S/N:</m>
@@ -147,8 +147,16 @@
         <m n="142">Buscando información para: </m>
         <m n="143">Generando coleccion de  abstracts.... </m>
         <m n="144">Descargando </m>
-        <m n="145">Resumiendo abstracts_</m>
-        <m n="145">archivo no localizado</m>
+        <m n="145">Resumiendo abstracts</m>
+        <m n="146">archivo no localizado</m>
+        <m n="147">Busqueda de homologos</m>
+        <m n="148">Busqueda de objetos del experto</m>
+        <m n="149">Resumiendo</m>
+        <m n="150">cantidad de eventos: </m>
+        <m n="151">Total de eventos: </m>
+        <m n="152">Generando base de conocimiento</m>
+        <m n="153">Inferencia de patrones</m>
+        
        </menu1>
     
         

@@ -21,7 +21,7 @@
  */
 package servicios;
 
-import configuracion.language;
+import configuracion.utilidades;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -75,12 +75,12 @@ public class lecturas_TFBIND {
             br = new BufferedReader(fr);
             String metodo;
             System.out.println("");
-            System.out.println(language.text.get(140)+"" + ruta);
+            System.out.println(utilidades.idioma.get(140)+"" + ruta);
             ArrayList<String> control_factores = new ArrayList<>();
 
             while ((metodo = br.readLine()) != null) {
 
-                System.out.println(language.text.get(141)+"" + metodo);
+                System.out.println(utilidades.idioma.get(141)+"" + metodo);
                 lecturas = obtener_lecturas(metodo, confiabilidad, control_factores);
 
             }

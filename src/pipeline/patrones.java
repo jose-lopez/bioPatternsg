@@ -8,7 +8,7 @@ package pipeline;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import configuracion.configuracion;
-import configuracion.language;
+import configuracion.utilidades;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -29,6 +29,13 @@ public class patrones {
     boolean detener = false;
 
     public void inferir_patrones(configuracion config, String ruta) {
+        new utilidades().limpiarPantalla();
+        utilidades.momento="";
+        utilidades.texto_carga="";
+        utilidades.texto_etapa = utilidades.idioma.get(153);
+        System.out.println(utilidades.colorTexto1 + utilidades.titulo);
+        System.out.println(utilidades.colorTexto1 + utilidades.proceso);
+        System.out.println("\n" + utilidades.colorTexto2 + utilidades.texto_etapa);
 
         ArrayList<String> objRestricion = menuRestricionObjetos();
 
@@ -64,7 +71,7 @@ public class patrones {
             if (!objEnlace.contains(sep1[2])) {
                 objEnlace.add(sep1[2]);
             }
-          //  System.out.println("evento inicio:  " + obj);
+            //  System.out.println("evento inicio:  " + obj);
         });
 
         ArrayList<String> listaFin = new ArrayList<>();
@@ -87,7 +94,7 @@ public class patrones {
                 objCierre.add(sep[2]);
             }
 
-           //System.out.println("evento fin:  " + fin);
+            //System.out.println("evento fin:  " + fin);
         });
         //patrones de 2 eventos
         patron_2_eventos(objCierre, listaInicio, objEnlace, ruta);
@@ -105,49 +112,51 @@ public class patrones {
         Scanner lectura = new Scanner(System.in);
 
         while (true) {
-            System.out.print(language.text.get(85));
+            System.out.print(utilidades.idioma.get(85));
             String resp = lectura.nextLine();
-            if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
-                String bc = "['" + ruta + "/KbaseR'].";
+            if (resp.equalsIgnoreCase("s") || resp.equalsIgnoreCase("y")) {
+                String bc = "['" + ruta + "/kBaseR'].";
                 Query q2 = new Query(bc);
                 q2.hasSolution();
 
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
-                String bc = "['" + ruta + "/Kbase'].";
+                String bc = "['" + ruta + "/kBase'].";
                 //System.out.println(bc);
                 Query q2 = new Query(bc);
                 q2.hasSolution();
 
                 break;
             } else {
-                System.out.println(language.text.get(53));
+                System.out.println(utilidades.idioma.get(53));
             }
         }
     }
 
     private ArrayList<String> menuRestricionObjetos() {
+        
         ArrayList<String> objetos = new ArrayList<>();
         Scanner lectura = new Scanner(System.in);
         boolean r = false;
 
         while (true) {
-            System.out.print(language.text.get(86));
+
+            System.out.print(utilidades.idioma.get(86));
             String resp = lectura.nextLine();
-            if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
+            if (resp.equalsIgnoreCase("s") || resp.equalsIgnoreCase("y")) {
                 r = true;
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
                 r = false;
                 break;
             } else {
-                System.out.println(language.text.get(53));
+                System.out.println(utilidades.idioma.get(53));
             }
         }
 
         if (r) {
             while (true) {
-                System.out.print(language.text.get(87)+"\n");
+                System.out.print(utilidades.idioma.get(87) + "\n");
                 String objeto = lectura.nextLine();
                 if (!objeto.equals("")) {
                     String sep[] = objeto.split(",");
@@ -159,7 +168,7 @@ public class patrones {
                     break;
 
                 } else {
-                    System.out.println(language.text.get(88));
+                    System.out.println(utilidades.idioma.get(88));
                 }
             }
         }
@@ -173,22 +182,22 @@ public class patrones {
         boolean r = false;
 
         while (true) {
-            System.out.print(language.text.get(89));
+            System.out.print(utilidades.idioma.get(89));
             String resp = lectura.nextLine();
-            if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
+            if (resp.equalsIgnoreCase("s") || resp.equalsIgnoreCase("y")) {
                 r = true;
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
                 r = false;
                 break;
             } else {
-                System.out.println(language.text.get(53));
+                System.out.println(utilidades.idioma.get(53));
             }
         }
 
         if (r) {
             while (true) {
-                System.out.print(language.text.get(90));
+                System.out.print(utilidades.idioma.get(90));
                 String motivo = lectura.nextLine();
                 if (!motivo.equals("")) {
                     motivo = motivo.replace("'", "");
@@ -197,16 +206,16 @@ public class patrones {
 
                     boolean r2 = false;
                     while (true) {
-                        System.out.print(language.text.get(91));
+                        System.out.print(utilidades.idioma.get(91));
                         String resp = lectura.nextLine();
-                        if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
+                        if (resp.equalsIgnoreCase("s") || resp.equalsIgnoreCase("y")) {
                             r2 = true;
                             break;
                         } else if (resp.equalsIgnoreCase("n")) {
                             r2 = false;
                             break;
                         } else {
-                            System.out.println(language.text.get(53));
+                            System.out.println(utilidades.idioma.get(53));
                         }
                     }
 
@@ -215,7 +224,7 @@ public class patrones {
                     }
 
                 } else {
-                    System.out.println(language.text.get(92));
+                    System.out.println(utilidades.idioma.get(92));
                 }
             }
         }
@@ -304,7 +313,7 @@ public class patrones {
         ArrayList<String> resp = new ArrayList<>();
 
         for (int i = 0; i < q2.allSolutions().length; i++) {
-          //   System.out.println(q2.allSolutions()[i].toString());
+            //   System.out.println(q2.allSolutions()[i].toString());
             resp.add(q2.allSolutions()[i].toString());
         }
 
@@ -368,12 +377,11 @@ public class patrones {
         Objenlace.forEach((E) -> {
             finales.forEach((F) -> {
                 String consulta = "eventoEspecial(" + E + ",E," + F + ").";
-               
+
                 Query q2 = new Query(consulta);
                 for (int i = 0; i < q2.allSolutions().length; i++) {
                     String evento = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
                     String fin = E + "," + evento + "," + F;
-                    System.out.println(fin);
                     encadenarPatron2eventos(inicio, fin, E, finales, ruta);
                 }
 
@@ -389,9 +397,8 @@ public class patrones {
         String sep[] = fin.split(",");
 //&& (clasificarevento(fin)).equals("regulate") || clasificarevento(fin).endsWith("inhibit")
 
-       
         if (clasificarevento(sep[1]).equals("regulate") || clasificarevento(sep[1]).equals("inhibit")) {
-        //System.out.println("---" + fin);
+            //System.out.println("---" + fin);
             inicio.forEach((i) -> {
                 String sep1[] = i.split(",");
 
@@ -399,11 +406,12 @@ public class patrones {
 
                     String patron = i + ";" + fin;
                     ArrayList<String> list = listarObetosPatron(patron);
-                    System.out.println("\n\n" + patron);
-                    System.out.println(list);
+                    //System.out.println("\n\n" + patron);
+                    //System.out.println(list);
                     agregar_a_lista(patron, list);
                     //guardar_Patron(patron, list);
                     escribirArchivo(patron, list.toString(), "pathways.txt", ruta);
+                    new utilidades().carga();
                 }
             });
         }
@@ -425,11 +433,12 @@ public class patrones {
                             ArrayList<String> list = listarObetosPatron(patron);
                             patron += ";" + Efin;
                             list.addAll(listarObetosPatron(Efin));
-                            System.out.println("\n\n" + patron);
-                            System.out.println(list);
+                            //System.out.println("\n\n" + patron);
+                            //System.out.println(list);
                             agregar_a_lista(patron, list);
                             //guardar_Patron(patron, list);
                             escribirArchivo(patron, list.toString(), "pathways.txt", ruta);
+                            new utilidades().carga();
                         }
                     }
 
@@ -483,10 +492,11 @@ public class patrones {
                     ObjC.forEach((cierre) -> {
 
                         if (cierre.equals(list.get(list.size() - 1))) {
-                            System.out.println("\n\n" + patronF);
-                            System.out.println(list);
+                            //System.out.println("\n\n" + patronF);
+                            //System.out.println(list);
                             agregar_a_lista(patronF, list);
                             escribirArchivo(patronF, list.toString(), "pathways.txt", ruta);
+                            new utilidades().carga();
                             //guardar_Patron(patronF, list);
                         }
 
@@ -545,7 +555,7 @@ public class patrones {
         try {
             db.store(patrones);
         } catch (Exception e) {
-            System.out.println(language.text.get(93));
+            System.out.println(utilidades.idioma.get(93));
         } finally {
             db.close();
         }

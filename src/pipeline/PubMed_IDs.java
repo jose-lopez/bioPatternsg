@@ -11,7 +11,7 @@ import com.db4o.ObjectSet;
 import configuracion.PMIDS;
 import configuracion.combinacion;
 import configuracion.configuracion;
-import configuracion.language;
+import configuracion.utilidades;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -29,8 +29,10 @@ public class PubMed_IDs {
 
     //busca los PubMed IDs de cada combinacion encontrada en el archivo mineria/combinations.db
     public void buscar(int cantIDs, configuracion config, String ruta) {
-        limpiarPantalla();
-        System.out.print("\n"+language.text.get(82));
+        new utilidades().limpiarPantalla();
+        System.out.println(utilidades.colorTexto1+utilidades.titulo);
+        System.out.println(utilidades.colorTexto1+utilidades.proceso);
+        System.out.println("\n"+utilidades.colorTexto2+utilidades.idioma.get(82));
 
         ObjectContainer db = Db4o.openFile(ruta + "/combinations.db");
         combinacion com = new combinacion();
@@ -104,10 +106,11 @@ public class PubMed_IDs {
             }
         });
         probadas++;
-        limpiarPantalla();
-        System.out.println("");
-        System.out.print("\n"+language.text.get(82));
-        System.out.println(language.text.get(83)+" " + probadas + " / " + combinaciones);
+        new utilidades().limpiarPantalla();
+        System.out.println(utilidades.colorTexto1+utilidades.titulo);
+        System.out.println(utilidades.colorTexto1+utilidades.proceso);
+        System.out.println("\n"+utilidades.colorTexto2+utilidades.idioma.get(82));
+        System.out.println(utilidades.colorReset+utilidades.idioma.get(83)+" " + probadas + " / " + combinaciones);
     }
 
     //se guarda la lista de IDs en 'mineria/pubmedIDs.db'
@@ -121,7 +124,7 @@ public class PubMed_IDs {
             db.store(ids);
 
         } catch (Exception e) {
-            System.out.println(language.text.get(84));
+            System.out.println(utilidades.idioma.get(84));
         } finally {
             db.close();
         }
@@ -137,9 +140,6 @@ public class PubMed_IDs {
         }
     }
 
-    private void limpiarPantalla() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+   
 
 }

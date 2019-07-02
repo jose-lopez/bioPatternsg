@@ -17,7 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import configuracion.configuracion;
-import configuracion.language;
+import configuracion.utilidades;
 import configuracion.listPM;
 
 /**
@@ -163,7 +163,7 @@ public class lecturas_PM extends conexionServ {
             listasPM.add(laux);
         }
         
-        listasPM.forEach((lpm) -> {
+        listasPM.parallelStream().forEach((lpm) -> {
 
             String ruta_archivo = ruta + "/" + fileAbstID + "/" + fileAbstID + "_" + lpm.num + ".html";
             descarga(lpm.ID, IDS, cabecera, pie, ruta_archivo);
@@ -183,8 +183,10 @@ public class lecturas_PM extends conexionServ {
 
             cont1++;
             limpiarPantalla();
-            System.out.print("\n\n "+language.text.get(143));
-            System.out.println(language.text.get(144)+" " + cont1 + " / " + IDS);
+            System.out.println(utilidades.colorTexto1+utilidades.titulo);
+            System.out.println(utilidades.colorTexto1+utilidades.proceso);
+            System.out.println("\n"+utilidades.colorTexto2+utilidades.idioma.get(143));
+            System.out.println(utilidades.colorReset+utilidades.idioma.get(144)+" " + cont1 + " / " + IDS);
             String ruta = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=" + pm + "&retmode=xml&rettype=abstract";
 
             try {
@@ -192,7 +194,7 @@ public class lecturas_PM extends conexionServ {
                 ArrayList<String> lista = revisa_xml(doc, "AbstractText");
                 guardar_en_archivo(ruta_archivo, lista, pm);
             } catch (Exception e) {
-                
+                System.out.println("Error");
             }
 
         });
