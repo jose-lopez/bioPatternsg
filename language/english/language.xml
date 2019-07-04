@@ -149,12 +149,12 @@
         <m n="144">Downloading</m>
         <m n="145">Summing up abstracts</m>
         <m n="146">File not localized</m>
-        <m n="147">Busqueda de homologos</m>
-        <m n="148">Busqueda de objetos del experto</m>
-        <m n="149">Resumiendo</m>
-        <m n="150">cantidad de eventos: </m>
-        <m n="151">Total de eventos: </m>
-        <m n="152">Generando base de conocimiento</m>
-        <m n="153">Inferencia de patrones</m>
+        <m n="147">Search for homologous</m>
+        <m n="148">Search for expert objects</m>
+        <m n="149">Summarizing</m>
+        <m n="150">Cantidad de eventos: </m>
+        <m n="151">Total of events: </m>
+        <m n="152">Generating knowledge base</m>
+        <m n="153">Pathways Inference</m>
     </menu1>
 </root>

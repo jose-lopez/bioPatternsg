@@ -34,7 +34,7 @@ public class ontologiaObjMin {
     }
 
     public void guardarObjeto(ontologiaObjMin objeto, boolean GO, boolean mesh, String ruta) {
-        
+
         ObjectContainer db = Db4o.openFile(ruta + "/minedObjectsOntology.db");
         try {
 
@@ -114,7 +114,7 @@ public class ontologiaObjMin {
     }
 
     private void guardar_Ontologia(ontologiaGO ontologia, String ruta) {
-       
+
         ObjectContainer db = Db4o.openFile(ruta + "/ontologyGO.db");
         try {
             db.store(ontologia);
@@ -128,7 +128,7 @@ public class ontologiaObjMin {
     }
 
     private void guardar_Ontologia(ontologiaMESH ontologia, String ruta) {
-       
+
         ObjectContainer db = Db4o.openFile(ruta + "/ontologyMESH.db");
         try {
             db.store(ontologia);
@@ -320,23 +320,36 @@ public class ontologiaObjMin {
         new utilidades().carga();
         new escribirBC("objeto(\'" + obj.nombre.replace("\'", "") + "\').", ruta + "/ontologyMESH.pl");
 
-        for (String fm : obj.funcionMolecular) {
-            new escribirBC("go(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(fm, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
-            new escribirBC("fm(\'" + GO.buscar(fm, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
-        }
+        try {
+            for (String fm : obj.funcionMolecular) {
+                new escribirBC("leaf(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(fm, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
+                new escribirBC("fm(\'" + GO.buscar(fm, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
+            }
+        } catch (Exception e) {
 
-        for (String pb : obj.procesoBiologico) {
-            new escribirBC("go(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(pb, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
-            new escribirBC("bp(\'" + GO.buscar(pb, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
         }
+        try {
+            for (String pb : obj.procesoBiologico) {
+                new escribirBC("leaf(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(pb, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
+                new escribirBC("bp(\'" + GO.buscar(pb, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
+            }
+        } catch (Exception e) {
 
-        for (String cc : obj.componenteCelular) {
-            new escribirBC("go(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(cc, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
-            new escribirBC("cc(\'" + GO.buscar(cc, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
         }
+        try {
+            for (String cc : obj.componenteCelular) {
+                new escribirBC("leaf(\'" + obj.nombre.replace("\'", "") + "\',\'" + GO.buscar(cc, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
+                new escribirBC("cc(\'" + GO.buscar(cc, ruta).replace("\'", "") + "\').", ruta + "/ontologyGO.pl");
+            }
+        } catch (Exception e) {
 
-        for (String m : obj.Parent) {
-            MESH = mesh.buscarNombre(m, ruta).replace("\'", "");
+        }
+        try {
+            for (String m : obj.Parent) {
+                MESH = mesh.buscarNombre(m, ruta).replace("\'", "");
+            }
+        } catch (Exception e) {
+
         }
 
         if (!MESH.equals("")) {

@@ -21,39 +21,66 @@ import org.jpl7.Query;
  */
 public class objetos_patrones {
 
-    public void generar_archivo(configuracion config,String ruta) {
+    public void generar_archivo(configuracion config, String ruta) {
         String v = "style_check(-discontiguous).";
         Query q0 = new Query(v);
         q0.hasSolution();
-        
-        String MESH = "['"+ruta+"/ontologyMESH'].";
-        String objMin = "['"+ruta+"/minedObjects'].";
-        String wkr = "['"+ruta+"/wellKnownRules'].";
-        String bc = "['"+ruta+"/kBase'].";
-        
-        Query q1 = new Query(MESH);
-        q1.hasSolution();
-        Query q2 = new Query(objMin);
-        q2.hasSolution();
-        Query q3 = new Query(wkr);
-        q3.hasSolution();
-        Query q4 = new Query(bc);
-        q4.hasSolution();
-        
-        
-        String archivo = "[scripts/generatorPathwaysObjects].";
-        Query q = new Query(archivo);
-        q.hasSolution();
 
-        ArrayList<String> lista = listaObjetos();
-        //System.out.println(lista);
+        String MESH = "['" + ruta + "/ontologyMESH'].";
+        String objMin = "['" + ruta + "/minedObjects'].";
+        String wkr = "['" + ruta + "/wellKnownRules'].";
+        String bc = "['" + ruta + "/kBase'].";
 
-        clasificar_objetos(lista,ruta);
+        boolean error = false;
+        try {
+            Query q1 = new Query(MESH);
+            q1.hasSolution();
+        } catch (Exception e) {
+            System.out.println("Error al leer MESH");
+            error = true;
+        }
 
-        q.close();
+        try {
+            Query q2 = new Query(objMin);
+            q2.hasSolution();
+        } catch (Exception e) {
+            System.out.println("Error al lerr objetos minados");
+            error = true;
+        }
 
-        config.setObjetosPatrones(true);
-        config.guardar(ruta);
+        try {
+            Query q3 = new Query(wkr);
+            q3.hasSolution();
+        } catch (Exception e) {
+            System.out.println("Error al leer WKR");
+            error = true;
+        }
+
+        try {
+            Query q4 = new Query(bc);
+            q4.hasSolution();
+        } catch (Exception e) {
+            error = true;
+        }
+
+        if (!error) {
+            String archivo = "[scripts/generatorPathwaysObjects].";
+            Query q = new Query(archivo);
+            q.hasSolution();
+
+            ArrayList<String> lista = listaObjetos();
+            //System.out.println(lista);
+
+            clasificar_objetos(lista, ruta);
+
+            q.close();
+
+            config.setObjetosPatrones(true);
+            config.guardar(ruta);
+        }else{
+           
+           System.exit(0);
+        }
     }
 
     private ArrayList<String> listaObjetos() {
@@ -90,10 +117,10 @@ public class objetos_patrones {
         return lista;
     }
 
-    private void clasificar_objetos(ArrayList<String> lista,String ruta) {
-        
+    private void clasificar_objetos(ArrayList<String> lista, String ruta) {
+
         crear_archivo(ruta);
-        String ruta2 = ruta+"/pathwaysObjects.pl";
+        String ruta2 = ruta + "/pathwaysObjects.pl";
         new escribirBC("%//" + lista.toString(), ruta2);
         new utilidades().carga();
         for (String obj : lista) {
@@ -156,7 +183,7 @@ public class objetos_patrones {
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
-            fichero = new FileWriter(ruta+"/pathwaysObjects.pl");
+            fichero = new FileWriter(ruta + "/pathwaysObjects.pl");
         } catch (IOException ex) {
             Logger.getLogger(minado_FT.class.getName()).log(Level.SEVERE, null, ex);
         }

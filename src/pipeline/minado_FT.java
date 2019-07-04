@@ -24,6 +24,7 @@ package pipeline;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.sun.javafx.geom.Vec2d;
 import configuracion.configuracion;
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,6 +40,7 @@ import configuracion.*;
 import estructura.HGNC;
 import estructura.factorTranscripcion;
 import estructura.objetos_Experto;
+import estructura.ontologiaMESH;
 import estructura.ontologiaObjMin;
 import servicios.lecturas_HGNC;
 import servicios.lecturas_MESH;
@@ -72,12 +74,15 @@ public class minado_FT {
         objetosMineria.setIteracion(0);
         ArrayList<lecturas_TFBIND> lecturasTFB;
         utilidades.texto_etapa=utilidades.idioma.get(70);
+        utilidades.momento="";
+        utilidades.texto_carga="";
         // si la lista 'lecturas' esta vacia indica que aun no se a consultado a tfbinb y se procede a hacerlo
         if (lecturas.size() == 0) {
             // se envia la ruta del archivo con la region promotora
             // y el procentaje de confiabilidad para obtener las lecturas de tfbind
             lecturasTFB = lecturasTFBID(regProm, confiabilidad);
-            System.out.println("* " + lecturasTFB.size() + " "+utilidades.idioma.get(71));
+            utilidades.momento="* " + lecturasTFB.size() +" "+utilidades.idioma.get(71);
+            //System.out.println("* " + lecturasTFB.size() + " "+utilidades.idioma.get(71));
             //se guardan el lista de lecturas tfbind en caso de que se reinicie el proceso
             config.setTfbind(lecturasTFB);
             config.guardar(ruta);
@@ -87,7 +92,7 @@ public class minado_FT {
         }
 
         for (lecturas_TFBIND lectura : lecturasTFB) {
-            utilidades.momento=utilidades.idioma.get(142)+"" + lectura.getFactor();
+            utilidades.momento+="\n"+utilidades.idioma.get(142)+"" + lectura.getFactor();
             new utilidades().carga();
             //se busca toda la informacion correspondiente al factor de transcripcion
             factorTranscripcion FT = new factorTranscripcion(lectura, numeroObjetos, objetosMineria, GO, MESH,ruta);
@@ -118,13 +123,14 @@ public class minado_FT {
 
     public void Iteraciones(boolean Reanudar, ArrayList<String> Lista, int numeroObjetos, int Iteraciones, objetosMineria objetosMineria, configuracion config, int iter, boolean GO, boolean MESH,String ruta) {
         //Iteracion 2 en adelante
-
+        
         //la variable 'iter' indica la iteracion en la que esta el proceso altualmente si este es reanudado
         //La variable Iteraciones indica el numero total de iteraciones que tendra el proceso
+        utilidades.momento="";
+        utilidades.texto_carga="";
         for (int i = iter; i < Iteraciones; i++) {
-            
-            System.out.println("\n\n===="+utilidades.idioma.get(72) + " " + (i) + " ====\n");
-
+            utilidades.texto_etapa="\n\n===="+utilidades.idioma.get(72) + " " + (i) + " ====\n";
+            new utilidades().carga();
             //si Reanudar = true se toman los objetos que llegan por los parametros
             //Lista = en este llegan los objetos que faltan por minar en la iteracion
             //objetosMineria = tiene la informacion de los objetos minados y nuevos objetos que van hasta el momento
@@ -139,7 +145,7 @@ public class minado_FT {
                 // se busca toda la informacion correspondiente al objeto
                 // nombre, simbolo, sinonimos, complejos, nuevos objetos, ligandos
                
-                utilidades.momento=utilidades.idioma.get(142)+"" + objeto;
+                utilidades.momento+="\n"+utilidades.idioma.get(142)+"" + objeto;
                 new utilidades().carga();
                 factorTranscripcion FT = new factorTranscripcion(objeto, i, numeroObjetos, GO, MESH,ruta);
 
@@ -321,7 +327,7 @@ public class minado_FT {
 
         for (String homologo : homologos) {
             utilidades.texto_carga="";
-            utilidades.momento=utilidades.idioma.get(78)+" " + homologo;
+            utilidades.momento+="\n"+utilidades.idioma.get(78)+" " + homologo;
             //System.out.println(utilidades.idioma.get(78)+" " + homologo);
             objetos_Experto objExp = new objetos_Experto();// la clase objeto_Experto tiene los aributos necesarios para guardar la informacion de cada objeto
             objExp.setID(homologo);
@@ -366,7 +372,7 @@ public class minado_FT {
         
         for (String objeto : lista) {
             utilidades.texto_carga="";
-            utilidades.momento=utilidades.idioma.get(78)+" " + objeto;
+            utilidades.momento+="\n"+utilidades.idioma.get(78)+" " + objeto;
            // System.out.println(utilidades.idioma.get(78)+" " + objeto);
             objetos_Experto objExp = new objetos_Experto();// la clase objeto_Experto tiene los aributos necesarios para guardar la informacion de cada objeto
             objExp.setID(objeto);
@@ -515,7 +521,7 @@ public class minado_FT {
         config.guardar(ruta);
     }
 
-    
+        
 
 }
 
