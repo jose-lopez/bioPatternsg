@@ -370,8 +370,8 @@ public class configuracion {
         lecturas_PM lpm = new lecturas_PM();
         switch (punto) {
             case 1:
-                mfts.buscarHomologos(revisarObjH_E(rutaD+"/homologos", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
-                mfts.buscarObjetosExperto(listaObjetos_homologosExperto(rutaD+"/objetos_Experto.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.buscarHomologos(revisarObjH_E(rutaD+"/homologous", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.buscarObjetosExperto(listaObjetos_homologosExperto(rutaD+"/expert_objects.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.primeraIteracion(rutaD+"/"+RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ActivatableArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
                 new combinaciones().generar_combinaciones(false, this, ruta,nombreCorto);
@@ -388,8 +388,8 @@ public class configuracion {
                 new patrones().inferir_patrones(this, ruta);
                 break;
             case 2:
-                revisarObjH_E(rutaD+"/homologos", objetosMineria, ruta);
-                mfts.buscarObjetosExperto(revisarObjH_E(rutaD+"/objetos_Experto.txt", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
+                revisarObjH_E(rutaD+"/homologous", objetosMineria, ruta);
+                mfts.buscarObjetosExperto(revisarObjH_E(rutaD+"/expert_objects.txt", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.primeraIteracion(rutaD+"/"+RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
                 new combinaciones().generar_combinaciones(false, this, ruta, nombreCorto);
@@ -406,8 +406,8 @@ public class configuracion {
                 new patrones().inferir_patrones(this, ruta);
                 break;
             case 3:
-                revisarObjH_E(rutaD+"/homologos", objetosMineria, ruta);
-                revisarObjH_E(rutaD+"/objetos_Experto.txt", objetosMineria, ruta);
+                revisarObjH_E(rutaD+"/homologous", objetosMineria, ruta);
+                revisarObjH_E(rutaD+"/expert_objects.txt", objetosMineria, ruta);
                 ArrayList<lecturas_TFBIND> lecturas = actualizarListaTFBind(objetosMineria, ruta);
                 mfts.primeraIteracion(rutaD+"/"+RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, lecturas, crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);

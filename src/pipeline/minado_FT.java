@@ -56,10 +56,10 @@ public class minado_FT {
         new objetosMinados().crear_archivo(ruta);
 
         //buca informacion en los diferentes servicios sobre cada homologo en la lista de homologos
-        buscarHomologos(listaObjetos_homologosExperto(rutaD+"/homologos"), objetosMineria, config, GO, MESH,ruta);
+        buscarHomologos(listaObjetos_homologosExperto(rutaD+"/homologous"), objetosMineria, config, GO, MESH,ruta);
 
         //buca informacion en los diferentes servicios sobre cada objetos agregado por el experto
-        buscarObjetosExperto(listaObjetos_homologosExperto(rutaD+"/objetos_Experto.txt"), objetosMineria, config, GO, MESH,ruta);
+        buscarObjetosExperto(listaObjetos_homologosExperto(rutaD+"/expert_objects.txt"), objetosMineria, config, GO, MESH,ruta);
 
         //primera Iteracion partiendo de TFBind
         primeraIteracion(rutaD+"/"+regProm, confiabilidad, numeroObjetos, objetosMineria, config, new ArrayList<lecturas_TFBIND>(), GO, MESH,ruta);
