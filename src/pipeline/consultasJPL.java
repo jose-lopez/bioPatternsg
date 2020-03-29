@@ -8,7 +8,7 @@ package pipeline;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
-import com.sun.javafx.geom.Vec2d;
+//import com.sun.javafx.geom.Vec2d;
 import configuracion.utilidades;
 import estructura.HGNC;
 import estructura.factorTranscripcion;
@@ -223,8 +223,9 @@ public class consultasJPL {
     public void arbol_identidad(String Obj, int tabulador) {
         String consulta = "arbol_identidad(" + Obj + ",Y).";
         Query q2 = new Query(consulta);
-        for (int i = 0; i < q2.allSolutions().length; i++) {
-            String aux = q2.allSolutions()[i].toString();
+        Map<String, Term>[] solutions = q2.allSolutions();
+        for (int i = 0; i < solutions.length; i++) {
+            String aux = solutions[i].toString();
             aux = aux.replace("{", "").replace("}", "").replace("Y=", "");
             for (int j = 0; j < tabulador; j++) {
                 System.out.print(" ");
@@ -240,8 +241,9 @@ public class consultasJPL {
         ArrayList<String> sinonimos = new ArrayList<>();
 
         Query q2 = new Query(consulta);
-        for (int i = 0; i < q2.allSolutions().length; i++) {
-            String aux = q2.allSolutions()[i].toString();
+        Map<String, Term>[] solutions = q2.allSolutions();
+        for (int i = 0; i < solutions.length; i++) {
+            String aux = solutions[i].toString();
             aux = aux.replace("{", "").replace("}", "").replace("B=", "").replace("S=", "").replace(" ", "");
             String sep[] = aux.split(",");
 
@@ -403,8 +405,9 @@ public class consultasJPL {
                     Query q2 = new Query(consulta);
                     String resp = "";
                     if (!objin.equals(p.getObjetos().get(0))) {
-                        for (int i = 0; i < q2.allSolutions().length; i++) {
-                            String even = q2.allSolutions()[i].toString();
+                        Map<String, Term>[] solutions = q2.allSolutions();
+                        for (int i = 0; i < solutions.length; i++) {
+                            String even = solutions[i].toString();
                             even = even.replace("E", "").replace("=", "").replace("{", "").replace("}", "");
                             resp += objin + "," + even + "," + p.getObjetos().get(0) + "; ";
                         }
@@ -858,8 +861,9 @@ public class consultasJPL {
                     Query q2 = new Query(consulta);
                     System.out.println("Receptor: " + receptor);
                     ArrayList<String> lig = new ArrayList<>();
-                    for (int i = 0; i < q2.allSolutions().length; i++) {
-                        String result = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("L=", "");
+                    Map<String, Term>[] solutions = q2.allSolutions();
+                    for (int i = 0; i < solutions.length; i++) {
+                        String result = solutions[i].toString().replace("{", "").replace("}", "").replace("L=", "");
                         if (!lig.contains(result)) {
                             lig.add(result);
                             System.out.println("ligando: " + result);
@@ -967,8 +971,9 @@ public class consultasJPL {
                     ArrayList<String> eventos = new ArrayList<>();
                     ArrayList<String> receptor = new ArrayList<>();
                     //{R='EGFR', E=induce}
-                    for (int i = 0; i < q2.allSolutions().length; i++) {
-                        String sep1[] = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").split(",");
+                    Map<String, Term>[] solutions = q2.allSolutions();
+                    for (int i = 0; i < solutions.length; i++) {
+                        String sep1[] = solutions[i].toString().replace("{", "").replace("}", "").split(",");
                         String R = sep1[0].split("=")[1];
                         String E = sep1[1].split("=")[1];
 
@@ -1026,10 +1031,10 @@ public class consultasJPL {
 
                     Query q2 = new Query(consulta);
                     ArrayList<String> lista = new ArrayList<>();
-
-                    for (int i = 0; i < q2.allSolutions().length; i++) {
-                        //System.out.println(q2.allSolutions()[i]);
-                        String sep1[] = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").split(",");
+                    Map<String, Term>[] solutions = q2.allSolutions();
+                    for (int i = 0; i < solutions.length; i++) {
+                        //System.out.println(solutions[i]);
+                        String sep1[] = solutions[i].toString().replace("{", "").replace("}", "").split(",");
                         String cadena = "";
 
                         String A = null, L = null;

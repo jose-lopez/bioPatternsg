@@ -15,9 +15,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 import org.jpl7.Query;
 import org.jpl7.Term;
+
 
 /**
  *
@@ -30,8 +32,8 @@ public class patrones {
 
     public void inferir_patrones(configuracion config, String ruta) {
         new utilidades().limpiarPantalla();
-        utilidades.momento="";
-        utilidades.texto_carga="";
+        utilidades.momento = "";
+        utilidades.texto_carga = "";
         utilidades.texto_etapa = utilidades.idioma.get(153);
         System.out.println(utilidades.colorTexto1 + utilidades.titulo);
         System.out.println(utilidades.colorTexto1 + utilidades.proceso);
@@ -52,7 +54,6 @@ public class patrones {
         q0.hasSolution();
 
         String objPatr = "['" + ruta + "/pathwaysObjects'].";
-        //System.out.println(objPatr);
         Query q1 = new Query(objPatr);
         q1.hasSolution();
 
@@ -71,7 +72,7 @@ public class patrones {
             if (!objEnlace.contains(sep1[2])) {
                 objEnlace.add(sep1[2]);
             }
-            //  System.out.println("evento inicio:  " + obj);
+            //System.out.println("evento inicio:  " + obj);
         });
 
         ArrayList<String> listaFin = new ArrayList<>();
@@ -94,7 +95,7 @@ public class patrones {
                 objCierre.add(sep[2]);
             }
 
-            //System.out.println("evento fin:  " + fin);
+           // System.out.println("evento fin:  " + fin);
         });
         //patrones de 2 eventos
         patron_2_eventos(objCierre, listaInicio, objEnlace, ruta);
@@ -122,7 +123,7 @@ public class patrones {
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
                 String bc = "['" + ruta + "/kBase'].";
-                //System.out.println(bc);
+                System.out.println(bc);
                 Query q2 = new Query(bc);
                 q2.hasSolution();
 
@@ -133,8 +134,9 @@ public class patrones {
         }
     }
 
+    //Se ingresan los objetos que aparecen en los patrones
     private ArrayList<String> menuRestricionObjetos() {
-        
+
         ArrayList<String> objetos = new ArrayList<>();
         Scanner lectura = new Scanner(System.in);
         boolean r = false;
@@ -240,14 +242,20 @@ public class patrones {
         } else {
             consulta = "inicio(A,E,B).";
         }
-
+        
         Query q2 = new Query(consulta);
+        Map<String, Term>[] solutions = q2.allSolutions();
+        
+        for (int i = 0; i < solutions.length; i++) {
 
-        for (int i = 0; i < q2.allSolutions().length; i++) {
-            String even = separa_cadena(q2.allSolutions()[i].toString());
+            try {
+               // System.out.println(solutions[i].toString());
+                String even = separa_cadena(solutions[i].toString());
+                if (!lista.contains(even)) {
+                    lista.add(even);
+                }
+            } catch (Exception e) {
 
-            if (!lista.contains(even)) {
-                lista.add(even);
             }
 
         }
@@ -276,10 +284,10 @@ public class patrones {
         }
 
         Query q2 = new Query(consulta);
+        Map<String, Term>[] solutions = q2.allSolutions();
+        for (int i = 0; i < solutions.length; i++) {
 
-        for (int i = 0; i < q2.allSolutions().length; i++) {
-
-            String even = separa_cadena(q2.allSolutions()[i].toString());
+            String even = separa_cadena(solutions[i].toString());
 
             if (!Objf.equals("")) {
                 even = even + Objf;
@@ -311,10 +319,10 @@ public class patrones {
         //System.out.println(consulta);
         Query q2 = new Query(consulta);
         ArrayList<String> resp = new ArrayList<>();
-
-        for (int i = 0; i < q2.allSolutions().length; i++) {
+        Map<String, Term>[] solutions = q2.allSolutions();
+        for (int i = 0; i < solutions.length; i++) {
             //   System.out.println(q2.allSolutions()[i].toString());
-            resp.add(q2.allSolutions()[i].toString());
+            resp.add(solutions[i].toString());
         }
 
         for (String sol : resp) {
@@ -379,10 +387,12 @@ public class patrones {
                 String consulta = "eventoEspecial(" + E + ",E," + F + ").";
 
                 Query q2 = new Query(consulta);
-                for (int i = 0; i < q2.allSolutions().length; i++) {
-                    String evento = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
+                 Map<String, Term>[] solutions = q2.allSolutions();
+                for (int i = 0; i < solutions.length; i++) {
+                    String evento = solutions[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
                     String fin = E + "," + evento + "," + F;
-                    encadenarPatron2eventos(inicio, fin, E, finales, ruta);
+                    //System.out.println(fin);
+                    encadenarPatron2eventos(inicio, fin, E,F, finales, ruta);
                 }
 
             });
@@ -391,18 +401,18 @@ public class patrones {
 
     }
 
-    private void encadenarPatron2eventos(ArrayList<String> inicio, String fin, String enlace, ArrayList<String> finales, String ruta) {
+    private void encadenarPatron2eventos(ArrayList<String> inicio, String fin, String enlace,String objF, ArrayList<String> finales, String ruta) {
 
         ArrayList<String> patrones = new ArrayList<>();
         String sep[] = fin.split(",");
 //&& (clasificarevento(fin)).equals("regulate") || clasificarevento(fin).endsWith("inhibit")
 
-        if (clasificarevento(sep[1]).equals("regulate") || clasificarevento(sep[1]).equals("inhibit")) {
+        if (sep[1].equals("bind") || clasificarevento(sep[1]).equals("regulate") || clasificarevento(sep[1]).equals("inhibit")) {
             //System.out.println("---" + fin);
             inicio.forEach((i) -> {
                 String sep1[] = i.split(",");
 
-                if (enlace.equals(sep1[2])) {
+                if (enlace.equals(sep1[2]) && !objF.equals(sep1[0])) {
 
                     String patron = i + ";" + fin;
                     ArrayList<String> list = listarObetosPatron(patron);
@@ -424,8 +434,9 @@ public class patrones {
 
                     String consulta = "finalEspecial(" + sep1[0] + ",E," + f + ").";
                     Query q2 = new Query(consulta);
-                    for (int i = 0; i < q2.allSolutions().length; i++) {
-                        String evento = q2.allSolutions()[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
+                    Map<String, Term>[] solutions = q2.allSolutions();
+                    for (int i = 0; i < solutions.length; i++) {
+                        String evento = solutions[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
                         String Efin = sep1[0] + "," + evento + "," + f;
                         if (enlace.equals(sep1[2]) && sep[2].equals(f) && (clasificarevento(Efin).equals("regulate") || clasificarevento(Efin).equals("inhibit"))) {
 
@@ -592,7 +603,7 @@ public class patrones {
     }
 
     private String separa_cadena(String cadena) {
-
+        
         String even = "";
 
         cadena = cadena.replace("{", "").replace("}", "").replace(", ", ",");
