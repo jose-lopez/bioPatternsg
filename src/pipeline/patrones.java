@@ -20,7 +20,6 @@ import java.util.Scanner;
 import org.jpl7.Query;
 import org.jpl7.Term;
 
-
 /**
  *
  * @author yacson
@@ -43,7 +42,10 @@ public class patrones {
 
         ArrayList<String> objCierre = menuMotivos();
 
-        resumirBaseC(ruta);
+        try {
+            resumirBaseC(ruta);
+        } catch (Exception e) {
+        }
 
         // System.out.println(objRestricion);
         borrar_archivo(ruta + "/pathways.txt");
@@ -95,7 +97,7 @@ public class patrones {
                 objCierre.add(sep[2]);
             }
 
-           // System.out.println("evento fin:  " + fin);
+            // System.out.println("evento fin:  " + fin);
         });
         //patrones de 2 eventos
         patron_2_eventos(objCierre, listaInicio, objEnlace, ruta);
@@ -242,14 +244,14 @@ public class patrones {
         } else {
             consulta = "inicio(A,E,B).";
         }
-        
+
         Query q2 = new Query(consulta);
         Map<String, Term>[] solutions = q2.allSolutions();
-        
+
         for (int i = 0; i < solutions.length; i++) {
 
             try {
-               // System.out.println(solutions[i].toString());
+                // System.out.println(solutions[i].toString());
                 String even = separa_cadena(solutions[i].toString());
                 if (!lista.contains(even)) {
                     lista.add(even);
@@ -387,12 +389,12 @@ public class patrones {
                 String consulta = "eventoEspecial(" + E + ",E," + F + ").";
 
                 Query q2 = new Query(consulta);
-                 Map<String, Term>[] solutions = q2.allSolutions();
+                Map<String, Term>[] solutions = q2.allSolutions();
                 for (int i = 0; i < solutions.length; i++) {
                     String evento = solutions[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
                     String fin = E + "," + evento + "," + F;
                     //System.out.println(fin);
-                    encadenarPatron2eventos(inicio, fin, E,F, finales, ruta);
+                    encadenarPatron2eventos(inicio, fin, E, F, finales, ruta);
                 }
 
             });
@@ -401,7 +403,7 @@ public class patrones {
 
     }
 
-    private void encadenarPatron2eventos(ArrayList<String> inicio, String fin, String enlace,String objF, ArrayList<String> finales, String ruta) {
+    private void encadenarPatron2eventos(ArrayList<String> inicio, String fin, String enlace, String objF, ArrayList<String> finales, String ruta) {
 
         ArrayList<String> patrones = new ArrayList<>();
         String sep[] = fin.split(",");
@@ -603,7 +605,7 @@ public class patrones {
     }
 
     private String separa_cadena(String cadena) {
-        
+
         String even = "";
 
         cadena = cadena.replace("{", "").replace("}", "").replace(", ", ",");

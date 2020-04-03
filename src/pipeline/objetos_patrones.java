@@ -11,9 +11,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jpl7.Query;
+import org.jpl7.Term;
 
 /**
  *
@@ -89,9 +91,9 @@ public class objetos_patrones {
         String consulta = "listar_eventos(A,B).";
 
         Query q2 = new Query(consulta);
-
-        for (int i = 0; i < q2.allSolutions().length; i++) {
-            String separa[] = q2.allSolutions()[i].toString().split(",");
+        Map<String, Term>[] solutions = q2.allSolutions();
+        for (int i = 0; i < solutions.length; i++) {
+            String separa[] = solutions[i].toString().split(",");
 
             String separa1[] = separa[0].split("=");
 

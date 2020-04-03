@@ -74,7 +74,7 @@ public class configuracion {
     }
 
     //guarda la configuracion inicial del proceso
-    public void guardarConfiguracion(String regionProm, int numIter, int cantCompl, float conf, boolean GO, boolean MESH,boolean nombreCorto, int cantPMID, String PMidExp, String ruta) {
+    public void guardarConfiguracion(String regionProm, int numIter, int cantCompl, float conf, boolean GO, boolean MESH, boolean nombreCorto, int cantPMID, String PMidExp, String ruta) {
         this.RegionPromotora = regionProm;
         this.cantComplejos = cantCompl;
         this.numIteraciones = numIter;
@@ -83,8 +83,8 @@ public class configuracion {
         this.crearOntologiaMESH = MESH;
         this.cantidadPMID = cantPMID;
         this.rutaPMID_experto = PMidExp;
-        this.nombreCorto=nombreCorto;
-        
+        this.nombreCorto = nombreCorto;
+
         ObjectContainer db = Db4o.openFile(ruta + "/config.db");
         try {
             db.store(this);
@@ -184,18 +184,18 @@ public class configuracion {
     //muestra la configuracion inicial del proceso
     public void verConfiguracion(String ruta) {
         //System.out.println("\n**Configuracion de minado**");
-        System.out.println("\n"+utilidades.idioma.get(18)+" "+ this.RegionPromotora);
-        System.out.println(utilidades.idioma.get(19)+" "+ this.cantComplejos);
-        System.out.println(utilidades.idioma.get(20)+" "+ this.numIteraciones);
-        System.out.println(utilidades.idioma.get(21)+" "+ (int) (this.confiabilidad_tfbind * 100));
-        System.out.println(utilidades.idioma.get(22)+" "+ this.cantidadPMID);
+        System.out.println("\n" + utilidades.idioma.get(18) + " " + this.RegionPromotora);
+        System.out.println(utilidades.idioma.get(19) + " " + this.cantComplejos);
+        System.out.println(utilidades.idioma.get(20) + " " + this.numIteraciones);
+        System.out.println(utilidades.idioma.get(21) + " " + (int) (this.confiabilidad_tfbind * 100));
+        System.out.println(utilidades.idioma.get(22) + " " + this.cantidadPMID);
 
         estadoactual(ruta);
     }
 
     //muestra el estado actual del proceso .. dependiendo del los checklist que esten activos
     private void estadoactual(String ruta) {
-        System.out.print("\n"+utilidades.idioma.get(23));
+        System.out.print("\n" + utilidades.idioma.get(23));
         if (!homologos) {
             System.out.println(utilidades.idioma.get(24));
         } else if (!objetosExperto) {
@@ -205,7 +205,7 @@ public class configuracion {
         } else if (!procesoIteraciones) {
             objetosMineria objMin = new objetosMineria();
             objMin = recuperarObjetosMin(ruta);
-            System.out.println(utilidades.idioma.get(27)+" " + (objMin.getIteracion() + 1));
+            System.out.println(utilidades.idioma.get(27) + " " + (objMin.getIteracion() + 1));
         } else if (!combinaciones) {
             System.out.println(utilidades.idioma.get(28));
         } else if (!pubmedids) {
@@ -215,7 +215,7 @@ public class configuracion {
         } else if (!vaciado_pl) {
             System.out.println(utilidades.idioma.get(31));
         } else if (!generarResumenes) {
-            System.out.println(utilidades.idioma.get(32)+" " + resumenes);
+            System.out.println(utilidades.idioma.get(32) + " " + resumenes);
         } else if (!GenerarBC) {
             System.out.println(utilidades.idioma.get(33));
         } else if (!objetosPatrones) {
@@ -226,9 +226,9 @@ public class configuracion {
     }
 
     //dependiendo de los checklist que esten activos el proceso se reanudara desde un punto espesifico
-    public void reanudar_proceso(String ruta,String ruta2) {
+    public void reanudar_proceso(String ruta, String ruta2) {
         new utilidades().limpiarPantalla();
-        System.out.println(utilidades.colorTexto1+utilidades.titulo);
+        System.out.println(utilidades.colorTexto1 + utilidades.titulo);
         System.out.println(utilidades.colorReset);
         System.out.print(utilidades.idioma.get(139));
         recuperarConfiguracion(ruta);
@@ -236,44 +236,44 @@ public class configuracion {
         objetosMineria objMin = new objetosMineria();
         objMin = recuperarObjetosMin(ruta);
         //System.out.println(objMin.getNuevos_objetos().size());
-       
+
         if (!homologos) {
             //System.out.println("\nReanudar desde busqueda de homologos ...");
-            reanudar(1, objMin, ruta,ruta2);
+            reanudar(1, objMin, ruta, ruta2);
         } else if (!objetosExperto) {
             //System.out.println("\nReanudar desde busqueda de objetos Experto ...");
-            reanudar(2, objMin, ruta,ruta2);
+            reanudar(2, objMin, ruta, ruta2);
         } else if (!lecturas_tfbind) {
             //System.out.println("\nReanudando Iteracion: " + objMin.getIteracion());
-            reanudar(3, objMin, ruta,ruta2);
+            reanudar(3, objMin, ruta, ruta2);
         } else if (!procesoIteraciones) {
-            reanudar(4, objMin, ruta,ruta2);
+            reanudar(4, objMin, ruta, ruta2);
         } else if (!combinaciones) {
-            reanudar(5, objMin, ruta,ruta2);
+            reanudar(5, objMin, ruta, ruta2);
         } else if (!pubmedids) {
-            reanudar(6, objMin, ruta,ruta2);
+            reanudar(6, objMin, ruta, ruta2);
         } else if (!abstracts) {
-            reanudar(7, objMin, ruta,ruta2);
+            reanudar(7, objMin, ruta, ruta2);
         } else if (!vaciado_pl) {
-            reanudar(8, objMin, ruta,ruta2);
+            reanudar(8, objMin, ruta, ruta2);
         } else if (!generarResumenes) {
-            reanudar(9, objMin, ruta,ruta2);
+            reanudar(9, objMin, ruta, ruta2);
         } else if (!GenerarBC) {
-            reanudar(10, objMin, ruta,ruta2);
+            reanudar(10, objMin, ruta, ruta2);
         } else if (!objetosPatrones) {
-            reanudar(11, objMin, ruta,ruta2);
+            reanudar(11, objMin, ruta, ruta2);
         } else if (!InferirPatrones) {
-            reanudar(12, objMin, ruta,ruta2);
+            reanudar(12, objMin, ruta, ruta2);
         }
         //proceso terminado
-        menuFinal(ruta,ruta2);
+        menuFinal(ruta, ruta2);
 
     }
 
-    private void menuFinal(String ruta,String rutaD) {
-        utilidades.texto_carga="";
-        utilidades.texto_etapa="";
-        utilidades.momento="";
+    private void menuFinal(String ruta, String rutaD) {
+        utilidades.texto_carga = "";
+        utilidades.texto_etapa = "";
+        utilidades.momento = "";
 
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
@@ -283,35 +283,36 @@ public class configuracion {
         while (r) {
             System.out.println();
             new utilidades().limpiarPantalla();
-            System.out.println(utilidades.colorTexto1+utilidades.titulo);
-            System.out.println(utilidades.colorTexto1+utilidades.proceso);
+            System.out.println(utilidades.colorTexto1 + utilidades.titulo);
+            System.out.println(utilidades.colorTexto1 + utilidades.proceso);
             System.out.println();
             ArrayList<pathway> patrones = RRG.cargarPatrones(ruta);
             //System.out.print(utilidades.colorTexto2);
-            System.out.println(utilidades.colorTexto2+utilidades.idioma.get(36)+"\n");
-            
-            System.out.println(utilidades.idioma.get(37)+"               " + this.RegionPromotora);
-            System.out.println(utilidades.idioma.get(38)+"          " + this.cantComplejos);
-            System.out.println(utilidades.idioma.get(39)+"              " + this.numIteraciones);
-            System.out.println(utilidades.idioma.get(40)+"           " + (int) (this.confiabilidad_tfbind * 100));
-            System.out.println(utilidades.idioma.get(41)+"  " + this.cantidadPMID);
+            System.out.println(utilidades.colorTexto2 + utilidades.idioma.get(36) + "\n");
+
+            System.out.println(utilidades.idioma.get(37) + "               " + this.RegionPromotora);
+            System.out.println(utilidades.idioma.get(38) + "          " + this.cantComplejos);
+            System.out.println(utilidades.idioma.get(39) + "              " + this.numIteraciones);
+            System.out.println(utilidades.idioma.get(40) + "           " + (int) (this.confiabilidad_tfbind * 100));
+            System.out.println(utilidades.idioma.get(41) + "  " + this.cantidadPMID);
             if (!rutaPMID_experto.equals("")) {
-                System.out.println(utilidades.idioma.get(42)+" " + rutaPMID_experto);
+                System.out.println(utilidades.idioma.get(42) + " " + rutaPMID_experto);
             }
             //System.out.print(utilidades.colorTexto2);
-            System.out.println("\n"+utilidades.colorTexto2+utilidades.idioma.get(43)+"\n");
-            
-            System.out.println(utilidades.idioma.get(44)+"            " + minados);
-            System.out.println(utilidades.idioma.get(45)+"   " + num_combinaciones(ruta));
-            System.out.println(utilidades.idioma.get(46)+"      " + num_pubmedIds(ruta));
-            System.out.println(utilidades.idioma.get(47)+"        " + num_eventos(ruta));
-            System.out.println(utilidades.idioma.get(48)+"       " + patrones.size() + "\n");
+            System.out.println("\n" + utilidades.colorTexto2 + utilidades.idioma.get(43) + "\n");
+
+            System.out.println(utilidades.idioma.get(44) + "            " + minados);
+            System.out.println(utilidades.idioma.get(45) + "   " + num_combinaciones(ruta));
+            System.out.println(utilidades.idioma.get(46) + "      " + num_pubmedIds(ruta));
+            System.out.println(utilidades.idioma.get(47) + "        " + num_eventos(ruta));
+            System.out.println(utilidades.idioma.get(48) + "       " + patrones.size() + "\n");
 
             System.out.println(utilidades.colorReset);
             System.out.println(utilidades.idioma.get(0));
             System.out.println(utilidades.idioma.get(49));
             System.out.println(utilidades.idioma.get(50));
             System.out.println(utilidades.idioma.get(51));
+            System.out.println(utilidades.idioma.get(154));
             System.out.println(utilidades.idioma.get(4));
 
             String resp = lectura.nextLine();
@@ -323,7 +324,7 @@ public class configuracion {
                     while (true) {
                         System.out.print(utilidades.idioma.get(52));
                         String resp2 = lectura.nextLine();
-                        if (resp2.equalsIgnoreCase("s")||resp2.equalsIgnoreCase("y")) {
+                        if (resp2.equalsIgnoreCase("s") || resp2.equalsIgnoreCase("y")) {
                             System.out.print("\033[H\033[2J");
                             System.out.flush();
                             minado_FT mft = new minado_FT();
@@ -332,7 +333,7 @@ public class configuracion {
                             confGeneral confG = new confGeneral();
                             {
                                 try {
-                                    confG.pipeline(ruta,rutaD);
+                                    confG.pipeline(ruta, rutaD);
                                 } catch (Exception e) {
 
                                 }
@@ -354,6 +355,11 @@ public class configuracion {
                 case "3":
                     new patrones().inferir_patrones(this, ruta);
                     break;
+
+                case "4":
+
+                    reanudarDesde(ruta, rutaD);
+                    break;
                 case "0":
                     r = false;
                     break;
@@ -363,6 +369,105 @@ public class configuracion {
         }
     }
 
+    private void reanudarDesde(String ruta, String rutaD) {
+        Scanner lectura = new Scanner(System.in);
+        boolean r = true;
+
+        while (r) {
+            System.out.println(utilidades.idioma.get(0));
+            System.out.println("1.- " + utilidades.idioma.get(28));
+            System.out.println("2.- " + utilidades.idioma.get(29));
+            System.out.println("3.- " + utilidades.idioma.get(30));
+            System.out.println("4.- " + utilidades.idioma.get(31));
+            System.out.println("5.- " + utilidades.idioma.get(32));
+            System.out.println("6.- " + utilidades.idioma.get(33));
+            System.out.println("7.- " + utilidades.idioma.get(34));
+            System.out.println("0.- " + utilidades.idioma.get(4));
+
+            String resp = lectura.nextLine();
+
+            switch (resp) {
+
+                case "1":
+                    combinaciones = false;
+                    pubmedids = false;
+                    abstracts = false;
+                    vaciado_pl = false;
+                    generarResumenes = false;
+                    GenerarBC = false;
+                    objetosPatrones = false;
+                    InferirPatrones = false;
+                    guardar(ruta);
+                    reanudar(5, new objetosMineria(), ruta, rutaD);
+                    break;
+
+                case "2":
+                    pubmedids = false;
+                    abstracts = false;
+                    vaciado_pl = false;
+                    generarResumenes = false;
+                    GenerarBC = false;
+                    objetosPatrones = false;
+                    InferirPatrones = false;
+                    guardar(ruta);
+                    reanudar(6, new objetosMineria(), ruta, rutaD);
+                    break;
+
+                case "3":
+                    abstracts = false;
+                    vaciado_pl = false;
+                    generarResumenes = false;
+                    GenerarBC = false;
+                    objetosPatrones = false;
+                    InferirPatrones = false;
+                    guardar(ruta);
+                    reanudar(7, new objetosMineria(), ruta, rutaD);
+                    break;
+
+                case "4":
+                    vaciado_pl = false;
+                    generarResumenes = false;
+                    GenerarBC = false;
+                    objetosPatrones = false;
+                    InferirPatrones = false;
+                    guardar(ruta);
+                    reanudar(8, new objetosMineria(), ruta, rutaD);
+                    break;
+
+                case "5":
+                    generarResumenes = false;
+                    GenerarBC = false;
+                    objetosPatrones = false;
+                    InferirPatrones = false;
+                    guardar(ruta);
+                    reanudar(9, new objetosMineria(), ruta, rutaD);
+                    break;
+
+                case "6":
+                    GenerarBC = false;
+                    objetosPatrones = false;
+                    InferirPatrones = false;
+                    guardar(ruta);
+                    reanudar(10, new objetosMineria(), ruta, rutaD);
+                    break;
+
+                case "7":
+                    objetosPatrones = false;
+                    InferirPatrones = false;
+                    guardar(ruta);
+                    reanudar(11, new objetosMineria(), ruta, rutaD);
+                    break;
+
+                case "0":
+                    r = false;
+                    break;
+
+            }
+
+        }
+
+    }
+
     //dependiendo del punto de reanudacion del proceso se ejecutaran el juego instrucciones necesarias 
     //para que el proceso termine
     private void reanudar(int punto, objetosMineria objetosMineria, String ruta, String rutaD) {
@@ -370,11 +475,11 @@ public class configuracion {
         lecturas_PM lpm = new lecturas_PM();
         switch (punto) {
             case 1:
-                mfts.buscarHomologos(revisarObjH_E(rutaD+"/homologous", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
-                mfts.buscarObjetosExperto(listaObjetos_homologosExperto(rutaD+"/expert_objects.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
-                mfts.primeraIteracion(rutaD+"/"+RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ActivatableArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.buscarHomologos(revisarObjH_E(rutaD + "/homologous", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.buscarObjetosExperto(listaObjetos_homologosExperto(rutaD + "/expert_objects.txt"), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.primeraIteracion(rutaD + "/" + RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ActivatableArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
-                new combinaciones().generar_combinaciones(false, this, ruta,nombreCorto);
+                new combinaciones().generar_combinaciones(false, this, ruta, nombreCorto);
                 new PubMed_IDs().buscar(cantidadPMID, this, ruta);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
@@ -388,9 +493,9 @@ public class configuracion {
                 new patrones().inferir_patrones(this, ruta);
                 break;
             case 2:
-                revisarObjH_E(rutaD+"/homologous", objetosMineria, ruta);
-                mfts.buscarObjetosExperto(revisarObjH_E(rutaD+"/expert_objects.txt", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
-                mfts.primeraIteracion(rutaD+"/"+RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
+                revisarObjH_E(rutaD + "/homologous", objetosMineria, ruta);
+                mfts.buscarObjetosExperto(revisarObjH_E(rutaD + "/expert_objects.txt", objetosMineria, ruta), objetosMineria, this, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.primeraIteracion(rutaD + "/" + RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, new ArrayList<lecturas_TFBIND>(), crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
                 new combinaciones().generar_combinaciones(false, this, ruta, nombreCorto);
                 new PubMed_IDs().buscar(cantidadPMID, this, ruta);
@@ -406,12 +511,12 @@ public class configuracion {
                 new patrones().inferir_patrones(this, ruta);
                 break;
             case 3:
-                revisarObjH_E(rutaD+"/homologous", objetosMineria, ruta);
-                revisarObjH_E(rutaD+"/expert_objects.txt", objetosMineria, ruta);
+                revisarObjH_E(rutaD + "/homologous", objetosMineria, ruta);
+                revisarObjH_E(rutaD + "/expert_objects.txt", objetosMineria, ruta);
                 ArrayList<lecturas_TFBIND> lecturas = actualizarListaTFBind(objetosMineria, ruta);
-                mfts.primeraIteracion(rutaD+"/"+RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, lecturas, crearOntologiaGO, crearOntologiaMESH, ruta);
+                mfts.primeraIteracion(rutaD + "/" + RegionPromotora, confiabilidad_tfbind, cantComplejos, objetosMineria, this, lecturas, crearOntologiaGO, crearOntologiaMESH, ruta);
                 mfts.Iteraciones(false, new ArrayList<String>(), cantComplejos, numIteraciones, objetosMineria, this, 1, crearOntologiaGO, crearOntologiaMESH, ruta);
-                new combinaciones().generar_combinaciones(false, this, ruta,nombreCorto);
+                new combinaciones().generar_combinaciones(false, this, ruta, nombreCorto);
                 new PubMed_IDs().buscar(cantidadPMID, this, ruta);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
@@ -427,7 +532,7 @@ public class configuracion {
             case 4:
                 ArrayList<String> ListaObj = reanudarIteracion(objetosMineria, ruta);
                 mfts.Iteraciones(true, ListaObj, cantComplejos, numIteraciones, objetosMineria, this, objetosMineria.getIteracion() + 1, crearOntologiaGO, crearOntologiaMESH, ruta);
-                new combinaciones().generar_combinaciones(false, this, ruta,nombreCorto);
+                new combinaciones().generar_combinaciones(false, this, ruta, nombreCorto);
                 new PubMed_IDs().buscar(cantidadPMID, this, ruta);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
@@ -442,7 +547,7 @@ public class configuracion {
                 break;
 
             case 5:
-                new combinaciones().generar_combinaciones(false, this, ruta,nombreCorto);
+                new combinaciones().generar_combinaciones(false, this, ruta, nombreCorto);
                 new PubMed_IDs().buscar(cantidadPMID, this, ruta);
                 lpm.BusquedaPM_Abstracts("abstracts", 500, this, ruta);
                 mfts.vaciar_bc_pl(crearOntologiaGO, crearOntologiaMESH, this, ruta);
@@ -521,7 +626,7 @@ public class configuracion {
     }
 
     /*busca de todos las lecturas tfbind cuales ya fueron procesadas 
-    solo aquellas que no, se agregan a una lista y se continuara el proceso con estas 
+     solo aquellas que no, se agregan a una lista y se continuara el proceso con estas 
      */
     private ArrayList<lecturas_TFBIND> actualizarListaTFBind(objetosMineria objetosMineria, String ruta) {
         ArrayList<lecturas_TFBIND> lista = new ArrayList<>();
@@ -590,7 +695,7 @@ public class configuracion {
     }
 
     /*se consulta un objeto espesifico provenientes del proceso de iteracion 
-    si este se ecuentra retorna true de lo contrario retorna false
+     si este se ecuentra retorna true de lo contrario retorna false
      */
     private boolean buscarObjeto(String objeto, factorTranscripcion FT, String ruta) {
         ObjectContainer db = Db4o.openFile(ruta + "/TF.db");
@@ -616,8 +721,8 @@ public class configuracion {
     }
 
     /*Este metodo revida la base de datos de objetos del experto y homologos a los que 
-    ya se hizo el proceso de busqueda y se compara con los archivos de homologos y objetos del experto
-    el proceso continuara para los objetos que se procesaron aun*/
+     ya se hizo el proceso de busqueda y se compara con los archivos de homologos y objetos del experto
+     el proceso continuara para los objetos que se procesaron aun*/
     private ArrayList<String> revisarObjH_E(String archivo, objetosMineria objetosMineria, String ruta) {
         ObjectContainer db = Db4o.openFile(ruta + "/homologousObjects.db");
         objetos_Experto Obj = new objetos_Experto();
@@ -666,7 +771,7 @@ public class configuracion {
 
     private objetosMineria recuperarObjetosMin(String ruta) {
         objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile(ruta+"/mineryObjects.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/mineryObjects.db");
 
         try {
             ObjectSet result = db.queryByExample(obj);
@@ -765,7 +870,7 @@ public class configuracion {
 
     public boolean reiniciar(String ruta) {
         new utilidades().limpiarPantalla();
-        System.out.println(utilidades.colorTexto1+utilidades.titulo);
+        System.out.println(utilidades.colorTexto1 + utilidades.titulo);
         System.out.println(utilidades.colorReset);
         boolean reiniciar;
         Scanner lectura = new Scanner(System.in);
@@ -801,7 +906,7 @@ public class configuracion {
         while (true) {
             System.out.print(utilidades.idioma.get(64));
             String resp = lectura.nextLine();
-            if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
+            if (resp.equalsIgnoreCase("s") || resp.equalsIgnoreCase("y")) {
                 GO = true;
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
@@ -810,12 +915,11 @@ public class configuracion {
             } else {
                 System.out.println(utilidades.idioma.get(53));
             }
-
         }
         return GO;
     }
-    
-     public boolean nombresCortos() {
+
+    public boolean nombresCortos() {
         boolean nombreCorto = false;
         Scanner lectura = new Scanner(System.in);
         while (true) {
@@ -830,7 +934,6 @@ public class configuracion {
             } else {
                 System.out.println(utilidades.idioma.get(53));
             }
-
         }
         return nombreCorto;
     }
@@ -841,7 +944,7 @@ public class configuracion {
         while (true) {
             System.out.print(utilidades.idioma.get(66));
             String resp = lectura.nextLine();
-            if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
+            if (resp.equalsIgnoreCase("s") || resp.equalsIgnoreCase("y")) {
                 MESH = true;
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
@@ -862,7 +965,7 @@ public class configuracion {
         while (true) {
             System.out.print(utilidades.idioma.get(67));
             String resp = lectura.nextLine();
-            if (resp.equalsIgnoreCase("s")||resp.equalsIgnoreCase("y")) {
+            if (resp.equalsIgnoreCase("s") || resp.equalsIgnoreCase("y")) {
                 r = true;
                 break;
             } else if (resp.equalsIgnoreCase("n")) {
@@ -884,14 +987,13 @@ public class configuracion {
                 }
             }
         }
-
         return ruta;
     }
 
     public ArrayList<String> listar_objetos_minados(String ruta) {
 
         objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile(ruta+"/mineryObjects.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/mineryObjects.db");
 
         try {
             ObjectSet result = db.queryByExample(obj);
@@ -912,7 +1014,7 @@ public class configuracion {
     public ArrayList<String> listar_nuevos_objetos(String ruta) {
 
         objetosMineria obj = new objetosMineria();
-        ObjectContainer db = Db4o.openFile(ruta+"/mineryObjects.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/mineryObjects.db");
 
         try {
             ObjectSet result = db.queryByExample(obj);
@@ -933,7 +1035,7 @@ public class configuracion {
     public ArrayList<String> listar_ligandos(String ruta) {
         ArrayList<String> listaLigandos = new ArrayList<>();
         factorTranscripcion obj = new factorTranscripcion();
-        ObjectContainer db = Db4o.openFile(ruta+"/TF.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/TF.db");
         try {
             ObjectSet result = db.queryByExample(obj);
             while (result.hasNext()) {
@@ -956,7 +1058,7 @@ public class configuracion {
 
     private int num_combinaciones(String ruta) {
         int num = 0;
-        ObjectContainer db = Db4o.openFile(ruta+"/combinations.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/combinations.db");
         combinacion com = new combinacion();
         ObjectSet result = db.queryByExample(com);
         combinacion combinacion = (combinacion) result.get(0);
@@ -969,7 +1071,7 @@ public class configuracion {
 
     private int num_pubmedIds(String ruta) {
         int num = 0;
-        ObjectContainer db = Db4o.openFile(ruta+"/pubmedIDs.db");
+        ObjectContainer db = Db4o.openFile(ruta + "/pubmedIDs.db");
         PMIDS ids = new PMIDS();
         ObjectSet result = db.queryByExample(ids);
         PMIDS pmids = (PMIDS) result.get(0);
@@ -987,7 +1089,7 @@ public class configuracion {
         BufferedReader br = null;
 
         try {
-            archivo = new File(ruta+"/kBase.pl");
+            archivo = new File(ruta + "/kBase.pl");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             String linea;
