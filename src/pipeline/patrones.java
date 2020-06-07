@@ -705,6 +705,7 @@ public class patrones {
         String sinonimo = rel;
 
         ArrayList<String> eventosUP = new ArrayList<>();
+        
         eventosUP.add("activate");
         eventosUP.add("increase");
         eventosUP.add("regulate");
@@ -720,7 +721,28 @@ public class patrones {
         eventosUP.add("promote");
         eventosUP.add("synthesize");
         eventosUP.add("stimulate");
-
+        eventosUP.add("target");
+        eventosUP.add("express");
+        eventosUP.add("provoke");
+        eventosUP.add("modulate");
+        eventosUP.add("mediate");
+        eventosUP.add("act");
+        eventosUP.add("respond");
+        eventosUP.add("infect");
+        eventosUP.add("detect");
+        eventosUP.add("raise");
+        eventosUP.add("develop");
+        eventosUP.add("incubate");
+        eventosUP.add("convert");
+        eventosUP.add("change");
+        eventosUP.add("fit");
+        eventosUP.add("support");
+        eventosUP.add("betamediate");
+        eventosUP.add("control");
+        eventosUP.add("emerge");
+        eventosUP.add("stabilise");
+        eventosUP.add("stabilize");
+  
         ArrayList<String> eventosDOWN = new ArrayList<>();
         eventosDOWN.add("inhibit");
         eventosDOWN.add("down-regulate");
@@ -729,8 +751,17 @@ public class patrones {
         eventosDOWN.add("suppress");
         eventosDOWN.add("retain");
         eventosDOWN.add("decrease");
-        eventosDOWN.add("inactivate");
-
+        eventosDOWN.add("prevent");
+        eventosDOWN.add("limit");
+        eventosDOWN.add("remove");
+        eventosDOWN.add("affect");
+        eventosDOWN.add("antagonize");
+        eventosDOWN.add("agonize");
+        eventosDOWN.add("fall");
+        eventosDOWN.add("destabilise");
+        eventosDOWN.add("destabilize");
+        eventosDOWN.add("reduce");
+        
         ArrayList<String> eventosMiddle = new ArrayList<>();
         eventosMiddle.add("require");
         eventosMiddle.add("interact");
@@ -738,8 +769,18 @@ public class patrones {
         eventosMiddle.add("phosphorylate");
         eventosMiddle.add("recruit");
         eventosMiddle.add("recognize");
-        eventosMiddle.add("participate");
-
+        eventosMiddle.add("involve");
+        eventosMiddle.add("trimerize");
+        eventosMiddle.add("heterodimerize");
+        eventosMiddle.add("dimerize");
+        eventosMiddle.add("relate");
+        eventosMiddle.add("release");
+        eventosMiddle.add("collect");
+        eventosMiddle.add("combine");
+        eventosMiddle.add("envelop");
+        eventosMiddle.add("bring");
+        
+        
         if (eventosUP.contains(sinonimo)) {
             sinonimo = "regulate";
         } else if (eventosDOWN.contains(sinonimo)) {
