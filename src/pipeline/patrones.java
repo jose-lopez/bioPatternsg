@@ -409,7 +409,7 @@ public class patrones {
         String sep[] = fin.split(",");
 //&& (clasificarevento(fin)).equals("regulate") || clasificarevento(fin).endsWith("inhibit")
 
-        if (sep[1].equals("bind") || clasificarevento(sep[1]).equals("regulate") || clasificarevento(sep[1]).equals("inhibit")) {
+        if (sep[1].equals("interact") || sep[1].equals("bind") || clasificarevento(sep[1]).equals("regulate") || clasificarevento(sep[1]).equals("inhibit")) {
             //System.out.println("---" + fin);
             inicio.forEach((i) -> {
                 String sep1[] = i.split(",");
