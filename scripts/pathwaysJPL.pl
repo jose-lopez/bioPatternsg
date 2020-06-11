@@ -11,7 +11,7 @@ intermedios(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),protein(B),buscar_en
 %evento que crea un patron de 2 enventos .. evento inicio y evento cierre patron tipo 3 y tipo 4
 eventoEspecial(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),transcription_factor(A),buscar_en_lista(E,[bind,activate,inactivate,repress,inhibit,regulate,stimulate,interact]).
 
-evento adicional para crear los patrones tipo 5
+%evento adicional para crear los patrones tipo 5
 finalEspecial(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[bind,activate,inactivate,repress,inhibit,regulate,stimulate]).
 %[bind,activate,inactivate,repress,inhibit,regulate,stimulate]
 
