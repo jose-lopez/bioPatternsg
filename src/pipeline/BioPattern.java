@@ -229,26 +229,27 @@ public class BioPattern {
         });
     }
 
-    public void pruebas() {
+    public void pruebas() throws StringIndexOutOfBoundsException, Exception {
         
         confGeneral confG = new confGeneral();
         confG.seleccionarIdioma();
         new utilidades();
-        String ruta ="minery/networks/BAXS/CYP2B10-Musculus";
-        utilidades.proceso=ruta;
-        //configuracion conf = new configuracion();
+        String ruta = "minery/networks/BAXS/PLCG1(PLC-gamma-1)";
+        utilidades.proceso = ruta;
+        configuracion config = new configuracion();
         //conf.recuperarConfiguracion(ruta);
-       // minado_FT ft = new minado_FT();
-        
-        //ft.repetirBusquedaOntologias(ruta);
+        //este metodo llama al resumidor_bioinformante hace uso de la coleccion de abstracts
+        //new Resumidor().resumidor(config, ruta);
 
-        ontologiaObjMin ont = new ontologiaObjMin();
-        ont.vaciarOntologia_pl(true, true, ruta);
-//ft.vaciar_bc_pl(true, true, new configuracion(), ruta);
-        
-       //Resumidor resu = new Resumidor();
-       //resu.resumidor(new configuracion(), ruta);
-    
+        // crea la bace de conocimiento con el listado de eventos encontrados por el resumidor
+        //String kb = new GeneradorBC().generadorBC("kBase.pl", config, ruta);
+
+        // se crea el archivo 'mineria/pathwaysObjects.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
+        //new objetos_patrones().generar_archivo(config, ruta);
+
+        //String kb = "kBase.pl";
+        //new Razonador().inferir_patrones(kb, config);
+        new patrones().inferir_patrones(config, ruta);
     }
     
     

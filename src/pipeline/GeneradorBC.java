@@ -60,11 +60,11 @@ public class GeneradorBC {
     }
 
     public String generadorBC(String baseC, configuracion config, String ruta) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
-        utilidades.texto_carga="";
-        utilidades.momento="";
-        utilidades.texto_etapa=utilidades.idioma.get(152);
+        utilidades.texto_carga = "";
+        utilidades.momento = "";
+        utilidades.texto_etapa = utilidades.idioma.get(152);
         new utilidades().carga();
-        
+
         String oracionesSVC;
 
         Vector eventos = new Vector(100, 100);
@@ -93,13 +93,13 @@ public class GeneradorBC {
 
             int cont_eventos;
             cont_eventos = printBC(archivoBC, eventos);
-           // System.out.println(utilidades.idioma.get(150)+""+ cont_eventos);
+            // System.out.println(utilidades.idioma.get(150)+""+ cont_eventos);
 
             archivoBC.println("]).");
 
             archivoBC.close();
 
-            archivoBCdoc.println(utilidades.idioma.get(151)+""+ cont_eventos);
+            archivoBCdoc.println(utilidades.idioma.get(151) + "" + cont_eventos);
             archivoBCdoc.close();
 
             try (BufferedReader baseKB = new BufferedReader(new FileReader(new File(ruta + "/" + baseCtemp)))) {
@@ -156,7 +156,7 @@ public class GeneradorBC {
         //proceso oracionesSVC para recorte.
         //File f = new File(generar_txt(oracionesSVC));
         File f = new File(oracionesSVC);
-        File f1 = new File("aceptados2.txt");
+        File f1 = new File("scripts/relations.txt");
         //File f2 = new File("objetos_CREB.txt");
         File f2 = new File(ruta + "/minedObjects.txt");
         //File f2 = new File("objetosBAXSMinadosBC.txt");
@@ -268,7 +268,7 @@ public class GeneradorBC {
                         String obj_comparador = (String) sinoms_suj.elementAt(alias);
                         //String obj_comparador = "'"+(String)sinoms_suj.elementAt(alias);
 
-                        if (contenido_sujeto.indexOf(obj_comparador) != -1) {
+                        if ((contenido_sujeto.indexOf("'" + obj_comparador) != -1) || (contenido_sujeto.indexOf(obj_comparador + "'") != -1)) {
                             sujetos.add(sinoms_suj.elementAt(0));
                             break;
                         }
@@ -292,12 +292,18 @@ public class GeneradorBC {
                 // para determinar la relacion que corresponde. La variable i refiere numero de verbos en
                 // en el diccionario y la variable l el numero de alternativas para cada verbo.
                 int cant_verbos_almacenados = verbos.size();
+                boolean interchange = false;
 
                 for (int cant_verbos = 0; cant_verbos < i; cant_verbos++) {
                     for (int cant_conj = 0; cant_conj < l; cant_conj++) {
 
                         if (verbos.contains(conjugados[cant_verbos][cant_conj])) {
-                            relaciones.add(conjugados[cant_verbos][0]);
+                            if (!relaciones.contains(conjugados[cant_verbos][0])) {
+                                relaciones.add(conjugados[cant_verbos][0]);
+                            }
+                            if (cant_conj == 2) {
+                                interchange = true;
+                            }
                             cant_verbos_almacenados--;
                         }
 
@@ -321,8 +327,9 @@ public class GeneradorBC {
                     for (int alias = 0; alias < cant_alias; alias++) {
                         //String comparador = "'"+(String)sinoms_compl.elementAt(alias);
                         String comparador = (String) sinoms_compl.elementAt(alias);
-                        if (contenido_complemento.indexOf(comparador) != -1) {
+                        if ((contenido_complemento.indexOf("'" + comparador) != -1) || (contenido_complemento.indexOf(comparador + "'") != -1)) {
                             objetos_complemento.add(sinoms_compl.elementAt(0));
+                            break;
                         }
 
                     }
@@ -334,6 +341,7 @@ public class GeneradorBC {
                 int cant_rels = relaciones.size();
                 int cant_suj_comp = objetos_complemento.size();
                 String suj, rel, comple;
+                String event;
 
                 if ((cant_suj != 0) && (cant_rels != 0) && (cant_suj_comp != 0)) {
 
@@ -345,7 +353,11 @@ public class GeneradorBC {
                                 comple = (String) objetos_complemento.elementAt(c);
                                 if (!suj.equals(comple)) {
                                     new utilidades().carga();
-                                    String event = "event(" + "'" + suj + "'" + "," + rel + "," + "'" + comple + "'" + ")";
+                                    if (!interchange) {
+                                        event = "event(" + "'" + suj + "'" + "," + rel + "," + "'" + comple + "'" + ")";
+                                    }else{
+                                        event = "event(" + "'" + comple + "'" + "," + rel + "," + "'" + suj + "'" + ")";
+                                    }
                                     if (!eventos.contains(event)) {
                                         eventos.add(event);
                                         //System.out.println("evento: " + event + "; Linea: " + cont_lineas);
@@ -432,7 +444,7 @@ public class GeneradorBC {
 
     public String generadorBCIntg(String red, boolean baseEventos) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
 
-        File dir = new File("mineria/redes/" + red);
+        File dir = new File("minery/networks/" + red);
 
         File listDir[] = dir.listFiles();
 
@@ -454,7 +466,7 @@ public class GeneradorBC {
                 base = "kBaseDoc";
             }
 
-            path = "mineria/redes/" + red + "/" + nextValue.getName() + "/" + base;
+            path = "minery/networks/" + red + "/" + nextValue.getName() + "/" + base;
 
             if (new File(path).exists()) {
 
@@ -497,27 +509,20 @@ public class GeneradorBC {
 
                         if (!baseEventos) {
                             eventosIntegrados.add(event);
+                        } else if (numDirectorios2 != (totalDirectorios - 1)) {
+                            eventosIntegrados.add(event);
+                        } else if (numEventos != (eventosEnProceso.size() - 1)) {
+                            eventosIntegrados.add(event);
+                            numEventos++;
                         } else {
-
-                            if (numDirectorios2 != (totalDirectorios - 1)) {
+                            eventoFinal = event + ",";
+                            if (!eventosIntegrados.contains(eventoFinal)) {
                                 eventosIntegrados.add(event);
                             } else {
-
-                                if (numEventos != (eventosEnProceso.size() - 1)) {
-                                    eventosIntegrados.add(event);
-                                    numEventos++;
-                                } else {
-                                    eventoFinal = event + ",";
-                                    if (!eventosIntegrados.contains(eventoFinal)) {
-                                        eventosIntegrados.add(event);
-                                    } else {
-                                        eventoFinal = (String) eventosIntegrados.lastElement();
-                                        String eventof = eventoFinal.replace("),", ")");
-                                        eventosIntegrados.remove(eventosIntegrados.size() - 1);
-                                        eventosIntegrados.add(eventof);
-                                    }
-
-                                }
+                                eventoFinal = (String) eventosIntegrados.lastElement();
+                                String eventof = eventoFinal.replace("),", ")");
+                                eventosIntegrados.remove(eventosIntegrados.size() - 1);
+                                eventosIntegrados.add(eventof);
                             }
 
                         }
@@ -536,7 +541,7 @@ public class GeneradorBC {
         eventosIntegrados.removeElementAt(eventosIntegrados.size() - 1);
         eventosIntegrados.add(evento);
 
-        String PATH = "mineria/integracion/";
+        String PATH = "minery/integration/";
         String directoryName = PATH.concat(red);
         String fileName = "kBase.pl";
         if (!baseEventos) {

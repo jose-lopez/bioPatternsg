@@ -65,3 +65,4 @@ stabilise,stabilises,stabilised,stabilising
 destabilize,destabilizes,destabilized,destabilizing
 stabilize,stabilizes,stabilized,stabilizing
 reduce,reduces,reduced,reducing
+sequester,sequesters,sequestered,sequestering
