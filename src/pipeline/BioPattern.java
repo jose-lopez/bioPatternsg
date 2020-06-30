@@ -234,21 +234,19 @@ public class BioPattern {
         confGeneral confG = new confGeneral();
         confG.seleccionarIdioma();
         new utilidades();
-        String ruta = "minery/networks/BAXS/PLCG1(PLC-gamma-1)";
+        String ruta = "minery/networks/BAXS/ABCB4-(MDR3)-2000";
         utilidades.proceso = ruta;
         configuracion config = new configuracion();
         //conf.recuperarConfiguracion(ruta);
         //este metodo llama al resumidor_bioinformante hace uso de la coleccion de abstracts
-        //new Resumidor().resumidor(config, ruta);
+        new Resumidor().resumidor(config, ruta);
 
         // crea la bace de conocimiento con el listado de eventos encontrados por el resumidor
-        //String kb = new GeneradorBC().generadorBC("kBase.pl", config, ruta);
+        String kb = new GeneradorBC().generadorBC("kBase.pl", config, ruta);
 
         // se crea el archivo 'mineria/pathwaysObjects.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
         //new objetos_patrones().generar_archivo(config, ruta);
-
-        //String kb = "kBase.pl";
-        //new Razonador().inferir_patrones(kb, config);
+        
         new patrones().inferir_patrones(config, ruta);
     }
     

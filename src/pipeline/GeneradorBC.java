@@ -258,17 +258,20 @@ public class GeneradorBC {
                 //System.out.println(linea);
                 int pos_sujeto = linea.indexOf("sujeto(");
                 int pos_verbo = linea.indexOf("verbo(");
-                String contenido_sujeto = linea.substring(pos_sujeto, pos_verbo);
+                String contenido_sujeto = linea.substring(pos_sujeto, pos_verbo).toUpperCase();
                 // Se comparan todos los objetos moleculares minados con los tokens presentes en 
                 // el contenido del sujeto de la oracion en proceso.
                 for (int cant_objetos = 0; cant_objetos < cant_objetos_minados; cant_objetos++) {
                     Vector sinoms_suj = (Vector) objetos_detallados.elementAt(cant_objetos);
                     int cant_alias = sinoms_suj.size();
                     for (int alias = 0; alias < cant_alias; alias++) {
-                        String obj_comparador = (String) sinoms_suj.elementAt(alias);
+                        String obj_comparador = sinoms_suj.elementAt(alias).toString().toUpperCase();
+                      
+                        
                         //String obj_comparador = "'"+(String)sinoms_suj.elementAt(alias);
 
                         if ((contenido_sujeto.indexOf("'" + obj_comparador) != -1) || (contenido_sujeto.indexOf(obj_comparador + "'") != -1)) {
+                         //if ( (contenido_sujeto.contains(obj_comparador1)) || (contenido_sujeto.contains(obj_comparador2) ) ){   
                             sujetos.add(sinoms_suj.elementAt(0));
                             break;
                         }
@@ -317,7 +320,7 @@ public class GeneradorBC {
                 // Se determinan los objetos moleculares presentes en el complemento de la oracion en proceso.
                 int pos_complemento = linea.indexOf("complemento(");
                 int pos_cierre_complemento = linea.indexOf("]", pos_complemento);
-                String contenido_complemento = linea.substring(pos_complemento, pos_cierre_complemento);
+                String contenido_complemento = linea.substring(pos_complemento, pos_cierre_complemento).toUpperCase();
                 // Se comparan todos los objetos moleculares minados con los tokens presentes en 
                 // el contenido del complemento de la oracion en proceso.
 
@@ -326,7 +329,7 @@ public class GeneradorBC {
                     int cant_alias = sinoms_compl.size();
                     for (int alias = 0; alias < cant_alias; alias++) {
                         //String comparador = "'"+(String)sinoms_compl.elementAt(alias);
-                        String comparador = (String) sinoms_compl.elementAt(alias);
+                        String comparador = sinoms_compl.elementAt(alias).toString().toUpperCase();
                         if ((contenido_complemento.indexOf("'" + comparador) != -1) || (contenido_complemento.indexOf(comparador + "'") != -1)) {
                             objetos_complemento.add(sinoms_compl.elementAt(0));
                             break;

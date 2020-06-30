@@ -584,6 +584,7 @@ public class confGeneral {
                 //String kb = "kBase.pl";
                 //new Razonador().inferir_patrones(kb, config);
                 new patrones().inferir_patrones(config, ruta);
+                
             } catch (Exception ex) {
                 Logger.getLogger(confGeneral.class.getName()).log(Level.SEVERE, null, ex);
             }

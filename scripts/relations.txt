@@ -66,3 +66,4 @@ destabilize,destabilizes,destabilized,destabilizing
 stabilize,stabilizes,stabilized,stabilizing
 reduce,reduces,reduced,reducing
 sequester,sequesters,sequestered,sequestering
+reveal,reveals,revealed,revealing
