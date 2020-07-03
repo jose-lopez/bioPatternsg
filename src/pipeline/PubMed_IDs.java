@@ -102,6 +102,7 @@ public class PubMed_IDs {
 
         lista.parallelStream().forEach((id) -> {
             if (!pubmedIDS.contains(id)) {
+                System.out.println(id);
                 pubmedIDS.add(id);
             }
         });

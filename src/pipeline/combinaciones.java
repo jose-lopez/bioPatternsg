@@ -92,6 +92,7 @@ public class combinaciones {
                 });
 
                 guardar_combinaciones(combinacion, ruta);
+               
             } catch (Exception e) {
                 error = true;
                 //System.out.println("Error al generar combinaciones");
@@ -207,8 +208,8 @@ public class combinaciones {
         
         try {
             if (!nombreCorto || (palabra1.split(" ").length == 1 && palabra2.split(" ").length == 1)) {
-                if (!combinaciones.contains(palabra1 + "+" + palabra2) && !combinaciones.contains(palabra2 + "+" + palabra1) && !palabra1.equals(palabra2)) {
-                    combinaciones.add(palabra1 + "+" + palabra2);
+                if (!combinaciones.contains("["+palabra1 + "]+AND+[" + palabra2+"]") && !combinaciones.contains("["+palabra2 + "]+AND+[" + palabra1+"]") && !palabra1.equals(palabra2)) {
+                    combinaciones.add("["+palabra1 + "]+AND+[" + palabra2+"]");
                     new utilidades().carga();
                     //cont++;
                     //if (cont % 1000 == 0) {
@@ -245,10 +246,15 @@ public class combinaciones {
 
     public void borrar_archivo(String ruta) {
         try {
-            File ficherod = new File(ruta + "/combinaciones.db");
-            ficherod.delete();
+            System.out.println(ruta);
+            File ficherod = new File(ruta + "/combinations.db");
+            if(ficherod.delete()){
+               //System.out.println("Eliminado");
+            }else{
+                //System.out.println("no se elimino");
+            }
         } catch (Exception e) {
-
+            //System.out.println("error no se borra nada");
         }
     }
 

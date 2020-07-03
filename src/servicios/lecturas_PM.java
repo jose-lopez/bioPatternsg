@@ -235,6 +235,7 @@ public class lecturas_PM extends conexionServ {
     }
 
     private ArrayList<String> revisa_xml(Document doc, String lb) {
+       
         ArrayList<String> lista = new ArrayList<>();
         NodeList nList = doc.getElementsByTagName(lb);
 

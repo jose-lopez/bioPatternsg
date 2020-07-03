@@ -97,7 +97,7 @@ public class patrones {
                 objCierre.add(sep[2]);
             }
 
-            // System.out.println("evento fin:  " + fin);
+             //System.out.println("evento fin:  " + fin);
         });
         //patrones de 2 eventos
         patron_2_eventos(objCierre, listaInicio, objEnlace, ruta);
@@ -323,7 +323,7 @@ public class patrones {
         ArrayList<String> resp = new ArrayList<>();
         Map<String, Term>[] solutions = q2.allSolutions();
         for (int i = 0; i < solutions.length; i++) {
-            //   System.out.println(q2.allSolutions()[i].toString());
+          ///  System.out.println(solutions[i].toString());
             resp.add(solutions[i].toString());
         }
 
@@ -387,10 +387,12 @@ public class patrones {
         Objenlace.forEach((E) -> {
             finales.forEach((F) -> {
                 String consulta = "eventoEspecial(" + E + ",E," + F + ").";
+               // System.out.println(consulta);
 
                 Query q2 = new Query(consulta);
                 Map<String, Term>[] solutions = q2.allSolutions();
                 for (int i = 0; i < solutions.length; i++) {
+                    //System.out.println(solutions[i].toString());
                     String evento = solutions[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
                     String fin = E + "," + evento + "," + F;
                     //System.out.println(fin);
@@ -427,22 +429,27 @@ public class patrones {
                 }
             });
         }
-
+       
         if (!clasificarevento(fin).equals("bind") || !clasificarevento(fin).equals("associate")) {
+            
             inicio.forEach((in) -> {
                 String sep1[] = in.split(",");
 
                 finales.forEach((f) -> {
 
                     String consulta = "finalEspecial(" + sep1[0] + ",E," + f + ").";
+                    //System.out.println(consulta);
                     Query q2 = new Query(consulta);
                     Map<String, Term>[] solutions = q2.allSolutions();
                     for (int i = 0; i < solutions.length; i++) {
+                        //System.out.println(solutions[i].toString());
                         String evento = solutions[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
                         String Efin = sep1[0] + "," + evento + "," + f;
-                        if (enlace.equals(sep1[2]) && sep[2].equals(f) && (clasificarevento(Efin).equals("regulate") || clasificarevento(Efin).equals("inhibit"))) {
+                       // System.out.println("Efin=  "+Efin);
+                        if (enlace.equals(sep1[2]) && sep[2].equals(f) && (clasificarevento(evento).equals("regulate") || clasificarevento(evento).equals("inhibit"))) {
 
                             String patron = in + ";" + fin;
+                           // System.out.println(patron);
                             ArrayList<String> list = listarObetosPatron(patron);
                             patron += ";" + Efin;
                             list.addAll(listarObetosPatron(Efin));
