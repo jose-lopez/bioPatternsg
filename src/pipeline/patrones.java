@@ -749,6 +749,8 @@ public class patrones {
         eventosUP.add("emerge");
         eventosUP.add("stabilise");
         eventosUP.add("stabilize");
+        eventosUP.add("reveal");
+        
   
         ArrayList<String> eventosDOWN = new ArrayList<>();
         eventosDOWN.add("inhibit");
