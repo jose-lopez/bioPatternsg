@@ -255,10 +255,8 @@ public class GeneradorBC {
                     Vector sinoms_suj = (Vector) objetos_detallados.elementAt(cant_objetos);
                     int cant_alias = sinoms_suj.size();
                     for (int alias = 0; alias < cant_alias; alias++) {
-                        String obj_comparador = sinoms_suj.elementAt(alias).toString().toUpperCase();
-                      
                         
-                        //String obj_comparador = "'"+(String)sinoms_suj.elementAt(alias);
+                        String obj_comparador = sinoms_suj.elementAt(alias).toString().toUpperCase();
 
                         if ((contenido_sujeto.indexOf("'" + obj_comparador) != -1) || (contenido_sujeto.indexOf(obj_comparador + "'") != -1)) {
                          //if ( (contenido_sujeto.contains(obj_comparador1)) || (contenido_sujeto.contains(obj_comparador2) ) ){   

@@ -1,0 +1,220 @@
+Since UPR activation occurs in <2 minutes, it is an initial cell response when EGF binds EGFR.
+
+Aberrant activation of the EGF receptor (EGFR) contributes to many human cancers by activating the Ras-MAPK pathway and other pathways.
+
+Furthermore, M-Ras brought about ERK pathway-mediated activating phosphorylation of CREB and the CREB-mediated transcription.
+
+In contrast, Tax did not form a similar complex on the CREB binding site in the SRIF promoter.
+
+Aberrant activation of the EGF receptor (EGFR) contributes to many human cancers by activating the Ras-MAPK pathway and other pathways.
+
+Specific docking interactions between MAPKs and their activating MAPK kinases (MKKs or MEKs) are crucial for efficient and accurate signal.
+
+During signal transduction, Ras is transiently activated by GTP binding and interacts with effector proteins such as Raf kinase.
+
+Raf (MAPKK kinase, MAPKKK) relays the extracellular signal from the receptor/Ras complex to a cascade of cytosolic kinases by phosphorylating and activating MAPK/ERK kinase (MEK; MAPK kinase, MAPKK) that phosphorylates and activates extracellular signal regulated kinase (ERK; mitogen-activated protein kinase, MAPK), which phosphorylates various cytoplasmic and nuclear proteins.
+
+CST5 is essential for mating and still coordinates the mitogen-activated protein (MAP) kinase (MAPK) cascade elements in the absence of the vWA domain; Cst5p interacts with the MEK kinase (MEKK) C.
+
+Accordingly, this study carried out mutation analysis of nine genes including PTPN11, SOS1, GRB2, KRAS, HRAS, NRAS, BRAF, MEK1, and MEK2 associated with the Ras-MAPK pathway in 14 Korean patients with NS.
+
+Son of sevenless (SOS) is a guanine nucleotide exchange factor that activates Ras in response to growth factor stimulation.
+
+Two families of Ras guanine nucleotide exchange factors (RasGEFs), SOS and RasGRP, activate Ras and the downstream RAF-MEK-ERK pathway.
+
+Resistance mechanisms are identified in 9/11 progressing tumours and MAPK reactivation occurred in 9/10 tumours, commonly via BRAF amplification and mutations activating NRAS and MEK2.
+
+PLC-gamma1 has a DR6 VDRE in its promoter which binds and is activated by VDR/RAR rather than VDR/RXR.
+
+Phenobarbital (PB) increases hepatic drug/steroid-metabolic capability by coordinately activating transcription of the genes encoding various metabolizing enzymes.
+
+The nuclear receptor CAR was first implicated as a transcription factor that activates the cytochrome P450 Cyp2b10 gene.
+
+We have examined the role of SHP in CAR-mediated transactivation of the CYP2B gene.
+
+SMRT and NCoR1 inhibited CAR-mediated activation independent of SHP, but mSin3A and HDAC1 had little effect alone, and were additive with SHP.
+
+These studies demonstrate that SHP does not inhibit CAR-mediated trans-activation by interfering with DNA binding or by competition with GRIP1.
+
+FXR/RXR heterodimers bound to IR1 elements and enhanced bile acid transcriptional activation of the mouse and human BSEP/SPGP promoters.
+
+Moreover, the hepatoprotective bile acid ursodeoxycholic acid, which reverses hydrophobic bile acid hepatotoxicity, activates PXR and efficaciously induces CYP3A4 (a bile-metabolizing enzyme) in primary human hepatocytes thus providing one mechanism for its hepatoprotection.
+
+Experiments in COS-7 cells showed that HNF4 could activate the CYP2D6 promoter 30-fold.
+
+Although many PGs are secreted, PGI2 and PGJ2 can activate nuclear peroxisome proliferator activator receptors (PPARs) that heterodimerize with retinoic X receptors (RXRs) to regulate gene expression and cellular function.
+
+Polymyxin B inactivated proteus LPS in a dose-dependent manner, but these LPS preparations were more resistant to polymyxin B than E.
+
+CAP18(109-135), a granulocyte-derived peptide, inhibited proteus LPS endotoxicity only when the LPS/CAP18(109-135) ratio was appropriate, which suggests that CAP18(109-135) acts through a different mechanism than polymyxin B.
+
+Molecular docking study revealed that ATP binds to the active site where the glycine-rich ATP-binding motif (G16-X-G18-X-X-G21) along with few conserved residues plays a crucial role maintaining stability of the complex.
+
+To further identify the potential mechanisms of LXRα activation on prostate cancer, we investigated the effect of LXR agonist T0901317 on PC3 prostate cancer cell and in which activity of beta-catenin pathway involved.
+
+Peroxisome proliferator activated receptor gamma (PPARγ) agonists may exhibit anti-tumor activity by transactivating genes which are closely associated with cell proliferation, apoptosis, and differentiation.
+
+Potential players that regulate BBB function are the liver X receptors (LXRs), which are ligand activated transcription factors comprising two isoforms, LXRα, and LXRβ.
+
+This study demonstrates that HNF1alpha as well as HNF4alpha genes contain a direct repeat with a space of one nucleotide (DR1)-retinoic acid (RA) response element that can be bound and regulated by RA and retinoid x receptor alpha (RXRalpha) complex.
+
+Consistent with the hypothesis, we showed that RXRα bound to the IRS1 promoter as a heterodimer with peroxisome proliferator-activated receptor δ (PPARδ).
+
+Activated PPARγ induced the expression of genes involved in enterohepatic circulation and bile acid synthesis (like PCG1α, BSEP, MRP2, MRP3, MRP4, NTCP, CYP7A1, CYP27A1, ASBT, OSTα, and OSTβ).
+
+However, when HNF4 levels were increased in HepG2 cells by co-transfection, it resulted in the enhancement of CYP2D6 promoter activity, indicating that HNF4 could overcome the repressive effect of COUP-TFI.
+
+Indeed, treatment with the PPARalpha-PPARbeta/delta agonist bezafibrate led to the up-regulation of I-BABP mRNA levels in the human intestine-derived Caco-2 cells.
+
+PD affected the QS regulated virulence factor production in S.
+
+miR-335 overexpression promoted tumor growth by downregulating RBM10 and upregulating Numb-L level in xenograft mouse model.
+
+apoe, abca-1, down regulated APP processing and Aß production with significant improvement in memory functions.
+
+7 macrophages, to down-regulate the expression of two LXR-dependent genes, ABCA1 and ABCG1, and finally to induce atherosclerotic lesions in\240\vivo using an ApoE-/- mouse model.
+
+CSE mildly regulates the cholesterol metabolism-related genes, such as low density lipoprotein (LDL) receptor and Liver X receptor (LXR)β.
+
+In this study, regulation of HDL biogenesis by NOB was investigated modulating ABCA1 and ABCG1 expression.
+
+PPARα antagonists, GW6471 and MK886, could significantly inhibit the furanone-induced lipid-lowering effect.
+
+Further, MafB promotes cholesterol efflux from macrophage foam cells by directly up-regulating its key cellular mediators.
+
+Choline and Met upregulated the phosphorylation level of AMPK-α, which was blocked by BML (an AMPK-α inhibitor).
+
+In the phenobarbital-treated mice, the binding of both CAR and RXR was rapidly increased before the induction of CYP2B10 mRNA.
+
+Purified constitutive androstane receptor (CAR)/retinoid X receptor (RXR) bound to the core NR-1 and NR-2 sites and to a third NR-3 site to the 5 side of the core in Cyp2b10.
+
+Characterization of the human HNF1 alpha gene promoter identified a consensus bile acid response element that binds and is activated by HNF4 alpha.
+
+The data presented in this study show that only CYP2D6 humanized mice but not wild-type mice display significant DEB 4-hydroxylase activity and that HNF4alpha regulates CYP2D6 activity in vivo.
+
+We modeled the 3D structure of VDR-LBD (ligand binding domain) using hRARgamma as a template, to develop our structure-function theory into a theory involving VDR.
+
+Two putative RXRalpha binding sites on the HNF1alpha (-295 to -276) and HNF4alpha (-418 to -399) genes have been characterized.
+
+Electrophoretic mobility shift and supershift assays proved the sequence element (-228/-222) to be an L-carnitine sensitive RXRα binding site, which also showed sensitivity to application of anti-PPARα and anti-PPARbp antibodies.
+
+Moreover the interaction between the PPARG2 ligand binding domain and the RXR DNA binding domain stabilized the heterodimer on its DNA target.
+
+Upon activation, FXR heterodimerizes with the 9-cis retinoic X receptor (RXR) and regulates genes involved in cholesterol and BA homeostasis.
+
+Oxysterol receptor, LXR, stimulates, whereas the bile acid receptor, FXR, inhibits CYP7A1 transcription.
+
+CAR activation can be elicited by a large variety of xenobiotics, including phenobarbital (PB) which is not a directly binding CAR ligand.
+
+Retinoid x receptor alpha (RXRalpha) dimerizes with CAR and PXR.
+
+hCAR, in turn, regulates a number of genes responsible for xenobiotic metabolism and transport including several cytochrome P450s (CYP 2B5, 2C9, and 3A4) and the multidrug resistance-associated protein 2 (MRP2, ABCC2).
+
+Furthermore, structural comparisons of the FXR/RXRα heterodimers and the FXR monomers bound with different ligands indicated that both heterodimerization and ligand binding induce conformational changes in the C terminus of helix 11 in FXR that affect the stability of the coactivator binding surface and the coactivator binding in FXR.
+
+After either up- or down-regulating FXR using different methods, corilagin could still increase the mRNA and protein levels of FXR, SHP1, SHP2, UGT2B4, BSEP, MRP2 and SULT2A1 and decrease the protein levels of CYP7A1, CYP7B1 and NTCP, especially when administered at a high concentration.
+
+Chromatin immunoprecipitation assays also showed that FXR bound to the promoter region in MRP2 was less abundant in liver extracts from bile duct-ligated rats than sham-operated rats.
+
+However, contrary to the results of the reporter gene assay, TPPO did not compete with 9cRA and Rosi for binding to RXR and PPARγ, respectively.
+
+In this study we show that RXR-γ binds to several NRs in OPCs and OLGs, one of which is vitamin D receptor (VDR).
+
+RIP14 binds to DNA as a heterodimer with RXR.
+
+A key regulator of hepatocellular bile salt homeostasis is the bile acid receptor/farnesoid X receptor FXR, which activates transcription of the BSEP and OATP8 genes and of the small heterodimer partner 1 (SHP).
+
+When cholesterol accumulates, oxysterols bind to LXRbeta, and the LXRbeta/RXR complex dissociates from ABCA1, restoring ABCA1 activity and allowing apoA-I-dependent cholesterol secretion.
+
+Thus, in rabbits, when FXR and LXRalpha are activated simultaneously, the inhibitory effect of FXR overrides the stimulatory effect of LXRalpha to suppress CYP7A1 mRNA expression.
+
+The expression of cholesterol 7alpha-hydroxylase (CYP7alpha), the rate-limiting enzyme in the catabolism of cholesterol to bile acid, is stimulated by oxysterol receptor, liver X receptor alpha (LXRalpha) and negatively regulated by a bile acid receptor, farnesoid X receptor.
+
+It concluded that the COL showed high lipid-lowering activities through indirectly transactivating CYP7A1 by upregulating FTF and HNF-4α, and directly activating CYP7A1 catalytic activity by strongly interacting with receptor and ligand, therefore promoting cholesterol catabolism and accelerating the excretion of bile acids.
+
+The bile acid activated transcription factor farnesoid X receptor (FXR) regulates numerous metabolic processes and is a rising target for the treatment of hepatic and metabolic disorders.
+
+FXR-mediated transcription became activated as shown by increased SHP and BSEP mRNA levels and decreased CYP7A1 mRNA level and activity but did not change FXR mRNA or nuclear protein levels.
+
+Mutation of Leu-100, predicted to contact 3Cl-AHPC within theSHP ligand binding pocket by molecular modeling, severely impaired the increased interaction with LRH-1, and repression of LRH-1 activity mediated by 3Cl-AHPC. 
+
+Gel shift and chromatin immunoprecipitation assays demonstrated that SHP with FTF diminished LXRalpha binding to the CYP7A1 promoter.
+
+Elevated SHP protein then inactivates LRH-1 by forming a heterodimeric complex that leads to promoter-specific repression of both CYP7A1 and SHP.
+
+The crystal structure and modeling studies of the LRH-1 ligand-binding domain bound to either of the two LXXLL-related motifs of SHP show that the receptor undergoes conformational changes to accommodate the SHP docking and reveal key residues that determine the potency and selectivity of SHP binding.
+
+Instead, SHP may either inhibit recruitment of other coactivators by GRIP1 or actively recruit corepressors directly to the CAR/RXR/PBRU complex.
+
+Additionally, COUP-TFI was shown to inhibit HNF4 stimulation of the CYP2D6 promoter in COS-7 cells, suggesting that COUP-TFI could attenuate the effect of HNF4 in HepG2 cells.
+
+LXR agonists have also depicted to inhibit neuroinflammation through modulation of microglial phagocytosis and by repressing the expression of cox2, mcp1 and iNos in glial cells.
+
+Sodium palmitate stimulated the expression of genes encoding mTOR, S6K1, LXRα, SREBP-1c and SREBP-1c target enzymes (FAS and ACC1) in HepG2 cells.
+
+ACSL5, ELOVL2) and repress the lipolysis signaling (e. Taxol alone induced murine C3H/He macrophages to secrete tumor necrosis factor alpha (TNF) and to produce nitric oxide (NO) with kinetics similar to that of LPS.
+
+Potential players that regulate BBB function are the liver X receptors (LXRs), which are ligand activated transcription factors comprising two isoforms, LXRα, and LXRβ.
+
+Myocyte cultures: ET1 increased superoxide/H2O2, stimulated TGFβ expression/secretion, and suppressed miR-29a expression in myocytes.
+
+Ciprofibrate treatment of SK-ChA cholangiocytes increased ASBT mRNA levels, suggesting a physiologic role for PPARalpha-mediated ASBT gene regulation.
+
+Transient transfection experiments showed that RA increased the promoter activity of the HNF1alpha and HNF4alpha genes in Hep3B cells.
+
+ACI(Cia25) rats had increased expression of 10 nuclear receptor (NR) genes, including those known to interfere with NF-κB activity and cytokine expression, such as Lxra, Pparg, and Rxrg.
+
+Our data indicate that the presence of the rs4149056 non-synonymous SNP at the SLCO1B1 gene locus can significantly decrease the pravastatin induced LDL cholesterol lowering response.
+
+Andrographolide decreased the mRNA and protein expression of CD36 by inducing the degradation of CD36 mRNA; however, andrographolide had no effect on SR-A expression.
+
+The CD data showed that liliflorin A enhanced HTG21 T(m).
+
+In the CAR-null mouse, PB does not only induce the Cyp2b10 gene, but also induces genes encoding various metabolizing enzymes.
+
+PB also induces amino levulinate synthase 1 (ALAS-1), the rate-limiting enzyme in heme biosynthesis, to increase heme supply.
+
+The potency and hierarchy of bile acids as ligands for the farnesyl/bile acid receptor (FXR/BAR) paralleled their ability to induce BSEP in human hepatocyte cultures.
+
+LXRs act as cholesterol sensors: when cellular oxysterols accumulate as a result of increasing concentrations of cholesterol, LXR induces the transcription of genes that protect cells from cholesterol overload.
+
+Amebiasis patient sera recognized an antigen of 67 kDa by immunoblotting in an active E. 
+
+In a macrophage depletion model, JWH133 (a CB2 agonist) treatment prevented toxicant-induced liver injury.
+
+Targeting the LXRα isoform may help in the development of novel therapeutic strategies to prevent BBB dysfunction, and thereby neuroinflammatory disorders.
+
+Other drug and nutraceutical leads were identified through bioinformatic drug repurposing analyses (such as pioglitazone, levonorgestrel, salsolidine, ginkgolide A, and icariin).
+
+Anti-angiogenic therapy triggers metabolic alterations in experimental and human tumors, the best characterized being exacerbated glycolysis and lactate production.
+
+NPC1 gene/protein expression and mammalian target of rapamycin (mTORC-1) and reduced body weight. 
+
+AMPK siRNA suppressed ABCA1 expression.
+
+Using HepG2 nuclear extracts, three protein-DNA complexes were formed on the DR1 element, one of which was confirmed to be dependent on the binding of HNF4.
+
+Using domain exchanges and individual amino acid switches between THRA1 and THRB2, we identified three amino acids in helix 10 of the THRB2 ligand-binding domain that are required for negative regulation and are absent in THRA1.
+
+DEF-3(g16/NY-LU-12) encodes a novel RNA binding protein isolated by positional cloning from an SCLC homozygous deletion region in 3 p21.
+
+One candidate protein, transthyretin (TTR), binds Aβ, inhibits aggregation, and reduces its toxicity. 
+
+RLD-1 preferentially binds as a heterodimer with RXR to a direct repeat of the half-site sequence 5 \-G/AGGTCA-3\, separated by four nucleotides (DR-4).
+
+Meanwhile, MG has the potential to bind with the ligand binding domain of PPAR-γ (PPAR-γ-LBD).
+
+Ciprofibrate treatment of SK-ChA cholangiocytes increased ASBT mRNA levels, suggesting a physiologic role for PPARalpha-mediated ASBT gene regulation.
+
+It has been reported previously that MDR3 expression is modulated by hormones, cellular stress, and xenobiotics.
+
+Peripheral blood monocytes (PBMCs) were obtained from 28 patients with carotid artery plaques and 10 normal persons, who did not have carotid artery plaques. 27 HC selectively activated ER-dependent transcription (P&lt; 0.001) in Ishikawa cells and promoted proliferation of both Ishikawa and RL95 cells (P&lt; 0.001).
+
+The nuclear receptor LXRalpha binds oxysterols and mediates feed-forward induction. 
+
+We investigated the alternative hypothesis that intrinsic functional differences among THR isoforms mediate these tissue-specific effects.
+
+These studies demonstrate that SHP does not inhibit CAR-mediated trans-activation by interfering with DNA binding or by competition with GRIP1.
+
+
+

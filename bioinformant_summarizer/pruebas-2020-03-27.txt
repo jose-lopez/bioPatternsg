@@ -1,0 +1,15 @@
+[CST5,is,essential,for,mating,and,still,coordinates,the,mitogen-activated,protein,(,MAP),kinase,(,MAPK),cascade,elements,in,the,absence,of,the,vWA,domain;,Cst5p,interacts,with,the,MEK,kinase,(,MEKK),C]
+s(A,['CST5',is,essential,for,mating,and,still,coordinates,the,mitogen-activated,protein,'(','MAP',')',kinase,'(','MAPK',')',cascade,elements,in,the,absence,of,the,vWA,domain,';','Cst5p',interacts,with,the,'MEK',kinase,'(','MEKK)','C'], []).
+s(A,['Cst5p',interacts,with,the,'MEK',kinase,'(','MEKK)','C'], []).
+A = [sujeto(['Cst5p']), verbo([interacts]), complemento([with, the, 'MEK', kinase, '('|...])] .
+
+28 de Marzo
+
+ac(_1742, [;, 'Cst5p', interacts, with, the, 'MEK', kinase, '('], []).
+
+debug]  ?- s(A,['CST5',is,essential,for,mating,and,still,coordinates,the,mitogen-activated,protein,'(','MAP',')',kinase,'(','MAPK',')',cascade,elements,in,the,absence,of,the,vWA,domain,';','Cst5p',interacts,with,the,'MEK',kinase,'(','MEKK)','C'], []).
+A = [sujeto(['CST5']), verbo([is]), complemento([essential, for, mating, and, still|...])] ;
+A = [sujeto(['CST5', is, essential, for, mating, and, still]), verbo([coordinates]), complemento([the, mitogen-activated, protein, '(', 'MAP'|...])] ;
+A = [sujeto(['Cst5p']), verbo([interacts]), complemento([with, the, 'MEK', kinase, '('|...])] ;
+A = [sujeto(['Cst5p']), verbo([interacts]), complemento([with, the, 'MEK', kinase, '('|...])] ;
+false.

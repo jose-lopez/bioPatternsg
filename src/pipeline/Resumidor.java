@@ -218,7 +218,7 @@ public class Resumidor {
      */
     public void init(String codigoResumidorPNL) {
         //Abriendo el archivo
-        Query q = new Query("cd(resumidor_bioinformante).");
+        Query q = new Query("cd(bioinformant_summarizer).");
         q.hasSolution();
         //System.out.println("cambio de directorio:" + " " + (q.hasSolution() ? "succeeded" : "failed"));
 
