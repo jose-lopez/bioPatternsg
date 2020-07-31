@@ -26,6 +26,7 @@ import estructura.objetos_Experto;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -237,7 +238,7 @@ public class configuracion {
     }
 
     //dependiendo de los checklist que esten activos el proceso se reanudara desde un punto espesifico
-    public void reanudar_proceso(String ruta, String ruta2) {
+    public void reanudar_proceso(String ruta, String ruta2) throws IOException {
         new utilidades().limpiarPantalla();
         System.out.println(utilidades.colorTexto1 + utilidades.titulo);
         System.out.println(utilidades.colorReset);
@@ -281,7 +282,7 @@ public class configuracion {
 
     }
 
-    private void menuFinal(String ruta, String rutaD) {
+    private void menuFinal(String ruta, String rutaD) throws IOException {
         utilidades.texto_carga = "";
         utilidades.texto_etapa = "";
         utilidades.momento = "";

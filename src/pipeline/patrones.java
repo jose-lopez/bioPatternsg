@@ -22,12 +22,19 @@ import configuracion.configuracion;
 import configuracion.utilidades;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jpl7.Query;
 import org.jpl7.Term;
 
@@ -41,84 +48,607 @@ public class patrones {
     boolean detener = false;
 
     public void inferir_patrones(configuracion config, String ruta) {
-        new utilidades().limpiarPantalla();
-        utilidades.momento = "";
-        utilidades.texto_carga = "";
-        utilidades.texto_etapa = utilidades.idioma.get(153);
-        System.out.println(utilidades.colorTexto1 + utilidades.titulo);
-        System.out.println(utilidades.colorTexto1 + utilidades.proceso);
-        System.out.println("\n" + utilidades.colorTexto2 + utilidades.texto_etapa);
-
-        ArrayList<String> objRestricion = menuRestricionObjetos();
-
-        ArrayList<String> objCierre = menuMotivos();
 
         try {
-            resumirBaseC(ruta);
-        } catch (Exception e) {
+            new utilidades().limpiarPantalla();
+            utilidades.momento = "";
+            utilidades.texto_carga = "";
+            utilidades.texto_etapa = utilidades.idioma.get(153);
+            System.out.println(utilidades.colorTexto1 + utilidades.titulo);
+            System.out.println(utilidades.colorTexto1 + utilidades.proceso);
+            System.out.println("\n" + utilidades.colorTexto2 + utilidades.texto_etapa);
+
+            ArrayList<String> objRestricion = menuRestricionObjetos();
+
+            ArrayList<String> objCierre = menuMotivos();
+
+            try {
+                resumirBaseC(ruta);
+            } catch (Exception e) {
+            }
+            File pathways = new File(ruta + "/pathways.txt");
+            File eventsDoc = new File(ruta + "/pathways.txt");
+
+            // En este punto se asume que hay un archivo de eventos documentados que han sido etiquetados como P, F o U.
+            // Este metodo lee ese archivo y actualiza la kBase.pl para agregar nuevos eventos del ususario y elimiar los eventos falsos
+            // que el usuario haya identificado.
+            if (eventsDoc.exists()) {
+                BufferedReader e = new BufferedReader(new FileReader(eventsDoc));
+                if (!e.readLine().contains("///**")) {
+                    kbase_update(config, ruta);
+                }
+            }
+            // System.out.println(objRestricion);
+            borrar_archivo(ruta + "/pathways.txt");
+            borrar_archivo(ruta + "/pathways.db");
+
+            String v = "style_check(-discontiguous).";
+            Query q0 = new Query(v);
+            q0.hasSolution();
+
+            String objPatr = "['" + ruta + "/pathwaysObjects'].";
+            Query q1 = new Query(objPatr);
+            q1.hasSolution();
+
+            cargarBaseC(ruta);
+
+            String archivo = "[scripts/pathwaysJPL].";
+            Query q = new Query(archivo);
+            q.hasSolution();
+
+            ArrayList<String> listaInicio = inicio(objRestricion);
+
+            ArrayList<String> objEnlace = new ArrayList<>();
+
+            listaInicio.parallelStream().forEach((obj) -> {
+                String sep1[] = obj.split(",");
+                if (!objEnlace.contains(sep1[2])) {
+                    objEnlace.add(sep1[2]);
+                }
+                //System.out.println("evento inicio:  " + obj);
+            });
+
+            ArrayList<String> listaFin = new ArrayList<>();
+
+            objCierre.forEach(obj -> listaFin.addAll(fin(obj, objRestricion)));
+
+            if (objCierre.size() == 0) {
+                listaFin.addAll(fin("", objRestricion));
+            }
+
+            ArrayList<String> FT = new ArrayList<>();
+
+            listaFin.forEach((String fin) -> {
+                String sep[] = fin.split(",");
+                if (!FT.contains(sep[0])) {
+                    FT.add(sep[0]);
+                }
+
+                if (!objCierre.contains(sep[2])) {
+                    objCierre.add(sep[2]);
+                }
+
+                //System.out.println("evento fin:  " + fin);
+            });
+            //patrones de 2 eventos
+            patron_2_eventos(objCierre, listaInicio, objEnlace, ruta);
+
+            objEnlace.forEach(enlace -> intermedios(new ArrayList<String>(), enlace, FT, "", 0, listaInicio, listaFin, objCierre, objRestricion, ruta));
+
+            guardar_Patron(ruta);
+
+            config.setInferirPatrones(true);
+            config.guardar(ruta);
+
+            // Una vez que se han inferido los patrones, el siguiente metodo extrae desde pathways.txt todos los eventos que participan en ellos.
+            // Para cada evento se indaga en la BC docimentada kBaseDoc y se extraen todas las oraciones posibles asociadas a los mismos.
+            // El resultado de este metodo es el archivo eventsDocs.txt. Ek usuario puede proceder a etiquetas cada evento como Positivo, Falso o 
+            // agregado por si mismo (tipo U). Esta version modificada luego es utilizada por el metodo kbase_update para modificar kBase.pl.
+            if (pathways.exists()) {
+                events_documentation(config, ruta);
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // System.out.println(objRestricion);
-        borrar_archivo(ruta + "/pathways.txt");
-        borrar_archivo(ruta + "/pathways.db");
+    }
 
-        String v = "style_check(-discontiguous).";
-        Query q0 = new Query(v);
-        q0.hasSolution();
+    public void events_documentation(configuracion config, String ruta) throws IOException {
 
-        String objPatr = "['" + ruta + "/pathwaysObjects'].";
-        Query q1 = new Query(objPatr);
-        q1.hasSolution();
-
-        cargarBaseC(ruta);
-
-        String archivo = "[scripts/pathwaysJPL].";
-        Query q = new Query(archivo);
-        q.hasSolution();
-
-        ArrayList<String> listaInicio = inicio(objRestricion);
-
-        ArrayList<String> objEnlace = new ArrayList<>();
-
-        listaInicio.parallelStream().forEach((obj) -> {
-            String sep1[] = obj.split(",");
-            if (!objEnlace.contains(sep1[2])) {
-                objEnlace.add(sep1[2]);
+        BufferedReader pathways = null, kBaseDoc = null;
+        FileWriter eventsDoc = null;
+        try {
+            if (new File(ruta + "/pathways.txt").exists()) {
+                pathways = new BufferedReader(new FileReader(new File(ruta + "/pathways.txt")));
+            } else {
+                System.out.println("The file pathways.txt does not exist");
             }
-            //System.out.println("evento inicio:  " + obj);
-        });
+            if (new File(ruta + "/kBaseDoc").exists()) {
+                kBaseDoc = new BufferedReader(new FileReader(new File(ruta + "/kBaseDoc")));
+            } else {
+                System.out.println("The file kBaseDoc does not exist");
+            }
+            BufferedReader relations = new BufferedReader(new FileReader(new File("scripts/relations.txt")));
+            BufferedReader relationsFunctions = new BufferedReader(new FileReader(new File("scripts/relations-functions.txt")));
+            try {
+                eventsDoc = new FileWriter(ruta + "/" + "eventsDoc.txt");
+            } catch (IOException ex) {
+                Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-        ArrayList<String> listaFin = new ArrayList<>();
+            String line = "", lineaEvent = "";
+            String[] events = null;
+            boolean event_printed = false;
+            Vector events_pathways = new Vector(100);
 
-        objCierre.forEach(obj -> listaFin.addAll(fin(obj, objRestricion)));
+            if (pathways == null || kBaseDoc == null) {
+                System.out.println("The file eventsDoc.txt can not be produced because either the file pathways.txt or kBaseDoc does not exist");
 
-        if (objCierre.size() == 0) {
-            listaFin.addAll(fin("", objRestricion));
+            } else {
+                try (PrintWriter eventsDocu = new PrintWriter(eventsDoc)) {
+
+                    try {
+                        while (pathways.ready()) {
+
+                            line = pathways.readLine();
+
+                            if (line.startsWith("'")) {
+
+                                events = line.split(";");
+
+                                for (String e : events) {
+
+                                    if (!events_pathways.contains(e)) {
+                                        events_pathways.add(e);
+                                        //System.out.println("event(" + (String) e + ")" + "\n");
+                                    }
+                                }
+
+                            }
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    kBaseDoc.mark(10000000);
+                    relations.mark(1000);
+
+                    //--------------------------------------
+                    //-----Determinando numero de Columnas y Filas de la Matriz de verbos Aceptados ---------------------------------
+                    int i = 0, l = 0;
+                    String[] vec;
+                    while (relations.ready()) {
+                        line = relations.readLine();
+                        if (i == 0) {
+                            vec = line.split(",");
+                            l = vec.length;
+                        }
+                        i++;
+                    }
+                    relations.reset();
+
+                    //-----------------------------------------------------------
+                    //-----------------Guardando Todos Los Verbos aceptados con sus conjugados------------------------------------------
+                    //------------------------------------------
+                    String[][] verbs = new String[i][l];
+                    int j = 0;
+                    while (relations.ready()) {
+                        line = relations.readLine();
+                        verbs[j] = line.split(",");
+                        j++;
+                        //System.out.println(linea);
+                    }
+
+                    Vector regulate = new Vector(50);
+                    Vector inhibit = new Vector(50);
+                    Vector associate = new Vector(50);
+                    Vector bind = new Vector(50);
+
+                    line = relationsFunctions.readLine();
+
+                    if (line.startsWith("//------------Regulate")) {
+                        line = relationsFunctions.readLine();
+                        do {
+                            regulate.add(line);
+                            line = relationsFunctions.readLine();
+
+                        } while (!line.startsWith("//------------Inhibit"));
+                    }
+
+                    if (line.startsWith("//------------Inhibit")) {
+                        line = relationsFunctions.readLine();
+                        do {
+                            inhibit.add(line);
+                            line = relationsFunctions.readLine();
+
+                        } while (!line.startsWith("//------------Associate"));
+                    }
+
+                    if (line.startsWith("//------------Associate")) {
+                        line = relationsFunctions.readLine();
+                        do {
+                            associate.add(line);
+                            line = relationsFunctions.readLine();
+
+                        } while (!line.startsWith("//------------Bind"));
+                    }
+
+                    if (line.startsWith("//------------Bind")) {
+
+                        while (relationsFunctions.ready()) {
+                            line = relationsFunctions.readLine();
+                            bind.add(line);
+
+                        }
+                    }
+
+                    String eventKB, verb, possibleEvent;
+                    String[] eventSplitted;
+                    Vector relats;
+                    boolean eventDocsEmpty = true;
+
+                    for (Object e : events_pathways) {
+
+                        eventKB = e.toString();
+                        eventSplitted = eventKB.split(",");
+                        verb = eventSplitted[1];
+
+                        //lineaEvent = kBaseDoc.readLine();
+                        if (regulate.contains(verb)) {
+                            relats = regulate;
+                        } else if (inhibit.contains(verb)) {
+                            relats = inhibit;
+                        } else if (associate.contains(verb)) {
+                            relats = associate;
+                        } else {
+                            relats = bind;
+                        }
+
+                        String lineaEventHistory;
+
+                        for (Object r : relats) {
+
+                            do {
+
+                                lineaEvent = kBaseDoc.readLine();
+
+                                if (lineaEvent.contains("evento: event('")) {
+
+                                    possibleEvent = "event(" + eventSplitted[0] + "," + r + "," + eventSplitted[2] + ")";
+                                    if (lineaEvent.contains(possibleEvent)) {
+
+                                        lineaEvent = kBaseDoc.readLine();
+
+                                        if (!eventsDocHistoryContains(ruta, possibleEvent, lineaEvent)) {
+
+                                            eventsDocu.print(possibleEvent + "\n");
+                                            eventsDocu.print(lineaEvent + "\n" + "\n");
+                                            eventDocsEmpty = false;
+
+                                        }
+
+                                    }
+
+                                }
+
+                            } while (kBaseDoc.ready());
+
+                            kBaseDoc.reset();
+
+                        }
+                        kBaseDoc.reset();
+
+                    }
+                    if (eventDocsEmpty) {
+                        eventsDocu.print("///** The regulatory events in pathways.txt are already labelled in eventsDoc-History.txt **///");
+                    }
+                    eventsDocu.close();
+                    eventsDoc.close();
+
+                }
+
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                pathways.close();
+            } catch (IOException ex) {
+                Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
-        ArrayList<String> FT = new ArrayList<>();
+    }
 
-        listaFin.forEach((String fin) -> {
-            String sep[] = fin.split(",");
-            if (!FT.contains(sep[0])) {
-                FT.add(sep[0]);
+    private boolean eventsDocHistoryContains(String ruta, String possibleEvent, String possibleLine) {
+
+        Boolean contains = false;
+
+        File file = new File(ruta + "/eventsDoc-History.txt");
+
+        String lineEventHistory;
+
+        BufferedReader eventsDocHistory = null;
+
+        if (file.exists()) {
+            try {
+                try {
+                    eventsDocHistory = new BufferedReader(new FileReader(ruta + "/eventsDoc-History.txt"));
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                // Aqui el codigo que verifica si el evento y la linea ya han sido evaluados por el usuario.
+                while (eventsDocHistory.ready()) {
+
+                    lineEventHistory = eventsDocHistory.readLine();
+
+                    if (lineEventHistory.contains(possibleEvent)) {
+                        lineEventHistory = eventsDocHistory.readLine();
+                        if (lineEventHistory.equals(possibleLine)) {
+                            contains = true;
+                            eventsDocHistory.close();
+                            break;
+                        }
+
+                    }
+
+                }
+                eventsDocHistory.close();
+
+            } catch (IOException ex) {
+                Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if (!objCierre.contains(sep[2])) {
-                objCierre.add(sep[2]);
+        } else {
+            try {
+                file.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return contains;
+    }
+
+    private void eventsDocHistoryADD(String ruta, String possibleEvent, String lineaEvent) {
+
+        File file = new File(ruta + "/eventsDoc-History.txt");
+        FileWriter eventsDocHis = null;
+
+        if (file.exists()) {
+            try {
+                try {
+                    eventsDocHis = new FileWriter(file, true);
+                } catch (IOException ex) {
+                    Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                PrintWriter eventsDocHistory = new PrintWriter(eventsDocHis);
+                eventsDocHistory.print(possibleEvent + "\n");
+                eventsDocHistory.print(lineaEvent + "\n" + "\n");
+                eventsDocHistory.close();
+                eventsDocHis.close();
+            } catch (IOException ex) {
+                Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void kbase_update(configuracion config, String ruta) {
+
+        try {
+
+            BufferedReader eventsDoc = null;
+            BufferedReader kBase = null;
+            File kb = new File(ruta + "/kBase.pl");
+
+            try {
+                if (kb.exists()) {
+                    kBase = new BufferedReader(new FileReader(kb));
+                } else {
+                    System.out.println("The file kbase.pl does not exist therefore the KB cannnot be updated");
+                }
+                try {
+                    if (new File(ruta + "/eventsDoc.txt").exists()) {
+                        eventsDoc = new BufferedReader(new FileReader(new File(ruta + "/eventsDoc.txt")));
+                    } else {
+                        System.out.println("The file eventsDoc.txt does not exist therefore the KB cannnot be updated");
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-             //System.out.println("evento fin:  " + fin);
-        });
-        //patrones de 2 eventos
-        patron_2_eventos(objCierre, listaInicio, objEnlace, ruta);
+            if (kBase != null && eventsDoc != null) {
 
-        objEnlace.forEach(enlace -> intermedios(new ArrayList<String>(), enlace, FT, "", 0, listaInicio, listaFin, objCierre, objRestricion, ruta));
+                int linesNumber = 0;
+                String lineEvent, lineEventDoc, ev;
+                boolean eventlabelled;
+                String[] splittedEvent;
+                Vector positiveEvents = new Vector(100);
+                Vector falseEvents = new Vector(100);
+                Vector userEvents = new Vector(100);
 
-        guardar_Patron(ruta);
+                while (eventsDoc.ready()) {
 
-        config.setInferirPatrones(true);
-        config.guardar(ruta);
+                    lineEvent = eventsDoc.readLine();
+
+                    eventlabelled = false;
+                    linesNumber++;
+
+                    if (lineEvent.startsWith("event('")) {
+
+                        splittedEvent = lineEvent.split(":");
+
+                        if (splittedEvent[1].equals("P")) {
+                            positiveEvents.add(splittedEvent[0]);
+                            eventlabelled = true;
+                        }
+
+                        if (splittedEvent[1].equals("F")) {
+                            falseEvents.add(splittedEvent[0]);
+                            eventlabelled = true;
+                        }
+
+                        if (splittedEvent[1].equals("U")) {
+                            userEvents.add(splittedEvent[0]);
+                            eventlabelled = true;
+                        }
+
+                        if (!eventlabelled) {
+                            System.out.println("The event at the line " + linesNumber + " is not well labelled. The labels P, F or U, must be used");
+                            System.exit(0);
+                        }
+
+                        lineEventDoc = eventsDoc.readLine();
+
+                        if (!eventsDocHistoryContains(ruta, lineEvent, lineEventDoc)) {
+                            eventsDocHistoryADD(ruta, lineEvent, lineEventDoc);
+
+                        }
+
+                    }
+
+                }
+
+                String lineKBase, split;
+                String[] events;
+                Vector kBaseEvents = new Vector(100);
+
+                while (kBase.ready()) {
+
+                    lineKBase = kBase.readLine();
+
+                    if (lineKBase.startsWith("event('")) {
+
+                        split = lineKBase.split("\\)")[0] + ")";
+
+                        kBaseEvents.add(split);
+                    }
+
+                }
+
+                String eventKBase, eventC;
+                String[] event, eventsCompare;
+                Vector falses = new Vector(100);
+                Vector fromUser = new Vector(100);
+                Vector positives = new Vector(100);
+
+                boolean contains = false;
+
+                for (Object p : positiveEvents) {
+                    eventC = (String) p;
+                    eventsCompare = eventC.split("\\)");
+
+                    for (Object e : kBaseEvents) {
+
+                        eventKBase = (String) e;
+                        event = eventKBase.split("\\)");
+
+                        if (event[0].equals(eventsCompare[0])) {
+                            contains = true;
+                            break;
+                        }
+                    }
+
+                    if (!contains) {
+                        System.out.println("The following event was added for you but labelled as :P");
+                        System.out.println("The system assumes that it is a positive one");
+                        fromUser.add(p);
+                    }
+                    contains = false;
+                }
+
+                for (Object f : falseEvents) {
+                    eventC = (String) f;
+                    eventsCompare = eventC.split("\\)");
+
+                    for (Object e : kBaseEvents) {
+
+                        eventKBase = (String) e;
+                        event = eventKBase.split("\\)");
+
+                        if (event[0].equals(eventsCompare[0])) {
+                            contains = true;
+                            f = e;
+                            break;
+                        }
+                    }
+
+                    if (contains) {
+                        falses.add(f);
+                    } else {
+                        System.out.println("The following event was added for you but labelled as :F");
+                        System.out.println("The system assumes that it is a positive one");
+                        fromUser.add(f);
+                    }
+
+                    contains = false;
+                }
+
+                contains = false;
+
+                for (Object u : userEvents) {
+                    eventC = (String) u;
+                    eventsCompare = eventC.split("\\)");
+
+                    for (Object e : kBaseEvents) {
+
+                        eventKBase = (String) e;
+                        event = eventKBase.split("\\)");
+
+                        if (event[0].equals(eventsCompare[0])) {
+                            contains = true;
+                            break;
+                        }
+                    }
+
+                    if (!contains) {
+                        fromUser.add(u);
+                    }
+                    contains = false;
+                }
+
+                for (Object k : falses) {
+                    //System.out.println("Removing " + (String) k + " from the KB");
+                    kBaseEvents.removeElement(k);
+                }
+
+                for (Object u : fromUser) {
+                    //System.out.println("Adding " + (String) u + " to the KB");
+                    kBaseEvents.add(u);
+                }
+
+                kBase.close();
+                
+                int eventsLength = kBaseEvents.size(), eventCounter = 0;
+
+                if (!falses.isEmpty() || !fromUser.isEmpty()) {
+                    
+                    PrintWriter kbase = new PrintWriter(new FileWriter(kb));
+                    
+                    kbase.print("base([" + "\n");
+                    for (Object e : kBaseEvents) {
+
+                        if ((eventCounter < (eventsLength - 1))) {
+                            kbase.print(e + "," + "\n");
+                            eventCounter++;
+                        } else {
+                            kbase.print(e + "\n");
+                        }
+                    }
+                    kbase.print("]).");
+                    kbase.close();
+                }
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -287,13 +817,11 @@ public class patrones {
                 consulta = "final_rest(A,E,B," + objRest + ").";
 
             }
+        } else if (!Objf.equals("")) {
+            consulta = "final(A,E," + Objf + ").";
         } else {
-            if (!Objf.equals("")) {
-                consulta = "final(A,E," + Objf + ").";
-            } else {
-                consulta = "final(A,E,B).";
+            consulta = "final(A,E,B).";
 
-            }
         }
 
         Query q2 = new Query(consulta);
@@ -334,7 +862,7 @@ public class patrones {
         ArrayList<String> resp = new ArrayList<>();
         Map<String, Term>[] solutions = q2.allSolutions();
         for (int i = 0; i < solutions.length; i++) {
-          ///  System.out.println(solutions[i].toString());
+            ///  System.out.println(solutions[i].toString());
             resp.add(solutions[i].toString());
         }
 
@@ -398,7 +926,7 @@ public class patrones {
         Objenlace.forEach((E) -> {
             finales.forEach((F) -> {
                 String consulta = "eventoEspecial(" + E + ",E," + F + ").";
-               // System.out.println(consulta);
+                // System.out.println(consulta);
 
                 Query q2 = new Query(consulta);
                 Map<String, Term>[] solutions = q2.allSolutions();
@@ -440,9 +968,9 @@ public class patrones {
                 }
             });
         }
-       
+
         if (!clasificarevento(fin).equals("bind") || !clasificarevento(fin).equals("associate")) {
-            
+
             inicio.forEach((in) -> {
                 String sep1[] = in.split(",");
 
@@ -456,11 +984,11 @@ public class patrones {
                         //System.out.println(solutions[i].toString());
                         String evento = solutions[i].toString().replace("{", "").replace("}", "").replace("E", "").replace("=", "");
                         String Efin = sep1[0] + "," + evento + "," + f;
-                       // System.out.println("Efin=  "+Efin);
+                        // System.out.println("Efin=  "+Efin);
                         if (enlace.equals(sep1[2]) && sep[2].equals(f) && (clasificarevento(evento).equals("regulate") || clasificarevento(evento).equals("inhibit"))) {
 
                             String patron = in + ";" + fin;
-                           // System.out.println(patron);
+                            // System.out.println(patron);
                             ArrayList<String> list = listarObetosPatron(patron);
                             patron += ";" + Efin;
                             list.addAll(listarObetosPatron(Efin));
@@ -723,7 +1251,7 @@ public class patrones {
         String sinonimo = rel;
 
         ArrayList<String> eventosUP = new ArrayList<>();
-        
+
         eventosUP.add("activate");
         eventosUP.add("increase");
         eventosUP.add("regulate");
@@ -761,8 +1289,7 @@ public class patrones {
         eventosUP.add("stabilise");
         eventosUP.add("stabilize");
         eventosUP.add("reveal");
-        
-  
+
         ArrayList<String> eventosDOWN = new ArrayList<>();
         eventosDOWN.add("inhibit");
         eventosDOWN.add("down-regulate");
@@ -781,7 +1308,7 @@ public class patrones {
         eventosDOWN.add("destabilise");
         eventosDOWN.add("destabilize");
         eventosDOWN.add("reduce");
-        
+
         ArrayList<String> eventosMiddle = new ArrayList<>();
         eventosMiddle.add("require");
         eventosMiddle.add("interact");
@@ -799,8 +1326,7 @@ public class patrones {
         eventosMiddle.add("combine");
         eventosMiddle.add("envelop");
         eventosMiddle.add("bring");
-        
-        
+
         if (eventosUP.contains(sinonimo)) {
             sinonimo = "regulate";
         } else if (eventosDOWN.contains(sinonimo)) {

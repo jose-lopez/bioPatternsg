@@ -69,6 +69,7 @@ public class GeneradorBC {
         try (PrintWriter archivoBC = new PrintWriter(fichero)) {
 
             PrintWriter archivoBCdoc = new PrintWriter(fichero1);
+            
             archivoBC.println("base([");
 
             while (oracionesSVC(n, ruta)) {
@@ -91,7 +92,7 @@ public class GeneradorBC {
 
             archivoBCdoc.println(utilidades.idioma.get(151) + "" + cont_eventos);
             archivoBCdoc.close();
-
+            
             try (BufferedReader baseKB = new BufferedReader(new FileReader(new File(ruta + "/" + baseCtemp)))) {
                 PrintWriter kb = new PrintWriter(new FileWriter(ruta + "/" + baseC));
                 String lineaActual, lineaAnt;
@@ -223,7 +224,7 @@ public class GeneradorBC {
         int cant_objetos_minados = vec_objetos.length;
         Vector sujetos = new Vector(100, 100);
         Vector verbos = new Vector(100, 100);
-        Vector objetos_complemento = new Vector(1000, 1000);
+        Vector objetos_complemento = new Vector(100, 100);
         Vector relaciones = new Vector(100, 100);
         //Vector eventos = new Vector(100, 100);
 
@@ -232,7 +233,7 @@ public class GeneradorBC {
         int lineas = 0;
 
         while (resumidor1.readLine() != null) {
-            lineas++;
+            lineas++;           
         }
         resumidor1.close();
 
@@ -249,6 +250,7 @@ public class GeneradorBC {
                 int pos_sujeto = linea.indexOf("sujeto(");
                 int pos_verbo = linea.indexOf("verbo(");
                 String contenido_sujeto = linea.substring(pos_sujeto, pos_verbo).toUpperCase();
+                
                 // Se comparan todos los objetos moleculares minados con los tokens presentes en 
                 // el contenido del sujeto de la oracion en proceso.
                 for (int cant_objetos = 0; cant_objetos < cant_objetos_minados; cant_objetos++) {
@@ -335,7 +337,10 @@ public class GeneradorBC {
                 String event;
 
                 if ((cant_suj != 0) && (cant_rels != 0) && (cant_suj_comp != 0)) {
-
+                    
+                    linea=linea.replace("[sujeto([", "").replace("]), verbo([", " ").replace("]), complemento([", " ").replace(",',", "*").replace(",", "");
+                    linea=linea.replace("*", ",").replace("'", "").replace("( ", "(").replace(" )", ")").replace(" / ", "/").replace(" - ", "-").replace("])].", ".");
+                                        
                     for (int s = 0; s < cant_suj; s++) {
                         suj = (String) sujetos.elementAt(s);
                         for (int r = 0; r < cant_rels; r++) {
@@ -350,11 +355,12 @@ public class GeneradorBC {
                                         event = "event(" + "'" + comple + "'" + "," + rel + "," + "'" + suj + "'" + ")";
                                     }
                                     if (!eventos.contains(event)) {
-                                        eventos.add(event);
-                                        //System.out.println("evento: " + event + "; Linea: " + cont_lineas);
-                                        baseC.println("evento: " + event + "; Linea: " + cont_lineas);
+                                        eventos.add(event);                                     
                                         contEventosArchivoActual++;
+                                        baseC.println("evento: " + event + "; Linea: " + cont_lineas);
+                                        baseC.println(linea);
                                     }
+                                    
                                 }
 
                             }
@@ -386,20 +392,23 @@ public class GeneradorBC {
 
     }
 
-    private int printBC(PrintWriter baseC, Vector eventos) throws IOException {
+    public int printBC(PrintWriter baseC, Vector eventos) throws IOException {
         int cant_eventos;
 
         cant_eventos = eventos.size();
         String evento;
 
         for (int i = 0; i < cant_eventos; i++) {
+            
+            evento = (String) eventos.elementAt(i) + ",";
+            /*
             if (i != (cant_eventos - 1)) {
                 evento = (String) eventos.elementAt(i) + ",";
 
             } else {
                 evento = (String) eventos.elementAt(i) + ",";
             }
-
+            */
             baseC.println(evento);
             // System.out.println(evento);
         }

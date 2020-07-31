@@ -28,6 +28,7 @@ import estructura.ontologiaObjMin;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -57,7 +58,7 @@ public class confGeneral {
     /**
      * Este método muestra el listado de las redes que se han minado
      */
-    public void listarRedes() {
+    public void listarRedes() throws IOException {
         new utilidades();
         seleccionarIdioma();
         new utilidades().limpiarPantalla();
@@ -144,7 +145,7 @@ public class confGeneral {
         }
     }
 
-    private void listarRedesInt(ArrayList<String> redesInt) {
+    private void listarRedesInt(ArrayList<String> redesInt) throws IOException {
 
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
@@ -179,7 +180,7 @@ public class confGeneral {
 
     }
 
-    private void redIntegrada(String red) {
+    private void redIntegrada(String red) throws IOException {
         String ruta = "minery/integration/" + red;
         Scanner lectura = new Scanner(System.in);
         boolean r = true;
@@ -235,7 +236,7 @@ public class confGeneral {
         return nombreRed;
     }
 
-    private void listarProcesos(String red) {
+    private void listarProcesos(String red) throws StringIndexOutOfBoundsException, IOException {
 
         final File carpeta = new File("minery/networks/" + red);
         Scanner lectura = new Scanner(System.in);
@@ -525,7 +526,7 @@ public class confGeneral {
         return proc;
     }
 
-    public void pipeline(String ruta, String rutaD) throws StringIndexOutOfBoundsException {
+    public void pipeline(String ruta, String rutaD) throws StringIndexOutOfBoundsException, IOException {
         new utilidades().limpiarPantalla();
         System.out.println(utilidades.colorTexto1+utilidades.titulo);
         System.out.println(utilidades.colorReset);
