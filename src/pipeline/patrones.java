@@ -183,7 +183,7 @@ public class patrones {
             Vector events_pathways = new Vector(100);
 
             if (pathways == null || kBaseDoc == null) {
-                System.out.println("The file eventsDoc.txt can not be produced because either the file pathways.txt or kBaseDoc does not exist");
+                //System.out.println("The file eventsDoc.txt can not be produced because either the file pathways.txt or kBaseDoc does not exist");
 
             } else {
                 try (PrintWriter eventsDocu = new PrintWriter(eventsDoc)) {
@@ -482,33 +482,40 @@ public class patrones {
 
                     if (lineEvent.startsWith("event('")) {
 
-                        splittedEvent = lineEvent.split(":");
+                        if (lineEvent.contains(":")) {
 
-                        if (splittedEvent[1].equals("P")) {
-                            positiveEvents.add(splittedEvent[0]);
-                            eventlabelled = true;
-                        }
+                            splittedEvent = lineEvent.split(":");
 
-                        if (splittedEvent[1].equals("F")) {
-                            falseEvents.add(splittedEvent[0]);
-                            eventlabelled = true;
-                        }
+                            if (splittedEvent[1].equals("P")) {
+                                positiveEvents.add(splittedEvent[0]);
+                                eventlabelled = true;
+                            }
 
-                        if (splittedEvent[1].equals("U")) {
-                            userEvents.add(splittedEvent[0]);
-                            eventlabelled = true;
-                        }
+                            if (splittedEvent[1].equals("F")) {
+                                falseEvents.add(splittedEvent[0]);
+                                eventlabelled = true;
+                            }
 
-                        if (!eventlabelled) {
+                            if (splittedEvent[1].equals("U")) {
+                                userEvents.add(splittedEvent[0]);
+                                eventlabelled = true;
+                            }
+
+                            if (!eventlabelled) {
+                                System.out.println("The event at the line " + linesNumber + " is not well labelled. The labels P, F or U, must be used");
+                                System.exit(0);
+                            }
+
+                            lineEventDoc = eventsDoc.readLine();
+
+                            if (!eventsDocHistoryContains(ruta, lineEvent, lineEventDoc)) {
+                                eventsDocHistoryADD(ruta, lineEvent, lineEventDoc);
+
+                            }
+
+                        }else{
                             System.out.println("The event at the line " + linesNumber + " is not well labelled. The labels P, F or U, must be used");
                             System.exit(0);
-                        }
-
-                        lineEventDoc = eventsDoc.readLine();
-
-                        if (!eventsDocHistoryContains(ruta, lineEvent, lineEventDoc)) {
-                            eventsDocHistoryADD(ruta, lineEvent, lineEventDoc);
-
                         }
 
                     }
@@ -624,13 +631,13 @@ public class patrones {
                 }
 
                 kBase.close();
-                
+
                 int eventsLength = kBaseEvents.size(), eventCounter = 0;
 
                 if (!falses.isEmpty() || !fromUser.isEmpty()) {
-                    
+
                     PrintWriter kbase = new PrintWriter(new FileWriter(kb));
-                    
+
                     kbase.print("base([" + "\n");
                     for (Object e : kBaseEvents) {
 
