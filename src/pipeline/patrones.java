@@ -502,7 +502,7 @@ public class patrones {
                             }
 
                             if (!eventlabelled) {
-                                System.out.println("The event at the line " + linesNumber + " is not well labelled. The labels P, F or U, must be used");
+                                System.out.println("The event at the line " + linesNumber + " in evenDoc.txt is not well labelled. The labels P, F or U, must be used");
                                 System.exit(0);
                             }
 
@@ -514,7 +514,7 @@ public class patrones {
                             }
 
                         }else{
-                            System.out.println("The event at the line " + linesNumber + " is not well labelled. The labels P, F or U, must be used");
+                            System.out.println("The event at the line " + linesNumber + " in evenDoc.txt is not well labelled. The labels P, F or U, must be used");
                             System.exit(0);
                         }
 
