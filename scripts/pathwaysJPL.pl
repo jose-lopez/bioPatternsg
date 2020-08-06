@@ -1,6 +1,6 @@
 :-style_check(-discontiguous).
 %envento inicio del patron ligando -> receptor o receptor -> receptor
-inicio(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[activate,bind,interact]),(ligand(A);receptor(A)),receptor(B),not(A = B).
+inicio(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[activate,bind,interact,recognize]),(ligand(A);receptor(A)),receptor(B),not(A = B).
 
 %evento final patron tipo 1, tipo 2  transcription_factor -> objeto_de_cierre
 final(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),transcription_factor(A),buscar_en_lista(E,[activate,inactivate,repress,inhibit,regulate,stimulate,bind,interact,reveal]).

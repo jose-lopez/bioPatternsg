@@ -69,6 +69,7 @@ public class patrones {
             File pathways = new File(ruta + "/pathways.txt");
             File eventsDoc = new File(ruta + "/pathways.txt");
 
+            /*
             // En este punto se asume que hay un archivo de eventos documentados que han sido etiquetados como P, F o U.
             // Este metodo lee ese archivo y actualiza la kBase.pl para agregar nuevos eventos del ususario y elimiar los eventos falsos
             // que el usuario haya identificado.
@@ -78,6 +79,7 @@ public class patrones {
                     kbase_update(config, ruta);
                 }
             }
+             */
             // System.out.println(objRestricion);
             borrar_archivo(ruta + "/pathways.txt");
             borrar_archivo(ruta + "/pathways.db");
@@ -112,7 +114,7 @@ public class patrones {
 
             objCierre.forEach(obj -> listaFin.addAll(fin(obj, objRestricion)));
 
-            if (objCierre.size() == 0) {
+            if (objCierre.isEmpty()) {
                 listaFin.addAll(fin("", objRestricion));
             }
 
@@ -156,8 +158,10 @@ public class patrones {
 
     public void events_documentation(configuracion config, String ruta) throws IOException {
 
-        BufferedReader pathways = null, kBaseDoc = null;
-        FileWriter eventsDoc = null;
+        BufferedReader pathways = null, kBaseDoc = null, eventsDocHis = null, eventsDocReader;
+
+        File ev = new File(ruta + "/" + "eventsDoc.txt");
+
         try {
             if (new File(ruta + "/pathways.txt").exists()) {
                 pathways = new BufferedReader(new FileReader(new File(ruta + "/pathways.txt")));
@@ -169,13 +173,9 @@ public class patrones {
             } else {
                 System.out.println("The file kBaseDoc does not exist");
             }
+
             BufferedReader relations = new BufferedReader(new FileReader(new File("scripts/relations.txt")));
             BufferedReader relationsFunctions = new BufferedReader(new FileReader(new File("scripts/relations-functions.txt")));
-            try {
-                eventsDoc = new FileWriter(ruta + "/" + "eventsDoc.txt");
-            } catch (IOException ex) {
-                Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
             String line = "", lineaEvent = "";
             String[] events = null;
@@ -183,12 +183,16 @@ public class patrones {
             Vector events_pathways = new Vector(100);
 
             if (pathways == null || kBaseDoc == null) {
-                //System.out.println("The file eventsDoc.txt can not be produced because either the file pathways.txt or kBaseDoc does not exist");
+                System.out.println("The file eventsDoc.txt can not be produced because either the file pathways.txt or kBaseDoc does not exist");
 
             } else {
-                try (PrintWriter eventsDocu = new PrintWriter(eventsDoc)) {
+
+                pathways.mark(1000000);
+
+                try (PrintWriter eventsDocu = new PrintWriter(new FileWriter(ruta + "/" + "eventsDoc.txt"))) {
 
                     try {
+
                         while (pathways.ready()) {
 
                             line = pathways.readLine();
@@ -215,7 +219,7 @@ public class patrones {
                     relations.mark(1000);
 
                     //--------------------------------------
-                    //-----Determinando numero de Columnas y Filas de la Matriz de verbos Aceptados ---------------------------------
+                    //-----Determinando numero de Columnas y Filas de la Matriz de verbos  ---------------------------------
                     int i = 0, l = 0;
                     String[] vec;
                     while (relations.ready()) {
@@ -228,9 +232,6 @@ public class patrones {
                     }
                     relations.reset();
 
-                    //-----------------------------------------------------------
-                    //-----------------Guardando Todos Los Verbos aceptados con sus conjugados------------------------------------------
-                    //------------------------------------------
                     String[][] verbs = new String[i][l];
                     int j = 0;
                     while (relations.ready()) {
@@ -340,12 +341,13 @@ public class patrones {
                         kBaseDoc.reset();
 
                     }
+                    //
                     if (eventDocsEmpty) {
                         eventsDocu.print("///** The regulatory events in pathways.txt are already labelled in eventsDoc-History.txt **///");
-                    }
-                    eventsDocu.close();
-                    eventsDoc.close();
 
+                    }
+
+                    eventsDocu.close();
                 }
 
             }
@@ -358,6 +360,199 @@ public class patrones {
             } catch (IOException ex) {
                 Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+
+    }
+
+    public void pathways_documentation(configuracion config, String ruta) {
+
+        try {
+
+            if (!new File(ruta + "/" + "pathways.txt").exists()) {
+
+                System.out.println("The file pathways.txt does not exist.");
+
+            } else {
+
+                BufferedReader eventsDocHistory, pathways;
+                FileWriter pathwaysDocu = new FileWriter(ruta + "/" + "pathwaysDoc.txt");
+                PrintWriter pathwaysDoc;
+                pathwaysDoc = new PrintWriter(pathwaysDocu);
+
+                eventsDocHistory = new BufferedReader(new FileReader(new File(ruta + "/" + "eventsDoc-History.txt")));
+                pathways = new BufferedReader(new FileReader(new File(ruta + "/" + "pathways.txt")));
+
+                eventsDocHistory.mark(100000);
+
+                String[] events, eventSplitted, lineSplitted;
+                String line, verb;
+                Vector relats, linesAlreadyPrinted = null;
+
+                BufferedReader relations = new BufferedReader(new FileReader(new File("scripts/relations.txt")));
+                BufferedReader relationsFunctions = new BufferedReader(new FileReader(new File("scripts/relations-functions.txt")));
+
+                relations.mark(1000);
+
+                //--------------------------------------
+                //-----Determinando numero de Columnas y Filas de la Matriz de verbos  ---------------------------------
+                int i = 0, l = 0;
+                String[] vec;
+                while (relations.ready()) {
+                    line = relations.readLine();
+                    if (i == 0) {
+                        vec = line.split(",");
+                        l = vec.length;
+                    }
+                    i++;
+                }
+                relations.reset();
+
+                String[][] verbs = new String[i][l];
+                int j = 0;
+                while (relations.ready()) {
+                    line = relations.readLine();
+                    verbs[j] = line.split(",");
+                    j++;
+                    //System.out.println(linea);
+                }
+
+                Vector regulate = new Vector(50);
+                Vector inhibit = new Vector(50);
+                Vector associate = new Vector(50);
+                Vector bind = new Vector(50);
+                linesAlreadyPrinted = new Vector(100);
+
+                line = relationsFunctions.readLine();
+
+                if (line.startsWith("//------------Regulate")) {
+                    line = relationsFunctions.readLine();
+                    do {
+                        regulate.add(line);
+                        line = relationsFunctions.readLine();
+
+                    } while (!line.startsWith("//------------Inhibit"));
+                }
+
+                if (line.startsWith("//------------Inhibit")) {
+                    line = relationsFunctions.readLine();
+                    do {
+                        inhibit.add(line);
+                        line = relationsFunctions.readLine();
+
+                    } while (!line.startsWith("//------------Associate"));
+                }
+
+                if (line.startsWith("//------------Associate")) {
+                    line = relationsFunctions.readLine();
+                    do {
+                        associate.add(line);
+                        line = relationsFunctions.readLine();
+
+                    } while (!line.startsWith("//------------Bind"));
+                }
+
+                if (line.startsWith("//------------Bind")) {
+
+                    while (relationsFunctions.ready()) {
+                        line = relationsFunctions.readLine();
+                        bind.add(line);
+
+                    }
+                }
+
+                while (pathways.ready()) {
+
+                    line = pathways.readLine();
+
+                    if (line.startsWith("'")) {
+                        
+                        pathwaysDoc.print("---------------------------------------------------: "  + "\n" + "\n");
+
+                        pathwaysDoc.print("PATHWAY: " + line + "\n" + "\n");
+
+                        events = line.split(";");
+
+                        for (String e : events) {
+
+                            pathwaysDoc.print("----> event: " + e + "\n" + "\n");
+
+                            eventSplitted = e.split(",");
+                            verb = eventSplitted[1];
+                            String event, lineFromEventsDocHistory;
+
+                            //lineaEvent = kBaseDoc.readLine();
+                            if (regulate.contains(verb)) {
+                                relats = regulate;
+                            } else if (inhibit.contains(verb)) {
+                                relats = inhibit;
+                            } else if (associate.contains(verb)) {
+                                relats = associate;
+                            } else {
+                                relats = bind;
+                            }
+
+                            boolean contains;
+                            for (Object v : relats) {
+
+                                event = "event(" + eventSplitted[0] + "," + v + "," + eventSplitted[2] + ")";
+                                int linesReadFromEventHistory = 0;
+
+                                while (eventsDocHistory.ready()) {
+
+                                    lineFromEventsDocHistory = eventsDocHistory.readLine();
+                                    linesReadFromEventHistory++;
+
+                                    if (lineFromEventsDocHistory.contains(event)) {
+
+                                        lineSplitted = lineFromEventsDocHistory.split(":");
+
+                                        if (lineSplitted[1].equals("P") || lineSplitted[1].equals("U")) {
+                                            
+                                            lineFromEventsDocHistory = eventsDocHistory.readLine();
+                                            linesReadFromEventHistory++;
+                                            
+                                            contains = false;
+                                            
+                                            for(Object linePrinted: linesAlreadyPrinted){
+                                                
+                                                if(((String)linePrinted).contentEquals(lineFromEventsDocHistory)){
+                                                    contains = true;
+                                                }
+                                                
+                                            }
+
+                                            if (!contains) {
+
+                                                pathwaysDoc.print(lineFromEventsDocHistory + "\n" + "\n");
+                                                linesAlreadyPrinted.add(lineFromEventsDocHistory);
+
+                                            }
+
+                                        } else if (!lineSplitted[1].equals("F")) {
+                                            System.out.println("The event " + e + " on line #: " + linesReadFromEventHistory + lineFromEventsDocHistory + " is not well labelled" + "\n");
+                                            //System.out.println(lineFromEventsDocHistory);
+
+                                            System.exit(0);
+
+                                        }
+
+                                    }
+
+                                }
+                                eventsDocHistory.reset();
+
+                            }
+                            linesAlreadyPrinted.clear();
+                        }
+
+                    }
+                }
+                eventsDocHistory.close();
+                pathwaysDoc.close();
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -438,223 +633,231 @@ public class patrones {
 
     public void kbase_update(configuracion config, String ruta) {
 
+        BufferedReader eventsDoc = null;
+        BufferedReader kBase = null;
+        File kb = new File(ruta + "/kBase.pl");
+
         try {
-
-            BufferedReader eventsDoc = null;
-            BufferedReader kBase = null;
-            File kb = new File(ruta + "/kBase.pl");
-
+            if (kb.exists()) {
+                kBase = new BufferedReader(new FileReader(kb));
+            } else {
+                System.out.println("The file kbase.pl does not exist therefore the KB cannnot be updated");
+            }
             try {
-                if (kb.exists()) {
-                    kBase = new BufferedReader(new FileReader(kb));
+                if (new File(ruta + "/eventsDoc.txt").exists()) {
+                    eventsDoc = new BufferedReader(new FileReader(new File(ruta + "/eventsDoc.txt")));
                 } else {
-                    System.out.println("The file kbase.pl does not exist therefore the KB cannnot be updated");
+                    System.out.println("The file eventsDoc.txt does not exist therefore the KB cannnot be updated");
                 }
-                try {
-                    if (new File(ruta + "/eventsDoc.txt").exists()) {
-                        eventsDoc = new BufferedReader(new FileReader(new File(ruta + "/eventsDoc.txt")));
-                    } else {
-                        System.out.println("The file eventsDoc.txt does not exist therefore the KB cannnot be updated");
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } catch (FileNotFoundException ex) {
+            } catch (IOException ex) {
                 Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-            if (kBase != null && eventsDoc != null) {
+        if (kBase != null && eventsDoc != null) {
 
+            try {
                 int linesNumber = 0;
-                String lineEvent, lineEventDoc, ev;
+                String lineEvent = null, lineEventDoc, ev;
                 boolean eventlabelled;
                 String[] splittedEvent;
                 Vector positiveEvents = new Vector(100);
                 Vector falseEvents = new Vector(100);
                 Vector userEvents = new Vector(100);
-
-                while (eventsDoc.ready()) {
+                if (eventsDoc.ready()) {
 
                     lineEvent = eventsDoc.readLine();
 
-                    eventlabelled = false;
-                    linesNumber++;
-
-                    if (lineEvent.startsWith("event('")) {
-
-                        if (lineEvent.contains(":")) {
-
-                            splittedEvent = lineEvent.split(":");
-
-                            if (splittedEvent[1].equals("P")) {
-                                positiveEvents.add(splittedEvent[0]);
-                                eventlabelled = true;
-                            }
-
-                            if (splittedEvent[1].equals("F")) {
-                                falseEvents.add(splittedEvent[0]);
-                                eventlabelled = true;
-                            }
-
-                            if (splittedEvent[1].equals("U")) {
-                                userEvents.add(splittedEvent[0]);
-                                eventlabelled = true;
-                            }
-
-                            if (!eventlabelled) {
-                                System.out.println("The event at the line " + linesNumber + " in evenDoc.txt is not well labelled. The labels P, F or U, must be used");
-                                System.exit(0);
-                            }
-
-                            lineEventDoc = eventsDoc.readLine();
-
-                            if (!eventsDocHistoryContains(ruta, lineEvent, lineEventDoc)) {
-                                eventsDocHistoryADD(ruta, lineEvent, lineEventDoc);
-
-                            }
-
-                        }else{
-                            System.out.println("The event at the line " + linesNumber + " in evenDoc.txt is not well labelled. The labels P, F or U, must be used");
-                            System.exit(0);
-                        }
-
-                    }
-
-                }
-
-                String lineKBase, split;
-                String[] events;
-                Vector kBaseEvents = new Vector(100);
-
-                while (kBase.ready()) {
-
-                    lineKBase = kBase.readLine();
-
-                    if (lineKBase.startsWith("event('")) {
-
-                        split = lineKBase.split("\\)")[0] + ")";
-
-                        kBaseEvents.add(split);
-                    }
-
-                }
-
-                String eventKBase, eventC;
-                String[] event, eventsCompare;
-                Vector falses = new Vector(100);
-                Vector fromUser = new Vector(100);
-                Vector positives = new Vector(100);
-
-                boolean contains = false;
-
-                for (Object p : positiveEvents) {
-                    eventC = (String) p;
-                    eventsCompare = eventC.split("\\)");
-
-                    for (Object e : kBaseEvents) {
-
-                        eventKBase = (String) e;
-                        event = eventKBase.split("\\)");
-
-                        if (event[0].equals(eventsCompare[0])) {
-                            contains = true;
-                            break;
-                        }
-                    }
-
-                    if (!contains) {
-                        System.out.println("The following event was added for you but labelled as :P");
-                        System.out.println("The system assumes that it is a positive one");
-                        fromUser.add(p);
-                    }
-                    contains = false;
-                }
-
-                for (Object f : falseEvents) {
-                    eventC = (String) f;
-                    eventsCompare = eventC.split("\\)");
-
-                    for (Object e : kBaseEvents) {
-
-                        eventKBase = (String) e;
-                        event = eventKBase.split("\\)");
-
-                        if (event[0].equals(eventsCompare[0])) {
-                            contains = true;
-                            f = e;
-                            break;
-                        }
-                    }
-
-                    if (contains) {
-                        falses.add(f);
+                    if (lineEvent.contains("///**")) {
+                        System.out.println(" The events in the pathways.txt file are already labelled and the KBase.pl is updated ");
+                        System.exit(0);
                     } else {
-                        System.out.println("The following event was added for you but labelled as :F");
-                        System.out.println("The system assumes that it is a positive one");
-                        fromUser.add(f);
-                    }
 
-                    contains = false;
-                }
+                        while (eventsDoc.ready()) {
 
-                contains = false;
+                            eventlabelled = false;
+                            linesNumber++;
 
-                for (Object u : userEvents) {
-                    eventC = (String) u;
-                    eventsCompare = eventC.split("\\)");
+                            if (lineEvent.startsWith("event('")) {
 
-                    for (Object e : kBaseEvents) {
+                                if (lineEvent.contains(":")) {
 
-                        eventKBase = (String) e;
-                        event = eventKBase.split("\\)");
+                                    splittedEvent = lineEvent.split(":");
 
-                        if (event[0].equals(eventsCompare[0])) {
-                            contains = true;
-                            break;
+                                    if (splittedEvent[1].equals("P")) {
+                                        positiveEvents.add(splittedEvent[0]);
+                                        eventlabelled = true;
+                                    }
+
+                                    if (splittedEvent[1].equals("F")) {
+                                        falseEvents.add(splittedEvent[0]);
+                                        eventlabelled = true;
+                                    }
+
+                                    if (splittedEvent[1].equals("U")) {
+                                        userEvents.add(splittedEvent[0]);
+                                        eventlabelled = true;
+                                    }
+
+                                    if (!eventlabelled) {
+                                        System.out.println("The event at the line " + linesNumber + " in evenDoc.txt is not well labelled. The labels P, F or U, must be used");
+                                        System.exit(0);
+                                    }
+
+                                    lineEventDoc = eventsDoc.readLine();
+
+                                    if (!eventsDocHistoryContains(ruta, lineEvent, lineEventDoc)) {
+                                        eventsDocHistoryADD(ruta, lineEvent, lineEventDoc);
+
+                                    }
+
+                                } else {
+                                    System.out.println("The event at the line " + linesNumber + " in evenDoc.txt is not well labelled. The labels P, F or U, must be used");
+                                    System.exit(0);
+                                }
+
+                            }
+
+                            lineEvent = eventsDoc.readLine();
+
+                        }
+
+                        String lineKBase, split;
+                        String[] events;
+                        Vector kBaseEvents = new Vector(100);
+
+                        while (kBase.ready()) {
+
+                            lineKBase = kBase.readLine();
+
+                            if (lineKBase.startsWith("event('")) {
+
+                                split = lineKBase.split("\\)")[0] + ")";
+
+                                kBaseEvents.add(split);
+                            }
+
+                        }
+
+                        String eventKBase, eventC;
+                        String[] event, eventsCompare;
+                        Vector falses = new Vector(100);
+                        Vector fromUser = new Vector(100);
+                        Vector positives = new Vector(100);
+
+                        boolean contains = false;
+
+                        for (Object p : positiveEvents) {
+                            eventC = (String) p;
+                            eventsCompare = eventC.split("\\)");
+
+                            for (Object e : kBaseEvents) {
+
+                                eventKBase = (String) e;
+                                event = eventKBase.split("\\)");
+
+                                if (event[0].equals(eventsCompare[0])) {
+                                    contains = true;
+                                    break;
+                                }
+                            }
+
+                            if (!contains) {
+                                System.out.println("The following event was added for you but labelled as :P");
+                                System.out.println("The system assumes that it is a positive one");
+                                fromUser.add(p);
+                            }
+                            contains = false;
+                        }
+
+                        for (Object f : falseEvents) {
+                            eventC = (String) f;
+                            eventsCompare = eventC.split("\\)");
+
+                            for (Object e : kBaseEvents) {
+
+                                eventKBase = (String) e;
+                                event = eventKBase.split("\\)");
+
+                                if (event[0].equals(eventsCompare[0])) {
+                                    contains = true;
+                                    f = e;
+                                    break;
+                                }
+                            }
+
+                            if (contains) {
+                                falses.add(f);
+                            } else {
+                                System.out.println("The following event was added for you but labelled as :F");
+                                System.out.println("The system assumes that it is a positive one");
+                                fromUser.add(f);
+                            }
+
+                            contains = false;
+                        }
+
+                        contains = false;
+
+                        for (Object u : userEvents) {
+                            eventC = (String) u;
+                            eventsCompare = eventC.split("\\)");
+
+                            for (Object e : kBaseEvents) {
+
+                                eventKBase = (String) e;
+                                event = eventKBase.split("\\)");
+
+                                if (event[0].equals(eventsCompare[0])) {
+                                    contains = true;
+                                    break;
+                                }
+                            }
+
+                            if (!contains) {
+                                fromUser.add(u);
+                            }
+                            contains = false;
+                        }
+
+                        for (Object k : falses) {
+                            //System.out.println("Removing " + (String) k + " from the KB");
+                            kBaseEvents.removeElement(k);
+                        }
+
+                        for (Object u : fromUser) {
+                            //System.out.println("Adding " + (String) u + " to the KB");
+                            kBaseEvents.add(u);
+                        }
+
+                        kBase.close();
+
+                        int eventsLength = kBaseEvents.size(), eventCounter = 0;
+
+                        if (!falses.isEmpty() || !fromUser.isEmpty()) {
+
+                            PrintWriter kbase = new PrintWriter(new FileWriter(kb));
+
+                            kbase.print("base([" + "\n");
+                            for (Object e : kBaseEvents) {
+
+                                if ((eventCounter < (eventsLength - 1))) {
+                                    kbase.print(e + "," + "\n");
+                                    eventCounter++;
+                                } else {
+                                    kbase.print(e + "\n");
+                                }
+                            }
+                            kbase.print("]).");
+                            kbase.close();
                         }
                     }
-
-                    if (!contains) {
-                        fromUser.add(u);
-                    }
-                    contains = false;
                 }
-
-                for (Object k : falses) {
-                    //System.out.println("Removing " + (String) k + " from the KB");
-                    kBaseEvents.removeElement(k);
-                }
-
-                for (Object u : fromUser) {
-                    //System.out.println("Adding " + (String) u + " to the KB");
-                    kBaseEvents.add(u);
-                }
-
-                kBase.close();
-
-                int eventsLength = kBaseEvents.size(), eventCounter = 0;
-
-                if (!falses.isEmpty() || !fromUser.isEmpty()) {
-
-                    PrintWriter kbase = new PrintWriter(new FileWriter(kb));
-
-                    kbase.print("base([" + "\n");
-                    for (Object e : kBaseEvents) {
-
-                        if ((eventCounter < (eventsLength - 1))) {
-                            kbase.print(e + "," + "\n");
-                            eventCounter++;
-                        } else {
-                            kbase.print(e + "\n");
-                        }
-                    }
-                    kbase.print("]).");
-                    kbase.close();
-                }
+            } catch (IOException ex) {
+                Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-        } catch (IOException ex) {
-            Logger.getLogger(patrones.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
