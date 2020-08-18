@@ -69,7 +69,7 @@ public class GeneradorBC {
         try (PrintWriter archivoBC = new PrintWriter(fichero)) {
 
             PrintWriter archivoBCdoc = new PrintWriter(fichero1);
-            
+
             archivoBC.println("base([");
 
             while (oracionesSVC(n, ruta)) {
@@ -92,7 +92,7 @@ public class GeneradorBC {
 
             archivoBCdoc.println(utilidades.idioma.get(151) + "" + cont_eventos);
             archivoBCdoc.close();
-            
+
             try (BufferedReader baseKB = new BufferedReader(new FileReader(new File(ruta + "/" + baseCtemp)))) {
                 PrintWriter kb = new PrintWriter(new FileWriter(ruta + "/" + baseC));
                 String lineaActual, lineaAnt;
@@ -114,7 +114,9 @@ public class GeneradorBC {
                     }
                 }
                 baseKB.close();
+                new File(ruta + "/" + baseCtemp).delete();
             }
+
         }
 
         config.setGenerarBC(true);
@@ -233,7 +235,7 @@ public class GeneradorBC {
         int lineas = 0;
 
         while (resumidor1.readLine() != null) {
-            lineas++;           
+            lineas++;
         }
         resumidor1.close();
 
@@ -250,18 +252,21 @@ public class GeneradorBC {
                 int pos_sujeto = linea.indexOf("sujeto(");
                 int pos_verbo = linea.indexOf("verbo(");
                 String contenido_sujeto = linea.substring(pos_sujeto, pos_verbo).toUpperCase();
-                
+
                 // Se comparan todos los objetos moleculares minados con los tokens presentes en 
                 // el contenido del sujeto de la oracion en proceso.
                 for (int cant_objetos = 0; cant_objetos < cant_objetos_minados; cant_objetos++) {
                     Vector sinoms_suj = (Vector) objetos_detallados.elementAt(cant_objetos);
                     int cant_alias = sinoms_suj.size();
                     for (int alias = 0; alias < cant_alias; alias++) {
-                        
+
                         String obj_comparador = sinoms_suj.elementAt(alias).toString().toUpperCase();
 
                         if ((contenido_sujeto.indexOf("'" + obj_comparador) != -1) || (contenido_sujeto.indexOf(obj_comparador + "'") != -1)) {
-                         //if ( (contenido_sujeto.contains(obj_comparador1)) || (contenido_sujeto.contains(obj_comparador2) ) ){   
+                            //if ( (contenido_sujeto.contains(obj_comparador1)) || (contenido_sujeto.contains(obj_comparador2) ) ){   
+                            sujetos.add(sinoms_suj.elementAt(0));
+                            break;
+                        } else if ((contenido_sujeto.indexOf(obj_comparador) != -1)) {
                             sujetos.add(sinoms_suj.elementAt(0));
                             break;
                         }
@@ -337,32 +342,31 @@ public class GeneradorBC {
                 String event;
 
                 if ((cant_suj != 0) && (cant_rels != 0) && (cant_suj_comp != 0)) {
-                    
-                    linea=linea.replace("[sujeto([", "").replace("]), verbo([", " ").replace("]), complemento([", " ").replace(",',", "*").replace(",", "");
-                    linea=linea.replace("*", ",").replace("'", "").replace("( ", "(").replace(" )", ")").replace(" / ", "/").replace(" - ", "-").replace("])].", ".");
-                                        
+
+                    linea = linea.replace("[sujeto([", "").replace("]), verbo([", " ").replace("]), complemento([", " ").replace(",',", "*").replace(",", "");
+                    linea = linea.replace("*", ",").replace("'", "").replace("( ", "(").replace(" )", ")").replace(" / ", "/").replace(" - ", "-").replace("])].", ".");
+
                     for (int s = 0; s < cant_suj; s++) {
                         suj = (String) sujetos.elementAt(s);
                         for (int r = 0; r < cant_rels; r++) {
                             rel = (String) relaciones.elementAt(r);
                             for (int c = 0; c < cant_suj_comp; c++) {
                                 comple = (String) objetos_complemento.elementAt(c);
-                                if (!suj.equals(comple)) {
-                                    new utilidades().carga();
-                                    if (!interchange) {
-                                        event = "event(" + "'" + suj + "'" + "," + rel + "," + "'" + comple + "'" + ")";
-                                    }else{
-                                        event = "event(" + "'" + comple + "'" + "," + rel + "," + "'" + suj + "'" + ")";
-                                    }
-                                    if (!eventos.contains(event)) {
-                                        eventos.add(event);                                     
-                                        contEventosArchivoActual++;
-                                        baseC.println("evento: " + event + "; Linea: " + cont_lineas);
-                                        baseC.println(linea);
-                                    }
-                                    
+                                //if (!suj.equals(comple)) {
+                                new utilidades().carga();
+                                if (!interchange) {
+                                    event = "event(" + "'" + suj + "'" + "," + rel + "," + "'" + comple + "'" + ")";
+                                } else {
+                                    event = "event(" + "'" + comple + "'" + "," + rel + "," + "'" + suj + "'" + ")";
+                                }
+                                if (!eventos.contains(event)) {
+                                    eventos.add(event);
+                                    contEventosArchivoActual++;
+                                    baseC.println("evento: " + event + "; Linea: " + cont_lineas);
+                                    baseC.println(linea);
                                 }
 
+                                //}
                             }
 
                         }
@@ -399,7 +403,7 @@ public class GeneradorBC {
         String evento;
 
         for (int i = 0; i < cant_eventos; i++) {
-            
+
             evento = (String) eventos.elementAt(i) + ",";
             /*
             if (i != (cant_eventos - 1)) {
@@ -408,7 +412,7 @@ public class GeneradorBC {
             } else {
                 evento = (String) eventos.elementAt(i) + ",";
             }
-            */
+             */
             baseC.println(evento);
             // System.out.println(evento);
         }

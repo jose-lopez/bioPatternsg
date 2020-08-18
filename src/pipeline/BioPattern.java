@@ -234,7 +234,7 @@ public class BioPattern {
         confGeneral confG = new confGeneral();
         confG.seleccionarIdioma();
         new utilidades();
-        String ruta = "minery/networks/BAXS/NRF2-NFE2L2";
+        String ruta = "minery/networks/BAXS/CYP7A1";
         utilidades.proceso = ruta;
         configuracion config = new configuracion();
         //conf.recuperarConfiguracion(ruta);
@@ -242,7 +242,7 @@ public class BioPattern {
         //new Resumidor().resumidor(config, ruta);
 
         // crea la bace de conocimiento con el listado de eventos encontrados por el resumidor
-        //String kb = new GeneradorBC().generadorBC("kBase.pl", config, ruta);
+        String kb = new GeneradorBC().generadorBC("kBase.pl", config, ruta);
 
         // se crea el archivo 'mineria/pathwaysObjects.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
         //new objetos_patrones().generar_archivo(config, ruta);
@@ -251,7 +251,7 @@ public class BioPattern {
         
         //new patrones().kbase_update(config, ruta);
         
-        new patrones().pathways_documentation(config, ruta);
+        //new patrones().pathways_documentation(config, ruta);
         
         //new patrones().inferir_patrones(config, ruta);
     }
