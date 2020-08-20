@@ -9,7 +9,7 @@ final(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),transcription_factor(A),bu
 intermedios(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),protein(B),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate]).
 
 %evento que crea un patron de 2 enventos .. evento inicio, evento cierre (patron tipo 3, tipo 4)
-eventoEspecial(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),transcription_factor(A),buscar_en_lista(E,[activate,inactivate,repress,inhibit,regulate,stimulate,bind,interact,reveal]).
+eventoEspecial(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[activate,inactivate,repress,inhibit,regulate,stimulate,bind,interact,reveal]).
 
 %evento adicional para crear los patrones tipo 5
 finalEspecial(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[activate,inactivate,repress,inhibit,regulate,stimulate,bind,interact,reveal]).
@@ -23,7 +23,7 @@ final_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en
 
 intermedios_rest(A,E,B,L):-buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),protein(B),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate]).
 
-eventoEspecial_rest(A,E,B,L):-transcription_factor(A),buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[activate,inactivate,repress,inhibit,regulate,stimulate,bind,interact,reveal]).
+eventoEspecial_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[activate,inactivate,repress,inhibit,regulate,stimulate,bind,interact,reveal]).
 
 
 buscar_en_lista(L,[L|_]).
