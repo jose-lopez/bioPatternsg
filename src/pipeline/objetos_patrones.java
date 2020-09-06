@@ -136,6 +136,7 @@ public class objetos_patrones {
         String ruta2 = ruta + "/pathwaysObjects.pl";
         new escribirBC("%//" + lista.toString(), ruta2);
         new utilidades().carga();
+        //lista.remove(1);
         for (String obj : lista) {
 
             String consulta = "p_ligand('" + obj + "').";

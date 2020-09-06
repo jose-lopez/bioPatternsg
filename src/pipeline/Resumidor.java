@@ -195,7 +195,7 @@ public class Resumidor {
     }
 
 //---------------------------------------
-    public boolean generarResumen(String resumirComando) {
+    public boolean generarResumen(String resumirComando){
 
         boolean hasSolution = false;
 

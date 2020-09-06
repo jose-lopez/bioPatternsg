@@ -29,6 +29,6 @@ eventoEspecial_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),
 buscar_en_lista(L,[L|_]).
 buscar_en_lista(L,[_|Ys]):-buscar_en_lista(L,Ys).
 
-objeto(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),transcription_factor(A).
+objeto(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),protein(A).
 
 %[trimerize,require,heterodimerize,interact,associate,phosphorylate,recruit,dimerize,recognize,participate,activate,inhibit]
