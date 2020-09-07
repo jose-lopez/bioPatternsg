@@ -353,9 +353,11 @@ public class consultasJPL {
                 case "1":
                     limpiarPantalla();
                     borrar_archivo(ruta + "/chainsPathways.txt");
+                    //se cargan todos los patrones 
                     final ArrayList<pathway> pathways = cargarPatrones(ruta);
                     String Objrest;
                     while (true) {
+                        //objeto de cierre de los patrones
                         System.out.print(utilidades.idioma.get(113));
                         String text = lectura.nextLine();
                         Objrest = "'" + text + "'";
@@ -368,6 +370,7 @@ public class consultasJPL {
                     int max;
 
                     while (true) {
+                        //cantidad máxima de objetos en los patrones
                         System.out.print(utilidades.idioma.get(115));
                         String text2 = lectura.nextLine();
                         try {
@@ -377,11 +380,19 @@ public class consultasJPL {
                             System.out.println(utilidades.idioma.get(114));
                         }
                     }
+                    
+                    //se copia el arreglo de patrones
                     ArrayList<pathway> pathWaysin = new ArrayList<>();
                     pathWaysin.addAll(pathways);
+                    
+                    //se eliminan todos los patrones que no tengan como objeto de cierre el indicado por el usuario
+                    final String ObjrestF = Objrest;
+                    pathWaysin.removeIf(p -> !p.getObjetos().get(p.getObjetos().size() - 1).equals(ObjrestF));
 
+                    
                     for (pathway pat : pathWaysin) {
                         //System.out.println("***" + pat.getPatron() + "\n\n");
+                        //se recorre el arreglo de patrones y se toman solo los que complen con la cantida de objetos maxima
                         int tp = pat.getPatron().split(";").length;
                         if (tp <= max) {
                             cadenaPat(pathways, pat, new ArrayList<cadenas_pathway>(), ruta, Objrest, max);
@@ -400,18 +411,25 @@ public class consultasJPL {
 
     private void cadenaPat(ArrayList<pathway> pathways, pathway pat, ArrayList<cadenas_pathway> cadena, String ruta, String objRest, int max) {
         ArrayList<pathway> listP2 = new ArrayList<>();
+        //se hace una copia del arreglo de los patrones
         listP2.addAll(pathways);
+        //se eliminan los patrones donde coinciden todos los objetos del patron raiz (patrones iguales) 
         listP2.removeIf(p -> p.getObjetos().toString().equals(pat.getObjetos().toString()));
+        //se toma el objeto de cierre del patron raiz        
         String objin = pat.getObjetos().get(pat.getObjetos().size() - 1);
-
+        
+        
         listP2.stream().forEach((p) -> {
-
+            //se verifica que los patrones cumplan con la cantidad maxima de objetos
             int pt = p.getPatron().split(";").length;
             if (pt <= max) {
+                
                 ArrayList<cadenas_pathway> cadenaAux = new ArrayList<>();
                 cadenaAux.addAll(cadena);
                 //System.out.println("--" + p.getPatron());
+                //Se verifica que el patron enlazado no comience con el mismo objeto que el primero
                 if (!pat.getObjetos().get(0).equals(p.getObjetos().get(0)) && validar_pathway(cadenaAux, p)) {
+                    //Se buscan eventos que unan el objeto de cierre del primer patron con el objeto de inicio del segundo patron
                     String consulta = "buscar_evento(" + objin + ",E," + p.getObjetos().get(0) + ").";
                     Query q2 = new Query(consulta);
                     String resp = "";
@@ -424,9 +442,12 @@ public class consultasJPL {
                         }
                     }
                     cadenas_pathway cad = new cadenas_pathway();
-
+                    
+                    //si el objeto de cierre del primer patron es ingual al objeto de inicio del segundo
+                    //se toma el primer evento del segundo patron como evento de enlace
                     if (objin.equals(p.getObjetos().get(0))) {
-
+                        
+                        //se verifica que la cadena sea coherente
                         if (validar_cadena(pat, p)) {
                             String sep[] = p.getPatron().split(";");
                             cad.setPathway_inicial(pat.getPatron());
@@ -434,13 +455,19 @@ public class consultasJPL {
                             cad.setEventos(sep[0]);
                             cadenaAux.add(cad);
                             //if (!p.getObjetos().get(p.getObjetos().size() - 1).equals(objRest) && !p.getObjetos().get(p.getObjetos().size() - 1).equals(pat.getObjetos().get(pat.getObjetos().size() - 1))) {
+                            //se revisa si ya exite una red de regulacion, si no existe aun se continua explorando 
                             if (validarCamino(cadenaAux)) {
+                                //si no existe red de regulacion aun, se repite el proceso partiendo con el patron final hasta este momento
                                 cadenaPat(listP2, p, cadenaAux, ruta, objRest, max);
                             } else {
+                                //si ya hay red de regulacion se imprime
                                 imprimirCadena(cadenaAux, ruta, objRest);
                             }
                         }
-                    } else if (!resp.equals("")) {
+                    }
+                    //se revisa si existen enventos de enlace para los patrones analizados
+                    else if (!resp.equals("")) {
+                         //se verifica que la cadena sea coherente
                         if (validar_cadena(pat, p)) {
                             cad.setPathway_inicial(pat.getPatron());
                             cad.setPathway_final(p.getPatron());
@@ -448,9 +475,11 @@ public class consultasJPL {
                             cadenaAux.add(cad);
 
                             //if (!p.getObjetos().get(p.getObjetos().size() - 1).equals(objRest) && !p.getObjetos().get(p.getObjetos().size() - 1).equals(pat.getObjetos().get(pat.getObjetos().size() - 1))) {
+                            //se revisa si ya exite una red de regulacion, si no existe aun se continua explorando 
                             if (validarCamino(cadenaAux)) {
                                 cadenaPat(listP2, p, cadenaAux, ruta, objRest, max);
                             } else {
+                                //si ya hay red de regulacion se imprime
                                 imprimirCadena(cadenaAux, ruta, objRest);
                             }
                         }
@@ -524,8 +553,11 @@ public class consultasJPL {
         String sep2[] = fin.getPatron().split(";");
         String eve_fin = sep2[sep2.length - 1];
         String tip2 = tipo_Complejo(eve_fin);
-
-        //System.out.println(sep1[sep1.length - 1] + " " + tip1 + " --> " + sep2[sep2.length - 1] + "  " + tip2);
+         //System.out.println(sep1[sep1.length - 1] + " " + tip1 + " --> " + sep2[sep2.length - 1] + "  " + tip2);
+        
+    
+        //se valida que si el el objeto de cierre es el mismo en el inicio que al final el evento debe ser distindo
+        //si comienza up dete terminar down
         if (!tip1.equals(tip2)) {
             return true;
         }
@@ -550,7 +582,7 @@ public class consultasJPL {
         }
 
         if (!Obji.equals(Objf)) {
-            return true;
+            return false;
         }
 
         String tip1 = tipo_Complejo(eve_in);

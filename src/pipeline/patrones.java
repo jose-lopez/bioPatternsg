@@ -1536,7 +1536,8 @@ public class patrones {
         eventosMiddle.add("combine");
         eventosMiddle.add("envelop");
         eventosMiddle.add("bring");
-
+        eventosMiddle.add("participate");
+        
         if (eventosUP.contains(sinonimo)) {
             sinonimo = "regulate";
         } else if (eventosDOWN.contains(sinonimo)) {
