@@ -266,9 +266,6 @@ public class GeneradorBC {
                             //if ( (contenido_sujeto.contains(obj_comparador1)) || (contenido_sujeto.contains(obj_comparador2) ) ){   
                             sujetos.add(sinoms_suj.elementAt(0));
                             break;
-                        } else if ((contenido_sujeto.indexOf(obj_comparador) != -1)) {
-                            sujetos.add(sinoms_suj.elementAt(0));
-                            break;
                         }
 
                     }
@@ -352,21 +349,21 @@ public class GeneradorBC {
                             rel = (String) relaciones.elementAt(r);
                             for (int c = 0; c < cant_suj_comp; c++) {
                                 comple = (String) objetos_complemento.elementAt(c);
-                                //if (!suj.equals(comple)) {
-                                new utilidades().carga();
-                                if (!interchange) {
-                                    event = "event(" + "'" + suj + "'" + "," + rel + "," + "'" + comple + "'" + ")";
-                                } else {
-                                    event = "event(" + "'" + comple + "'" + "," + rel + "," + "'" + suj + "'" + ")";
-                                }
-                                if (!eventos.contains(event)) {
-                                    eventos.add(event);
-                                    contEventosArchivoActual++;
-                                    baseC.println("evento: " + event + "; Linea: " + cont_lineas);
-                                    baseC.println(linea);
-                                }
+                                if (!suj.equals(comple)) {
+                                    new utilidades().carga();
+                                    if (!interchange) {
+                                        event = "event(" + "'" + suj + "'" + "," + rel + "," + "'" + comple + "'" + ")";
+                                    } else {
+                                        event = "event(" + "'" + comple + "'" + "," + rel + "," + "'" + suj + "'" + ")";
+                                    }
+                                    if (!eventos.contains(event)) {
+                                        eventos.add(event);
+                                        contEventosArchivoActual++;
+                                        baseC.println("evento: " + event + "; Linea: " + cont_lineas);
+                                        baseC.println(linea);
+                                    }
 
-                                //}
+                                }
                             }
 
                         }
