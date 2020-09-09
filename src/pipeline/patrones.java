@@ -767,6 +767,7 @@ public class patrones {
                             if (!contains) {
                                 System.out.println("The following event was added for you but labelled as :P");
                                 System.out.println("The system assumes that it is a positive one");
+                                System.out.println(eventC);
                                 fromUser.add(p);
                             }
                             contains = false;
