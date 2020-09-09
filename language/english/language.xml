@@ -115,7 +115,7 @@
         <m n="110">-PDB ligand </m>
         <m n="111">Searching for pathways and regulatory events that relate them</m>
         <m n="112">1.- Run the process</m>
-        <m n="113">Provide the name of the object that must finish the pathways: </m>
+        <m n="113">Provide the start pathway: </m>
         <m n="114">The data is not correct</m>
         <m n="115">Provide the maximun number of objects allowed in the pathways: </m>
         <m n="116">Linking events: </m>

@@ -115,7 +115,7 @@
         <m n="110">-ligando PDB</m>
         <m n="111">Búsqueda de cadenas de pathways y eventos que los relacionan.</m>
         <m n="112">1.- Ejecutar el proceso.</m>
-        <m n="113">Ingrese el objeto de cierre de los patrones:</m>
+        <m n="113">Ingrese Patron de inicio: </m>
         <m n="114">El dato no es valido</m>
         <m n="115">Ingrese cantidad máxima de objetos en los patrones:</m>
         <m n="116">Eventos de enlace:</m>

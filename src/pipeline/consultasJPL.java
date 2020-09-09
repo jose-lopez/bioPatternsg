@@ -147,6 +147,7 @@ public class consultasJPL {
                     buscar_tipo_ligando(ruta);
                     break;
                 case "8":
+                    //buscar_cadenas_pathwaysRest(ruta);
                     buscar_cadenas_pathways(ruta);
                     
                     break;
@@ -305,16 +306,19 @@ public class consultasJPL {
 
     public void buscar_cadenas_pathwaysRest(String ruta) {
         borrar_archivo(ruta + "/chainsPathways.txt");
-        String Objrest = "'NR0B2'";
-        String Objresti = "'bile acid'";
+        String Objrest = "'CYP7A1'";
+        String Objresti = "'oxysterols'";
         ArrayList<pathway> pathways = cargarPatrones(ruta);
         int max = 3;
 
         ArrayList<pathway> pathWaysin = new ArrayList<>();
         pathWaysin.addAll(pathways);
 
-        pathWaysin.removeIf(p -> !p.getObjetos().get(p.getObjetos().size() - 1).equals(Objrest));
-        pathWaysin.removeIf(p -> !p.getObjetos().get(0).equals(Objresti));
+        String patIn = "'oxysterols',bind,'NR1H3';'NR1H3',regulate,'CYP7A1'";
+        //pathWaysin.removeIf(p -> !p.getObjetos().get(p.getObjetos().size() - 1).equals(Objrest));
+        //pathWaysin.removeIf(p -> !p.getObjetos().get(0).equals(Objresti));
+        pathWaysin.removeIf(p-> !p.getPatron().equals(patIn));
+        
 //        pathWaysin.forEach(t -> System.out.println(t.getPatron()));
 //        System.out.println("\n\n");
         for (pathway pat : pathWaysin) {
@@ -360,7 +364,8 @@ public class consultasJPL {
                         //objeto de cierre de los patrones
                         System.out.print(utilidades.idioma.get(113));
                         String text = lectura.nextLine();
-                        Objrest = "'" + text + "'";
+                        //Objrest = "'" + text + "'";
+                        Objrest = text;
                         if (!Objrest.equals("")) {
                             break;
                         } else {
@@ -384,18 +389,26 @@ public class consultasJPL {
                     //se copia el arreglo de patrones
                     ArrayList<pathway> pathWaysin = new ArrayList<>();
                     pathWaysin.addAll(pathways);
-                    
+                     final String pathwayRest = Objrest;
+                   
                     //se eliminan todos los patrones que no tengan como objeto de cierre el indicado por el usuario
-                    final String ObjrestF = Objrest;
-                    pathWaysin.removeIf(p -> !p.getObjetos().get(p.getObjetos().size() - 1).equals(ObjrestF));
-
+                    //pathWaysin.removeIf(p -> !p.getObjetos().get(p.getObjetos().size() - 1).equals(ObjrestF));
+                     
+                    //se usa como patron de inicio solo el ingresado por el experto 
+                    pathWaysin.removeIf(p -> !p.getPatron().equals(pathwayRest));
+                    
+                   
+                    //Se eliminan todos los patrones que tengan mas eventos que la cantidad maxima ingresada por el experto
+                    final int maximo = max;
+                    pathways.removeIf(p-> p.getPatron().split(";").length > maximo);
                     
                     for (pathway pat : pathWaysin) {
-                        //System.out.println("***" + pat.getPatron() + "\n\n");
+                        System.out.println("***" + pat.getPatron() + "\n\n");
                         //se recorre el arreglo de patrones y se toman solo los que complen con la cantida de objetos maxima
                         int tp = pat.getPatron().split(";").length;
                         if (tp <= max) {
-                            cadenaPat(pathways, pat, new ArrayList<cadenas_pathway>(), ruta, Objrest, max);
+                            String ObjFinal = pat.getObjetos().get(pat.getObjetos().size() -1);
+                            cadenaPat(pathways, pat, new ArrayList<cadenas_pathway>(), ruta, ObjFinal, max);
                         }
                     }
 
