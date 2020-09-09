@@ -54,8 +54,8 @@ public class BioPattern {
         BioPattern biopattern = new BioPattern();
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
-        //biopattern.pipelineBioPattern();
-        biopattern.pruebas();
+        biopattern.pipelineBioPattern();
+        //biopattern.pruebas();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
