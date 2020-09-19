@@ -266,10 +266,16 @@ public class GeneradorBC {
                             //if ( (contenido_sujeto.contains(obj_comparador1)) || (contenido_sujeto.contains(obj_comparador2) ) ){   
                             sujetos.add(sinoms_suj.elementAt(0));
                             break;
+                        } else if (obj_comparador.contains(",")) {
+                            if ((contenido_sujeto.indexOf(obj_comparador) != -1)) {
+                                //if ( (contenido_sujeto.contains(obj_comparador1)) || (contenido_sujeto.contains(obj_comparador2) ) ){   
+                                sujetos.add(sinoms_suj.elementAt(0));
+                                break;
+
+                            }
                         }
 
                     }
-
                 }
 
                 // Se determinan los verbos presentes en la oracion y se guardan en el Vector verbos.
@@ -325,6 +331,13 @@ public class GeneradorBC {
                         if ((contenido_complemento.indexOf("'" + comparador) != -1) || (contenido_complemento.indexOf(comparador + "'") != -1)) {
                             objetos_complemento.add(sinoms_compl.elementAt(0));
                             break;
+                        }else if (comparador.contains(",")) {
+                            if ((contenido_complemento.indexOf(comparador) != -1)) {
+                                //if ( (contenido_sujeto.contains(obj_comparador1)) || (contenido_sujeto.contains(obj_comparador2) ) ){   
+                                objetos_complemento.add(sinoms_compl.elementAt(0));
+                                break;
+
+                            }
                         }
 
                     }
