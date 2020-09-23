@@ -160,8 +160,8 @@ public class patrones {
 
         BufferedReader pathways = null, kBaseDoc = null, eventsDocHis = null, eventsDocReader;
 
-        File ev = new File(ruta + "/" + "eventsDoc.txt");
-
+        //File evsDoc = new File(ruta + "/" + "eventsDoc.txt");
+        //File evsNotD = new File(ruta + "/" + "eventsNotDoc.txt");
         try {
             if (new File(ruta + "/pathways.txt").exists()) {
                 pathways = new BufferedReader(new FileReader(new File(ruta + "/pathways.txt")));
@@ -181,6 +181,7 @@ public class patrones {
             String[] events = null;
             boolean event_printed = false;
             Vector events_pathways = new Vector(100);
+            Vector eventsNoDoc = new Vector(10, 50);
 
             if (pathways == null || kBaseDoc == null) {
                 System.out.println("The file eventsDoc.txt can not be produced because either the file pathways.txt or kBaseDoc does not exist");
@@ -189,7 +190,7 @@ public class patrones {
 
                 pathways.mark(1000000);
 
-                try (PrintWriter eventsDocu = new PrintWriter(new FileWriter(ruta + "/" + "eventsDoc.txt"))) {
+                try (PrintWriter eventsDocu = new PrintWriter(new FileWriter(ruta + "/" + "eventsDoc.txt")); PrintWriter eventsNotDocu = new PrintWriter(new FileWriter(ruta + "/" + "eventsNotDoc.txt"))) {
 
                     try {
 
@@ -323,6 +324,10 @@ public class patrones {
 
                                         if (!eventsDocHistoryContains(ruta, possibleEvent, lineaEvent)) {
 
+                                            if (!eventsNoDoc.contains(possibleEvent)) {
+                                                eventsNotDocu.print(possibleEvent + "\n");
+                                                eventsNoDoc.add(possibleEvent);
+                                            }
                                             eventsDocu.print(possibleEvent + "\n");
                                             eventsDocu.print(lineaEvent + "\n" + "\n");
                                             eventDocsEmpty = false;
@@ -382,7 +387,7 @@ public class patrones {
                 eventsDocHistory = new BufferedReader(new FileReader(new File(ruta + "/" + "eventsDoc-History.txt")));
                 pathways = new BufferedReader(new FileReader(new File(ruta + "/" + "pathways.txt")));
 
-                eventsDocHistory.mark(100000);
+                eventsDocHistory.mark(10000000);
 
                 String[] events, eventSplitted, lineSplitted;
                 String line, verb;
@@ -465,8 +470,8 @@ public class patrones {
                     line = pathways.readLine();
 
                     if (line.startsWith("'")) {
-                        
-                        pathwaysDoc.print("---------------------------------------------------: "  + "\n" + "\n");
+
+                        pathwaysDoc.print("---------------------------------------------------: " + "\n" + "\n");
 
                         pathwaysDoc.print("PATHWAY: " + line + "\n" + "\n");
 
@@ -507,18 +512,18 @@ public class patrones {
                                         lineSplitted = lineFromEventsDocHistory.split(":");
 
                                         if (lineSplitted[1].equals("P") || lineSplitted[1].equals("U")) {
-                                            
+
                                             lineFromEventsDocHistory = eventsDocHistory.readLine();
                                             linesReadFromEventHistory++;
-                                            
+
                                             contains = false;
-                                            
-                                            for(Object linePrinted: linesAlreadyPrinted){
-                                                
-                                                if(((String)linePrinted).contentEquals(lineFromEventsDocHistory)){
+
+                                            for (Object linePrinted : linesAlreadyPrinted) {
+
+                                                if (((String) linePrinted).contentEquals(lineFromEventsDocHistory)) {
                                                     contains = true;
                                                 }
-                                                
+
                                             }
 
                                             if (!contains) {
@@ -1538,7 +1543,7 @@ public class patrones {
         eventosMiddle.add("envelop");
         eventosMiddle.add("bring");
         eventosMiddle.add("participate");
-        
+
         if (eventosUP.contains(sinonimo)) {
             sinonimo = "regulate";
         } else if (eventosDOWN.contains(sinonimo)) {

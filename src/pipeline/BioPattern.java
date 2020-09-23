@@ -234,7 +234,7 @@ public class BioPattern {
         confGeneral confG = new confGeneral();
         confG.seleccionarIdioma();
         new utilidades();
-        String ruta = "minery/networks/BAXS/CYP2B6";
+        String ruta = "minery/networks/COVID-19/COVID-19-HIV-M-2000";
         utilidades.proceso = ruta;
         configuracion config = new configuracion();
         //conf.recuperarConfiguracion(ruta);
@@ -254,6 +254,7 @@ public class BioPattern {
         //new patrones().pathways_documentation(config, ruta);
         
         //new patrones().inferir_patrones(config, ruta);
+        //String kb = new GeneradorBC().generadorBCIntg(ruta, true);
     }
     
     

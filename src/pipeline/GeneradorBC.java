@@ -58,6 +58,7 @@ public class GeneradorBC {
         String oracionesSVC;
 
         Vector eventos = new Vector(100, 100);
+        Vector eventsSentences = new Vector(100, 100);
 
         int n = 1;
 
@@ -76,7 +77,7 @@ public class GeneradorBC {
 
                 oracionesSVC = ruta + "/abstracts/resumen_" + n + ".txt";
 
-                generador(oracionesSVC, archivoBCdoc, eventos, ruta);
+                generador(oracionesSVC, archivoBCdoc, eventos, eventsSentences, ruta);
 
                 n++;
 
@@ -138,7 +139,7 @@ public class GeneradorBC {
 
     }
 
-    public String generador(String oracionesSVC, PrintWriter baseC, Vector eventos, String ruta) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
+    public String generador(String oracionesSVC, PrintWriter baseC, Vector eventos, Vector eventsSentences, String ruta) throws FileNotFoundException, IOException, StringIndexOutOfBoundsException, Exception {
 
         /* descomenta aqui para correr ejemplo sencillo
          File f = new File("salida_resumidor.txt");
@@ -243,6 +244,7 @@ public class GeneradorBC {
 
             //salidaresumidor="[html]\n";//inicio de cabecera html para 
             baseC.println("Archivo " + oracionesSVC);
+            //Vector eventsSentences = new Vector(100, 100);
 
             while (resumidor.ready()) {
 
@@ -331,7 +333,7 @@ public class GeneradorBC {
                         if ((contenido_complemento.indexOf("'" + comparador) != -1) || (contenido_complemento.indexOf(comparador + "'") != -1)) {
                             objetos_complemento.add(sinoms_compl.elementAt(0));
                             break;
-                        }else if (comparador.contains(",")) {
+                        } else if (comparador.contains(",")) {
                             if ((contenido_complemento.indexOf(comparador) != -1)) {
                                 //if ( (contenido_sujeto.contains(obj_comparador1)) || (contenido_sujeto.contains(obj_comparador2) ) ){   
                                 objetos_complemento.add(sinoms_compl.elementAt(0));
@@ -350,6 +352,7 @@ public class GeneradorBC {
                 int cant_suj_comp = objetos_complemento.size();
                 String suj, rel, comple;
                 String event;
+                boolean notContains;
 
                 if ((cant_suj != 0) && (cant_rels != 0) && (cant_suj_comp != 0)) {
 
@@ -362,21 +365,47 @@ public class GeneradorBC {
                             rel = (String) relaciones.elementAt(r);
                             for (int c = 0; c < cant_suj_comp; c++) {
                                 comple = (String) objetos_complemento.elementAt(c);
-                                if (!suj.equals(comple)) {
-                                    new utilidades().carga();
-                                    if (!interchange) {
-                                        event = "event(" + "'" + suj + "'" + "," + rel + "," + "'" + comple + "'" + ")";
-                                    } else {
-                                        event = "event(" + "'" + comple + "'" + "," + rel + "," + "'" + suj + "'" + ")";
-                                    }
-                                    if (!eventos.contains(event)) {
-                                        eventos.add(event);
-                                        contEventosArchivoActual++;
-                                        baseC.println("evento: " + event + "; Linea: " + cont_lineas);
-                                        baseC.println(linea);
+                                //if (!suj.equals(comple)) {
+                                new utilidades().carga();
+                                if (!interchange) {
+                                    event = "event(" + "'" + suj + "'" + "," + rel + "," + "'" + comple + "'" + ")";
+                                } else {
+                                    event = "event(" + "'" + comple + "'" + "," + rel + "," + "'" + suj + "'" + ")";
+                                }
+                                if (!eventos.contains(event)) {                                  
+                                   
+                                    eventos.add(event);
+                                    contEventosArchivoActual++;
+                                    Vector eventSentences = new Vector(10, 10);
+                                    eventSentences.add(event);
+                                    eventSentences.add(linea);
+                                    eventsSentences.add(eventSentences);
+                                    baseC.println("evento: " + event + "; Linea: " + cont_lineas);
+                                    baseC.println(linea);
+
+                                } else {
+
+                                    for (Object e : eventsSentences) {
+
+                                        Vector ev = (Vector) e;
+                                        String even = (String) ev.get(0);
+                                        if (even.equals(event)) {
+                                            
+                                            notContains = !ev.contains(linea);
+
+                                            if (!ev.contains(linea)) {
+                                                ev.add(linea);
+                                                baseC.println("evento: " + event + "; Linea: " + cont_lineas);
+                                                baseC.println(linea);
+                                            }
+
+                                        }
+
                                     }
 
                                 }
+
+                                //}
                             }
 
                         }
