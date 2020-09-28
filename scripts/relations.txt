@@ -1,9 +1,12 @@
 trimerize,trimerizes,trimerized,trimerizing
 heterodimerize,heterodimerizes,heterodimerized,heterodimerizing
 interact,interacts,interacted,interacting
+act,acts,acted,acting
 associate,associates,associated,associating
 bind,binds,bound,binding
+respond,responds,responded,responding
 activate,activates,activated,activating
+provoke,provokes,provoked,provoking
 inactivate,inactivates,inactivated,inactivating
 phosphorylate,phosphorylates,phosphorylated,phosphorylating
 recruit,recruits,recruited,recruiting
@@ -39,10 +42,12 @@ mediate,mediates,mediated,mediating
 synthesize,synthesizes,synthesized,synthesizing
 limit,limits,limited,limiting
 infect,infects,infected,infecting
+bring,brings,brought,bringing
 relate,relates,related,relating
 release,releases,released,releasing
 collect,collects,collected,collecting
 detect,detects,detected,detecting
+coordinate,coordinates,coordinated,coordinating
 raise,raises,raised,raising
 develop,develops,developed,developing
 combine,combines,combined,combining

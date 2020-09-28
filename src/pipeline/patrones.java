@@ -379,14 +379,14 @@ public class patrones {
 
             } else {
 
-                BufferedReader eventsDocHistory, pathways;
                 FileWriter pathwaysDocu = new FileWriter(ruta + "/" + "pathwaysDoc.txt");
-                PrintWriter pathwaysDoc;
-                pathwaysDoc = new PrintWriter(pathwaysDocu);
+                PrintWriter pathwaysDoc = new PrintWriter(pathwaysDocu);
+                FileWriter kBasePathways = new FileWriter(ruta + "/" + "kBaseP.txt");
+                PrintWriter kBasePathwaysD = new PrintWriter(kBasePathways);
 
-                eventsDocHistory = new BufferedReader(new FileReader(new File(ruta + "/" + "eventsDoc-History.txt")));
-                pathways = new BufferedReader(new FileReader(new File(ruta + "/" + "pathways.txt")));
-
+                BufferedReader eventsDocHistory = new BufferedReader(new FileReader(new File(ruta + "/" + "eventsDoc-History.txt")));
+                BufferedReader pathways = new BufferedReader(new FileReader(new File(ruta + "/" + "pathways.txt")));
+                //kBasePathsDoc = new BufferedReader(new FileReader(new File(ruta + "/" + "kBasePathways.txt")));
                 eventsDocHistory.mark(10000000);
 
                 String[] events, eventSplitted, lineSplitted;
@@ -465,6 +465,8 @@ public class patrones {
                     }
                 }
 
+                Vector eventsPath = new Vector(100, 100);
+
                 while (pathways.ready()) {
 
                     line = pathways.readLine();
@@ -478,6 +480,10 @@ public class patrones {
                         events = line.split(";");
 
                         for (String e : events) {
+
+                            if (!eventsPath.contains(e)) {
+                                eventsPath.add(e);
+                            }
 
                             pathwaysDoc.print("----> event: " + e + "\n" + "\n");
 
@@ -552,8 +558,24 @@ public class patrones {
 
                     }
                 }
+
+                int amountEvents = eventsPath.size(), numEvents = 1;
+                kBasePathwaysD.print("base([" + "\n");
+                for (Object e : eventsPath) {
+
+                    if (numEvents < amountEvents) {
+                        kBasePathwaysD.print("event(" + e + ")," + "\n");
+                        numEvents++;
+                    } else {
+                        kBasePathwaysD.print("event(" + e + ")" + "\n");
+                        kBasePathwaysD.print("]).");
+                    }
+
+                }
+
                 eventsDocHistory.close();
                 pathwaysDoc.close();
+                kBasePathwaysD.close();
             }
 
         } catch (IOException ex) {
@@ -1467,54 +1489,50 @@ public class patrones {
         String sinonimo = rel;
 
         ArrayList<String> eventosUP = new ArrayList<>();
-
-        eventosUP.add("activate");
-        eventosUP.add("increase");
         eventosUP.add("regulate");
         eventosUP.add("transcriptional-activate");
+        eventosUP.add("stimulate");
         eventosUP.add("up-regulate");
+        eventosUP.add("increase");
         eventosUP.add("enhance");
         eventosUP.add("induce");
-        eventosUP.add("lead");
         eventosUP.add("trigger");
+        eventosUP.add("target");
+        eventosUP.add("express");
         eventosUP.add("translate");
         eventosUP.add("transcribe");
         eventosUP.add("reactivate");
-        eventosUP.add("promote");
-        eventosUP.add("synthesize");
-        eventosUP.add("stimulate");
-        eventosUP.add("target");
-        eventosUP.add("express");
-        eventosUP.add("provoke");
         eventosUP.add("modulate");
         eventosUP.add("mediate");
-        eventosUP.add("act");
-        eventosUP.add("respond");
-        eventosUP.add("infect");
-        eventosUP.add("detect");
+        eventosUP.add("betamediate");
+        eventosUP.add("synthesize");
+        eventosUP.add("release");
+        eventosUP.add("lead");
         eventosUP.add("raise");
         eventosUP.add("develop");
         eventosUP.add("incubate");
-        eventosUP.add("convert");
         eventosUP.add("change");
-        eventosUP.add("fit");
-        eventosUP.add("support");
         eventosUP.add("betamediate");
         eventosUP.add("control");
         eventosUP.add("emerge");
         eventosUP.add("stabilise");
         eventosUP.add("stabilize");
         eventosUP.add("reveal");
+        eventosUP.add("promote");
+        eventosUP.add("provoke");
+        eventosUP.add("infect");
+        eventosUP.add("act");
+        eventosUP.add("respond");
 
         ArrayList<String> eventosDOWN = new ArrayList<>();
+        eventosDOWN.add("inactivate");
         eventosDOWN.add("inhibit");
         eventosDOWN.add("down-regulate");
+        eventosDOWN.add("decrease");
         eventosDOWN.add("repress");
         eventosDOWN.add("prevent");
         eventosDOWN.add("suppress");
         eventosDOWN.add("retain");
-        eventosDOWN.add("decrease");
-        eventosDOWN.add("prevent");
         eventosDOWN.add("limit");
         eventosDOWN.add("remove");
         eventosDOWN.add("affect");
@@ -1524,25 +1542,35 @@ public class patrones {
         eventosDOWN.add("destabilise");
         eventosDOWN.add("destabilize");
         eventosDOWN.add("reduce");
+        eventosDOWN.add("sequester");
 
         ArrayList<String> eventosMiddle = new ArrayList<>();
-        eventosMiddle.add("require");
-        eventosMiddle.add("interact");
+        eventosMiddle.add("trimerize");
+        eventosMiddle.add("heterodimerize");
         eventosMiddle.add("associate");
         eventosMiddle.add("phosphorylate");
         eventosMiddle.add("recruit");
-        eventosMiddle.add("recognize");
-        eventosMiddle.add("involve");
-        eventosMiddle.add("trimerize");
-        eventosMiddle.add("heterodimerize");
         eventosMiddle.add("dimerize");
+        eventosMiddle.add("participate");
+        eventosMiddle.add("involve");
+        eventosMiddle.add("require");
         eventosMiddle.add("relate");
-        eventosMiddle.add("release");
         eventosMiddle.add("collect");
         eventosMiddle.add("combine");
+        eventosMiddle.add("convert");
+        eventosMiddle.add("fit");
+        eventosMiddle.add("support");
+        eventosMiddle.add("envelop");
+        eventosMiddle.add("coordinate");
         eventosMiddle.add("envelop");
         eventosMiddle.add("bring");
-        eventosMiddle.add("participate");
+
+        ArrayList<String> eventosStart = new ArrayList<>();
+        eventosStart.add("bind");
+        eventosStart.add("recognize");
+        eventosStart.add("interact");
+        eventosStart.add("detect");
+        eventosStart.add("activate");
 
         if (eventosUP.contains(sinonimo)) {
             sinonimo = "regulate";
@@ -1550,6 +1578,8 @@ public class patrones {
             sinonimo = "inhibit";
         } else if (eventosMiddle.contains(sinonimo)) {
             sinonimo = "associate";
+        } else if (eventosStart.contains(sinonimo)) {
+            sinonimo = "bind";
         }
 
         return sinonimo;

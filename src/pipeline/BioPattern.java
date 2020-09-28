@@ -54,8 +54,8 @@ public class BioPattern {
         BioPattern biopattern = new BioPattern();
         //biopattern.pipelineBioPattern(args[0], args[1], args[2], Integer.parseInt(args[3]), Integer.parseInt(args[4]), Integer.parseInt(args[5]), "abstracts", true);
         //biopattern.pipelineBioPatternRP(args[1], args[2], Integer.parseInt(args[4]), Integer.parseInt(args[5]));        //biopattern.pruebas();
-        //biopattern.pipelineBioPattern();
-        biopattern.pruebas();
+        biopattern.pipelineBioPattern();
+        //biopattern.pruebas();
     }
 
     public BioPattern(String secuenciaP, String regionP) throws FileNotFoundException, IOException {
@@ -242,12 +242,12 @@ public class BioPattern {
         //new Resumidor().resumidor(config, ruta);
 
         // crea la bace de conocimiento con el listado de eventos encontrados por el resumidor
-        String kb = new GeneradorBC().generadorBC("kBase.pl", config, ruta);
+        //String kb = new GeneradorBC().generadorBC("kBase.pl", config, ruta);
 
         // se crea el archivo 'mineria/pathwaysObjects.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
         //new objetos_patrones().generar_archivo(config, ruta);
         
-        //new patrones().events_documentation(config, ruta);
+        new patrones().events_documentation(config, ruta);
         
         //new patrones().kbase_update(config, ruta);
         
