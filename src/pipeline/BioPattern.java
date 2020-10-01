@@ -247,11 +247,11 @@ public class BioPattern {
         // se crea el archivo 'mineria/pathwaysObjects.pl' haciendo uso de los objetos que se encontran en la base de conocimiento y la informacion en las ontologias
         //new objetos_patrones().generar_archivo(config, ruta);
         
-        new patrones().events_documentation(config, ruta);
+        //new patrones().events_documentation(config, ruta);
         
         //new patrones().kbase_update(config, ruta);
         
-        //new patrones().pathways_documentation(config, ruta);
+        new patrones().pathways_documentation(config, ruta);
         
         //new patrones().inferir_patrones(config, ruta);
         //String kb = new GeneradorBC().generadorBCIntg(ruta, true);

@@ -6,7 +6,7 @@ inicio(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[activa
 final(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),protein(A),buscar_en_lista(E,[activate,inactivate,repress,inhibit,regulate,stimulate,bind,interact,reveal]).
 
 %eventos intermedios en patron tipo 1 mas tipo 2 que unen el envento inicial con el evento final:  proteina->proteina
-intermedios(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),protein(B),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate]).
+intermedios(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),protein(B),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate,bind]).
 
 %evento que crea un patron de 2 enventos .. evento inicio, evento cierre (patron tipo 3, tipo 4)
 eventoEspecial(A,E,B):-base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[activate,inactivate,repress,inhibit,regulate,stimulate,bind,interact,reveal]).
@@ -21,7 +21,7 @@ inicio_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_e
 
 final_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),protein(A),buscar_en_lista(E,[activate,inactivate,repress,inhibit,regulate,stimulate,bind,interact,reveal]).
 
-intermedios_rest(A,E,B,L):-buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),protein(B),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate]).
+intermedios_rest(A,E,B,L):-buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),protein(B),buscar_en_lista(E,[require,interact,associate,phosphorylate,recruit,recognize,participate,bind]).
 
 eventoEspecial_rest(A,E,B,L):-buscar_en_lista(A,L),buscar_en_lista(B,L),base(C),buscar_en_lista(event(A,E,B),C),buscar_en_lista(E,[activate,inactivate,repress,inhibit,regulate,stimulate,bind,interact,reveal]).
 
