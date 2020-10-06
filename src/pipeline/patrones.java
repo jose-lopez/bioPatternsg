@@ -466,6 +466,10 @@ public class patrones {
                 }
 
                 Vector eventsPath = new Vector(100, 100);
+                Vector eventsPathNumber = new Vector(100, 100);
+                //Vector event_pathway = new Vector(100, 100);
+                int numPathway = 0;
+                boolean eventNotContained = false;
 
                 while (pathways.ready()) {
 
@@ -473,86 +477,104 @@ public class patrones {
 
                     if (line.startsWith("'")) {
 
+                        numPathway++;
+
                         pathwaysDoc.print("---------------------------------------------------: " + "\n" + "\n");
 
-                        pathwaysDoc.print("PATHWAY: " + line + "\n" + "\n");
+                        pathwaysDoc.print("PATHWAY: " + numPathway + "\n" );
+                         pathwaysDoc.print( line + "\n" + "\n");
 
                         events = line.split(";");
 
                         for (String e : events) {
 
                             if (!eventsPath.contains(e)) {
+                                eventNotContained = true;
                                 eventsPath.add(e);
+                                eventsPathNumber.add(numPathway);
                             }
 
                             pathwaysDoc.print("----> event: " + e + "\n" + "\n");
 
-                            eventSplitted = e.split(",");
-                            verb = eventSplitted[1];
-                            String event, lineFromEventsDocHistory;
+                            if (eventNotContained) {
 
-                            //lineaEvent = kBaseDoc.readLine();
-                            if (regulate.contains(verb)) {
-                                relats = regulate;
-                            } else if (inhibit.contains(verb)) {
-                                relats = inhibit;
-                            } else if (associate.contains(verb)) {
-                                relats = associate;
-                            } else {
-                                relats = bind;
-                            }
+                                eventSplitted = e.split(",");
+                                verb = eventSplitted[1];
+                                String event, lineFromEventsDocHistory;
 
-                            boolean contains;
-                            for (Object v : relats) {
+                                //lineaEvent = kBaseDoc.readLine();
+                                if (regulate.contains(verb)) {
+                                    relats = regulate;
+                                } else if (inhibit.contains(verb)) {
+                                    relats = inhibit;
+                                } else if (associate.contains(verb)) {
+                                    relats = associate;
+                                } else {
+                                    relats = bind;
+                                }
 
-                                event = "event(" + eventSplitted[0] + "," + v + "," + eventSplitted[2] + ")";
-                                int linesReadFromEventHistory = 0;
+                                boolean contains;
+                                
+                                for (Object v : relats) {
 
-                                while (eventsDocHistory.ready()) {
+                                    event = "event(" + eventSplitted[0] + "," + v + "," + eventSplitted[2] + ")";
+                                    int linesReadFromEventHistory = 0;
 
-                                    lineFromEventsDocHistory = eventsDocHistory.readLine();
-                                    linesReadFromEventHistory++;
+                                    while (eventsDocHistory.ready()) {
 
-                                    if (lineFromEventsDocHistory.contains(event)) {
+                                        lineFromEventsDocHistory = eventsDocHistory.readLine();
+                                        linesReadFromEventHistory++;
 
-                                        lineSplitted = lineFromEventsDocHistory.split(":");
+                                        if (lineFromEventsDocHistory.contains(event)) {
 
-                                        if (lineSplitted[1].equals("P") || lineSplitted[1].equals("U")) {
+                                            lineSplitted = lineFromEventsDocHistory.split(":");
 
-                                            lineFromEventsDocHistory = eventsDocHistory.readLine();
-                                            linesReadFromEventHistory++;
+                                            if (lineSplitted[1].equals("P") || lineSplitted[1].equals("U")) {
 
-                                            contains = false;
+                                                lineFromEventsDocHistory = eventsDocHistory.readLine();
+                                                linesReadFromEventHistory++;
 
-                                            for (Object linePrinted : linesAlreadyPrinted) {
+                                                contains = false;
 
-                                                if (((String) linePrinted).contentEquals(lineFromEventsDocHistory)) {
-                                                    contains = true;
+                                                for (Object linePrinted : linesAlreadyPrinted) {
+
+                                                    if (((String) linePrinted).contentEquals(lineFromEventsDocHistory)) {
+                                                        contains = true;
+                                                    }
+
                                                 }
 
+                                                if (!contains) {
+
+                                                    pathwaysDoc.print(lineFromEventsDocHistory + "\n" + "\n");
+                                                    linesAlreadyPrinted.add(lineFromEventsDocHistory);
+
+                                                }
+
+                                            } else if (!lineSplitted[1].equals("F")) {
+                                                System.out.println("The event " + e + " on line #: " + linesReadFromEventHistory + lineFromEventsDocHistory + " is not well labelled" + "\n");
+                                                //System.out.println(lineFromEventsDocHistory);
+
+                                                System.exit(0);
+
                                             }
-
-                                            if (!contains) {
-
-                                                pathwaysDoc.print(lineFromEventsDocHistory + "\n" + "\n");
-                                                linesAlreadyPrinted.add(lineFromEventsDocHistory);
-
-                                            }
-
-                                        } else if (!lineSplitted[1].equals("F")) {
-                                            System.out.println("The event " + e + " on line #: " + linesReadFromEventHistory + lineFromEventsDocHistory + " is not well labelled" + "\n");
-                                            //System.out.println(lineFromEventsDocHistory);
-
-                                            System.exit(0);
 
                                         }
 
                                     }
+                                    eventsDocHistory.reset();
 
                                 }
-                                eventsDocHistory.reset();
+
+                                eventNotContained = false;
+
+                            } else {
+                                int numPath = (int) eventsPathNumber.get(eventsPath.indexOf(e));
+                                pathwaysDoc.print("See the event's documentation in PATHWAY: " + numPath + "\n" + "\n");
+                                eventNotContained = false;
 
                             }
+
                             linesAlreadyPrinted.clear();
                         }
 

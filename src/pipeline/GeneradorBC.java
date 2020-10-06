@@ -358,6 +358,7 @@ public class GeneradorBC {
 
                     linea = linea.replace("[sujeto([", "").replace("]), verbo([", " ").replace("]), complemento([", " ").replace(",',", "*").replace(",", "");
                     linea = linea.replace("*", ",").replace("'", "").replace("( ", "(").replace(" )", ")").replace(" / ", "/").replace(" - ", "-").replace("])].", ".");
+                    linea = linea.replace("]) [verbo([", " ").replace("])] complemento([", " ");
 
                     for (int s = 0; s < cant_suj; s++) {
                         suj = (String) sujetos.elementAt(s);
@@ -372,8 +373,8 @@ public class GeneradorBC {
                                 } else {
                                     event = "event(" + "'" + comple + "'" + "," + rel + "," + "'" + suj + "'" + ")";
                                 }
-                                if (!eventos.contains(event)) {                                  
-                                   
+                                if (!eventos.contains(event)) {
+
                                     eventos.add(event);
                                     contEventosArchivoActual++;
                                     Vector eventSentences = new Vector(10, 10);
@@ -383,6 +384,23 @@ public class GeneradorBC {
                                     baseC.println("evento: " + event + "; Linea: " + cont_lineas);
                                     baseC.println(linea);
 
+                                    if (interchange) {
+
+                                        event = "event(" + "'" + suj + "'" + "," + rel + "," + "'" + comple + "'" + ")";
+
+                                        if (!eventos.contains(event)) {
+                                            eventos.add(event);
+                                            contEventosArchivoActual++;
+                                            Vector eventSentencesInter = new Vector(10, 10);
+                                            eventSentencesInter.add(event);
+                                            eventSentencesInter.add(linea);
+                                            eventsSentences.add(eventSentencesInter);
+                                            baseC.println("evento: " + event + "; Linea: " + cont_lineas);
+                                            baseC.println(linea);
+
+                                        }
+
+                                    }
                                 } else {
 
                                     for (Object e : eventsSentences) {
@@ -390,7 +408,7 @@ public class GeneradorBC {
                                         Vector ev = (Vector) e;
                                         String even = (String) ev.get(0);
                                         if (even.equals(event)) {
-                                            
+
                                             notContains = !ev.contains(linea);
 
                                             if (!ev.contains(linea)) {
