@@ -315,7 +315,7 @@ public class patrones {
 
                                 lineaEvent = kBaseDoc.readLine();
 
-                                if (lineaEvent.contains("evento: event('")) {
+                                if (lineaEvent.contains("event('")) {
 
                                     possibleEvent = "event(" + eventSplitted[0] + "," + r + "," + eventSplitted[2] + ")";
                                     if (lineaEvent.contains(possibleEvent)) {

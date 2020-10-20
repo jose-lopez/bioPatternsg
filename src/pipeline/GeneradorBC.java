@@ -31,6 +31,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GeneradorBC {
 
@@ -65,7 +67,7 @@ public class GeneradorBC {
         String baseCtemp = "baseCTemp";
 
         FileWriter fichero = new FileWriter(ruta + "/" + baseCtemp); // BC temporal. Se procesa para generer kBase.pl
-        FileWriter fichero1 = new FileWriter(ruta + "/kBaseDoc"); // BC documentada. Permite saber archivo y linea de un evento.
+        FileWriter fichero1 = new FileWriter(ruta + "/kBaseDoc.txt"); // BC documentada. Permite saber archivo y linea de un evento.
 
         try (PrintWriter archivoBC = new PrintWriter(fichero)) {
 
@@ -87,9 +89,12 @@ public class GeneradorBC {
             cont_eventos = printBC(archivoBC, eventos);
             // System.out.println(utilidades.idioma.get(150)+""+ cont_eventos);
 
+            printBCDoc(archivoBCdoc, eventsSentences);
+
             archivoBC.println("]).");
 
             archivoBC.close();
+            archivoBCdoc.close();
 
             archivoBCdoc.println(utilidades.idioma.get(151) + "" + cont_eventos);
             archivoBCdoc.close();
@@ -115,6 +120,7 @@ public class GeneradorBC {
                     }
                 }
                 baseKB.close();
+
                 new File(ruta + "/" + baseCtemp).delete();
             }
 
@@ -125,6 +131,140 @@ public class GeneradorBC {
 
         return baseC;
 
+    }
+
+    private void printBCDoc(PrintWriter archivoBCDoc, Vector eventsSentences) throws FileNotFoundException, IOException {
+
+        Vector eventSentences;
+        String event, verb, line, function;
+
+        BufferedReader relationsFunctions = new BufferedReader(new FileReader(new File("scripts/relations-functions.txt")));
+
+        Vector regulate = new Vector(50);
+        Vector inhibit = new Vector(50);
+        Vector associate = new Vector(50);
+        Vector bind = new Vector(50);
+
+        line = relationsFunctions.readLine();
+
+        if (line.startsWith("//------------Regulate")) {
+            line = relationsFunctions.readLine();
+            do {
+                regulate.add(line);
+                line = relationsFunctions.readLine();
+
+            } while (!line.startsWith("//------------Inhibit"));
+        }
+
+        if (line.startsWith("//------------Inhibit")) {
+            line = relationsFunctions.readLine();
+            do {
+                inhibit.add(line);
+                line = relationsFunctions.readLine();
+
+            } while (!line.startsWith("//------------Associate"));
+        }
+
+        if (line.startsWith("//------------Associate")) {
+            line = relationsFunctions.readLine();
+            do {
+                associate.add(line);
+                line = relationsFunctions.readLine();
+
+            } while (!line.startsWith("//------------Bind"));
+        }
+
+        if (line.startsWith("//------------Bind")) {
+
+            while (relationsFunctions.ready()) {
+                line = relationsFunctions.readLine();
+                bind.add(line);
+
+            }
+        }
+
+        Vector eventsFunctionsGen = new Vector(100, 50);
+
+        Vector eventFunctionSentences = new Vector(50, 10);
+        boolean firstEvent = true, contains;
+        int eventCounter;
+
+        for (Object eventS : eventsSentences) {
+
+            eventSentences = (Vector) eventS;
+            event = (String) eventSentences.firstElement();
+            verb = event.split(",")[1];
+
+            if (regulate.contains(verb)) {
+                function = "regulate";
+            } else if (inhibit.contains(verb)) {
+                function = "inhibit";
+            } else if (associate.contains(verb)) {
+                function = "associate";
+            } else {
+                function = "bind";
+            }
+
+            String eventFuncion = event.split(",")[0] + "," + function + "," + event.split(",")[2];
+
+            Vector eventFunctionsSimple = new Vector(50, 10);
+            eventFunctionsSimple.add(eventFuncion);
+            eventFunctionsSimple.add(eventSentences);
+
+            if (firstEvent) {
+
+                eventsFunctionsGen.add(eventFunctionsSimple);
+                firstEvent = false;
+
+            } else {
+
+                contains = false;
+
+                for (Object v : eventsFunctionsGen) {
+
+                    eventFunctionSentences = (Vector) v;
+
+                    if (eventFunctionSentences.firstElement().equals(eventFuncion)) {
+                        eventFunctionSentences.add(eventSentences);
+                        //v = eventFunctionSentences;
+                        eventsFunctionsGen.remove(v);
+                        eventsFunctionsGen.add(eventFunctionSentences);
+                        contains = true;
+                        break;
+                    }
+
+                }
+
+                if (!contains) {
+                    eventsFunctionsGen.add(eventFunctionsSimple);
+                }
+            }
+
+        }
+
+        for (Object efg : eventsFunctionsGen) {
+
+            Vector efs = (Vector) efg;
+
+            archivoBCDoc.print("************  " + efs.firstElement() + "  ************ " + "\n" + "\n");
+
+            for (int e = 0; e < efs.size() - 1; e++) {
+
+                Vector eventsS = (Vector) efs.get(e + 1);
+
+                String evnt = (String) eventsS.firstElement();
+
+                for (int ev = 0; ev < eventsS.size() - 1; ev++) {
+                    archivoBCDoc.println(evnt);
+                    archivoBCDoc.println(eventsS.get(ev + 1) + "\n");                  
+
+                }
+
+            }
+
+        }
+
+        archivoBCDoc.print("\n");
     }
 
     private boolean oracionesSVC(int n, String ruta) {
@@ -243,9 +383,8 @@ public class GeneradorBC {
         try {
 
             //salidaresumidor="[html]\n";//inicio de cabecera html para 
-            baseC.println("Archivo " + oracionesSVC);
+            //baseC.println("Archivo " + oracionesSVC);
             //Vector eventsSentences = new Vector(100, 100);
-
             while (resumidor.ready()) {
 
                 //System.out.println(cont_lineas);
@@ -358,7 +497,7 @@ public class GeneradorBC {
 
                     linea = linea.replace("[sujeto([", "").replace("]), verbo([", " ").replace("]), complemento([", " ").replace(",',", "*").replace(",", "");
                     linea = linea.replace("*", ",").replace("'", "").replace("( ", "(").replace(" )", ")").replace(" / ", "/").replace(" - ", "-").replace("])].", ".");
-                    linea = linea.replace("]) [verbo([", " ").replace("])] complemento([", " ");
+                    linea = linea.replace("]) [verbo([", " ").replace("])] complemento([", " ").replace(" ,", ",");
 
                     for (int s = 0; s < cant_suj; s++) {
                         suj = (String) sujetos.elementAt(s);
@@ -381,8 +520,8 @@ public class GeneradorBC {
                                     eventSentences.add(event);
                                     eventSentences.add(linea);
                                     eventsSentences.add(eventSentences);
-                                    baseC.println("evento: " + event + "; Linea: " + cont_lineas);
-                                    baseC.println(linea);
+                                    //baseC.println("evento: " + event + "; Linea: " + cont_lineas);
+                                    //baseC.println(linea);
 
                                     if (interchange) {
 
@@ -395,8 +534,8 @@ public class GeneradorBC {
                                             eventSentencesInter.add(event);
                                             eventSentencesInter.add(linea);
                                             eventsSentences.add(eventSentencesInter);
-                                            baseC.println("evento: " + event + "; Linea: " + cont_lineas);
-                                            baseC.println(linea);
+                                            //baseC.println("evento: " + event + "; Linea: " + cont_lineas);
+                                            //baseC.println(linea);
 
                                         }
 
@@ -413,8 +552,8 @@ public class GeneradorBC {
 
                                             if (!ev.contains(linea)) {
                                                 ev.add(linea);
-                                                baseC.println("evento: " + event + "; Linea: " + cont_lineas);
-                                                baseC.println(linea);
+                                                //baseC.println("evento: " + event + "; Linea: " + cont_lineas);
+                                                //baseC.println(linea);
                                             }
 
                                         }
@@ -446,9 +585,8 @@ public class GeneradorBC {
         }
 
         //*System.out.print("]).");
-        System.out.println("eventos provenientes de " + oracionesSVC + " :" + contEventosArchivoActual);
-        baseC.println("eventos provenientes de " + oracionesSVC + " :" + contEventosArchivoActual);
-
+        //System.out.println("eventos provenientes de " + oracionesSVC + " :" + contEventosArchivoActual);
+        //baseC.println("eventos provenientes de " + oracionesSVC + " :" + contEventosArchivoActual);
         return "Base.pl";
 
     }
