@@ -236,7 +236,7 @@ public class BioPattern {
         new utilidades();
         //String ruta = "minery/networks/COVID-19/COVID-19-HIV-M-2000";
         //String ruta = "minery/networks/BAXS/FABP6(I-BABP)";
-        String ruta = "minery/networks/BAXS/ABCC2-(MRP2)";
+        String ruta = "minery/networks/BAXS/CYP7A1-short-names";
         
         utilidades.proceso = ruta;
         configuracion config = new configuracion();
